@@ -1,0 +1,922 @@
+<?xml version='1.0'?>
+<datamodel version="7.0" 
+           xmlns="http://www.tresos.de/_projects/DataModel2/16/root.xsd" 
+           xmlns:a="http://www.tresos.de/_projects/DataModel2/16/attribute.xsd" 
+           xmlns:v="http://www.tresos.de/_projects/DataModel2/06/schema.xsd" 
+           xmlns:d="http://www.tresos.de/_projects/DataModel2/06/data.xsd">
+
+  <d:ctr type="AUTOSAR" factory="autosar" 
+         xmlns:ad="http://www.tresos.de/_projects/DataModel2/08/admindata.xsd" 
+         xmlns:cd="http://www.tresos.de/_projects/DataModel2/08/customdata.xsd" 
+         xmlns:f="http://www.tresos.de/_projects/DataModel2/14/formulaexpr.xsd" 
+         xmlns:icc="http://www.tresos.de/_projects/DataModel2/08/implconfigclass.xsd" 
+         xmlns:mt="http://www.tresos.de/_projects/DataModel2/11/multitest.xsd"  
+         xmlns:variant="http://www.tresos.de/_projects/DataModel2/11/variant.xsd">
+    <d:lst type="TOP-LEVEL-PACKAGES">
+      <d:ctr name="Eftu" type="AR-PACKAGE">
+        <d:lst type="ELEMENTS">
+          <d:chc name="Eftu" type="AR-ELEMENT" value="MODULE-CONFIGURATION">
+            <d:ctr type="MODULE-CONFIGURATION">
+              <a:a name="DEF" value="ASPath:/FC7300FXXX/Eftu"/>
+              <a:a name="IMPORTER_INFO" value="@REC"/>
+              <d:var name="IMPLEMENTATION_CONFIG_VARIANT" type="ENUMERATION" 
+                     value="VariantPostBuild">
+                <a:a name="IMPORTER_INFO" value="@REC"/>
+              </d:var>
+              <d:ctr name="EftuConfigSet" type="IDENTIFIABLE">
+                <a:a name="IMPORTER_INFO" value="@REC"/>
+                <d:var name="EftuMaxInstance" type="INTEGER" value="1">
+                  <a:a name="IMPORTER_INFO" value="@REC"/>
+                </d:var>
+                <d:lst name="EftuConf" type="MAP">
+                  <d:ctr name="EftuConf_0" type="IDENTIFIABLE">
+                    <a:a name="IMPORTER_INFO" value="@REC"/>
+                    <d:var name="EftuInstance" type="ENUMERATION" value="EFTU_0">
+                      <a:a name="IMPORTER_INFO" value="@REC"/>
+                    </d:var>
+                    <d:var name="EftuDebugMode" type="ENUMERATION" 
+                           value="DEBUG_RUN">
+                      <a:a name="IMPORTER_INFO" value="@REC"/>
+                    </d:var>
+                    <d:ctr name="EftuCcmClkConf" type="IDENTIFIABLE">
+                      <d:var name="EftuCcmClkRes0" type="ENUMERATION" 
+                             value="CMU_CLOCK_RES">
+                        <a:a name="IMPORTER_INFO" value="@DEF"/>
+                      </d:var>
+                      <d:var name="EftuCcmClkRes1" type="ENUMERATION" 
+                             value="CMU_CLOCK_RES">
+                        <a:a name="IMPORTER_INFO" value="@DEF"/>
+                      </d:var>
+                      <d:var name="EftuCcmClkRes2" type="ENUMERATION" 
+                             value="CMU_CLOCK_RES">
+                        <a:a name="IMPORTER_INFO" value="@DEF"/>
+                      </d:var>
+                      <d:var name="EftuCcmClkRes3" type="ENUMERATION" 
+                             value="CMU_CLOCK_RES">
+                        <a:a name="IMPORTER_INFO" value="@DEF"/>
+                      </d:var>
+                      <d:var name="EftuCcmClkRes4" type="ENUMERATION" 
+                             value="CMU_CLOCK_RES">
+                        <a:a name="IMPORTER_INFO" value="@DEF"/>
+                      </d:var>
+                      <d:var name="EftuCcmClkRes5" type="ENUMERATION" 
+                             value="CMU_CLOCK_RES">
+                        <a:a name="IMPORTER_INFO" value="@DEF"/>
+                      </d:var>
+                      <d:var name="EftuCcmClkRes6" type="ENUMERATION" 
+                             value="CMU_CLOCK_RES">
+                        <a:a name="IMPORTER_INFO" value="@DEF"/>
+                      </d:var>
+                      <d:var name="EftuCcmClkRes7" type="ENUMERATION" 
+                             value="CMU_CLOCK_RES">
+                        <a:a name="IMPORTER_INFO" value="@DEF"/>
+                      </d:var>
+                    </d:ctr>
+                    <d:ctr name="EftuTimInConf" type="IDENTIFIABLE">
+                      <a:a name="IMPORTER_INFO" value="@REC"/>
+                      <d:var name="EftuTimIn0" type="ENUMERATION" value="PAD_IN">
+                        <a:a name="IMPORTER_INFO" value="@REC"/>
+                      </d:var>
+                      <d:var name="EftuTimIn1" type="ENUMERATION" value="PAD_IN">
+                        <a:a name="IMPORTER_INFO" value="@REC"/>
+                      </d:var>
+                      <d:var name="EftuTimIn2" type="ENUMERATION" value="PAD_IN">
+                        <a:a name="IMPORTER_INFO" value="@REC"/>
+                      </d:var>
+                      <d:var name="EftuTimIn3" type="ENUMERATION" value="PAD_IN">
+                        <a:a name="IMPORTER_INFO" value="@REC"/>
+                      </d:var>
+                      <d:var name="EftuTimIn4" type="ENUMERATION" value="PAD_IN">
+                        <a:a name="IMPORTER_INFO" value="@REC"/>
+                      </d:var>
+                      <d:var name="EftuTimIn5" type="ENUMERATION" value="PAD_IN">
+                        <a:a name="IMPORTER_INFO" value="@REC"/>
+                      </d:var>
+                      <d:var name="EftuTimIn6" type="ENUMERATION" value="PAD_IN">
+                        <a:a name="IMPORTER_INFO" value="@REC"/>
+                      </d:var>
+                      <d:var name="EftuTimIn7" type="ENUMERATION" value="PAD_IN">
+                        <a:a name="IMPORTER_INFO" value="@REC"/>
+                      </d:var>
+                    </d:ctr>
+                    <d:ctr name="EftuTimAuxInConf" type="IDENTIFIABLE">
+                      <a:a name="IMPORTER_INFO" value="@REC"/>
+                      <d:var name="EftuTimAuxIn0" type="ENUMERATION" 
+                             value="ALWAYS_LOW"/>
+                      <d:var name="EftuTimAuxIn0Channel" type="INTEGER" 
+                             value="0">
+                        <a:a name="IMPORTER_INFO" value="@REC"/>
+                      </d:var>
+                      <d:var name="EftuTimAuxIn1" type="ENUMERATION" 
+                             value="ALWAYS_LOW"/>
+                      <d:var name="EftuTimAuxIn1Channel" type="INTEGER" 
+                             value="0">
+                        <a:a name="IMPORTER_INFO" value="@REC"/>
+                      </d:var>
+                      <d:var name="EftuTimAuxIn2" type="ENUMERATION" 
+                             value="ALWAYS_LOW"/>
+                      <d:var name="EftuTimAuxIn2Channel" type="INTEGER" 
+                             value="0">
+                        <a:a name="IMPORTER_INFO" value="@REC"/>
+                      </d:var>
+                      <d:var name="EftuTimAuxIn3" type="ENUMERATION" 
+                             value="ALWAYS_LOW"/>
+                      <d:var name="EftuTimAuxIn3Channel" type="INTEGER" 
+                             value="0">
+                        <a:a name="IMPORTER_INFO" value="@REC"/>
+                      </d:var>
+                      <d:var name="EftuTimAuxIn4" type="ENUMERATION" 
+                             value="ALWAYS_LOW"/>
+                      <d:var name="EftuTimAuxIn4Channel" type="INTEGER" 
+                             value="0">
+                        <a:a name="IMPORTER_INFO" value="@REC"/>
+                      </d:var>
+                      <d:var name="EftuTimAuxIn5" type="ENUMERATION" 
+                             value="ALWAYS_LOW"/>
+                      <d:var name="EftuTimAuxIn5Channel" type="INTEGER" 
+                             value="0">
+                        <a:a name="IMPORTER_INFO" value="@REC"/>
+                      </d:var>
+                      <d:var name="EftuTimAuxIn6" type="ENUMERATION" 
+                             value="ALWAYS_LOW"/>
+                      <d:var name="EftuTimAuxIn6Channel" type="INTEGER" 
+                             value="0">
+                        <a:a name="IMPORTER_INFO" value="@REC"/>
+                      </d:var>
+                      <d:var name="EftuTimAuxIn7" type="ENUMERATION" 
+                             value="ALWAYS_LOW"/>
+                      <d:var name="EftuTimAuxIn7Channel" type="INTEGER" 
+                             value="0">
+                        <a:a name="IMPORTER_INFO" value="@REC"/>
+                      </d:var>
+                    </d:ctr>
+                    <d:ctr name="EftuHrPwmMuxConf" type="IDENTIFIABLE">
+                      <a:a name="IMPORTER_INFO" value="@REC"/>
+                      <d:var name="EftuHrPwmSwapCtrl" type="ENUMERATION" 
+                             value="HRPWM_SRC_OUT03_OUT_T03">
+                        <a:a name="IMPORTER_INFO" value="@REC"/>
+                      </d:var>
+                    </d:ctr>
+                    <d:lst name="EftuDmaReqConf" type="MAP">
+                      <d:ctr name="EftuDmaReqConf_0" type="IDENTIFIABLE">
+                        <a:a name="IMPORTER_INFO" value="@REC"/>
+                        <d:var name="EftuDmaReqSourceModule" type="ENUMERATION" 
+                               value="TIM">
+                          <a:a name="IMPORTER_INFO" value="@REC"/>
+                        </d:var>
+                        <d:var name="EftuDmaReqSourceChannel" type="INTEGER" 
+                               value="0">
+                          <a:a name="IMPORTER_INFO" value="@REC"/>
+                        </d:var>
+                        <d:var name="EftDmaReqTomCcu0Enable" type="BOOLEAN" 
+                               value="false">
+                          <a:a name="IMPORTER_INFO" value="@REC"/>
+                        </d:var>
+                        <d:var name="EftDmaReqTomCcu1Enable" type="BOOLEAN" 
+                               value="false">
+                          <a:a name="IMPORTER_INFO" value="@REC"/>
+                        </d:var>
+                      </d:ctr>
+                      <d:ctr name="EftuDmaReqConf_1" type="IDENTIFIABLE">
+                        <a:a name="IMPORTER_INFO" value="@REC"/>
+                        <d:var name="EftuDmaReqSourceModule" type="ENUMERATION" 
+                               value="TIM">
+                          <a:a name="IMPORTER_INFO" value="@REC"/>
+                        </d:var>
+                        <d:var name="EftuDmaReqSourceChannel" type="INTEGER" 
+                               value="0">
+                          <a:a name="IMPORTER_INFO" value="@REC"/>
+                        </d:var>
+                        <d:var name="EftDmaReqTomCcu0Enable" type="BOOLEAN" 
+                               value="false">
+                          <a:a name="IMPORTER_INFO" value="@REC"/>
+                        </d:var>
+                        <d:var name="EftDmaReqTomCcu1Enable" type="BOOLEAN" 
+                               value="false">
+                          <a:a name="IMPORTER_INFO" value="@REC"/>
+                        </d:var>
+                      </d:ctr>
+                      <d:ctr name="EftuDmaReqConf_2" type="IDENTIFIABLE">
+                        <a:a name="IMPORTER_INFO" value="@REC"/>
+                        <d:var name="EftuDmaReqSourceModule" type="ENUMERATION" 
+                               value="TIM">
+                          <a:a name="IMPORTER_INFO" value="@REC"/>
+                        </d:var>
+                        <d:var name="EftuDmaReqSourceChannel" type="INTEGER" 
+                               value="0">
+                          <a:a name="IMPORTER_INFO" value="@REC"/>
+                        </d:var>
+                        <d:var name="EftDmaReqTomCcu0Enable" type="BOOLEAN" 
+                               value="false">
+                          <a:a name="IMPORTER_INFO" value="@REC"/>
+                        </d:var>
+                        <d:var name="EftDmaReqTomCcu1Enable" type="BOOLEAN" 
+                               value="false">
+                          <a:a name="IMPORTER_INFO" value="@REC"/>
+                        </d:var>
+                      </d:ctr>
+                      <d:ctr name="EftuDmaReqConf_3" type="IDENTIFIABLE">
+                        <a:a name="IMPORTER_INFO" value="@REC"/>
+                        <d:var name="EftuDmaReqSourceModule" type="ENUMERATION" 
+                               value="TIM">
+                          <a:a name="IMPORTER_INFO" value="@REC"/>
+                        </d:var>
+                        <d:var name="EftuDmaReqSourceChannel" type="INTEGER" 
+                               value="0">
+                          <a:a name="IMPORTER_INFO" value="@REC"/>
+                        </d:var>
+                        <d:var name="EftDmaReqTomCcu0Enable" type="BOOLEAN" 
+                               value="false">
+                          <a:a name="IMPORTER_INFO" value="@REC"/>
+                        </d:var>
+                        <d:var name="EftDmaReqTomCcu1Enable" type="BOOLEAN" 
+                               value="false">
+                          <a:a name="IMPORTER_INFO" value="@REC"/>
+                        </d:var>
+                      </d:ctr>
+                      <d:ctr name="EftuDmaReqConf_4" type="IDENTIFIABLE">
+                        <a:a name="IMPORTER_INFO" value="@REC"/>
+                        <d:var name="EftuDmaReqSourceModule" type="ENUMERATION" 
+                               value="TIM">
+                          <a:a name="IMPORTER_INFO" value="@REC"/>
+                        </d:var>
+                        <d:var name="EftuDmaReqSourceChannel" type="INTEGER" 
+                               value="0">
+                          <a:a name="IMPORTER_INFO" value="@REC"/>
+                        </d:var>
+                        <d:var name="EftDmaReqTomCcu0Enable" type="BOOLEAN" 
+                               value="false">
+                          <a:a name="IMPORTER_INFO" value="@REC"/>
+                        </d:var>
+                        <d:var name="EftDmaReqTomCcu1Enable" type="BOOLEAN" 
+                               value="false">
+                          <a:a name="IMPORTER_INFO" value="@REC"/>
+                        </d:var>
+                      </d:ctr>
+                      <d:ctr name="EftuDmaReqConf_5" type="IDENTIFIABLE">
+                        <a:a name="IMPORTER_INFO" value="@REC"/>
+                        <d:var name="EftuDmaReqSourceModule" type="ENUMERATION" 
+                               value="TIM">
+                          <a:a name="IMPORTER_INFO" value="@REC"/>
+                        </d:var>
+                        <d:var name="EftuDmaReqSourceChannel" type="INTEGER" 
+                               value="0">
+                          <a:a name="IMPORTER_INFO" value="@REC"/>
+                        </d:var>
+                        <d:var name="EftDmaReqTomCcu0Enable" type="BOOLEAN" 
+                               value="false">
+                          <a:a name="IMPORTER_INFO" value="@REC"/>
+                        </d:var>
+                        <d:var name="EftDmaReqTomCcu1Enable" type="BOOLEAN" 
+                               value="false">
+                          <a:a name="IMPORTER_INFO" value="@REC"/>
+                        </d:var>
+                      </d:ctr>
+                      <d:ctr name="EftuDmaReqConf_6" type="IDENTIFIABLE">
+                        <d:var name="EftuDmaReqSourceModule" type="ENUMERATION" 
+                               value="TIM">
+                          <a:a name="IMPORTER_INFO" value="@DEF"/>
+                        </d:var>
+                        <d:var name="EftuDmaReqSourceChannel" type="INTEGER" 
+                               value="0">
+                          <a:a name="IMPORTER_INFO" value="@DEF"/>
+                        </d:var>
+                        <d:var name="EftDmaReqTomCcu0Enable" type="BOOLEAN" 
+                               value="false">
+                          <a:a name="IMPORTER_INFO" value="@DEF"/>
+                        </d:var>
+                        <d:var name="EftDmaReqTomCcu1Enable" type="BOOLEAN" 
+                               value="false">
+                          <a:a name="IMPORTER_INFO" value="@DEF"/>
+                        </d:var>
+                      </d:ctr>
+                      <d:ctr name="EftuDmaReqConf_7" type="IDENTIFIABLE">
+                        <d:var name="EftuDmaReqSourceModule" type="ENUMERATION" 
+                               value="TIM">
+                          <a:a name="IMPORTER_INFO" value="@DEF"/>
+                        </d:var>
+                        <d:var name="EftuDmaReqSourceChannel" type="INTEGER" 
+                               value="0">
+                          <a:a name="IMPORTER_INFO" value="@DEF"/>
+                        </d:var>
+                        <d:var name="EftDmaReqTomCcu0Enable" type="BOOLEAN" 
+                               value="false">
+                          <a:a name="IMPORTER_INFO" value="@DEF"/>
+                        </d:var>
+                        <d:var name="EftDmaReqTomCcu1Enable" type="BOOLEAN" 
+                               value="false">
+                          <a:a name="IMPORTER_INFO" value="@DEF"/>
+                        </d:var>
+                      </d:ctr>
+                      <d:ctr name="EftuDmaReqConf_8" type="IDENTIFIABLE">
+                        <d:var name="EftuDmaReqSourceModule" type="ENUMERATION" 
+                               value="TIM">
+                          <a:a name="IMPORTER_INFO" value="@DEF"/>
+                        </d:var>
+                        <d:var name="EftuDmaReqSourceChannel" type="INTEGER" 
+                               value="0">
+                          <a:a name="IMPORTER_INFO" value="@DEF"/>
+                        </d:var>
+                        <d:var name="EftDmaReqTomCcu0Enable" type="BOOLEAN" 
+                               value="false">
+                          <a:a name="IMPORTER_INFO" value="@DEF"/>
+                        </d:var>
+                        <d:var name="EftDmaReqTomCcu1Enable" type="BOOLEAN" 
+                               value="false">
+                          <a:a name="IMPORTER_INFO" value="@DEF"/>
+                        </d:var>
+                      </d:ctr>
+                      <d:ctr name="EftuDmaReqConf_9" type="IDENTIFIABLE">
+                        <d:var name="EftuDmaReqSourceModule" type="ENUMERATION" 
+                               value="TIM">
+                          <a:a name="IMPORTER_INFO" value="@DEF"/>
+                        </d:var>
+                        <d:var name="EftuDmaReqSourceChannel" type="INTEGER" 
+                               value="0">
+                          <a:a name="IMPORTER_INFO" value="@DEF"/>
+                        </d:var>
+                        <d:var name="EftDmaReqTomCcu0Enable" type="BOOLEAN" 
+                               value="false">
+                          <a:a name="IMPORTER_INFO" value="@DEF"/>
+                        </d:var>
+                        <d:var name="EftDmaReqTomCcu1Enable" type="BOOLEAN" 
+                               value="false">
+                          <a:a name="IMPORTER_INFO" value="@DEF"/>
+                        </d:var>
+                      </d:ctr>
+                      <d:ctr name="EftuDmaReqConf_10" type="IDENTIFIABLE">
+                        <d:var name="EftuDmaReqSourceModule" type="ENUMERATION" 
+                               value="TIM">
+                          <a:a name="IMPORTER_INFO" value="@DEF"/>
+                        </d:var>
+                        <d:var name="EftuDmaReqSourceChannel" type="INTEGER" 
+                               value="0">
+                          <a:a name="IMPORTER_INFO" value="@DEF"/>
+                        </d:var>
+                        <d:var name="EftDmaReqTomCcu0Enable" type="BOOLEAN" 
+                               value="false">
+                          <a:a name="IMPORTER_INFO" value="@DEF"/>
+                        </d:var>
+                        <d:var name="EftDmaReqTomCcu1Enable" type="BOOLEAN" 
+                               value="false">
+                          <a:a name="IMPORTER_INFO" value="@DEF"/>
+                        </d:var>
+                      </d:ctr>
+                      <d:ctr name="EftuDmaReqConf_11" type="IDENTIFIABLE">
+                        <d:var name="EftuDmaReqSourceModule" type="ENUMERATION" 
+                               value="TIM">
+                          <a:a name="IMPORTER_INFO" value="@DEF"/>
+                        </d:var>
+                        <d:var name="EftuDmaReqSourceChannel" type="INTEGER" 
+                               value="0">
+                          <a:a name="IMPORTER_INFO" value="@DEF"/>
+                        </d:var>
+                        <d:var name="EftDmaReqTomCcu0Enable" type="BOOLEAN" 
+                               value="false">
+                          <a:a name="IMPORTER_INFO" value="@DEF"/>
+                        </d:var>
+                        <d:var name="EftDmaReqTomCcu1Enable" type="BOOLEAN" 
+                               value="false">
+                          <a:a name="IMPORTER_INFO" value="@DEF"/>
+                        </d:var>
+                      </d:ctr>
+                      <d:ctr name="EftuDmaReqConf_12" type="IDENTIFIABLE">
+                        <d:var name="EftuDmaReqSourceModule" type="ENUMERATION" 
+                               value="TIM">
+                          <a:a name="IMPORTER_INFO" value="@DEF"/>
+                        </d:var>
+                        <d:var name="EftuDmaReqSourceChannel" type="INTEGER" 
+                               value="0">
+                          <a:a name="IMPORTER_INFO" value="@DEF"/>
+                        </d:var>
+                        <d:var name="EftDmaReqTomCcu0Enable" type="BOOLEAN" 
+                               value="false">
+                          <a:a name="IMPORTER_INFO" value="@DEF"/>
+                        </d:var>
+                        <d:var name="EftDmaReqTomCcu1Enable" type="BOOLEAN" 
+                               value="false">
+                          <a:a name="IMPORTER_INFO" value="@DEF"/>
+                        </d:var>
+                      </d:ctr>
+                      <d:ctr name="EftuDmaReqConf_13" type="IDENTIFIABLE">
+                        <d:var name="EftuDmaReqSourceModule" type="ENUMERATION" 
+                               value="TIM">
+                          <a:a name="IMPORTER_INFO" value="@DEF"/>
+                        </d:var>
+                        <d:var name="EftuDmaReqSourceChannel" type="INTEGER" 
+                               value="0">
+                          <a:a name="IMPORTER_INFO" value="@DEF"/>
+                        </d:var>
+                        <d:var name="EftDmaReqTomCcu0Enable" type="BOOLEAN" 
+                               value="false">
+                          <a:a name="IMPORTER_INFO" value="@DEF"/>
+                        </d:var>
+                        <d:var name="EftDmaReqTomCcu1Enable" type="BOOLEAN" 
+                               value="false">
+                          <a:a name="IMPORTER_INFO" value="@DEF"/>
+                        </d:var>
+                      </d:ctr>
+                      <d:ctr name="EftuDmaReqConf_14" type="IDENTIFIABLE">
+                        <d:var name="EftuDmaReqSourceModule" type="ENUMERATION" 
+                               value="TIM">
+                          <a:a name="IMPORTER_INFO" value="@DEF"/>
+                        </d:var>
+                        <d:var name="EftuDmaReqSourceChannel" type="INTEGER" 
+                               value="0">
+                          <a:a name="IMPORTER_INFO" value="@DEF"/>
+                        </d:var>
+                        <d:var name="EftDmaReqTomCcu0Enable" type="BOOLEAN" 
+                               value="false">
+                          <a:a name="IMPORTER_INFO" value="@DEF"/>
+                        </d:var>
+                        <d:var name="EftDmaReqTomCcu1Enable" type="BOOLEAN" 
+                               value="false">
+                          <a:a name="IMPORTER_INFO" value="@DEF"/>
+                        </d:var>
+                      </d:ctr>
+                      <d:ctr name="EftuDmaReqConf_15" type="IDENTIFIABLE">
+                        <d:var name="EftuDmaReqSourceModule" type="ENUMERATION" 
+                               value="TIM">
+                          <a:a name="IMPORTER_INFO" value="@DEF"/>
+                        </d:var>
+                        <d:var name="EftuDmaReqSourceChannel" type="INTEGER" 
+                               value="0">
+                          <a:a name="IMPORTER_INFO" value="@DEF"/>
+                        </d:var>
+                        <d:var name="EftDmaReqTomCcu0Enable" type="BOOLEAN" 
+                               value="false">
+                          <a:a name="IMPORTER_INFO" value="@DEF"/>
+                        </d:var>
+                        <d:var name="EftDmaReqTomCcu1Enable" type="BOOLEAN" 
+                               value="false">
+                          <a:a name="IMPORTER_INFO" value="@DEF"/>
+                        </d:var>
+                      </d:ctr>
+                    </d:lst>
+                    <d:ctr name="EftuCcmTomMuxConf" type="IDENTIFIABLE">
+                      <a:a name="IMPORTER_INFO" value="@REC"/>
+                      <d:var name="EftuCcmTomMuxCtrl" type="ENUMERATION" 
+                             value="TOM0_CH7_TO_TOM1_CH0">
+                        <a:a name="IMPORTER_INFO" value="@REC"/>
+                      </d:var>
+                      <d:var name="EftuCcmTomSwapOut32OutT10" type="BOOLEAN" 
+                             value="false">
+                        <a:a name="IMPORTER_INFO" value="@REC"/>
+                      </d:var>
+                      <d:var name="EftuCcmTomSwapOut76OutT54" type="BOOLEAN" 
+                             value="false">
+                        <a:a name="IMPORTER_INFO" value="@REC"/>
+                      </d:var>
+                      <d:var name="EftuCcmTomSwapOut1110OutT98" type="BOOLEAN" 
+                             value="false">
+                        <a:a name="IMPORTER_INFO" value="@REC"/>
+                      </d:var>
+                      <d:var name="EftuCcmTomSwapOut1514OutT1312" 
+                             type="BOOLEAN" value="false">
+                        <a:a name="IMPORTER_INFO" value="@REC"/>
+                      </d:var>
+                      <d:var name="EftuCcmTomSwapOut74OutT30" type="BOOLEAN" 
+                             value="false">
+                        <a:a name="IMPORTER_INFO" value="@REC"/>
+                      </d:var>
+                      <d:var name="EftuCcmTomSwapOut1512OutT118" type="BOOLEAN" 
+                             value="false">
+                        <a:a name="IMPORTER_INFO" value="@REC"/>
+                      </d:var>
+                    </d:ctr>
+                  </d:ctr>
+                </d:lst>
+              </d:ctr>
+              <d:ctr name="EftuGeneral" type="IDENTIFIABLE">
+                <a:a name="IMPORTER_INFO" value="@REC"/>
+                <d:var name="EftuDevErrorDetect" type="BOOLEAN" value="true">
+                  <a:a name="IMPORTER_INFO" value="@REC"/>
+                </d:var>
+              </d:ctr>
+              <d:ctr name="EftuOptionalApis" type="IDENTIFIABLE">
+                <a:a name="IMPORTER_INFO" value="@REC"/>
+                <d:var name="EftuDeInitApi" type="BOOLEAN" value="true">
+                  <a:a name="IMPORTER_INFO" value="@REC"/>
+                </d:var>
+                <d:var name="EftuGetVersionInfoApi" type="BOOLEAN" value="true">
+                  <a:a name="IMPORTER_INFO" value="@REC"/>
+                </d:var>
+              </d:ctr>
+              <d:lst name="EftuTbuChannelConf" type="MAP">
+                <d:ctr name="EftuTbuChannelConf_0" type="IDENTIFIABLE">
+                  <d:var name="EftuTbuChannel" type="ENUMERATION" 
+                         value="TBU_CNT0">
+                    <a:a name="IMPORTER_INFO">
+                      <a:v>@DEF</a:v>
+                      <a:v>@CALC</a:v>
+                    </a:a>
+                  </d:var>
+                  <d:var name="EftuTbuChClockSourceSelection" 
+                         type="ENUMERATION" value="CCM_CLK_0"/>
+                  <d:var name="EftuTbuChResolutionSel" type="ENUMERATION" 
+                         value="CNT0_0_23BIT">
+                    <a:a name="IMPORTER_INFO" value="@DEF"/>
+                  </d:var>
+                </d:ctr>
+                <d:ctr name="EftuTbuChannelConf_1" type="IDENTIFIABLE">
+                  <d:var name="EftuTbuChannel" type="ENUMERATION" 
+                         value="TBU_CNT1">
+                    <a:a name="IMPORTER_INFO">
+                      <a:v>@DEF</a:v>
+                      <a:v>@CALC</a:v>
+                    </a:a>
+                  </d:var>
+                  <d:var name="EftuTbuChClockSourceSelection" 
+                         type="ENUMERATION" value="CCM_CLK_0"/>
+                  <d:var name="EftuTbuChResolutionSel" type="ENUMERATION" 
+                         value="CNT0_0_23BIT">
+                    <a:a name="IMPORTER_INFO" value="@DEF"/>
+                  </d:var>
+                </d:ctr>
+                <d:ctr name="EftuTbuChannelConf_2" type="IDENTIFIABLE">
+                  <d:var name="EftuTbuChannel" type="ENUMERATION" 
+                         value="TBU_CNT2">
+                    <a:a name="IMPORTER_INFO">
+                      <a:v>@DEF</a:v>
+                      <a:v>@CALC</a:v>
+                    </a:a>
+                  </d:var>
+                  <d:var name="EftuTbuChClockSourceSelection" 
+                         type="ENUMERATION" value="CCM_CLK_0"/>
+                  <d:var name="EftuTbuChResolutionSel" type="ENUMERATION" 
+                         value="CNT0_0_23BIT">
+                    <a:a name="IMPORTER_INFO" value="@DEF"/>
+                  </d:var>
+                </d:ctr>
+              </d:lst>
+              <d:ctr name="EftuClockMngSet" type="IDENTIFIABLE">
+                <a:a name="IMPORTER_INFO" value="@REC"/>
+                <d:ref name="EftuCmuMcuClockReferencePoint" type="REFERENCE" 
+                       value="ASPath:/Mcu/Mcu/McuModuleConfiguration/MCU_Demo_FOSC24M/McuClockReferencePoint_Bus">
+                  <a:a name="IMPORTER_INFO" value="@REC"/>
+                </d:ref>
+                <d:lst name="EftuClockReferencePoint" type="MAP">
+                  <d:ctr name="EftuClockReferencePoint_0" type="IDENTIFIABLE">
+                    <d:var name="EftuClockFrequencySelect" type="ENUMERATION" 
+                           value="EFTU_CMU_CLK_0"/>
+                    <d:var name="EftuClockReferencePointFrequency" type="FLOAT" 
+                           value="1.5E8">
+                      <a:a name="IMPORTER_INFO">
+                        <a:v>@CALC</a:v>
+                        <a:v>@DEF</a:v>
+                      </a:a>
+                    </d:var>
+                  </d:ctr>
+                </d:lst>
+                <d:var name="EftuCmuGlobalClockNumerator" type="INTEGER" 
+                       value="1">
+                  <a:a name="IMPORTER_INFO" value="@REC"/>
+                </d:var>
+                <d:var name="EftuCmuGlobalClockDenominator" type="INTEGER" 
+                       value="1">
+                  <a:a name="IMPORTER_INFO" value="@REC"/>
+                </d:var>
+                <d:ctr name="EftuConfigClockSetting" type="IDENTIFIABLE">
+                  <a:a name="IMPORTER_INFO" value="@REC"/>
+                  <d:var name="EftuCmuConfigClock0Enable" type="BOOLEAN" 
+                         value="true">
+                    <a:a name="IMPORTER_INFO" value="@REC"/>
+                  </d:var>
+                  <d:var name="EftuCmuConfigClock0Src" type="ENUMERATION" 
+                         value="EFTU_CMU_GCLK_EN">
+                    <a:a name="IMPORTER_INFO" value="@REC"/>
+                  </d:var>
+                  <d:var name="EftuCmuConfigClock0Div" type="INTEGER" value="0">
+                    <a:a name="IMPORTER_INFO" value="@REC"/>
+                  </d:var>
+                  <d:var name="EftuCmuConfigClock1Enable" type="BOOLEAN" 
+                         value="true">
+                    <a:a name="IMPORTER_INFO" value="@REC"/>
+                  </d:var>
+                  <d:var name="EftuCmuConfigClock1Src" type="ENUMERATION" 
+                         value="EFTU_CMU_GCLK_EN">
+                    <a:a name="IMPORTER_INFO" value="@REC"/>
+                  </d:var>
+                  <d:var name="EftuCmuConfigClock1Div" type="INTEGER" value="0">
+                    <a:a name="IMPORTER_INFO" value="@REC"/>
+                  </d:var>
+                  <d:var name="EftuCmuConfigClock2Enable" type="BOOLEAN" 
+                         value="true">
+                    <a:a name="IMPORTER_INFO" value="@REC"/>
+                  </d:var>
+                  <d:var name="EftuCmuConfigClock2Src" type="ENUMERATION" 
+                         value="EFTU_CMU_GCLK_EN">
+                    <a:a name="IMPORTER_INFO" value="@REC"/>
+                  </d:var>
+                  <d:var name="EftuCmuConfigClock2Div" type="INTEGER" value="0">
+                    <a:a name="IMPORTER_INFO" value="@REC"/>
+                  </d:var>
+                  <d:var name="EftuCmuConfigClock3Enable" type="BOOLEAN" 
+                         value="true">
+                    <a:a name="IMPORTER_INFO" value="@REC"/>
+                  </d:var>
+                  <d:var name="EftuCmuConfigClock3Src" type="ENUMERATION" 
+                         value="EFTU_CMU_GCLK_EN">
+                    <a:a name="IMPORTER_INFO" value="@REC"/>
+                  </d:var>
+                  <d:var name="EftuCmuConfigClock3Div" type="INTEGER" value="0">
+                    <a:a name="IMPORTER_INFO" value="@REC"/>
+                  </d:var>
+                  <d:var name="EftuCmuConfigClock4Enable" type="BOOLEAN" 
+                         value="true">
+                    <a:a name="IMPORTER_INFO" value="@REC"/>
+                  </d:var>
+                  <d:var name="EftuCmuConfigClock4Src" type="ENUMERATION" 
+                         value="EFTU_CMU_GCLK_EN">
+                    <a:a name="IMPORTER_INFO" value="@REC"/>
+                  </d:var>
+                  <d:var name="EftuCmuConfigClock4Div" type="INTEGER" value="0">
+                    <a:a name="IMPORTER_INFO" value="@REC"/>
+                  </d:var>
+                  <d:var name="EftuCmuConfigClock5Enable" type="BOOLEAN" 
+                         value="true">
+                    <a:a name="IMPORTER_INFO" value="@REC"/>
+                  </d:var>
+                  <d:var name="EftuCmuConfigClock5Src" type="ENUMERATION" 
+                         value="EFTU_CMU_GCLK_EN">
+                    <a:a name="IMPORTER_INFO" value="@REC"/>
+                  </d:var>
+                  <d:var name="EftuCmuConfigClock5Div" type="INTEGER" value="0">
+                    <a:a name="IMPORTER_INFO" value="@REC"/>
+                  </d:var>
+                  <d:var name="EftuCmuConfigClock6Enable" type="BOOLEAN" 
+                         value="true">
+                    <a:a name="IMPORTER_INFO" value="@REC"/>
+                  </d:var>
+                  <d:var name="EftuCmuConfigClock6Src" type="ENUMERATION" 
+                         value="EFTU_CMU_GCLK_EN">
+                    <a:a name="IMPORTER_INFO" value="@REC"/>
+                  </d:var>
+                  <d:var name="EftuCmuConfigClock6Div" type="INTEGER" value="0">
+                    <a:a name="IMPORTER_INFO" value="@REC"/>
+                  </d:var>
+                  <d:var name="EftuCmuConfigClock7Enable" type="BOOLEAN" 
+                         value="true">
+                    <a:a name="IMPORTER_INFO" value="@REC"/>
+                  </d:var>
+                  <d:var name="EftuCmuConfigClock7Src" type="ENUMERATION" 
+                         value="EFTU_CMU_GCLK_EN">
+                    <a:a name="IMPORTER_INFO" value="@REC"/>
+                  </d:var>
+                  <d:var name="EftuCmuConfigClock7Div" type="INTEGER" value="0">
+                    <a:a name="IMPORTER_INFO" value="@REC"/>
+                  </d:var>
+                  <d:var name="EftuCmuConfigClock8Src" type="ENUMERATION" 
+                         value="EFTU_CMU_CLK8_CLS0_CLK"/>
+                </d:ctr>
+                <d:ctr name="EftuExtClockSetting" type="IDENTIFIABLE">
+                  <a:a name="IMPORTER_INFO" value="@REC"/>
+                  <d:var name="EftuCmuExtClock0Enable" type="BOOLEAN" 
+                         value="false">
+                    <a:a name="IMPORTER_INFO" value="@REC"/>
+                  </d:var>
+                  <d:var name="EftuCmuExtClock0Numerator" type="INTEGER" 
+                         value="1">
+                    <a:a name="IMPORTER_INFO" value="@REC"/>
+                  </d:var>
+                  <d:var name="EftuCmuExtClock0Denominator" type="INTEGER" 
+                         value="1">
+                    <a:a name="IMPORTER_INFO" value="@REC"/>
+                  </d:var>
+                  <d:var name="EftuCmuExtClock1Enable" type="BOOLEAN" 
+                         value="false">
+                    <a:a name="IMPORTER_INFO" value="@REC"/>
+                  </d:var>
+                  <d:var name="EftuCmuExtClock1Numerator" type="INTEGER" 
+                         value="1">
+                    <a:a name="IMPORTER_INFO" value="@REC"/>
+                  </d:var>
+                  <d:var name="EftuCmuExtClock1Denominator" type="INTEGER" 
+                         value="1">
+                    <a:a name="IMPORTER_INFO" value="@REC"/>
+                  </d:var>
+                </d:ctr>
+              </d:ctr>
+              <d:lst name="EftuTomGlobalSet" type="MAP">
+                <d:ctr name="EftuTomGlobalSet_0" type="IDENTIFIABLE">
+                  <d:lst name="EftuTomChannelAllocationConf" type="MAP">
+                    <d:ctr name="EftuTomChannelAllocationConf_0" 
+                           type="IDENTIFIABLE">
+                      <d:var name="EftuTomChannelAllocationConf" 
+                             type="ENUMERATION" 
+                             value="EFTU_TOM_CHANNEL_USED_BY_PWM"/>
+                    </d:ctr>
+                    <d:ctr name="EftuTomChannelAllocationConf_1" 
+                           type="IDENTIFIABLE">
+                      <d:var name="EftuTomChannelAllocationConf" 
+                             type="ENUMERATION" 
+                             value="EFTU_TOM_CHANNEL_USED_BY_PWM"/>
+                    </d:ctr>
+                    <d:ctr name="EftuTomChannelAllocationConf_2" 
+                           type="IDENTIFIABLE">
+                      <d:var name="EftuTomChannelAllocationConf" 
+                             type="ENUMERATION" 
+                             value="EFTU_TOM_CHANNEL_NOT_USED">
+                        <a:a name="IMPORTER_INFO" value="@DEF"/>
+                      </d:var>
+                    </d:ctr>
+                    <d:ctr name="EftuTomChannelAllocationConf_3" 
+                           type="IDENTIFIABLE">
+                      <d:var name="EftuTomChannelAllocationConf" 
+                             type="ENUMERATION" 
+                             value="EFTU_TOM_CHANNEL_NOT_USED">
+                        <a:a name="IMPORTER_INFO" value="@DEF"/>
+                      </d:var>
+                    </d:ctr>
+                    <d:ctr name="EftuTomChannelAllocationConf_4" 
+                           type="IDENTIFIABLE">
+                      <d:var name="EftuTomChannelAllocationConf" 
+                             type="ENUMERATION" 
+                             value="EFTU_TOM_CHANNEL_USED_BY_OCU"/>
+                    </d:ctr>
+                    <d:ctr name="EftuTomChannelAllocationConf_5" 
+                           type="IDENTIFIABLE">
+                      <d:var name="EftuTomChannelAllocationConf" 
+                             type="ENUMERATION" 
+                             value="EFTU_TOM_CHANNEL_NOT_USED">
+                        <a:a name="IMPORTER_INFO" value="@DEF"/>
+                      </d:var>
+                    </d:ctr>
+                    <d:ctr name="EftuTomChannelAllocationConf_6" 
+                           type="IDENTIFIABLE">
+                      <d:var name="EftuTomChannelAllocationConf" 
+                             type="ENUMERATION" 
+                             value="EFTU_TOM_CHANNEL_NOT_USED">
+                        <a:a name="IMPORTER_INFO" value="@DEF"/>
+                      </d:var>
+                    </d:ctr>
+                    <d:ctr name="EftuTomChannelAllocationConf_7" 
+                           type="IDENTIFIABLE">
+                      <d:var name="EftuTomChannelAllocationConf" 
+                             type="ENUMERATION" 
+                             value="EFTU_TOM_CHANNEL_NOT_USED">
+                        <a:a name="IMPORTER_INFO" value="@DEF"/>
+                      </d:var>
+                    </d:ctr>
+                  </d:lst>
+                  <d:var name="EftuTomEftuInstance" type="ENUMERATION" 
+                         value="EFTU_0">
+                    <a:a name="IMPORTER_INFO">
+                      <a:v>@DEF</a:v>
+                      <a:v>@CALC</a:v>
+                    </a:a>
+                  </d:var>
+                  <d:var name="EftuTomInstance" type="ENUMERATION" value="TOM_0">
+                    <a:a name="IMPORTER_INFO">
+                      <a:v>@DEF</a:v>
+                      <a:v>@CALC</a:v>
+                    </a:a>
+                  </d:var>
+                  <d:ctr name="EftuTomActionTimeBaseUnitConf" 
+                         type="IDENTIFIABLE">
+                    <d:var name="EftuTomActionTimeBaseSelection" 
+                           type="ENUMERATION" value="TBU_SEL_TS0">
+                      <a:a name="IMPORTER_INFO" value="@DEF"/>
+                    </d:var>
+                    <d:var name="EftuTomActionTimeBaseValue" type="INTEGER" 
+                           value="1">
+                      <a:a name="IMPORTER_INFO" value="@DEF"/>
+                    </d:var>
+                  </d:ctr>
+                </d:ctr>
+                <d:ctr name="EftuTomGlobalSet_1" type="IDENTIFIABLE">
+                  <d:lst name="EftuTomChannelAllocationConf" type="MAP">
+                    <d:ctr name="EftuTomChannelAllocationConf_0" 
+                           type="IDENTIFIABLE">
+                      <d:var name="EftuTomChannelAllocationConf" 
+                             type="ENUMERATION" 
+                             value="EFTU_TOM_CHANNEL_NOT_USED">
+                        <a:a name="IMPORTER_INFO" value="@DEF"/>
+                      </d:var>
+                    </d:ctr>
+                    <d:ctr name="EftuTomChannelAllocationConf_1" 
+                           type="IDENTIFIABLE">
+                      <d:var name="EftuTomChannelAllocationConf" 
+                             type="ENUMERATION" 
+                             value="EFTU_TOM_CHANNEL_NOT_USED">
+                        <a:a name="IMPORTER_INFO" value="@DEF"/>
+                      </d:var>
+                    </d:ctr>
+                    <d:ctr name="EftuTomChannelAllocationConf_2" 
+                           type="IDENTIFIABLE">
+                      <d:var name="EftuTomChannelAllocationConf" 
+                             type="ENUMERATION" 
+                             value="EFTU_TOM_CHANNEL_NOT_USED">
+                        <a:a name="IMPORTER_INFO" value="@DEF"/>
+                      </d:var>
+                    </d:ctr>
+                    <d:ctr name="EftuTomChannelAllocationConf_3" 
+                           type="IDENTIFIABLE">
+                      <d:var name="EftuTomChannelAllocationConf" 
+                             type="ENUMERATION" 
+                             value="EFTU_TOM_CHANNEL_NOT_USED">
+                        <a:a name="IMPORTER_INFO" value="@DEF"/>
+                      </d:var>
+                    </d:ctr>
+                    <d:ctr name="EftuTomChannelAllocationConf_4" 
+                           type="IDENTIFIABLE">
+                      <d:var name="EftuTomChannelAllocationConf" 
+                             type="ENUMERATION" 
+                             value="EFTU_TOM_CHANNEL_USED_BY_PWM"/>
+                    </d:ctr>
+                    <d:ctr name="EftuTomChannelAllocationConf_5" 
+                           type="IDENTIFIABLE">
+                      <d:var name="EftuTomChannelAllocationConf" 
+                             type="ENUMERATION" 
+                             value="EFTU_TOM_CHANNEL_USED_BY_PWM"/>
+                    </d:ctr>
+                    <d:ctr name="EftuTomChannelAllocationConf_6" 
+                           type="IDENTIFIABLE">
+                      <d:var name="EftuTomChannelAllocationConf" 
+                             type="ENUMERATION" 
+                             value="EFTU_TOM_CHANNEL_NOT_USED">
+                        <a:a name="IMPORTER_INFO" value="@DEF"/>
+                      </d:var>
+                    </d:ctr>
+                    <d:ctr name="EftuTomChannelAllocationConf_7" 
+                           type="IDENTIFIABLE">
+                      <d:var name="EftuTomChannelAllocationConf" 
+                             type="ENUMERATION" 
+                             value="EFTU_TOM_CHANNEL_NOT_USED">
+                        <a:a name="IMPORTER_INFO" value="@DEF"/>
+                      </d:var>
+                    </d:ctr>
+                  </d:lst>
+                  <d:var name="EftuTomEftuInstance" type="ENUMERATION" 
+                         value="EFTU_0"/>
+                  <d:var name="EftuTomInstance" type="ENUMERATION" value="TOM_1">
+                    <a:a name="IMPORTER_INFO">
+                      <a:v>@DEF</a:v>
+                      <a:v>@CALC</a:v>
+                    </a:a>
+                  </d:var>
+                  <d:ctr name="EftuTomActionTimeBaseUnitConf" 
+                         type="IDENTIFIABLE">
+                    <d:var name="EftuTomActionTimeBaseSelection" 
+                           type="ENUMERATION" value="TBU_SEL_TS0">
+                      <a:a name="IMPORTER_INFO" value="@DEF"/>
+                    </d:var>
+                    <d:var name="EftuTomActionTimeBaseValue" type="INTEGER" 
+                           value="1">
+                      <a:a name="IMPORTER_INFO" value="@DEF"/>
+                    </d:var>
+                  </d:ctr>
+                </d:ctr>
+              </d:lst>
+              <d:lst name="EftuGtomMuxSet" type="MAP">
+                <d:ctr name="EftuGtomMuxSet_0" type="IDENTIFIABLE">
+                  <d:var name="EftuGtomChannelId" type="INTEGER" value="12"/>
+                  <d:var name="GtomMuxEftuInstance" type="ENUMERATION" 
+                         value="EFTU_0">
+                    <a:a name="IMPORTER_INFO">
+                      <a:v>@DEF</a:v>
+                      <a:v>@CALC</a:v>
+                    </a:a>
+                  </d:var>
+                  <d:var name="GtomMuxEftuOutIndex" type="INTEGER" value="0">
+                    <a:a name="IMPORTER_INFO" value="@DEF"/>
+                  </d:var>
+                </d:ctr>
+                <d:ctr name="EftuGtomMuxSet_1" type="IDENTIFIABLE">
+                  <d:var name="EftuGtomChannelId" type="INTEGER" value="3"/>
+                  <d:var name="GtomMuxEftuInstance" type="ENUMERATION" 
+                         value="EFTU_0"/>
+                  <d:var name="GtomMuxEftuOutIndex" type="INTEGER" value="1"/>
+                </d:ctr>
+              </d:lst>
+              <d:lst name="EftuTrigMuxSet" type="MAP"/>
+              <d:ctr name="CommonPublishedInformation" type="IDENTIFIABLE">
+                <d:var name="ArReleaseMajorVersion" type="INTEGER" value="4">
+                  <a:a name="IMPORTER_INFO" value="@DEF"/>
+                </d:var>
+                <d:var name="ArReleaseMinorVersion" type="INTEGER" value="6">
+                  <a:a name="IMPORTER_INFO" value="@DEF"/>
+                </d:var>
+                <d:var name="ArReleaseRevisionVersion" type="INTEGER" value="0">
+                  <a:a name="IMPORTER_INFO" value="@DEF"/>
+                </d:var>
+                <d:var name="ModuleId" type="INTEGER" value="255">
+                  <a:a name="IMPORTER_INFO" value="@DEF"/>
+                </d:var>
+                <d:var name="SwMajorVersion" type="INTEGER" value="1">
+                  <a:a name="IMPORTER_INFO" value="@DEF"/>
+                </d:var>
+                <d:var name="SwMinorVersion" type="INTEGER" value="5"/>
+                <d:var name="SwPatchVersion" type="INTEGER" value="1"/>
+                <d:var name="VendorId" type="INTEGER" value="174">
+                  <a:a name="IMPORTER_INFO" value="@DEF"/>
+                </d:var>
+              </d:ctr>
+            </d:ctr>
+          </d:chc>
+        </d:lst>
+      </d:ctr>
+    </d:lst>
+  </d:ctr>
+
+</datamodel>

@@ -1,0 +1,407 @@
+<?xml version='1.0'?>
+<datamodel version="7.0" 
+           xmlns="http://www.tresos.de/_projects/DataModel2/16/root.xsd" 
+           xmlns:a="http://www.tresos.de/_projects/DataModel2/16/attribute.xsd" 
+           xmlns:v="http://www.tresos.de/_projects/DataModel2/06/schema.xsd" 
+           xmlns:d="http://www.tresos.de/_projects/DataModel2/06/data.xsd">
+
+  <d:ctr type="AUTOSAR" factory="autosar" 
+         xmlns:ad="http://www.tresos.de/_projects/DataModel2/08/admindata.xsd" 
+         xmlns:cd="http://www.tresos.de/_projects/DataModel2/08/customdata.xsd" 
+         xmlns:f="http://www.tresos.de/_projects/DataModel2/14/formulaexpr.xsd" 
+         xmlns:icc="http://www.tresos.de/_projects/DataModel2/08/implconfigclass.xsd" 
+         xmlns:mt="http://www.tresos.de/_projects/DataModel2/11/multitest.xsd"  
+         xmlns:variant="http://www.tresos.de/_projects/DataModel2/11/variant.xsd">
+    <d:lst type="TOP-LEVEL-PACKAGES">
+      <d:ctr name="Msc" type="AR-PACKAGE">
+        <d:lst type="ELEMENTS">
+          <d:chc name="Msc" type="AR-ELEMENT" value="MODULE-CONFIGURATION">
+            <d:ctr type="MODULE-CONFIGURATION">
+              <a:a name="DEF" value="ASPath:/FC7300FXXX/Msc"/>
+              <a:a name="IMPORTER_INFO" value="@REC"/>
+              <d:var name="IMPLEMENTATION_CONFIG_VARIANT" type="ENUMERATION" 
+                     value="VariantPreCompile"/>
+              <d:ctr name="MscGeneral" type="IDENTIFIABLE">
+                <d:var name="MscDevErrorDetect" type="BOOLEAN" value="true"/>
+                <d:var name="MscVersionInfoApi" type="BOOLEAN" value="true"/>
+                <d:var name="MscMultiCoreSupport" type="BOOLEAN" value="true"/>
+                <d:var name="MscTimeoutDuration" type="INTEGER" value="10000">
+                  <a:a name="IMPORTER_INFO" value="@DEF"/>
+                </d:var>
+                <d:var name="MscDisableDemReportErrorStatus" type="BOOLEAN" 
+                       value="false">
+                  <a:a name="IMPORTER_INFO" value="@DEF"/>
+                </d:var>
+                <d:var name="MscPollingUse" type="BOOLEAN" value="false"/>
+                <d:lst name="MscEcucPartitionRef">
+                  <d:ref type="REFERENCE" 
+                         value="ASPath:/EcuC/EcuC/EcucPartitionCollection/EcucPartition_0"/>
+                  <d:ref type="REFERENCE" 
+                         value="ASPath:/EcuC/EcuC/EcucPartitionCollection/EcucPartition_1"/>
+                </d:lst>
+                <d:ctr name="MscDemEventParameterRefs" type="IDENTIFIABLE">
+                  <a:a name="ENABLE" value="true"/>
+                  <d:ref name="MSC_E_TIMEOUT" type="REFERENCE" 
+                         value="ASPath:/Dem/Dem/DemConfigSet/DemEventParameter_MscTimeout"/>
+                </d:ctr>
+              </d:ctr>
+              <d:ctr name="MscGlobalConfig" type="IDENTIFIABLE">
+                <d:lst name="MscChannel" type="MAP">
+                  <d:ctr name="MscChannel_0" type="IDENTIFIABLE">
+                    <d:var name="MscChannelId" type="INTEGER" value="0">
+                      <a:a name="IMPORTER_INFO">
+                        <a:v>@DEF</a:v>
+                        <a:v>@CALC</a:v>
+                      </a:a>
+                    </d:var>
+                    <d:var name="MscHwChannel" type="INTEGER" value="0">
+                      <a:a name="IMPORTER_INFO">
+                        <a:v>@DEF</a:v>
+                        <a:v>@CALC</a:v>
+                      </a:a>
+                    </d:var>
+                    <d:ref name="MscChannelEcucPartitionRef" type="REFERENCE" 
+                           value="ASPath:/EcuC/EcuC/EcucPartitionCollection/EcucPartition_0">
+                      <a:a name="ENABLE" value="true"/>
+                    </d:ref>
+                    <d:ctr name="TxConfiguration" type="IDENTIFIABLE">
+                      <d:var name="MscPassvieFrameLength" type="INTEGER" 
+                             value="3"/>
+                      <d:var name="MscPassvieFrameNumber" type="INTEGER" 
+                             value="2"/>
+                      <d:var name="MscSRHSelectionBit" type="ENUMERATION" 
+                             value="MSC_DATA_SELECTION_BIT_DISABLE">
+                        <a:a name="IMPORTER_INFO" value="@DEF"/>
+                      </d:var>
+                      <d:var name="SRHDataLength" type="INTEGER" value="0"/>
+                      <d:var name="MscSRLDataSelectionBit" type="ENUMERATION" 
+                             value="MSC_DATA_SELECTION_BIT_ENABLE">
+                        <a:a name="IMPORTER_INFO" value="@DEF"/>
+                      </d:var>
+                      <d:var name="SRLDataLength" type="INTEGER" value="16"/>
+                      <d:var name="MscTransmissionPolarity" type="ENUMERATION" 
+                             value="MSC_TX_INVPOL_EN"/>
+                      <d:var name="MscTxClockMode" type="ENUMERATION" 
+                             value="MSC_TX_SYNCHRONOUS">
+                        <a:a name="IMPORTER_INFO">
+                          <a:v>@DEF</a:v>
+                          <a:v>@CALC</a:v>
+                        </a:a>
+                      </d:var>
+                      <d:var name="MscTransmissionTrigger" type="ENUMERATION" 
+                             value="MSC_TX_TRIGGER_CONTINUOUS"/>
+                      <d:var name="MscChannelTxFrequency" type="INTEGER" 
+                             value="1500000">
+                        <a:a name="IMPORTER_INFO">
+                          <a:v>@DEF</a:v>
+                          <a:v>@CALC</a:v>
+                        </a:a>
+                      </d:var>
+                      <d:ref name="MscDownstreamClockRef" type="REFERENCE" 
+                             value="ASPath:/Mcu/Mcu/McuModuleConfiguration/MCU_Demo_FOSC24M/McuClockReferencePoint_MSC0"/>
+                    </d:ctr>
+                    <d:ctr name="RxConfiguration" type="IDENTIFIABLE">
+                      <d:var name="MscRxClockRatio" type="INTEGER" value="128">
+                        <a:a name="IMPORTER_INFO" value="@DEF"/>
+                      </d:var>
+                      <d:var name="MscChannelRxBaudRate" type="INTEGER" 
+                             value="23437">
+                        <a:a name="IMPORTER_INFO">
+                          <a:v>@CALC</a:v>
+                          <a:v>@DEF</a:v>
+                        </a:a>
+                      </d:var>
+                      <d:var name="MscRxDataSize" type="ENUMERATION" 
+                             value="MSC_RX_12_BIT_LENGTH">
+                        <a:a name="IMPORTER_INFO" value="@DEF"/>
+                      </d:var>
+                      <d:var name="MscRxDataParity" type="ENUMERATION" 
+                             value="MSC_RX_PARITY_EVEN">
+                        <a:a name="IMPORTER_INFO" value="@DEF"/>
+                      </d:var>
+                    </d:ctr>
+                    <d:ctr name="IOConfiguration" type="IDENTIFIABLE">
+                      <d:var name="MscSerializedInputIOSelection" 
+                             type="ENUMERATION" value="SDI0">
+                        <a:a name="IMPORTER_INFO" value="@DEF"/>
+                      </d:var>
+                      <d:var name="MscSerializedInputIOPolarity" 
+                             type="ENUMERATION" value="SDI_POLARITY_INDENTICAL">
+                        <a:a name="IMPORTER_INFO" value="@DEF"/>
+                      </d:var>
+                      <d:var name="MscENCSelect" type="ENUMERATION" 
+                             value="MSC_EN_SELECTION_0"/>
+                      <d:var name="MscENLSelect" type="ENUMERATION" 
+                             value="MSC_EN_SELECTION_0"/>
+                      <d:var name="MscENHSelect" type="ENUMERATION" 
+                             value="MSC_EN_SELECTION_0"/>
+                    </d:ctr>
+                    <d:ctr name="MscTransSource" type="IDENTIFIABLE">
+                      <d:lst name="MscTransSourceSRL">
+                        <d:var type="ENUMERATION" value="SOURCE_DATA_REG">
+                          <a:a name="IMPORTER_INFO" value="@DEF"/>
+                        </d:var>
+                        <d:var type="ENUMERATION" value="SOURCE_DATA_REG">
+                          <a:a name="IMPORTER_INFO" value="@DEF"/>
+                        </d:var>
+                        <d:var type="ENUMERATION" value="SOURCE_DATA_REG">
+                          <a:a name="IMPORTER_INFO" value="@DEF"/>
+                        </d:var>
+                        <d:var type="ENUMERATION" value="SOURCE_DATA_REG">
+                          <a:a name="IMPORTER_INFO" value="@DEF"/>
+                        </d:var>
+                        <d:var type="ENUMERATION" value="SOURCE_DATA_REG">
+                          <a:a name="IMPORTER_INFO" value="@DEF"/>
+                        </d:var>
+                        <d:var type="ENUMERATION" value="SOURCE_DATA_REG">
+                          <a:a name="IMPORTER_INFO" value="@DEF"/>
+                        </d:var>
+                        <d:var type="ENUMERATION" value="SOURCE_DATA_REG">
+                          <a:a name="IMPORTER_INFO" value="@DEF"/>
+                        </d:var>
+                        <d:var type="ENUMERATION" value="SOURCE_DATA_REG">
+                          <a:a name="IMPORTER_INFO" value="@DEF"/>
+                        </d:var>
+                        <d:var type="ENUMERATION" value="SOURCE_DATA_REG">
+                          <a:a name="IMPORTER_INFO" value="@DEF"/>
+                        </d:var>
+                        <d:var type="ENUMERATION" value="SOURCE_DATA_REG">
+                          <a:a name="IMPORTER_INFO" value="@DEF"/>
+                        </d:var>
+                        <d:var type="ENUMERATION" value="SOURCE_DATA_REG">
+                          <a:a name="IMPORTER_INFO" value="@DEF"/>
+                        </d:var>
+                        <d:var type="ENUMERATION" value="SOURCE_DATA_REG">
+                          <a:a name="IMPORTER_INFO" value="@DEF"/>
+                        </d:var>
+                        <d:var type="ENUMERATION" value="SOURCE_DATA_REG">
+                          <a:a name="IMPORTER_INFO" value="@DEF"/>
+                        </d:var>
+                        <d:var type="ENUMERATION" value="SOURCE_DATA_REG">
+                          <a:a name="IMPORTER_INFO" value="@DEF"/>
+                        </d:var>
+                        <d:var type="ENUMERATION" value="SOURCE_DATA_REG">
+                          <a:a name="IMPORTER_INFO" value="@DEF"/>
+                        </d:var>
+                        <d:var type="ENUMERATION" value="SOURCE_DATA_REG">
+                          <a:a name="IMPORTER_INFO" value="@DEF"/>
+                        </d:var>
+                      </d:lst>
+                      <d:lst name="MscTransSourceSRH"/>
+                      <d:lst name="MscEmergencyLoad"/>
+                      <d:ctr name="MscInjection" type="IDENTIFIABLE">
+                        <d:var name="InjectionPosition0" type="INTEGER" 
+                               value="0">
+                          <a:a name="ENABLE" value="false"/>
+                          <a:a name="IMPORTER_INFO" value="@DEF"/>
+                        </d:var>
+                        <d:var name="InjectionPosition1" type="INTEGER" 
+                               value="0">
+                          <a:a name="ENABLE" value="false"/>
+                        </d:var>
+                      </d:ctr>
+                    </d:ctr>
+                    <d:ctr name="InterruptConfiguration" type="IDENTIFIABLE">
+                      <d:var name="DelayInterrupt" type="BOOLEAN" value="false">
+                        <a:a name="IMPORTER_INFO" value="@DEF"/>
+                      </d:var>
+                      <d:var name="RxTimeoutInterruptVal" type="INTEGER" 
+                             value="100">
+                        <a:a name="ENABLE" value="false"/>
+                      </d:var>
+                      <d:var name="RxTimeoutNotification" type="FUNCTION-NAME" 
+                             value="NULL_PTR">
+                        <a:a name="ENABLE" value="false"/>
+                        <a:a name="IMPORTER_INFO" value="@DEF"/>
+                      </d:var>
+                      <d:var name="RxReceiveNotification" type="FUNCTION-NAME" 
+                             value="Msc_ReceiveNotification0">
+                        <a:a name="ENABLE" value="true"/>
+                      </d:var>
+                    </d:ctr>
+                  </d:ctr>
+                  <d:ctr name="MscChannel_1" type="IDENTIFIABLE">
+                    <d:var name="MscChannelId" type="INTEGER" value="1">
+                      <a:a name="IMPORTER_INFO">
+                        <a:v>@DEF</a:v>
+                        <a:v>@CALC</a:v>
+                      </a:a>
+                    </d:var>
+                    <d:var name="MscHwChannel" type="INTEGER" value="1">
+                      <a:a name="IMPORTER_INFO">
+                        <a:v>@DEF</a:v>
+                        <a:v>@CALC</a:v>
+                      </a:a>
+                    </d:var>
+                    <d:ref name="MscChannelEcucPartitionRef" type="REFERENCE" 
+                           value="ASPath:/EcuC/EcuC/EcucPartitionCollection/EcucPartition_1">
+                      <a:a name="ENABLE" value="true"/>
+                    </d:ref>
+                    <d:ctr name="TxConfiguration" type="IDENTIFIABLE">
+                      <d:var name="MscPassvieFrameLength" type="INTEGER" 
+                             value="3"/>
+                      <d:var name="MscPassvieFrameNumber" type="INTEGER" 
+                             value="2"/>
+                      <d:var name="MscSRHSelectionBit" type="ENUMERATION" 
+                             value="MSC_DATA_SELECTION_BIT_DISABLE">
+                        <a:a name="IMPORTER_INFO" value="@DEF"/>
+                      </d:var>
+                      <d:var name="SRHDataLength" type="INTEGER" value="0"/>
+                      <d:var name="MscSRLDataSelectionBit" type="ENUMERATION" 
+                             value="MSC_DATA_SELECTION_BIT_ENABLE">
+                        <a:a name="IMPORTER_INFO" value="@DEF"/>
+                      </d:var>
+                      <d:var name="SRLDataLength" type="INTEGER" value="16">
+                        <a:a name="IMPORTER_INFO" value="@DEF"/>
+                      </d:var>
+                      <d:var name="MscTransmissionPolarity" type="ENUMERATION" 
+                             value="MSC_TX_INVPOL_EN"/>
+                      <d:var name="MscTxClockMode" type="ENUMERATION" 
+                             value="MSC_TX_SYNCHRONOUS">
+                        <a:a name="IMPORTER_INFO">
+                          <a:v>@DEF</a:v>
+                          <a:v>@CALC</a:v>
+                        </a:a>
+                      </d:var>
+                      <d:var name="MscTransmissionTrigger" type="ENUMERATION" 
+                             value="MSC_TX_TRIGGER_CONTINUOUS"/>
+                      <d:var name="MscChannelTxFrequency" type="INTEGER" 
+                             value="1500000">
+                        <a:a name="IMPORTER_INFO">
+                          <a:v>@DEF</a:v>
+                          <a:v>@CALC</a:v>
+                        </a:a>
+                      </d:var>
+                      <d:ref name="MscDownstreamClockRef" type="REFERENCE" 
+                             value="ASPath:/Mcu/Mcu/McuModuleConfiguration/MCU_Demo_FOSC24M/McuClockReferencePoint_MSC1"/>
+                    </d:ctr>
+                    <d:ctr name="RxConfiguration" type="IDENTIFIABLE">
+                      <d:var name="MscRxClockRatio" type="INTEGER" value="128">
+                        <a:a name="IMPORTER_INFO" value="@DEF"/>
+                      </d:var>
+                      <d:var name="MscChannelRxBaudRate" type="INTEGER" 
+                             value="23437">
+                        <a:a name="IMPORTER_INFO">
+                          <a:v>@CALC</a:v>
+                          <a:v>@DEF</a:v>
+                        </a:a>
+                      </d:var>
+                      <d:var name="MscRxDataSize" type="ENUMERATION" 
+                             value="MSC_RX_12_BIT_LENGTH">
+                        <a:a name="IMPORTER_INFO" value="@DEF"/>
+                      </d:var>
+                      <d:var name="MscRxDataParity" type="ENUMERATION" 
+                             value="MSC_RX_PARITY_EVEN">
+                        <a:a name="IMPORTER_INFO" value="@DEF"/>
+                      </d:var>
+                    </d:ctr>
+                    <d:ctr name="IOConfiguration" type="IDENTIFIABLE">
+                      <d:var name="MscSerializedInputIOSelection" 
+                             type="ENUMERATION" value="SDI0">
+                        <a:a name="IMPORTER_INFO" value="@DEF"/>
+                      </d:var>
+                      <d:var name="MscSerializedInputIOPolarity" 
+                             type="ENUMERATION" value="SDI_POLARITY_INDENTICAL">
+                        <a:a name="IMPORTER_INFO" value="@DEF"/>
+                      </d:var>
+                      <d:var name="MscENCSelect" type="ENUMERATION" 
+                             value="MSC_EN_SELECTION_0">
+                        <a:a name="IMPORTER_INFO" value="@DEF"/>
+                      </d:var>
+                      <d:var name="MscENLSelect" type="ENUMERATION" 
+                             value="MSC_EN_SELECTION_0">
+                        <a:a name="IMPORTER_INFO" value="@DEF"/>
+                      </d:var>
+                      <d:var name="MscENHSelect" type="ENUMERATION" 
+                             value="MSC_EN_SELECTION_0">
+                        <a:a name="IMPORTER_INFO" value="@DEF"/>
+                      </d:var>
+                    </d:ctr>
+                    <d:ctr name="MscTransSource" type="IDENTIFIABLE">
+                      <d:lst name="MscTransSourceSRL">
+                        <d:var type="ENUMERATION" value="SOURCE_DATA_ALTIN"/>
+                        <d:var type="ENUMERATION" value="SOURCE_DATA_ALTIN"/>
+                        <d:var type="ENUMERATION" value="SOURCE_DATA_ALTIN"/>
+                        <d:var type="ENUMERATION" value="SOURCE_DATA_ALTIN"/>
+                        <d:var type="ENUMERATION" value="SOURCE_DATA_ALTIN"/>
+                        <d:var type="ENUMERATION" value="SOURCE_DATA_ALTIN"/>
+                        <d:var type="ENUMERATION" value="SOURCE_DATA_ALTIN"/>
+                        <d:var type="ENUMERATION" value="SOURCE_DATA_ALTIN"/>
+                        <d:var type="ENUMERATION" value="SOURCE_DATA_ALTIN"/>
+                        <d:var type="ENUMERATION" value="SOURCE_DATA_ALTIN"/>
+                        <d:var type="ENUMERATION" value="SOURCE_DATA_ALTIN"/>
+                        <d:var type="ENUMERATION" value="SOURCE_DATA_ALTIN"/>
+                        <d:var type="ENUMERATION" value="SOURCE_DATA_ALTIN"/>
+                        <d:var type="ENUMERATION" value="SOURCE_DATA_ALTIN"/>
+                        <d:var type="ENUMERATION" value="SOURCE_DATA_ALTIN"/>
+                        <d:var type="ENUMERATION" value="SOURCE_DATA_ALTIN"/>
+                      </d:lst>
+                      <d:lst name="MscTransSourceSRH"/>
+                      <d:lst name="MscEmergencyLoad"/>
+                      <d:ctr name="MscInjection" type="IDENTIFIABLE">
+                        <d:var name="InjectionPosition0" type="INTEGER" 
+                               value="0">
+                          <a:a name="ENABLE" value="false"/>
+                          <a:a name="IMPORTER_INFO" value="@DEF"/>
+                        </d:var>
+                        <d:var name="InjectionPosition1" type="INTEGER" 
+                               value="0">
+                          <a:a name="ENABLE" value="false"/>
+                          <a:a name="IMPORTER_INFO" value="@DEF"/>
+                        </d:var>
+                      </d:ctr>
+                    </d:ctr>
+                    <d:ctr name="InterruptConfiguration" type="IDENTIFIABLE">
+                      <d:var name="DelayInterrupt" type="BOOLEAN" value="false">
+                        <a:a name="IMPORTER_INFO" value="@DEF"/>
+                      </d:var>
+                      <d:var name="RxTimeoutInterruptVal" type="INTEGER" 
+                             value="100">
+                        <a:a name="ENABLE" value="false"/>
+                        <a:a name="IMPORTER_INFO" value="@DEF"/>
+                      </d:var>
+                      <d:var name="RxTimeoutNotification" type="FUNCTION-NAME" 
+                             value="NULL_PTR">
+                        <a:a name="ENABLE" value="false"/>
+                        <a:a name="IMPORTER_INFO" value="@DEF"/>
+                      </d:var>
+                      <d:var name="RxReceiveNotification" type="FUNCTION-NAME" 
+                             value="Msc_ReceiveNotification1">
+                        <a:a name="ENABLE" value="true"/>
+                      </d:var>
+                    </d:ctr>
+                  </d:ctr>
+                </d:lst>
+              </d:ctr>
+              <d:ctr name="CommonPublishedInformation" type="IDENTIFIABLE">
+                <d:var name="ArReleaseMajorVersion" type="INTEGER" value="4">
+                  <a:a name="IMPORTER_INFO" value="@DEF"/>
+                </d:var>
+                <d:var name="ArReleaseMinorVersion" type="INTEGER" value="6">
+                  <a:a name="IMPORTER_INFO" value="@DEF"/>
+                </d:var>
+                <d:var name="ArReleaseRevisionVersion" type="INTEGER" value="0">
+                  <a:a name="IMPORTER_INFO" value="@DEF"/>
+                </d:var>
+                <d:var name="ModuleId" type="INTEGER" value="253">
+                  <a:a name="IMPORTER_INFO" value="@DEF"/>
+                </d:var>
+                <d:var name="SwMajorVersion" type="INTEGER" value="1"/>
+                <d:var name="SwMinorVersion" type="INTEGER" value="5"/>
+                <d:var name="SwPatchVersion" type="INTEGER" value="1"/>
+                <d:var name="VendorApiInfix" type="STRING" value="">
+                  <a:a name="ENABLE" value="false"/>
+                  <a:a name="IMPORTER_INFO" value="@DEF"/>
+                </d:var>
+                <d:var name="VendorId" type="INTEGER" value="174">
+                  <a:a name="IMPORTER_INFO" value="@DEF"/>
+                </d:var>
+              </d:ctr>
+            </d:ctr>
+          </d:chc>
+        </d:lst>
+      </d:ctr>
+    </d:lst>
+  </d:ctr>
+
+</datamodel>

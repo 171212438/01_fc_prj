@@ -1,0 +1,15 @@
+#!gbuild 
+[Subproject] 
+..\..\_BSW_generate\Config\CanIf.h 
+..\..\_BSW_generate\Config\CanIf_Cbk.h 
+..\..\_BSW_generate\Config\CanIf_Cfg.h 
+..\..\_BSW_generate\Config\CanIf_Lcfg.h 
+..\..\_BSW_generate\Config\CanIf_Types.h 
+..\..\_BSW_generate\Config\CanIf_Version.h 
+..\..\_BSW_generate\Config\ComStack_Types_Cfg.h 
+..\..\_BSW_generate\Config\MemIf_Types.h 
+..\..\_BSW_generate\Config\MemIf_Version.h 
+..\..\_BSW_generate\Config\Rte_Dem_Type.h 
+..\..\_BSW_generate\Config\Rte_Type.h 
+..\..\_BSW_generate\NvM\include\NvM_Cbk.h 
+..\..\_BSW_generate\NvM\source\NvM_Cbk.c 

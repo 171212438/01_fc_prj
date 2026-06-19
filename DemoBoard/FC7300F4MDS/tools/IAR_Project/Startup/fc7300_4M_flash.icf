@@ -1,0 +1,230 @@
+/**
+*   @file    FC7300_4M.ld
+*   @version 1.0.0
+*
+*   @brief   IAR linker directive file
+*   @details This file is the IAR linker directive file demo
+*
+*/
+/*==================================================================================================
+*   PERIPHERAL           : ARM
+*   PLATFORM             : Flagchip FC7300
+*   AUTOSAR VERSION      : N/A
+*   AUTOSAR REVISION     : N/A
+*   SOFTWARE VERSION     : 0.4.0
+*   VENDOR               : Flagchip Semiconductors
+*
+*   Copyright 2020-2023 Flagchip Semiconductors Co., Ltd.
+*   All Rights Reserved.
+==================================================================================================*/
+
+define symbol __HEAP_SIZE             = 0x00000200;   /* required amount of heap  */
+define symbol __STACK_SIZE            = 0x00001000;   /* required amount of stack */
+define symbol __INTVEC_SIZE_RESERVE   = 0x00000400;   /* interrupt vector size */
+
+/* Specify the memory areas */
+
+define memory mem with size = 4G;
+define region ITCM          = mem:[from 0x00000000                              size 0x00010000];
+define region DTCM          = mem:[from 0x20000000                              size 0x00010000 - __STACK_SIZE];
+define region DTCM_STACK    = mem:[from 0x20000000 + 0x00010000 - __STACK_SIZE  size __STACK_SIZE];
+define region SRAM_0        = mem:[from 0x21000000                              size 0x00020000];
+define region SRAM_1        = mem:[from 0x21020000                              size 0x00020000];
+define region SRAM_2        = mem:[from 0x21040000                              size 0x00020000];
+define region PFLASH_INTVEC = mem:[from 0x01000000                              size __INTVEC_SIZE_RESERVE];
+define region PFLASH        = mem:[from 0x01000000 + __INTVEC_SIZE_RESERVE      size 0x00400000 - __INTVEC_SIZE_RESERVE];
+
+/* Block definition and section placement */
+
+define block ISR_VECTOR                with alignment = 1024
+{
+    readonly section .isr_vector
+};
+
+define block TEXT                      with alignment = 4
+{
+    readonly section .text,
+    readonly section .*mcal_text,
+    readonly section .rodata,
+    readonly section .*mcal_rodata,
+    readonly section .*mcal_const_cfg
+};
+
+define block ITCM_FUNC_INIT            with alignment = 4
+{
+    section .*mcal_ramcode_init,
+    section .bsp_ramcode_init
+};
+
+define block DATA_SEPERATED_INIT       with alignment = 4
+{
+    section .seperated_data_init
+};
+
+define block DATA_INIT                 with alignment = 4
+{
+    section .data_init,
+    section .*mcal_data_init,
+};
+
+define block DATA_NOCACHEABLE_INIT     with alignment = 4
+{
+    section .*mcal_nocacheable_data_init
+};
+
+define block DATA_SHAREABLE_INIT       with alignment = 4
+{
+    section .*mcal_shareable_data_init,
+    section .bsp_shareable_data_init
+};
+
+define block RAM_VECTOR                with alignment = 1024, size = __INTVEC_SIZE_RESERVE
+{ };
+
+define block ITCM_FUNC                 with alignment = 8
+{
+    section .*mcal_ramcode,
+    section .bsp_ramcode
+};
+
+define block DATA_SEPERATED            with alignment = 4
+{
+    section .seperated_data
+};
+
+define block BSS_SEPERATED             with alignment = 4
+{
+    section .seperated_bss
+};
+
+define block HEAP                      with alignment = 8,    size = __HEAP_SIZE
+{ };
+
+define block CSTACK                    with alignment = 8,    size = __STACK_SIZE
+{ };
+
+define block DATA                      with alignment = 4
+{
+    section .data,
+    section .*mcal_data,
+};
+
+define block BSS                       with alignment = 4
+{
+    section .bss,
+    section .*mcal_bss
+};
+
+define block DATA_NOCACHEABLE          with alignment = 32
+{
+    section .*mcal_nocacheable_data
+};
+
+define block BSS_NOCACHEABLE           with alignment = 32
+{
+    section .*mcal_nocacheable_bss
+};
+
+define block BSS_RTT_BUFFER            with alignment = 32
+{
+    section .rtt_section,
+    section .rtt_buffer_section
+};
+
+define block DATA_SHAREABLE            with alignment = 32
+{
+    section .*mcal_shareable_data,
+    section .bsp_shareable_data
+};
+
+define block BSS_SHAREABLE             with alignment = 32
+{
+    section .*mcal_shareable_bss,
+    section .bsp_shareable_bss
+};
+
+initialize manually
+{
+    section .*mcal_ramcode,
+    section .bsp_ramcode,
+    section .data,
+    section .*mcal_data,
+    section .seperated_data,
+    section .*mcal_nocacheable_data,
+    section .*mcal_shareable_data,
+    section .bsp_shareable_data
+};
+
+do not initialize
+{
+    section .noinit
+};
+
+keep
+{
+    section rtt_section,
+    section rtt_buffer_section
+};
+
+/* Block placement in memory areas */
+
+place at start of PFLASH_INTVEC
+{
+    block ISR_VECTOR
+};
+
+place in PFLASH
+{
+    block TEXT,
+    block ITCM_FUNC_INIT,
+    block DATA_SEPERATED_INIT,
+    block DATA_INIT,
+    block DATA_NOCACHEABLE_INIT,
+    block DATA_SHAREABLE_INIT,
+    readonly
+};
+
+place at start of ITCM
+{
+    block RAM_VECTOR
+};
+
+place in ITCM
+{
+    block ITCM_FUNC
+};
+
+place in DTCM
+{
+    block DATA_SEPERATED,
+    block BSS_SEPERATED,
+    block HEAP
+};
+
+place in DTCM_STACK
+{
+    block CSTACK
+};
+
+place in SRAM_0
+{
+    block DATA,
+    block BSS
+};
+
+place in SRAM_1
+{
+    block DATA_NOCACHEABLE,
+    block BSS_NOCACHEABLE
+};
+
+place at start of SRAM_2
+{
+    block BSS_RTT_BUFFER
+};
+
+place in SRAM_2
+{
+    block DATA_SHAREABLE,
+    block BSS_SHAREABLE
+};

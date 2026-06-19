@@ -1,0 +1,531 @@
+<?xml version='1.0'?>
+<AUTOSAR xmlns="http://autosar.org/schema/r4.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://autosar.org/schema/r4.0 AUTOSAR_00049.xsd">
+  <AR-PACKAGES>
+    <AR-PACKAGE>
+      <SHORT-NAME>Sent</SHORT-NAME>
+      <ELEMENTS>
+        <ECUC-MODULE-CONFIGURATION-VALUES>
+          <SHORT-NAME>Sent</SHORT-NAME>
+          <DEFINITION-REF DEST="ECUC-MODULE-DEF">/FC7300FXXX/Sent</DEFINITION-REF>
+          <IMPLEMENTATION-CONFIG-VARIANT>VARIANT-PRE-COMPILE</IMPLEMENTATION-CONFIG-VARIANT>
+          <CONTAINERS>
+            <ECUC-CONTAINER-VALUE>
+              <SHORT-NAME>CommonPublishedInformation</SHORT-NAME>
+              <DEFINITION-REF DEST="ECUC-PARAM-CONF-CONTAINER-DEF">/FC7300FXXX/Sent/CommonPublishedInformation</DEFINITION-REF>
+              <PARAMETER-VALUES>
+                <ECUC-NUMERICAL-PARAM-VALUE>
+                  <DEFINITION-REF DEST="ECUC-INTEGER-PARAM-DEF">/FC7300FXXX/Sent/CommonPublishedInformation/ArReleaseMajorVersion</DEFINITION-REF>
+                  <VALUE>4</VALUE>
+                </ECUC-NUMERICAL-PARAM-VALUE>
+                <ECUC-NUMERICAL-PARAM-VALUE>
+                  <DEFINITION-REF DEST="ECUC-INTEGER-PARAM-DEF">/FC7300FXXX/Sent/CommonPublishedInformation/ArReleaseMinorVersion</DEFINITION-REF>
+                  <VALUE>6</VALUE>
+                </ECUC-NUMERICAL-PARAM-VALUE>
+                <ECUC-NUMERICAL-PARAM-VALUE>
+                  <DEFINITION-REF DEST="ECUC-INTEGER-PARAM-DEF">/FC7300FXXX/Sent/CommonPublishedInformation/ArReleaseRevisionVersion</DEFINITION-REF>
+                  <VALUE>0</VALUE>
+                </ECUC-NUMERICAL-PARAM-VALUE>
+                <ECUC-NUMERICAL-PARAM-VALUE>
+                  <DEFINITION-REF DEST="ECUC-INTEGER-PARAM-DEF">/FC7300FXXX/Sent/CommonPublishedInformation/ModuleId</DEFINITION-REF>
+                  <VALUE>255</VALUE>
+                </ECUC-NUMERICAL-PARAM-VALUE>
+                <ECUC-NUMERICAL-PARAM-VALUE>
+                  <DEFINITION-REF DEST="ECUC-INTEGER-PARAM-DEF">/FC7300FXXX/Sent/CommonPublishedInformation/SwMajorVersion</DEFINITION-REF>
+                  <VALUE>1</VALUE>
+                </ECUC-NUMERICAL-PARAM-VALUE>
+                <ECUC-NUMERICAL-PARAM-VALUE>
+                  <DEFINITION-REF DEST="ECUC-INTEGER-PARAM-DEF">/FC7300FXXX/Sent/CommonPublishedInformation/SwMinorVersion</DEFINITION-REF>
+                  <VALUE>5</VALUE>
+                </ECUC-NUMERICAL-PARAM-VALUE>
+                <ECUC-NUMERICAL-PARAM-VALUE>
+                  <DEFINITION-REF DEST="ECUC-INTEGER-PARAM-DEF">/FC7300FXXX/Sent/CommonPublishedInformation/SwPatchVersion</DEFINITION-REF>
+                  <VALUE>1</VALUE>
+                </ECUC-NUMERICAL-PARAM-VALUE>
+                <ECUC-TEXTUAL-PARAM-VALUE>
+                  <DEFINITION-REF DEST="ECUC-STRING-PARAM-DEF">/FC7300FXXX/Sent/CommonPublishedInformation/VendorApiInfix</DEFINITION-REF>
+                  <VALUE></VALUE>
+                </ECUC-TEXTUAL-PARAM-VALUE>
+                <ECUC-NUMERICAL-PARAM-VALUE>
+                  <DEFINITION-REF DEST="ECUC-INTEGER-PARAM-DEF">/FC7300FXXX/Sent/CommonPublishedInformation/VendorId</DEFINITION-REF>
+                  <VALUE>174</VALUE>
+                </ECUC-NUMERICAL-PARAM-VALUE>
+              </PARAMETER-VALUES>
+            </ECUC-CONTAINER-VALUE>
+            <ECUC-CONTAINER-VALUE>
+              <SHORT-NAME>SentConfigSet</SHORT-NAME>
+              <DEFINITION-REF DEST="ECUC-PARAM-CONF-CONTAINER-DEF">/FC7300FXXX/Sent/SentConfigSet</DEFINITION-REF>
+              <SUB-CONTAINERS>
+                <ECUC-CONTAINER-VALUE>
+                  <SHORT-NAME>SentControllerConfig_0</SHORT-NAME>
+                  <DEFINITION-REF DEST="ECUC-PARAM-CONF-CONTAINER-DEF">/FC7300FXXX/Sent/SentConfigSet/SentControllerConfig</DEFINITION-REF>
+                  <PARAMETER-VALUES>
+                    <ECUC-NUMERICAL-PARAM-VALUE>
+                      <DEFINITION-REF DEST="ECUC-BOOLEAN-PARAM-DEF">/FC7300FXXX/Sent/SentConfigSet/SentControllerConfig/AutoClearReadyFlag</DEFINITION-REF>
+                      <VALUE>1</VALUE>
+                    </ECUC-NUMERICAL-PARAM-VALUE>
+                    <ECUC-NUMERICAL-PARAM-VALUE>
+                      <DEFINITION-REF DEST="ECUC-BOOLEAN-PARAM-DEF">/FC7300FXXX/Sent/SentConfigSet/SentControllerConfig/FIFOOverflowIntEn</DEFINITION-REF>
+                      <VALUE>0</VALUE>
+                    </ECUC-NUMERICAL-PARAM-VALUE>
+                    <ECUC-NUMERICAL-PARAM-VALUE>
+                      <DEFINITION-REF DEST="ECUC-BOOLEAN-PARAM-DEF">/FC7300FXXX/Sent/SentConfigSet/SentControllerConfig/SentControllerActivation</DEFINITION-REF>
+                      <VALUE>1</VALUE>
+                    </ECUC-NUMERICAL-PARAM-VALUE>
+                    <ECUC-NUMERICAL-PARAM-VALUE>
+                      <DEFINITION-REF DEST="ECUC-INTEGER-PARAM-DEF">/FC7300FXXX/Sent/SentConfigSet/SentControllerConfig/SentControllerId</DEFINITION-REF>
+                      <VALUE>0</VALUE>
+                    </ECUC-NUMERICAL-PARAM-VALUE>
+                    <ECUC-NUMERICAL-PARAM-VALUE>
+                      <DEFINITION-REF DEST="ECUC-BOOLEAN-PARAM-DEF">/FC7300FXXX/Sent/SentConfigSet/SentControllerConfig/SentDMASupport</DEFINITION-REF>
+                      <VALUE>0</VALUE>
+                    </ECUC-NUMERICAL-PARAM-VALUE>
+                    <ECUC-NUMERICAL-PARAM-VALUE>
+                      <DEFINITION-REF DEST="ECUC-BOOLEAN-PARAM-DEF">/FC7300FXXX/Sent/SentConfigSet/SentControllerConfig/SentDebugEn</DEFINITION-REF>
+                      <VALUE>0</VALUE>
+                    </ECUC-NUMERICAL-PARAM-VALUE>
+                    <ECUC-TEXTUAL-PARAM-VALUE>
+                      <DEFINITION-REF DEST="ECUC-ENUMERATION-PARAM-DEF">/FC7300FXXX/Sent/SentConfigSet/SentControllerConfig/SentHWInstance</DEFINITION-REF>
+                      <VALUE>Sent0</VALUE>
+                    </ECUC-TEXTUAL-PARAM-VALUE>
+                    <ECUC-NUMERICAL-PARAM-VALUE>
+                      <DEFINITION-REF DEST="ECUC-INTEGER-PARAM-DEF">/FC7300FXXX/Sent/SentConfigSet/SentControllerConfig/SentTimestampPrescaller</DEFINITION-REF>
+                      <VALUE>0</VALUE>
+                    </ECUC-NUMERICAL-PARAM-VALUE>
+                  </PARAMETER-VALUES>
+                  <REFERENCE-VALUES>
+                    <ECUC-REFERENCE-VALUE>
+                      <DEFINITION-REF DEST="ECUC-REFERENCE-DEF">/FC7300FXXX/Sent/SentConfigSet/SentControllerConfig/SentControllerEcucPartitionRef</DEFINITION-REF>
+                      <VALUE-REF DEST="ECUC-CONTAINER-VALUE">/EcuC/EcuC/EcucPartitionCollection/EcucPartition_0</VALUE-REF>
+                    </ECUC-REFERENCE-VALUE>
+                    <ECUC-REFERENCE-VALUE>
+                      <DEFINITION-REF DEST="ECUC-REFERENCE-DEF">/FC7300FXXX/Sent/SentConfigSet/SentControllerConfig/SentModuleClockRef</DEFINITION-REF>
+                      <VALUE-REF DEST="ECUC-CONTAINER-VALUE">/Mcu/Mcu/McuModuleConfiguration/MCU_Demo_FOSC24M/McuClockReferencePoint_Sent0</VALUE-REF>
+                    </ECUC-REFERENCE-VALUE>
+                  </REFERENCE-VALUES>
+                  <SUB-CONTAINERS>
+                    <ECUC-CONTAINER-VALUE>
+                      <SHORT-NAME>SentChannelConfig_MLX90367LDC</SHORT-NAME>
+                      <DEFINITION-REF DEST="ECUC-PARAM-CONF-CONTAINER-DEF">/FC7300FXXX/Sent/SentConfigSet/SentControllerConfig/SentChannelConfig</DEFINITION-REF>
+                      <PARAMETER-VALUES>
+                        <ECUC-TEXTUAL-PARAM-VALUE>
+                          <DEFINITION-REF DEST="ECUC-ENUMERATION-PARAM-DEF">/FC7300FXXX/Sent/SentConfigSet/SentControllerConfig/SentChannelConfig/CalDiagOption</DEFINITION-REF>
+                          <VALUE>SENT_CALIBRATION_PULSE_DIAG_OPTION1</VALUE>
+                        </ECUC-TEXTUAL-PARAM-VALUE>
+                        <ECUC-TEXTUAL-PARAM-VALUE>
+                          <DEFINITION-REF DEST="ECUC-ENUMERATION-PARAM-DEF">/FC7300FXXX/Sent/SentConfigSet/SentControllerConfig/SentChannelConfig/CalValid</DEFINITION-REF>
+                          <VALUE>SENT_CALIBRATION_VALID_WITHIN_20</VALUE>
+                        </ECUC-TEXTUAL-PARAM-VALUE>
+                        <ECUC-TEXTUAL-PARAM-VALUE>
+                          <DEFINITION-REF DEST="ECUC-ENUMERATION-PARAM-DEF">/FC7300FXXX/Sent/SentConfigSet/SentControllerConfig/SentChannelConfig/DataNibbleMode</DEFINITION-REF>
+                          <VALUE>SENT_DATA_NIBBLE_MODE_A</VALUE>
+                        </ECUC-TEXTUAL-PARAM-VALUE>
+                        <ECUC-NUMERICAL-PARAM-VALUE>
+                          <DEFINITION-REF DEST="ECUC-INTEGER-PARAM-DEF">/FC7300FXXX/Sent/SentConfigSet/SentControllerConfig/SentChannelConfig/DataNibbleNumber</DEFINITION-REF>
+                          <VALUE>6</VALUE>
+                        </ECUC-NUMERICAL-PARAM-VALUE>
+                        <ECUC-NUMERICAL-PARAM-VALUE>
+                          <DEFINITION-REF DEST="ECUC-INTEGER-PARAM-DEF">/FC7300FXXX/Sent/SentConfigSet/SentControllerConfig/SentChannelConfig/DigitalFilterCount</DEFINITION-REF>
+                          <VALUE>4</VALUE>
+                        </ECUC-NUMERICAL-PARAM-VALUE>
+                        <ECUC-NUMERICAL-PARAM-VALUE>
+                          <DEFINITION-REF DEST="ECUC-BOOLEAN-PARAM-DEF">/FC7300FXXX/Sent/SentConfigSet/SentControllerConfig/SentChannelConfig/EnableHwFiFo</DEFINITION-REF>
+                          <VALUE>0</VALUE>
+                        </ECUC-NUMERICAL-PARAM-VALUE>
+                        <ECUC-NUMERICAL-PARAM-VALUE>
+                          <DEFINITION-REF DEST="ECUC-BOOLEAN-PARAM-DEF">/FC7300FXXX/Sent/SentConfigSet/SentControllerConfig/SentChannelConfig/FastMsgCRCAugEn</DEFINITION-REF>
+                          <VALUE>1</VALUE>
+                        </ECUC-NUMERICAL-PARAM-VALUE>
+                        <ECUC-NUMERICAL-PARAM-VALUE>
+                          <DEFINITION-REF DEST="ECUC-BOOLEAN-PARAM-DEF">/FC7300FXXX/Sent/SentConfigSet/SentControllerConfig/SentChannelConfig/FastMsgCRCCheckEn</DEFINITION-REF>
+                          <VALUE>1</VALUE>
+                        </ECUC-NUMERICAL-PARAM-VALUE>
+                        <ECUC-NUMERICAL-PARAM-VALUE>
+                          <DEFINITION-REF DEST="ECUC-BOOLEAN-PARAM-DEF">/FC7300FXXX/Sent/SentConfigSet/SentControllerConfig/SentChannelConfig/FastMsgCRCWithSCEn</DEFINITION-REF>
+                          <VALUE>0</VALUE>
+                        </ECUC-NUMERICAL-PARAM-VALUE>
+                        <ECUC-NUMERICAL-PARAM-VALUE>
+                          <DEFINITION-REF DEST="ECUC-BOOLEAN-PARAM-DEF">/FC7300FXXX/Sent/SentConfigSet/SentControllerConfig/SentChannelConfig/FastMsgDataChangeEn</DEFINITION-REF>
+                          <VALUE>0</VALUE>
+                        </ECUC-NUMERICAL-PARAM-VALUE>
+                        <ECUC-NUMERICAL-PARAM-VALUE>
+                          <DEFINITION-REF DEST="ECUC-BOOLEAN-PARAM-DEF">/FC7300FXXX/Sent/SentConfigSet/SentControllerConfig/SentChannelConfig/FastMsgDmaEn</DEFINITION-REF>
+                          <VALUE>0</VALUE>
+                        </ECUC-NUMERICAL-PARAM-VALUE>
+                        <ECUC-TEXTUAL-PARAM-VALUE>
+                          <DEFINITION-REF DEST="ECUC-ENUMERATION-PARAM-DEF">/FC7300FXXX/Sent/SentConfigSet/SentControllerConfig/SentChannelConfig/FastMsgReadType</DEFINITION-REF>
+                          <VALUE>Interrupt</VALUE>
+                        </ECUC-TEXTUAL-PARAM-VALUE>
+                        <ECUC-TEXTUAL-PARAM-VALUE>
+                          <DEFINITION-REF DEST="ECUC-ENUMERATION-PARAM-DEF">/FC7300FXXX/Sent/SentConfigSet/SentControllerConfig/SentChannelConfig/IdleCount</DEFINITION-REF>
+                          <VALUE>SENT_IDLE_COUNT_FLAG_DISABLE</VALUE>
+                        </ECUC-TEXTUAL-PARAM-VALUE>
+                        <ECUC-NUMERICAL-PARAM-VALUE>
+                          <DEFINITION-REF DEST="ECUC-BOOLEAN-PARAM-DEF">/FC7300FXXX/Sent/SentConfigSet/SentControllerConfig/SentChannelConfig/PausePulseEn</DEFINITION-REF>
+                          <VALUE>1</VALUE>
+                        </ECUC-NUMERICAL-PARAM-VALUE>
+                        <ECUC-NUMERICAL-PARAM-VALUE>
+                          <DEFINITION-REF DEST="ECUC-BOOLEAN-PARAM-DEF">/FC7300FXXX/Sent/SentConfigSet/SentControllerConfig/SentChannelConfig/SentChannelActivation</DEFINITION-REF>
+                          <VALUE>1</VALUE>
+                        </ECUC-NUMERICAL-PARAM-VALUE>
+                        <ECUC-NUMERICAL-PARAM-VALUE>
+                          <DEFINITION-REF DEST="ECUC-INTEGER-PARAM-DEF">/FC7300FXXX/Sent/SentConfigSet/SentControllerConfig/SentChannelConfig/SentChannelId</DEFINITION-REF>
+                          <VALUE>0</VALUE>
+                        </ECUC-NUMERICAL-PARAM-VALUE>
+                        <ECUC-NUMERICAL-PARAM-VALUE>
+                          <DEFINITION-REF DEST="ECUC-FLOAT-PARAM-DEF">/FC7300FXXX/Sent/SentConfigSet/SentControllerConfig/SentChannelConfig/SentClockTickMax</DEFINITION-REF>
+                          <VALUE>3.88</VALUE>
+                        </ECUC-NUMERICAL-PARAM-VALUE>
+                        <ECUC-NUMERICAL-PARAM-VALUE>
+                          <DEFINITION-REF DEST="ECUC-FLOAT-PARAM-DEF">/FC7300FXXX/Sent/SentConfigSet/SentControllerConfig/SentChannelConfig/SentClockTickMin</DEFINITION-REF>
+                          <VALUE>2.0</VALUE>
+                        </ECUC-NUMERICAL-PARAM-VALUE>
+                        <ECUC-TEXTUAL-PARAM-VALUE>
+                          <DEFINITION-REF DEST="ECUC-FUNCTION-NAME-DEF">/FC7300FXXX/Sent/SentConfigSet/SentControllerConfig/SentChannelConfig/SentFastCRCErrorNotification</DEFINITION-REF>
+                          <VALUE>NULL_PTR</VALUE>
+                        </ECUC-TEXTUAL-PARAM-VALUE>
+                        <ECUC-NUMERICAL-PARAM-VALUE>
+                          <DEFINITION-REF DEST="ECUC-BOOLEAN-PARAM-DEF">/FC7300FXXX/Sent/SentConfigSet/SentControllerConfig/SentChannelConfig/SentFastCRCErrorNotificationEnable</DEFINITION-REF>
+                          <VALUE>0</VALUE>
+                        </ECUC-NUMERICAL-PARAM-VALUE>
+                        <ECUC-TEXTUAL-PARAM-VALUE>
+                          <DEFINITION-REF DEST="ECUC-FUNCTION-NAME-DEF">/FC7300FXXX/Sent/SentConfigSet/SentControllerConfig/SentChannelConfig/SentFastNotification</DEFINITION-REF>
+                          <VALUE>SentFastNotification_MLX90367LDC</VALUE>
+                        </ECUC-TEXTUAL-PARAM-VALUE>
+                        <ECUC-TEXTUAL-PARAM-VALUE>
+                          <DEFINITION-REF DEST="ECUC-ENUMERATION-PARAM-DEF">/FC7300FXXX/Sent/SentConfigSet/SentControllerConfig/SentChannelConfig/SentHWChannel</DEFINITION-REF>
+                          <VALUE>Sent_Channel2</VALUE>
+                        </ECUC-TEXTUAL-PARAM-VALUE>
+                        <ECUC-NUMERICAL-PARAM-VALUE>
+                          <DEFINITION-REF DEST="ECUC-INTEGER-PARAM-DEF">/FC7300FXXX/Sent/SentConfigSet/SentControllerConfig/SentChannelConfig/SentModuleClock</DEFINITION-REF>
+                          <VALUE>75000000</VALUE>
+                        </ECUC-NUMERICAL-PARAM-VALUE>
+                        <ECUC-TEXTUAL-PARAM-VALUE>
+                          <DEFINITION-REF DEST="ECUC-FUNCTION-NAME-DEF">/FC7300FXXX/Sent/SentConfigSet/SentControllerConfig/SentChannelConfig/SentSlowCRCErrorNotification</DEFINITION-REF>
+                          <VALUE>NULL_PTR</VALUE>
+                        </ECUC-TEXTUAL-PARAM-VALUE>
+                        <ECUC-NUMERICAL-PARAM-VALUE>
+                          <DEFINITION-REF DEST="ECUC-BOOLEAN-PARAM-DEF">/FC7300FXXX/Sent/SentConfigSet/SentControllerConfig/SentChannelConfig/SentSlowCRCErrorNotificationEnable</DEFINITION-REF>
+                          <VALUE>0</VALUE>
+                        </ECUC-NUMERICAL-PARAM-VALUE>
+                        <ECUC-TEXTUAL-PARAM-VALUE>
+                          <DEFINITION-REF DEST="ECUC-FUNCTION-NAME-DEF">/FC7300FXXX/Sent/SentConfigSet/SentControllerConfig/SentChannelConfig/SentSlowNotification</DEFINITION-REF>
+                          <VALUE>SentSlowNotification_MLX90367LDC</VALUE>
+                        </ECUC-TEXTUAL-PARAM-VALUE>
+                        <ECUC-NUMERICAL-PARAM-VALUE>
+                          <DEFINITION-REF DEST="ECUC-BOOLEAN-PARAM-DEF">/FC7300FXXX/Sent/SentConfigSet/SentControllerConfig/SentChannelConfig/SlowMsgCRCAugEn</DEFINITION-REF>
+                          <VALUE>1</VALUE>
+                        </ECUC-NUMERICAL-PARAM-VALUE>
+                        <ECUC-NUMERICAL-PARAM-VALUE>
+                          <DEFINITION-REF DEST="ECUC-BOOLEAN-PARAM-DEF">/FC7300FXXX/Sent/SentConfigSet/SentControllerConfig/SentChannelConfig/SlowMsgDmaEn</DEFINITION-REF>
+                          <VALUE>0</VALUE>
+                        </ECUC-NUMERICAL-PARAM-VALUE>
+                        <ECUC-TEXTUAL-PARAM-VALUE>
+                          <DEFINITION-REF DEST="ECUC-ENUMERATION-PARAM-DEF">/FC7300FXXX/Sent/SentConfigSet/SentControllerConfig/SentChannelConfig/SlowMsgReadType</DEFINITION-REF>
+                          <VALUE>Interrupt</VALUE>
+                        </ECUC-TEXTUAL-PARAM-VALUE>
+                        <ECUC-NUMERICAL-PARAM-VALUE>
+                          <DEFINITION-REF DEST="ECUC-BOOLEAN-PARAM-DEF">/FC7300FXXX/Sent/SentConfigSet/SentControllerConfig/SentChannelConfig/TickCompensateEn</DEFINITION-REF>
+                          <VALUE>1</VALUE>
+                        </ECUC-NUMERICAL-PARAM-VALUE>
+                        <ECUC-NUMERICAL-PARAM-VALUE>
+                          <DEFINITION-REF DEST="ECUC-INTEGER-PARAM-DEF">/FC7300FXXX/Sent/SentConfigSet/SentControllerConfig/SentChannelConfig/TickScaler</DEFINITION-REF>
+                          <VALUE>220</VALUE>
+                        </ECUC-NUMERICAL-PARAM-VALUE>
+                        <ECUC-NUMERICAL-PARAM-VALUE>
+                          <DEFINITION-REF DEST="ECUC-BOOLEAN-PARAM-DEF">/FC7300FXXX/Sent/SentConfigSet/SentControllerConfig/SentChannelConfig/UseAlternativeCrc</DEFINITION-REF>
+                          <VALUE>0</VALUE>
+                        </ECUC-NUMERICAL-PARAM-VALUE>
+                      </PARAMETER-VALUES>
+                      <SUB-CONTAINERS>
+                        <ECUC-CONTAINER-VALUE>
+                          <SHORT-NAME>SentSPCmode</SHORT-NAME>
+                          <DEFINITION-REF DEST="ECUC-PARAM-CONF-CONTAINER-DEF">/FC7300FXXX/Sent/SentConfigSet/SentControllerConfig/SentChannelConfig/SentSPCmode</DEFINITION-REF>
+                          <PARAMETER-VALUES>
+                            <ECUC-NUMERICAL-PARAM-VALUE>
+                              <DEFINITION-REF DEST="ECUC-BOOLEAN-PARAM-DEF">/FC7300FXXX/Sent/SentConfigSet/SentControllerConfig/SentChannelConfig/SentSPCmode/CalDiagEn</DEFINITION-REF>
+                              <VALUE>0</VALUE>
+                            </ECUC-NUMERICAL-PARAM-VALUE>
+                            <ECUC-NUMERICAL-PARAM-VALUE>
+                              <DEFINITION-REF DEST="ECUC-INTEGER-PARAM-DEF">/FC7300FXXX/Sent/SentConfigSet/SentControllerConfig/SentChannelConfig/SentSPCmode/PulseDelay</DEFINITION-REF>
+                              <VALUE>1</VALUE>
+                            </ECUC-NUMERICAL-PARAM-VALUE>
+                            <ECUC-NUMERICAL-PARAM-VALUE>
+                              <DEFINITION-REF DEST="ECUC-INTEGER-PARAM-DEF">/FC7300FXXX/Sent/SentConfigSet/SentControllerConfig/SentChannelConfig/SentSPCmode/PulseWidth</DEFINITION-REF>
+                              <VALUE>1</VALUE>
+                            </ECUC-NUMERICAL-PARAM-VALUE>
+                            <ECUC-NUMERICAL-PARAM-VALUE>
+                              <DEFINITION-REF DEST="ECUC-BOOLEAN-PARAM-DEF">/FC7300FXXX/Sent/SentConfigSet/SentControllerConfig/SentChannelConfig/SentSPCmode/SentSPCModeEn</DEFINITION-REF>
+                              <VALUE>0</VALUE>
+                            </ECUC-NUMERICAL-PARAM-VALUE>
+                            <ECUC-TEXTUAL-PARAM-VALUE>
+                              <DEFINITION-REF DEST="ECUC-ENUMERATION-PARAM-DEF">/FC7300FXXX/Sent/SentConfigSet/SentControllerConfig/SentChannelConfig/SentSPCmode/SpcTickBase</DEFINITION-REF>
+                              <VALUE>SENT_SPC_TICK_BASE_CONFIGURED</VALUE>
+                            </ECUC-TEXTUAL-PARAM-VALUE>
+                            <ECUC-TEXTUAL-PARAM-VALUE>
+                              <DEFINITION-REF DEST="ECUC-ENUMERATION-PARAM-DEF">/FC7300FXXX/Sent/SentConfigSet/SentControllerConfig/SentChannelConfig/SentSPCmode/SpcTrigger</DEFINITION-REF>
+                              <VALUE>SENT_SPC_SOFTWARE_TRIGGER</VALUE>
+                            </ECUC-TEXTUAL-PARAM-VALUE>
+                          </PARAMETER-VALUES>
+                        </ECUC-CONTAINER-VALUE>
+                      </SUB-CONTAINERS>
+                    </ECUC-CONTAINER-VALUE>
+                  </SUB-CONTAINERS>
+                </ECUC-CONTAINER-VALUE>
+                <ECUC-CONTAINER-VALUE>
+                  <SHORT-NAME>SentControllerConfig_1</SHORT-NAME>
+                  <DEFINITION-REF DEST="ECUC-PARAM-CONF-CONTAINER-DEF">/FC7300FXXX/Sent/SentConfigSet/SentControllerConfig</DEFINITION-REF>
+                  <PARAMETER-VALUES>
+                    <ECUC-NUMERICAL-PARAM-VALUE>
+                      <DEFINITION-REF DEST="ECUC-BOOLEAN-PARAM-DEF">/FC7300FXXX/Sent/SentConfigSet/SentControllerConfig/AutoClearReadyFlag</DEFINITION-REF>
+                      <VALUE>1</VALUE>
+                    </ECUC-NUMERICAL-PARAM-VALUE>
+                    <ECUC-NUMERICAL-PARAM-VALUE>
+                      <DEFINITION-REF DEST="ECUC-BOOLEAN-PARAM-DEF">/FC7300FXXX/Sent/SentConfigSet/SentControllerConfig/FIFOOverflowIntEn</DEFINITION-REF>
+                      <VALUE>0</VALUE>
+                    </ECUC-NUMERICAL-PARAM-VALUE>
+                    <ECUC-NUMERICAL-PARAM-VALUE>
+                      <DEFINITION-REF DEST="ECUC-BOOLEAN-PARAM-DEF">/FC7300FXXX/Sent/SentConfigSet/SentControllerConfig/SentControllerActivation</DEFINITION-REF>
+                      <VALUE>1</VALUE>
+                    </ECUC-NUMERICAL-PARAM-VALUE>
+                    <ECUC-NUMERICAL-PARAM-VALUE>
+                      <DEFINITION-REF DEST="ECUC-INTEGER-PARAM-DEF">/FC7300FXXX/Sent/SentConfigSet/SentControllerConfig/SentControllerId</DEFINITION-REF>
+                      <VALUE>1</VALUE>
+                    </ECUC-NUMERICAL-PARAM-VALUE>
+                    <ECUC-NUMERICAL-PARAM-VALUE>
+                      <DEFINITION-REF DEST="ECUC-BOOLEAN-PARAM-DEF">/FC7300FXXX/Sent/SentConfigSet/SentControllerConfig/SentDMASupport</DEFINITION-REF>
+                      <VALUE>0</VALUE>
+                    </ECUC-NUMERICAL-PARAM-VALUE>
+                    <ECUC-NUMERICAL-PARAM-VALUE>
+                      <DEFINITION-REF DEST="ECUC-BOOLEAN-PARAM-DEF">/FC7300FXXX/Sent/SentConfigSet/SentControllerConfig/SentDebugEn</DEFINITION-REF>
+                      <VALUE>0</VALUE>
+                    </ECUC-NUMERICAL-PARAM-VALUE>
+                    <ECUC-TEXTUAL-PARAM-VALUE>
+                      <DEFINITION-REF DEST="ECUC-ENUMERATION-PARAM-DEF">/FC7300FXXX/Sent/SentConfigSet/SentControllerConfig/SentHWInstance</DEFINITION-REF>
+                      <VALUE>Sent1</VALUE>
+                    </ECUC-TEXTUAL-PARAM-VALUE>
+                    <ECUC-NUMERICAL-PARAM-VALUE>
+                      <DEFINITION-REF DEST="ECUC-INTEGER-PARAM-DEF">/FC7300FXXX/Sent/SentConfigSet/SentControllerConfig/SentTimestampPrescaller</DEFINITION-REF>
+                      <VALUE>0</VALUE>
+                    </ECUC-NUMERICAL-PARAM-VALUE>
+                  </PARAMETER-VALUES>
+                  <REFERENCE-VALUES>
+                    <ECUC-REFERENCE-VALUE>
+                      <DEFINITION-REF DEST="ECUC-REFERENCE-DEF">/FC7300FXXX/Sent/SentConfigSet/SentControllerConfig/SentControllerEcucPartitionRef</DEFINITION-REF>
+                      <VALUE-REF DEST="ECUC-CONTAINER-VALUE">/EcuC/EcuC/EcucPartitionCollection/EcucPartition_0</VALUE-REF>
+                    </ECUC-REFERENCE-VALUE>
+                    <ECUC-REFERENCE-VALUE>
+                      <DEFINITION-REF DEST="ECUC-REFERENCE-DEF">/FC7300FXXX/Sent/SentConfigSet/SentControllerConfig/SentModuleClockRef</DEFINITION-REF>
+                      <VALUE-REF DEST="ECUC-CONTAINER-VALUE">/Mcu/Mcu/McuModuleConfiguration/MCU_Demo_FOSC24M/McuClockReferencePoint_Sent1</VALUE-REF>
+                    </ECUC-REFERENCE-VALUE>
+                  </REFERENCE-VALUES>
+                  <SUB-CONTAINERS>
+                    <ECUC-CONTAINER-VALUE>
+                      <SHORT-NAME>SentChannelConfig_TLE4998C8D</SHORT-NAME>
+                      <DEFINITION-REF DEST="ECUC-PARAM-CONF-CONTAINER-DEF">/FC7300FXXX/Sent/SentConfigSet/SentControllerConfig/SentChannelConfig</DEFINITION-REF>
+                      <PARAMETER-VALUES>
+                        <ECUC-TEXTUAL-PARAM-VALUE>
+                          <DEFINITION-REF DEST="ECUC-ENUMERATION-PARAM-DEF">/FC7300FXXX/Sent/SentConfigSet/SentControllerConfig/SentChannelConfig/CalDiagOption</DEFINITION-REF>
+                          <VALUE>SENT_CALIBRATION_PULSE_DIAG_OPTION2</VALUE>
+                        </ECUC-TEXTUAL-PARAM-VALUE>
+                        <ECUC-TEXTUAL-PARAM-VALUE>
+                          <DEFINITION-REF DEST="ECUC-ENUMERATION-PARAM-DEF">/FC7300FXXX/Sent/SentConfigSet/SentControllerConfig/SentChannelConfig/CalValid</DEFINITION-REF>
+                          <VALUE>SENT_CALIBRATION_VALID_DISABLE</VALUE>
+                        </ECUC-TEXTUAL-PARAM-VALUE>
+                        <ECUC-TEXTUAL-PARAM-VALUE>
+                          <DEFINITION-REF DEST="ECUC-ENUMERATION-PARAM-DEF">/FC7300FXXX/Sent/SentConfigSet/SentControllerConfig/SentChannelConfig/DataNibbleMode</DEFINITION-REF>
+                          <VALUE>SENT_DATA_NIBBLE_MODE_A</VALUE>
+                        </ECUC-TEXTUAL-PARAM-VALUE>
+                        <ECUC-NUMERICAL-PARAM-VALUE>
+                          <DEFINITION-REF DEST="ECUC-INTEGER-PARAM-DEF">/FC7300FXXX/Sent/SentConfigSet/SentControllerConfig/SentChannelConfig/DataNibbleNumber</DEFINITION-REF>
+                          <VALUE>6</VALUE>
+                        </ECUC-NUMERICAL-PARAM-VALUE>
+                        <ECUC-NUMERICAL-PARAM-VALUE>
+                          <DEFINITION-REF DEST="ECUC-INTEGER-PARAM-DEF">/FC7300FXXX/Sent/SentConfigSet/SentControllerConfig/SentChannelConfig/DigitalFilterCount</DEFINITION-REF>
+                          <VALUE>4</VALUE>
+                        </ECUC-NUMERICAL-PARAM-VALUE>
+                        <ECUC-NUMERICAL-PARAM-VALUE>
+                          <DEFINITION-REF DEST="ECUC-BOOLEAN-PARAM-DEF">/FC7300FXXX/Sent/SentConfigSet/SentControllerConfig/SentChannelConfig/EnableHwFiFo</DEFINITION-REF>
+                          <VALUE>0</VALUE>
+                        </ECUC-NUMERICAL-PARAM-VALUE>
+                        <ECUC-NUMERICAL-PARAM-VALUE>
+                          <DEFINITION-REF DEST="ECUC-BOOLEAN-PARAM-DEF">/FC7300FXXX/Sent/SentConfigSet/SentControllerConfig/SentChannelConfig/FastMsgCRCAugEn</DEFINITION-REF>
+                          <VALUE>1</VALUE>
+                        </ECUC-NUMERICAL-PARAM-VALUE>
+                        <ECUC-NUMERICAL-PARAM-VALUE>
+                          <DEFINITION-REF DEST="ECUC-BOOLEAN-PARAM-DEF">/FC7300FXXX/Sent/SentConfigSet/SentControllerConfig/SentChannelConfig/FastMsgCRCCheckEn</DEFINITION-REF>
+                          <VALUE>1</VALUE>
+                        </ECUC-NUMERICAL-PARAM-VALUE>
+                        <ECUC-NUMERICAL-PARAM-VALUE>
+                          <DEFINITION-REF DEST="ECUC-BOOLEAN-PARAM-DEF">/FC7300FXXX/Sent/SentConfigSet/SentControllerConfig/SentChannelConfig/FastMsgCRCWithSCEn</DEFINITION-REF>
+                          <VALUE>1</VALUE>
+                        </ECUC-NUMERICAL-PARAM-VALUE>
+                        <ECUC-NUMERICAL-PARAM-VALUE>
+                          <DEFINITION-REF DEST="ECUC-BOOLEAN-PARAM-DEF">/FC7300FXXX/Sent/SentConfigSet/SentControllerConfig/SentChannelConfig/FastMsgDataChangeEn</DEFINITION-REF>
+                          <VALUE>0</VALUE>
+                        </ECUC-NUMERICAL-PARAM-VALUE>
+                        <ECUC-NUMERICAL-PARAM-VALUE>
+                          <DEFINITION-REF DEST="ECUC-BOOLEAN-PARAM-DEF">/FC7300FXXX/Sent/SentConfigSet/SentControllerConfig/SentChannelConfig/FastMsgDmaEn</DEFINITION-REF>
+                          <VALUE>0</VALUE>
+                        </ECUC-NUMERICAL-PARAM-VALUE>
+                        <ECUC-TEXTUAL-PARAM-VALUE>
+                          <DEFINITION-REF DEST="ECUC-ENUMERATION-PARAM-DEF">/FC7300FXXX/Sent/SentConfigSet/SentControllerConfig/SentChannelConfig/FastMsgReadType</DEFINITION-REF>
+                          <VALUE>Polling</VALUE>
+                        </ECUC-TEXTUAL-PARAM-VALUE>
+                        <ECUC-TEXTUAL-PARAM-VALUE>
+                          <DEFINITION-REF DEST="ECUC-ENUMERATION-PARAM-DEF">/FC7300FXXX/Sent/SentConfigSet/SentControllerConfig/SentChannelConfig/IdleCount</DEFINITION-REF>
+                          <VALUE>SENT_IDLE_COUNT_FLAG_DISABLE</VALUE>
+                        </ECUC-TEXTUAL-PARAM-VALUE>
+                        <ECUC-NUMERICAL-PARAM-VALUE>
+                          <DEFINITION-REF DEST="ECUC-BOOLEAN-PARAM-DEF">/FC7300FXXX/Sent/SentConfigSet/SentControllerConfig/SentChannelConfig/PausePulseEn</DEFINITION-REF>
+                          <VALUE>0</VALUE>
+                        </ECUC-NUMERICAL-PARAM-VALUE>
+                        <ECUC-NUMERICAL-PARAM-VALUE>
+                          <DEFINITION-REF DEST="ECUC-BOOLEAN-PARAM-DEF">/FC7300FXXX/Sent/SentConfigSet/SentControllerConfig/SentChannelConfig/SentChannelActivation</DEFINITION-REF>
+                          <VALUE>1</VALUE>
+                        </ECUC-NUMERICAL-PARAM-VALUE>
+                        <ECUC-NUMERICAL-PARAM-VALUE>
+                          <DEFINITION-REF DEST="ECUC-INTEGER-PARAM-DEF">/FC7300FXXX/Sent/SentConfigSet/SentControllerConfig/SentChannelConfig/SentChannelId</DEFINITION-REF>
+                          <VALUE>1</VALUE>
+                        </ECUC-NUMERICAL-PARAM-VALUE>
+                        <ECUC-NUMERICAL-PARAM-VALUE>
+                          <DEFINITION-REF DEST="ECUC-FLOAT-PARAM-DEF">/FC7300FXXX/Sent/SentConfigSet/SentControllerConfig/SentChannelConfig/SentClockTickMax</DEFINITION-REF>
+                          <VALUE>3.88</VALUE>
+                        </ECUC-NUMERICAL-PARAM-VALUE>
+                        <ECUC-NUMERICAL-PARAM-VALUE>
+                          <DEFINITION-REF DEST="ECUC-FLOAT-PARAM-DEF">/FC7300FXXX/Sent/SentConfigSet/SentControllerConfig/SentChannelConfig/SentClockTickMin</DEFINITION-REF>
+                          <VALUE>2.0</VALUE>
+                        </ECUC-NUMERICAL-PARAM-VALUE>
+                        <ECUC-TEXTUAL-PARAM-VALUE>
+                          <DEFINITION-REF DEST="ECUC-FUNCTION-NAME-DEF">/FC7300FXXX/Sent/SentConfigSet/SentControllerConfig/SentChannelConfig/SentFastCRCErrorNotification</DEFINITION-REF>
+                          <VALUE>NULL_PTR</VALUE>
+                        </ECUC-TEXTUAL-PARAM-VALUE>
+                        <ECUC-NUMERICAL-PARAM-VALUE>
+                          <DEFINITION-REF DEST="ECUC-BOOLEAN-PARAM-DEF">/FC7300FXXX/Sent/SentConfigSet/SentControllerConfig/SentChannelConfig/SentFastCRCErrorNotificationEnable</DEFINITION-REF>
+                          <VALUE>0</VALUE>
+                        </ECUC-NUMERICAL-PARAM-VALUE>
+                        <ECUC-TEXTUAL-PARAM-VALUE>
+                          <DEFINITION-REF DEST="ECUC-FUNCTION-NAME-DEF">/FC7300FXXX/Sent/SentConfigSet/SentControllerConfig/SentChannelConfig/SentFastNotification</DEFINITION-REF>
+                          <VALUE>SentFastNotification_TLE4998C8D</VALUE>
+                        </ECUC-TEXTUAL-PARAM-VALUE>
+                        <ECUC-TEXTUAL-PARAM-VALUE>
+                          <DEFINITION-REF DEST="ECUC-ENUMERATION-PARAM-DEF">/FC7300FXXX/Sent/SentConfigSet/SentControllerConfig/SentChannelConfig/SentHWChannel</DEFINITION-REF>
+                          <VALUE>Sent_Channel2</VALUE>
+                        </ECUC-TEXTUAL-PARAM-VALUE>
+                        <ECUC-NUMERICAL-PARAM-VALUE>
+                          <DEFINITION-REF DEST="ECUC-INTEGER-PARAM-DEF">/FC7300FXXX/Sent/SentConfigSet/SentControllerConfig/SentChannelConfig/SentModuleClock</DEFINITION-REF>
+                          <VALUE>75000000</VALUE>
+                        </ECUC-NUMERICAL-PARAM-VALUE>
+                        <ECUC-TEXTUAL-PARAM-VALUE>
+                          <DEFINITION-REF DEST="ECUC-FUNCTION-NAME-DEF">/FC7300FXXX/Sent/SentConfigSet/SentControllerConfig/SentChannelConfig/SentSlowCRCErrorNotification</DEFINITION-REF>
+                          <VALUE>NULL_PTR</VALUE>
+                        </ECUC-TEXTUAL-PARAM-VALUE>
+                        <ECUC-NUMERICAL-PARAM-VALUE>
+                          <DEFINITION-REF DEST="ECUC-BOOLEAN-PARAM-DEF">/FC7300FXXX/Sent/SentConfigSet/SentControllerConfig/SentChannelConfig/SentSlowCRCErrorNotificationEnable</DEFINITION-REF>
+                          <VALUE>0</VALUE>
+                        </ECUC-NUMERICAL-PARAM-VALUE>
+                        <ECUC-TEXTUAL-PARAM-VALUE>
+                          <DEFINITION-REF DEST="ECUC-FUNCTION-NAME-DEF">/FC7300FXXX/Sent/SentConfigSet/SentControllerConfig/SentChannelConfig/SentSlowNotification</DEFINITION-REF>
+                          <VALUE>SentSlowNotification_TLE4998C8D</VALUE>
+                        </ECUC-TEXTUAL-PARAM-VALUE>
+                        <ECUC-NUMERICAL-PARAM-VALUE>
+                          <DEFINITION-REF DEST="ECUC-BOOLEAN-PARAM-DEF">/FC7300FXXX/Sent/SentConfigSet/SentControllerConfig/SentChannelConfig/SlowMsgCRCAugEn</DEFINITION-REF>
+                          <VALUE>1</VALUE>
+                        </ECUC-NUMERICAL-PARAM-VALUE>
+                        <ECUC-NUMERICAL-PARAM-VALUE>
+                          <DEFINITION-REF DEST="ECUC-BOOLEAN-PARAM-DEF">/FC7300FXXX/Sent/SentConfigSet/SentControllerConfig/SentChannelConfig/SlowMsgDmaEn</DEFINITION-REF>
+                          <VALUE>0</VALUE>
+                        </ECUC-NUMERICAL-PARAM-VALUE>
+                        <ECUC-TEXTUAL-PARAM-VALUE>
+                          <DEFINITION-REF DEST="ECUC-ENUMERATION-PARAM-DEF">/FC7300FXXX/Sent/SentConfigSet/SentControllerConfig/SentChannelConfig/SlowMsgReadType</DEFINITION-REF>
+                          <VALUE>Polling</VALUE>
+                        </ECUC-TEXTUAL-PARAM-VALUE>
+                        <ECUC-NUMERICAL-PARAM-VALUE>
+                          <DEFINITION-REF DEST="ECUC-BOOLEAN-PARAM-DEF">/FC7300FXXX/Sent/SentConfigSet/SentControllerConfig/SentChannelConfig/TickCompensateEn</DEFINITION-REF>
+                          <VALUE>1</VALUE>
+                        </ECUC-NUMERICAL-PARAM-VALUE>
+                        <ECUC-NUMERICAL-PARAM-VALUE>
+                          <DEFINITION-REF DEST="ECUC-INTEGER-PARAM-DEF">/FC7300FXXX/Sent/SentConfigSet/SentControllerConfig/SentChannelConfig/TickScaler</DEFINITION-REF>
+                          <VALUE>220</VALUE>
+                        </ECUC-NUMERICAL-PARAM-VALUE>
+                        <ECUC-NUMERICAL-PARAM-VALUE>
+                          <DEFINITION-REF DEST="ECUC-BOOLEAN-PARAM-DEF">/FC7300FXXX/Sent/SentConfigSet/SentControllerConfig/SentChannelConfig/UseAlternativeCrc</DEFINITION-REF>
+                          <VALUE>1</VALUE>
+                        </ECUC-NUMERICAL-PARAM-VALUE>
+                      </PARAMETER-VALUES>
+                      <SUB-CONTAINERS>
+                        <ECUC-CONTAINER-VALUE>
+                          <SHORT-NAME>SentSPCmode</SHORT-NAME>
+                          <DEFINITION-REF DEST="ECUC-PARAM-CONF-CONTAINER-DEF">/FC7300FXXX/Sent/SentConfigSet/SentControllerConfig/SentChannelConfig/SentSPCmode</DEFINITION-REF>
+                          <PARAMETER-VALUES>
+                            <ECUC-NUMERICAL-PARAM-VALUE>
+                              <DEFINITION-REF DEST="ECUC-BOOLEAN-PARAM-DEF">/FC7300FXXX/Sent/SentConfigSet/SentControllerConfig/SentChannelConfig/SentSPCmode/CalDiagEn</DEFINITION-REF>
+                              <VALUE>1</VALUE>
+                            </ECUC-NUMERICAL-PARAM-VALUE>
+                            <ECUC-NUMERICAL-PARAM-VALUE>
+                              <DEFINITION-REF DEST="ECUC-INTEGER-PARAM-DEF">/FC7300FXXX/Sent/SentConfigSet/SentControllerConfig/SentChannelConfig/SentSPCmode/PulseDelay</DEFINITION-REF>
+                              <VALUE>63</VALUE>
+                            </ECUC-NUMERICAL-PARAM-VALUE>
+                            <ECUC-NUMERICAL-PARAM-VALUE>
+                              <DEFINITION-REF DEST="ECUC-INTEGER-PARAM-DEF">/FC7300FXXX/Sent/SentConfigSet/SentControllerConfig/SentChannelConfig/SentSPCmode/PulseWidth</DEFINITION-REF>
+                              <VALUE>2</VALUE>
+                            </ECUC-NUMERICAL-PARAM-VALUE>
+                            <ECUC-NUMERICAL-PARAM-VALUE>
+                              <DEFINITION-REF DEST="ECUC-BOOLEAN-PARAM-DEF">/FC7300FXXX/Sent/SentConfigSet/SentControllerConfig/SentChannelConfig/SentSPCmode/SentSPCModeEn</DEFINITION-REF>
+                              <VALUE>1</VALUE>
+                            </ECUC-NUMERICAL-PARAM-VALUE>
+                            <ECUC-TEXTUAL-PARAM-VALUE>
+                              <DEFINITION-REF DEST="ECUC-ENUMERATION-PARAM-DEF">/FC7300FXXX/Sent/SentConfigSet/SentControllerConfig/SentChannelConfig/SentSPCmode/SpcTickBase</DEFINITION-REF>
+                              <VALUE>SENT_SPC_TICK_BASE_CONFIGURED</VALUE>
+                            </ECUC-TEXTUAL-PARAM-VALUE>
+                            <ECUC-TEXTUAL-PARAM-VALUE>
+                              <DEFINITION-REF DEST="ECUC-ENUMERATION-PARAM-DEF">/FC7300FXXX/Sent/SentConfigSet/SentControllerConfig/SentChannelConfig/SentSPCmode/SpcTrigger</DEFINITION-REF>
+                              <VALUE>SENT_SPC_SOFTWARE_TRIGGER</VALUE>
+                            </ECUC-TEXTUAL-PARAM-VALUE>
+                          </PARAMETER-VALUES>
+                        </ECUC-CONTAINER-VALUE>
+                      </SUB-CONTAINERS>
+                    </ECUC-CONTAINER-VALUE>
+                  </SUB-CONTAINERS>
+                </ECUC-CONTAINER-VALUE>
+              </SUB-CONTAINERS>
+            </ECUC-CONTAINER-VALUE>
+            <ECUC-CONTAINER-VALUE>
+              <SHORT-NAME>SentGeneral</SHORT-NAME>
+              <DEFINITION-REF DEST="ECUC-PARAM-CONF-CONTAINER-DEF">/FC7300FXXX/Sent/SentGeneral</DEFINITION-REF>
+              <PARAMETER-VALUES>
+                <ECUC-NUMERICAL-PARAM-VALUE>
+                  <DEFINITION-REF DEST="ECUC-BOOLEAN-PARAM-DEF">/FC7300FXXX/Sent/SentGeneral/SentDeInitApi</DEFINITION-REF>
+                  <VALUE>1</VALUE>
+                </ECUC-NUMERICAL-PARAM-VALUE>
+                <ECUC-NUMERICAL-PARAM-VALUE>
+                  <DEFINITION-REF DEST="ECUC-BOOLEAN-PARAM-DEF">/FC7300FXXX/Sent/SentGeneral/SentDevErrorDetect</DEFINITION-REF>
+                  <VALUE>0</VALUE>
+                </ECUC-NUMERICAL-PARAM-VALUE>
+                <ECUC-NUMERICAL-PARAM-VALUE>
+                  <DEFINITION-REF DEST="ECUC-INTEGER-PARAM-DEF">/FC7300FXXX/Sent/SentGeneral/SentIndex</DEFINITION-REF>
+                  <VALUE>0</VALUE>
+                </ECUC-NUMERICAL-PARAM-VALUE>
+                <ECUC-NUMERICAL-PARAM-VALUE>
+                  <DEFINITION-REF DEST="ECUC-BOOLEAN-PARAM-DEF">/FC7300FXXX/Sent/SentGeneral/SentMulticoreSupport</DEFINITION-REF>
+                  <VALUE>1</VALUE>
+                </ECUC-NUMERICAL-PARAM-VALUE>
+                <ECUC-NUMERICAL-PARAM-VALUE>
+                  <DEFINITION-REF DEST="ECUC-BOOLEAN-PARAM-DEF">/FC7300FXXX/Sent/SentGeneral/SentVersionInfoApi</DEFINITION-REF>
+                  <VALUE>1</VALUE>
+                </ECUC-NUMERICAL-PARAM-VALUE>
+              </PARAMETER-VALUES>
+              <REFERENCE-VALUES>
+                <ECUC-REFERENCE-VALUE>
+                  <DEFINITION-REF DEST="ECUC-REFERENCE-DEF">/FC7300FXXX/Sent/SentGeneral/SentEcucPartitionRef</DEFINITION-REF>
+                  <VALUE-REF DEST="ECUC-CONTAINER-VALUE">/EcuC/EcuC/EcucPartitionCollection/EcucPartition_0</VALUE-REF>
+                </ECUC-REFERENCE-VALUE>
+              </REFERENCE-VALUES>
+            </ECUC-CONTAINER-VALUE>
+          </CONTAINERS>
+        </ECUC-MODULE-CONFIGURATION-VALUES>
+      </ELEMENTS>
+    </AR-PACKAGE>
+  </AR-PACKAGES>
+</AUTOSAR>

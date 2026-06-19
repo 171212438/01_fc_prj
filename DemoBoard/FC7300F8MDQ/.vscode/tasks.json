@@ -1,0 +1,83 @@
+{
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "label": "FC7300F8MDQ: Build",
+            "type": "process",
+            "command": "D:\\Workspace\\FlagChip\\00_fc_ide\\cmd\\make.exe",
+            "args": [
+                "all"
+            ],
+            "options": {
+                "cwd": "${workspaceFolder}\\tools\\FC_Project\\__Debug_Flash",
+                "env": {
+                    "PATH": "D:\\Workspace\\FlagChip\\00_fc_ide\\gcc9-2019-q4\\bin;D:\\Workspace\\FlagChip\\00_fc_ide\\cmd;${env:PATH}"
+                }
+            },
+            "group": {
+                "kind": "build",
+                "isDefault": true
+            },
+            "problemMatcher": "$gcc",
+            "presentation": {
+                "reveal": "always",
+                "panel": "dedicated",
+                "clear": true
+            }
+        },
+        {
+            "label": "FC7300F8MDQ: Clean",
+            "type": "process",
+            "command": "D:\\Workspace\\FlagChip\\00_fc_ide\\cmd\\make.exe",
+            "args": [
+                "clean"
+            ],
+            "options": {
+                "cwd": "${workspaceFolder}\\tools\\FC_Project\\__Debug_Flash",
+                "env": {
+                    "PATH": "D:\\Workspace\\FlagChip\\00_fc_ide\\gcc9-2019-q4\\bin;D:\\Workspace\\FlagChip\\00_fc_ide\\cmd;${env:PATH}"
+                }
+            },
+            "problemMatcher": "$gcc",
+            "presentation": {
+                "reveal": "always",
+                "panel": "dedicated",
+                "clear": true
+            }
+        },
+        {
+            "label": "FC7300F8MDQ: Rebuild",
+            "dependsOrder": "sequence",
+            "dependsOn": [
+                "FC7300F8MDQ: Clean",
+                "FC7300F8MDQ: Build"
+            ],
+            "problemMatcher": []
+        },
+        {
+            "label": "MCAL: Copy Selection Reference",
+            "type": "process",
+            "command": "powershell.exe",
+            "args": [
+                "-NoProfile",
+                "-ExecutionPolicy",
+                "Bypass",
+                "-File",
+                "D:\\Workspace\\FlagChip\\01_fc_prj\\DemoBoard\\FC7300F8MDQ\\.vscode\\copy-selection-ref.ps1",
+                "-FilePath",
+                "${file}",
+                "-LineNumber",
+                "${lineNumber}",
+                "-SelectedText",
+                "${selectedText}"
+            ],
+            "problemMatcher": [],
+            "presentation": {
+                "reveal": "silent",
+                "panel": "shared",
+                "clear": false,
+                "showReuseMessage": false
+            }
+        }
+    ]
+}

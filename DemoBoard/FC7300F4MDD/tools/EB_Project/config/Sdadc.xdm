@@ -1,0 +1,1264 @@
+<?xml version='1.0'?>
+<datamodel version="7.0" 
+           xmlns="http://www.tresos.de/_projects/DataModel2/16/root.xsd" 
+           xmlns:a="http://www.tresos.de/_projects/DataModel2/16/attribute.xsd" 
+           xmlns:v="http://www.tresos.de/_projects/DataModel2/06/schema.xsd" 
+           xmlns:d="http://www.tresos.de/_projects/DataModel2/06/data.xsd">
+
+  <d:ctr type="AUTOSAR" factory="autosar" 
+         xmlns:ad="http://www.tresos.de/_projects/DataModel2/08/admindata.xsd" 
+         xmlns:cd="http://www.tresos.de/_projects/DataModel2/08/customdata.xsd" 
+         xmlns:f="http://www.tresos.de/_projects/DataModel2/14/formulaexpr.xsd" 
+         xmlns:icc="http://www.tresos.de/_projects/DataModel2/08/implconfigclass.xsd" 
+         xmlns:mt="http://www.tresos.de/_projects/DataModel2/11/multitest.xsd"  
+         xmlns:variant="http://www.tresos.de/_projects/DataModel2/11/variant.xsd">
+    <d:lst type="TOP-LEVEL-PACKAGES">
+      <d:ctr name="Sdadc" type="AR-PACKAGE">
+        <d:lst type="ELEMENTS">
+          <d:chc name="Sdadc" type="AR-ELEMENT" value="MODULE-CONFIGURATION">
+            <d:ctr type="MODULE-CONFIGURATION">
+              <a:a name="DEF" value="ASPath:/FC7300FXXX/Sdadc"/>
+              <a:a name="IMPORTER_INFO" value="@REC"/>
+              <d:var name="IMPLEMENTATION_CONFIG_VARIANT" type="ENUMERATION" 
+                     value="VariantPreCompile">
+                <a:a name="IMPORTER_INFO" value="@REC"/>
+              </d:var>
+              <d:ctr name="SdadcGeneral" type="IDENTIFIABLE">
+                <a:a name="IMPORTER_INFO" value="@REC"/>
+                <d:var name="SdadcDevErrorDetect" type="BOOLEAN" value="true">
+                  <a:a name="IMPORTER_INFO" value="@REC"/>
+                </d:var>
+                <d:var name="SdadcVersionInfoApi" type="BOOLEAN" value="true">
+                  <a:a name="IMPORTER_INFO" value="@REC"/>
+                </d:var>
+                <d:var name="SdadcMultiCoreSupport" type="BOOLEAN" value="true">
+                  <a:a name="IMPORTER_INFO" value="@REC"/>
+                </d:var>
+                <d:var name="SdadcDisableDemReportErrorStatus" type="BOOLEAN" 
+                       value="false"/>
+                <d:var name="SdadcGtsSupport" type="BOOLEAN" value="false">
+                  <a:a name="IMPORTER_INFO" value="@REC"/>
+                </d:var>
+                <d:var name="SdadcTsPolling" type="BOOLEAN" value="false">
+                  <a:a name="IMPORTER_INFO" value="@REC"/>
+                </d:var>
+                <d:var name="SdadcCalibApi" type="BOOLEAN" value="true">
+                  <a:a name="IMPORTER_INFO" value="@REC"/>
+                </d:var>
+                <d:var name="SdadcTimeoutDuration" type="INTEGER" value="10000">
+                  <a:a name="IMPORTER_INFO" value="@REC"/>
+                </d:var>
+                <d:var name="SdadcIntgMCOCTimeoutDuration" type="INTEGER" 
+                       value="100000">
+                  <a:a name="IMPORTER_INFO" value="@REC"/>
+                </d:var>
+                <d:var name="SdadcGtsTimeoutDuration" type="INTEGER" 
+                       value="100000">
+                  <a:a name="IMPORTER_INFO" value="@REC"/>
+                </d:var>
+                <d:lst name="SdadcEcucPartitionRef">
+                  <d:ref type="REFERENCE" 
+                         value="ASPath:/EcuC/EcuC/EcucPartitionCollection/EcucPartition_0">
+                    <a:a name="IMPORTER_INFO" value="@REC"/>
+                  </d:ref>
+                </d:lst>
+                <d:ctr name="SdadcDemEventParameterRefs" type="IDENTIFIABLE">
+                  <a:a name="ENABLE" value="true"/>
+                  <a:a name="IMPORTER_INFO" value="@REC"/>
+                  <d:ref name="SDADC_E_TIMEOUT" type="REFERENCE" 
+                         value="ASPath:/Dem/Dem/DemConfigSet/DemEventParameter_SdadcTimeout">
+                    <a:a name="IMPORTER_INFO" value="@REC"/>
+                  </d:ref>
+                </d:ctr>
+              </d:ctr>
+              <d:ctr name="SdadcGlobalConfig" type="IDENTIFIABLE">
+                <a:a name="IMPORTER_INFO" value="@REC"/>
+                <d:lst name="SdadcInstance" type="MAP">
+                  <d:ctr name="SdadcInstance_0" type="IDENTIFIABLE">
+                    <a:a name="IMPORTER_INFO" value="@REC"/>
+                    <d:var name="SdadcInstanceId" type="INTEGER" value="0">
+                      <a:a name="IMPORTER_INFO" value="@REC"/>
+                    </d:var>
+                    <d:var name="SdadcHwId" type="INTEGER" value="0">
+                      <a:a name="IMPORTER_INFO" value="@REC"/>
+                    </d:var>
+                    <d:ref name="SdadcChannelEcucPartitionRef" type="REFERENCE" 
+                           value="ASPath:/EcuC/EcuC/EcucPartitionCollection/EcucPartition_0">
+                      <a:a name="ENABLE" value="true"/>
+                      <a:a name="IMPORTER_INFO" value="@REC"/>
+                    </d:ref>
+                    <d:var name="SdadcCtrlCLKO2Dis" type="BOOLEAN" value="true">
+                      <a:a name="IMPORTER_INFO" value="@REC"/>
+                    </d:var>
+                    <d:var name="SdadcCtrlCLKO1Dis" type="BOOLEAN" value="true">
+                      <a:a name="IMPORTER_INFO" value="@REC"/>
+                    </d:var>
+                    <d:var name="SdadcCtrlCLKO0Dis" type="BOOLEAN" value="true">
+                      <a:a name="IMPORTER_INFO" value="@REC"/>
+                    </d:var>
+                    <d:ref name="SdadcCoreClockRef" type="REFERENCE" 
+                           value="ASPath:/Mcu/Mcu/McuModuleConfiguration/MCU_Demo_FOSC24M/McuClockReferencePoint_Sys">
+                      <a:a name="IMPORTER_INFO" value="@REC"/>
+                    </d:ref>
+                    <d:ref name="SdadcClockRef" type="REFERENCE" 
+                           value="ASPath:/Mcu/Mcu/McuModuleConfiguration/MCU_Demo_FOSC24M/McuClockReferencePoint_Sdadc0">
+                      <a:a name="IMPORTER_INFO" value="@REC"/>
+                    </d:ref>
+                    <d:var name="SdadcCtrlPrescale" type="INTEGER" value="1">
+                      <a:a name="IMPORTER_INFO" value="@REC"/>
+                    </d:var>
+                    <d:var name="SdadcCtrlMclkDiV" type="INTEGER" value="5">
+                      <a:a name="IMPORTER_INFO" value="@REC"/>
+                    </d:var>
+                    <d:ctr name="PwmConfiguration" type="IDENTIFIABLE">
+                      <a:a name="IMPORTER_INFO" value="@REC"/>
+                      <d:var name="PwmGenPattern" type="ENUMERATION" 
+                             value="STOPPED">
+                        <a:a name="IMPORTER_INFO" value="@REC"/>
+                      </d:var>
+                      <d:var name="PwmGenTrgSignOen" type="BOOLEAN" value="true">
+                        <a:a name="IMPORTER_INFO" value="@REC"/>
+                      </d:var>
+                      <d:var name="PwmGenBitRev" type="BOOLEAN" value="true">
+                        <a:a name="IMPORTER_INFO" value="@REC"/>
+                      </d:var>
+                      <d:var name="PwmGenClkSel" type="ENUMERATION" 
+                             value="DIV_CLK0">
+                        <a:a name="IMPORTER_INFO" value="@REC"/>
+                      </d:var>
+                      <d:var name="PwmGenPol" type="BOOLEAN" value="false">
+                        <a:a name="IMPORTER_INFO" value="@REC"/>
+                      </d:var>
+                    </d:ctr>
+                    <d:ctr name="BiasConfiguration" type="IDENTIFIABLE">
+                      <a:a name="IMPORTER_INFO" value="@REC"/>
+                      <d:var name="SdadcBacsrBiasEn" type="BOOLEAN" value="true">
+                        <a:a name="IMPORTER_INFO" value="@REC"/>
+                      </d:var>
+                      <d:var name="SdadcBacsrVcmBen" type="BOOLEAN" value="true">
+                        <a:a name="IMPORTER_INFO" value="@REC"/>
+                      </d:var>
+                      <d:var name="SdadcBacsrBstc" type="INTEGER" value="31">
+                        <a:a name="IMPORTER_INFO" value="@REC"/>
+                      </d:var>
+                      <d:ctr name="HVrefChannelSelection" type="IDENTIFIABLE">
+                        <a:a name="IMPORTER_INFO" value="@REC"/>
+                        <d:var name="SdadcBacsrInChl0HVref" type="BOOLEAN" 
+                               value="true">
+                          <a:a name="IMPORTER_INFO" value="@REC"/>
+                        </d:var>
+                        <d:var name="SdadcBacsrInChl1HVref" type="BOOLEAN" 
+                               value="true">
+                          <a:a name="IMPORTER_INFO" value="@REC"/>
+                        </d:var>
+                        <d:var name="SdadcBacsrInChl2HVref" type="BOOLEAN" 
+                               value="true">
+                          <a:a name="IMPORTER_INFO" value="@REC"/>
+                        </d:var>
+                      </d:ctr>
+                    </d:ctr>
+                    <d:ctr name="GlobalTimeStampConfig" type="IDENTIFIABLE">
+                      <a:a name="IMPORTER_INFO" value="@REC"/>
+                      <d:var name="DmaReqSrcSel" type="ENUMERATION" 
+                             value="NO_DMA_REQ">
+                        <a:a name="IMPORTER_INFO" value="@REC"/>
+                      </d:var>
+                      <d:ref name="SdadcTsDmaChannel" type="REFERENCE" >
+                        <a:a name="ENABLE" value="false"/>
+                        <a:a name="IMPORTER_INFO" value="@REC"/>
+                      </d:ref>
+                      <d:var name="TmrSrcSel" type="ENUMERATION" value="NO_LCK">
+                        <a:a name="IMPORTER_INFO" value="@REC"/>
+                      </d:var>
+                      <d:var name="TstampSrcSel" type="ENUMERATION" 
+                             value="TimeStamp1">
+                        <a:a name="IMPORTER_INFO" value="@REC"/>
+                      </d:var>
+                    </d:ctr>
+                    <d:lst name="SdadcChannel" type="MAP">
+                      <d:ctr name="SdadcChannel_0" type="IDENTIFIABLE">
+                        <a:a name="IMPORTER_INFO" value="@REC"/>
+                        <d:var name="SdadcChannelId" type="INTEGER" value="0">
+                          <a:a name="IMPORTER_INFO" value="@REC"/>
+                        </d:var>
+                        <d:var name="SdadcHwChannelId" type="INTEGER" value="0">
+                          <a:a name="IMPORTER_INFO" value="@REC"/>
+                        </d:var>
+                        <d:var name="GlobalTimeStampEn" type="BOOLEAN" 
+                               value="false">
+                          <a:a name="IMPORTER_INFO" value="@REC"/>
+                        </d:var>
+                        <d:var name="COCIntSupress" type="BOOLEAN" value="true">
+                          <a:a name="IMPORTER_INFO" value="@REC"/>
+                        </d:var>
+                        <d:var name="SdadcChannelAccessMode" type="ENUMERATION" 
+                               value="SDADC_SINGLE_READ">
+                          <a:a name="IMPORTER_INFO" value="@REC"/>
+                        </d:var>
+                        <d:var name="SdadcCcrFifoEn" type="BOOLEAN" value="true">
+                          <a:a name="IMPORTER_INFO" value="@REC"/>
+                        </d:var>
+                        <d:var name="SdadcCcrDmaEn" type="BOOLEAN" value="false">
+                          <a:a name="IMPORTER_INFO" value="@REC"/>
+                        </d:var>
+                        <d:var name="SdadcCfrFwmk" type="INTEGER" value="4">
+                          <a:a name="IMPORTER_INFO" value="@REC"/>
+                        </d:var>
+                        <d:var name="SdadcCfrRdfmt" type="BOOLEAN" value="false">
+                          <a:a name="IMPORTER_INFO" value="@REC"/>
+                        </d:var>
+                        <d:var name="BufferFullNotification" 
+                               type="FUNCTION-NAME" value="NULL_PTR">
+                          <a:a name="ENABLE" value="false"/>
+                          <a:a name="IMPORTER_INFO" value="@REC"/>
+                        </d:var>
+                        <d:var name="ConversionCompleteNotification" 
+                               type="FUNCTION-NAME" 
+                               value="SDADC0_CH0_COC_Notification">
+                          <a:a name="ENABLE" value="true"/>
+                          <a:a name="IMPORTER_INFO" value="@REC"/>
+                        </d:var>
+                        <d:var name="FifoOverFlowNotification" 
+                               type="FUNCTION-NAME" value="NULL_PTR">
+                          <a:a name="ENABLE" value="false"/>
+                          <a:a name="IMPORTER_INFO" value="@REC"/>
+                        </d:var>
+                        <d:var name="TimestampValidNotification" 
+                               type="FUNCTION-NAME" 
+                               value="SDADC0_CH0_TimeStamp_Notification">
+                          <a:a name="ENABLE" value="true"/>
+                          <a:a name="IMPORTER_INFO" value="@REC"/>
+                        </d:var>
+                        <d:ctr name="TimeStampAndResaultConfig" 
+                               type="IDENTIFIABLE">
+                          <a:a name="IMPORTER_INFO" value="@REC"/>
+                          <d:var name="CtsCntTstrgm" type="ENUMERATION" 
+                                 value="RISING_EDGE">
+                            <a:a name="IMPORTER_INFO" value="@REC"/>
+                          </d:var>
+                          <d:var name="CtsCntSyncTrgen" type="BOOLEAN" 
+                                 value="true">
+                            <a:a name="IMPORTER_INFO" value="@REC"/>
+                          </d:var>
+                          <d:var name="CtsCntSyncTrgsel" type="ENUMERATION" 
+                                 value="CHANNEL_0">
+                            <a:a name="IMPORTER_INFO" value="@REC"/>
+                          </d:var>
+                          <d:var name="CtsCntTsrdm" type="ENUMERATION" 
+                                 value="DEFAULT_MODE">
+                            <a:a name="IMPORTER_INFO" value="@REC"/>
+                          </d:var>
+                          <d:var name="CtsCntInmxcp" type="BOOLEAN" 
+                                 value="false">
+                            <a:a name="IMPORTER_INFO" value="@REC"/>
+                          </d:var>
+                          <d:var name="CtsCntTsEn" type="BOOLEAN" value="true">
+                            <a:a name="IMPORTER_INFO" value="@REC"/>
+                          </d:var>
+                          <d:var name="CtsCntTsclksel" type="ENUMERATION" 
+                                 value="DIV_BY_8">
+                            <a:a name="IMPORTER_INFO" value="@REC"/>
+                          </d:var>
+                        </d:ctr>
+                        <d:ctr name="TriggerConfig" type="IDENTIFIABLE">
+                          <a:a name="IMPORTER_INFO" value="@REC"/>
+                          <d:var name="SdadcCfrSyncTrgen" type="BOOLEAN" 
+                                 value="true">
+                            <a:a name="IMPORTER_INFO" value="@REC"/>
+                          </d:var>
+                          <d:var name="SdadcCfrSyncTrgsel" type="ENUMERATION" 
+                                 value="SYNC_TRGSEL_CH0">
+                            <a:a name="IMPORTER_INFO" value="@REC"/>
+                          </d:var>
+                          <d:var name="SdadcCfrTrgsel" type="ENUMERATION" 
+                                 value="SOFTWARE">
+                            <a:a name="IMPORTER_INFO" value="@REC"/>
+                          </d:var>
+                          <d:var name="SdadcCfrTrglvl" type="BOOLEAN" 
+                                 value="false">
+                            <a:a name="IMPORTER_INFO" value="@REC"/>
+                          </d:var>
+                        </d:ctr>
+                        <d:lst name="SdadcFilterChainConfiguration" type="MAP">
+                          <d:ctr name="SdadcFilterChainConfiguration_0" 
+                                 type="IDENTIFIABLE">
+                            <a:a name="IMPORTER_INFO" value="@REC"/>
+                            <d:var name="SdadcCfrCutoff" type="INTEGER" 
+                                   value="0">
+                              <a:a name="IMPORTER_INFO" value="@REC"/>
+                            </d:var>
+                            <d:var name="SdadcBiasOffset" type="INTEGER" 
+                                   value="0">
+                              <a:a name="IMPORTER_INFO" value="@REC"/>
+                            </d:var>
+                            <d:var name="SdadcGainFac" type="FLOAT" value="0.0">
+                              <a:a name="IMPORTER_INFO" value="@REC"/>
+                            </d:var>
+                            <d:ctr name="AFConfiguration" type="IDENTIFIABLE">
+                              <a:a name="IMPORTER_INFO" value="@REC"/>
+                              <d:var name="SdadcCcrAfEn" type="BOOLEAN" 
+                                     value="true">
+                                <a:a name="IMPORTER_INFO" value="@REC"/>
+                              </d:var>
+                              <d:var name="SdadcCdrAfcm" type="ENUMERATION" 
+                                     value="AFCM_FOLLOW_MF_MODE">
+                                <a:a name="IMPORTER_INFO" value="@REC"/>
+                              </d:var>
+                              <d:var name="SdadcCdrAford" type="ENUMERATION" 
+                                     value="SECOND_ORDER">
+                                <a:a name="IMPORTER_INFO" value="@REC"/>
+                              </d:var>
+                              <d:var name="SdadcCdrAfosr" type="INTEGER" 
+                                     value="32">
+                                <a:a name="IMPORTER_INFO" value="@REC"/>
+                              </d:var>
+                            </d:ctr>
+                            <d:ctr name="MFConfiguration" type="IDENTIFIABLE">
+                              <a:a name="IMPORTER_INFO" value="@REC"/>
+                              <d:var name="SdadcCcrMfEn" type="BOOLEAN" 
+                                     value="true">
+                                <a:a name="IMPORTER_INFO" value="@REC"/>
+                              </d:var>
+                              <d:var name="SdadcCdrMfcm" type="ENUMERATION" 
+                                     value="MFCM_CONTINUOUS_MODE">
+                                <a:a name="IMPORTER_INFO" value="@REC"/>
+                              </d:var>
+                              <d:var name="SdadcCdrMford" type="ENUMERATION" 
+                                     value="THIRD_ORDER">
+                                <a:a name="IMPORTER_INFO" value="@REC"/>
+                              </d:var>
+                              <d:var name="SdadcCdrMfosr" type="INTEGER" 
+                                     value="128">
+                                <a:a name="IMPORTER_INFO" value="@REC"/>
+                              </d:var>
+                            </d:ctr>
+                            <d:ctr name="IntegratorConfiguration" 
+                                   type="IDENTIFIABLE">
+                              <a:a name="IMPORTER_INFO" value="@REC"/>
+                              <d:var name="SdadcCcrIntgEn" type="BOOLEAN" 
+                                     value="true">
+                                <a:a name="IMPORTER_INFO" value="@REC"/>
+                              </d:var>
+                              <d:var name="CicfrItrsel" type="ENUMERATION" 
+                                     value="SOFTWARE">
+                                <a:a name="IMPORTER_INFO" value="@REC"/>
+                              </d:var>
+                              <d:var name="CicfrHtrpol" type="ENUMERATION" 
+                                     value="HIGH_RISING">
+                                <a:a name="IMPORTER_INFO" value="@REC"/>
+                              </d:var>
+                              <d:var name="CicfrSyncTrgen" type="BOOLEAN" 
+                                     value="false">
+                                <a:a name="IMPORTER_INFO" value="@REC"/>
+                              </d:var>
+                              <d:var name="CicfrSyncTrgsel" type="ENUMERATION" 
+                                     value="CHANNEL_0">
+                                <a:a name="IMPORTER_INFO" value="@REC"/>
+                              </d:var>
+                              <d:var name="CicfrNvalint" type="INTEGER" 
+                                     value="64">
+                                <a:a name="IMPORTER_INFO" value="@REC"/>
+                              </d:var>
+                              <d:var name="CicfrNvaldis" type="INTEGER" 
+                                     value="0">
+                                <a:a name="IMPORTER_INFO" value="@REC"/>
+                              </d:var>
+                              <d:var name="CicfrNvalrep" type="INTEGER" 
+                                     value="1">
+                                <a:a name="IMPORTER_INFO" value="@REC"/>
+                              </d:var>
+                              <d:var name="CicfrExtstp" type="ENUMERATION" 
+                                     value="INTERNAL_CONTROL">
+                                <a:a name="IMPORTER_INFO" value="@REC"/>
+                              </d:var>
+                              <d:var name="CicfrIogt" type="BOOLEAN" 
+                                     value="true">
+                                <a:a name="IMPORTER_INFO" value="@REC"/>
+                              </d:var>
+                              <d:var name="CicfrIsval" type="INTEGER" value="6">
+                                <a:a name="IMPORTER_INFO" value="@REC"/>
+                              </d:var>
+                            </d:ctr>
+                            <d:ctr name="RectificationConfiguration" 
+                                   type="IDENTIFIABLE">
+                              <a:a name="IMPORTER_INFO" value="@REC"/>
+                              <d:var name="SdadcCcrRectEn" type="BOOLEAN" 
+                                     value="false">
+                                <a:a name="IMPORTER_INFO" value="@REC"/>
+                              </d:var>
+                              <d:var name="CrtcsrCtrgsignOen" type="BOOLEAN" 
+                                     value="true">
+                                <a:a name="IMPORTER_INFO" value="@REC"/>
+                              </d:var>
+                              <d:var name="CrtcsrSsrc" type="ENUMERATION" 
+                                     value="SDADC_INTERNAL">
+                                <a:a name="IMPORTER_INFO" value="@REC"/>
+                              </d:var>
+                              <d:var name="CrtcsrSsch" type="ENUMERATION" 
+                                     value="CHANNEL_0">
+                                <a:a name="IMPORTER_INFO" value="@REC"/>
+                              </d:var>
+                              <d:var name="CrtcsrDlyTrg" type="INTEGER" 
+                                     value="0">
+                                <a:a name="IMPORTER_INFO" value="@REC"/>
+                              </d:var>
+                              <d:var name="SdadcCsdDlyNegOffset" type="INTEGER" 
+                                     value="1">
+                                <a:a name="IMPORTER_INFO" value="@REC"/>
+                              </d:var>
+                              <d:var name="SdadcCsdDlyPos" type="INTEGER" 
+                                     value="1">
+                                <a:a name="IMPORTER_INFO" value="@REC"/>
+                              </d:var>
+                            </d:ctr>
+                          </d:ctr>
+                        </d:lst>
+                        <d:lst name="SdadcDetectConfiguration" type="MAP">
+                          <d:ctr name="SdadcDetectConfiguration_0" 
+                                 type="IDENTIFIABLE">
+                            <a:a name="IMPORTER_INFO" value="@REC"/>
+                            <d:ctr name="LimitConfiguration" 
+                                   type="IDENTIFIABLE">
+                              <a:a name="IMPORTER_INFO" value="@REC"/>
+                              <d:var name="SdadcCcrLmtEn" type="BOOLEAN" 
+                                     value="false">
+                                <a:a name="IMPORTER_INFO" value="@REC"/>
+                              </d:var>
+                              <d:var name="SdadcCcrLmtSel" type="ENUMERATION" 
+                                     value="Main_Filter">
+                                <a:a name="IMPORTER_INFO" value="@REC"/>
+                              </d:var>
+                              <d:var name="SdadcCprHlmtBken" type="BOOLEAN" 
+                                     value="true">
+                                <a:a name="IMPORTER_INFO" value="@REC"/>
+                              </d:var>
+                              <d:var name="SdadcCprWlmtBken" type="BOOLEAN" 
+                                     value="true">
+                                <a:a name="IMPORTER_INFO" value="@REC"/>
+                              </d:var>
+                              <d:var name="SdadcCprLlmtBken" type="BOOLEAN" 
+                                     value="true">
+                                <a:a name="IMPORTER_INFO" value="@REC"/>
+                              </d:var>
+                              <d:var name="SdadcCprLmtfProten" type="BOOLEAN" 
+                                     value="true">
+                                <a:a name="IMPORTER_INFO" value="@REC"/>
+                              </d:var>
+                              <d:var name="SdadcCprLmtrProten" type="BOOLEAN" 
+                                     value="true">
+                                <a:a name="IMPORTER_INFO" value="@REC"/>
+                              </d:var>
+                              <d:var name="SdadcCprHystrProten" type="BOOLEAN" 
+                                     value="true">
+                                <a:a name="IMPORTER_INFO" value="@REC"/>
+                              </d:var>
+                              <d:var name="SdadcCprLmtavt" type="ENUMERATION" 
+                                     value="SET_HIGH_CLEAR_LOW">
+                                <a:a name="IMPORTER_INFO" value="@REC"/>
+                              </d:var>
+                              <d:var name="SdadcCprLmtopt" type="ENUMERATION" 
+                                     value="BOTH_HIGH_LOW">
+                                <a:a name="IMPORTER_INFO" value="@REC"/>
+                              </d:var>
+                              <d:var name="SdadcHighLimit" type="INTEGER" 
+                                     value="0">
+                                <a:a name="IMPORTER_INFO" value="@REC"/>
+                              </d:var>
+                              <d:var name="SdadcLowLimit" type="INTEGER" 
+                                     value="0">
+                                <a:a name="IMPORTER_INFO" value="@REC"/>
+                              </d:var>
+                            </d:ctr>
+                            <d:ctr name="ZerocrossConfiguration" 
+                                   type="IDENTIFIABLE">
+                              <a:a name="IMPORTER_INFO" value="@REC"/>
+                              <d:var name="SdadcCcrZcdEn" type="BOOLEAN" 
+                                     value="false">
+                                <a:a name="IMPORTER_INFO" value="@REC"/>
+                              </d:var>
+                              <d:var name="SdadcCcrZcdSel" type="ENUMERATION" 
+                                     value="Main_Filter">
+                                <a:a name="IMPORTER_INFO" value="@REC"/>
+                              </d:var>
+                            </d:ctr>
+                            <d:ctr name="ClockAbsenceConfiguration" 
+                                   type="IDENTIFIABLE">
+                              <a:a name="IMPORTER_INFO" value="@REC"/>
+                              <d:var name="SdadcCcrCadEn" type="BOOLEAN" 
+                                     value="false">
+                                <a:a name="IMPORTER_INFO" value="@REC"/>
+                              </d:var>
+                              <d:var name="SdadcCprCadBken" type="BOOLEAN" 
+                                     value="true">
+                                <a:a name="IMPORTER_INFO" value="@REC"/>
+                              </d:var>
+                              <d:var name="SdadcCprCadProten" type="BOOLEAN" 
+                                     value="true">
+                                <a:a name="IMPORTER_INFO" value="@REC"/>
+                              </d:var>
+                              <d:var name="SdadcCprCadlmt" type="INTEGER" 
+                                     value="1">
+                                <a:a name="IMPORTER_INFO" value="@REC"/>
+                              </d:var>
+                            </d:ctr>
+                            <d:ctr name="ShortCircuitConfiguration" 
+                                   type="IDENTIFIABLE">
+                              <a:a name="IMPORTER_INFO" value="@REC"/>
+                              <d:var name="SdadcCcrScdEn" type="BOOLEAN" 
+                                     value="false">
+                                <a:a name="IMPORTER_INFO" value="@REC"/>
+                              </d:var>
+                              <d:var name="SdadcCprScdBken" type="BOOLEAN" 
+                                     value="true">
+                                <a:a name="IMPORTER_INFO" value="@REC"/>
+                              </d:var>
+                              <d:var name="SdadcCprScdProten" type="BOOLEAN" 
+                                     value="true">
+                                <a:a name="IMPORTER_INFO" value="@REC"/>
+                              </d:var>
+                              <d:var name="SdadcCprScdopt" type="ENUMERATION" 
+                                     value="BOTH_0_1">
+                                <a:a name="IMPORTER_INFO" value="@REC"/>
+                              </d:var>
+                              <d:var name="SdadcCprScdcm" type="BOOLEAN" 
+                                     value="false">
+                                <a:a name="IMPORTER_INFO" value="@REC"/>
+                              </d:var>
+                              <d:var name="SdadcCprScdlmt" type="INTEGER" 
+                                     value="1">
+                                <a:a name="IMPORTER_INFO" value="@REC"/>
+                              </d:var>
+                            </d:ctr>
+                          </d:ctr>
+                        </d:lst>
+                        <d:lst name="SdadcModulatorConfiguration" type="MAP">
+                          <d:ctr name="SdadcModulatorConfiguration_0" 
+                                 type="IDENTIFIABLE">
+                            <a:a name="IMPORTER_INFO" value="@REC"/>
+                            <d:var name="SdadcCmacsrMasel" type="ENUMERATION" 
+                                   value="INTERNAL">
+                              <a:a name="IMPORTER_INFO" value="@REC"/>
+                            </d:var>
+                            <d:var name="SdadcCfrIbfmt" type="ENUMERATION" 
+                                   value="ONE_BIT_STREAM">
+                              <a:a name="IMPORTER_INFO" value="@REC"/>
+                            </d:var>
+                            <d:var name="SdadcCfrClkedg" type="ENUMERATION" 
+                                   value="POSEDGE">
+                              <a:a name="IMPORTER_INFO" value="@REC"/>
+                            </d:var>
+                            <d:var name="SdadcCfrClksel" type="ENUMERATION" 
+                                   value="DIV_CLK1">
+                              <a:a name="IMPORTER_INFO" value="@REC"/>
+                            </d:var>
+                            <d:var name="SdadcCmacsrMaclkSel" 
+                                   type="ENUMERATION" value="DIV_CLK0">
+                              <a:a name="IMPORTER_INFO" value="@REC"/>
+                            </d:var>
+                            <d:var name="SdadcCmacsrRstSel" type="INTEGER" 
+                                   value="8">
+                              <a:a name="IMPORTER_INFO" value="@REC"/>
+                            </d:var>
+                            <d:var name="SdadcCmacsrDitherEn" type="BOOLEAN" 
+                                   value="true">
+                              <a:a name="IMPORTER_INFO" value="@REC"/>
+                            </d:var>
+                            <d:var name="SdadcCmacsrIncfgPv11" type="BOOLEAN" 
+                                   value="false"/>
+                            <d:var name="SdadcCmacsrGainSel" type="ENUMERATION" 
+                                   value="GAINSEL_1">
+                              <a:a name="IMPORTER_INFO" value="@REC"/>
+                            </d:var>
+                            <d:ctr name="CommonVoltage" type="IDENTIFIABLE">
+                              <a:a name="IMPORTER_INFO" value="@REC"/>
+                              <d:var name="SdadcCmacsrCmenP0" type="BOOLEAN" 
+                                     value="false">
+                                <a:a name="IMPORTER_INFO" value="@REC"/>
+                              </d:var>
+                              <d:var name="SdadcCmacsrCmenP1" type="BOOLEAN" 
+                                     value="false">
+                                <a:a name="IMPORTER_INFO" value="@REC"/>
+                              </d:var>
+                              <d:var name="SdadcCmacsrCmenP2" type="BOOLEAN" 
+                                     value="false">
+                                <a:a name="IMPORTER_INFO" value="@REC"/>
+                              </d:var>
+                              <d:var name="SdadcCmacsrCmenP3" type="BOOLEAN" 
+                                     value="false">
+                                <a:a name="IMPORTER_INFO" value="@REC"/>
+                              </d:var>
+                              <d:var name="SdadcCmacsrCmenM0" type="BOOLEAN" 
+                                     value="false">
+                                <a:a name="IMPORTER_INFO" value="@REC"/>
+                              </d:var>
+                              <d:var name="SdadcCmacsrCmenM1" type="BOOLEAN" 
+                                     value="false">
+                                <a:a name="IMPORTER_INFO" value="@REC"/>
+                              </d:var>
+                              <d:var name="SdadcCmacsrCmenM2" type="BOOLEAN" 
+                                     value="false">
+                                <a:a name="IMPORTER_INFO" value="@REC"/>
+                              </d:var>
+                              <d:var name="SdadcCmacsrCmenM3" type="BOOLEAN" 
+                                     value="false">
+                                <a:a name="IMPORTER_INFO" value="@REC"/>
+                              </d:var>
+                            </d:ctr>
+                            <d:var name="SdadcCmacsrIncfgP" type="ENUMERATION" 
+                                   value="VREFH_DIV_2">
+                              <a:a name="IMPORTER_INFO" value="@REC"/>
+                            </d:var>
+                            <d:var name="SdadcCmacsrIncfgM" type="ENUMERATION" 
+                                   value="VREFL">
+                              <a:a name="IMPORTER_INFO" value="@REC"/>
+                            </d:var>
+                            <d:var name="SdadcCmacsrInsel" type="ENUMERATION" 
+                                   value="PIN0">
+                              <a:a name="IMPORTER_INFO" value="@REC"/>
+                            </d:var>
+                            <d:var name="SdadcCmacsrInmod" type="ENUMERATION" 
+                                   value="SOFTWARE_CONTROL">
+                              <a:a name="IMPORTER_INFO" value="@REC"/>
+                            </d:var>
+                          </d:ctr>
+                        </d:lst>
+                        <d:ctr name="SdadcInterrupt" type="IDENTIFIABLE">
+                          <a:a name="IMPORTER_INFO" value="@REC"/>
+                          <d:var name="SdadcNierZcdie" type="BOOLEAN" 
+                                 value="false">
+                            <a:a name="IMPORTER_INFO" value="@REC"/>
+                          </d:var>
+                          <d:var name="ZerocrossNotification" 
+                                 type="FUNCTION-NAME" value="NULL_PTR">
+                            <a:a name="ENABLE" value="false"/>
+                            <a:a name="IMPORTER_INFO" value="@REC"/>
+                          </d:var>
+                          <d:var name="Abnier0Hlmtie" type="BOOLEAN" 
+                                 value="false">
+                            <a:a name="IMPORTER_INFO" value="@REC"/>
+                          </d:var>
+                          <d:var name="HighLimitNotification" 
+                                 type="FUNCTION-NAME" value="NULL_PTR">
+                            <a:a name="ENABLE" value="false"/>
+                            <a:a name="IMPORTER_INFO" value="@REC"/>
+                          </d:var>
+                          <d:var name="Abnier0Llmtie" type="BOOLEAN" 
+                                 value="false">
+                            <a:a name="IMPORTER_INFO" value="@REC"/>
+                          </d:var>
+                          <d:var name="LowLimitNotification" 
+                                 type="FUNCTION-NAME" value="NULL_PTR">
+                            <a:a name="ENABLE" value="false"/>
+                            <a:a name="IMPORTER_INFO" value="@REC"/>
+                          </d:var>
+                          <d:var name="Abnier0Wlmtie" type="BOOLEAN" 
+                                 value="false">
+                            <a:a name="IMPORTER_INFO" value="@REC"/>
+                          </d:var>
+                          <d:var name="WindowLimitNotification" 
+                                 type="FUNCTION-NAME" value="NULL_PTR">
+                            <a:a name="ENABLE" value="false"/>
+                            <a:a name="IMPORTER_INFO" value="@REC"/>
+                          </d:var>
+                          <d:var name="Abnier0Scdie" type="BOOLEAN" 
+                                 value="false">
+                            <a:a name="IMPORTER_INFO" value="@REC"/>
+                          </d:var>
+                          <d:var name="ShortCircuitNotification" 
+                                 type="FUNCTION-NAME" value="NULL_PTR">
+                            <a:a name="ENABLE" value="false"/>
+                            <a:a name="IMPORTER_INFO" value="@REC"/>
+                          </d:var>
+                          <d:var name="SdadcAbnier1Satie" type="BOOLEAN" 
+                                 value="false">
+                            <a:a name="IMPORTER_INFO" value="@REC"/>
+                          </d:var>
+                          <d:var name="SaturationNotification" 
+                                 type="FUNCTION-NAME" value="NULL_PTR">
+                            <a:a name="ENABLE" value="false"/>
+                            <a:a name="IMPORTER_INFO" value="@REC"/>
+                          </d:var>
+                          <d:var name="SdadcAbnier1Cadie" type="BOOLEAN" 
+                                 value="false">
+                            <a:a name="IMPORTER_INFO" value="@REC"/>
+                          </d:var>
+                          <d:var name="ClockAbsenceNotification" 
+                                 type="FUNCTION-NAME" value="NULL_PTR">
+                            <a:a name="ENABLE" value="false"/>
+                            <a:a name="IMPORTER_INFO" value="@REC"/>
+                          </d:var>
+                          <d:var name="ExtieTsignP2nIe" type="BOOLEAN" 
+                                 value="false">
+                            <a:a name="IMPORTER_INFO" value="@REC"/>
+                          </d:var>
+                          <d:var name="TsignP2NNotification" 
+                                 type="FUNCTION-NAME" value="NULL_PTR">
+                            <a:a name="ENABLE" value="false"/>
+                            <a:a name="IMPORTER_INFO" value="@REC"/>
+                          </d:var>
+                        </d:ctr>
+                      </d:ctr>
+                      <d:ctr name="SdadcChannel_1" type="IDENTIFIABLE">
+                        <a:a name="IMPORTER_INFO" value="@REC"/>
+                        <d:var name="SdadcChannelId" type="INTEGER" value="1">
+                          <a:a name="IMPORTER_INFO" value="@REC"/>
+                        </d:var>
+                        <d:var name="SdadcHwChannelId" type="INTEGER" value="1">
+                          <a:a name="IMPORTER_INFO" value="@REC"/>
+                        </d:var>
+                        <d:var name="GlobalTimeStampEn" type="BOOLEAN" 
+                               value="false">
+                          <a:a name="IMPORTER_INFO" value="@REC"/>
+                        </d:var>
+                        <d:var name="COCIntSupress" type="BOOLEAN" value="false">
+                          <a:a name="IMPORTER_INFO" value="@REC"/>
+                        </d:var>
+                        <d:var name="SdadcChannelAccessMode" type="ENUMERATION" 
+                               value="SDADC_STREAM_LINEAR_BUFFER">
+                          <a:a name="IMPORTER_INFO" value="@REC"/>
+                        </d:var>
+                        <d:var name="SdadcCcrFifoEn" type="BOOLEAN" value="true">
+                          <a:a name="IMPORTER_INFO" value="@REC"/>
+                        </d:var>
+                        <d:var name="SdadcCcrDmaEn" type="BOOLEAN" value="false">
+                          <a:a name="IMPORTER_INFO" value="@REC"/>
+                        </d:var>
+                        <d:var name="SdadcCfrFwmk" type="INTEGER" value="4">
+                          <a:a name="IMPORTER_INFO" value="@REC"/>
+                        </d:var>
+                        <d:var name="SdadcCfrRdfmt" type="BOOLEAN" value="false">
+                          <a:a name="IMPORTER_INFO" value="@REC"/>
+                        </d:var>
+                        <d:var name="BufferFullNotification" 
+                               type="FUNCTION-NAME" 
+                               value="SDADC0_CH1_BF_Notification">
+                          <a:a name="ENABLE" value="true"/>
+                          <a:a name="IMPORTER_INFO" value="@REC"/>
+                        </d:var>
+                        <d:var name="ConversionCompleteNotification" 
+                               type="FUNCTION-NAME" 
+                               value="SDADC0_CH1_COC_Notification">
+                          <a:a name="ENABLE" value="true"/>
+                          <a:a name="IMPORTER_INFO" value="@REC"/>
+                        </d:var>
+                        <d:var name="FifoOverFlowNotification" 
+                               type="FUNCTION-NAME" value="NULL_PTR">
+                          <a:a name="ENABLE" value="false"/>
+                          <a:a name="IMPORTER_INFO" value="@REC"/>
+                        </d:var>
+                        <d:var name="TimestampValidNotification" 
+                               type="FUNCTION-NAME" 
+                               value="SDADC0_CH1_TimeStamp_Notification">
+                          <a:a name="ENABLE" value="false"/>
+                          <a:a name="IMPORTER_INFO" value="@REC"/>
+                        </d:var>
+                        <d:ctr name="TimeStampAndResaultConfig" 
+                               type="IDENTIFIABLE">
+                          <a:a name="IMPORTER_INFO" value="@REC"/>
+                          <d:var name="CtsCntTstrgm" type="ENUMERATION" 
+                                 value="RISING_EDGE">
+                            <a:a name="IMPORTER_INFO" value="@REC"/>
+                          </d:var>
+                          <d:var name="CtsCntSyncTrgen" type="BOOLEAN" 
+                                 value="true">
+                            <a:a name="IMPORTER_INFO" value="@REC"/>
+                          </d:var>
+                          <d:var name="CtsCntSyncTrgsel" type="ENUMERATION" 
+                                 value="CHANNEL_0">
+                            <a:a name="IMPORTER_INFO" value="@REC"/>
+                          </d:var>
+                          <d:var name="CtsCntTsrdm" type="ENUMERATION" 
+                                 value="DEFAULT_MODE">
+                            <a:a name="IMPORTER_INFO" value="@REC"/>
+                          </d:var>
+                          <d:var name="CtsCntInmxcp" type="BOOLEAN" 
+                                 value="false">
+                            <a:a name="IMPORTER_INFO" value="@REC"/>
+                          </d:var>
+                          <d:var name="CtsCntTsEn" type="BOOLEAN" value="true">
+                            <a:a name="IMPORTER_INFO" value="@REC"/>
+                          </d:var>
+                          <d:var name="CtsCntTsclksel" type="ENUMERATION" 
+                                 value="DIV_BY_8">
+                            <a:a name="IMPORTER_INFO" value="@REC"/>
+                          </d:var>
+                        </d:ctr>
+                        <d:ctr name="TriggerConfig" type="IDENTIFIABLE">
+                          <a:a name="IMPORTER_INFO" value="@REC"/>
+                          <d:var name="SdadcCfrSyncTrgen" type="BOOLEAN" 
+                                 value="true">
+                            <a:a name="IMPORTER_INFO" value="@REC"/>
+                          </d:var>
+                          <d:var name="SdadcCfrSyncTrgsel" type="ENUMERATION" 
+                                 value="SYNC_TRGSEL_CH0">
+                            <a:a name="IMPORTER_INFO" value="@REC"/>
+                          </d:var>
+                          <d:var name="SdadcCfrTrgsel" type="ENUMERATION" 
+                                 value="SOFTWARE">
+                            <a:a name="IMPORTER_INFO" value="@REC"/>
+                          </d:var>
+                          <d:var name="SdadcCfrTrglvl" type="BOOLEAN" 
+                                 value="false">
+                            <a:a name="IMPORTER_INFO" value="@REC"/>
+                          </d:var>
+                        </d:ctr>
+                        <d:lst name="SdadcFilterChainConfiguration" type="MAP">
+                          <d:ctr name="SdadcFilterChainConfiguration_0" 
+                                 type="IDENTIFIABLE">
+                            <a:a name="IMPORTER_INFO" value="@REC"/>
+                            <d:var name="SdadcCfrCutoff" type="INTEGER" 
+                                   value="0">
+                              <a:a name="IMPORTER_INFO" value="@REC"/>
+                            </d:var>
+                            <d:var name="SdadcBiasOffset" type="INTEGER" 
+                                   value="0">
+                              <a:a name="IMPORTER_INFO" value="@REC"/>
+                            </d:var>
+                            <d:var name="SdadcGainFac" type="FLOAT" value="0.0">
+                              <a:a name="IMPORTER_INFO" value="@REC"/>
+                            </d:var>
+                            <d:ctr name="AFConfiguration" type="IDENTIFIABLE">
+                              <a:a name="IMPORTER_INFO" value="@REC"/>
+                              <d:var name="SdadcCcrAfEn" type="BOOLEAN" 
+                                     value="true">
+                                <a:a name="IMPORTER_INFO" value="@REC"/>
+                              </d:var>
+                              <d:var name="SdadcCdrAfcm" type="ENUMERATION" 
+                                     value="AFCM_FOLLOW_MF_MODE">
+                                <a:a name="IMPORTER_INFO" value="@REC"/>
+                              </d:var>
+                              <d:var name="SdadcCdrAford" type="ENUMERATION" 
+                                     value="SECOND_ORDER">
+                                <a:a name="IMPORTER_INFO" value="@REC"/>
+                              </d:var>
+                              <d:var name="SdadcCdrAfosr" type="INTEGER" 
+                                     value="32">
+                                <a:a name="IMPORTER_INFO" value="@REC"/>
+                              </d:var>
+                            </d:ctr>
+                            <d:ctr name="MFConfiguration" type="IDENTIFIABLE">
+                              <a:a name="IMPORTER_INFO" value="@REC"/>
+                              <d:var name="SdadcCcrMfEn" type="BOOLEAN" 
+                                     value="true">
+                                <a:a name="IMPORTER_INFO" value="@REC"/>
+                              </d:var>
+                              <d:var name="SdadcCdrMfcm" type="ENUMERATION" 
+                                     value="MFCM_CONTINUOUS_MODE">
+                                <a:a name="IMPORTER_INFO" value="@REC"/>
+                              </d:var>
+                              <d:var name="SdadcCdrMford" type="ENUMERATION" 
+                                     value="THIRD_ORDER">
+                                <a:a name="IMPORTER_INFO" value="@REC"/>
+                              </d:var>
+                              <d:var name="SdadcCdrMfosr" type="INTEGER" 
+                                     value="128">
+                                <a:a name="IMPORTER_INFO" value="@REC"/>
+                              </d:var>
+                            </d:ctr>
+                            <d:ctr name="IntegratorConfiguration" 
+                                   type="IDENTIFIABLE">
+                              <a:a name="IMPORTER_INFO" value="@REC"/>
+                              <d:var name="SdadcCcrIntgEn" type="BOOLEAN" 
+                                     value="true">
+                                <a:a name="IMPORTER_INFO" value="@REC"/>
+                              </d:var>
+                              <d:var name="CicfrItrsel" type="ENUMERATION" 
+                                     value="SOFTWARE">
+                                <a:a name="IMPORTER_INFO" value="@REC"/>
+                              </d:var>
+                              <d:var name="CicfrHtrpol" type="ENUMERATION" 
+                                     value="HIGH_RISING">
+                                <a:a name="IMPORTER_INFO" value="@REC"/>
+                              </d:var>
+                              <d:var name="CicfrSyncTrgen" type="BOOLEAN" 
+                                     value="false">
+                                <a:a name="IMPORTER_INFO" value="@REC"/>
+                              </d:var>
+                              <d:var name="CicfrSyncTrgsel" type="ENUMERATION" 
+                                     value="CHANNEL_0">
+                                <a:a name="IMPORTER_INFO" value="@REC"/>
+                              </d:var>
+                              <d:var name="CicfrNvalint" type="INTEGER" 
+                                     value="64">
+                                <a:a name="IMPORTER_INFO" value="@REC"/>
+                              </d:var>
+                              <d:var name="CicfrNvaldis" type="INTEGER" 
+                                     value="0">
+                                <a:a name="IMPORTER_INFO" value="@REC"/>
+                              </d:var>
+                              <d:var name="CicfrNvalrep" type="INTEGER" 
+                                     value="1">
+                                <a:a name="IMPORTER_INFO" value="@REC"/>
+                              </d:var>
+                              <d:var name="CicfrExtstp" type="ENUMERATION" 
+                                     value="INTERNAL_CONTROL">
+                                <a:a name="IMPORTER_INFO" value="@REC"/>
+                              </d:var>
+                              <d:var name="CicfrIogt" type="BOOLEAN" 
+                                     value="true">
+                                <a:a name="IMPORTER_INFO" value="@REC"/>
+                              </d:var>
+                              <d:var name="CicfrIsval" type="INTEGER" value="6">
+                                <a:a name="IMPORTER_INFO" value="@REC"/>
+                              </d:var>
+                            </d:ctr>
+                            <d:ctr name="RectificationConfiguration" 
+                                   type="IDENTIFIABLE">
+                              <a:a name="IMPORTER_INFO" value="@REC"/>
+                              <d:var name="SdadcCcrRectEn" type="BOOLEAN" 
+                                     value="false">
+                                <a:a name="IMPORTER_INFO" value="@REC"/>
+                              </d:var>
+                              <d:var name="CrtcsrCtrgsignOen" type="BOOLEAN" 
+                                     value="true">
+                                <a:a name="IMPORTER_INFO" value="@REC"/>
+                              </d:var>
+                              <d:var name="CrtcsrSsrc" type="ENUMERATION" 
+                                     value="SDADC_INTERNAL">
+                                <a:a name="IMPORTER_INFO" value="@REC"/>
+                              </d:var>
+                              <d:var name="CrtcsrSsch" type="ENUMERATION" 
+                                     value="CHANNEL_0">
+                                <a:a name="IMPORTER_INFO" value="@REC"/>
+                              </d:var>
+                              <d:var name="CrtcsrDlyTrg" type="INTEGER" 
+                                     value="0">
+                                <a:a name="IMPORTER_INFO" value="@REC"/>
+                              </d:var>
+                              <d:var name="SdadcCsdDlyNegOffset" type="INTEGER" 
+                                     value="1">
+                                <a:a name="IMPORTER_INFO" value="@REC"/>
+                              </d:var>
+                              <d:var name="SdadcCsdDlyPos" type="INTEGER" 
+                                     value="1">
+                                <a:a name="IMPORTER_INFO" value="@REC"/>
+                              </d:var>
+                            </d:ctr>
+                          </d:ctr>
+                        </d:lst>
+                        <d:lst name="SdadcDetectConfiguration" type="MAP">
+                          <d:ctr name="SdadcDetectConfiguration_0" 
+                                 type="IDENTIFIABLE">
+                            <a:a name="IMPORTER_INFO" value="@REC"/>
+                            <d:ctr name="LimitConfiguration" 
+                                   type="IDENTIFIABLE">
+                              <a:a name="IMPORTER_INFO" value="@REC"/>
+                              <d:var name="SdadcCcrLmtEn" type="BOOLEAN" 
+                                     value="false">
+                                <a:a name="IMPORTER_INFO" value="@REC"/>
+                              </d:var>
+                              <d:var name="SdadcCcrLmtSel" type="ENUMERATION" 
+                                     value="Main_Filter">
+                                <a:a name="IMPORTER_INFO" value="@REC"/>
+                              </d:var>
+                              <d:var name="SdadcCprHlmtBken" type="BOOLEAN" 
+                                     value="true">
+                                <a:a name="IMPORTER_INFO" value="@REC"/>
+                              </d:var>
+                              <d:var name="SdadcCprWlmtBken" type="BOOLEAN" 
+                                     value="true">
+                                <a:a name="IMPORTER_INFO" value="@REC"/>
+                              </d:var>
+                              <d:var name="SdadcCprLlmtBken" type="BOOLEAN" 
+                                     value="true">
+                                <a:a name="IMPORTER_INFO" value="@REC"/>
+                              </d:var>
+                              <d:var name="SdadcCprLmtfProten" type="BOOLEAN" 
+                                     value="true">
+                                <a:a name="IMPORTER_INFO" value="@REC"/>
+                              </d:var>
+                              <d:var name="SdadcCprLmtrProten" type="BOOLEAN" 
+                                     value="true">
+                                <a:a name="IMPORTER_INFO" value="@REC"/>
+                              </d:var>
+                              <d:var name="SdadcCprHystrProten" type="BOOLEAN" 
+                                     value="true">
+                                <a:a name="IMPORTER_INFO" value="@REC"/>
+                              </d:var>
+                              <d:var name="SdadcCprLmtavt" type="ENUMERATION" 
+                                     value="SET_HIGH_CLEAR_LOW">
+                                <a:a name="IMPORTER_INFO" value="@REC"/>
+                              </d:var>
+                              <d:var name="SdadcCprLmtopt" type="ENUMERATION" 
+                                     value="BOTH_HIGH_LOW">
+                                <a:a name="IMPORTER_INFO" value="@REC"/>
+                              </d:var>
+                              <d:var name="SdadcHighLimit" type="INTEGER" 
+                                     value="0">
+                                <a:a name="IMPORTER_INFO" value="@REC"/>
+                              </d:var>
+                              <d:var name="SdadcLowLimit" type="INTEGER" 
+                                     value="0">
+                                <a:a name="IMPORTER_INFO" value="@REC"/>
+                              </d:var>
+                            </d:ctr>
+                            <d:ctr name="ZerocrossConfiguration" 
+                                   type="IDENTIFIABLE">
+                              <a:a name="IMPORTER_INFO" value="@REC"/>
+                              <d:var name="SdadcCcrZcdEn" type="BOOLEAN" 
+                                     value="false">
+                                <a:a name="IMPORTER_INFO" value="@REC"/>
+                              </d:var>
+                              <d:var name="SdadcCcrZcdSel" type="ENUMERATION" 
+                                     value="Main_Filter">
+                                <a:a name="IMPORTER_INFO" value="@REC"/>
+                              </d:var>
+                            </d:ctr>
+                            <d:ctr name="ClockAbsenceConfiguration" 
+                                   type="IDENTIFIABLE">
+                              <a:a name="IMPORTER_INFO" value="@REC"/>
+                              <d:var name="SdadcCcrCadEn" type="BOOLEAN" 
+                                     value="false">
+                                <a:a name="IMPORTER_INFO" value="@REC"/>
+                              </d:var>
+                              <d:var name="SdadcCprCadBken" type="BOOLEAN" 
+                                     value="true">
+                                <a:a name="IMPORTER_INFO" value="@REC"/>
+                              </d:var>
+                              <d:var name="SdadcCprCadProten" type="BOOLEAN" 
+                                     value="true">
+                                <a:a name="IMPORTER_INFO" value="@REC"/>
+                              </d:var>
+                              <d:var name="SdadcCprCadlmt" type="INTEGER" 
+                                     value="1">
+                                <a:a name="IMPORTER_INFO" value="@REC"/>
+                              </d:var>
+                            </d:ctr>
+                            <d:ctr name="ShortCircuitConfiguration" 
+                                   type="IDENTIFIABLE">
+                              <a:a name="IMPORTER_INFO" value="@REC"/>
+                              <d:var name="SdadcCcrScdEn" type="BOOLEAN" 
+                                     value="false">
+                                <a:a name="IMPORTER_INFO" value="@REC"/>
+                              </d:var>
+                              <d:var name="SdadcCprScdBken" type="BOOLEAN" 
+                                     value="true">
+                                <a:a name="IMPORTER_INFO" value="@REC"/>
+                              </d:var>
+                              <d:var name="SdadcCprScdProten" type="BOOLEAN" 
+                                     value="true">
+                                <a:a name="IMPORTER_INFO" value="@REC"/>
+                              </d:var>
+                              <d:var name="SdadcCprScdopt" type="ENUMERATION" 
+                                     value="BOTH_0_1">
+                                <a:a name="IMPORTER_INFO" value="@REC"/>
+                              </d:var>
+                              <d:var name="SdadcCprScdcm" type="BOOLEAN" 
+                                     value="false">
+                                <a:a name="IMPORTER_INFO" value="@REC"/>
+                              </d:var>
+                              <d:var name="SdadcCprScdlmt" type="INTEGER" 
+                                     value="1">
+                                <a:a name="IMPORTER_INFO" value="@REC"/>
+                              </d:var>
+                            </d:ctr>
+                          </d:ctr>
+                        </d:lst>
+                        <d:lst name="SdadcModulatorConfiguration" type="MAP">
+                          <d:ctr name="SdadcModulatorConfiguration_0" 
+                                 type="IDENTIFIABLE">
+                            <a:a name="IMPORTER_INFO" value="@REC"/>
+                            <d:var name="SdadcCmacsrMasel" type="ENUMERATION" 
+                                   value="INTERNAL">
+                              <a:a name="IMPORTER_INFO" value="@REC"/>
+                            </d:var>
+                            <d:var name="SdadcCfrIbfmt" type="ENUMERATION" 
+                                   value="ONE_BIT_STREAM">
+                              <a:a name="IMPORTER_INFO" value="@REC"/>
+                            </d:var>
+                            <d:var name="SdadcCfrClkedg" type="ENUMERATION" 
+                                   value="POSEDGE">
+                              <a:a name="IMPORTER_INFO" value="@REC"/>
+                            </d:var>
+                            <d:var name="SdadcCfrClksel" type="ENUMERATION" 
+                                   value="DIV_CLK1">
+                              <a:a name="IMPORTER_INFO" value="@REC"/>
+                            </d:var>
+                            <d:var name="SdadcCmacsrMaclkSel" 
+                                   type="ENUMERATION" value="DIV_CLK0">
+                              <a:a name="IMPORTER_INFO" value="@REC"/>
+                            </d:var>
+                            <d:var name="SdadcCmacsrRstSel" type="INTEGER" 
+                                   value="8">
+                              <a:a name="IMPORTER_INFO" value="@REC"/>
+                            </d:var>
+                            <d:var name="SdadcCmacsrDitherEn" type="BOOLEAN" 
+                                   value="true">
+                              <a:a name="IMPORTER_INFO" value="@REC"/>
+                            </d:var>
+                            <d:var name="SdadcCmacsrIncfgPv11" type="BOOLEAN" 
+                                   value="false">
+                              <a:a name="IMPORTER_INFO" value="@REC"/>
+                            </d:var>
+                            <d:var name="SdadcCmacsrGainSel" type="ENUMERATION" 
+                                   value="GAINSEL_1">
+                              <a:a name="IMPORTER_INFO" value="@REC"/>
+                            </d:var>
+                            <d:ctr name="CommonVoltage" type="IDENTIFIABLE">
+                              <a:a name="IMPORTER_INFO" value="@REC"/>
+                              <d:var name="SdadcCmacsrCmenP0" type="BOOLEAN" 
+                                     value="false">
+                                <a:a name="IMPORTER_INFO" value="@REC"/>
+                              </d:var>
+                              <d:var name="SdadcCmacsrCmenP1" type="BOOLEAN" 
+                                     value="false">
+                                <a:a name="IMPORTER_INFO" value="@REC"/>
+                              </d:var>
+                              <d:var name="SdadcCmacsrCmenP2" type="BOOLEAN" 
+                                     value="false">
+                                <a:a name="IMPORTER_INFO" value="@REC"/>
+                              </d:var>
+                              <d:var name="SdadcCmacsrCmenP3" type="BOOLEAN" 
+                                     value="false">
+                                <a:a name="IMPORTER_INFO" value="@REC"/>
+                              </d:var>
+                              <d:var name="SdadcCmacsrCmenM0" type="BOOLEAN" 
+                                     value="false">
+                                <a:a name="IMPORTER_INFO" value="@REC"/>
+                              </d:var>
+                              <d:var name="SdadcCmacsrCmenM1" type="BOOLEAN" 
+                                     value="false">
+                                <a:a name="IMPORTER_INFO" value="@REC"/>
+                              </d:var>
+                              <d:var name="SdadcCmacsrCmenM2" type="BOOLEAN" 
+                                     value="false">
+                                <a:a name="IMPORTER_INFO" value="@REC"/>
+                              </d:var>
+                              <d:var name="SdadcCmacsrCmenM3" type="BOOLEAN" 
+                                     value="false">
+                                <a:a name="IMPORTER_INFO" value="@REC"/>
+                              </d:var>
+                            </d:ctr>
+                            <d:var name="SdadcCmacsrIncfgP" type="ENUMERATION" 
+                                   value="VREFH_DIV_2">
+                              <a:a name="IMPORTER_INFO" value="@REC"/>
+                            </d:var>
+                            <d:var name="SdadcCmacsrIncfgM" type="ENUMERATION" 
+                                   value="VREFL">
+                              <a:a name="IMPORTER_INFO" value="@REC"/>
+                            </d:var>
+                            <d:var name="SdadcCmacsrInsel" type="ENUMERATION" 
+                                   value="PIN0">
+                              <a:a name="IMPORTER_INFO" value="@REC"/>
+                            </d:var>
+                            <d:var name="SdadcCmacsrInmod" type="ENUMERATION" 
+                                   value="SOFTWARE_CONTROL">
+                              <a:a name="IMPORTER_INFO" value="@REC"/>
+                            </d:var>
+                          </d:ctr>
+                        </d:lst>
+                        <d:ctr name="SdadcInterrupt" type="IDENTIFIABLE">
+                          <a:a name="IMPORTER_INFO" value="@REC"/>
+                          <d:var name="SdadcNierZcdie" type="BOOLEAN" 
+                                 value="false">
+                            <a:a name="IMPORTER_INFO" value="@REC"/>
+                          </d:var>
+                          <d:var name="ZerocrossNotification" 
+                                 type="FUNCTION-NAME" value="NULL_PTR">
+                            <a:a name="ENABLE" value="false"/>
+                            <a:a name="IMPORTER_INFO" value="@REC"/>
+                          </d:var>
+                          <d:var name="Abnier0Hlmtie" type="BOOLEAN" 
+                                 value="false">
+                            <a:a name="IMPORTER_INFO" value="@REC"/>
+                          </d:var>
+                          <d:var name="HighLimitNotification" 
+                                 type="FUNCTION-NAME" value="NULL_PTR">
+                            <a:a name="ENABLE" value="false"/>
+                            <a:a name="IMPORTER_INFO" value="@REC"/>
+                          </d:var>
+                          <d:var name="Abnier0Llmtie" type="BOOLEAN" 
+                                 value="false">
+                            <a:a name="IMPORTER_INFO" value="@REC"/>
+                          </d:var>
+                          <d:var name="LowLimitNotification" 
+                                 type="FUNCTION-NAME" value="NULL_PTR">
+                            <a:a name="ENABLE" value="false"/>
+                            <a:a name="IMPORTER_INFO" value="@REC"/>
+                          </d:var>
+                          <d:var name="Abnier0Wlmtie" type="BOOLEAN" 
+                                 value="false">
+                            <a:a name="IMPORTER_INFO" value="@REC"/>
+                          </d:var>
+                          <d:var name="WindowLimitNotification" 
+                                 type="FUNCTION-NAME" value="NULL_PTR">
+                            <a:a name="ENABLE" value="false"/>
+                            <a:a name="IMPORTER_INFO" value="@REC"/>
+                          </d:var>
+                          <d:var name="Abnier0Scdie" type="BOOLEAN" 
+                                 value="false">
+                            <a:a name="IMPORTER_INFO" value="@REC"/>
+                          </d:var>
+                          <d:var name="ShortCircuitNotification" 
+                                 type="FUNCTION-NAME" value="NULL_PTR">
+                            <a:a name="ENABLE" value="false"/>
+                            <a:a name="IMPORTER_INFO" value="@REC"/>
+                          </d:var>
+                          <d:var name="SdadcAbnier1Satie" type="BOOLEAN" 
+                                 value="false">
+                            <a:a name="IMPORTER_INFO" value="@REC"/>
+                          </d:var>
+                          <d:var name="SaturationNotification" 
+                                 type="FUNCTION-NAME" value="NULL_PTR">
+                            <a:a name="ENABLE" value="false"/>
+                            <a:a name="IMPORTER_INFO" value="@REC"/>
+                          </d:var>
+                          <d:var name="SdadcAbnier1Cadie" type="BOOLEAN" 
+                                 value="false">
+                            <a:a name="IMPORTER_INFO" value="@REC"/>
+                          </d:var>
+                          <d:var name="ClockAbsenceNotification" 
+                                 type="FUNCTION-NAME" value="NULL_PTR">
+                            <a:a name="ENABLE" value="false"/>
+                            <a:a name="IMPORTER_INFO" value="@REC"/>
+                          </d:var>
+                          <d:var name="ExtieTsignP2nIe" type="BOOLEAN" 
+                                 value="false">
+                            <a:a name="IMPORTER_INFO" value="@REC"/>
+                          </d:var>
+                          <d:var name="TsignP2NNotification" 
+                                 type="FUNCTION-NAME" value="NULL_PTR">
+                            <a:a name="ENABLE" value="false"/>
+                            <a:a name="IMPORTER_INFO" value="@REC"/>
+                          </d:var>
+                        </d:ctr>
+                      </d:ctr>
+                    </d:lst>
+                  </d:ctr>
+                </d:lst>
+              </d:ctr>
+              <d:ctr name="CommonPublishedInformation" type="IDENTIFIABLE">
+                <a:a name="IMPORTER_INFO" value="@REC"/>
+                <d:var name="ArReleaseMajorVersion" type="INTEGER" value="4">
+                  <a:a name="IMPORTER_INFO" value="@REC"/>
+                </d:var>
+                <d:var name="ArReleaseMinorVersion" type="INTEGER" value="6">
+                  <a:a name="IMPORTER_INFO" value="@REC"/>
+                </d:var>
+                <d:var name="ArReleaseRevisionVersion" type="INTEGER" value="0">
+                  <a:a name="IMPORTER_INFO" value="@REC"/>
+                </d:var>
+                <d:var name="ModuleId" type="INTEGER" value="255">
+                  <a:a name="IMPORTER_INFO" value="@REC"/>
+                </d:var>
+                <d:var name="SwMajorVersion" type="INTEGER" value="1">
+                  <a:a name="IMPORTER_INFO" value="@REC"/>
+                </d:var>
+                <d:var name="SwMinorVersion" type="INTEGER" value="5"/>
+                <d:var name="SwPatchVersion" type="INTEGER" value="1"/>
+                <d:var name="VendorApiInfix" type="STRING" value="">
+                  <a:a name="ENABLE" value="false"/>
+                  <a:a name="IMPORTER_INFO" value="@REC"/>
+                </d:var>
+                <d:var name="VendorId" type="INTEGER" value="174">
+                  <a:a name="IMPORTER_INFO" value="@REC"/>
+                </d:var>
+              </d:ctr>
+            </d:ctr>
+          </d:chc>
+        </d:lst>
+      </d:ctr>
+    </d:lst>
+  </d:ctr>
+
+</datamodel>

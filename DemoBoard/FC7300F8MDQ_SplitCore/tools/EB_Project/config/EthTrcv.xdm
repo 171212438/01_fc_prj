@@ -1,0 +1,352 @@
+<?xml version='1.0'?>
+<datamodel version="7.0" 
+           xmlns="http://www.tresos.de/_projects/DataModel2/16/root.xsd" 
+           xmlns:a="http://www.tresos.de/_projects/DataModel2/16/attribute.xsd" 
+           xmlns:v="http://www.tresos.de/_projects/DataModel2/06/schema.xsd" 
+           xmlns:d="http://www.tresos.de/_projects/DataModel2/06/data.xsd">
+
+  <d:ctr type="AUTOSAR" factory="autosar" 
+         xmlns:ad="http://www.tresos.de/_projects/DataModel2/08/admindata.xsd" 
+         xmlns:cd="http://www.tresos.de/_projects/DataModel2/08/customdata.xsd" 
+         xmlns:f="http://www.tresos.de/_projects/DataModel2/14/formulaexpr.xsd" 
+         xmlns:icc="http://www.tresos.de/_projects/DataModel2/08/implconfigclass.xsd" 
+         xmlns:mt="http://www.tresos.de/_projects/DataModel2/11/multitest.xsd"  
+         xmlns:variant="http://www.tresos.de/_projects/DataModel2/11/variant.xsd">
+    <d:lst type="TOP-LEVEL-PACKAGES">
+      <d:ctr name="EthTrcv" type="AR-PACKAGE">
+        <d:lst type="ELEMENTS">
+          <d:chc name="EthTrcv" type="AR-ELEMENT" value="MODULE-CONFIGURATION">
+            <d:ctr type="MODULE-CONFIGURATION">
+              <a:a name="DEF" value="ASPath:/FC7300FXXX/EthTrcv"/>
+              <a:a name="IMPORTER_INFO" value="@REC"/>
+              <d:var name="IMPLEMENTATION_CONFIG_VARIANT" type="ENUMERATION" 
+                     value="VariantPreCompile">
+                <a:a name="IMPORTER_INFO" value="@REC"/>
+              </d:var>
+              <d:ctr name="EthTrcvGeneral" type="IDENTIFIABLE">
+                <a:a name="IMPORTER_INFO" value="@REC"/>
+                <d:var name="EthTrcvDevErrorDetect" type="BOOLEAN" value="true">
+                  <a:a name="IMPORTER_INFO" value="@REC"/>
+                </d:var>
+                <d:var name="EthTrcvEnablePLCA" type="BOOLEAN" value="false">
+                  <a:a name="IMPORTER_INFO" value="@REC"/>
+                </d:var>
+                <d:var name="EthTrcvGetBusWuReasonApi" type="BOOLEAN" 
+                       value="false">
+                  <a:a name="IMPORTER_INFO" value="@REC"/>
+                </d:var>
+                <d:var name="EthTrcvGetLinkStateApi" type="BOOLEAN" value="true">
+                  <a:a name="IMPORTER_INFO" value="@REC"/>
+                </d:var>
+                <d:var name="EthTrcvGetBaudRateApi" type="BOOLEAN" value="true">
+                  <a:a name="IMPORTER_INFO" value="@REC"/>
+                </d:var>
+                <d:var name="EthTrcvGetDuplexModeApi" type="BOOLEAN" 
+                       value="true">
+                  <a:a name="IMPORTER_INFO" value="@REC"/>
+                </d:var>
+                <d:var name="EthTrcvSetTransceiverWakeupModeApi" type="BOOLEAN" 
+                       value="false">
+                  <a:a name="IMPORTER_INFO" value="@DEF"/>
+                </d:var>
+                <d:var name="EthTrcv_TransceiverLinkStateRequestApi" 
+                       type="BOOLEAN" value="true">
+                  <a:a name="IMPORTER_INFO" value="@DEF"/>
+                </d:var>
+                <d:var name="EthTrcvStartAutoNegotiationApi" type="BOOLEAN" 
+                       value="true">
+                  <a:a name="IMPORTER_INFO" value="@REC"/>
+                </d:var>
+                <d:var name="EthTrcvGetPhyIdentifierApi" type="BOOLEAN" 
+                       value="true">
+                  <a:a name="IMPORTER_INFO" value="@REC"/>
+                </d:var>
+                <d:var name="EthTrcvEnableCableDiagnosticApi" type="BOOLEAN" 
+                       value="false">
+                  <a:a name="IMPORTER_INFO" value="@REC"/>
+                </d:var>
+                <d:var name="EthTrcvGetTransceiverWakeupModeApi" type="BOOLEAN" 
+                       value="false">
+                  <a:a name="IMPORTER_INFO" value="@REC"/>
+                </d:var>
+                <d:var name="EthTrcvSetPhyTestModeApi" type="BOOLEAN" 
+                       value="true"/>
+                <d:var name="EthTrcvVersionInfoApi" type="BOOLEAN" value="true">
+                  <a:a name="IMPORTER_INFO" value="@REC"/>
+                </d:var>
+                <d:var name="EthTrcvVersionInfoApiMacro" type="BOOLEAN" 
+                       value="false">
+                  <a:a name="IMPORTER_INFO" value="@REC"/>
+                </d:var>
+                <d:var name="EthTrcvWakeUpSupport" type="ENUMERATION" 
+                       value="ETHTRCV_WAKEUP_NOT_SUPPORTED">
+                  <a:a name="IMPORTER_INFO" value="@REC"/>
+                </d:var>
+                <d:var name="EthTrcvIndex" type="INTEGER" value="0">
+                  <a:a name="IMPORTER_INFO" value="@REC"/>
+                </d:var>
+                <d:var name="EthTrcvMainFunctionPeriod" type="FLOAT" 
+                       value="0.001">
+                  <a:a name="ENABLE" value="true"/>
+                  <a:a name="IMPORTER_INFO" value="@REC"/>
+                </d:var>
+                <d:var name="EthTrcvMaxTrcvsSupported" type="INTEGER" value="1">
+                  <a:a name="IMPORTER_INFO" value="@REC"/>
+                </d:var>
+                <d:lst name="EthTrcvEcucPartitionRef">
+                  <d:ref type="REFERENCE" 
+                         value="ASPath:/EcuC/EcuC/EcucPartitionCollection/EcucPartition_3"/>
+                </d:lst>
+                <d:ctr name="EthTrcvGeneralVendorSpecific" type="IDENTIFIABLE">
+                  <a:a name="IMPORTER_INFO" value="@REC"/>
+                  <d:var name="EthTrcvDisableDemEventDetect" type="BOOLEAN" 
+                         value="false">
+                    <a:a name="IMPORTER_INFO" value="@REC"/>
+                  </d:var>
+                  <d:var name="EthTrcvEnableUserModeSupport" type="BOOLEAN" 
+                         value="false">
+                    <a:a name="IMPORTER_INFO" value="@REC"/>
+                  </d:var>
+                  <d:var name="EthTrcvMulticoreSupport" type="BOOLEAN" 
+                         value="true">
+                    <a:a name="IMPORTER_INFO" value="@REC"/>
+                  </d:var>
+                </d:ctr>
+              </d:ctr>
+              <d:ctr name="EthTrcvConfigSet" type="IDENTIFIABLE">
+                <a:a name="IMPORTER_INFO" value="@REC"/>
+                <d:lst name="EthTrcvConfig" type="MAP">
+                  <d:ctr name="EthTrcvConfig_0" type="IDENTIFIABLE">
+                    <a:a name="IMPORTER_INFO" value="@REC"/>
+                    <d:var name="EthTrcvActAsSlavePassiveEnabled" 
+                           type="BOOLEAN" value="false">
+                      <a:a name="ENABLE" value="false"/>
+                      <a:a name="IMPORTER_INFO" value="@REC"/>
+                    </d:var>
+                    <d:var name="EthTrcvConnNeg" type="ENUMERATION" 
+                           value="ETHTRCV_CONN_NEG_MASTER"/>
+                    <d:var name="EthTrcvDuplexMode" type="ENUMERATION" 
+                           value="ETHTRCV_DUPLEX_MODE_FULL">
+                      <a:a name="IMPORTER_INFO" value="@REC"/>
+                    </d:var>
+                    <d:var name="EthTrcvForceSleepEnabled" type="BOOLEAN" 
+                           value="false">
+                      <a:a name="IMPORTER_INFO" value="@REC"/>
+                    </d:var>
+                    <d:var name="EthTrcvIdx" type="INTEGER" value="0">
+                      <a:a name="IMPORTER_INFO" value="@REC"/>
+                    </d:var>
+                    <d:var name="EthTrcvMacLayerSpeed" type="ENUMERATION" 
+                           value="ETHTRCV_MAC_LAYER_SPEED_1G">
+                      <a:a name="ENABLE" value="true"/>
+                      <a:a name="IMPORTER_INFO" value="@REC"/>
+                    </d:var>
+                    <d:var name="EthTrcvMacLayerSubType" type="ENUMERATION" 
+                           value="REDUCED">
+                      <a:a name="ENABLE" value="true"/>
+                      <a:a name="IMPORTER_INFO" value="@REC"/>
+                    </d:var>
+                    <d:var name="EthTrcvMacLayerType" type="ENUMERATION" 
+                           value="ETHTRCV_MAC_LAYER_TYPE_XGMII">
+                      <a:a name="ENABLE" value="true"/>
+                      <a:a name="IMPORTER_INFO" value="@REC"/>
+                    </d:var>
+                    <d:var name="EthTrcvPhysLayerPlcaLocalNodeId" 
+                           type="INTEGER" value="255">
+                      <a:a name="ENABLE" value="true"/>
+                      <a:a name="IMPORTER_INFO" value="@REC"/>
+                    </d:var>
+                    <d:var name="EthTrcvPhysLayerPlcaMaxBurstCount" 
+                           type="INTEGER" value="255">
+                      <a:a name="ENABLE" value="true"/>
+                      <a:a name="IMPORTER_INFO" value="@REC"/>
+                    </d:var>
+                    <d:var name="EthTrcvPhysLayerPlcaMaxBurstTimer" 
+                           type="INTEGER" value="128">
+                      <a:a name="ENABLE" value="true"/>
+                      <a:a name="IMPORTER_INFO" value="@REC"/>
+                    </d:var>
+                    <d:var name="EthTrcvPhysLayerPlcaNodeCount" type="INTEGER" 
+                           value="8">
+                      <a:a name="ENABLE" value="true"/>
+                      <a:a name="IMPORTER_INFO" value="@REC"/>
+                    </d:var>
+                    <d:var name="EthTrcvPhysLayerPlcaTransmitOpportunityTimer" 
+                           type="INTEGER" value="32">
+                      <a:a name="ENABLE" value="true"/>
+                      <a:a name="IMPORTER_INFO" value="@REC"/>
+                    </d:var>
+                    <d:var name="EthTrcvPhysLayerType" type="ENUMERATION" 
+                           value="ETHTRCV_PHYS_LAYER_TYPE_1000BASE_T1">
+                      <a:a name="ENABLE" value="true"/>
+                    </d:var>
+                    <d:var name="EthTrcvSleepModeExecutionDelay" type="FLOAT" 
+                           value="0.001">
+                      <a:a name="ENABLE" value="true"/>
+                      <a:a name="IMPORTER_INFO" value="@REC"/>
+                    </d:var>
+                    <d:var name="EthTrcvSleepRequestNumberOfRepetitions" 
+                           type="INTEGER" value="0">
+                      <a:a name="IMPORTER_INFO" value="@REC"/>
+                    </d:var>
+                    <d:var name="EthTrcvSleepRequestRepetitionPeriod" 
+                           type="FLOAT" value="0.001">
+                      <a:a name="IMPORTER_INFO" value="@REC"/>
+                    </d:var>
+                    <d:var name="EthTrcvSpeed" type="ENUMERATION" 
+                           value="ETHTRCV_SPEED_1000">
+                      <a:a name="IMPORTER_INFO" value="@REC"/>
+                    </d:var>
+                    <d:var name="EthTrcvWakeUpCallout" type="FUNCTION-NAME" 
+                           value="NULL_PTR">
+                      <a:a name="ENABLE" value="false"/>
+                      <a:a name="IMPORTER_INFO" value="@REC"/>
+                    </d:var>
+                    <d:var name="EthTrcvWakeupForwardLocalEnabled" 
+                           type="BOOLEAN" value="false">
+                      <a:a name="IMPORTER_INFO" value="@REC"/>
+                    </d:var>
+                    <d:var name="EthTrcvWakeupForwardRemoteEnabled" 
+                           type="BOOLEAN" value="false">
+                      <a:a name="IMPORTER_INFO" value="@REC"/>
+                    </d:var>
+                    <d:var name="EthTrcvWakeupLocalDetectionTime" type="FLOAT" 
+                           value="0.001">
+                      <a:a name="ENABLE" value="true"/>
+                      <a:a name="IMPORTER_INFO" value="@REC"/>
+                    </d:var>
+                    <d:var name="EthTrcvWakeupLocalDurationTime" type="FLOAT" 
+                           value="0.001">
+                      <a:a name="ENABLE" value="true"/>
+                      <a:a name="IMPORTER_INFO" value="@REC"/>
+                    </d:var>
+                    <d:var name="EthTrcvWakeupLocalEnabled" type="BOOLEAN" 
+                           value="false">
+                      <a:a name="IMPORTER_INFO" value="@REC"/>
+                    </d:var>
+                    <d:var name="EthTrcvWakeupRemoteEnabled" type="BOOLEAN" 
+                           value="false">
+                      <a:a name="IMPORTER_INFO" value="@REC"/>
+                    </d:var>
+                    <d:var name="EthTrcvWakeupRequestNumberOfRepetitions" 
+                           type="INTEGER" value="0">
+                      <a:a name="IMPORTER_INFO" value="@REC"/>
+                    </d:var>
+                    <d:var name="EthTrcvWakeUpRequestRepetitionPeriod" 
+                           type="FLOAT" value="0.001">
+                      <a:a name="ENABLE" value="false"/>
+                      <a:a name="IMPORTER_INFO" value="@REC"/>
+                    </d:var>
+                    <d:var name="EthTrcvWakeupSleepOnDatalineEnabled" 
+                           type="BOOLEAN" value="false">
+                      <a:a name="IMPORTER_INFO" value="@REC"/>
+                    </d:var>
+                    <d:ref name="EthTrcvConfigEcucPartitionRef" 
+                           type="REFERENCE" 
+                           value="ASPath:/EcuC/EcuC/EcucPartitionCollection/EcucPartition_3">
+                      <a:a name="ENABLE" value="true"/>
+                    </d:ref>
+                    <d:ref name="EthTrcvIcuChannelRef" type="REFERENCE" >
+                      <a:a name="ENABLE" value="false"/>
+                      <a:a name="IMPORTER_INFO" value="@REC"/>
+                    </d:ref>
+                    <d:chc name="EthTrcvMgmtInterface" type="IDENTIFIABLE" 
+                           value="EthTrcvMiiInterface">
+                      <a:a name="IMPORTER_INFO" value="@REC"/>
+                      <d:ctr name="EthTrcvMiiInterface" type="IDENTIFIABLE">
+                        <a:a name="IMPORTER_INFO" value="@REC"/>
+                        <d:var name="EthTrcvCtrlIdx" type="INTEGER" value="0">
+                          <a:a name="IMPORTER_INFO" value="@REC"/>
+                        </d:var>
+                        <d:var name="EthTrcvMiiIdx" type="INTEGER" value="3"/>
+                        <d:var name="EthTrcvExtraMiiIdx" type="INTEGER" 
+                               value="7"/>
+                        <d:var name="EthDriverVendorIdAndApiInfix" 
+                               type="STRING" value="NULL">
+                          <a:a name="IMPORTER_INFO" value="@REC"/>
+                        </d:var>
+                        <d:var name="EthTrcvMiiMuxCallout" type="FUNCTION-NAME" 
+                               value="MiiPinSelect">
+                          <a:a name="IMPORTER_INFO" value="@REC"/>
+                        </d:var>
+                      </d:ctr>
+                      <d:ctr name="EthTrcvSwitchInterface" type="IDENTIFIABLE">
+                        <a:a name="IMPORTER_INFO" value="@REC"/>
+                        <d:ref name="EthTrcvSwitchPortRef" type="REFERENCE" >
+                          <a:a name="IMPORTER_INFO" value="@REC"/>
+                        </d:ref>
+                        <d:ref name="EthTrcvSwitchRef" type="REFERENCE" >
+                          <a:a name="IMPORTER_INFO" value="@REC"/>
+                        </d:ref>
+                      </d:ctr>
+                    </d:chc>
+                    <d:ctr name="EthTrcvConfigVendorSpecific" 
+                           type="IDENTIFIABLE">
+                      <a:a name="IMPORTER_INFO" value="@REC"/>
+                      <d:var name="EthTrcvDerivateType" type="ENUMERATION" 
+                             value="ETHTRCV_JL311X"/>
+                      <d:var name="EthTrcvSoftResetOnInit" type="BOOLEAN" 
+                             value="true">
+                        <a:a name="IMPORTER_INFO" value="@REC"/>
+                      </d:var>
+                      <d:var name="EthTrcvSoftResetOnInitRepetitions" 
+                             type="INTEGER" value="3000">
+                        <a:a name="IMPORTER_INFO" value="@REC"/>
+                      </d:var>
+                      <d:var name="EthTrcvRgmiiTxDelay" type="INTEGER" 
+                             value="180">
+                        <a:a name="ENABLE" value="true"/>
+                      </d:var>
+                      <d:var name="EthTrcvRgmiiRxDelay" type="INTEGER" value="0">
+                        <a:a name="ENABLE" value="false"/>
+                        <a:a name="IMPORTER_INFO" value="@REC"/>
+                      </d:var>
+                      <d:var name="EthTrcvOutPutClock" type="ENUMERATION" 
+                             value="ETHTRCV_CLK_OUTPUT_DISABLE"/>
+                      <d:var name="EthTrcvWaitLinkUpRepetitions" type="INTEGER" 
+                             value="1000">
+                        <a:a name="IMPORTER_INFO" value="@DEF"/>
+                      </d:var>
+                    </d:ctr>
+                    <d:ctr name="EthTrcvDemEventParameterRefs" 
+                           type="IDENTIFIABLE">
+                      <a:a name="ENABLE" value="false"/>
+                      <a:a name="IMPORTER_INFO" value="@REC"/>
+                      <d:ref name="ETHTRCV_E_ACCESS" type="REFERENCE" >
+                        <a:a name="ENABLE" value="false"/>
+                        <a:a name="IMPORTER_INFO" value="@REC"/>
+                      </d:ref>
+                    </d:ctr>
+                    <d:lst name="EthTrcvWakeupMap" type="MAP"/>
+                  </d:ctr>
+                </d:lst>
+              </d:ctr>
+              <d:ctr name="CommonPublishedInformation" type="IDENTIFIABLE">
+                <a:a name="IMPORTER_INFO" value="@REC"/>
+                <d:var name="ArReleaseMajorVersion" type="INTEGER" value="4">
+                  <a:a name="IMPORTER_INFO" value="@REC"/>
+                </d:var>
+                <d:var name="ArReleaseMinorVersion" type="INTEGER" value="6">
+                  <a:a name="IMPORTER_INFO" value="@REC"/>
+                </d:var>
+                <d:var name="ArReleaseRevisionVersion" type="INTEGER" value="0">
+                  <a:a name="IMPORTER_INFO" value="@REC"/>
+                </d:var>
+                <d:var name="ModuleId" type="INTEGER" value="73">
+                  <a:a name="IMPORTER_INFO" value="@REC"/>
+                </d:var>
+                <d:var name="SwMajorVersion" type="INTEGER" value="1"/>
+                <d:var name="SwMinorVersion" type="INTEGER" value="5"/>
+                <d:var name="SwPatchVersion" type="INTEGER" value="1"/>
+                <d:var name="VendorId" type="INTEGER" value="174">
+                  <a:a name="IMPORTER_INFO" value="@REC"/>
+                </d:var>
+              </d:ctr>
+            </d:ctr>
+          </d:chc>
+        </d:lst>
+      </d:ctr>
+    </d:lst>
+  </d:ctr>
+
+</datamodel>

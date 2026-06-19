@@ -1,0 +1,5 @@
+#!gbuild 
+[Subproject] 
+..\..\Source\interrupt_functions.c 
+..\..\Source\interrupt_manager.c 
+..\..\Source\main_multicore.c 

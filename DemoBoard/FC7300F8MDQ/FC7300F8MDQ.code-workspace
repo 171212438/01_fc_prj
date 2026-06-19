@@ -1,0 +1,109 @@
+{
+    "folders": [
+        {
+            "name": "FC7300F8MDQ",
+            "path": "."
+        },
+        {
+            "name": "MCAL",
+            "path": "../../MCAL"
+        }
+    ],
+    "settings": {
+        "emeraldwalk.runonsave": {
+            "autoClearConsole": false,
+            "commands": [
+                {
+                    "showElapsed": false,
+                    "match": "\\.(c|h|S|s|ld)$",
+                    "cmd": "powershell.exe -NoProfile -ExecutionPolicy Bypass -File \"D:\\Workspace\\FlagChip\\01_fc_prj\\DemoBoard\\FC7300F8MDQ\\.vscode\\copy-on-save.ps1\" -FilePath \"${file}\"",
+                    "autoShowOutputPanel": "error"
+                }
+            ]
+        },
+        "C_Cpp.default.compilerPath": "D:/Workspace/FlagChip/00_fc_ide/gcc9-2019-q4/bin/arm-none-eabi-gcc.exe",
+        "C_Cpp.default.compilerArgs": [
+            "-mcpu=cortex-m7",
+            "-mthumb",
+            "-ffreestanding",
+            "-std=gnu11"
+        ],
+        "C_Cpp.default.intelliSenseMode": "windows-gcc-arm",
+        "C_Cpp.default.cStandard": "gnu11",
+        "C_Cpp.default.cppStandard": "gnu++14",
+        "C_Cpp.default.defines": [
+            "DEBUG",
+            "__TARGET_USE_FPU",
+            "_GCC_C_FC7XXX_",
+            "AUTOSAR_OS_NOT_USED",
+            "USE_SW_VECTOR_MODE",
+            "UART_PRINTF",
+            "__attribute__(x)="
+        ],
+        "C_Cpp.default.includePath": [
+            "${workspaceFolder:MCAL}/Src/Common/include",
+            "${workspaceFolder:MCAL}/Src/Base/include/MemMap",
+            "${workspaceFolder:MCAL}/Src/Base/include",
+            "${workspaceFolder:MCAL}/Src/Mcu/include",
+            "${workspaceFolder:MCAL}/Src/Pwm/include",
+            "${workspaceFolder:MCAL}/Src/Gpt/include",
+            "${workspaceFolder:MCAL}/Src/Sdadc/include",
+            "${workspaceFolder:MCAL}/Src/Port/include",
+            "${workspaceFolder:MCAL}/Src/Dio/include",
+            "${workspaceFolder:MCAL}/Src/Wdg/include",
+            "${workspaceFolder:MCAL}/Src/WdgIf/include",
+            "${workspaceFolder:MCAL}/Src/Adc/include",
+            "${workspaceFolder:MCAL}/Src/EcuM/include",
+            "${workspaceFolder:MCAL}/Src/Dem/include",
+            "${workspaceFolder:MCAL}/Src/Lin/include",
+            "${workspaceFolder:MCAL}/Src/Uart/include",
+            "${workspaceFolder:MCAL}/Src/LinIf",
+            "${workspaceFolder:MCAL}/Src/Spi/include",
+            "${workspaceFolder:MCAL}/Src/Qdt/include",
+            "${workspaceFolder:MCAL}/Src/Can/include",
+            "${workspaceFolder:MCAL}/Src/Icu/include",
+            "${workspaceFolder:MCAL}/Src/Fee/include",
+            "${workspaceFolder:MCAL}/Src/Fls/include",
+            "${workspaceFolder:MCAL}/Src/Pfls/include",
+            "${workspaceFolder:MCAL}/Src/I2c/include",
+            "${workspaceFolder:MCAL}/Src/TrgSel/include",
+            "${workspaceFolder:MCAL}/Src/Dma/include",
+            "${workspaceFolder:MCAL}/Src/Crypto/include",
+            "${workspaceFolder:MCAL}/Src/CryIf/include",
+            "${workspaceFolder:MCAL}/Src/EthTrcv/include",
+            "${workspaceFolder:MCAL}/Src/EthSwt/include",
+            "${workspaceFolder:MCAL}/Src/EthIf/include",
+            "${workspaceFolder:MCAL}/Src/Eth/include",
+            "${workspaceFolder:MCAL}/Src/Eftu/include",
+            "${workspaceFolder:MCAL}/Src/Os/include",
+            "${workspaceFolder:MCAL}/Src/Mb/include",
+            "${workspaceFolder:MCAL}/Src/Msc/include",
+            "${workspaceFolder:MCAL}/Src/Sent/include",
+            "${workspaceFolder:MCAL}/Src/Ssi/include",
+            "${workspaceFolder:MCAL}/Src/Cordic/include",
+            "${workspaceFolder:MCAL}/Src/Ocu/include",
+            "${workspaceFolder:MCAL}/Src/Ospi/include",
+            "${workspaceFolder:MCAL}/Src/Crc/include",
+            "${workspaceFolder:MCAL}/Src/SchM/include",
+            "${workspaceFolder:FC7300F8MDQ}/_MCAL_multicore_generate_8M/include",
+            "${workspaceFolder:FC7300F8MDQ}/_Compile_Related_Files/Systick/include",
+            "${workspaceFolder:FC7300F8MDQ}/_Compile_Related_Files/Det/include",
+            "${workspaceFolder:FC7300F8MDQ}/_BSW_generate/NvM/include",
+            "${workspaceFolder:FC7300F8MDQ}/_BSW_generate/Config",
+            "${workspaceFolder:FC7300F8MDQ}/MiddleWare/RTT",
+            "${workspaceFolder:FC7300F8MDQ}/MiddleWare/UartDriver",
+            "${workspaceFolder:FC7300F8MDQ}/MiddleWare/Mpu",
+            "${workspaceFolder:FC7300F8MDQ}/Include",
+            "${workspaceFolder:FC7300F8MDQ}/App/Include"
+        ],
+        "C_Cpp.default.browse.path": [
+            "${workspaceFolder:MCAL}/Src",
+            "${workspaceFolder:FC7300F8MDQ}/_MCAL_multicore_generate_8M/include",
+            "${workspaceFolder:FC7300F8MDQ}/_Compile_Related_Files",
+            "${workspaceFolder:FC7300F8MDQ}/_BSW_generate",
+            "${workspaceFolder:FC7300F8MDQ}/MiddleWare",
+            "${workspaceFolder:FC7300F8MDQ}/Include",
+            "${workspaceFolder:FC7300F8MDQ}/App/Include"
+        ]
+    }
+}

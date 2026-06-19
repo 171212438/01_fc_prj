@@ -1,0 +1,116 @@
+#!gbuild
+macro ProjectName=Mcal_DemoBoard_Project_2M
+primaryTarget=arm_standalone.tgt
+#component top_level_project
+[Program]
+	# Compile options
+	-bsp generic
+	-cpu=cortexm7
+	-fsingle
+	-fpu=vfpv5_d16
+	-align8
+	-littleendian
+	-c99
+	-G
+	-Ogeneral
+	--unsigned_chars
+	--unsigned_fields
+	--no_commons
+	--ghstd=last
+	--no_exceptions
+	--prototype_errors
+	-keeptempfiles
+	-list
+	-dual_debug
+	-preprocess_assembly_files
+	--gnu_asm
+	-nostartfiles
+	-e Reset_Handler
+	-map
+	-Mn
+	-keepmap
+	-delete
+	-ignore_debug_references
+	-paddr_offset=0
+	# Optional warnings
+	-Wundef
+	--incorrect_pragma_warnings
+	-Wimplicit-int
+	-Wshadow
+	-Wtrigraphs
+
+	# Build artifacts
+	:sourceDir=.
+	-object_dir=z_Build_${ProjectName}/objs
+	-list_dir=z_Build_${ProjectName}/lst
+	:outputDir=z_Build_${ProjectName}/output
+	:binDir=z_Build_${ProjectName}/bin
+	{optgroup=GhsCommonOptions} -o ${ProjectName}.elf
+	:postexec='gsrec -hex386 z_Build_${ProjectName}/bin/${ProjectName}.elf -o z_Build_${ProjectName}/bin/${ProjectName}.hex'
+
+	# Defined macros
+	-DDEBUG
+	-DUART_PRINTF
+	-DAUTOSAR_OS_NOT_USED
+	-DUSE_SW_VECTOR_MODE
+	-D__TARGET_USE_FPU
+
+	# Include Folder
+	-I../../Include
+	-I../../App/include
+	-I../../_MCAL_FC7240_generate_2M/include
+	-I../../_BSW_generate/NvM/include
+	-I../../_BSW_generate/Config
+	-I../../_Compile_Related_Files/Common/Include
+	-I../../_Compile_Related_Files/Systick/include
+	-I../../_Compile_Related_Files/Det/include
+	-I../../../../MCAL/Src/Base/include
+	-I../../../../MCAL/Src/Base/include/MemMap
+	-I../../../../MCAL/Src/Adc/include
+	-I../../../../MCAL/Src/Can/include
+	-I../../../../MCAL/Src/Common/include
+	-I../../../../MCAL/Src/Crc/include
+	-I../../../../MCAL/Src/CryIf/include
+	-I../../../../MCAL/Src/Crypto/include
+	-I../../../../MCAL/Src/Dem/include
+	-I../../../../MCAL/Src/Dio/include
+	-I../../../../MCAL/Src/Dma/include
+	-I../../../../MCAL/Src/EcuM/include
+	-I../../../../MCAL/Src/Fee/include
+	-I../../../../MCAL/Src/Fls/include
+	-I../../../../MCAL/Src/Gpt/include
+	-I../../../../MCAL/Src/I2c/include
+	-I../../../../MCAL/Src/Icu/include
+	-I../../../../MCAL/Src/Lin/include
+	-I../../../../MCAL/Src/LinIf
+	-I../../../../MCAL/Src/Mb/include
+	-I../../../../MCAL/Src/Mcu/include
+	-I../../../../MCAL/Src/Msc/include
+	-I../../../../MCAL/Src/Ocu/include
+	-I../../../../MCAL/Src/Os/include
+	-I../../../../MCAL/Src/Port/include
+	-I../../../../MCAL/Src/Pfls/include
+	-I../../../../MCAL/Src/Pwm/include
+	-I../../../../MCAL/Src/SchM/include
+	-I../../../../MCAL/Src/Sent/include
+	-I../../../../MCAL/Src/Spi/include
+	-I../../../../MCAL/Src/TrgSel/include
+	-I../../../../MCAL/Src/Wdg/include
+	-I../../../../MCAL/Src/WdgIf/include
+	-I../../../../MCAL/Src/Uart/include
+	-I../../MiddleWare/RTT
+	-I../../MiddleWare/UartDriver
+	-I../../MiddleWare/Mpu
+	
+Startup\FC7240_2M.ld
+
+#Subproject
+_SubProjects\_BSW_generate.gpj
+_SubProjects\_Compile_Related_Files.gpj
+_SubProjects\_MCAL_FC7240_generate_2M.gpj
+_SubProjects\Include.gpj
+_SubProjects\Source.gpj
+_SubProjects\App.gpj
+_SubProjects\MCAL.gpj
+_SubProjects\MiddleWare.gpj
+_SubProjects\Startup.gpj

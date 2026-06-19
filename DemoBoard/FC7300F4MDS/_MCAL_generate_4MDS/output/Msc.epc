@@ -1,0 +1,311 @@
+<?xml version='1.0'?>
+<AUTOSAR xmlns="http://autosar.org/schema/r4.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://autosar.org/schema/r4.0 AUTOSAR_00049.xsd">
+  <AR-PACKAGES>
+    <AR-PACKAGE>
+      <SHORT-NAME>Msc</SHORT-NAME>
+      <ELEMENTS>
+        <ECUC-MODULE-CONFIGURATION-VALUES>
+          <SHORT-NAME>Msc</SHORT-NAME>
+          <DEFINITION-REF DEST="ECUC-MODULE-DEF">/FC7300FXXX/Msc</DEFINITION-REF>
+          <IMPLEMENTATION-CONFIG-VARIANT>VARIANT-PRE-COMPILE</IMPLEMENTATION-CONFIG-VARIANT>
+          <CONTAINERS>
+            <ECUC-CONTAINER-VALUE>
+              <SHORT-NAME>CommonPublishedInformation</SHORT-NAME>
+              <DEFINITION-REF DEST="ECUC-PARAM-CONF-CONTAINER-DEF">/FC7300FXXX/Msc/CommonPublishedInformation</DEFINITION-REF>
+              <PARAMETER-VALUES>
+                <ECUC-NUMERICAL-PARAM-VALUE>
+                  <DEFINITION-REF DEST="ECUC-INTEGER-PARAM-DEF">/FC7300FXXX/Msc/CommonPublishedInformation/ArReleaseMajorVersion</DEFINITION-REF>
+                  <VALUE>4</VALUE>
+                </ECUC-NUMERICAL-PARAM-VALUE>
+                <ECUC-NUMERICAL-PARAM-VALUE>
+                  <DEFINITION-REF DEST="ECUC-INTEGER-PARAM-DEF">/FC7300FXXX/Msc/CommonPublishedInformation/ArReleaseMinorVersion</DEFINITION-REF>
+                  <VALUE>6</VALUE>
+                </ECUC-NUMERICAL-PARAM-VALUE>
+                <ECUC-NUMERICAL-PARAM-VALUE>
+                  <DEFINITION-REF DEST="ECUC-INTEGER-PARAM-DEF">/FC7300FXXX/Msc/CommonPublishedInformation/ArReleaseRevisionVersion</DEFINITION-REF>
+                  <VALUE>0</VALUE>
+                </ECUC-NUMERICAL-PARAM-VALUE>
+                <ECUC-NUMERICAL-PARAM-VALUE>
+                  <DEFINITION-REF DEST="ECUC-INTEGER-PARAM-DEF">/FC7300FXXX/Msc/CommonPublishedInformation/ModuleId</DEFINITION-REF>
+                  <VALUE>253</VALUE>
+                </ECUC-NUMERICAL-PARAM-VALUE>
+                <ECUC-NUMERICAL-PARAM-VALUE>
+                  <DEFINITION-REF DEST="ECUC-INTEGER-PARAM-DEF">/FC7300FXXX/Msc/CommonPublishedInformation/SwMajorVersion</DEFINITION-REF>
+                  <VALUE>1</VALUE>
+                </ECUC-NUMERICAL-PARAM-VALUE>
+                <ECUC-NUMERICAL-PARAM-VALUE>
+                  <DEFINITION-REF DEST="ECUC-INTEGER-PARAM-DEF">/FC7300FXXX/Msc/CommonPublishedInformation/SwMinorVersion</DEFINITION-REF>
+                  <VALUE>5</VALUE>
+                </ECUC-NUMERICAL-PARAM-VALUE>
+                <ECUC-NUMERICAL-PARAM-VALUE>
+                  <DEFINITION-REF DEST="ECUC-INTEGER-PARAM-DEF">/FC7300FXXX/Msc/CommonPublishedInformation/SwPatchVersion</DEFINITION-REF>
+                  <VALUE>1</VALUE>
+                </ECUC-NUMERICAL-PARAM-VALUE>
+                <ECUC-NUMERICAL-PARAM-VALUE>
+                  <DEFINITION-REF DEST="ECUC-INTEGER-PARAM-DEF">/FC7300FXXX/Msc/CommonPublishedInformation/VendorId</DEFINITION-REF>
+                  <VALUE>174</VALUE>
+                </ECUC-NUMERICAL-PARAM-VALUE>
+              </PARAMETER-VALUES>
+            </ECUC-CONTAINER-VALUE>
+            <ECUC-CONTAINER-VALUE>
+              <SHORT-NAME>MscGeneral</SHORT-NAME>
+              <DEFINITION-REF DEST="ECUC-PARAM-CONF-CONTAINER-DEF">/FC7300FXXX/Msc/MscGeneral</DEFINITION-REF>
+              <PARAMETER-VALUES>
+                <ECUC-NUMERICAL-PARAM-VALUE>
+                  <DEFINITION-REF DEST="ECUC-BOOLEAN-PARAM-DEF">/FC7300FXXX/Msc/MscGeneral/MscDevErrorDetect</DEFINITION-REF>
+                  <VALUE>1</VALUE>
+                </ECUC-NUMERICAL-PARAM-VALUE>
+                <ECUC-NUMERICAL-PARAM-VALUE>
+                  <DEFINITION-REF DEST="ECUC-BOOLEAN-PARAM-DEF">/FC7300FXXX/Msc/MscGeneral/MscDisableDemReportErrorStatus</DEFINITION-REF>
+                  <VALUE>0</VALUE>
+                </ECUC-NUMERICAL-PARAM-VALUE>
+                <ECUC-NUMERICAL-PARAM-VALUE>
+                  <DEFINITION-REF DEST="ECUC-BOOLEAN-PARAM-DEF">/FC7300FXXX/Msc/MscGeneral/MscMultiCoreSupport</DEFINITION-REF>
+                  <VALUE>0</VALUE>
+                </ECUC-NUMERICAL-PARAM-VALUE>
+                <ECUC-NUMERICAL-PARAM-VALUE>
+                  <DEFINITION-REF DEST="ECUC-BOOLEAN-PARAM-DEF">/FC7300FXXX/Msc/MscGeneral/MscPollingUse</DEFINITION-REF>
+                  <VALUE>0</VALUE>
+                </ECUC-NUMERICAL-PARAM-VALUE>
+                <ECUC-NUMERICAL-PARAM-VALUE>
+                  <DEFINITION-REF DEST="ECUC-INTEGER-PARAM-DEF">/FC7300FXXX/Msc/MscGeneral/MscTimeoutDuration</DEFINITION-REF>
+                  <VALUE>10000</VALUE>
+                </ECUC-NUMERICAL-PARAM-VALUE>
+                <ECUC-NUMERICAL-PARAM-VALUE>
+                  <DEFINITION-REF DEST="ECUC-BOOLEAN-PARAM-DEF">/FC7300FXXX/Msc/MscGeneral/MscVersionInfoApi</DEFINITION-REF>
+                  <VALUE>1</VALUE>
+                </ECUC-NUMERICAL-PARAM-VALUE>
+              </PARAMETER-VALUES>
+              <SUB-CONTAINERS>
+                <ECUC-CONTAINER-VALUE>
+                  <SHORT-NAME>MscDemEventParameterRefs</SHORT-NAME>
+                  <DEFINITION-REF DEST="ECUC-PARAM-CONF-CONTAINER-DEF">/FC7300FXXX/Msc/MscGeneral/MscDemEventParameterRefs</DEFINITION-REF>
+                  <REFERENCE-VALUES>
+                    <ECUC-REFERENCE-VALUE>
+                      <DEFINITION-REF DEST="ECUC-SYMBOLIC-NAME-REFERENCE-DEF">/FC7300FXXX/Msc/MscGeneral/MscDemEventParameterRefs/MSC_E_TIMEOUT</DEFINITION-REF>
+                      <VALUE-REF DEST="ECUC-CONTAINER-VALUE">/Dem/Dem/DemConfigSet/DemEventParameter_MscTimeout</VALUE-REF>
+                    </ECUC-REFERENCE-VALUE>
+                  </REFERENCE-VALUES>
+                </ECUC-CONTAINER-VALUE>
+              </SUB-CONTAINERS>
+            </ECUC-CONTAINER-VALUE>
+            <ECUC-CONTAINER-VALUE>
+              <SHORT-NAME>MscGlobalConfig</SHORT-NAME>
+              <DEFINITION-REF DEST="ECUC-PARAM-CONF-CONTAINER-DEF">/FC7300FXXX/Msc/MscGlobalConfig</DEFINITION-REF>
+              <SUB-CONTAINERS>
+                <ECUC-CONTAINER-VALUE>
+                  <SHORT-NAME>MscChannel_0</SHORT-NAME>
+                  <DEFINITION-REF DEST="ECUC-PARAM-CONF-CONTAINER-DEF">/FC7300FXXX/Msc/MscGlobalConfig/MscChannel</DEFINITION-REF>
+                  <PARAMETER-VALUES>
+                    <ECUC-NUMERICAL-PARAM-VALUE>
+                      <DEFINITION-REF DEST="ECUC-INTEGER-PARAM-DEF">/FC7300FXXX/Msc/MscGlobalConfig/MscChannel/MscChannelId</DEFINITION-REF>
+                      <VALUE>0</VALUE>
+                    </ECUC-NUMERICAL-PARAM-VALUE>
+                    <ECUC-NUMERICAL-PARAM-VALUE>
+                      <DEFINITION-REF DEST="ECUC-INTEGER-PARAM-DEF">/FC7300FXXX/Msc/MscGlobalConfig/MscChannel/MscHwChannel</DEFINITION-REF>
+                      <VALUE>0</VALUE>
+                    </ECUC-NUMERICAL-PARAM-VALUE>
+                  </PARAMETER-VALUES>
+                  <SUB-CONTAINERS>
+                    <ECUC-CONTAINER-VALUE>
+                      <SHORT-NAME>IOConfiguration</SHORT-NAME>
+                      <DEFINITION-REF DEST="ECUC-PARAM-CONF-CONTAINER-DEF">/FC7300FXXX/Msc/MscGlobalConfig/MscChannel/IOConfiguration</DEFINITION-REF>
+                      <PARAMETER-VALUES>
+                        <ECUC-TEXTUAL-PARAM-VALUE>
+                          <DEFINITION-REF DEST="ECUC-ENUMERATION-PARAM-DEF">/FC7300FXXX/Msc/MscGlobalConfig/MscChannel/IOConfiguration/MscENCSelect</DEFINITION-REF>
+                          <VALUE>MSC_EN_SELECTION_0</VALUE>
+                        </ECUC-TEXTUAL-PARAM-VALUE>
+                        <ECUC-TEXTUAL-PARAM-VALUE>
+                          <DEFINITION-REF DEST="ECUC-ENUMERATION-PARAM-DEF">/FC7300FXXX/Msc/MscGlobalConfig/MscChannel/IOConfiguration/MscENHSelect</DEFINITION-REF>
+                          <VALUE>MSC_EN_SELECTION_0</VALUE>
+                        </ECUC-TEXTUAL-PARAM-VALUE>
+                        <ECUC-TEXTUAL-PARAM-VALUE>
+                          <DEFINITION-REF DEST="ECUC-ENUMERATION-PARAM-DEF">/FC7300FXXX/Msc/MscGlobalConfig/MscChannel/IOConfiguration/MscENLSelect</DEFINITION-REF>
+                          <VALUE>MSC_EN_SELECTION_0</VALUE>
+                        </ECUC-TEXTUAL-PARAM-VALUE>
+                        <ECUC-TEXTUAL-PARAM-VALUE>
+                          <DEFINITION-REF DEST="ECUC-ENUMERATION-PARAM-DEF">/FC7300FXXX/Msc/MscGlobalConfig/MscChannel/IOConfiguration/MscSerializedInputIOPolarity</DEFINITION-REF>
+                          <VALUE>SDI_POLARITY_INDENTICAL</VALUE>
+                        </ECUC-TEXTUAL-PARAM-VALUE>
+                        <ECUC-TEXTUAL-PARAM-VALUE>
+                          <DEFINITION-REF DEST="ECUC-ENUMERATION-PARAM-DEF">/FC7300FXXX/Msc/MscGlobalConfig/MscChannel/IOConfiguration/MscSerializedInputIOSelection</DEFINITION-REF>
+                          <VALUE>SDI0</VALUE>
+                        </ECUC-TEXTUAL-PARAM-VALUE>
+                      </PARAMETER-VALUES>
+                    </ECUC-CONTAINER-VALUE>
+                    <ECUC-CONTAINER-VALUE>
+                      <SHORT-NAME>InterruptConfiguration</SHORT-NAME>
+                      <DEFINITION-REF DEST="ECUC-PARAM-CONF-CONTAINER-DEF">/FC7300FXXX/Msc/MscGlobalConfig/MscChannel/InterruptConfiguration</DEFINITION-REF>
+                      <PARAMETER-VALUES>
+                        <ECUC-NUMERICAL-PARAM-VALUE>
+                          <DEFINITION-REF DEST="ECUC-BOOLEAN-PARAM-DEF">/FC7300FXXX/Msc/MscGlobalConfig/MscChannel/InterruptConfiguration/DelayInterrupt</DEFINITION-REF>
+                          <VALUE>0</VALUE>
+                        </ECUC-NUMERICAL-PARAM-VALUE>
+                        <ECUC-TEXTUAL-PARAM-VALUE>
+                          <DEFINITION-REF DEST="ECUC-FUNCTION-NAME-DEF">/FC7300FXXX/Msc/MscGlobalConfig/MscChannel/InterruptConfiguration/RxReceiveNotification</DEFINITION-REF>
+                          <VALUE>Msc_ReceiveNotification0</VALUE>
+                        </ECUC-TEXTUAL-PARAM-VALUE>
+                      </PARAMETER-VALUES>
+                    </ECUC-CONTAINER-VALUE>
+                    <ECUC-CONTAINER-VALUE>
+                      <SHORT-NAME>MscTransSource</SHORT-NAME>
+                      <DEFINITION-REF DEST="ECUC-PARAM-CONF-CONTAINER-DEF">/FC7300FXXX/Msc/MscGlobalConfig/MscChannel/MscTransSource</DEFINITION-REF>
+                      <PARAMETER-VALUES>
+                        <ECUC-TEXTUAL-PARAM-VALUE>
+                          <DEFINITION-REF DEST="ECUC-ENUMERATION-PARAM-DEF">/FC7300FXXX/Msc/MscGlobalConfig/MscChannel/MscTransSource/MscTransSourceSRL</DEFINITION-REF>
+                          <VALUE>SOURCE_DATA_REG</VALUE>
+                        </ECUC-TEXTUAL-PARAM-VALUE>
+                        <ECUC-TEXTUAL-PARAM-VALUE>
+                          <DEFINITION-REF DEST="ECUC-ENUMERATION-PARAM-DEF">/FC7300FXXX/Msc/MscGlobalConfig/MscChannel/MscTransSource/MscTransSourceSRL</DEFINITION-REF>
+                          <VALUE>SOURCE_DATA_REG</VALUE>
+                        </ECUC-TEXTUAL-PARAM-VALUE>
+                        <ECUC-TEXTUAL-PARAM-VALUE>
+                          <DEFINITION-REF DEST="ECUC-ENUMERATION-PARAM-DEF">/FC7300FXXX/Msc/MscGlobalConfig/MscChannel/MscTransSource/MscTransSourceSRL</DEFINITION-REF>
+                          <VALUE>SOURCE_DATA_REG</VALUE>
+                        </ECUC-TEXTUAL-PARAM-VALUE>
+                        <ECUC-TEXTUAL-PARAM-VALUE>
+                          <DEFINITION-REF DEST="ECUC-ENUMERATION-PARAM-DEF">/FC7300FXXX/Msc/MscGlobalConfig/MscChannel/MscTransSource/MscTransSourceSRL</DEFINITION-REF>
+                          <VALUE>SOURCE_DATA_REG</VALUE>
+                        </ECUC-TEXTUAL-PARAM-VALUE>
+                        <ECUC-TEXTUAL-PARAM-VALUE>
+                          <DEFINITION-REF DEST="ECUC-ENUMERATION-PARAM-DEF">/FC7300FXXX/Msc/MscGlobalConfig/MscChannel/MscTransSource/MscTransSourceSRL</DEFINITION-REF>
+                          <VALUE>SOURCE_DATA_REG</VALUE>
+                        </ECUC-TEXTUAL-PARAM-VALUE>
+                        <ECUC-TEXTUAL-PARAM-VALUE>
+                          <DEFINITION-REF DEST="ECUC-ENUMERATION-PARAM-DEF">/FC7300FXXX/Msc/MscGlobalConfig/MscChannel/MscTransSource/MscTransSourceSRL</DEFINITION-REF>
+                          <VALUE>SOURCE_DATA_REG</VALUE>
+                        </ECUC-TEXTUAL-PARAM-VALUE>
+                        <ECUC-TEXTUAL-PARAM-VALUE>
+                          <DEFINITION-REF DEST="ECUC-ENUMERATION-PARAM-DEF">/FC7300FXXX/Msc/MscGlobalConfig/MscChannel/MscTransSource/MscTransSourceSRL</DEFINITION-REF>
+                          <VALUE>SOURCE_DATA_REG</VALUE>
+                        </ECUC-TEXTUAL-PARAM-VALUE>
+                        <ECUC-TEXTUAL-PARAM-VALUE>
+                          <DEFINITION-REF DEST="ECUC-ENUMERATION-PARAM-DEF">/FC7300FXXX/Msc/MscGlobalConfig/MscChannel/MscTransSource/MscTransSourceSRL</DEFINITION-REF>
+                          <VALUE>SOURCE_DATA_REG</VALUE>
+                        </ECUC-TEXTUAL-PARAM-VALUE>
+                        <ECUC-TEXTUAL-PARAM-VALUE>
+                          <DEFINITION-REF DEST="ECUC-ENUMERATION-PARAM-DEF">/FC7300FXXX/Msc/MscGlobalConfig/MscChannel/MscTransSource/MscTransSourceSRL</DEFINITION-REF>
+                          <VALUE>SOURCE_DATA_REG</VALUE>
+                        </ECUC-TEXTUAL-PARAM-VALUE>
+                        <ECUC-TEXTUAL-PARAM-VALUE>
+                          <DEFINITION-REF DEST="ECUC-ENUMERATION-PARAM-DEF">/FC7300FXXX/Msc/MscGlobalConfig/MscChannel/MscTransSource/MscTransSourceSRL</DEFINITION-REF>
+                          <VALUE>SOURCE_DATA_REG</VALUE>
+                        </ECUC-TEXTUAL-PARAM-VALUE>
+                        <ECUC-TEXTUAL-PARAM-VALUE>
+                          <DEFINITION-REF DEST="ECUC-ENUMERATION-PARAM-DEF">/FC7300FXXX/Msc/MscGlobalConfig/MscChannel/MscTransSource/MscTransSourceSRL</DEFINITION-REF>
+                          <VALUE>SOURCE_DATA_REG</VALUE>
+                        </ECUC-TEXTUAL-PARAM-VALUE>
+                        <ECUC-TEXTUAL-PARAM-VALUE>
+                          <DEFINITION-REF DEST="ECUC-ENUMERATION-PARAM-DEF">/FC7300FXXX/Msc/MscGlobalConfig/MscChannel/MscTransSource/MscTransSourceSRL</DEFINITION-REF>
+                          <VALUE>SOURCE_DATA_REG</VALUE>
+                        </ECUC-TEXTUAL-PARAM-VALUE>
+                        <ECUC-TEXTUAL-PARAM-VALUE>
+                          <DEFINITION-REF DEST="ECUC-ENUMERATION-PARAM-DEF">/FC7300FXXX/Msc/MscGlobalConfig/MscChannel/MscTransSource/MscTransSourceSRL</DEFINITION-REF>
+                          <VALUE>SOURCE_DATA_REG</VALUE>
+                        </ECUC-TEXTUAL-PARAM-VALUE>
+                        <ECUC-TEXTUAL-PARAM-VALUE>
+                          <DEFINITION-REF DEST="ECUC-ENUMERATION-PARAM-DEF">/FC7300FXXX/Msc/MscGlobalConfig/MscChannel/MscTransSource/MscTransSourceSRL</DEFINITION-REF>
+                          <VALUE>SOURCE_DATA_REG</VALUE>
+                        </ECUC-TEXTUAL-PARAM-VALUE>
+                        <ECUC-TEXTUAL-PARAM-VALUE>
+                          <DEFINITION-REF DEST="ECUC-ENUMERATION-PARAM-DEF">/FC7300FXXX/Msc/MscGlobalConfig/MscChannel/MscTransSource/MscTransSourceSRL</DEFINITION-REF>
+                          <VALUE>SOURCE_DATA_REG</VALUE>
+                        </ECUC-TEXTUAL-PARAM-VALUE>
+                        <ECUC-TEXTUAL-PARAM-VALUE>
+                          <DEFINITION-REF DEST="ECUC-ENUMERATION-PARAM-DEF">/FC7300FXXX/Msc/MscGlobalConfig/MscChannel/MscTransSource/MscTransSourceSRL</DEFINITION-REF>
+                          <VALUE>SOURCE_DATA_REG</VALUE>
+                        </ECUC-TEXTUAL-PARAM-VALUE>
+                      </PARAMETER-VALUES>
+                      <SUB-CONTAINERS>
+                        <ECUC-CONTAINER-VALUE>
+                          <SHORT-NAME>MscInjection</SHORT-NAME>
+                          <DEFINITION-REF DEST="ECUC-PARAM-CONF-CONTAINER-DEF">/FC7300FXXX/Msc/MscGlobalConfig/MscChannel/MscTransSource/MscInjection</DEFINITION-REF>
+                        </ECUC-CONTAINER-VALUE>
+                      </SUB-CONTAINERS>
+                    </ECUC-CONTAINER-VALUE>
+                    <ECUC-CONTAINER-VALUE>
+                      <SHORT-NAME>RxConfiguration</SHORT-NAME>
+                      <DEFINITION-REF DEST="ECUC-PARAM-CONF-CONTAINER-DEF">/FC7300FXXX/Msc/MscGlobalConfig/MscChannel/RxConfiguration</DEFINITION-REF>
+                      <PARAMETER-VALUES>
+                        <ECUC-NUMERICAL-PARAM-VALUE>
+                          <DEFINITION-REF DEST="ECUC-INTEGER-PARAM-DEF">/FC7300FXXX/Msc/MscGlobalConfig/MscChannel/RxConfiguration/MscChannelRxBaudRate</DEFINITION-REF>
+                          <VALUE>23437</VALUE>
+                        </ECUC-NUMERICAL-PARAM-VALUE>
+                        <ECUC-NUMERICAL-PARAM-VALUE>
+                          <DEFINITION-REF DEST="ECUC-INTEGER-PARAM-DEF">/FC7300FXXX/Msc/MscGlobalConfig/MscChannel/RxConfiguration/MscRxClockRatio</DEFINITION-REF>
+                          <VALUE>128</VALUE>
+                        </ECUC-NUMERICAL-PARAM-VALUE>
+                        <ECUC-TEXTUAL-PARAM-VALUE>
+                          <DEFINITION-REF DEST="ECUC-ENUMERATION-PARAM-DEF">/FC7300FXXX/Msc/MscGlobalConfig/MscChannel/RxConfiguration/MscRxDataParity</DEFINITION-REF>
+                          <VALUE>MSC_RX_PARITY_EVEN</VALUE>
+                        </ECUC-TEXTUAL-PARAM-VALUE>
+                        <ECUC-TEXTUAL-PARAM-VALUE>
+                          <DEFINITION-REF DEST="ECUC-ENUMERATION-PARAM-DEF">/FC7300FXXX/Msc/MscGlobalConfig/MscChannel/RxConfiguration/MscRxDataSize</DEFINITION-REF>
+                          <VALUE>MSC_RX_12_BIT_LENGTH</VALUE>
+                        </ECUC-TEXTUAL-PARAM-VALUE>
+                      </PARAMETER-VALUES>
+                    </ECUC-CONTAINER-VALUE>
+                    <ECUC-CONTAINER-VALUE>
+                      <SHORT-NAME>TxConfiguration</SHORT-NAME>
+                      <DEFINITION-REF DEST="ECUC-PARAM-CONF-CONTAINER-DEF">/FC7300FXXX/Msc/MscGlobalConfig/MscChannel/TxConfiguration</DEFINITION-REF>
+                      <PARAMETER-VALUES>
+                        <ECUC-NUMERICAL-PARAM-VALUE>
+                          <DEFINITION-REF DEST="ECUC-INTEGER-PARAM-DEF">/FC7300FXXX/Msc/MscGlobalConfig/MscChannel/TxConfiguration/MscChannelTxFrequency</DEFINITION-REF>
+                          <VALUE>1500000</VALUE>
+                        </ECUC-NUMERICAL-PARAM-VALUE>
+                        <ECUC-NUMERICAL-PARAM-VALUE>
+                          <DEFINITION-REF DEST="ECUC-INTEGER-PARAM-DEF">/FC7300FXXX/Msc/MscGlobalConfig/MscChannel/TxConfiguration/MscPassvieFrameLength</DEFINITION-REF>
+                          <VALUE>3</VALUE>
+                        </ECUC-NUMERICAL-PARAM-VALUE>
+                        <ECUC-NUMERICAL-PARAM-VALUE>
+                          <DEFINITION-REF DEST="ECUC-INTEGER-PARAM-DEF">/FC7300FXXX/Msc/MscGlobalConfig/MscChannel/TxConfiguration/MscPassvieFrameNumber</DEFINITION-REF>
+                          <VALUE>2</VALUE>
+                        </ECUC-NUMERICAL-PARAM-VALUE>
+                        <ECUC-TEXTUAL-PARAM-VALUE>
+                          <DEFINITION-REF DEST="ECUC-ENUMERATION-PARAM-DEF">/FC7300FXXX/Msc/MscGlobalConfig/MscChannel/TxConfiguration/MscSRHSelectionBit</DEFINITION-REF>
+                          <VALUE>MSC_DATA_SELECTION_BIT_DISABLE</VALUE>
+                        </ECUC-TEXTUAL-PARAM-VALUE>
+                        <ECUC-TEXTUAL-PARAM-VALUE>
+                          <DEFINITION-REF DEST="ECUC-ENUMERATION-PARAM-DEF">/FC7300FXXX/Msc/MscGlobalConfig/MscChannel/TxConfiguration/MscSRLDataSelectionBit</DEFINITION-REF>
+                          <VALUE>MSC_DATA_SELECTION_BIT_ENABLE</VALUE>
+                        </ECUC-TEXTUAL-PARAM-VALUE>
+                        <ECUC-TEXTUAL-PARAM-VALUE>
+                          <DEFINITION-REF DEST="ECUC-ENUMERATION-PARAM-DEF">/FC7300FXXX/Msc/MscGlobalConfig/MscChannel/TxConfiguration/MscTransmissionPolarity</DEFINITION-REF>
+                          <VALUE>MSC_TX_INVPOL_EN</VALUE>
+                        </ECUC-TEXTUAL-PARAM-VALUE>
+                        <ECUC-TEXTUAL-PARAM-VALUE>
+                          <DEFINITION-REF DEST="ECUC-ENUMERATION-PARAM-DEF">/FC7300FXXX/Msc/MscGlobalConfig/MscChannel/TxConfiguration/MscTransmissionTrigger</DEFINITION-REF>
+                          <VALUE>MSC_TX_TRIGGER_CONTINUOUS</VALUE>
+                        </ECUC-TEXTUAL-PARAM-VALUE>
+                        <ECUC-TEXTUAL-PARAM-VALUE>
+                          <DEFINITION-REF DEST="ECUC-ENUMERATION-PARAM-DEF">/FC7300FXXX/Msc/MscGlobalConfig/MscChannel/TxConfiguration/MscTxClockMode</DEFINITION-REF>
+                          <VALUE>MSC_TX_SYNCHRONOUS</VALUE>
+                        </ECUC-TEXTUAL-PARAM-VALUE>
+                        <ECUC-NUMERICAL-PARAM-VALUE>
+                          <DEFINITION-REF DEST="ECUC-INTEGER-PARAM-DEF">/FC7300FXXX/Msc/MscGlobalConfig/MscChannel/TxConfiguration/SRHDataLength</DEFINITION-REF>
+                          <VALUE>0</VALUE>
+                        </ECUC-NUMERICAL-PARAM-VALUE>
+                        <ECUC-NUMERICAL-PARAM-VALUE>
+                          <DEFINITION-REF DEST="ECUC-INTEGER-PARAM-DEF">/FC7300FXXX/Msc/MscGlobalConfig/MscChannel/TxConfiguration/SRLDataLength</DEFINITION-REF>
+                          <VALUE>16</VALUE>
+                        </ECUC-NUMERICAL-PARAM-VALUE>
+                      </PARAMETER-VALUES>
+                      <REFERENCE-VALUES>
+                        <ECUC-REFERENCE-VALUE>
+                          <DEFINITION-REF DEST="ECUC-REFERENCE-DEF">/FC7300FXXX/Msc/MscGlobalConfig/MscChannel/TxConfiguration/MscDownstreamClockRef</DEFINITION-REF>
+                          <VALUE-REF DEST="ECUC-CONTAINER-VALUE">/Mcu/Mcu/McuModuleConfiguration/MCU_Demo_FOSC24M/McuClockReferencePoint_Msc0</VALUE-REF>
+                        </ECUC-REFERENCE-VALUE>
+                      </REFERENCE-VALUES>
+                    </ECUC-CONTAINER-VALUE>
+                  </SUB-CONTAINERS>
+                </ECUC-CONTAINER-VALUE>
+              </SUB-CONTAINERS>
+            </ECUC-CONTAINER-VALUE>
+          </CONTAINERS>
+        </ECUC-MODULE-CONFIGURATION-VALUES>
+      </ELEMENTS>
+    </AR-PACKAGE>
+  </AR-PACKAGES>
+</AUTOSAR>

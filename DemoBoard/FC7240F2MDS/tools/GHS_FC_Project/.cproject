@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<?fileVersion 4.0.0?><cproject storage_type_id="org.eclipse.cdt.core.XmlProjectDescriptionStorage">
+	<storageModule moduleId="org.eclipse.cdt.core.settings">
+		<cconfiguration id="ghs.managedmake.arm.executable.debug.1203478445">
+			<storageModule buildSystemId="org.eclipse.cdt.managedbuilder.core.configurationDataProvider" id="ghs.managedmake.arm.executable.debug.1203478445" moduleId="org.eclipse.cdt.core.settings" name="_Build_FC7240F2M">
+				<externalSettings/>
+				<extensions>
+					<extension id="org.eclipse.cdt.core.ELF" point="org.eclipse.cdt.core.BinaryParser"/>
+					<extension id="org.eclipse.cdt.core.GmakeErrorParser" point="org.eclipse.cdt.core.ErrorParser"/>
+					<extension id="org.eclipse.cdt.core.MakeErrorParser" point="org.eclipse.cdt.core.ErrorParser"/>
+					<extension id="org.eclipse.cdt.core.CWDLocator" point="org.eclipse.cdt.core.ErrorParser"/>
+					<extension id="ghs.error.parser.GHSErrorParser" point="org.eclipse.cdt.core.ErrorParser"/>
+				</extensions>
+			</storageModule>
+			<storageModule moduleId="cdtBuildSystem" version="4.0.0">
+				<configuration artifactExtension="elf" artifactName="${ProjName}${ConfigName}" buildProperties="org.eclipse.cdt.build.core.buildType=org.eclipse.cdt.build.core.buildType.debug" cleanCommand="rm -f" description="" errorParsers="org.eclipse.cdt.core.MakeErrorParser;ghs.error.parser.GHSErrorParser" id="ghs.managedmake.arm.executable.debug.1203478445" name="_Build_FC7240F2M" parent="ghs.managedmake.arm.executable.debug">
+					<folderInfo id="ghs.managedmake.arm.executable.debug.1203478445." name="/" resourcePath="">
+						<toolChain id="ghs.managedmake.arm.executable.debug.toolchain.389589151" name="GHS ARM Standalone Executable Toolchain" superClass="ghs.managedmake.arm.executable.debug.toolchain">
+							<targetPlatform id="ghs.managedmake.arm.executable.debug.toolchain.armplatform.192591314" isAbstract="false" name="ARM Target Platform" superClass="ghs.managedmake.arm.executable.debug.toolchain.armplatform"/>
+							<builder buildPath="${workspace_loc:/MCAL_FC7240_dev_DemoBoard_GHSFC}/Debug" command="${eclipse_home}\cmd\make" id="ghs.managedmake.arm.executable.debug.toolchain.gnumakebuilder.370214064" keepEnvironmentInBuildfile="false" managedBuildOn="true" name="Gnu Make Builder" parallelBuildOn="true" parallelizationNumber="optimal" superClass="ghs.managedmake.arm.executable.debug.toolchain.gnumakebuilder"/>
+							<tool id="ghs.managedmake.arm.executable.debug.toolchain.cx_compiler.1354824639" name="GHS C++ Compiler for ARM Standalone" superClass="ghs.managedmake.arm.executable.debug.toolchain.cx_compiler">
+								<option id="ghs.managedmake.arm.executable.debug.toolchain.cx_compiler.optimization.optimization_strategy.1321046897" name="Optimization Strategy" superClass="ghs.managedmake.arm.executable.debug.toolchain.cx_compiler.optimization.optimization_strategy" value="ghs.managedmake.arm.executable.toolchain.cx_compiler.optimization.optimization_strategy.no_optimizations" valueType="enumerated"/>
+							</tool>
+							<tool id="ghs.managedmake.arm.executable.debug.toolchain.cx_linker.101105176" name="GHS C++ Linker for ARM Standalone" superClass="ghs.managedmake.arm.executable.debug.toolchain.cx_linker"/>
+							<tool command="C:\ghs\comp_202314\ccarm" id="ghs.managedmake.arm.executable.debug.toolchain.cc_compiler.768711102" name="GHS C Compiler for ARM Standalone" superClass="ghs.managedmake.arm.executable.debug.toolchain.cc_compiler">
+								<option id="ghs.managedmake.arm.executable.debug.toolchain.cc_compiler.optimization.optimization_strategy.936261980" name="Optimization Strategy" superClass="ghs.managedmake.arm.executable.debug.toolchain.cc_compiler.optimization.optimization_strategy" useByScannerDiscovery="false" value="ghs.managedmake.arm.executable.toolchain.cc_compiler.optimization.optimization_strategy.no_optimizations" valueType="enumerated"/>
+								<option IS_BUILTIN_EMPTY="false" IS_VALUE_EMPTY="false" id="ghs.managedmake.arm.executable.toolchain.cc_compiler.project.include_directories.1365339777" name="Include Directories" superClass="ghs.managedmake.arm.executable.toolchain.cc_compiler.project.include_directories" useByScannerDiscovery="false" valueType="includePath">
+									<listOptionValue builtIn="false" value="../../../Include"/>
+									<listOptionValue builtIn="false" value="../../../App/Include"/>
+									<listOptionValue builtIn="false" value="../../../_BSW_generate/NvM/include"/>
+									<listOptionValue builtIn="false" value="../../../_BSW_generate/Config"/>
+									<listOptionValue builtIn="false" value="../../../_Compile_Related_Files/Systick/include"/>
+									<listOptionValue builtIn="false" value="../../../_Compile_Related_Files/Det/include"/>
+									<listOptionValue builtIn="false" value="../../../../../MCAL/Src/Base/include"/>
+									<listOptionValue builtIn="false" value="../../../../../MCAL/Src/Base/include/MemMap"/>
+									<listOptionValue builtIn="false" value="../../../../../MCAL/Src/Common/include"/>
+									<listOptionValue builtIn="false" value="../../../../../MCAL/Src/Mcu/include"/>
+									<listOptionValue builtIn="false" value="../../../../../MCAL/Src/Pwm/include"/>
+									<listOptionValue builtIn="false" value="../../../../../MCAL/Src/Gpt/include"/>
+									<listOptionValue builtIn="false" value="../../../../../MCAL/Src/Port/include"/>
+									<listOptionValue builtIn="false" value="../../../../../MCAL/Src/Dio/include"/>
+									<listOptionValue builtIn="false" value="../../../../../MCAL/Src/Wdg/include"/>
+									<listOptionValue builtIn="false" value="../../../../../MCAL/Src/WdgIf/include"/>
+									<listOptionValue builtIn="false" value="../../../../../MCAL/Src/Adc/include"/>
+									<listOptionValue builtIn="false" value="../../../../../MCAL/Src/EcuM/include"/>
+									<listOptionValue builtIn="false" value="../../../../../MCAL/Src/Dem/include"/>
+									<listOptionValue builtIn="false" value="../../../../../MCAL/Src/Lin/include"/>
+									<listOptionValue builtIn="false" value="../../../../../MCAL/Src/LinIf"/>
+									<listOptionValue builtIn="false" value="../../../../../MCAL/Src/Spi/include"/>
+									<listOptionValue builtIn="false" value="../../../../../MCAL/Src/Can/include"/>
+									<listOptionValue builtIn="false" value="../../../../../MCAL/Src/Icu/include"/>
+									<listOptionValue builtIn="false" value="../../../../../MCAL/Src/Fee/include"/>
+									<listOptionValue builtIn="false" value="../../../../../MCAL/Src/Fls/include"/>
+									<listOptionValue builtIn="false" value="../../../../../MCAL/Src/I2c/include"/>
+									<listOptionValue builtIn="false" value="../../../../../MCAL/Src/TrgSel/include"/>
+									<listOptionValue builtIn="false" value="../../../../../MCAL/Src/DMA/include"/>
+									<listOptionValue builtIn="false" value="../../../../../MCAL/Src/Mb/include"/>
+									<listOptionValue builtIn="false" value="../../../../../MCAL/Src/Msc/include"/>
+									<listOptionValue builtIn="false" value="../../../../../MCAL/Src/Sent/include"/>
+									<listOptionValue builtIn="false" value="../../../../../MCAL/Src/Crypto/include"/>
+									<listOptionValue builtIn="false" value="../../../../../MCAL/Src/CryIf/include"/>
+									<listOptionValue builtIn="false" value="../../../../../MCAL/Src/Cordic/include"/>
+									<listOptionValue builtIn="false" value="../../../../../MCAL/Src/Os/include"/>
+									<listOptionValue builtIn="false" value="../../../../../MCAL/Src/Pfls/include"/>
+									<listOptionValue builtIn="false" value="../../../../../MCAL/Src/SchM/include"/>
+									<listOptionValue builtIn="false" value="../../../../../MCAL/Src/Uart/include"/>
+									<listOptionValue builtIn="false" value="../../../MiddleWare/RTT"/>
+									<listOptionValue builtIn="false" value="../../../MiddleWare/Mpu"/>
+									<listOptionValue builtIn="false" value="../../../MiddleWare/UartDriver"/>
+									<listOptionValue builtIn="false" value="../../../../../MCAL/Src/Ocu/include"/>
+									<listOptionValue builtIn="false" value="../../../../../MCAL/Src/Crc/include"/>
+									<listOptionValue builtIn="false" value="../../../_MCAL_FC7240_generate_2M/include"/>
+								</option>
+								<option IS_BUILTIN_EMPTY="false" IS_VALUE_EMPTY="false" id="ghs.managedmake.arm.executable.toolchain.cc_compiler.preprocessor.define_preprocessor_symbol.155262054" name="Define Preprocessor Symbol" superClass="ghs.managedmake.arm.executable.toolchain.cc_compiler.preprocessor.define_preprocessor_symbol" useByScannerDiscovery="false" valueType="definedSymbols">
+									<listOptionValue builtIn="false" value="AUTOSAR_OS_NOT_USED"/>
+									<listOptionValue builtIn="false" value="USE_SW_VECTOR_MODE"/>
+								</option>
+								<option id="ghs.managedmake.arm.executable.toolchain.cc_compiler.target.board_support_package.584204590" name="Board Support Package" superClass="ghs.managedmake.arm.executable.toolchain.cc_compiler.target.board_support_package" useByScannerDiscovery="false" value="ghs.managedmake.arm.executable.toolchain.cc_compiler.target.board_support_package.generic_arm" valueType="enumerated"/>
+								<option id="ghs.managedmake.arm.executable.toolchain.cc_compiler.target_options.target_processor.1163187582" name="Target Processor" superClass="ghs.managedmake.arm.executable.toolchain.cc_compiler.target_options.target_processor" useByScannerDiscovery="false" value="ghs.managedmake.arm.executable.toolchain.cc_compiler.target_options.target_processor.arm_cortex_m7" valueType="enumerated"/>
+								<option id="ghs.managedmake.arm.executable.toolchain.cc_compiler.c_cplusplus_compiler_options.accept_gnu_asm_statements.1409049569" name="Accept GNU __asm__ statements" superClass="ghs.managedmake.arm.executable.toolchain.cc_compiler.c_cplusplus_compiler_options.accept_gnu_asm_statements" useByScannerDiscovery="false" value="ghs.managedmake.arm.executable.toolchain.cc_compiler.c_cplusplus_compiler_options.accept_gnu_asm_statements.on" valueType="enumerated"/>
+								<inputType id="ghs.managedmake.arm.executable.toolchain.cc_compiler.ghs_c_compiler_source_input.2114814136" name="GHS C Compiler Source Input" superClass="ghs.managedmake.arm.executable.toolchain.cc_compiler.ghs_c_compiler_source_input"/>
+							</tool>
+							<tool command="C:\ghs\comp_202314\ccarm" commandLinePattern="${COMMAND} ${FLAGS} ${OUTPUT_FLAG} ${OUTPUT_PREFIX}${OUTPUT} ${INPUTS}" id="ghs.managedmake.arm.executable.debug.toolchain.cc_linker.1001839757" name="GHS C Linker for ARM Standalone" superClass="ghs.managedmake.arm.executable.debug.toolchain.cc_linker">
+								<option IS_BUILTIN_EMPTY="false" IS_VALUE_EMPTY="true" id="ghs.managedmake.arm.executable.toolchain.cc_linker.linker.linker_command_file.38890541" name="Linker Command File" superClass="ghs.managedmake.arm.executable.toolchain.cc_linker.linker.linker_command_file" useByScannerDiscovery="false" valueType="stringList"/>
+								<option id="ghs.managedmake.arm.executable.toolchain.cc_linker.linker.start_address_symbol_start_address.942048142" name="Start Address Symbol (Start Address)" superClass="ghs.managedmake.arm.executable.toolchain.cc_linker.linker.start_address_symbol_start_address" useByScannerDiscovery="false" value="Reset_Handler" valueType="string"/>
+								<option id="ghs.managedmake.arm.executable.toolchain.cc_linker.target.board_support_package.1402806733" name="Board Support Package" superClass="ghs.managedmake.arm.executable.toolchain.cc_linker.target.board_support_package" useByScannerDiscovery="false" value="ghs.managedmake.arm.executable.toolchain.cc_linker.target.board_support_package.generic_arm" valueType="enumerated"/>
+								<option id="ghs.managedmake.arm.executable.toolchain.cc_linker.target_options.target_processor.1808576685" name="Target Processor" superClass="ghs.managedmake.arm.executable.toolchain.cc_linker.target_options.target_processor" useByScannerDiscovery="false" value="ghs.managedmake.arm.executable.toolchain.cc_linker.target_options.target_processor.arm_cortex_m7" valueType="enumerated"/>
+								<option id="ghs.managedmake.arm.executable.toolchain.cc_linker.debugging_options_alternate_debugging_information.generate_multi_and_dwarf_information.895106657" name="Generate MULTI and DWARF Information" superClass="ghs.managedmake.arm.executable.toolchain.cc_linker.debugging_options_alternate_debugging_information.generate_multi_and_dwarf_information" useByScannerDiscovery="false" value="ghs.managedmake.arm.executable.toolchain.cc_linker.debugging_options_alternate_debugging_information.generate_multi_and_dwarf_information.dwarf_v2" valueType="enumerated"/>
+								<option id="ghs.managedmake.arm.executable.toolchain.cc_linker.linker_options.physical_address_offset_from_virtual_address.504793834" name="Physical Address Offset From Virtual Address" superClass="ghs.managedmake.arm.executable.toolchain.cc_linker.linker_options.physical_address_offset_from_virtual_address" useByScannerDiscovery="false" value="0" valueType="string"/>
+								<inputType id="ghs.managedmake.arm.executable.toolchain.cc_linker.ghs_linker_object_input.1093437873" name="GHS Linker Object Input" superClass="ghs.managedmake.arm.executable.toolchain.cc_linker.ghs_linker_object_input"/>
+							</tool>
+						</toolChain>
+					</folderInfo>
+					<sourceEntries>
+						<entry excluding="MCAL/Src/Ssi|MCAL/Src/Qdt|MCAL/Src/EthSwt|MCAL/Src/Sdadc|MCAL/Src/Eftu|MCAL/Src/Cryif|MCAL/EB_Plugins|**/*.S|**/EthIf|**/*Eth|**/*Ospi|**/*EthTrcv|**/*FlexCore" flags="VALUE_WORKSPACE_PATH" kind="sourcePath" name=""/>
+					</sourceEntries>
+				</configuration>
+			</storageModule>
+			<storageModule moduleId="org.eclipse.cdt.core.externalSettings"/>
+		</cconfiguration>
+	</storageModule>
+	<storageModule moduleId="cdtBuildSystem" version="4.0.0">
+		<project id="MCAL_FC7240_dev_DemoBoard_GHSFC.ghs.managedmake.arm.executable.1034067625" name="ARM Standalone Executable (Green Hills)" projectType="ghs.managedmake.arm.executable"/>
+	</storageModule>
+	<storageModule moduleId="scannerConfiguration">
+		<autodiscovery enabled="true" problemReportingEnabled="true" selectedProfileId=""/>
+	</storageModule>
+	<storageModule moduleId="org.eclipse.cdt.core.LanguageSettingsProviders"/>
+	<storageModule moduleId="refreshScope" versionNumber="2">
+		<configuration configurationName="_Build_FC7240F2M">
+			<resource resourceType="PROJECT" workspacePath="/MCAL_FC7240F2MDS_GHS_Demo"/>
+		</configuration>
+	</storageModule>
+	<storageModule moduleId="org.eclipse.cdt.make.core.buildtargets"/>
+	<storageModule moduleId="org.eclipse.cdt.internal.ui.text.commentOwnerProjectMappings"/>
+</cproject>

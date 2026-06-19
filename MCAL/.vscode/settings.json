@@ -1,0 +1,13 @@
+{
+  "emeraldwalk.runonsave": {
+    "autoClearConsole": false,
+    "commands": [
+      {
+        "showElapsed": false,
+        "match": "\\.(c|h|S|s|ld)$",
+        "cmd": "powershell.exe -NoProfile -ExecutionPolicy Bypass -File \"D:\\Workspace\\FlagChip\\01_fc_prj\\DemoBoard\\FC7300F8MDQ\\.vscode\\copy-on-save.ps1\" -FilePath \"${file}\"",
+        "autoShowOutputPanel": "error"
+      }
+    ]
+  }
+}

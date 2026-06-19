@@ -1,0 +1,5 @@
+#ifndef REPO_RELEASE_INFO
+#define REPO_RELEASE_INFO
+#define REPO_COMMIT_ID 0xdeadc001
+#define REPO_BUILD_DATA 0x9f36d59b
+#endif

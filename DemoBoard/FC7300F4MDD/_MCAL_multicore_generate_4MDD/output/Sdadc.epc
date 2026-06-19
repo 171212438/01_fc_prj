@@ -1,0 +1,1295 @@
+<?xml version='1.0'?>
+<AUTOSAR xmlns="http://autosar.org/schema/r4.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://autosar.org/schema/r4.0 AUTOSAR_00049.xsd">
+  <AR-PACKAGES>
+    <AR-PACKAGE>
+      <SHORT-NAME>Sdadc</SHORT-NAME>
+      <ELEMENTS>
+        <ECUC-MODULE-CONFIGURATION-VALUES>
+          <SHORT-NAME>Sdadc</SHORT-NAME>
+          <DEFINITION-REF DEST="ECUC-MODULE-DEF">/FC7300FXXX/Sdadc</DEFINITION-REF>
+          <IMPLEMENTATION-CONFIG-VARIANT>VARIANT-PRE-COMPILE</IMPLEMENTATION-CONFIG-VARIANT>
+          <CONTAINERS>
+            <ECUC-CONTAINER-VALUE>
+              <SHORT-NAME>CommonPublishedInformation</SHORT-NAME>
+              <DEFINITION-REF DEST="ECUC-PARAM-CONF-CONTAINER-DEF">/FC7300FXXX/Sdadc/CommonPublishedInformation</DEFINITION-REF>
+              <PARAMETER-VALUES>
+                <ECUC-NUMERICAL-PARAM-VALUE>
+                  <DEFINITION-REF DEST="ECUC-INTEGER-PARAM-DEF">/FC7300FXXX/Sdadc/CommonPublishedInformation/ArReleaseMajorVersion</DEFINITION-REF>
+                  <VALUE>4</VALUE>
+                </ECUC-NUMERICAL-PARAM-VALUE>
+                <ECUC-NUMERICAL-PARAM-VALUE>
+                  <DEFINITION-REF DEST="ECUC-INTEGER-PARAM-DEF">/FC7300FXXX/Sdadc/CommonPublishedInformation/ArReleaseMinorVersion</DEFINITION-REF>
+                  <VALUE>6</VALUE>
+                </ECUC-NUMERICAL-PARAM-VALUE>
+                <ECUC-NUMERICAL-PARAM-VALUE>
+                  <DEFINITION-REF DEST="ECUC-INTEGER-PARAM-DEF">/FC7300FXXX/Sdadc/CommonPublishedInformation/ArReleaseRevisionVersion</DEFINITION-REF>
+                  <VALUE>0</VALUE>
+                </ECUC-NUMERICAL-PARAM-VALUE>
+                <ECUC-NUMERICAL-PARAM-VALUE>
+                  <DEFINITION-REF DEST="ECUC-INTEGER-PARAM-DEF">/FC7300FXXX/Sdadc/CommonPublishedInformation/ModuleId</DEFINITION-REF>
+                  <VALUE>255</VALUE>
+                </ECUC-NUMERICAL-PARAM-VALUE>
+                <ECUC-NUMERICAL-PARAM-VALUE>
+                  <DEFINITION-REF DEST="ECUC-INTEGER-PARAM-DEF">/FC7300FXXX/Sdadc/CommonPublishedInformation/SwMajorVersion</DEFINITION-REF>
+                  <VALUE>1</VALUE>
+                </ECUC-NUMERICAL-PARAM-VALUE>
+                <ECUC-NUMERICAL-PARAM-VALUE>
+                  <DEFINITION-REF DEST="ECUC-INTEGER-PARAM-DEF">/FC7300FXXX/Sdadc/CommonPublishedInformation/SwMinorVersion</DEFINITION-REF>
+                  <VALUE>5</VALUE>
+                </ECUC-NUMERICAL-PARAM-VALUE>
+                <ECUC-NUMERICAL-PARAM-VALUE>
+                  <DEFINITION-REF DEST="ECUC-INTEGER-PARAM-DEF">/FC7300FXXX/Sdadc/CommonPublishedInformation/SwPatchVersion</DEFINITION-REF>
+                  <VALUE>1</VALUE>
+                </ECUC-NUMERICAL-PARAM-VALUE>
+                <ECUC-NUMERICAL-PARAM-VALUE>
+                  <DEFINITION-REF DEST="ECUC-INTEGER-PARAM-DEF">/FC7300FXXX/Sdadc/CommonPublishedInformation/VendorId</DEFINITION-REF>
+                  <VALUE>174</VALUE>
+                </ECUC-NUMERICAL-PARAM-VALUE>
+              </PARAMETER-VALUES>
+            </ECUC-CONTAINER-VALUE>
+            <ECUC-CONTAINER-VALUE>
+              <SHORT-NAME>SdadcGeneral</SHORT-NAME>
+              <DEFINITION-REF DEST="ECUC-PARAM-CONF-CONTAINER-DEF">/FC7300FXXX/Sdadc/SdadcGeneral</DEFINITION-REF>
+              <PARAMETER-VALUES>
+                <ECUC-NUMERICAL-PARAM-VALUE>
+                  <DEFINITION-REF DEST="ECUC-BOOLEAN-PARAM-DEF">/FC7300FXXX/Sdadc/SdadcGeneral/SdadcCalibApi</DEFINITION-REF>
+                  <VALUE>1</VALUE>
+                </ECUC-NUMERICAL-PARAM-VALUE>
+                <ECUC-NUMERICAL-PARAM-VALUE>
+                  <DEFINITION-REF DEST="ECUC-BOOLEAN-PARAM-DEF">/FC7300FXXX/Sdadc/SdadcGeneral/SdadcDevErrorDetect</DEFINITION-REF>
+                  <VALUE>1</VALUE>
+                </ECUC-NUMERICAL-PARAM-VALUE>
+                <ECUC-NUMERICAL-PARAM-VALUE>
+                  <DEFINITION-REF DEST="ECUC-BOOLEAN-PARAM-DEF">/FC7300FXXX/Sdadc/SdadcGeneral/SdadcDisableDemReportErrorStatus</DEFINITION-REF>
+                  <VALUE>0</VALUE>
+                </ECUC-NUMERICAL-PARAM-VALUE>
+                <ECUC-NUMERICAL-PARAM-VALUE>
+                  <DEFINITION-REF DEST="ECUC-BOOLEAN-PARAM-DEF">/FC7300FXXX/Sdadc/SdadcGeneral/SdadcGtsSupport</DEFINITION-REF>
+                  <VALUE>0</VALUE>
+                </ECUC-NUMERICAL-PARAM-VALUE>
+                <ECUC-NUMERICAL-PARAM-VALUE>
+                  <DEFINITION-REF DEST="ECUC-INTEGER-PARAM-DEF">/FC7300FXXX/Sdadc/SdadcGeneral/SdadcGtsTimeoutDuration</DEFINITION-REF>
+                  <VALUE>100000</VALUE>
+                </ECUC-NUMERICAL-PARAM-VALUE>
+                <ECUC-NUMERICAL-PARAM-VALUE>
+                  <DEFINITION-REF DEST="ECUC-INTEGER-PARAM-DEF">/FC7300FXXX/Sdadc/SdadcGeneral/SdadcIntgMCOCTimeoutDuration</DEFINITION-REF>
+                  <VALUE>100000</VALUE>
+                </ECUC-NUMERICAL-PARAM-VALUE>
+                <ECUC-NUMERICAL-PARAM-VALUE>
+                  <DEFINITION-REF DEST="ECUC-BOOLEAN-PARAM-DEF">/FC7300FXXX/Sdadc/SdadcGeneral/SdadcMultiCoreSupport</DEFINITION-REF>
+                  <VALUE>1</VALUE>
+                </ECUC-NUMERICAL-PARAM-VALUE>
+                <ECUC-NUMERICAL-PARAM-VALUE>
+                  <DEFINITION-REF DEST="ECUC-INTEGER-PARAM-DEF">/FC7300FXXX/Sdadc/SdadcGeneral/SdadcTimeoutDuration</DEFINITION-REF>
+                  <VALUE>10000</VALUE>
+                </ECUC-NUMERICAL-PARAM-VALUE>
+                <ECUC-NUMERICAL-PARAM-VALUE>
+                  <DEFINITION-REF DEST="ECUC-BOOLEAN-PARAM-DEF">/FC7300FXXX/Sdadc/SdadcGeneral/SdadcTsPolling</DEFINITION-REF>
+                  <VALUE>0</VALUE>
+                </ECUC-NUMERICAL-PARAM-VALUE>
+                <ECUC-NUMERICAL-PARAM-VALUE>
+                  <DEFINITION-REF DEST="ECUC-BOOLEAN-PARAM-DEF">/FC7300FXXX/Sdadc/SdadcGeneral/SdadcVersionInfoApi</DEFINITION-REF>
+                  <VALUE>1</VALUE>
+                </ECUC-NUMERICAL-PARAM-VALUE>
+              </PARAMETER-VALUES>
+              <REFERENCE-VALUES>
+                <ECUC-REFERENCE-VALUE>
+                  <DEFINITION-REF DEST="ECUC-REFERENCE-DEF">/FC7300FXXX/Sdadc/SdadcGeneral/SdadcEcucPartitionRef</DEFINITION-REF>
+                  <VALUE-REF DEST="ECUC-CONTAINER-VALUE">/EcuC/EcuC/EcucPartitionCollection/EcucPartition_0</VALUE-REF>
+                </ECUC-REFERENCE-VALUE>
+              </REFERENCE-VALUES>
+              <SUB-CONTAINERS>
+                <ECUC-CONTAINER-VALUE>
+                  <SHORT-NAME>SdadcDemEventParameterRefs</SHORT-NAME>
+                  <DEFINITION-REF DEST="ECUC-PARAM-CONF-CONTAINER-DEF">/FC7300FXXX/Sdadc/SdadcGeneral/SdadcDemEventParameterRefs</DEFINITION-REF>
+                  <REFERENCE-VALUES>
+                    <ECUC-REFERENCE-VALUE>
+                      <DEFINITION-REF DEST="ECUC-SYMBOLIC-NAME-REFERENCE-DEF">/FC7300FXXX/Sdadc/SdadcGeneral/SdadcDemEventParameterRefs/SDADC_E_TIMEOUT</DEFINITION-REF>
+                      <VALUE-REF DEST="ECUC-CONTAINER-VALUE">/Dem/Dem/DemConfigSet/DemEventParameter_SdadcTimeout</VALUE-REF>
+                    </ECUC-REFERENCE-VALUE>
+                  </REFERENCE-VALUES>
+                </ECUC-CONTAINER-VALUE>
+              </SUB-CONTAINERS>
+            </ECUC-CONTAINER-VALUE>
+            <ECUC-CONTAINER-VALUE>
+              <SHORT-NAME>SdadcGlobalConfig</SHORT-NAME>
+              <DEFINITION-REF DEST="ECUC-PARAM-CONF-CONTAINER-DEF">/FC7300FXXX/Sdadc/SdadcGlobalConfig</DEFINITION-REF>
+              <SUB-CONTAINERS>
+                <ECUC-CONTAINER-VALUE>
+                  <SHORT-NAME>SdadcInstance_0</SHORT-NAME>
+                  <DEFINITION-REF DEST="ECUC-PARAM-CONF-CONTAINER-DEF">/FC7300FXXX/Sdadc/SdadcGlobalConfig/SdadcInstance</DEFINITION-REF>
+                  <PARAMETER-VALUES>
+                    <ECUC-NUMERICAL-PARAM-VALUE>
+                      <DEFINITION-REF DEST="ECUC-BOOLEAN-PARAM-DEF">/FC7300FXXX/Sdadc/SdadcGlobalConfig/SdadcInstance/SdadcCtrlCLKO0Dis</DEFINITION-REF>
+                      <VALUE>1</VALUE>
+                    </ECUC-NUMERICAL-PARAM-VALUE>
+                    <ECUC-NUMERICAL-PARAM-VALUE>
+                      <DEFINITION-REF DEST="ECUC-BOOLEAN-PARAM-DEF">/FC7300FXXX/Sdadc/SdadcGlobalConfig/SdadcInstance/SdadcCtrlCLKO1Dis</DEFINITION-REF>
+                      <VALUE>1</VALUE>
+                    </ECUC-NUMERICAL-PARAM-VALUE>
+                    <ECUC-NUMERICAL-PARAM-VALUE>
+                      <DEFINITION-REF DEST="ECUC-BOOLEAN-PARAM-DEF">/FC7300FXXX/Sdadc/SdadcGlobalConfig/SdadcInstance/SdadcCtrlCLKO2Dis</DEFINITION-REF>
+                      <VALUE>1</VALUE>
+                    </ECUC-NUMERICAL-PARAM-VALUE>
+                    <ECUC-NUMERICAL-PARAM-VALUE>
+                      <DEFINITION-REF DEST="ECUC-INTEGER-PARAM-DEF">/FC7300FXXX/Sdadc/SdadcGlobalConfig/SdadcInstance/SdadcCtrlMclkDiV</DEFINITION-REF>
+                      <VALUE>5</VALUE>
+                    </ECUC-NUMERICAL-PARAM-VALUE>
+                    <ECUC-NUMERICAL-PARAM-VALUE>
+                      <DEFINITION-REF DEST="ECUC-INTEGER-PARAM-DEF">/FC7300FXXX/Sdadc/SdadcGlobalConfig/SdadcInstance/SdadcCtrlPrescale</DEFINITION-REF>
+                      <VALUE>1</VALUE>
+                    </ECUC-NUMERICAL-PARAM-VALUE>
+                    <ECUC-NUMERICAL-PARAM-VALUE>
+                      <DEFINITION-REF DEST="ECUC-INTEGER-PARAM-DEF">/FC7300FXXX/Sdadc/SdadcGlobalConfig/SdadcInstance/SdadcHwId</DEFINITION-REF>
+                      <VALUE>0</VALUE>
+                    </ECUC-NUMERICAL-PARAM-VALUE>
+                    <ECUC-NUMERICAL-PARAM-VALUE>
+                      <DEFINITION-REF DEST="ECUC-INTEGER-PARAM-DEF">/FC7300FXXX/Sdadc/SdadcGlobalConfig/SdadcInstance/SdadcInstanceId</DEFINITION-REF>
+                      <VALUE>0</VALUE>
+                    </ECUC-NUMERICAL-PARAM-VALUE>
+                  </PARAMETER-VALUES>
+                  <REFERENCE-VALUES>
+                    <ECUC-REFERENCE-VALUE>
+                      <DEFINITION-REF DEST="ECUC-REFERENCE-DEF">/FC7300FXXX/Sdadc/SdadcGlobalConfig/SdadcInstance/SdadcChannelEcucPartitionRef</DEFINITION-REF>
+                      <VALUE-REF DEST="ECUC-CONTAINER-VALUE">/EcuC/EcuC/EcucPartitionCollection/EcucPartition_0</VALUE-REF>
+                    </ECUC-REFERENCE-VALUE>
+                    <ECUC-REFERENCE-VALUE>
+                      <DEFINITION-REF DEST="ECUC-REFERENCE-DEF">/FC7300FXXX/Sdadc/SdadcGlobalConfig/SdadcInstance/SdadcClockRef</DEFINITION-REF>
+                      <VALUE-REF DEST="ECUC-CONTAINER-VALUE">/Mcu/Mcu/McuModuleConfiguration/MCU_Demo_FOSC24M/McuClockReferencePoint_Sdadc0</VALUE-REF>
+                    </ECUC-REFERENCE-VALUE>
+                    <ECUC-REFERENCE-VALUE>
+                      <DEFINITION-REF DEST="ECUC-REFERENCE-DEF">/FC7300FXXX/Sdadc/SdadcGlobalConfig/SdadcInstance/SdadcCoreClockRef</DEFINITION-REF>
+                      <VALUE-REF DEST="ECUC-CONTAINER-VALUE">/Mcu/Mcu/McuModuleConfiguration/MCU_Demo_FOSC24M/McuClockReferencePoint_Sys</VALUE-REF>
+                    </ECUC-REFERENCE-VALUE>
+                  </REFERENCE-VALUES>
+                  <SUB-CONTAINERS>
+                    <ECUC-CONTAINER-VALUE>
+                      <SHORT-NAME>BiasConfiguration</SHORT-NAME>
+                      <DEFINITION-REF DEST="ECUC-PARAM-CONF-CONTAINER-DEF">/FC7300FXXX/Sdadc/SdadcGlobalConfig/SdadcInstance/BiasConfiguration</DEFINITION-REF>
+                      <PARAMETER-VALUES>
+                        <ECUC-NUMERICAL-PARAM-VALUE>
+                          <DEFINITION-REF DEST="ECUC-BOOLEAN-PARAM-DEF">/FC7300FXXX/Sdadc/SdadcGlobalConfig/SdadcInstance/BiasConfiguration/SdadcBacsrBiasEn</DEFINITION-REF>
+                          <VALUE>1</VALUE>
+                        </ECUC-NUMERICAL-PARAM-VALUE>
+                        <ECUC-NUMERICAL-PARAM-VALUE>
+                          <DEFINITION-REF DEST="ECUC-INTEGER-PARAM-DEF">/FC7300FXXX/Sdadc/SdadcGlobalConfig/SdadcInstance/BiasConfiguration/SdadcBacsrBstc</DEFINITION-REF>
+                          <VALUE>31</VALUE>
+                        </ECUC-NUMERICAL-PARAM-VALUE>
+                        <ECUC-NUMERICAL-PARAM-VALUE>
+                          <DEFINITION-REF DEST="ECUC-BOOLEAN-PARAM-DEF">/FC7300FXXX/Sdadc/SdadcGlobalConfig/SdadcInstance/BiasConfiguration/SdadcBacsrVcmBen</DEFINITION-REF>
+                          <VALUE>1</VALUE>
+                        </ECUC-NUMERICAL-PARAM-VALUE>
+                      </PARAMETER-VALUES>
+                      <SUB-CONTAINERS>
+                        <ECUC-CONTAINER-VALUE>
+                          <SHORT-NAME>HVrefChannelSelection</SHORT-NAME>
+                          <DEFINITION-REF DEST="ECUC-PARAM-CONF-CONTAINER-DEF">/FC7300FXXX/Sdadc/SdadcGlobalConfig/SdadcInstance/BiasConfiguration/HVrefChannelSelection</DEFINITION-REF>
+                          <PARAMETER-VALUES>
+                            <ECUC-NUMERICAL-PARAM-VALUE>
+                              <DEFINITION-REF DEST="ECUC-BOOLEAN-PARAM-DEF">/FC7300FXXX/Sdadc/SdadcGlobalConfig/SdadcInstance/BiasConfiguration/HVrefChannelSelection/SdadcBacsrInChl0HVref</DEFINITION-REF>
+                              <VALUE>1</VALUE>
+                            </ECUC-NUMERICAL-PARAM-VALUE>
+                            <ECUC-NUMERICAL-PARAM-VALUE>
+                              <DEFINITION-REF DEST="ECUC-BOOLEAN-PARAM-DEF">/FC7300FXXX/Sdadc/SdadcGlobalConfig/SdadcInstance/BiasConfiguration/HVrefChannelSelection/SdadcBacsrInChl1HVref</DEFINITION-REF>
+                              <VALUE>1</VALUE>
+                            </ECUC-NUMERICAL-PARAM-VALUE>
+                            <ECUC-NUMERICAL-PARAM-VALUE>
+                              <DEFINITION-REF DEST="ECUC-BOOLEAN-PARAM-DEF">/FC7300FXXX/Sdadc/SdadcGlobalConfig/SdadcInstance/BiasConfiguration/HVrefChannelSelection/SdadcBacsrInChl2HVref</DEFINITION-REF>
+                              <VALUE>1</VALUE>
+                            </ECUC-NUMERICAL-PARAM-VALUE>
+                          </PARAMETER-VALUES>
+                        </ECUC-CONTAINER-VALUE>
+                      </SUB-CONTAINERS>
+                    </ECUC-CONTAINER-VALUE>
+                    <ECUC-CONTAINER-VALUE>
+                      <SHORT-NAME>GlobalTimeStampConfig</SHORT-NAME>
+                      <DEFINITION-REF DEST="ECUC-PARAM-CONF-CONTAINER-DEF">/FC7300FXXX/Sdadc/SdadcGlobalConfig/SdadcInstance/GlobalTimeStampConfig</DEFINITION-REF>
+                      <PARAMETER-VALUES>
+                        <ECUC-TEXTUAL-PARAM-VALUE>
+                          <DEFINITION-REF DEST="ECUC-ENUMERATION-PARAM-DEF">/FC7300FXXX/Sdadc/SdadcGlobalConfig/SdadcInstance/GlobalTimeStampConfig/DmaReqSrcSel</DEFINITION-REF>
+                          <VALUE>NO_DMA_REQ</VALUE>
+                        </ECUC-TEXTUAL-PARAM-VALUE>
+                        <ECUC-TEXTUAL-PARAM-VALUE>
+                          <DEFINITION-REF DEST="ECUC-ENUMERATION-PARAM-DEF">/FC7300FXXX/Sdadc/SdadcGlobalConfig/SdadcInstance/GlobalTimeStampConfig/TmrSrcSel</DEFINITION-REF>
+                          <VALUE>NO_LCK</VALUE>
+                        </ECUC-TEXTUAL-PARAM-VALUE>
+                        <ECUC-TEXTUAL-PARAM-VALUE>
+                          <DEFINITION-REF DEST="ECUC-ENUMERATION-PARAM-DEF">/FC7300FXXX/Sdadc/SdadcGlobalConfig/SdadcInstance/GlobalTimeStampConfig/TstampSrcSel</DEFINITION-REF>
+                          <VALUE>TimeStamp1</VALUE>
+                        </ECUC-TEXTUAL-PARAM-VALUE>
+                      </PARAMETER-VALUES>
+                    </ECUC-CONTAINER-VALUE>
+                    <ECUC-CONTAINER-VALUE>
+                      <SHORT-NAME>PwmConfiguration</SHORT-NAME>
+                      <DEFINITION-REF DEST="ECUC-PARAM-CONF-CONTAINER-DEF">/FC7300FXXX/Sdadc/SdadcGlobalConfig/SdadcInstance/PwmConfiguration</DEFINITION-REF>
+                      <PARAMETER-VALUES>
+                        <ECUC-NUMERICAL-PARAM-VALUE>
+                          <DEFINITION-REF DEST="ECUC-BOOLEAN-PARAM-DEF">/FC7300FXXX/Sdadc/SdadcGlobalConfig/SdadcInstance/PwmConfiguration/PwmGenBitRev</DEFINITION-REF>
+                          <VALUE>1</VALUE>
+                        </ECUC-NUMERICAL-PARAM-VALUE>
+                        <ECUC-TEXTUAL-PARAM-VALUE>
+                          <DEFINITION-REF DEST="ECUC-ENUMERATION-PARAM-DEF">/FC7300FXXX/Sdadc/SdadcGlobalConfig/SdadcInstance/PwmConfiguration/PwmGenClkSel</DEFINITION-REF>
+                          <VALUE>DIV_CLK0</VALUE>
+                        </ECUC-TEXTUAL-PARAM-VALUE>
+                        <ECUC-TEXTUAL-PARAM-VALUE>
+                          <DEFINITION-REF DEST="ECUC-ENUMERATION-PARAM-DEF">/FC7300FXXX/Sdadc/SdadcGlobalConfig/SdadcInstance/PwmConfiguration/PwmGenPattern</DEFINITION-REF>
+                          <VALUE>STOPPED</VALUE>
+                        </ECUC-TEXTUAL-PARAM-VALUE>
+                        <ECUC-NUMERICAL-PARAM-VALUE>
+                          <DEFINITION-REF DEST="ECUC-BOOLEAN-PARAM-DEF">/FC7300FXXX/Sdadc/SdadcGlobalConfig/SdadcInstance/PwmConfiguration/PwmGenPol</DEFINITION-REF>
+                          <VALUE>0</VALUE>
+                        </ECUC-NUMERICAL-PARAM-VALUE>
+                        <ECUC-NUMERICAL-PARAM-VALUE>
+                          <DEFINITION-REF DEST="ECUC-BOOLEAN-PARAM-DEF">/FC7300FXXX/Sdadc/SdadcGlobalConfig/SdadcInstance/PwmConfiguration/PwmGenTrgSignOen</DEFINITION-REF>
+                          <VALUE>1</VALUE>
+                        </ECUC-NUMERICAL-PARAM-VALUE>
+                      </PARAMETER-VALUES>
+                    </ECUC-CONTAINER-VALUE>
+                    <ECUC-CONTAINER-VALUE>
+                      <SHORT-NAME>SdadcChannel_0</SHORT-NAME>
+                      <DEFINITION-REF DEST="ECUC-PARAM-CONF-CONTAINER-DEF">/FC7300FXXX/Sdadc/SdadcGlobalConfig/SdadcInstance/SdadcChannel</DEFINITION-REF>
+                      <PARAMETER-VALUES>
+                        <ECUC-NUMERICAL-PARAM-VALUE>
+                          <DEFINITION-REF DEST="ECUC-BOOLEAN-PARAM-DEF">/FC7300FXXX/Sdadc/SdadcGlobalConfig/SdadcInstance/SdadcChannel/COCIntSupress</DEFINITION-REF>
+                          <VALUE>1</VALUE>
+                        </ECUC-NUMERICAL-PARAM-VALUE>
+                        <ECUC-TEXTUAL-PARAM-VALUE>
+                          <DEFINITION-REF DEST="ECUC-FUNCTION-NAME-DEF">/FC7300FXXX/Sdadc/SdadcGlobalConfig/SdadcInstance/SdadcChannel/ConversionCompleteNotification</DEFINITION-REF>
+                          <VALUE>SDADC0_CH0_COC_Notification</VALUE>
+                        </ECUC-TEXTUAL-PARAM-VALUE>
+                        <ECUC-NUMERICAL-PARAM-VALUE>
+                          <DEFINITION-REF DEST="ECUC-BOOLEAN-PARAM-DEF">/FC7300FXXX/Sdadc/SdadcGlobalConfig/SdadcInstance/SdadcChannel/GlobalTimeStampEn</DEFINITION-REF>
+                          <VALUE>0</VALUE>
+                        </ECUC-NUMERICAL-PARAM-VALUE>
+                        <ECUC-NUMERICAL-PARAM-VALUE>
+                          <DEFINITION-REF DEST="ECUC-BOOLEAN-PARAM-DEF">/FC7300FXXX/Sdadc/SdadcGlobalConfig/SdadcInstance/SdadcChannel/SdadcCcrDmaEn</DEFINITION-REF>
+                          <VALUE>0</VALUE>
+                        </ECUC-NUMERICAL-PARAM-VALUE>
+                        <ECUC-NUMERICAL-PARAM-VALUE>
+                          <DEFINITION-REF DEST="ECUC-BOOLEAN-PARAM-DEF">/FC7300FXXX/Sdadc/SdadcGlobalConfig/SdadcInstance/SdadcChannel/SdadcCcrFifoEn</DEFINITION-REF>
+                          <VALUE>1</VALUE>
+                        </ECUC-NUMERICAL-PARAM-VALUE>
+                        <ECUC-NUMERICAL-PARAM-VALUE>
+                          <DEFINITION-REF DEST="ECUC-INTEGER-PARAM-DEF">/FC7300FXXX/Sdadc/SdadcGlobalConfig/SdadcInstance/SdadcChannel/SdadcCfrFwmk</DEFINITION-REF>
+                          <VALUE>4</VALUE>
+                        </ECUC-NUMERICAL-PARAM-VALUE>
+                        <ECUC-NUMERICAL-PARAM-VALUE>
+                          <DEFINITION-REF DEST="ECUC-BOOLEAN-PARAM-DEF">/FC7300FXXX/Sdadc/SdadcGlobalConfig/SdadcInstance/SdadcChannel/SdadcCfrRdfmt</DEFINITION-REF>
+                          <VALUE>0</VALUE>
+                        </ECUC-NUMERICAL-PARAM-VALUE>
+                        <ECUC-TEXTUAL-PARAM-VALUE>
+                          <DEFINITION-REF DEST="ECUC-ENUMERATION-PARAM-DEF">/FC7300FXXX/Sdadc/SdadcGlobalConfig/SdadcInstance/SdadcChannel/SdadcChannelAccessMode</DEFINITION-REF>
+                          <VALUE>SDADC_SINGLE_READ</VALUE>
+                        </ECUC-TEXTUAL-PARAM-VALUE>
+                        <ECUC-NUMERICAL-PARAM-VALUE>
+                          <DEFINITION-REF DEST="ECUC-INTEGER-PARAM-DEF">/FC7300FXXX/Sdadc/SdadcGlobalConfig/SdadcInstance/SdadcChannel/SdadcChannelId</DEFINITION-REF>
+                          <VALUE>0</VALUE>
+                        </ECUC-NUMERICAL-PARAM-VALUE>
+                        <ECUC-NUMERICAL-PARAM-VALUE>
+                          <DEFINITION-REF DEST="ECUC-INTEGER-PARAM-DEF">/FC7300FXXX/Sdadc/SdadcGlobalConfig/SdadcInstance/SdadcChannel/SdadcHwChannelId</DEFINITION-REF>
+                          <VALUE>0</VALUE>
+                        </ECUC-NUMERICAL-PARAM-VALUE>
+                        <ECUC-TEXTUAL-PARAM-VALUE>
+                          <DEFINITION-REF DEST="ECUC-FUNCTION-NAME-DEF">/FC7300FXXX/Sdadc/SdadcGlobalConfig/SdadcInstance/SdadcChannel/TimestampValidNotification</DEFINITION-REF>
+                          <VALUE>SDADC0_CH0_TimeStamp_Notification</VALUE>
+                        </ECUC-TEXTUAL-PARAM-VALUE>
+                      </PARAMETER-VALUES>
+                      <SUB-CONTAINERS>
+                        <ECUC-CONTAINER-VALUE>
+                          <SHORT-NAME>SdadcDetectConfiguration_0</SHORT-NAME>
+                          <DEFINITION-REF DEST="ECUC-PARAM-CONF-CONTAINER-DEF">/FC7300FXXX/Sdadc/SdadcGlobalConfig/SdadcInstance/SdadcChannel/SdadcDetectConfiguration</DEFINITION-REF>
+                          <SUB-CONTAINERS>
+                            <ECUC-CONTAINER-VALUE>
+                              <SHORT-NAME>ClockAbsenceConfiguration</SHORT-NAME>
+                              <DEFINITION-REF DEST="ECUC-PARAM-CONF-CONTAINER-DEF">/FC7300FXXX/Sdadc/SdadcGlobalConfig/SdadcInstance/SdadcChannel/SdadcDetectConfiguration/ClockAbsenceConfiguration</DEFINITION-REF>
+                              <PARAMETER-VALUES>
+                                <ECUC-NUMERICAL-PARAM-VALUE>
+                                  <DEFINITION-REF DEST="ECUC-BOOLEAN-PARAM-DEF">/FC7300FXXX/Sdadc/SdadcGlobalConfig/SdadcInstance/SdadcChannel/SdadcDetectConfiguration/ClockAbsenceConfiguration/SdadcCcrCadEn</DEFINITION-REF>
+                                  <VALUE>0</VALUE>
+                                </ECUC-NUMERICAL-PARAM-VALUE>
+                                <ECUC-NUMERICAL-PARAM-VALUE>
+                                  <DEFINITION-REF DEST="ECUC-BOOLEAN-PARAM-DEF">/FC7300FXXX/Sdadc/SdadcGlobalConfig/SdadcInstance/SdadcChannel/SdadcDetectConfiguration/ClockAbsenceConfiguration/SdadcCprCadBken</DEFINITION-REF>
+                                  <VALUE>1</VALUE>
+                                </ECUC-NUMERICAL-PARAM-VALUE>
+                                <ECUC-NUMERICAL-PARAM-VALUE>
+                                  <DEFINITION-REF DEST="ECUC-BOOLEAN-PARAM-DEF">/FC7300FXXX/Sdadc/SdadcGlobalConfig/SdadcInstance/SdadcChannel/SdadcDetectConfiguration/ClockAbsenceConfiguration/SdadcCprCadProten</DEFINITION-REF>
+                                  <VALUE>1</VALUE>
+                                </ECUC-NUMERICAL-PARAM-VALUE>
+                                <ECUC-NUMERICAL-PARAM-VALUE>
+                                  <DEFINITION-REF DEST="ECUC-INTEGER-PARAM-DEF">/FC7300FXXX/Sdadc/SdadcGlobalConfig/SdadcInstance/SdadcChannel/SdadcDetectConfiguration/ClockAbsenceConfiguration/SdadcCprCadlmt</DEFINITION-REF>
+                                  <VALUE>1</VALUE>
+                                </ECUC-NUMERICAL-PARAM-VALUE>
+                              </PARAMETER-VALUES>
+                            </ECUC-CONTAINER-VALUE>
+                            <ECUC-CONTAINER-VALUE>
+                              <SHORT-NAME>LimitConfiguration</SHORT-NAME>
+                              <DEFINITION-REF DEST="ECUC-PARAM-CONF-CONTAINER-DEF">/FC7300FXXX/Sdadc/SdadcGlobalConfig/SdadcInstance/SdadcChannel/SdadcDetectConfiguration/LimitConfiguration</DEFINITION-REF>
+                              <PARAMETER-VALUES>
+                                <ECUC-NUMERICAL-PARAM-VALUE>
+                                  <DEFINITION-REF DEST="ECUC-BOOLEAN-PARAM-DEF">/FC7300FXXX/Sdadc/SdadcGlobalConfig/SdadcInstance/SdadcChannel/SdadcDetectConfiguration/LimitConfiguration/SdadcCcrLmtEn</DEFINITION-REF>
+                                  <VALUE>0</VALUE>
+                                </ECUC-NUMERICAL-PARAM-VALUE>
+                                <ECUC-TEXTUAL-PARAM-VALUE>
+                                  <DEFINITION-REF DEST="ECUC-ENUMERATION-PARAM-DEF">/FC7300FXXX/Sdadc/SdadcGlobalConfig/SdadcInstance/SdadcChannel/SdadcDetectConfiguration/LimitConfiguration/SdadcCcrLmtSel</DEFINITION-REF>
+                                  <VALUE>Main_Filter</VALUE>
+                                </ECUC-TEXTUAL-PARAM-VALUE>
+                                <ECUC-NUMERICAL-PARAM-VALUE>
+                                  <DEFINITION-REF DEST="ECUC-BOOLEAN-PARAM-DEF">/FC7300FXXX/Sdadc/SdadcGlobalConfig/SdadcInstance/SdadcChannel/SdadcDetectConfiguration/LimitConfiguration/SdadcCprHlmtBken</DEFINITION-REF>
+                                  <VALUE>1</VALUE>
+                                </ECUC-NUMERICAL-PARAM-VALUE>
+                                <ECUC-NUMERICAL-PARAM-VALUE>
+                                  <DEFINITION-REF DEST="ECUC-BOOLEAN-PARAM-DEF">/FC7300FXXX/Sdadc/SdadcGlobalConfig/SdadcInstance/SdadcChannel/SdadcDetectConfiguration/LimitConfiguration/SdadcCprHystrProten</DEFINITION-REF>
+                                  <VALUE>1</VALUE>
+                                </ECUC-NUMERICAL-PARAM-VALUE>
+                                <ECUC-NUMERICAL-PARAM-VALUE>
+                                  <DEFINITION-REF DEST="ECUC-BOOLEAN-PARAM-DEF">/FC7300FXXX/Sdadc/SdadcGlobalConfig/SdadcInstance/SdadcChannel/SdadcDetectConfiguration/LimitConfiguration/SdadcCprLlmtBken</DEFINITION-REF>
+                                  <VALUE>1</VALUE>
+                                </ECUC-NUMERICAL-PARAM-VALUE>
+                                <ECUC-TEXTUAL-PARAM-VALUE>
+                                  <DEFINITION-REF DEST="ECUC-ENUMERATION-PARAM-DEF">/FC7300FXXX/Sdadc/SdadcGlobalConfig/SdadcInstance/SdadcChannel/SdadcDetectConfiguration/LimitConfiguration/SdadcCprLmtavt</DEFINITION-REF>
+                                  <VALUE>SET_HIGH_CLEAR_LOW</VALUE>
+                                </ECUC-TEXTUAL-PARAM-VALUE>
+                                <ECUC-NUMERICAL-PARAM-VALUE>
+                                  <DEFINITION-REF DEST="ECUC-BOOLEAN-PARAM-DEF">/FC7300FXXX/Sdadc/SdadcGlobalConfig/SdadcInstance/SdadcChannel/SdadcDetectConfiguration/LimitConfiguration/SdadcCprLmtfProten</DEFINITION-REF>
+                                  <VALUE>1</VALUE>
+                                </ECUC-NUMERICAL-PARAM-VALUE>
+                                <ECUC-TEXTUAL-PARAM-VALUE>
+                                  <DEFINITION-REF DEST="ECUC-ENUMERATION-PARAM-DEF">/FC7300FXXX/Sdadc/SdadcGlobalConfig/SdadcInstance/SdadcChannel/SdadcDetectConfiguration/LimitConfiguration/SdadcCprLmtopt</DEFINITION-REF>
+                                  <VALUE>BOTH_HIGH_LOW</VALUE>
+                                </ECUC-TEXTUAL-PARAM-VALUE>
+                                <ECUC-NUMERICAL-PARAM-VALUE>
+                                  <DEFINITION-REF DEST="ECUC-BOOLEAN-PARAM-DEF">/FC7300FXXX/Sdadc/SdadcGlobalConfig/SdadcInstance/SdadcChannel/SdadcDetectConfiguration/LimitConfiguration/SdadcCprLmtrProten</DEFINITION-REF>
+                                  <VALUE>1</VALUE>
+                                </ECUC-NUMERICAL-PARAM-VALUE>
+                                <ECUC-NUMERICAL-PARAM-VALUE>
+                                  <DEFINITION-REF DEST="ECUC-BOOLEAN-PARAM-DEF">/FC7300FXXX/Sdadc/SdadcGlobalConfig/SdadcInstance/SdadcChannel/SdadcDetectConfiguration/LimitConfiguration/SdadcCprWlmtBken</DEFINITION-REF>
+                                  <VALUE>1</VALUE>
+                                </ECUC-NUMERICAL-PARAM-VALUE>
+                                <ECUC-NUMERICAL-PARAM-VALUE>
+                                  <DEFINITION-REF DEST="ECUC-INTEGER-PARAM-DEF">/FC7300FXXX/Sdadc/SdadcGlobalConfig/SdadcInstance/SdadcChannel/SdadcDetectConfiguration/LimitConfiguration/SdadcHighLimit</DEFINITION-REF>
+                                  <VALUE>0</VALUE>
+                                </ECUC-NUMERICAL-PARAM-VALUE>
+                                <ECUC-NUMERICAL-PARAM-VALUE>
+                                  <DEFINITION-REF DEST="ECUC-INTEGER-PARAM-DEF">/FC7300FXXX/Sdadc/SdadcGlobalConfig/SdadcInstance/SdadcChannel/SdadcDetectConfiguration/LimitConfiguration/SdadcLowLimit</DEFINITION-REF>
+                                  <VALUE>0</VALUE>
+                                </ECUC-NUMERICAL-PARAM-VALUE>
+                              </PARAMETER-VALUES>
+                            </ECUC-CONTAINER-VALUE>
+                            <ECUC-CONTAINER-VALUE>
+                              <SHORT-NAME>ShortCircuitConfiguration</SHORT-NAME>
+                              <DEFINITION-REF DEST="ECUC-PARAM-CONF-CONTAINER-DEF">/FC7300FXXX/Sdadc/SdadcGlobalConfig/SdadcInstance/SdadcChannel/SdadcDetectConfiguration/ShortCircuitConfiguration</DEFINITION-REF>
+                              <PARAMETER-VALUES>
+                                <ECUC-NUMERICAL-PARAM-VALUE>
+                                  <DEFINITION-REF DEST="ECUC-BOOLEAN-PARAM-DEF">/FC7300FXXX/Sdadc/SdadcGlobalConfig/SdadcInstance/SdadcChannel/SdadcDetectConfiguration/ShortCircuitConfiguration/SdadcCcrScdEn</DEFINITION-REF>
+                                  <VALUE>0</VALUE>
+                                </ECUC-NUMERICAL-PARAM-VALUE>
+                                <ECUC-NUMERICAL-PARAM-VALUE>
+                                  <DEFINITION-REF DEST="ECUC-BOOLEAN-PARAM-DEF">/FC7300FXXX/Sdadc/SdadcGlobalConfig/SdadcInstance/SdadcChannel/SdadcDetectConfiguration/ShortCircuitConfiguration/SdadcCprScdBken</DEFINITION-REF>
+                                  <VALUE>1</VALUE>
+                                </ECUC-NUMERICAL-PARAM-VALUE>
+                                <ECUC-NUMERICAL-PARAM-VALUE>
+                                  <DEFINITION-REF DEST="ECUC-BOOLEAN-PARAM-DEF">/FC7300FXXX/Sdadc/SdadcGlobalConfig/SdadcInstance/SdadcChannel/SdadcDetectConfiguration/ShortCircuitConfiguration/SdadcCprScdProten</DEFINITION-REF>
+                                  <VALUE>1</VALUE>
+                                </ECUC-NUMERICAL-PARAM-VALUE>
+                                <ECUC-NUMERICAL-PARAM-VALUE>
+                                  <DEFINITION-REF DEST="ECUC-BOOLEAN-PARAM-DEF">/FC7300FXXX/Sdadc/SdadcGlobalConfig/SdadcInstance/SdadcChannel/SdadcDetectConfiguration/ShortCircuitConfiguration/SdadcCprScdcm</DEFINITION-REF>
+                                  <VALUE>0</VALUE>
+                                </ECUC-NUMERICAL-PARAM-VALUE>
+                                <ECUC-NUMERICAL-PARAM-VALUE>
+                                  <DEFINITION-REF DEST="ECUC-INTEGER-PARAM-DEF">/FC7300FXXX/Sdadc/SdadcGlobalConfig/SdadcInstance/SdadcChannel/SdadcDetectConfiguration/ShortCircuitConfiguration/SdadcCprScdlmt</DEFINITION-REF>
+                                  <VALUE>1</VALUE>
+                                </ECUC-NUMERICAL-PARAM-VALUE>
+                                <ECUC-TEXTUAL-PARAM-VALUE>
+                                  <DEFINITION-REF DEST="ECUC-ENUMERATION-PARAM-DEF">/FC7300FXXX/Sdadc/SdadcGlobalConfig/SdadcInstance/SdadcChannel/SdadcDetectConfiguration/ShortCircuitConfiguration/SdadcCprScdopt</DEFINITION-REF>
+                                  <VALUE>BOTH_0_1</VALUE>
+                                </ECUC-TEXTUAL-PARAM-VALUE>
+                              </PARAMETER-VALUES>
+                            </ECUC-CONTAINER-VALUE>
+                            <ECUC-CONTAINER-VALUE>
+                              <SHORT-NAME>ZerocrossConfiguration</SHORT-NAME>
+                              <DEFINITION-REF DEST="ECUC-PARAM-CONF-CONTAINER-DEF">/FC7300FXXX/Sdadc/SdadcGlobalConfig/SdadcInstance/SdadcChannel/SdadcDetectConfiguration/ZerocrossConfiguration</DEFINITION-REF>
+                              <PARAMETER-VALUES>
+                                <ECUC-NUMERICAL-PARAM-VALUE>
+                                  <DEFINITION-REF DEST="ECUC-BOOLEAN-PARAM-DEF">/FC7300FXXX/Sdadc/SdadcGlobalConfig/SdadcInstance/SdadcChannel/SdadcDetectConfiguration/ZerocrossConfiguration/SdadcCcrZcdEn</DEFINITION-REF>
+                                  <VALUE>0</VALUE>
+                                </ECUC-NUMERICAL-PARAM-VALUE>
+                                <ECUC-TEXTUAL-PARAM-VALUE>
+                                  <DEFINITION-REF DEST="ECUC-ENUMERATION-PARAM-DEF">/FC7300FXXX/Sdadc/SdadcGlobalConfig/SdadcInstance/SdadcChannel/SdadcDetectConfiguration/ZerocrossConfiguration/SdadcCcrZcdSel</DEFINITION-REF>
+                                  <VALUE>Main_Filter</VALUE>
+                                </ECUC-TEXTUAL-PARAM-VALUE>
+                              </PARAMETER-VALUES>
+                            </ECUC-CONTAINER-VALUE>
+                          </SUB-CONTAINERS>
+                        </ECUC-CONTAINER-VALUE>
+                        <ECUC-CONTAINER-VALUE>
+                          <SHORT-NAME>SdadcFilterChainConfiguration_0</SHORT-NAME>
+                          <DEFINITION-REF DEST="ECUC-PARAM-CONF-CONTAINER-DEF">/FC7300FXXX/Sdadc/SdadcGlobalConfig/SdadcInstance/SdadcChannel/SdadcFilterChainConfiguration</DEFINITION-REF>
+                          <PARAMETER-VALUES>
+                            <ECUC-NUMERICAL-PARAM-VALUE>
+                              <DEFINITION-REF DEST="ECUC-INTEGER-PARAM-DEF">/FC7300FXXX/Sdadc/SdadcGlobalConfig/SdadcInstance/SdadcChannel/SdadcFilterChainConfiguration/SdadcBiasOffset</DEFINITION-REF>
+                              <VALUE>0</VALUE>
+                            </ECUC-NUMERICAL-PARAM-VALUE>
+                            <ECUC-NUMERICAL-PARAM-VALUE>
+                              <DEFINITION-REF DEST="ECUC-INTEGER-PARAM-DEF">/FC7300FXXX/Sdadc/SdadcGlobalConfig/SdadcInstance/SdadcChannel/SdadcFilterChainConfiguration/SdadcCfrCutoff</DEFINITION-REF>
+                              <VALUE>0</VALUE>
+                            </ECUC-NUMERICAL-PARAM-VALUE>
+                            <ECUC-NUMERICAL-PARAM-VALUE>
+                              <DEFINITION-REF DEST="ECUC-FLOAT-PARAM-DEF">/FC7300FXXX/Sdadc/SdadcGlobalConfig/SdadcInstance/SdadcChannel/SdadcFilterChainConfiguration/SdadcGainFac</DEFINITION-REF>
+                              <VALUE>0.0</VALUE>
+                            </ECUC-NUMERICAL-PARAM-VALUE>
+                          </PARAMETER-VALUES>
+                          <SUB-CONTAINERS>
+                            <ECUC-CONTAINER-VALUE>
+                              <SHORT-NAME>AFConfiguration</SHORT-NAME>
+                              <DEFINITION-REF DEST="ECUC-PARAM-CONF-CONTAINER-DEF">/FC7300FXXX/Sdadc/SdadcGlobalConfig/SdadcInstance/SdadcChannel/SdadcFilterChainConfiguration/AFConfiguration</DEFINITION-REF>
+                              <PARAMETER-VALUES>
+                                <ECUC-NUMERICAL-PARAM-VALUE>
+                                  <DEFINITION-REF DEST="ECUC-BOOLEAN-PARAM-DEF">/FC7300FXXX/Sdadc/SdadcGlobalConfig/SdadcInstance/SdadcChannel/SdadcFilterChainConfiguration/AFConfiguration/SdadcCcrAfEn</DEFINITION-REF>
+                                  <VALUE>1</VALUE>
+                                </ECUC-NUMERICAL-PARAM-VALUE>
+                                <ECUC-TEXTUAL-PARAM-VALUE>
+                                  <DEFINITION-REF DEST="ECUC-ENUMERATION-PARAM-DEF">/FC7300FXXX/Sdadc/SdadcGlobalConfig/SdadcInstance/SdadcChannel/SdadcFilterChainConfiguration/AFConfiguration/SdadcCdrAfcm</DEFINITION-REF>
+                                  <VALUE>AFCM_FOLLOW_MF_MODE</VALUE>
+                                </ECUC-TEXTUAL-PARAM-VALUE>
+                                <ECUC-TEXTUAL-PARAM-VALUE>
+                                  <DEFINITION-REF DEST="ECUC-ENUMERATION-PARAM-DEF">/FC7300FXXX/Sdadc/SdadcGlobalConfig/SdadcInstance/SdadcChannel/SdadcFilterChainConfiguration/AFConfiguration/SdadcCdrAford</DEFINITION-REF>
+                                  <VALUE>SECOND_ORDER</VALUE>
+                                </ECUC-TEXTUAL-PARAM-VALUE>
+                                <ECUC-NUMERICAL-PARAM-VALUE>
+                                  <DEFINITION-REF DEST="ECUC-INTEGER-PARAM-DEF">/FC7300FXXX/Sdadc/SdadcGlobalConfig/SdadcInstance/SdadcChannel/SdadcFilterChainConfiguration/AFConfiguration/SdadcCdrAfosr</DEFINITION-REF>
+                                  <VALUE>32</VALUE>
+                                </ECUC-NUMERICAL-PARAM-VALUE>
+                              </PARAMETER-VALUES>
+                            </ECUC-CONTAINER-VALUE>
+                            <ECUC-CONTAINER-VALUE>
+                              <SHORT-NAME>IntegratorConfiguration</SHORT-NAME>
+                              <DEFINITION-REF DEST="ECUC-PARAM-CONF-CONTAINER-DEF">/FC7300FXXX/Sdadc/SdadcGlobalConfig/SdadcInstance/SdadcChannel/SdadcFilterChainConfiguration/IntegratorConfiguration</DEFINITION-REF>
+                              <PARAMETER-VALUES>
+                                <ECUC-TEXTUAL-PARAM-VALUE>
+                                  <DEFINITION-REF DEST="ECUC-ENUMERATION-PARAM-DEF">/FC7300FXXX/Sdadc/SdadcGlobalConfig/SdadcInstance/SdadcChannel/SdadcFilterChainConfiguration/IntegratorConfiguration/CicfrExtstp</DEFINITION-REF>
+                                  <VALUE>INTERNAL_CONTROL</VALUE>
+                                </ECUC-TEXTUAL-PARAM-VALUE>
+                                <ECUC-TEXTUAL-PARAM-VALUE>
+                                  <DEFINITION-REF DEST="ECUC-ENUMERATION-PARAM-DEF">/FC7300FXXX/Sdadc/SdadcGlobalConfig/SdadcInstance/SdadcChannel/SdadcFilterChainConfiguration/IntegratorConfiguration/CicfrHtrpol</DEFINITION-REF>
+                                  <VALUE>HIGH_RISING</VALUE>
+                                </ECUC-TEXTUAL-PARAM-VALUE>
+                                <ECUC-NUMERICAL-PARAM-VALUE>
+                                  <DEFINITION-REF DEST="ECUC-BOOLEAN-PARAM-DEF">/FC7300FXXX/Sdadc/SdadcGlobalConfig/SdadcInstance/SdadcChannel/SdadcFilterChainConfiguration/IntegratorConfiguration/CicfrIogt</DEFINITION-REF>
+                                  <VALUE>1</VALUE>
+                                </ECUC-NUMERICAL-PARAM-VALUE>
+                                <ECUC-NUMERICAL-PARAM-VALUE>
+                                  <DEFINITION-REF DEST="ECUC-INTEGER-PARAM-DEF">/FC7300FXXX/Sdadc/SdadcGlobalConfig/SdadcInstance/SdadcChannel/SdadcFilterChainConfiguration/IntegratorConfiguration/CicfrIsval</DEFINITION-REF>
+                                  <VALUE>6</VALUE>
+                                </ECUC-NUMERICAL-PARAM-VALUE>
+                                <ECUC-TEXTUAL-PARAM-VALUE>
+                                  <DEFINITION-REF DEST="ECUC-ENUMERATION-PARAM-DEF">/FC7300FXXX/Sdadc/SdadcGlobalConfig/SdadcInstance/SdadcChannel/SdadcFilterChainConfiguration/IntegratorConfiguration/CicfrItrsel</DEFINITION-REF>
+                                  <VALUE>SOFTWARE</VALUE>
+                                </ECUC-TEXTUAL-PARAM-VALUE>
+                                <ECUC-NUMERICAL-PARAM-VALUE>
+                                  <DEFINITION-REF DEST="ECUC-INTEGER-PARAM-DEF">/FC7300FXXX/Sdadc/SdadcGlobalConfig/SdadcInstance/SdadcChannel/SdadcFilterChainConfiguration/IntegratorConfiguration/CicfrNvaldis</DEFINITION-REF>
+                                  <VALUE>0</VALUE>
+                                </ECUC-NUMERICAL-PARAM-VALUE>
+                                <ECUC-NUMERICAL-PARAM-VALUE>
+                                  <DEFINITION-REF DEST="ECUC-INTEGER-PARAM-DEF">/FC7300FXXX/Sdadc/SdadcGlobalConfig/SdadcInstance/SdadcChannel/SdadcFilterChainConfiguration/IntegratorConfiguration/CicfrNvalint</DEFINITION-REF>
+                                  <VALUE>64</VALUE>
+                                </ECUC-NUMERICAL-PARAM-VALUE>
+                                <ECUC-NUMERICAL-PARAM-VALUE>
+                                  <DEFINITION-REF DEST="ECUC-INTEGER-PARAM-DEF">/FC7300FXXX/Sdadc/SdadcGlobalConfig/SdadcInstance/SdadcChannel/SdadcFilterChainConfiguration/IntegratorConfiguration/CicfrNvalrep</DEFINITION-REF>
+                                  <VALUE>1</VALUE>
+                                </ECUC-NUMERICAL-PARAM-VALUE>
+                                <ECUC-NUMERICAL-PARAM-VALUE>
+                                  <DEFINITION-REF DEST="ECUC-BOOLEAN-PARAM-DEF">/FC7300FXXX/Sdadc/SdadcGlobalConfig/SdadcInstance/SdadcChannel/SdadcFilterChainConfiguration/IntegratorConfiguration/CicfrSyncTrgen</DEFINITION-REF>
+                                  <VALUE>0</VALUE>
+                                </ECUC-NUMERICAL-PARAM-VALUE>
+                                <ECUC-TEXTUAL-PARAM-VALUE>
+                                  <DEFINITION-REF DEST="ECUC-ENUMERATION-PARAM-DEF">/FC7300FXXX/Sdadc/SdadcGlobalConfig/SdadcInstance/SdadcChannel/SdadcFilterChainConfiguration/IntegratorConfiguration/CicfrSyncTrgsel</DEFINITION-REF>
+                                  <VALUE>CHANNEL_0</VALUE>
+                                </ECUC-TEXTUAL-PARAM-VALUE>
+                                <ECUC-NUMERICAL-PARAM-VALUE>
+                                  <DEFINITION-REF DEST="ECUC-BOOLEAN-PARAM-DEF">/FC7300FXXX/Sdadc/SdadcGlobalConfig/SdadcInstance/SdadcChannel/SdadcFilterChainConfiguration/IntegratorConfiguration/SdadcCcrIntgEn</DEFINITION-REF>
+                                  <VALUE>1</VALUE>
+                                </ECUC-NUMERICAL-PARAM-VALUE>
+                              </PARAMETER-VALUES>
+                            </ECUC-CONTAINER-VALUE>
+                            <ECUC-CONTAINER-VALUE>
+                              <SHORT-NAME>MFConfiguration</SHORT-NAME>
+                              <DEFINITION-REF DEST="ECUC-PARAM-CONF-CONTAINER-DEF">/FC7300FXXX/Sdadc/SdadcGlobalConfig/SdadcInstance/SdadcChannel/SdadcFilterChainConfiguration/MFConfiguration</DEFINITION-REF>
+                              <PARAMETER-VALUES>
+                                <ECUC-NUMERICAL-PARAM-VALUE>
+                                  <DEFINITION-REF DEST="ECUC-BOOLEAN-PARAM-DEF">/FC7300FXXX/Sdadc/SdadcGlobalConfig/SdadcInstance/SdadcChannel/SdadcFilterChainConfiguration/MFConfiguration/SdadcCcrMfEn</DEFINITION-REF>
+                                  <VALUE>1</VALUE>
+                                </ECUC-NUMERICAL-PARAM-VALUE>
+                                <ECUC-TEXTUAL-PARAM-VALUE>
+                                  <DEFINITION-REF DEST="ECUC-ENUMERATION-PARAM-DEF">/FC7300FXXX/Sdadc/SdadcGlobalConfig/SdadcInstance/SdadcChannel/SdadcFilterChainConfiguration/MFConfiguration/SdadcCdrMfcm</DEFINITION-REF>
+                                  <VALUE>MFCM_CONTINUOUS_MODE</VALUE>
+                                </ECUC-TEXTUAL-PARAM-VALUE>
+                                <ECUC-TEXTUAL-PARAM-VALUE>
+                                  <DEFINITION-REF DEST="ECUC-ENUMERATION-PARAM-DEF">/FC7300FXXX/Sdadc/SdadcGlobalConfig/SdadcInstance/SdadcChannel/SdadcFilterChainConfiguration/MFConfiguration/SdadcCdrMford</DEFINITION-REF>
+                                  <VALUE>THIRD_ORDER</VALUE>
+                                </ECUC-TEXTUAL-PARAM-VALUE>
+                                <ECUC-NUMERICAL-PARAM-VALUE>
+                                  <DEFINITION-REF DEST="ECUC-INTEGER-PARAM-DEF">/FC7300FXXX/Sdadc/SdadcGlobalConfig/SdadcInstance/SdadcChannel/SdadcFilterChainConfiguration/MFConfiguration/SdadcCdrMfosr</DEFINITION-REF>
+                                  <VALUE>128</VALUE>
+                                </ECUC-NUMERICAL-PARAM-VALUE>
+                              </PARAMETER-VALUES>
+                            </ECUC-CONTAINER-VALUE>
+                            <ECUC-CONTAINER-VALUE>
+                              <SHORT-NAME>RectificationConfiguration</SHORT-NAME>
+                              <DEFINITION-REF DEST="ECUC-PARAM-CONF-CONTAINER-DEF">/FC7300FXXX/Sdadc/SdadcGlobalConfig/SdadcInstance/SdadcChannel/SdadcFilterChainConfiguration/RectificationConfiguration</DEFINITION-REF>
+                              <PARAMETER-VALUES>
+                                <ECUC-NUMERICAL-PARAM-VALUE>
+                                  <DEFINITION-REF DEST="ECUC-BOOLEAN-PARAM-DEF">/FC7300FXXX/Sdadc/SdadcGlobalConfig/SdadcInstance/SdadcChannel/SdadcFilterChainConfiguration/RectificationConfiguration/CrtcsrCtrgsignOen</DEFINITION-REF>
+                                  <VALUE>1</VALUE>
+                                </ECUC-NUMERICAL-PARAM-VALUE>
+                                <ECUC-NUMERICAL-PARAM-VALUE>
+                                  <DEFINITION-REF DEST="ECUC-INTEGER-PARAM-DEF">/FC7300FXXX/Sdadc/SdadcGlobalConfig/SdadcInstance/SdadcChannel/SdadcFilterChainConfiguration/RectificationConfiguration/CrtcsrDlyTrg</DEFINITION-REF>
+                                  <VALUE>0</VALUE>
+                                </ECUC-NUMERICAL-PARAM-VALUE>
+                                <ECUC-TEXTUAL-PARAM-VALUE>
+                                  <DEFINITION-REF DEST="ECUC-ENUMERATION-PARAM-DEF">/FC7300FXXX/Sdadc/SdadcGlobalConfig/SdadcInstance/SdadcChannel/SdadcFilterChainConfiguration/RectificationConfiguration/CrtcsrSsch</DEFINITION-REF>
+                                  <VALUE>CHANNEL_0</VALUE>
+                                </ECUC-TEXTUAL-PARAM-VALUE>
+                                <ECUC-TEXTUAL-PARAM-VALUE>
+                                  <DEFINITION-REF DEST="ECUC-ENUMERATION-PARAM-DEF">/FC7300FXXX/Sdadc/SdadcGlobalConfig/SdadcInstance/SdadcChannel/SdadcFilterChainConfiguration/RectificationConfiguration/CrtcsrSsrc</DEFINITION-REF>
+                                  <VALUE>SDADC_INTERNAL</VALUE>
+                                </ECUC-TEXTUAL-PARAM-VALUE>
+                                <ECUC-NUMERICAL-PARAM-VALUE>
+                                  <DEFINITION-REF DEST="ECUC-BOOLEAN-PARAM-DEF">/FC7300FXXX/Sdadc/SdadcGlobalConfig/SdadcInstance/SdadcChannel/SdadcFilterChainConfiguration/RectificationConfiguration/SdadcCcrRectEn</DEFINITION-REF>
+                                  <VALUE>0</VALUE>
+                                </ECUC-NUMERICAL-PARAM-VALUE>
+                                <ECUC-NUMERICAL-PARAM-VALUE>
+                                  <DEFINITION-REF DEST="ECUC-INTEGER-PARAM-DEF">/FC7300FXXX/Sdadc/SdadcGlobalConfig/SdadcInstance/SdadcChannel/SdadcFilterChainConfiguration/RectificationConfiguration/SdadcCsdDlyNegOffset</DEFINITION-REF>
+                                  <VALUE>1</VALUE>
+                                </ECUC-NUMERICAL-PARAM-VALUE>
+                                <ECUC-NUMERICAL-PARAM-VALUE>
+                                  <DEFINITION-REF DEST="ECUC-INTEGER-PARAM-DEF">/FC7300FXXX/Sdadc/SdadcGlobalConfig/SdadcInstance/SdadcChannel/SdadcFilterChainConfiguration/RectificationConfiguration/SdadcCsdDlyPos</DEFINITION-REF>
+                                  <VALUE>1</VALUE>
+                                </ECUC-NUMERICAL-PARAM-VALUE>
+                              </PARAMETER-VALUES>
+                            </ECUC-CONTAINER-VALUE>
+                          </SUB-CONTAINERS>
+                        </ECUC-CONTAINER-VALUE>
+                        <ECUC-CONTAINER-VALUE>
+                          <SHORT-NAME>SdadcInterrupt</SHORT-NAME>
+                          <DEFINITION-REF DEST="ECUC-PARAM-CONF-CONTAINER-DEF">/FC7300FXXX/Sdadc/SdadcGlobalConfig/SdadcInstance/SdadcChannel/SdadcInterrupt</DEFINITION-REF>
+                          <PARAMETER-VALUES>
+                            <ECUC-NUMERICAL-PARAM-VALUE>
+                              <DEFINITION-REF DEST="ECUC-BOOLEAN-PARAM-DEF">/FC7300FXXX/Sdadc/SdadcGlobalConfig/SdadcInstance/SdadcChannel/SdadcInterrupt/Abnier0Hlmtie</DEFINITION-REF>
+                              <VALUE>0</VALUE>
+                            </ECUC-NUMERICAL-PARAM-VALUE>
+                            <ECUC-NUMERICAL-PARAM-VALUE>
+                              <DEFINITION-REF DEST="ECUC-BOOLEAN-PARAM-DEF">/FC7300FXXX/Sdadc/SdadcGlobalConfig/SdadcInstance/SdadcChannel/SdadcInterrupt/Abnier0Llmtie</DEFINITION-REF>
+                              <VALUE>0</VALUE>
+                            </ECUC-NUMERICAL-PARAM-VALUE>
+                            <ECUC-NUMERICAL-PARAM-VALUE>
+                              <DEFINITION-REF DEST="ECUC-BOOLEAN-PARAM-DEF">/FC7300FXXX/Sdadc/SdadcGlobalConfig/SdadcInstance/SdadcChannel/SdadcInterrupt/Abnier0Scdie</DEFINITION-REF>
+                              <VALUE>0</VALUE>
+                            </ECUC-NUMERICAL-PARAM-VALUE>
+                            <ECUC-NUMERICAL-PARAM-VALUE>
+                              <DEFINITION-REF DEST="ECUC-BOOLEAN-PARAM-DEF">/FC7300FXXX/Sdadc/SdadcGlobalConfig/SdadcInstance/SdadcChannel/SdadcInterrupt/Abnier0Wlmtie</DEFINITION-REF>
+                              <VALUE>0</VALUE>
+                            </ECUC-NUMERICAL-PARAM-VALUE>
+                            <ECUC-NUMERICAL-PARAM-VALUE>
+                              <DEFINITION-REF DEST="ECUC-BOOLEAN-PARAM-DEF">/FC7300FXXX/Sdadc/SdadcGlobalConfig/SdadcInstance/SdadcChannel/SdadcInterrupt/ExtieTsignP2nIe</DEFINITION-REF>
+                              <VALUE>0</VALUE>
+                            </ECUC-NUMERICAL-PARAM-VALUE>
+                            <ECUC-NUMERICAL-PARAM-VALUE>
+                              <DEFINITION-REF DEST="ECUC-BOOLEAN-PARAM-DEF">/FC7300FXXX/Sdadc/SdadcGlobalConfig/SdadcInstance/SdadcChannel/SdadcInterrupt/SdadcAbnier1Cadie</DEFINITION-REF>
+                              <VALUE>0</VALUE>
+                            </ECUC-NUMERICAL-PARAM-VALUE>
+                            <ECUC-NUMERICAL-PARAM-VALUE>
+                              <DEFINITION-REF DEST="ECUC-BOOLEAN-PARAM-DEF">/FC7300FXXX/Sdadc/SdadcGlobalConfig/SdadcInstance/SdadcChannel/SdadcInterrupt/SdadcAbnier1Satie</DEFINITION-REF>
+                              <VALUE>0</VALUE>
+                            </ECUC-NUMERICAL-PARAM-VALUE>
+                            <ECUC-NUMERICAL-PARAM-VALUE>
+                              <DEFINITION-REF DEST="ECUC-BOOLEAN-PARAM-DEF">/FC7300FXXX/Sdadc/SdadcGlobalConfig/SdadcInstance/SdadcChannel/SdadcInterrupt/SdadcNierZcdie</DEFINITION-REF>
+                              <VALUE>0</VALUE>
+                            </ECUC-NUMERICAL-PARAM-VALUE>
+                          </PARAMETER-VALUES>
+                        </ECUC-CONTAINER-VALUE>
+                        <ECUC-CONTAINER-VALUE>
+                          <SHORT-NAME>SdadcModulatorConfiguration_0</SHORT-NAME>
+                          <DEFINITION-REF DEST="ECUC-PARAM-CONF-CONTAINER-DEF">/FC7300FXXX/Sdadc/SdadcGlobalConfig/SdadcInstance/SdadcChannel/SdadcModulatorConfiguration</DEFINITION-REF>
+                          <PARAMETER-VALUES>
+                            <ECUC-TEXTUAL-PARAM-VALUE>
+                              <DEFINITION-REF DEST="ECUC-ENUMERATION-PARAM-DEF">/FC7300FXXX/Sdadc/SdadcGlobalConfig/SdadcInstance/SdadcChannel/SdadcModulatorConfiguration/SdadcCfrClkedg</DEFINITION-REF>
+                              <VALUE>POSEDGE</VALUE>
+                            </ECUC-TEXTUAL-PARAM-VALUE>
+                            <ECUC-TEXTUAL-PARAM-VALUE>
+                              <DEFINITION-REF DEST="ECUC-ENUMERATION-PARAM-DEF">/FC7300FXXX/Sdadc/SdadcGlobalConfig/SdadcInstance/SdadcChannel/SdadcModulatorConfiguration/SdadcCfrClksel</DEFINITION-REF>
+                              <VALUE>DIV_CLK1</VALUE>
+                            </ECUC-TEXTUAL-PARAM-VALUE>
+                            <ECUC-TEXTUAL-PARAM-VALUE>
+                              <DEFINITION-REF DEST="ECUC-ENUMERATION-PARAM-DEF">/FC7300FXXX/Sdadc/SdadcGlobalConfig/SdadcInstance/SdadcChannel/SdadcModulatorConfiguration/SdadcCfrIbfmt</DEFINITION-REF>
+                              <VALUE>ONE_BIT_STREAM</VALUE>
+                            </ECUC-TEXTUAL-PARAM-VALUE>
+                            <ECUC-NUMERICAL-PARAM-VALUE>
+                              <DEFINITION-REF DEST="ECUC-BOOLEAN-PARAM-DEF">/FC7300FXXX/Sdadc/SdadcGlobalConfig/SdadcInstance/SdadcChannel/SdadcModulatorConfiguration/SdadcCmacsrDitherEn</DEFINITION-REF>
+                              <VALUE>1</VALUE>
+                            </ECUC-NUMERICAL-PARAM-VALUE>
+                            <ECUC-TEXTUAL-PARAM-VALUE>
+                              <DEFINITION-REF DEST="ECUC-ENUMERATION-PARAM-DEF">/FC7300FXXX/Sdadc/SdadcGlobalConfig/SdadcInstance/SdadcChannel/SdadcModulatorConfiguration/SdadcCmacsrGainSel</DEFINITION-REF>
+                              <VALUE>GAINSEL_1</VALUE>
+                            </ECUC-TEXTUAL-PARAM-VALUE>
+                            <ECUC-TEXTUAL-PARAM-VALUE>
+                              <DEFINITION-REF DEST="ECUC-ENUMERATION-PARAM-DEF">/FC7300FXXX/Sdadc/SdadcGlobalConfig/SdadcInstance/SdadcChannel/SdadcModulatorConfiguration/SdadcCmacsrIncfgM</DEFINITION-REF>
+                              <VALUE>VREFL</VALUE>
+                            </ECUC-TEXTUAL-PARAM-VALUE>
+                            <ECUC-TEXTUAL-PARAM-VALUE>
+                              <DEFINITION-REF DEST="ECUC-ENUMERATION-PARAM-DEF">/FC7300FXXX/Sdadc/SdadcGlobalConfig/SdadcInstance/SdadcChannel/SdadcModulatorConfiguration/SdadcCmacsrIncfgP</DEFINITION-REF>
+                              <VALUE>VREFH_DIV_2</VALUE>
+                            </ECUC-TEXTUAL-PARAM-VALUE>
+                            <ECUC-NUMERICAL-PARAM-VALUE>
+                              <DEFINITION-REF DEST="ECUC-BOOLEAN-PARAM-DEF">/FC7300FXXX/Sdadc/SdadcGlobalConfig/SdadcInstance/SdadcChannel/SdadcModulatorConfiguration/SdadcCmacsrIncfgPv11</DEFINITION-REF>
+                              <VALUE>0</VALUE>
+                            </ECUC-NUMERICAL-PARAM-VALUE>
+                            <ECUC-TEXTUAL-PARAM-VALUE>
+                              <DEFINITION-REF DEST="ECUC-ENUMERATION-PARAM-DEF">/FC7300FXXX/Sdadc/SdadcGlobalConfig/SdadcInstance/SdadcChannel/SdadcModulatorConfiguration/SdadcCmacsrInmod</DEFINITION-REF>
+                              <VALUE>SOFTWARE_CONTROL</VALUE>
+                            </ECUC-TEXTUAL-PARAM-VALUE>
+                            <ECUC-TEXTUAL-PARAM-VALUE>
+                              <DEFINITION-REF DEST="ECUC-ENUMERATION-PARAM-DEF">/FC7300FXXX/Sdadc/SdadcGlobalConfig/SdadcInstance/SdadcChannel/SdadcModulatorConfiguration/SdadcCmacsrInsel</DEFINITION-REF>
+                              <VALUE>PIN0</VALUE>
+                            </ECUC-TEXTUAL-PARAM-VALUE>
+                            <ECUC-TEXTUAL-PARAM-VALUE>
+                              <DEFINITION-REF DEST="ECUC-ENUMERATION-PARAM-DEF">/FC7300FXXX/Sdadc/SdadcGlobalConfig/SdadcInstance/SdadcChannel/SdadcModulatorConfiguration/SdadcCmacsrMaclkSel</DEFINITION-REF>
+                              <VALUE>DIV_CLK0</VALUE>
+                            </ECUC-TEXTUAL-PARAM-VALUE>
+                            <ECUC-TEXTUAL-PARAM-VALUE>
+                              <DEFINITION-REF DEST="ECUC-ENUMERATION-PARAM-DEF">/FC7300FXXX/Sdadc/SdadcGlobalConfig/SdadcInstance/SdadcChannel/SdadcModulatorConfiguration/SdadcCmacsrMasel</DEFINITION-REF>
+                              <VALUE>INTERNAL</VALUE>
+                            </ECUC-TEXTUAL-PARAM-VALUE>
+                            <ECUC-NUMERICAL-PARAM-VALUE>
+                              <DEFINITION-REF DEST="ECUC-INTEGER-PARAM-DEF">/FC7300FXXX/Sdadc/SdadcGlobalConfig/SdadcInstance/SdadcChannel/SdadcModulatorConfiguration/SdadcCmacsrRstSel</DEFINITION-REF>
+                              <VALUE>8</VALUE>
+                            </ECUC-NUMERICAL-PARAM-VALUE>
+                          </PARAMETER-VALUES>
+                          <SUB-CONTAINERS>
+                            <ECUC-CONTAINER-VALUE>
+                              <SHORT-NAME>CommonVoltage</SHORT-NAME>
+                              <DEFINITION-REF DEST="ECUC-PARAM-CONF-CONTAINER-DEF">/FC7300FXXX/Sdadc/SdadcGlobalConfig/SdadcInstance/SdadcChannel/SdadcModulatorConfiguration/CommonVoltage</DEFINITION-REF>
+                              <PARAMETER-VALUES>
+                                <ECUC-NUMERICAL-PARAM-VALUE>
+                                  <DEFINITION-REF DEST="ECUC-BOOLEAN-PARAM-DEF">/FC7300FXXX/Sdadc/SdadcGlobalConfig/SdadcInstance/SdadcChannel/SdadcModulatorConfiguration/CommonVoltage/SdadcCmacsrCmenM0</DEFINITION-REF>
+                                  <VALUE>0</VALUE>
+                                </ECUC-NUMERICAL-PARAM-VALUE>
+                                <ECUC-NUMERICAL-PARAM-VALUE>
+                                  <DEFINITION-REF DEST="ECUC-BOOLEAN-PARAM-DEF">/FC7300FXXX/Sdadc/SdadcGlobalConfig/SdadcInstance/SdadcChannel/SdadcModulatorConfiguration/CommonVoltage/SdadcCmacsrCmenM1</DEFINITION-REF>
+                                  <VALUE>0</VALUE>
+                                </ECUC-NUMERICAL-PARAM-VALUE>
+                                <ECUC-NUMERICAL-PARAM-VALUE>
+                                  <DEFINITION-REF DEST="ECUC-BOOLEAN-PARAM-DEF">/FC7300FXXX/Sdadc/SdadcGlobalConfig/SdadcInstance/SdadcChannel/SdadcModulatorConfiguration/CommonVoltage/SdadcCmacsrCmenM2</DEFINITION-REF>
+                                  <VALUE>0</VALUE>
+                                </ECUC-NUMERICAL-PARAM-VALUE>
+                                <ECUC-NUMERICAL-PARAM-VALUE>
+                                  <DEFINITION-REF DEST="ECUC-BOOLEAN-PARAM-DEF">/FC7300FXXX/Sdadc/SdadcGlobalConfig/SdadcInstance/SdadcChannel/SdadcModulatorConfiguration/CommonVoltage/SdadcCmacsrCmenM3</DEFINITION-REF>
+                                  <VALUE>0</VALUE>
+                                </ECUC-NUMERICAL-PARAM-VALUE>
+                                <ECUC-NUMERICAL-PARAM-VALUE>
+                                  <DEFINITION-REF DEST="ECUC-BOOLEAN-PARAM-DEF">/FC7300FXXX/Sdadc/SdadcGlobalConfig/SdadcInstance/SdadcChannel/SdadcModulatorConfiguration/CommonVoltage/SdadcCmacsrCmenP0</DEFINITION-REF>
+                                  <VALUE>0</VALUE>
+                                </ECUC-NUMERICAL-PARAM-VALUE>
+                                <ECUC-NUMERICAL-PARAM-VALUE>
+                                  <DEFINITION-REF DEST="ECUC-BOOLEAN-PARAM-DEF">/FC7300FXXX/Sdadc/SdadcGlobalConfig/SdadcInstance/SdadcChannel/SdadcModulatorConfiguration/CommonVoltage/SdadcCmacsrCmenP1</DEFINITION-REF>
+                                  <VALUE>0</VALUE>
+                                </ECUC-NUMERICAL-PARAM-VALUE>
+                                <ECUC-NUMERICAL-PARAM-VALUE>
+                                  <DEFINITION-REF DEST="ECUC-BOOLEAN-PARAM-DEF">/FC7300FXXX/Sdadc/SdadcGlobalConfig/SdadcInstance/SdadcChannel/SdadcModulatorConfiguration/CommonVoltage/SdadcCmacsrCmenP2</DEFINITION-REF>
+                                  <VALUE>0</VALUE>
+                                </ECUC-NUMERICAL-PARAM-VALUE>
+                                <ECUC-NUMERICAL-PARAM-VALUE>
+                                  <DEFINITION-REF DEST="ECUC-BOOLEAN-PARAM-DEF">/FC7300FXXX/Sdadc/SdadcGlobalConfig/SdadcInstance/SdadcChannel/SdadcModulatorConfiguration/CommonVoltage/SdadcCmacsrCmenP3</DEFINITION-REF>
+                                  <VALUE>0</VALUE>
+                                </ECUC-NUMERICAL-PARAM-VALUE>
+                              </PARAMETER-VALUES>
+                            </ECUC-CONTAINER-VALUE>
+                          </SUB-CONTAINERS>
+                        </ECUC-CONTAINER-VALUE>
+                        <ECUC-CONTAINER-VALUE>
+                          <SHORT-NAME>TimeStampAndResaultConfig</SHORT-NAME>
+                          <DEFINITION-REF DEST="ECUC-PARAM-CONF-CONTAINER-DEF">/FC7300FXXX/Sdadc/SdadcGlobalConfig/SdadcInstance/SdadcChannel/TimeStampAndResaultConfig</DEFINITION-REF>
+                          <PARAMETER-VALUES>
+                            <ECUC-NUMERICAL-PARAM-VALUE>
+                              <DEFINITION-REF DEST="ECUC-BOOLEAN-PARAM-DEF">/FC7300FXXX/Sdadc/SdadcGlobalConfig/SdadcInstance/SdadcChannel/TimeStampAndResaultConfig/CtsCntInmxcp</DEFINITION-REF>
+                              <VALUE>0</VALUE>
+                            </ECUC-NUMERICAL-PARAM-VALUE>
+                            <ECUC-NUMERICAL-PARAM-VALUE>
+                              <DEFINITION-REF DEST="ECUC-BOOLEAN-PARAM-DEF">/FC7300FXXX/Sdadc/SdadcGlobalConfig/SdadcInstance/SdadcChannel/TimeStampAndResaultConfig/CtsCntSyncTrgen</DEFINITION-REF>
+                              <VALUE>1</VALUE>
+                            </ECUC-NUMERICAL-PARAM-VALUE>
+                            <ECUC-TEXTUAL-PARAM-VALUE>
+                              <DEFINITION-REF DEST="ECUC-ENUMERATION-PARAM-DEF">/FC7300FXXX/Sdadc/SdadcGlobalConfig/SdadcInstance/SdadcChannel/TimeStampAndResaultConfig/CtsCntSyncTrgsel</DEFINITION-REF>
+                              <VALUE>CHANNEL_0</VALUE>
+                            </ECUC-TEXTUAL-PARAM-VALUE>
+                            <ECUC-NUMERICAL-PARAM-VALUE>
+                              <DEFINITION-REF DEST="ECUC-BOOLEAN-PARAM-DEF">/FC7300FXXX/Sdadc/SdadcGlobalConfig/SdadcInstance/SdadcChannel/TimeStampAndResaultConfig/CtsCntTsEn</DEFINITION-REF>
+                              <VALUE>1</VALUE>
+                            </ECUC-NUMERICAL-PARAM-VALUE>
+                            <ECUC-TEXTUAL-PARAM-VALUE>
+                              <DEFINITION-REF DEST="ECUC-ENUMERATION-PARAM-DEF">/FC7300FXXX/Sdadc/SdadcGlobalConfig/SdadcInstance/SdadcChannel/TimeStampAndResaultConfig/CtsCntTsclksel</DEFINITION-REF>
+                              <VALUE>DIV_BY_8</VALUE>
+                            </ECUC-TEXTUAL-PARAM-VALUE>
+                            <ECUC-TEXTUAL-PARAM-VALUE>
+                              <DEFINITION-REF DEST="ECUC-ENUMERATION-PARAM-DEF">/FC7300FXXX/Sdadc/SdadcGlobalConfig/SdadcInstance/SdadcChannel/TimeStampAndResaultConfig/CtsCntTsrdm</DEFINITION-REF>
+                              <VALUE>DEFAULT_MODE</VALUE>
+                            </ECUC-TEXTUAL-PARAM-VALUE>
+                            <ECUC-TEXTUAL-PARAM-VALUE>
+                              <DEFINITION-REF DEST="ECUC-ENUMERATION-PARAM-DEF">/FC7300FXXX/Sdadc/SdadcGlobalConfig/SdadcInstance/SdadcChannel/TimeStampAndResaultConfig/CtsCntTstrgm</DEFINITION-REF>
+                              <VALUE>RISING_EDGE</VALUE>
+                            </ECUC-TEXTUAL-PARAM-VALUE>
+                          </PARAMETER-VALUES>
+                        </ECUC-CONTAINER-VALUE>
+                        <ECUC-CONTAINER-VALUE>
+                          <SHORT-NAME>TriggerConfig</SHORT-NAME>
+                          <DEFINITION-REF DEST="ECUC-PARAM-CONF-CONTAINER-DEF">/FC7300FXXX/Sdadc/SdadcGlobalConfig/SdadcInstance/SdadcChannel/TriggerConfig</DEFINITION-REF>
+                          <PARAMETER-VALUES>
+                            <ECUC-NUMERICAL-PARAM-VALUE>
+                              <DEFINITION-REF DEST="ECUC-BOOLEAN-PARAM-DEF">/FC7300FXXX/Sdadc/SdadcGlobalConfig/SdadcInstance/SdadcChannel/TriggerConfig/SdadcCfrSyncTrgen</DEFINITION-REF>
+                              <VALUE>1</VALUE>
+                            </ECUC-NUMERICAL-PARAM-VALUE>
+                            <ECUC-TEXTUAL-PARAM-VALUE>
+                              <DEFINITION-REF DEST="ECUC-ENUMERATION-PARAM-DEF">/FC7300FXXX/Sdadc/SdadcGlobalConfig/SdadcInstance/SdadcChannel/TriggerConfig/SdadcCfrSyncTrgsel</DEFINITION-REF>
+                              <VALUE>SYNC_TRGSEL_CH0</VALUE>
+                            </ECUC-TEXTUAL-PARAM-VALUE>
+                            <ECUC-NUMERICAL-PARAM-VALUE>
+                              <DEFINITION-REF DEST="ECUC-BOOLEAN-PARAM-DEF">/FC7300FXXX/Sdadc/SdadcGlobalConfig/SdadcInstance/SdadcChannel/TriggerConfig/SdadcCfrTrglvl</DEFINITION-REF>
+                              <VALUE>0</VALUE>
+                            </ECUC-NUMERICAL-PARAM-VALUE>
+                            <ECUC-TEXTUAL-PARAM-VALUE>
+                              <DEFINITION-REF DEST="ECUC-ENUMERATION-PARAM-DEF">/FC7300FXXX/Sdadc/SdadcGlobalConfig/SdadcInstance/SdadcChannel/TriggerConfig/SdadcCfrTrgsel</DEFINITION-REF>
+                              <VALUE>SOFTWARE</VALUE>
+                            </ECUC-TEXTUAL-PARAM-VALUE>
+                          </PARAMETER-VALUES>
+                        </ECUC-CONTAINER-VALUE>
+                      </SUB-CONTAINERS>
+                    </ECUC-CONTAINER-VALUE>
+                    <ECUC-CONTAINER-VALUE>
+                      <SHORT-NAME>SdadcChannel_1</SHORT-NAME>
+                      <DEFINITION-REF DEST="ECUC-PARAM-CONF-CONTAINER-DEF">/FC7300FXXX/Sdadc/SdadcGlobalConfig/SdadcInstance/SdadcChannel</DEFINITION-REF>
+                      <PARAMETER-VALUES>
+                        <ECUC-TEXTUAL-PARAM-VALUE>
+                          <DEFINITION-REF DEST="ECUC-FUNCTION-NAME-DEF">/FC7300FXXX/Sdadc/SdadcGlobalConfig/SdadcInstance/SdadcChannel/BufferFullNotification</DEFINITION-REF>
+                          <VALUE>SDADC0_CH1_BF_Notification</VALUE>
+                        </ECUC-TEXTUAL-PARAM-VALUE>
+                        <ECUC-NUMERICAL-PARAM-VALUE>
+                          <DEFINITION-REF DEST="ECUC-BOOLEAN-PARAM-DEF">/FC7300FXXX/Sdadc/SdadcGlobalConfig/SdadcInstance/SdadcChannel/COCIntSupress</DEFINITION-REF>
+                          <VALUE>0</VALUE>
+                        </ECUC-NUMERICAL-PARAM-VALUE>
+                        <ECUC-TEXTUAL-PARAM-VALUE>
+                          <DEFINITION-REF DEST="ECUC-FUNCTION-NAME-DEF">/FC7300FXXX/Sdadc/SdadcGlobalConfig/SdadcInstance/SdadcChannel/ConversionCompleteNotification</DEFINITION-REF>
+                          <VALUE>SDADC0_CH1_COC_Notification</VALUE>
+                        </ECUC-TEXTUAL-PARAM-VALUE>
+                        <ECUC-NUMERICAL-PARAM-VALUE>
+                          <DEFINITION-REF DEST="ECUC-BOOLEAN-PARAM-DEF">/FC7300FXXX/Sdadc/SdadcGlobalConfig/SdadcInstance/SdadcChannel/GlobalTimeStampEn</DEFINITION-REF>
+                          <VALUE>0</VALUE>
+                        </ECUC-NUMERICAL-PARAM-VALUE>
+                        <ECUC-NUMERICAL-PARAM-VALUE>
+                          <DEFINITION-REF DEST="ECUC-BOOLEAN-PARAM-DEF">/FC7300FXXX/Sdadc/SdadcGlobalConfig/SdadcInstance/SdadcChannel/SdadcCcrDmaEn</DEFINITION-REF>
+                          <VALUE>0</VALUE>
+                        </ECUC-NUMERICAL-PARAM-VALUE>
+                        <ECUC-NUMERICAL-PARAM-VALUE>
+                          <DEFINITION-REF DEST="ECUC-BOOLEAN-PARAM-DEF">/FC7300FXXX/Sdadc/SdadcGlobalConfig/SdadcInstance/SdadcChannel/SdadcCcrFifoEn</DEFINITION-REF>
+                          <VALUE>1</VALUE>
+                        </ECUC-NUMERICAL-PARAM-VALUE>
+                        <ECUC-NUMERICAL-PARAM-VALUE>
+                          <DEFINITION-REF DEST="ECUC-INTEGER-PARAM-DEF">/FC7300FXXX/Sdadc/SdadcGlobalConfig/SdadcInstance/SdadcChannel/SdadcCfrFwmk</DEFINITION-REF>
+                          <VALUE>4</VALUE>
+                        </ECUC-NUMERICAL-PARAM-VALUE>
+                        <ECUC-NUMERICAL-PARAM-VALUE>
+                          <DEFINITION-REF DEST="ECUC-BOOLEAN-PARAM-DEF">/FC7300FXXX/Sdadc/SdadcGlobalConfig/SdadcInstance/SdadcChannel/SdadcCfrRdfmt</DEFINITION-REF>
+                          <VALUE>0</VALUE>
+                        </ECUC-NUMERICAL-PARAM-VALUE>
+                        <ECUC-TEXTUAL-PARAM-VALUE>
+                          <DEFINITION-REF DEST="ECUC-ENUMERATION-PARAM-DEF">/FC7300FXXX/Sdadc/SdadcGlobalConfig/SdadcInstance/SdadcChannel/SdadcChannelAccessMode</DEFINITION-REF>
+                          <VALUE>SDADC_STREAM_LINEAR_BUFFER</VALUE>
+                        </ECUC-TEXTUAL-PARAM-VALUE>
+                        <ECUC-NUMERICAL-PARAM-VALUE>
+                          <DEFINITION-REF DEST="ECUC-INTEGER-PARAM-DEF">/FC7300FXXX/Sdadc/SdadcGlobalConfig/SdadcInstance/SdadcChannel/SdadcChannelId</DEFINITION-REF>
+                          <VALUE>1</VALUE>
+                        </ECUC-NUMERICAL-PARAM-VALUE>
+                        <ECUC-NUMERICAL-PARAM-VALUE>
+                          <DEFINITION-REF DEST="ECUC-INTEGER-PARAM-DEF">/FC7300FXXX/Sdadc/SdadcGlobalConfig/SdadcInstance/SdadcChannel/SdadcHwChannelId</DEFINITION-REF>
+                          <VALUE>1</VALUE>
+                        </ECUC-NUMERICAL-PARAM-VALUE>
+                      </PARAMETER-VALUES>
+                      <SUB-CONTAINERS>
+                        <ECUC-CONTAINER-VALUE>
+                          <SHORT-NAME>SdadcDetectConfiguration_0</SHORT-NAME>
+                          <DEFINITION-REF DEST="ECUC-PARAM-CONF-CONTAINER-DEF">/FC7300FXXX/Sdadc/SdadcGlobalConfig/SdadcInstance/SdadcChannel/SdadcDetectConfiguration</DEFINITION-REF>
+                          <SUB-CONTAINERS>
+                            <ECUC-CONTAINER-VALUE>
+                              <SHORT-NAME>ClockAbsenceConfiguration</SHORT-NAME>
+                              <DEFINITION-REF DEST="ECUC-PARAM-CONF-CONTAINER-DEF">/FC7300FXXX/Sdadc/SdadcGlobalConfig/SdadcInstance/SdadcChannel/SdadcDetectConfiguration/ClockAbsenceConfiguration</DEFINITION-REF>
+                              <PARAMETER-VALUES>
+                                <ECUC-NUMERICAL-PARAM-VALUE>
+                                  <DEFINITION-REF DEST="ECUC-BOOLEAN-PARAM-DEF">/FC7300FXXX/Sdadc/SdadcGlobalConfig/SdadcInstance/SdadcChannel/SdadcDetectConfiguration/ClockAbsenceConfiguration/SdadcCcrCadEn</DEFINITION-REF>
+                                  <VALUE>0</VALUE>
+                                </ECUC-NUMERICAL-PARAM-VALUE>
+                                <ECUC-NUMERICAL-PARAM-VALUE>
+                                  <DEFINITION-REF DEST="ECUC-BOOLEAN-PARAM-DEF">/FC7300FXXX/Sdadc/SdadcGlobalConfig/SdadcInstance/SdadcChannel/SdadcDetectConfiguration/ClockAbsenceConfiguration/SdadcCprCadBken</DEFINITION-REF>
+                                  <VALUE>1</VALUE>
+                                </ECUC-NUMERICAL-PARAM-VALUE>
+                                <ECUC-NUMERICAL-PARAM-VALUE>
+                                  <DEFINITION-REF DEST="ECUC-BOOLEAN-PARAM-DEF">/FC7300FXXX/Sdadc/SdadcGlobalConfig/SdadcInstance/SdadcChannel/SdadcDetectConfiguration/ClockAbsenceConfiguration/SdadcCprCadProten</DEFINITION-REF>
+                                  <VALUE>1</VALUE>
+                                </ECUC-NUMERICAL-PARAM-VALUE>
+                                <ECUC-NUMERICAL-PARAM-VALUE>
+                                  <DEFINITION-REF DEST="ECUC-INTEGER-PARAM-DEF">/FC7300FXXX/Sdadc/SdadcGlobalConfig/SdadcInstance/SdadcChannel/SdadcDetectConfiguration/ClockAbsenceConfiguration/SdadcCprCadlmt</DEFINITION-REF>
+                                  <VALUE>1</VALUE>
+                                </ECUC-NUMERICAL-PARAM-VALUE>
+                              </PARAMETER-VALUES>
+                            </ECUC-CONTAINER-VALUE>
+                            <ECUC-CONTAINER-VALUE>
+                              <SHORT-NAME>LimitConfiguration</SHORT-NAME>
+                              <DEFINITION-REF DEST="ECUC-PARAM-CONF-CONTAINER-DEF">/FC7300FXXX/Sdadc/SdadcGlobalConfig/SdadcInstance/SdadcChannel/SdadcDetectConfiguration/LimitConfiguration</DEFINITION-REF>
+                              <PARAMETER-VALUES>
+                                <ECUC-NUMERICAL-PARAM-VALUE>
+                                  <DEFINITION-REF DEST="ECUC-BOOLEAN-PARAM-DEF">/FC7300FXXX/Sdadc/SdadcGlobalConfig/SdadcInstance/SdadcChannel/SdadcDetectConfiguration/LimitConfiguration/SdadcCcrLmtEn</DEFINITION-REF>
+                                  <VALUE>0</VALUE>
+                                </ECUC-NUMERICAL-PARAM-VALUE>
+                                <ECUC-TEXTUAL-PARAM-VALUE>
+                                  <DEFINITION-REF DEST="ECUC-ENUMERATION-PARAM-DEF">/FC7300FXXX/Sdadc/SdadcGlobalConfig/SdadcInstance/SdadcChannel/SdadcDetectConfiguration/LimitConfiguration/SdadcCcrLmtSel</DEFINITION-REF>
+                                  <VALUE>Main_Filter</VALUE>
+                                </ECUC-TEXTUAL-PARAM-VALUE>
+                                <ECUC-NUMERICAL-PARAM-VALUE>
+                                  <DEFINITION-REF DEST="ECUC-BOOLEAN-PARAM-DEF">/FC7300FXXX/Sdadc/SdadcGlobalConfig/SdadcInstance/SdadcChannel/SdadcDetectConfiguration/LimitConfiguration/SdadcCprHlmtBken</DEFINITION-REF>
+                                  <VALUE>1</VALUE>
+                                </ECUC-NUMERICAL-PARAM-VALUE>
+                                <ECUC-NUMERICAL-PARAM-VALUE>
+                                  <DEFINITION-REF DEST="ECUC-BOOLEAN-PARAM-DEF">/FC7300FXXX/Sdadc/SdadcGlobalConfig/SdadcInstance/SdadcChannel/SdadcDetectConfiguration/LimitConfiguration/SdadcCprHystrProten</DEFINITION-REF>
+                                  <VALUE>1</VALUE>
+                                </ECUC-NUMERICAL-PARAM-VALUE>
+                                <ECUC-NUMERICAL-PARAM-VALUE>
+                                  <DEFINITION-REF DEST="ECUC-BOOLEAN-PARAM-DEF">/FC7300FXXX/Sdadc/SdadcGlobalConfig/SdadcInstance/SdadcChannel/SdadcDetectConfiguration/LimitConfiguration/SdadcCprLlmtBken</DEFINITION-REF>
+                                  <VALUE>1</VALUE>
+                                </ECUC-NUMERICAL-PARAM-VALUE>
+                                <ECUC-TEXTUAL-PARAM-VALUE>
+                                  <DEFINITION-REF DEST="ECUC-ENUMERATION-PARAM-DEF">/FC7300FXXX/Sdadc/SdadcGlobalConfig/SdadcInstance/SdadcChannel/SdadcDetectConfiguration/LimitConfiguration/SdadcCprLmtavt</DEFINITION-REF>
+                                  <VALUE>SET_HIGH_CLEAR_LOW</VALUE>
+                                </ECUC-TEXTUAL-PARAM-VALUE>
+                                <ECUC-NUMERICAL-PARAM-VALUE>
+                                  <DEFINITION-REF DEST="ECUC-BOOLEAN-PARAM-DEF">/FC7300FXXX/Sdadc/SdadcGlobalConfig/SdadcInstance/SdadcChannel/SdadcDetectConfiguration/LimitConfiguration/SdadcCprLmtfProten</DEFINITION-REF>
+                                  <VALUE>1</VALUE>
+                                </ECUC-NUMERICAL-PARAM-VALUE>
+                                <ECUC-TEXTUAL-PARAM-VALUE>
+                                  <DEFINITION-REF DEST="ECUC-ENUMERATION-PARAM-DEF">/FC7300FXXX/Sdadc/SdadcGlobalConfig/SdadcInstance/SdadcChannel/SdadcDetectConfiguration/LimitConfiguration/SdadcCprLmtopt</DEFINITION-REF>
+                                  <VALUE>BOTH_HIGH_LOW</VALUE>
+                                </ECUC-TEXTUAL-PARAM-VALUE>
+                                <ECUC-NUMERICAL-PARAM-VALUE>
+                                  <DEFINITION-REF DEST="ECUC-BOOLEAN-PARAM-DEF">/FC7300FXXX/Sdadc/SdadcGlobalConfig/SdadcInstance/SdadcChannel/SdadcDetectConfiguration/LimitConfiguration/SdadcCprLmtrProten</DEFINITION-REF>
+                                  <VALUE>1</VALUE>
+                                </ECUC-NUMERICAL-PARAM-VALUE>
+                                <ECUC-NUMERICAL-PARAM-VALUE>
+                                  <DEFINITION-REF DEST="ECUC-BOOLEAN-PARAM-DEF">/FC7300FXXX/Sdadc/SdadcGlobalConfig/SdadcInstance/SdadcChannel/SdadcDetectConfiguration/LimitConfiguration/SdadcCprWlmtBken</DEFINITION-REF>
+                                  <VALUE>1</VALUE>
+                                </ECUC-NUMERICAL-PARAM-VALUE>
+                                <ECUC-NUMERICAL-PARAM-VALUE>
+                                  <DEFINITION-REF DEST="ECUC-INTEGER-PARAM-DEF">/FC7300FXXX/Sdadc/SdadcGlobalConfig/SdadcInstance/SdadcChannel/SdadcDetectConfiguration/LimitConfiguration/SdadcHighLimit</DEFINITION-REF>
+                                  <VALUE>0</VALUE>
+                                </ECUC-NUMERICAL-PARAM-VALUE>
+                                <ECUC-NUMERICAL-PARAM-VALUE>
+                                  <DEFINITION-REF DEST="ECUC-INTEGER-PARAM-DEF">/FC7300FXXX/Sdadc/SdadcGlobalConfig/SdadcInstance/SdadcChannel/SdadcDetectConfiguration/LimitConfiguration/SdadcLowLimit</DEFINITION-REF>
+                                  <VALUE>0</VALUE>
+                                </ECUC-NUMERICAL-PARAM-VALUE>
+                              </PARAMETER-VALUES>
+                            </ECUC-CONTAINER-VALUE>
+                            <ECUC-CONTAINER-VALUE>
+                              <SHORT-NAME>ShortCircuitConfiguration</SHORT-NAME>
+                              <DEFINITION-REF DEST="ECUC-PARAM-CONF-CONTAINER-DEF">/FC7300FXXX/Sdadc/SdadcGlobalConfig/SdadcInstance/SdadcChannel/SdadcDetectConfiguration/ShortCircuitConfiguration</DEFINITION-REF>
+                              <PARAMETER-VALUES>
+                                <ECUC-NUMERICAL-PARAM-VALUE>
+                                  <DEFINITION-REF DEST="ECUC-BOOLEAN-PARAM-DEF">/FC7300FXXX/Sdadc/SdadcGlobalConfig/SdadcInstance/SdadcChannel/SdadcDetectConfiguration/ShortCircuitConfiguration/SdadcCcrScdEn</DEFINITION-REF>
+                                  <VALUE>0</VALUE>
+                                </ECUC-NUMERICAL-PARAM-VALUE>
+                                <ECUC-NUMERICAL-PARAM-VALUE>
+                                  <DEFINITION-REF DEST="ECUC-BOOLEAN-PARAM-DEF">/FC7300FXXX/Sdadc/SdadcGlobalConfig/SdadcInstance/SdadcChannel/SdadcDetectConfiguration/ShortCircuitConfiguration/SdadcCprScdBken</DEFINITION-REF>
+                                  <VALUE>1</VALUE>
+                                </ECUC-NUMERICAL-PARAM-VALUE>
+                                <ECUC-NUMERICAL-PARAM-VALUE>
+                                  <DEFINITION-REF DEST="ECUC-BOOLEAN-PARAM-DEF">/FC7300FXXX/Sdadc/SdadcGlobalConfig/SdadcInstance/SdadcChannel/SdadcDetectConfiguration/ShortCircuitConfiguration/SdadcCprScdProten</DEFINITION-REF>
+                                  <VALUE>1</VALUE>
+                                </ECUC-NUMERICAL-PARAM-VALUE>
+                                <ECUC-NUMERICAL-PARAM-VALUE>
+                                  <DEFINITION-REF DEST="ECUC-BOOLEAN-PARAM-DEF">/FC7300FXXX/Sdadc/SdadcGlobalConfig/SdadcInstance/SdadcChannel/SdadcDetectConfiguration/ShortCircuitConfiguration/SdadcCprScdcm</DEFINITION-REF>
+                                  <VALUE>0</VALUE>
+                                </ECUC-NUMERICAL-PARAM-VALUE>
+                                <ECUC-NUMERICAL-PARAM-VALUE>
+                                  <DEFINITION-REF DEST="ECUC-INTEGER-PARAM-DEF">/FC7300FXXX/Sdadc/SdadcGlobalConfig/SdadcInstance/SdadcChannel/SdadcDetectConfiguration/ShortCircuitConfiguration/SdadcCprScdlmt</DEFINITION-REF>
+                                  <VALUE>1</VALUE>
+                                </ECUC-NUMERICAL-PARAM-VALUE>
+                                <ECUC-TEXTUAL-PARAM-VALUE>
+                                  <DEFINITION-REF DEST="ECUC-ENUMERATION-PARAM-DEF">/FC7300FXXX/Sdadc/SdadcGlobalConfig/SdadcInstance/SdadcChannel/SdadcDetectConfiguration/ShortCircuitConfiguration/SdadcCprScdopt</DEFINITION-REF>
+                                  <VALUE>BOTH_0_1</VALUE>
+                                </ECUC-TEXTUAL-PARAM-VALUE>
+                              </PARAMETER-VALUES>
+                            </ECUC-CONTAINER-VALUE>
+                            <ECUC-CONTAINER-VALUE>
+                              <SHORT-NAME>ZerocrossConfiguration</SHORT-NAME>
+                              <DEFINITION-REF DEST="ECUC-PARAM-CONF-CONTAINER-DEF">/FC7300FXXX/Sdadc/SdadcGlobalConfig/SdadcInstance/SdadcChannel/SdadcDetectConfiguration/ZerocrossConfiguration</DEFINITION-REF>
+                              <PARAMETER-VALUES>
+                                <ECUC-NUMERICAL-PARAM-VALUE>
+                                  <DEFINITION-REF DEST="ECUC-BOOLEAN-PARAM-DEF">/FC7300FXXX/Sdadc/SdadcGlobalConfig/SdadcInstance/SdadcChannel/SdadcDetectConfiguration/ZerocrossConfiguration/SdadcCcrZcdEn</DEFINITION-REF>
+                                  <VALUE>0</VALUE>
+                                </ECUC-NUMERICAL-PARAM-VALUE>
+                                <ECUC-TEXTUAL-PARAM-VALUE>
+                                  <DEFINITION-REF DEST="ECUC-ENUMERATION-PARAM-DEF">/FC7300FXXX/Sdadc/SdadcGlobalConfig/SdadcInstance/SdadcChannel/SdadcDetectConfiguration/ZerocrossConfiguration/SdadcCcrZcdSel</DEFINITION-REF>
+                                  <VALUE>Main_Filter</VALUE>
+                                </ECUC-TEXTUAL-PARAM-VALUE>
+                              </PARAMETER-VALUES>
+                            </ECUC-CONTAINER-VALUE>
+                          </SUB-CONTAINERS>
+                        </ECUC-CONTAINER-VALUE>
+                        <ECUC-CONTAINER-VALUE>
+                          <SHORT-NAME>SdadcFilterChainConfiguration_0</SHORT-NAME>
+                          <DEFINITION-REF DEST="ECUC-PARAM-CONF-CONTAINER-DEF">/FC7300FXXX/Sdadc/SdadcGlobalConfig/SdadcInstance/SdadcChannel/SdadcFilterChainConfiguration</DEFINITION-REF>
+                          <PARAMETER-VALUES>
+                            <ECUC-NUMERICAL-PARAM-VALUE>
+                              <DEFINITION-REF DEST="ECUC-INTEGER-PARAM-DEF">/FC7300FXXX/Sdadc/SdadcGlobalConfig/SdadcInstance/SdadcChannel/SdadcFilterChainConfiguration/SdadcBiasOffset</DEFINITION-REF>
+                              <VALUE>0</VALUE>
+                            </ECUC-NUMERICAL-PARAM-VALUE>
+                            <ECUC-NUMERICAL-PARAM-VALUE>
+                              <DEFINITION-REF DEST="ECUC-INTEGER-PARAM-DEF">/FC7300FXXX/Sdadc/SdadcGlobalConfig/SdadcInstance/SdadcChannel/SdadcFilterChainConfiguration/SdadcCfrCutoff</DEFINITION-REF>
+                              <VALUE>0</VALUE>
+                            </ECUC-NUMERICAL-PARAM-VALUE>
+                            <ECUC-NUMERICAL-PARAM-VALUE>
+                              <DEFINITION-REF DEST="ECUC-FLOAT-PARAM-DEF">/FC7300FXXX/Sdadc/SdadcGlobalConfig/SdadcInstance/SdadcChannel/SdadcFilterChainConfiguration/SdadcGainFac</DEFINITION-REF>
+                              <VALUE>0.0</VALUE>
+                            </ECUC-NUMERICAL-PARAM-VALUE>
+                          </PARAMETER-VALUES>
+                          <SUB-CONTAINERS>
+                            <ECUC-CONTAINER-VALUE>
+                              <SHORT-NAME>AFConfiguration</SHORT-NAME>
+                              <DEFINITION-REF DEST="ECUC-PARAM-CONF-CONTAINER-DEF">/FC7300FXXX/Sdadc/SdadcGlobalConfig/SdadcInstance/SdadcChannel/SdadcFilterChainConfiguration/AFConfiguration</DEFINITION-REF>
+                              <PARAMETER-VALUES>
+                                <ECUC-NUMERICAL-PARAM-VALUE>
+                                  <DEFINITION-REF DEST="ECUC-BOOLEAN-PARAM-DEF">/FC7300FXXX/Sdadc/SdadcGlobalConfig/SdadcInstance/SdadcChannel/SdadcFilterChainConfiguration/AFConfiguration/SdadcCcrAfEn</DEFINITION-REF>
+                                  <VALUE>1</VALUE>
+                                </ECUC-NUMERICAL-PARAM-VALUE>
+                                <ECUC-TEXTUAL-PARAM-VALUE>
+                                  <DEFINITION-REF DEST="ECUC-ENUMERATION-PARAM-DEF">/FC7300FXXX/Sdadc/SdadcGlobalConfig/SdadcInstance/SdadcChannel/SdadcFilterChainConfiguration/AFConfiguration/SdadcCdrAfcm</DEFINITION-REF>
+                                  <VALUE>AFCM_FOLLOW_MF_MODE</VALUE>
+                                </ECUC-TEXTUAL-PARAM-VALUE>
+                                <ECUC-TEXTUAL-PARAM-VALUE>
+                                  <DEFINITION-REF DEST="ECUC-ENUMERATION-PARAM-DEF">/FC7300FXXX/Sdadc/SdadcGlobalConfig/SdadcInstance/SdadcChannel/SdadcFilterChainConfiguration/AFConfiguration/SdadcCdrAford</DEFINITION-REF>
+                                  <VALUE>SECOND_ORDER</VALUE>
+                                </ECUC-TEXTUAL-PARAM-VALUE>
+                                <ECUC-NUMERICAL-PARAM-VALUE>
+                                  <DEFINITION-REF DEST="ECUC-INTEGER-PARAM-DEF">/FC7300FXXX/Sdadc/SdadcGlobalConfig/SdadcInstance/SdadcChannel/SdadcFilterChainConfiguration/AFConfiguration/SdadcCdrAfosr</DEFINITION-REF>
+                                  <VALUE>32</VALUE>
+                                </ECUC-NUMERICAL-PARAM-VALUE>
+                              </PARAMETER-VALUES>
+                            </ECUC-CONTAINER-VALUE>
+                            <ECUC-CONTAINER-VALUE>
+                              <SHORT-NAME>IntegratorConfiguration</SHORT-NAME>
+                              <DEFINITION-REF DEST="ECUC-PARAM-CONF-CONTAINER-DEF">/FC7300FXXX/Sdadc/SdadcGlobalConfig/SdadcInstance/SdadcChannel/SdadcFilterChainConfiguration/IntegratorConfiguration</DEFINITION-REF>
+                              <PARAMETER-VALUES>
+                                <ECUC-TEXTUAL-PARAM-VALUE>
+                                  <DEFINITION-REF DEST="ECUC-ENUMERATION-PARAM-DEF">/FC7300FXXX/Sdadc/SdadcGlobalConfig/SdadcInstance/SdadcChannel/SdadcFilterChainConfiguration/IntegratorConfiguration/CicfrExtstp</DEFINITION-REF>
+                                  <VALUE>INTERNAL_CONTROL</VALUE>
+                                </ECUC-TEXTUAL-PARAM-VALUE>
+                                <ECUC-TEXTUAL-PARAM-VALUE>
+                                  <DEFINITION-REF DEST="ECUC-ENUMERATION-PARAM-DEF">/FC7300FXXX/Sdadc/SdadcGlobalConfig/SdadcInstance/SdadcChannel/SdadcFilterChainConfiguration/IntegratorConfiguration/CicfrHtrpol</DEFINITION-REF>
+                                  <VALUE>HIGH_RISING</VALUE>
+                                </ECUC-TEXTUAL-PARAM-VALUE>
+                                <ECUC-NUMERICAL-PARAM-VALUE>
+                                  <DEFINITION-REF DEST="ECUC-BOOLEAN-PARAM-DEF">/FC7300FXXX/Sdadc/SdadcGlobalConfig/SdadcInstance/SdadcChannel/SdadcFilterChainConfiguration/IntegratorConfiguration/CicfrIogt</DEFINITION-REF>
+                                  <VALUE>1</VALUE>
+                                </ECUC-NUMERICAL-PARAM-VALUE>
+                                <ECUC-NUMERICAL-PARAM-VALUE>
+                                  <DEFINITION-REF DEST="ECUC-INTEGER-PARAM-DEF">/FC7300FXXX/Sdadc/SdadcGlobalConfig/SdadcInstance/SdadcChannel/SdadcFilterChainConfiguration/IntegratorConfiguration/CicfrIsval</DEFINITION-REF>
+                                  <VALUE>6</VALUE>
+                                </ECUC-NUMERICAL-PARAM-VALUE>
+                                <ECUC-TEXTUAL-PARAM-VALUE>
+                                  <DEFINITION-REF DEST="ECUC-ENUMERATION-PARAM-DEF">/FC7300FXXX/Sdadc/SdadcGlobalConfig/SdadcInstance/SdadcChannel/SdadcFilterChainConfiguration/IntegratorConfiguration/CicfrItrsel</DEFINITION-REF>
+                                  <VALUE>SOFTWARE</VALUE>
+                                </ECUC-TEXTUAL-PARAM-VALUE>
+                                <ECUC-NUMERICAL-PARAM-VALUE>
+                                  <DEFINITION-REF DEST="ECUC-INTEGER-PARAM-DEF">/FC7300FXXX/Sdadc/SdadcGlobalConfig/SdadcInstance/SdadcChannel/SdadcFilterChainConfiguration/IntegratorConfiguration/CicfrNvaldis</DEFINITION-REF>
+                                  <VALUE>0</VALUE>
+                                </ECUC-NUMERICAL-PARAM-VALUE>
+                                <ECUC-NUMERICAL-PARAM-VALUE>
+                                  <DEFINITION-REF DEST="ECUC-INTEGER-PARAM-DEF">/FC7300FXXX/Sdadc/SdadcGlobalConfig/SdadcInstance/SdadcChannel/SdadcFilterChainConfiguration/IntegratorConfiguration/CicfrNvalint</DEFINITION-REF>
+                                  <VALUE>64</VALUE>
+                                </ECUC-NUMERICAL-PARAM-VALUE>
+                                <ECUC-NUMERICAL-PARAM-VALUE>
+                                  <DEFINITION-REF DEST="ECUC-INTEGER-PARAM-DEF">/FC7300FXXX/Sdadc/SdadcGlobalConfig/SdadcInstance/SdadcChannel/SdadcFilterChainConfiguration/IntegratorConfiguration/CicfrNvalrep</DEFINITION-REF>
+                                  <VALUE>1</VALUE>
+                                </ECUC-NUMERICAL-PARAM-VALUE>
+                                <ECUC-NUMERICAL-PARAM-VALUE>
+                                  <DEFINITION-REF DEST="ECUC-BOOLEAN-PARAM-DEF">/FC7300FXXX/Sdadc/SdadcGlobalConfig/SdadcInstance/SdadcChannel/SdadcFilterChainConfiguration/IntegratorConfiguration/CicfrSyncTrgen</DEFINITION-REF>
+                                  <VALUE>0</VALUE>
+                                </ECUC-NUMERICAL-PARAM-VALUE>
+                                <ECUC-TEXTUAL-PARAM-VALUE>
+                                  <DEFINITION-REF DEST="ECUC-ENUMERATION-PARAM-DEF">/FC7300FXXX/Sdadc/SdadcGlobalConfig/SdadcInstance/SdadcChannel/SdadcFilterChainConfiguration/IntegratorConfiguration/CicfrSyncTrgsel</DEFINITION-REF>
+                                  <VALUE>CHANNEL_0</VALUE>
+                                </ECUC-TEXTUAL-PARAM-VALUE>
+                                <ECUC-NUMERICAL-PARAM-VALUE>
+                                  <DEFINITION-REF DEST="ECUC-BOOLEAN-PARAM-DEF">/FC7300FXXX/Sdadc/SdadcGlobalConfig/SdadcInstance/SdadcChannel/SdadcFilterChainConfiguration/IntegratorConfiguration/SdadcCcrIntgEn</DEFINITION-REF>
+                                  <VALUE>1</VALUE>
+                                </ECUC-NUMERICAL-PARAM-VALUE>
+                              </PARAMETER-VALUES>
+                            </ECUC-CONTAINER-VALUE>
+                            <ECUC-CONTAINER-VALUE>
+                              <SHORT-NAME>MFConfiguration</SHORT-NAME>
+                              <DEFINITION-REF DEST="ECUC-PARAM-CONF-CONTAINER-DEF">/FC7300FXXX/Sdadc/SdadcGlobalConfig/SdadcInstance/SdadcChannel/SdadcFilterChainConfiguration/MFConfiguration</DEFINITION-REF>
+                              <PARAMETER-VALUES>
+                                <ECUC-NUMERICAL-PARAM-VALUE>
+                                  <DEFINITION-REF DEST="ECUC-BOOLEAN-PARAM-DEF">/FC7300FXXX/Sdadc/SdadcGlobalConfig/SdadcInstance/SdadcChannel/SdadcFilterChainConfiguration/MFConfiguration/SdadcCcrMfEn</DEFINITION-REF>
+                                  <VALUE>1</VALUE>
+                                </ECUC-NUMERICAL-PARAM-VALUE>
+                                <ECUC-TEXTUAL-PARAM-VALUE>
+                                  <DEFINITION-REF DEST="ECUC-ENUMERATION-PARAM-DEF">/FC7300FXXX/Sdadc/SdadcGlobalConfig/SdadcInstance/SdadcChannel/SdadcFilterChainConfiguration/MFConfiguration/SdadcCdrMfcm</DEFINITION-REF>
+                                  <VALUE>MFCM_CONTINUOUS_MODE</VALUE>
+                                </ECUC-TEXTUAL-PARAM-VALUE>
+                                <ECUC-TEXTUAL-PARAM-VALUE>
+                                  <DEFINITION-REF DEST="ECUC-ENUMERATION-PARAM-DEF">/FC7300FXXX/Sdadc/SdadcGlobalConfig/SdadcInstance/SdadcChannel/SdadcFilterChainConfiguration/MFConfiguration/SdadcCdrMford</DEFINITION-REF>
+                                  <VALUE>THIRD_ORDER</VALUE>
+                                </ECUC-TEXTUAL-PARAM-VALUE>
+                                <ECUC-NUMERICAL-PARAM-VALUE>
+                                  <DEFINITION-REF DEST="ECUC-INTEGER-PARAM-DEF">/FC7300FXXX/Sdadc/SdadcGlobalConfig/SdadcInstance/SdadcChannel/SdadcFilterChainConfiguration/MFConfiguration/SdadcCdrMfosr</DEFINITION-REF>
+                                  <VALUE>128</VALUE>
+                                </ECUC-NUMERICAL-PARAM-VALUE>
+                              </PARAMETER-VALUES>
+                            </ECUC-CONTAINER-VALUE>
+                            <ECUC-CONTAINER-VALUE>
+                              <SHORT-NAME>RectificationConfiguration</SHORT-NAME>
+                              <DEFINITION-REF DEST="ECUC-PARAM-CONF-CONTAINER-DEF">/FC7300FXXX/Sdadc/SdadcGlobalConfig/SdadcInstance/SdadcChannel/SdadcFilterChainConfiguration/RectificationConfiguration</DEFINITION-REF>
+                              <PARAMETER-VALUES>
+                                <ECUC-NUMERICAL-PARAM-VALUE>
+                                  <DEFINITION-REF DEST="ECUC-BOOLEAN-PARAM-DEF">/FC7300FXXX/Sdadc/SdadcGlobalConfig/SdadcInstance/SdadcChannel/SdadcFilterChainConfiguration/RectificationConfiguration/CrtcsrCtrgsignOen</DEFINITION-REF>
+                                  <VALUE>1</VALUE>
+                                </ECUC-NUMERICAL-PARAM-VALUE>
+                                <ECUC-NUMERICAL-PARAM-VALUE>
+                                  <DEFINITION-REF DEST="ECUC-INTEGER-PARAM-DEF">/FC7300FXXX/Sdadc/SdadcGlobalConfig/SdadcInstance/SdadcChannel/SdadcFilterChainConfiguration/RectificationConfiguration/CrtcsrDlyTrg</DEFINITION-REF>
+                                  <VALUE>0</VALUE>
+                                </ECUC-NUMERICAL-PARAM-VALUE>
+                                <ECUC-TEXTUAL-PARAM-VALUE>
+                                  <DEFINITION-REF DEST="ECUC-ENUMERATION-PARAM-DEF">/FC7300FXXX/Sdadc/SdadcGlobalConfig/SdadcInstance/SdadcChannel/SdadcFilterChainConfiguration/RectificationConfiguration/CrtcsrSsch</DEFINITION-REF>
+                                  <VALUE>CHANNEL_0</VALUE>
+                                </ECUC-TEXTUAL-PARAM-VALUE>
+                                <ECUC-TEXTUAL-PARAM-VALUE>
+                                  <DEFINITION-REF DEST="ECUC-ENUMERATION-PARAM-DEF">/FC7300FXXX/Sdadc/SdadcGlobalConfig/SdadcInstance/SdadcChannel/SdadcFilterChainConfiguration/RectificationConfiguration/CrtcsrSsrc</DEFINITION-REF>
+                                  <VALUE>SDADC_INTERNAL</VALUE>
+                                </ECUC-TEXTUAL-PARAM-VALUE>
+                                <ECUC-NUMERICAL-PARAM-VALUE>
+                                  <DEFINITION-REF DEST="ECUC-BOOLEAN-PARAM-DEF">/FC7300FXXX/Sdadc/SdadcGlobalConfig/SdadcInstance/SdadcChannel/SdadcFilterChainConfiguration/RectificationConfiguration/SdadcCcrRectEn</DEFINITION-REF>
+                                  <VALUE>0</VALUE>
+                                </ECUC-NUMERICAL-PARAM-VALUE>
+                                <ECUC-NUMERICAL-PARAM-VALUE>
+                                  <DEFINITION-REF DEST="ECUC-INTEGER-PARAM-DEF">/FC7300FXXX/Sdadc/SdadcGlobalConfig/SdadcInstance/SdadcChannel/SdadcFilterChainConfiguration/RectificationConfiguration/SdadcCsdDlyNegOffset</DEFINITION-REF>
+                                  <VALUE>1</VALUE>
+                                </ECUC-NUMERICAL-PARAM-VALUE>
+                                <ECUC-NUMERICAL-PARAM-VALUE>
+                                  <DEFINITION-REF DEST="ECUC-INTEGER-PARAM-DEF">/FC7300FXXX/Sdadc/SdadcGlobalConfig/SdadcInstance/SdadcChannel/SdadcFilterChainConfiguration/RectificationConfiguration/SdadcCsdDlyPos</DEFINITION-REF>
+                                  <VALUE>1</VALUE>
+                                </ECUC-NUMERICAL-PARAM-VALUE>
+                              </PARAMETER-VALUES>
+                            </ECUC-CONTAINER-VALUE>
+                          </SUB-CONTAINERS>
+                        </ECUC-CONTAINER-VALUE>
+                        <ECUC-CONTAINER-VALUE>
+                          <SHORT-NAME>SdadcInterrupt</SHORT-NAME>
+                          <DEFINITION-REF DEST="ECUC-PARAM-CONF-CONTAINER-DEF">/FC7300FXXX/Sdadc/SdadcGlobalConfig/SdadcInstance/SdadcChannel/SdadcInterrupt</DEFINITION-REF>
+                          <PARAMETER-VALUES>
+                            <ECUC-NUMERICAL-PARAM-VALUE>
+                              <DEFINITION-REF DEST="ECUC-BOOLEAN-PARAM-DEF">/FC7300FXXX/Sdadc/SdadcGlobalConfig/SdadcInstance/SdadcChannel/SdadcInterrupt/Abnier0Hlmtie</DEFINITION-REF>
+                              <VALUE>0</VALUE>
+                            </ECUC-NUMERICAL-PARAM-VALUE>
+                            <ECUC-NUMERICAL-PARAM-VALUE>
+                              <DEFINITION-REF DEST="ECUC-BOOLEAN-PARAM-DEF">/FC7300FXXX/Sdadc/SdadcGlobalConfig/SdadcInstance/SdadcChannel/SdadcInterrupt/Abnier0Llmtie</DEFINITION-REF>
+                              <VALUE>0</VALUE>
+                            </ECUC-NUMERICAL-PARAM-VALUE>
+                            <ECUC-NUMERICAL-PARAM-VALUE>
+                              <DEFINITION-REF DEST="ECUC-BOOLEAN-PARAM-DEF">/FC7300FXXX/Sdadc/SdadcGlobalConfig/SdadcInstance/SdadcChannel/SdadcInterrupt/Abnier0Scdie</DEFINITION-REF>
+                              <VALUE>0</VALUE>
+                            </ECUC-NUMERICAL-PARAM-VALUE>
+                            <ECUC-NUMERICAL-PARAM-VALUE>
+                              <DEFINITION-REF DEST="ECUC-BOOLEAN-PARAM-DEF">/FC7300FXXX/Sdadc/SdadcGlobalConfig/SdadcInstance/SdadcChannel/SdadcInterrupt/Abnier0Wlmtie</DEFINITION-REF>
+                              <VALUE>0</VALUE>
+                            </ECUC-NUMERICAL-PARAM-VALUE>
+                            <ECUC-NUMERICAL-PARAM-VALUE>
+                              <DEFINITION-REF DEST="ECUC-BOOLEAN-PARAM-DEF">/FC7300FXXX/Sdadc/SdadcGlobalConfig/SdadcInstance/SdadcChannel/SdadcInterrupt/ExtieTsignP2nIe</DEFINITION-REF>
+                              <VALUE>0</VALUE>
+                            </ECUC-NUMERICAL-PARAM-VALUE>
+                            <ECUC-NUMERICAL-PARAM-VALUE>
+                              <DEFINITION-REF DEST="ECUC-BOOLEAN-PARAM-DEF">/FC7300FXXX/Sdadc/SdadcGlobalConfig/SdadcInstance/SdadcChannel/SdadcInterrupt/SdadcAbnier1Cadie</DEFINITION-REF>
+                              <VALUE>0</VALUE>
+                            </ECUC-NUMERICAL-PARAM-VALUE>
+                            <ECUC-NUMERICAL-PARAM-VALUE>
+                              <DEFINITION-REF DEST="ECUC-BOOLEAN-PARAM-DEF">/FC7300FXXX/Sdadc/SdadcGlobalConfig/SdadcInstance/SdadcChannel/SdadcInterrupt/SdadcAbnier1Satie</DEFINITION-REF>
+                              <VALUE>0</VALUE>
+                            </ECUC-NUMERICAL-PARAM-VALUE>
+                            <ECUC-NUMERICAL-PARAM-VALUE>
+                              <DEFINITION-REF DEST="ECUC-BOOLEAN-PARAM-DEF">/FC7300FXXX/Sdadc/SdadcGlobalConfig/SdadcInstance/SdadcChannel/SdadcInterrupt/SdadcNierZcdie</DEFINITION-REF>
+                              <VALUE>0</VALUE>
+                            </ECUC-NUMERICAL-PARAM-VALUE>
+                          </PARAMETER-VALUES>
+                        </ECUC-CONTAINER-VALUE>
+                        <ECUC-CONTAINER-VALUE>
+                          <SHORT-NAME>SdadcModulatorConfiguration_0</SHORT-NAME>
+                          <DEFINITION-REF DEST="ECUC-PARAM-CONF-CONTAINER-DEF">/FC7300FXXX/Sdadc/SdadcGlobalConfig/SdadcInstance/SdadcChannel/SdadcModulatorConfiguration</DEFINITION-REF>
+                          <PARAMETER-VALUES>
+                            <ECUC-TEXTUAL-PARAM-VALUE>
+                              <DEFINITION-REF DEST="ECUC-ENUMERATION-PARAM-DEF">/FC7300FXXX/Sdadc/SdadcGlobalConfig/SdadcInstance/SdadcChannel/SdadcModulatorConfiguration/SdadcCfrClkedg</DEFINITION-REF>
+                              <VALUE>POSEDGE</VALUE>
+                            </ECUC-TEXTUAL-PARAM-VALUE>
+                            <ECUC-TEXTUAL-PARAM-VALUE>
+                              <DEFINITION-REF DEST="ECUC-ENUMERATION-PARAM-DEF">/FC7300FXXX/Sdadc/SdadcGlobalConfig/SdadcInstance/SdadcChannel/SdadcModulatorConfiguration/SdadcCfrClksel</DEFINITION-REF>
+                              <VALUE>DIV_CLK1</VALUE>
+                            </ECUC-TEXTUAL-PARAM-VALUE>
+                            <ECUC-TEXTUAL-PARAM-VALUE>
+                              <DEFINITION-REF DEST="ECUC-ENUMERATION-PARAM-DEF">/FC7300FXXX/Sdadc/SdadcGlobalConfig/SdadcInstance/SdadcChannel/SdadcModulatorConfiguration/SdadcCfrIbfmt</DEFINITION-REF>
+                              <VALUE>ONE_BIT_STREAM</VALUE>
+                            </ECUC-TEXTUAL-PARAM-VALUE>
+                            <ECUC-NUMERICAL-PARAM-VALUE>
+                              <DEFINITION-REF DEST="ECUC-BOOLEAN-PARAM-DEF">/FC7300FXXX/Sdadc/SdadcGlobalConfig/SdadcInstance/SdadcChannel/SdadcModulatorConfiguration/SdadcCmacsrDitherEn</DEFINITION-REF>
+                              <VALUE>1</VALUE>
+                            </ECUC-NUMERICAL-PARAM-VALUE>
+                            <ECUC-TEXTUAL-PARAM-VALUE>
+                              <DEFINITION-REF DEST="ECUC-ENUMERATION-PARAM-DEF">/FC7300FXXX/Sdadc/SdadcGlobalConfig/SdadcInstance/SdadcChannel/SdadcModulatorConfiguration/SdadcCmacsrGainSel</DEFINITION-REF>
+                              <VALUE>GAINSEL_1</VALUE>
+                            </ECUC-TEXTUAL-PARAM-VALUE>
+                            <ECUC-TEXTUAL-PARAM-VALUE>
+                              <DEFINITION-REF DEST="ECUC-ENUMERATION-PARAM-DEF">/FC7300FXXX/Sdadc/SdadcGlobalConfig/SdadcInstance/SdadcChannel/SdadcModulatorConfiguration/SdadcCmacsrIncfgM</DEFINITION-REF>
+                              <VALUE>VREFL</VALUE>
+                            </ECUC-TEXTUAL-PARAM-VALUE>
+                            <ECUC-TEXTUAL-PARAM-VALUE>
+                              <DEFINITION-REF DEST="ECUC-ENUMERATION-PARAM-DEF">/FC7300FXXX/Sdadc/SdadcGlobalConfig/SdadcInstance/SdadcChannel/SdadcModulatorConfiguration/SdadcCmacsrIncfgP</DEFINITION-REF>
+                              <VALUE>VREFH_DIV_2</VALUE>
+                            </ECUC-TEXTUAL-PARAM-VALUE>
+                            <ECUC-NUMERICAL-PARAM-VALUE>
+                              <DEFINITION-REF DEST="ECUC-BOOLEAN-PARAM-DEF">/FC7300FXXX/Sdadc/SdadcGlobalConfig/SdadcInstance/SdadcChannel/SdadcModulatorConfiguration/SdadcCmacsrIncfgPv11</DEFINITION-REF>
+                              <VALUE>0</VALUE>
+                            </ECUC-NUMERICAL-PARAM-VALUE>
+                            <ECUC-TEXTUAL-PARAM-VALUE>
+                              <DEFINITION-REF DEST="ECUC-ENUMERATION-PARAM-DEF">/FC7300FXXX/Sdadc/SdadcGlobalConfig/SdadcInstance/SdadcChannel/SdadcModulatorConfiguration/SdadcCmacsrInmod</DEFINITION-REF>
+                              <VALUE>SOFTWARE_CONTROL</VALUE>
+                            </ECUC-TEXTUAL-PARAM-VALUE>
+                            <ECUC-TEXTUAL-PARAM-VALUE>
+                              <DEFINITION-REF DEST="ECUC-ENUMERATION-PARAM-DEF">/FC7300FXXX/Sdadc/SdadcGlobalConfig/SdadcInstance/SdadcChannel/SdadcModulatorConfiguration/SdadcCmacsrInsel</DEFINITION-REF>
+                              <VALUE>PIN0</VALUE>
+                            </ECUC-TEXTUAL-PARAM-VALUE>
+                            <ECUC-TEXTUAL-PARAM-VALUE>
+                              <DEFINITION-REF DEST="ECUC-ENUMERATION-PARAM-DEF">/FC7300FXXX/Sdadc/SdadcGlobalConfig/SdadcInstance/SdadcChannel/SdadcModulatorConfiguration/SdadcCmacsrMaclkSel</DEFINITION-REF>
+                              <VALUE>DIV_CLK0</VALUE>
+                            </ECUC-TEXTUAL-PARAM-VALUE>
+                            <ECUC-TEXTUAL-PARAM-VALUE>
+                              <DEFINITION-REF DEST="ECUC-ENUMERATION-PARAM-DEF">/FC7300FXXX/Sdadc/SdadcGlobalConfig/SdadcInstance/SdadcChannel/SdadcModulatorConfiguration/SdadcCmacsrMasel</DEFINITION-REF>
+                              <VALUE>INTERNAL</VALUE>
+                            </ECUC-TEXTUAL-PARAM-VALUE>
+                            <ECUC-NUMERICAL-PARAM-VALUE>
+                              <DEFINITION-REF DEST="ECUC-INTEGER-PARAM-DEF">/FC7300FXXX/Sdadc/SdadcGlobalConfig/SdadcInstance/SdadcChannel/SdadcModulatorConfiguration/SdadcCmacsrRstSel</DEFINITION-REF>
+                              <VALUE>8</VALUE>
+                            </ECUC-NUMERICAL-PARAM-VALUE>
+                          </PARAMETER-VALUES>
+                          <SUB-CONTAINERS>
+                            <ECUC-CONTAINER-VALUE>
+                              <SHORT-NAME>CommonVoltage</SHORT-NAME>
+                              <DEFINITION-REF DEST="ECUC-PARAM-CONF-CONTAINER-DEF">/FC7300FXXX/Sdadc/SdadcGlobalConfig/SdadcInstance/SdadcChannel/SdadcModulatorConfiguration/CommonVoltage</DEFINITION-REF>
+                              <PARAMETER-VALUES>
+                                <ECUC-NUMERICAL-PARAM-VALUE>
+                                  <DEFINITION-REF DEST="ECUC-BOOLEAN-PARAM-DEF">/FC7300FXXX/Sdadc/SdadcGlobalConfig/SdadcInstance/SdadcChannel/SdadcModulatorConfiguration/CommonVoltage/SdadcCmacsrCmenM0</DEFINITION-REF>
+                                  <VALUE>0</VALUE>
+                                </ECUC-NUMERICAL-PARAM-VALUE>
+                                <ECUC-NUMERICAL-PARAM-VALUE>
+                                  <DEFINITION-REF DEST="ECUC-BOOLEAN-PARAM-DEF">/FC7300FXXX/Sdadc/SdadcGlobalConfig/SdadcInstance/SdadcChannel/SdadcModulatorConfiguration/CommonVoltage/SdadcCmacsrCmenM1</DEFINITION-REF>
+                                  <VALUE>0</VALUE>
+                                </ECUC-NUMERICAL-PARAM-VALUE>
+                                <ECUC-NUMERICAL-PARAM-VALUE>
+                                  <DEFINITION-REF DEST="ECUC-BOOLEAN-PARAM-DEF">/FC7300FXXX/Sdadc/SdadcGlobalConfig/SdadcInstance/SdadcChannel/SdadcModulatorConfiguration/CommonVoltage/SdadcCmacsrCmenM2</DEFINITION-REF>
+                                  <VALUE>0</VALUE>
+                                </ECUC-NUMERICAL-PARAM-VALUE>
+                                <ECUC-NUMERICAL-PARAM-VALUE>
+                                  <DEFINITION-REF DEST="ECUC-BOOLEAN-PARAM-DEF">/FC7300FXXX/Sdadc/SdadcGlobalConfig/SdadcInstance/SdadcChannel/SdadcModulatorConfiguration/CommonVoltage/SdadcCmacsrCmenM3</DEFINITION-REF>
+                                  <VALUE>0</VALUE>
+                                </ECUC-NUMERICAL-PARAM-VALUE>
+                                <ECUC-NUMERICAL-PARAM-VALUE>
+                                  <DEFINITION-REF DEST="ECUC-BOOLEAN-PARAM-DEF">/FC7300FXXX/Sdadc/SdadcGlobalConfig/SdadcInstance/SdadcChannel/SdadcModulatorConfiguration/CommonVoltage/SdadcCmacsrCmenP0</DEFINITION-REF>
+                                  <VALUE>0</VALUE>
+                                </ECUC-NUMERICAL-PARAM-VALUE>
+                                <ECUC-NUMERICAL-PARAM-VALUE>
+                                  <DEFINITION-REF DEST="ECUC-BOOLEAN-PARAM-DEF">/FC7300FXXX/Sdadc/SdadcGlobalConfig/SdadcInstance/SdadcChannel/SdadcModulatorConfiguration/CommonVoltage/SdadcCmacsrCmenP1</DEFINITION-REF>
+                                  <VALUE>0</VALUE>
+                                </ECUC-NUMERICAL-PARAM-VALUE>
+                                <ECUC-NUMERICAL-PARAM-VALUE>
+                                  <DEFINITION-REF DEST="ECUC-BOOLEAN-PARAM-DEF">/FC7300FXXX/Sdadc/SdadcGlobalConfig/SdadcInstance/SdadcChannel/SdadcModulatorConfiguration/CommonVoltage/SdadcCmacsrCmenP2</DEFINITION-REF>
+                                  <VALUE>0</VALUE>
+                                </ECUC-NUMERICAL-PARAM-VALUE>
+                                <ECUC-NUMERICAL-PARAM-VALUE>
+                                  <DEFINITION-REF DEST="ECUC-BOOLEAN-PARAM-DEF">/FC7300FXXX/Sdadc/SdadcGlobalConfig/SdadcInstance/SdadcChannel/SdadcModulatorConfiguration/CommonVoltage/SdadcCmacsrCmenP3</DEFINITION-REF>
+                                  <VALUE>0</VALUE>
+                                </ECUC-NUMERICAL-PARAM-VALUE>
+                              </PARAMETER-VALUES>
+                            </ECUC-CONTAINER-VALUE>
+                          </SUB-CONTAINERS>
+                        </ECUC-CONTAINER-VALUE>
+                        <ECUC-CONTAINER-VALUE>
+                          <SHORT-NAME>TimeStampAndResaultConfig</SHORT-NAME>
+                          <DEFINITION-REF DEST="ECUC-PARAM-CONF-CONTAINER-DEF">/FC7300FXXX/Sdadc/SdadcGlobalConfig/SdadcInstance/SdadcChannel/TimeStampAndResaultConfig</DEFINITION-REF>
+                          <PARAMETER-VALUES>
+                            <ECUC-NUMERICAL-PARAM-VALUE>
+                              <DEFINITION-REF DEST="ECUC-BOOLEAN-PARAM-DEF">/FC7300FXXX/Sdadc/SdadcGlobalConfig/SdadcInstance/SdadcChannel/TimeStampAndResaultConfig/CtsCntInmxcp</DEFINITION-REF>
+                              <VALUE>0</VALUE>
+                            </ECUC-NUMERICAL-PARAM-VALUE>
+                            <ECUC-NUMERICAL-PARAM-VALUE>
+                              <DEFINITION-REF DEST="ECUC-BOOLEAN-PARAM-DEF">/FC7300FXXX/Sdadc/SdadcGlobalConfig/SdadcInstance/SdadcChannel/TimeStampAndResaultConfig/CtsCntSyncTrgen</DEFINITION-REF>
+                              <VALUE>1</VALUE>
+                            </ECUC-NUMERICAL-PARAM-VALUE>
+                            <ECUC-TEXTUAL-PARAM-VALUE>
+                              <DEFINITION-REF DEST="ECUC-ENUMERATION-PARAM-DEF">/FC7300FXXX/Sdadc/SdadcGlobalConfig/SdadcInstance/SdadcChannel/TimeStampAndResaultConfig/CtsCntSyncTrgsel</DEFINITION-REF>
+                              <VALUE>CHANNEL_0</VALUE>
+                            </ECUC-TEXTUAL-PARAM-VALUE>
+                            <ECUC-NUMERICAL-PARAM-VALUE>
+                              <DEFINITION-REF DEST="ECUC-BOOLEAN-PARAM-DEF">/FC7300FXXX/Sdadc/SdadcGlobalConfig/SdadcInstance/SdadcChannel/TimeStampAndResaultConfig/CtsCntTsEn</DEFINITION-REF>
+                              <VALUE>1</VALUE>
+                            </ECUC-NUMERICAL-PARAM-VALUE>
+                            <ECUC-TEXTUAL-PARAM-VALUE>
+                              <DEFINITION-REF DEST="ECUC-ENUMERATION-PARAM-DEF">/FC7300FXXX/Sdadc/SdadcGlobalConfig/SdadcInstance/SdadcChannel/TimeStampAndResaultConfig/CtsCntTsclksel</DEFINITION-REF>
+                              <VALUE>DIV_BY_8</VALUE>
+                            </ECUC-TEXTUAL-PARAM-VALUE>
+                            <ECUC-TEXTUAL-PARAM-VALUE>
+                              <DEFINITION-REF DEST="ECUC-ENUMERATION-PARAM-DEF">/FC7300FXXX/Sdadc/SdadcGlobalConfig/SdadcInstance/SdadcChannel/TimeStampAndResaultConfig/CtsCntTsrdm</DEFINITION-REF>
+                              <VALUE>DEFAULT_MODE</VALUE>
+                            </ECUC-TEXTUAL-PARAM-VALUE>
+                            <ECUC-TEXTUAL-PARAM-VALUE>
+                              <DEFINITION-REF DEST="ECUC-ENUMERATION-PARAM-DEF">/FC7300FXXX/Sdadc/SdadcGlobalConfig/SdadcInstance/SdadcChannel/TimeStampAndResaultConfig/CtsCntTstrgm</DEFINITION-REF>
+                              <VALUE>RISING_EDGE</VALUE>
+                            </ECUC-TEXTUAL-PARAM-VALUE>
+                          </PARAMETER-VALUES>
+                        </ECUC-CONTAINER-VALUE>
+                        <ECUC-CONTAINER-VALUE>
+                          <SHORT-NAME>TriggerConfig</SHORT-NAME>
+                          <DEFINITION-REF DEST="ECUC-PARAM-CONF-CONTAINER-DEF">/FC7300FXXX/Sdadc/SdadcGlobalConfig/SdadcInstance/SdadcChannel/TriggerConfig</DEFINITION-REF>
+                          <PARAMETER-VALUES>
+                            <ECUC-NUMERICAL-PARAM-VALUE>
+                              <DEFINITION-REF DEST="ECUC-BOOLEAN-PARAM-DEF">/FC7300FXXX/Sdadc/SdadcGlobalConfig/SdadcInstance/SdadcChannel/TriggerConfig/SdadcCfrSyncTrgen</DEFINITION-REF>
+                              <VALUE>1</VALUE>
+                            </ECUC-NUMERICAL-PARAM-VALUE>
+                            <ECUC-TEXTUAL-PARAM-VALUE>
+                              <DEFINITION-REF DEST="ECUC-ENUMERATION-PARAM-DEF">/FC7300FXXX/Sdadc/SdadcGlobalConfig/SdadcInstance/SdadcChannel/TriggerConfig/SdadcCfrSyncTrgsel</DEFINITION-REF>
+                              <VALUE>SYNC_TRGSEL_CH0</VALUE>
+                            </ECUC-TEXTUAL-PARAM-VALUE>
+                            <ECUC-NUMERICAL-PARAM-VALUE>
+                              <DEFINITION-REF DEST="ECUC-BOOLEAN-PARAM-DEF">/FC7300FXXX/Sdadc/SdadcGlobalConfig/SdadcInstance/SdadcChannel/TriggerConfig/SdadcCfrTrglvl</DEFINITION-REF>
+                              <VALUE>0</VALUE>
+                            </ECUC-NUMERICAL-PARAM-VALUE>
+                            <ECUC-TEXTUAL-PARAM-VALUE>
+                              <DEFINITION-REF DEST="ECUC-ENUMERATION-PARAM-DEF">/FC7300FXXX/Sdadc/SdadcGlobalConfig/SdadcInstance/SdadcChannel/TriggerConfig/SdadcCfrTrgsel</DEFINITION-REF>
+                              <VALUE>SOFTWARE</VALUE>
+                            </ECUC-TEXTUAL-PARAM-VALUE>
+                          </PARAMETER-VALUES>
+                        </ECUC-CONTAINER-VALUE>
+                      </SUB-CONTAINERS>
+                    </ECUC-CONTAINER-VALUE>
+                  </SUB-CONTAINERS>
+                </ECUC-CONTAINER-VALUE>
+              </SUB-CONTAINERS>
+            </ECUC-CONTAINER-VALUE>
+          </CONTAINERS>
+        </ECUC-MODULE-CONFIGURATION-VALUES>
+      </ELEMENTS>
+    </AR-PACKAGE>
+  </AR-PACKAGES>
+</AUTOSAR>

@@ -1,0 +1,4 @@
+#!gbuild 
+[Subproject] 
+.\Startup\startup_FC7240.thm 
+.\Startup\system_init.c 

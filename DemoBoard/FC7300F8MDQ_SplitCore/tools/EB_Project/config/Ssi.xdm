@@ -1,0 +1,189 @@
+<?xml version='1.0'?>
+<datamodel version="7.0" 
+           xmlns="http://www.tresos.de/_projects/DataModel2/16/root.xsd" 
+           xmlns:a="http://www.tresos.de/_projects/DataModel2/16/attribute.xsd" 
+           xmlns:v="http://www.tresos.de/_projects/DataModel2/06/schema.xsd" 
+           xmlns:d="http://www.tresos.de/_projects/DataModel2/06/data.xsd">
+
+  <d:ctr type="AUTOSAR" factory="autosar" 
+         xmlns:ad="http://www.tresos.de/_projects/DataModel2/08/admindata.xsd" 
+         xmlns:cd="http://www.tresos.de/_projects/DataModel2/08/customdata.xsd" 
+         xmlns:f="http://www.tresos.de/_projects/DataModel2/14/formulaexpr.xsd" 
+         xmlns:icc="http://www.tresos.de/_projects/DataModel2/08/implconfigclass.xsd" 
+         xmlns:mt="http://www.tresos.de/_projects/DataModel2/11/multitest.xsd"  
+         xmlns:variant="http://www.tresos.de/_projects/DataModel2/11/variant.xsd">
+    <d:lst type="TOP-LEVEL-PACKAGES">
+      <d:ctr name="Ssi" type="AR-PACKAGE">
+        <d:lst type="ELEMENTS">
+          <d:chc name="Ssi" type="AR-ELEMENT" value="MODULE-CONFIGURATION">
+            <d:ctr type="MODULE-CONFIGURATION">
+              <a:a name="DEF" value="ASPath:/FC7300FXXX/Ssi"/>
+              <a:a name="IMPORTER_INFO" value="@REC"/>
+              <d:var name="IMPLEMENTATION_CONFIG_VARIANT" type="ENUMERATION" 
+                     value="VariantPreCompile">
+                <a:a name="IMPORTER_INFO" value="@REC"/>
+              </d:var>
+              <d:ctr name="SsiConfigSet" type="IDENTIFIABLE">
+                <a:a name="IMPORTER_INFO" value="@REC"/>
+                <d:lst name="SsiControllerConfig" type="MAP">
+                  <d:ctr name="SsiControllerConfig_0" type="IDENTIFIABLE">
+                    <a:a name="IMPORTER_INFO" value="@REC"/>
+                    <d:var name="SsiControllerId" type="INTEGER" value="0">
+                      <a:a name="IMPORTER_INFO" value="@REC"/>
+                    </d:var>
+                    <d:var name="SsiHWInstance" type="ENUMERATION" value="Ssi0">
+                      <a:a name="IMPORTER_INFO" value="@REC"/>
+                    </d:var>
+                    <d:ref name="SsiControllerEcucPartitionRef" 
+                           type="REFERENCE" 
+                           value="ASPath:/EcuC/EcuC/EcucPartitionCollection/EcucPartition_0">
+                      <a:a name="ENABLE" value="true"/>
+                      <a:a name="IMPORTER_INFO" value="@REC"/>
+                    </d:ref>
+                    <d:ref name="SsiModuleClockRef" type="REFERENCE" 
+                           value="ASPath:/Mcu/Mcu/McuModuleConfiguration/MCU_Demo_FOSC24M/McuClockReferencePoint_Ssi0">
+                      <a:a name="IMPORTER_INFO" value="@REC"/>
+                    </d:ref>
+                    <d:var name="SsiModuleClock" type="INTEGER" value="6000000">
+                      <a:a name="IMPORTER_INFO" value="@REC"/>
+                    </d:var>
+                    <d:var name="SsiPrescaler" type="INTEGER" value="5"/>
+                    <d:var name="SsiLowGlobalCounterWindows" type="INTEGER" 
+                           value="1"/>
+                    <d:var name="SsiHighGlobalCounterWindows" type="INTEGER" 
+                           value="16777215">
+                      <a:a name="IMPORTER_INFO" value="@REC"/>
+                    </d:var>
+                    <d:var name="AKProtocolIntervalErrorThreshold" 
+                           type="BOOLEAN" value="false">
+                      <a:a name="IMPORTER_INFO" value="@DEF"/>
+                    </d:var>
+                    <d:var name="AKProtocolPeriodErrorThreshold" type="BOOLEAN" 
+                           value="false">
+                      <a:a name="IMPORTER_INFO" value="@DEF"/>
+                    </d:var>
+                    <d:var name="PWMProtocolPeriodErrorThreshold" 
+                           type="BOOLEAN" value="false">
+                      <a:a name="IMPORTER_INFO" value="@DEF"/>
+                    </d:var>
+                    <d:var name="PWMReferencePulseWidth" type="INTEGER" 
+                           value="0">
+                      <a:a name="IMPORTER_INFO" value="@DEF"/>
+                    </d:var>
+                    <d:var name="SsiControllerActivation" type="BOOLEAN" 
+                           value="true">
+                      <a:a name="IMPORTER_INFO" value="@REC"/>
+                    </d:var>
+                    <d:lst name="SsiSubinstanceConfig" type="MAP">
+                      <d:ctr name="SsiSubinstanceConfig_0" type="IDENTIFIABLE">
+                        <a:a name="IMPORTER_INFO" value="@REC"/>
+                        <d:var name="SsiSubinstanceId" type="INTEGER" value="0">
+                          <a:a name="IMPORTER_INFO" value="@REC"/>
+                        </d:var>
+                        <d:var name="SsiSubinstanceActivation" type="BOOLEAN" 
+                               value="true">
+                          <a:a name="IMPORTER_INFO" value="@REC"/>
+                        </d:var>
+                        <d:var name="SsiHWSubinstance" type="ENUMERATION" 
+                               value="Ssi_SubInstance1"/>
+                        <d:var name="FilterEnable" type="BOOLEAN" value="true">
+                          <a:a name="IMPORTER_INFO" value="@REC"/>
+                        </d:var>
+                        <d:var name="FilterWidth" type="INTEGER" value="15"/>
+                        <d:var name="ProtocolSelect" type="ENUMERATION" 
+                               value="SSI_AK">
+                          <a:a name="IMPORTER_INFO" value="@REC"/>
+                        </d:var>
+                        <d:var name="ChannelSelect" type="ENUMERATION" 
+                               value="SSI_INTERNAL_CMP">
+                          <a:a name="IMPORTER_INFO" value="@REC"/>
+                        </d:var>
+                        <d:var name="ResistanceSelect" type="ENUMERATION" 
+                               value="SSI_RES_50OHM">
+                          <a:a name="IMPORTER_INFO" value="@REC"/>
+                        </d:var>
+                        <d:var name="ChannelSwitch" type="ENUMERATION" 
+                               value="SSI_INM_VLD">
+                          <a:a name="IMPORTER_INFO" value="@REC"/>
+                        </d:var>
+                        <d:var name="WindowsRangeCheckEnable" type="BOOLEAN" 
+                               value="true"/>
+                        <d:var name="GeneralPWMTimeoutCounter" type="INTEGER" 
+                               value="0"/>
+                        <d:var name="GeneralPWMPolarity" type="BOOLEAN" 
+                               value="false">
+                          <a:a name="IMPORTER_INFO" value="@REC"/>
+                        </d:var>
+                        <d:var name="MsgReadType" type="ENUMERATION" 
+                               value="Polling"/>
+                        <d:var name="SsiNotification" type="FUNCTION-NAME" 
+                               value="SsiNotification">
+                          <a:a name="IMPORTER_INFO" value="@REC"/>
+                        </d:var>
+                      </d:ctr>
+                    </d:lst>
+                  </d:ctr>
+                </d:lst>
+              </d:ctr>
+              <d:ctr name="SsiGeneral" type="IDENTIFIABLE">
+                <a:a name="IMPORTER_INFO" value="@REC"/>
+                <d:lst name="SsiEcucPartitionRef">
+                  <d:ref type="REFERENCE" 
+                         value="ASPath:/EcuC/EcuC/EcucPartitionCollection/EcucPartition_0">
+                    <a:a name="IMPORTER_INFO" value="@REC"/>
+                  </d:ref>
+                </d:lst>
+                <d:var name="SsiDevErrorDetect" type="BOOLEAN" value="false">
+                  <a:a name="IMPORTER_INFO" value="@REC"/>
+                </d:var>
+                <d:var name="SsiDisableDetRuntimeErrorStatus" type="BOOLEAN" 
+                       value="false">
+                  <a:a name="IMPORTER_INFO" value="@DEF"/>
+                </d:var>
+                <d:var name="SsiMulticoreSupport" type="BOOLEAN" value="true">
+                  <a:a name="IMPORTER_INFO" value="@REC"/>
+                </d:var>
+                <d:var name="SsiVersionInfoApi" type="BOOLEAN" value="true">
+                  <a:a name="IMPORTER_INFO" value="@REC"/>
+                </d:var>
+                <d:var name="SsiDeInitApi" type="BOOLEAN" value="true">
+                  <a:a name="IMPORTER_INFO" value="@REC"/>
+                </d:var>
+                <d:var name="SsiIndex" type="INTEGER" value="0">
+                  <a:a name="IMPORTER_INFO" value="@REC"/>
+                </d:var>
+              </d:ctr>
+              <d:ctr name="CommonPublishedInformation" type="IDENTIFIABLE">
+                <a:a name="IMPORTER_INFO" value="@REC"/>
+                <d:var name="ArReleaseMajorVersion" type="INTEGER" value="4">
+                  <a:a name="IMPORTER_INFO" value="@REC"/>
+                </d:var>
+                <d:var name="ArReleaseMinorVersion" type="INTEGER" value="6">
+                  <a:a name="IMPORTER_INFO" value="@REC"/>
+                </d:var>
+                <d:var name="ArReleaseRevisionVersion" type="INTEGER" value="0">
+                  <a:a name="IMPORTER_INFO" value="@REC"/>
+                </d:var>
+                <d:var name="ModuleId" type="INTEGER" value="255">
+                  <a:a name="IMPORTER_INFO" value="@REC"/>
+                </d:var>
+                <d:var name="SwMajorVersion" type="INTEGER" value="1">
+                  <a:a name="IMPORTER_INFO" value="@REC"/>
+                </d:var>
+                <d:var name="SwMinorVersion" type="INTEGER" value="5"/>
+                <d:var name="SwPatchVersion" type="INTEGER" value="1"/>
+                <d:var name="VendorApiInfix" type="STRING" value="">
+                  <a:a name="IMPORTER_INFO" value="@REC"/>
+                </d:var>
+                <d:var name="VendorId" type="INTEGER" value="174">
+                  <a:a name="IMPORTER_INFO" value="@REC"/>
+                </d:var>
+              </d:ctr>
+            </d:ctr>
+          </d:chc>
+        </d:lst>
+      </d:ctr>
+    </d:lst>
+  </d:ctr>
+
+</datamodel>

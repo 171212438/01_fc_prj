@@ -1,0 +1,354 @@
+/**
+*   @file    fc7300_8M_flash.icf
+*   @version 1.2.0
+*
+*   @brief   IAR linker directive file for FC7300 8M SplitCore
+*   @details This file is the IAR linker directive file demo for a 4-core setup.
+*            It has been updated to align with the block names in system_init.c and validated against GCC linker scripts.
+*
+*/
+/*==================================================================================================
+*   PERIPHERAL           : ARM
+*   PLATFORM             : Flagchip FC7300
+*   AUTOSAR VERSION      : N/A
+*   AUTOSAR REVISION     : N/A
+*   SOFTWARE VERSION     : 1.2.0
+*   VENDOR               : Flagchip Semiconductors
+*
+*   Copyright 2020-2024 Flagchip Semiconductors Co., Ltd.
+*   All Rights Reserved.
+==================================================================================================*/
+
+/*==================================================================================================
+*   Memory layout definition
+==================================================================================================*/
+
+define symbol __HEAP_SIZE_CORE        = 0x00000200;   /* required amount of heap per core */
+define symbol __STACK_SIZE_CORE       = 0x00001000;   /* required amount of stack per core */
+define symbol __INTVEC_SIZE_RESERVE   = 0x00000400;   /* interrupt vector size (total for all cores) */
+
+/* Common ITCM/DTCM */
+define symbol __ITCM_COMMON_START     = 0x00000000;
+define symbol __ITCM_COMMON_SIZE      = 0x00004000; /* 16KB */
+define symbol __DTCM_COMMON_START     = 0x20000000;
+define symbol __DTCM_COMMON_SIZE      = 0x00004000; /* 16KB */
+
+define symbol __ITCM_MAX_SIZE         = 0x00010000; /* 64KB */
+define symbol __DTCM_MAX_SIZE         = 0x00020000; /* 128KB */
+
+define symbol __ITCM_CORE0_SIZE       = 0x00010000; /* 64KB */
+define symbol __ITCM_CORE1_SIZE       = 0x00010000; /* 64KB */
+define symbol __ITCM_CORE2_SIZE       = 0x00008000; /* 32KB */
+define symbol __ITCM_CORE3_SIZE       = 0x00008000; /* 32KB */
+
+define symbol __DTCM_CORE0_SIZE       = 0x00020000; /* 128KB */
+define symbol __DTCM_CORE1_SIZE       = 0x00020000; /* 128KB */
+define symbol __DTCM_CORE2_SIZE       = 0x00010000; /* 64KB */
+define symbol __DTCM_CORE3_SIZE       = 0x00010000; /* 64KB */
+
+/* Specify the memory areas */
+define memory mem with size = 4G;
+
+/* PFlash and other memories */
+define region PFLASH_INTVEC = mem:[from 0x01000000                                  size __INTVEC_SIZE_RESERVE * 4];
+define region PFLASH        = mem:[from 0x01000000 + __INTVEC_SIZE_RESERVE * 4      size 0x00800000 - __INTVEC_SIZE_RESERVE * 4];
+define region SRAM_0        = mem:[from 0x21000000                                  size 0x00040000];
+define region SRAM_1        = mem:[from 0x21040000                                  size 0x00040000];
+define region SRAM_2        = mem:[from 0x21080000                                  size 0x00060000];
+
+/* TCM Common Regions */
+define region ITCM_INTVEC   = mem:[from __ITCM_COMMON_START                         size __INTVEC_SIZE_RESERVE];
+define region ITCM_COMMON   = mem:[from __ITCM_COMMON_START + __INTVEC_SIZE_RESERVE size __ITCM_COMMON_SIZE - __INTVEC_SIZE_RESERVE];
+define region DTCM_COMMON   = mem:[from __DTCM_COMMON_START                         size __DTCM_COMMON_SIZE];
+
+/* TCM Seperate Regions */
+define region ITCM_SEPERATE = mem:[from __ITCM_COMMON_START + __ITCM_COMMON_SIZE    size __ITCM_MAX_SIZE - __ITCM_COMMON_SIZE];
+define region DTCM_SEPERATE = mem:[from __DTCM_COMMON_START + __DTCM_COMMON_SIZE    size __DTCM_MAX_SIZE - __DTCM_COMMON_SIZE];
+
+
+/*==================================================================================================
+*   Block definition and section placement
+==================================================================================================*/
+
+/* Common Blocks (PFlash, SRAM) */
+define block ISR_VECTOR_CORE0          with alignment = 1024 { readonly section .isr_vector_Core0 };
+define block ISR_VECTOR_CORE1          with alignment = 1024 { readonly section .isr_vector_Core1 };
+define block ISR_VECTOR_CORE2          with alignment = 1024 { readonly section .isr_vector_Core2 };
+define block ISR_VECTOR_CORE3          with alignment = 1024 { readonly section .isr_vector_Core3 };
+
+define block TEXT                      with alignment = 4
+{
+    readonly section .text,
+    readonly section .*mcal_text,
+    readonly section .rodata,
+    readonly section .*mcal_rodata,
+    readonly section .*mcal_const_cfg
+};
+
+/* Initialization data for RAM sections, placed in PFLASH */
+define block RAM_FUNC_INIT             with alignment = 4 { section .*mcal_ramcode_init };
+define block ITCM_FUNC_INIT            with alignment = 4 { section .bsp_ramcode_init };
+define block ITCM_FUNC_INIT_CORE0      with alignment = 4 { section .bsp_tcmcode_core0_init };
+define block ITCM_FUNC_INIT_CORE1      with alignment = 4 { section .bsp_tcmcode_core1_init };
+define block ITCM_FUNC_INIT_CORE2      with alignment = 4 { section .bsp_tcmcode_core2_init };
+define block ITCM_FUNC_INIT_CORE3      with alignment = 4 { section .bsp_tcmcode_core3_init };
+
+define block DATA_SEPERATED_INIT       with alignment = 4 { section .seperated_data_init };
+define block DATA_SEPERATED_INIT_CORE0 with alignment = 4 { section .seperated_data_core0_init };
+define block DATA_SEPERATED_INIT_CORE1 with alignment = 4 { section .seperated_data_core1_init };
+define block DATA_SEPERATED_INIT_CORE2 with alignment = 4 { section .seperated_data_core2_init };
+define block DATA_SEPERATED_INIT_CORE3 with alignment = 4 { section .seperated_data_core3_init };
+
+define block DATA_INIT                 with alignment = 4 { section .data_init, section .*mcal_data_init };
+define block DATA_NOCACHEABLE_INIT     with alignment = 4 { section .*mcal_nocacheable_data_init };
+define block DATA_SHAREABLE_INIT       with alignment = 4 { section .*mcal_shareable_data_init, section .bsp_shareable_data_init };
+
+/* Common RAM Blocks */
+define block DATA                      with alignment = 4 { section .data, section .*mcal_data };
+define block BSS                       with alignment = 4 { section .bss, section .*mcal_bss };
+define block DATA_NOCACHEABLE          with alignment = 32 { section .*mcal_nocacheable_data };
+define block BSS_NOCACHEABLE           with alignment = 32 { section .*mcal_nocacheable_bss };
+define block BSS_RTT_BUFFER            with alignment = 32 { section .rtt_section, section .rtt_buffer_section };
+define block DATA_SHAREABLE            with alignment = 32 { section .*mcal_shareable_data, section .bsp_shareable_data };
+define block BSS_SHAREABLE             with alignment = 32 { section .*mcal_shareable_bss, section .bsp_shareable_bss };
+
+/* Common TCM Blocks */
+define block RAM_FUNC                  with alignment = 8 { section .*mcal_ramcode };
+define block ITCM_FUNC                 with alignment = 8 { section .bsp_ramcode };
+define block DATA_SEPERATED            with alignment = 4 { section .seperated_data };
+define block BSS_SEPERATED             with alignment = 4 { section .seperated_bss };
+
+/* Core 0 Blocks */
+define block TCM_VECTOR_CORE0          with alignment = 1024, size = __INTVEC_SIZE_RESERVE { };
+define block ITCM_FUNC_CORE0           with alignment = 8, maximum size = __ITCM_CORE0_SIZE - __ITCM_COMMON_SIZE { section .bsp_tcmcode_core0 };
+define block DATA_SEPERATED_CORE0      with alignment = 4 { section .seperated_data_core0 };
+define block BSS_SEPERATED_CORE0       with alignment = 4 { section .seperated_bss_core0 };
+define block HEAP_CORE0                with alignment = 8, size = __HEAP_SIZE_CORE { };
+define block DATA_BSS_CORE0            with alignment = 4, size = __DTCM_CORE0_SIZE - __DTCM_COMMON_SIZE - __STACK_SIZE_CORE
+{
+    block DATA_SEPERATED_CORE0,
+    block BSS_SEPERATED_CORE0,
+    block HEAP_CORE0
+};
+define block CSTACK_CORE0              with alignment = 8, size = __STACK_SIZE_CORE { };
+define block DTCM_DATA_CORE0           with alignment = 4, size = __DTCM_CORE0_SIZE - __DTCM_COMMON_SIZE
+{
+    block DATA_BSS_CORE0,
+    last block CSTACK_CORE0
+};
+
+/* Core 1 Blocks */
+define block TCM_VECTOR_CORE1          with alignment = 1024, size = __INTVEC_SIZE_RESERVE { };
+define block ITCM_FUNC_CORE1           with alignment = 8, maximum size = __ITCM_CORE1_SIZE - __ITCM_COMMON_SIZE { section .bsp_tcmcode_core1 };
+define block DATA_SEPERATED_CORE1      with alignment = 4 { section .seperated_data_core1 };
+define block BSS_SEPERATED_CORE1       with alignment = 4 { section .seperated_bss_core1 };
+define block HEAP_CORE1                with alignment = 8, size = __HEAP_SIZE_CORE { };
+define block DATA_BSS_CORE1            with alignment = 4, size = __DTCM_CORE1_SIZE - __DTCM_COMMON_SIZE - __STACK_SIZE_CORE
+{
+    block DATA_SEPERATED_CORE1,
+    block BSS_SEPERATED_CORE1,
+    block HEAP_CORE1
+};
+define block CSTACK_CORE1              with alignment = 8, size = __STACK_SIZE_CORE { };
+define block DTCM_DATA_CORE1           with alignment = 4, size = __DTCM_CORE1_SIZE - __DTCM_COMMON_SIZE
+{
+    block DATA_BSS_CORE1,
+    last block CSTACK_CORE1
+};
+
+/* Core 2 Blocks */
+define block TCM_VECTOR_CORE2          with alignment = 1024, size = __INTVEC_SIZE_RESERVE { };
+define block ITCM_FUNC_CORE2           with alignment = 8, maximum size = __ITCM_CORE2_SIZE - __ITCM_COMMON_SIZE { section .bsp_tcmcode_core2 };
+define block DATA_SEPERATED_CORE2      with alignment = 4 { section .seperated_data_core2 };
+define block BSS_SEPERATED_CORE2       with alignment = 4 { section .seperated_bss_core2 };
+define block HEAP_CORE2                with alignment = 8, size = __HEAP_SIZE_CORE { };
+define block DATA_BSS_CORE2            with alignment = 4, size = __DTCM_CORE2_SIZE - __DTCM_COMMON_SIZE - __STACK_SIZE_CORE
+{
+    block DATA_SEPERATED_CORE2,
+    block BSS_SEPERATED_CORE2,
+    block HEAP_CORE2
+};
+define block CSTACK_CORE2              with alignment = 8, size = __STACK_SIZE_CORE { };
+define block DTCM_DATA_CORE2           with alignment = 4, size = __DTCM_CORE2_SIZE - __DTCM_COMMON_SIZE
+{
+    block DATA_BSS_CORE2,
+    last block CSTACK_CORE2
+};
+
+/* Core 3 Blocks */
+define block TCM_VECTOR_CORE3          with alignment = 1024, size = __INTVEC_SIZE_RESERVE { };
+define block ITCM_FUNC_CORE3           with alignment = 8, maximum size = __ITCM_CORE3_SIZE - __ITCM_COMMON_SIZE { section .bsp_tcmcode_core3 };
+define block DATA_SEPERATED_CORE3      with alignment = 4 { section .seperated_data_core3 };
+define block BSS_SEPERATED_CORE3       with alignment = 4 { section .seperated_bss_core3 };
+define block HEAP_CORE3                with alignment = 8, size = __HEAP_SIZE_CORE { };
+define block DATA_BSS_CORE3            with alignment = 4, size = __DTCM_CORE3_SIZE - __DTCM_COMMON_SIZE - __STACK_SIZE_CORE
+{
+    block DATA_SEPERATED_CORE3,
+    block BSS_SEPERATED_CORE3,
+    block HEAP_CORE3
+};
+define block CSTACK_CORE3              with alignment = 8, size = __STACK_SIZE_CORE { };
+define block DTCM_DATA_CORE3           with alignment = 4, size = __DTCM_CORE3_SIZE - __DTCM_COMMON_SIZE
+{
+    block DATA_BSS_CORE3,
+    last block CSTACK_CORE3
+};
+
+/*==================================================================================================
+*   Overlay definition
+==================================================================================================*/
+
+define overlay TCM_INTVEC_OVERLAY {block TCM_VECTOR_CORE0};
+define overlay TCM_INTVEC_OVERLAY {block TCM_VECTOR_CORE1};
+define overlay TCM_INTVEC_OVERLAY {block TCM_VECTOR_CORE2};
+define overlay TCM_INTVEC_OVERLAY {block TCM_VECTOR_CORE3};
+
+define overlay TCM_FUNC_OVERLAY {block ITCM_FUNC_CORE0};
+define overlay TCM_FUNC_OVERLAY {block ITCM_FUNC_CORE1};
+define overlay TCM_FUNC_OVERLAY {block ITCM_FUNC_CORE2};
+define overlay TCM_FUNC_OVERLAY {block ITCM_FUNC_CORE3};
+
+define overlay TCM_DATA_OVERLAY {block DTCM_DATA_CORE0};
+define overlay TCM_DATA_OVERLAY {block DTCM_DATA_CORE1};
+define overlay TCM_DATA_OVERLAY {block DTCM_DATA_CORE2};
+define overlay TCM_DATA_OVERLAY {block DTCM_DATA_CORE3};
+
+/*==================================================================================================
+*   Initialization settings
+==================================================================================================*/
+initialize manually
+{
+    section .*mcal_ramcode,
+    section .bsp_ramcode,
+    section .bsp_tcmcode_core0,
+    section .bsp_tcmcode_core1,
+    section .bsp_tcmcode_core2,
+    section .bsp_tcmcode_core3,
+    section .data,
+    section .*mcal_data,
+    section .seperated_data,
+    section .seperated_data_core0,
+    section .seperated_data_core1,
+    section .seperated_data_core2,
+    section .seperated_data_core3,
+    section .*mcal_nocacheable_data,
+    section .*mcal_shareable_data,
+    section .bsp_shareable_data
+};
+
+do not initialize
+{
+    section .bss,
+    section .*mcal_bss,
+    section .*mcal_nocacheable_bss,
+    section .*mcal_shareable_bss,
+    section .bsp_shareable_bss,
+    section .seperated_bss,
+    section .seperated_bss_core0,
+    section .seperated_bss_core1,
+    section .seperated_bss_core2,
+    section .seperated_bss_core3,
+    section .rtt_section,
+    section .rtt_buffer_section,
+    section .noinit
+};
+
+keep
+{
+    section .rtt_section,
+    section .rtt_buffer_section,
+    block HEAP_CORE0,
+    block HEAP_CORE1,
+    block HEAP_CORE2,
+    block HEAP_CORE3
+};
+
+/*==================================================================================================
+*   Block placement in memory areas
+==================================================================================================*/
+
+/* PFLASH Placement */
+place at start of PFLASH_INTVEC
+{
+    block ISR_VECTOR_CORE0,
+    block ISR_VECTOR_CORE1,
+    block ISR_VECTOR_CORE2,
+    block ISR_VECTOR_CORE3
+};
+
+place in PFLASH
+{
+    block TEXT,
+    block RAM_FUNC_INIT,
+    block ITCM_FUNC_INIT,
+    block ITCM_FUNC_INIT_CORE0,
+    block ITCM_FUNC_INIT_CORE1,
+    block ITCM_FUNC_INIT_CORE2,
+    block ITCM_FUNC_INIT_CORE3,
+    block DATA_SEPERATED_INIT,
+    block DATA_SEPERATED_INIT_CORE0,
+    block DATA_SEPERATED_INIT_CORE1,
+    block DATA_SEPERATED_INIT_CORE2,
+    block DATA_SEPERATED_INIT_CORE3,
+    block DATA_INIT,
+    block DATA_NOCACHEABLE_INIT,
+    block DATA_SHAREABLE_INIT,
+    readonly
+};
+
+/* ITCM Placement */
+
+place in ITCM_INTVEC
+{
+    overlay TCM_INTVEC_OVERLAY
+};
+
+place in ITCM_COMMON
+{
+    block RAM_FUNC,
+    block ITCM_FUNC
+};
+
+place in ITCM_SEPERATE
+{
+    overlay TCM_FUNC_OVERLAY
+};
+
+place in DTCM_COMMON
+{
+    block DATA_SEPERATED,
+    block BSS_SEPERATED
+};
+
+place in DTCM_SEPERATE
+{
+    overlay TCM_DATA_OVERLAY
+};
+
+/* SRAM Placement */
+place in SRAM_0
+{
+    block DATA,
+    block BSS
+};
+
+place in SRAM_1
+{
+    block DATA_NOCACHEABLE,
+    block BSS_NOCACHEABLE
+};
+
+place at start of SRAM_2
+{
+    block BSS_RTT_BUFFER
+};
+
+place in SRAM_2
+{
+    block BSS_SHAREABLE
+};
+
+place in SRAM_2
+{
+    block DATA_SHAREABLE,
+};

@@ -1,0 +1,352 @@
+!SESSION 2026-06-10 10:15:11.509 -----------------------------------------------
+eclipse.buildId=4.20.0.I20210611-1600
+java.version=19.0.1
+java.vendor=Eclipse Adoptium
+BootLoader constants: OS=win32, ARCH=x86_64, WS=win32, NL=zh_CN
+Framework arguments:  -product org.eclipse.epp.package.cpp.product
+Command-line arguments:  -os win32 -ws win32 -arch x86_64 -product org.eclipse.epp.package.cpp.product
+
+!ENTRY br.ufal.ic.colligens 4 0 2026-06-10 10:15:11.972
+!MESSAGE FrameworkEvent ERROR
+!STACK 0
+org.osgi.framework.BundleException: Could not resolve module: br.ufal.ic.colligens [3]
+  Unresolved requirement: Require-Bundle: de.ovgu.featureide.fm.core
+
+	at org.eclipse.osgi.container.Module.start(Module.java:463)
+	at org.eclipse.osgi.container.ModuleContainer$ContainerStartLevel$2.run(ModuleContainer.java:1849)
+	at org.eclipse.osgi.internal.framework.EquinoxContainerAdaptor$1$1.execute(EquinoxContainerAdaptor.java:136)
+	at org.eclipse.osgi.container.ModuleContainer$ContainerStartLevel.incStartLevel(ModuleContainer.java:1842)
+	at org.eclipse.osgi.container.ModuleContainer$ContainerStartLevel.incStartLevel(ModuleContainer.java:1783)
+	at org.eclipse.osgi.container.ModuleContainer$ContainerStartLevel.doContainerStartLevel(ModuleContainer.java:1747)
+	at org.eclipse.osgi.container.ModuleContainer$ContainerStartLevel.dispatchEvent(ModuleContainer.java:1669)
+	at org.eclipse.osgi.container.ModuleContainer$ContainerStartLevel.dispatchEvent(ModuleContainer.java:1)
+	at org.eclipse.osgi.framework.eventmgr.EventManager.dispatchEvent(EventManager.java:234)
+	at org.eclipse.osgi.framework.eventmgr.EventManager$EventThread.run(EventManager.java:345)
+
+!ENTRY org.eclipse.update.configurator 4 0 2026-06-10 10:15:12.750
+!MESSAGE Unable to find feature.xml in directory: D:\Workspace\FlagChip\00_fc_ide\features\net.sourceforge.ehep_1.1.0.jar
+
+!ENTRY org.eclipse.embedcdt.debug.gdbjtag.core 4 0 2026-06-10 10:15:14.991
+!MESSAGE FrameworkEvent ERROR
+!STACK 0
+org.osgi.framework.BundleException: Could not resolve module: org.eclipse.embedcdt.debug.gdbjtag.core [197]
+  Another singleton bundle selected: osgi.identity; type="osgi.bundle"; version:Version="5.1.0.202404170724"; osgi.identity="org.eclipse.embedcdt.debug.gdbjtag.core"; singleton:="true"
+
+	at org.eclipse.osgi.container.Module.start(Module.java:463)
+	at org.eclipse.osgi.container.ModuleContainer.update(ModuleContainer.java:421)
+	at org.eclipse.osgi.storage.Storage.update(Storage.java:974)
+	at org.eclipse.osgi.storage.Storage.update(Storage.java:940)
+	at org.eclipse.osgi.internal.framework.EquinoxBundle.update(EquinoxBundle.java:490)
+	at org.eclipse.osgi.internal.framework.EquinoxBundle.update(EquinoxBundle.java:496)
+	at org.eclipse.equinox.internal.simpleconfigurator.ConfigApplier.installBundles(ConfigApplier.java:354)
+	at org.eclipse.equinox.internal.simpleconfigurator.ConfigApplier.install(ConfigApplier.java:97)
+	at org.eclipse.equinox.internal.simpleconfigurator.SimpleConfiguratorImpl.applyConfiguration(SimpleConfiguratorImpl.java:189)
+	at org.eclipse.equinox.internal.simpleconfigurator.SimpleConfiguratorImpl.applyConfiguration(SimpleConfiguratorImpl.java:204)
+	at org.eclipse.equinox.internal.p2.reconciler.dropins.ProfileSynchronizer.applyConfiguration(ProfileSynchronizer.java:805)
+	at org.eclipse.equinox.internal.p2.reconciler.dropins.ProfileSynchronizer.synchronize(ProfileSynchronizer.java:150)
+	at org.eclipse.equinox.internal.p2.reconciler.dropins.Activator.synchronize(Activator.java:444)
+	at org.eclipse.equinox.internal.p2.reconciler.dropins.Activator.start(Activator.java:179)
+	at org.eclipse.osgi.internal.framework.BundleContextImpl$2.run(BundleContextImpl.java:814)
+	at org.eclipse.osgi.internal.framework.BundleContextImpl$2.run(BundleContextImpl.java:1)
+	at java.base/java.security.AccessController.doPrivileged(AccessController.java:569)
+	at org.eclipse.osgi.internal.framework.BundleContextImpl.startActivator(BundleContextImpl.java:806)
+	at org.eclipse.osgi.internal.framework.BundleContextImpl.start(BundleContextImpl.java:763)
+	at org.eclipse.osgi.internal.framework.EquinoxBundle.startWorker0(EquinoxBundle.java:1028)
+	at org.eclipse.osgi.internal.framework.EquinoxBundle$EquinoxModule.startWorker(EquinoxBundle.java:371)
+	at org.eclipse.osgi.container.Module.doStart(Module.java:605)
+	at org.eclipse.osgi.container.Module.start(Module.java:468)
+	at org.eclipse.osgi.container.ModuleContainer$ContainerStartLevel$2.run(ModuleContainer.java:1849)
+	at org.eclipse.osgi.internal.framework.EquinoxContainerAdaptor$1$1.execute(EquinoxContainerAdaptor.java:136)
+	at org.eclipse.osgi.container.ModuleContainer$ContainerStartLevel.incStartLevel(ModuleContainer.java:1842)
+	at org.eclipse.osgi.container.ModuleContainer$ContainerStartLevel.incStartLevel(ModuleContainer.java:1785)
+	at org.eclipse.osgi.container.ModuleContainer$ContainerStartLevel.doContainerStartLevel(ModuleContainer.java:1747)
+	at org.eclipse.osgi.container.ModuleContainer$ContainerStartLevel.dispatchEvent(ModuleContainer.java:1669)
+	at org.eclipse.osgi.container.ModuleContainer$ContainerStartLevel.dispatchEvent(ModuleContainer.java:1)
+	at org.eclipse.osgi.framework.eventmgr.EventManager.dispatchEvent(EventManager.java:234)
+	at org.eclipse.osgi.framework.eventmgr.EventManager$EventThread.run(EventManager.java:345)
+
+!ENTRY org.eclipse.embedcdt.managedbuild.cross.arm.core 4 0 2026-06-10 10:15:15.036
+!MESSAGE FrameworkEvent ERROR
+!STACK 0
+org.osgi.framework.BundleException: Could not resolve module: org.eclipse.embedcdt.managedbuild.cross.arm.core [210]
+  Another singleton bundle selected: osgi.identity; type="osgi.bundle"; version:Version="3.0.0.202312150639"; osgi.identity="org.eclipse.embedcdt.managedbuild.cross.arm.core"; singleton:="true"
+
+	at org.eclipse.osgi.container.Module.start(Module.java:463)
+	at org.eclipse.osgi.container.ModuleContainer.update(ModuleContainer.java:421)
+	at org.eclipse.osgi.storage.Storage.update(Storage.java:974)
+	at org.eclipse.osgi.storage.Storage.update(Storage.java:940)
+	at org.eclipse.osgi.internal.framework.EquinoxBundle.update(EquinoxBundle.java:490)
+	at org.eclipse.osgi.internal.framework.EquinoxBundle.update(EquinoxBundle.java:496)
+	at org.eclipse.equinox.internal.simpleconfigurator.ConfigApplier.installBundles(ConfigApplier.java:354)
+	at org.eclipse.equinox.internal.simpleconfigurator.ConfigApplier.install(ConfigApplier.java:97)
+	at org.eclipse.equinox.internal.simpleconfigurator.SimpleConfiguratorImpl.applyConfiguration(SimpleConfiguratorImpl.java:189)
+	at org.eclipse.equinox.internal.simpleconfigurator.SimpleConfiguratorImpl.applyConfiguration(SimpleConfiguratorImpl.java:204)
+	at org.eclipse.equinox.internal.p2.reconciler.dropins.ProfileSynchronizer.applyConfiguration(ProfileSynchronizer.java:805)
+	at org.eclipse.equinox.internal.p2.reconciler.dropins.ProfileSynchronizer.synchronize(ProfileSynchronizer.java:150)
+	at org.eclipse.equinox.internal.p2.reconciler.dropins.Activator.synchronize(Activator.java:444)
+	at org.eclipse.equinox.internal.p2.reconciler.dropins.Activator.start(Activator.java:179)
+	at org.eclipse.osgi.internal.framework.BundleContextImpl$2.run(BundleContextImpl.java:814)
+	at org.eclipse.osgi.internal.framework.BundleContextImpl$2.run(BundleContextImpl.java:1)
+	at java.base/java.security.AccessController.doPrivileged(AccessController.java:569)
+	at org.eclipse.osgi.internal.framework.BundleContextImpl.startActivator(BundleContextImpl.java:806)
+	at org.eclipse.osgi.internal.framework.BundleContextImpl.start(BundleContextImpl.java:763)
+	at org.eclipse.osgi.internal.framework.EquinoxBundle.startWorker0(EquinoxBundle.java:1028)
+	at org.eclipse.osgi.internal.framework.EquinoxBundle$EquinoxModule.startWorker(EquinoxBundle.java:371)
+	at org.eclipse.osgi.container.Module.doStart(Module.java:605)
+	at org.eclipse.osgi.container.Module.start(Module.java:468)
+	at org.eclipse.osgi.container.ModuleContainer$ContainerStartLevel$2.run(ModuleContainer.java:1849)
+	at org.eclipse.osgi.internal.framework.EquinoxContainerAdaptor$1$1.execute(EquinoxContainerAdaptor.java:136)
+	at org.eclipse.osgi.container.ModuleContainer$ContainerStartLevel.incStartLevel(ModuleContainer.java:1842)
+	at org.eclipse.osgi.container.ModuleContainer$ContainerStartLevel.incStartLevel(ModuleContainer.java:1785)
+	at org.eclipse.osgi.container.ModuleContainer$ContainerStartLevel.doContainerStartLevel(ModuleContainer.java:1747)
+	at org.eclipse.osgi.container.ModuleContainer$ContainerStartLevel.dispatchEvent(ModuleContainer.java:1669)
+	at org.eclipse.osgi.container.ModuleContainer$ContainerStartLevel.dispatchEvent(ModuleContainer.java:1)
+	at org.eclipse.osgi.framework.eventmgr.EventManager.dispatchEvent(EventManager.java:234)
+	at org.eclipse.osgi.framework.eventmgr.EventManager$EventThread.run(EventManager.java:345)
+
+!ENTRY org.eclipse.ui 2 0 2026-06-10 10:16:32.045
+!MESSAGE Warnings while parsing the key bindings from the 'org.eclipse.ui.commands' and 'org.eclipse.ui.bindings' extension point
+!SUBENTRY 1 org.eclipse.ui 2 0 2026-06-10 10:16:32.045
+!MESSAGE Cannot bind to an undefined command: plug-in='cn.com.flagchip.menu.ui', id='cn.com.flagchip.commands.runUnlock'
+
+!ENTRY org.eclipse.jface 2 0 2026-06-10 10:16:32.709
+!MESSAGE Keybinding conflicts occurred.  They may interfere with normal accelerator operation.
+!SUBENTRY 1 org.eclipse.jface 2 0 2026-06-10 10:16:32.709
+!MESSAGE A conflict occurred for CTRL+7:
+Binding(CTRL+7,
+	ParameterizedCommand(Command(cn.com.flagchip.commands.runExt,Run External Tools,
+		,
+		Category(cn.com.flagchip.commands.category,FC Category,null,true),
+		org.eclipse.ui.internal.WorkbenchHandlerServiceHandler@4407b042,
+		[Parameter(cn.com.flagchip.runExt.msg,Message,null,true)],,true),null),
+	org.eclipse.ui.defaultAcceleratorConfiguration,
+	org.eclipse.ui.contexts.window,,,system)
+Binding(CTRL+7,
+	ParameterizedCommand(Command(cn.com.flagchip.commands.runAstyle,Run A-Style,
+		,
+		Category(cn.com.flagchip.commands.category,FC Category,null,true),
+		org.eclipse.ui.internal.WorkbenchHandlerServiceHandler@41f686af,
+		[Parameter(cn.com.flagchip.runAstyle.msg,Message,null,true)],,true),null),
+	org.eclipse.ui.defaultAcceleratorConfiguration,
+	org.eclipse.ui.contexts.window,,,system)
+Binding(CTRL+7,
+	ParameterizedCommand(Command(cn.com.flagchip.commands.jlinkLoadBin,Jlink Load Bin,
+		,
+		Category(cn.com.flagchip.commands.category,FC Category,null,true),
+		org.eclipse.ui.internal.WorkbenchHandlerServiceHandler@3dded90a,
+		,,true),null),
+	org.eclipse.ui.defaultAcceleratorConfiguration,
+	org.eclipse.ui.contexts.window,,,system)
+
+!ENTRY org.eclipse.ui 4 4 2026-06-10 10:16:34.065
+!MESSAGE Plugin cn.com.flagchip.editor.ui, extension org.eclipse.ui.editors: Unknown editor with id: net.sourceforge.ehep.editors.HexEditor
+
+!ENTRY org.eclipse.update.configurator 4 0 2026-06-10 10:16:37.586
+!MESSAGE Can't find bundle for base name feature, locale zh_CN
+
+!ENTRY org.eclipse.update.configurator 4 0 2026-06-10 10:16:37.609
+!MESSAGE Can't find bundle for base name feature, locale zh_CN
+!SESSION 2026-06-10 10:24:17.406 -----------------------------------------------
+eclipse.buildId=4.20.0.I20210611-1600
+java.version=19.0.1
+java.vendor=Eclipse Adoptium
+BootLoader constants: OS=win32, ARCH=x86_64, WS=win32, NL=zh_CN
+Framework arguments:  -product org.eclipse.epp.package.cpp.product
+Command-line arguments:  -os win32 -ws win32 -arch x86_64 -product org.eclipse.epp.package.cpp.product
+
+!ENTRY br.ufal.ic.colligens 4 0 2026-06-10 10:24:17.836
+!MESSAGE FrameworkEvent ERROR
+!STACK 0
+org.osgi.framework.BundleException: Could not resolve module: br.ufal.ic.colligens [3]
+  Unresolved requirement: Require-Bundle: de.ovgu.featureide.fm.core
+
+	at org.eclipse.osgi.container.Module.start(Module.java:463)
+	at org.eclipse.osgi.container.ModuleContainer$ContainerStartLevel$2.run(ModuleContainer.java:1849)
+	at org.eclipse.osgi.internal.framework.EquinoxContainerAdaptor$1$1.execute(EquinoxContainerAdaptor.java:136)
+	at org.eclipse.osgi.container.ModuleContainer$ContainerStartLevel.incStartLevel(ModuleContainer.java:1842)
+	at org.eclipse.osgi.container.ModuleContainer$ContainerStartLevel.incStartLevel(ModuleContainer.java:1783)
+	at org.eclipse.osgi.container.ModuleContainer$ContainerStartLevel.doContainerStartLevel(ModuleContainer.java:1747)
+	at org.eclipse.osgi.container.ModuleContainer$ContainerStartLevel.dispatchEvent(ModuleContainer.java:1669)
+	at org.eclipse.osgi.container.ModuleContainer$ContainerStartLevel.dispatchEvent(ModuleContainer.java:1)
+	at org.eclipse.osgi.framework.eventmgr.EventManager.dispatchEvent(EventManager.java:234)
+	at org.eclipse.osgi.framework.eventmgr.EventManager$EventThread.run(EventManager.java:345)
+
+!ENTRY org.eclipse.ui 2 0 2026-06-10 10:24:22.648
+!MESSAGE Warnings while parsing the key bindings from the 'org.eclipse.ui.commands' and 'org.eclipse.ui.bindings' extension point
+!SUBENTRY 1 org.eclipse.ui 2 0 2026-06-10 10:24:22.648
+!MESSAGE Cannot bind to an undefined command: plug-in='cn.com.flagchip.menu.ui', id='cn.com.flagchip.commands.runUnlock'
+
+!ENTRY org.eclipse.jface 2 0 2026-06-10 10:24:23.307
+!MESSAGE Keybinding conflicts occurred.  They may interfere with normal accelerator operation.
+!SUBENTRY 1 org.eclipse.jface 2 0 2026-06-10 10:24:23.307
+!MESSAGE A conflict occurred for CTRL+7:
+Binding(CTRL+7,
+	ParameterizedCommand(Command(cn.com.flagchip.commands.runExt,Run External Tools,
+		,
+		Category(cn.com.flagchip.commands.category,FC Category,null,true),
+		org.eclipse.ui.internal.WorkbenchHandlerServiceHandler@6a878778,
+		[Parameter(cn.com.flagchip.runExt.msg,Message,null,true)],,true),null),
+	org.eclipse.ui.defaultAcceleratorConfiguration,
+	org.eclipse.ui.contexts.window,,,system)
+Binding(CTRL+7,
+	ParameterizedCommand(Command(cn.com.flagchip.commands.runAstyle,Run A-Style,
+		,
+		Category(cn.com.flagchip.commands.category,FC Category,null,true),
+		org.eclipse.ui.internal.WorkbenchHandlerServiceHandler@1eabfad5,
+		[Parameter(cn.com.flagchip.runAstyle.msg,Message,null,true)],,true),null),
+	org.eclipse.ui.defaultAcceleratorConfiguration,
+	org.eclipse.ui.contexts.window,,,system)
+Binding(CTRL+7,
+	ParameterizedCommand(Command(cn.com.flagchip.commands.jlinkLoadBin,Jlink Load Bin,
+		,
+		Category(cn.com.flagchip.commands.category,FC Category,null,true),
+		org.eclipse.ui.internal.WorkbenchHandlerServiceHandler@6207145c,
+		,,true),null),
+	org.eclipse.ui.defaultAcceleratorConfiguration,
+	org.eclipse.ui.contexts.window,,,system)
+
+!ENTRY org.eclipse.ui 4 4 2026-06-10 10:24:24.292
+!MESSAGE Plugin cn.com.flagchip.editor.ui, extension org.eclipse.ui.editors: Unknown editor with id: net.sourceforge.ehep.editors.HexEditor
+
+!ENTRY org.eclipse.update.configurator 4 0 2026-06-10 10:24:25.511
+!MESSAGE Can't find bundle for base name feature, locale zh_CN
+
+!ENTRY org.eclipse.update.configurator 4 0 2026-06-10 10:24:25.541
+!MESSAGE Can't find bundle for base name feature, locale zh_CN
+
+!ENTRY org.eclipse.cdt.core 1 0 2026-06-10 10:27:37.067
+!MESSAGE Indexed 'MCAL_FC7300F8MDQ_FC_Demo' (283 sources, 1,060 headers) in 6.75 sec: 48,914 declarations; 253,993 references; 0 unresolved inclusions; 30 syntax errors; 6 unresolved names (0.002%)
+!SESSION 2026-06-11 15:36:35.417 -----------------------------------------------
+eclipse.buildId=4.20.0.I20210611-1600
+java.version=19.0.1
+java.vendor=Eclipse Adoptium
+BootLoader constants: OS=win32, ARCH=x86_64, WS=win32, NL=zh_CN
+Framework arguments:  -product org.eclipse.epp.package.cpp.product
+Command-line arguments:  -os win32 -ws win32 -arch x86_64 -product org.eclipse.epp.package.cpp.product
+
+!ENTRY br.ufal.ic.colligens 4 0 2026-06-11 15:36:35.842
+!MESSAGE FrameworkEvent ERROR
+!STACK 0
+org.osgi.framework.BundleException: Could not resolve module: br.ufal.ic.colligens [3]
+  Unresolved requirement: Require-Bundle: de.ovgu.featureide.fm.core
+
+	at org.eclipse.osgi.container.Module.start(Module.java:463)
+	at org.eclipse.osgi.container.ModuleContainer$ContainerStartLevel$2.run(ModuleContainer.java:1849)
+	at org.eclipse.osgi.internal.framework.EquinoxContainerAdaptor$1$1.execute(EquinoxContainerAdaptor.java:136)
+	at org.eclipse.osgi.container.ModuleContainer$ContainerStartLevel.incStartLevel(ModuleContainer.java:1842)
+	at org.eclipse.osgi.container.ModuleContainer$ContainerStartLevel.incStartLevel(ModuleContainer.java:1783)
+	at org.eclipse.osgi.container.ModuleContainer$ContainerStartLevel.doContainerStartLevel(ModuleContainer.java:1747)
+	at org.eclipse.osgi.container.ModuleContainer$ContainerStartLevel.dispatchEvent(ModuleContainer.java:1669)
+	at org.eclipse.osgi.container.ModuleContainer$ContainerStartLevel.dispatchEvent(ModuleContainer.java:1)
+	at org.eclipse.osgi.framework.eventmgr.EventManager.dispatchEvent(EventManager.java:234)
+	at org.eclipse.osgi.framework.eventmgr.EventManager$EventThread.run(EventManager.java:345)
+
+!ENTRY org.eclipse.ui 2 0 2026-06-11 15:36:41.672
+!MESSAGE Warnings while parsing the key bindings from the 'org.eclipse.ui.commands' and 'org.eclipse.ui.bindings' extension point
+!SUBENTRY 1 org.eclipse.ui 2 0 2026-06-11 15:36:41.672
+!MESSAGE Cannot bind to an undefined command: plug-in='cn.com.flagchip.menu.ui', id='cn.com.flagchip.commands.runUnlock'
+
+!ENTRY org.eclipse.jface 2 0 2026-06-11 15:36:42.644
+!MESSAGE Keybinding conflicts occurred.  They may interfere with normal accelerator operation.
+!SUBENTRY 1 org.eclipse.jface 2 0 2026-06-11 15:36:42.644
+!MESSAGE A conflict occurred for CTRL+7:
+Binding(CTRL+7,
+	ParameterizedCommand(Command(cn.com.flagchip.commands.runExt,Run External Tools,
+		,
+		Category(cn.com.flagchip.commands.category,FC Category,null,true),
+		org.eclipse.ui.internal.WorkbenchHandlerServiceHandler@6a878778,
+		[Parameter(cn.com.flagchip.runExt.msg,Message,null,true)],,true),null),
+	org.eclipse.ui.defaultAcceleratorConfiguration,
+	org.eclipse.ui.contexts.window,,,system)
+Binding(CTRL+7,
+	ParameterizedCommand(Command(cn.com.flagchip.commands.runAstyle,Run A-Style,
+		,
+		Category(cn.com.flagchip.commands.category,FC Category,null,true),
+		org.eclipse.ui.internal.WorkbenchHandlerServiceHandler@1eabfad5,
+		[Parameter(cn.com.flagchip.runAstyle.msg,Message,null,true)],,true),null),
+	org.eclipse.ui.defaultAcceleratorConfiguration,
+	org.eclipse.ui.contexts.window,,,system)
+Binding(CTRL+7,
+	ParameterizedCommand(Command(cn.com.flagchip.commands.jlinkLoadBin,Jlink Load Bin,
+		,
+		Category(cn.com.flagchip.commands.category,FC Category,null,true),
+		org.eclipse.ui.internal.WorkbenchHandlerServiceHandler@6207145c,
+		,,true),null),
+	org.eclipse.ui.defaultAcceleratorConfiguration,
+	org.eclipse.ui.contexts.window,,,system)
+
+!ENTRY org.eclipse.ui 4 4 2026-06-11 15:36:42.689
+!MESSAGE Plugin cn.com.flagchip.editor.ui, extension org.eclipse.ui.editors: Unknown editor with id: net.sourceforge.ehep.editors.HexEditor
+
+!ENTRY org.eclipse.update.configurator 4 0 2026-06-11 15:36:46.758
+!MESSAGE Can't find bundle for base name feature, locale zh_CN
+
+!ENTRY org.eclipse.update.configurator 4 0 2026-06-11 15:36:47.218
+!MESSAGE Can't find bundle for base name feature, locale zh_CN
+!SESSION 2026-06-12 14:50:26.130 -----------------------------------------------
+eclipse.buildId=4.20.0.I20210611-1600
+java.version=19.0.1
+java.vendor=Eclipse Adoptium
+BootLoader constants: OS=win32, ARCH=x86_64, WS=win32, NL=zh_CN
+Framework arguments:  -product org.eclipse.epp.package.cpp.product
+Command-line arguments:  -os win32 -ws win32 -arch x86_64 -product org.eclipse.epp.package.cpp.product
+
+!ENTRY br.ufal.ic.colligens 4 0 2026-06-12 14:50:26.536
+!MESSAGE FrameworkEvent ERROR
+!STACK 0
+org.osgi.framework.BundleException: Could not resolve module: br.ufal.ic.colligens [3]
+  Unresolved requirement: Require-Bundle: de.ovgu.featureide.fm.core
+
+	at org.eclipse.osgi.container.Module.start(Module.java:463)
+	at org.eclipse.osgi.container.ModuleContainer$ContainerStartLevel$2.run(ModuleContainer.java:1849)
+	at org.eclipse.osgi.internal.framework.EquinoxContainerAdaptor$1$1.execute(EquinoxContainerAdaptor.java:136)
+	at org.eclipse.osgi.container.ModuleContainer$ContainerStartLevel.incStartLevel(ModuleContainer.java:1842)
+	at org.eclipse.osgi.container.ModuleContainer$ContainerStartLevel.incStartLevel(ModuleContainer.java:1783)
+	at org.eclipse.osgi.container.ModuleContainer$ContainerStartLevel.doContainerStartLevel(ModuleContainer.java:1747)
+	at org.eclipse.osgi.container.ModuleContainer$ContainerStartLevel.dispatchEvent(ModuleContainer.java:1669)
+	at org.eclipse.osgi.container.ModuleContainer$ContainerStartLevel.dispatchEvent(ModuleContainer.java:1)
+	at org.eclipse.osgi.framework.eventmgr.EventManager.dispatchEvent(EventManager.java:234)
+	at org.eclipse.osgi.framework.eventmgr.EventManager$EventThread.run(EventManager.java:345)
+
+!ENTRY org.eclipse.ui 2 0 2026-06-12 14:50:31.716
+!MESSAGE Warnings while parsing the key bindings from the 'org.eclipse.ui.commands' and 'org.eclipse.ui.bindings' extension point
+!SUBENTRY 1 org.eclipse.ui 2 0 2026-06-12 14:50:31.716
+!MESSAGE Cannot bind to an undefined command: plug-in='cn.com.flagchip.menu.ui', id='cn.com.flagchip.commands.runUnlock'
+
+!ENTRY org.eclipse.jface 2 0 2026-06-12 14:50:32.835
+!MESSAGE Keybinding conflicts occurred.  They may interfere with normal accelerator operation.
+!SUBENTRY 1 org.eclipse.jface 2 0 2026-06-12 14:50:32.835
+!MESSAGE A conflict occurred for CTRL+7:
+Binding(CTRL+7,
+	ParameterizedCommand(Command(cn.com.flagchip.commands.runExt,Run External Tools,
+		,
+		Category(cn.com.flagchip.commands.category,FC Category,null,true),
+		org.eclipse.ui.internal.WorkbenchHandlerServiceHandler@6614289a,
+		[Parameter(cn.com.flagchip.runExt.msg,Message,null,true)],,true),null),
+	org.eclipse.ui.defaultAcceleratorConfiguration,
+	org.eclipse.ui.contexts.window,,,system)
+Binding(CTRL+7,
+	ParameterizedCommand(Command(cn.com.flagchip.commands.runAstyle,Run A-Style,
+		,
+		Category(cn.com.flagchip.commands.category,FC Category,null,true),
+		org.eclipse.ui.internal.WorkbenchHandlerServiceHandler@4148ce43,
+		[Parameter(cn.com.flagchip.runAstyle.msg,Message,null,true)],,true),null),
+	org.eclipse.ui.defaultAcceleratorConfiguration,
+	org.eclipse.ui.contexts.window,,,system)
+Binding(CTRL+7,
+	ParameterizedCommand(Command(cn.com.flagchip.commands.jlinkLoadBin,Jlink Load Bin,
+		,
+		Category(cn.com.flagchip.commands.category,FC Category,null,true),
+		org.eclipse.ui.internal.WorkbenchHandlerServiceHandler@46fb9581,
+		,,true),null),
+	org.eclipse.ui.defaultAcceleratorConfiguration,
+	org.eclipse.ui.contexts.window,,,system)
+
+!ENTRY org.eclipse.ui 4 4 2026-06-12 14:50:32.889
+!MESSAGE Plugin cn.com.flagchip.editor.ui, extension org.eclipse.ui.editors: Unknown editor with id: net.sourceforge.ehep.editors.HexEditor
+
+!ENTRY org.eclipse.update.configurator 4 0 2026-06-12 14:50:37.137
+!MESSAGE Can't find bundle for base name feature, locale zh_CN
+
+!ENTRY org.eclipse.update.configurator 4 0 2026-06-12 14:50:37.591
+!MESSAGE Can't find bundle for base name feature, locale zh_CN

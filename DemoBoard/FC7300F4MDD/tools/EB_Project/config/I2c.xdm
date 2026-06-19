@@ -1,0 +1,234 @@
+<?xml version='1.0'?>
+<datamodel version="7.0" 
+           xmlns="http://www.tresos.de/_projects/DataModel2/16/root.xsd" 
+           xmlns:a="http://www.tresos.de/_projects/DataModel2/16/attribute.xsd" 
+           xmlns:v="http://www.tresos.de/_projects/DataModel2/06/schema.xsd" 
+           xmlns:d="http://www.tresos.de/_projects/DataModel2/06/data.xsd">
+
+  <d:ctr type="AUTOSAR" factory="autosar" 
+         xmlns:ad="http://www.tresos.de/_projects/DataModel2/08/admindata.xsd" 
+         xmlns:cd="http://www.tresos.de/_projects/DataModel2/08/customdata.xsd" 
+         xmlns:f="http://www.tresos.de/_projects/DataModel2/14/formulaexpr.xsd" 
+         xmlns:icc="http://www.tresos.de/_projects/DataModel2/08/implconfigclass.xsd" 
+         xmlns:mt="http://www.tresos.de/_projects/DataModel2/11/multitest.xsd"  
+         xmlns:variant="http://www.tresos.de/_projects/DataModel2/11/variant.xsd">
+    <d:lst type="TOP-LEVEL-PACKAGES">
+      <d:ctr name="I2c" type="AR-PACKAGE">
+        <d:lst type="ELEMENTS">
+          <d:chc name="I2c" type="AR-ELEMENT" value="MODULE-CONFIGURATION">
+            <d:ctr type="MODULE-CONFIGURATION">
+              <a:a name="DEF" value="ASPath:/FC7300FXXX/I2c"/>
+              <a:a name="IMPORTER_INFO" value="@REC"/>
+              <d:var name="IMPLEMENTATION_CONFIG_VARIANT" type="ENUMERATION" 
+                     value="VariantPostBuild"/>
+              <d:ctr name="GeneralConfiguration" type="IDENTIFIABLE">
+                <a:a name="IMPORTER_INFO" value="@REC"/>
+                <d:var name="I2cDevErrorDetect" type="BOOLEAN" value="true"/>
+                <d:var name="I2cMulticoreSupport" type="BOOLEAN" value="true"/>
+                <d:var name="I2cTimeoutDuration" type="INTEGER" value="1000">
+                  <a:a name="IMPORTER_INFO" value="@REC"/>
+                </d:var>
+                <d:var name="I2cVersionInfoApi" type="BOOLEAN" value="true">
+                  <a:a name="IMPORTER_INFO" value="@REC"/>
+                </d:var>
+                <d:var name="I2cDmaUsed" type="BOOLEAN" value="true"/>
+                <d:var name="I2cErrorNotification" type="FUNCTION-NAME" 
+                       value="I2c_ErrorNotification">
+                  <a:a name="ENABLE" value="true"/>
+                </d:var>
+                <d:var name="I2cMasterTransmitCompleteNotification" 
+                       type="FUNCTION-NAME" 
+                       value="I2c_MasterTransmitCompleteNotification">
+                  <a:a name="ENABLE" value="true"/>
+                </d:var>
+                <d:var name="I2cMasterReceiveCompleteNotification" 
+                       type="FUNCTION-NAME" 
+                       value="I2c_MasterReceiveCompleteNotification">
+                  <a:a name="ENABLE" value="true"/>
+                </d:var>
+                <d:var name="I2cSlaveAddressMatchNotification" 
+                       type="FUNCTION-NAME" 
+                       value="I2c_SlaveAddressMatchNotification">
+                  <a:a name="ENABLE" value="true"/>
+                </d:var>
+                <d:var name="I2cSlaveTransmitCompleteNotification" 
+                       type="FUNCTION-NAME" 
+                       value="I2c_SlaveTransmitCompleteNotification">
+                  <a:a name="ENABLE" value="true"/>
+                </d:var>
+                <d:var name="I2cSlaveReceiveCompleteNotification" 
+                       type="FUNCTION-NAME" 
+                       value="I2c_SlaveReceiveCompleteNotification">
+                  <a:a name="ENABLE" value="true"/>
+                </d:var>
+                <d:var name="I2cSlaveByteReceiveNotification" 
+                       type="FUNCTION-NAME" 
+                       value="I2c_SlaveByteReceiveNotification">
+                  <a:a name="ENABLE" value="true"/>
+                </d:var>
+                <d:var name="I2cSlaveSubAddressReadNotification" 
+                       type="FUNCTION-NAME" 
+                       value="I2c_SlaveSubAddressReadNotification">
+                  <a:a name="ENABLE" value="true"/>
+                </d:var>
+                <d:var name="I2cSlaveSubAddressWriteNotification" 
+                       type="FUNCTION-NAME" 
+                       value="I2c_SlaveSubAddressWriteNotification">
+                  <a:a name="ENABLE" value="true"/>
+                </d:var>
+              </d:ctr>
+              <d:ctr name="I2cGlobalConfig" type="IDENTIFIABLE">
+                <a:a name="IMPORTER_INFO" value="@REC"/>
+                <d:lst name="I2cEcucPartitionRef">
+                  <d:ref type="REFERENCE" 
+                         value="ASPath:/EcuC/EcuC/EcucPartitionCollection/EcucPartition_0"/>
+                </d:lst>
+                <d:lst name="I2cChannel" type="MAP">
+                  <d:ctr name="I2cChannel_0" type="IDENTIFIABLE">
+                    <a:a name="IMPORTER_INFO" value="@REC"/>
+                    <d:var name="I2cChannelId" type="INTEGER" value="0">
+                      <a:a name="IMPORTER_INFO">
+                        <a:v>@CALC</a:v>
+                        <a:v>@DEF</a:v>
+                      </a:a>
+                    </d:var>
+                    <d:var name="I2cHwChannel" type="ENUMERATION" 
+                           value="FCI2C_1"/>
+                    <d:var name="I2cMasterSlaveConfiguration" 
+                           type="ENUMERATION" value="MASTER_MODE"/>
+                    <d:ref name="I2cCtrlEcucPartitionRef" type="REFERENCE" 
+                           value="ASPath:/EcuC/EcuC/EcucPartitionCollection/EcucPartition_0">
+                      <a:a name="ENABLE" value="true"/>
+                    </d:ref>
+                    <d:ctr name="I2cMasterConfiguration" type="IDENTIFIABLE">
+                      <a:a name="IMPORTER_INFO" value="@REC"/>
+                      <d:var name="I2cMasterEnabledInDebug" type="BOOLEAN" 
+                             value="true"/>
+                      <d:var name="I2cMasterIgnoreNack" type="BOOLEAN" 
+                             value="true"/>
+                      <d:var name="I2cPinConfiguration" type="ENUMERATION" 
+                             value="PINCFG_2PIN_OPEN_DRAIN">
+                        <a:a name="IMPORTER_INFO" value="@DEF"/>
+                      </d:var>
+                      <d:ref name="I2cClockRef" type="REFERENCE" 
+                             value="ASPath:/Mcu/Mcu/McuModuleConfiguration/MCU_Demo_FOSC24M/McuClockReferencePoint_FCIIC1">
+                        <a:a name="ENABLE" value="true"/>
+                      </d:ref>
+                      <d:var name="I2cAsyncMode" type="ENUMERATION" 
+                             value="INTERRUPT"/>
+                      <d:ref name="I2cTxDmaChannel" type="REFERENCE" 
+                             value="ASPath:/Dma/Dma/DmaConfigSet/DmaHwUnit_0/DmaChannelConfig_IIC_TX">
+                        <a:a name="ENABLE" value="false"/>
+                      </d:ref>
+                      <d:ref name="I2cRxDmaChannel" type="REFERENCE" 
+                             value="ASPath:/Dma/Dma/DmaConfigSet/DmaHwUnit_0/DmaChannelConfig_IIC_RX">
+                        <a:a name="ENABLE" value="false"/>
+                      </d:ref>
+                      <d:var name="I2cPrescaler" type="ENUMERATION" 
+                             value="DIVIDE_BY_2"/>
+                      <d:var name="I2cGlitchFilterSDA" type="INTEGER" value="0"/>
+                      <d:var name="I2cGlitchFilterSCL" type="INTEGER" value="0"/>
+                      <d:var name="I2cBusIdleTimeout" type="INTEGER" value="24">
+                        <a:a name="IMPORTER_INFO">
+                          <a:v>@CALC</a:v>
+                          <a:v>@DEF</a:v>
+                        </a:a>
+                      </d:var>
+                      <d:var name="I2cPinLowTimeout" type="INTEGER" value="0">
+                        <a:a name="IMPORTER_INFO" value="@REC"/>
+                      </d:var>
+                      <d:var name="I2cDataValidDelay" type="INTEGER" value="1">
+                        <a:a name="IMPORTER_INFO" value="@REC"/>
+                      </d:var>
+                      <d:var name="I2cSetupHoldDelay" type="INTEGER" value="2">
+                        <a:a name="IMPORTER_INFO" value="@DEF"/>
+                      </d:var>
+                      <d:var name="I2cClockHighPeriod" type="INTEGER" value="5">
+                        <a:a name="IMPORTER_INFO" value="@REC"/>
+                      </d:var>
+                      <d:var name="I2cClockLowPeriod" type="INTEGER" value="6"/>
+                      <d:var name="I2cBaudRate" type="FLOAT" value="400000.0">
+                        <a:a name="IMPORTER_INFO">
+                          <a:v>@CALC</a:v>
+                          <a:v>@DEF</a:v>
+                        </a:a>
+                      </d:var>
+                    </d:ctr>
+                    <d:ctr name="I2cSlaveConfiguration" type="IDENTIFIABLE">
+                      <a:a name="IMPORTER_INFO" value="@REC"/>
+                      <d:var name="I2cSlaveAddress" type="INTEGER" value="256"/>
+                      <d:var name="I2cSlaveAsyncMode" type="ENUMERATION" 
+                             value="INTERRUPT">
+                        <a:a name="IMPORTER_INFO" value="@DEF"/>
+                      </d:var>
+                      <d:ref name="I2cSlaveTxDmaChannel" type="REFERENCE" >
+                        <a:a name="ENABLE" value="false"/>
+                        <a:a name="IMPORTER_INFO" value="@DEF"/>
+                      </d:ref>
+                      <d:ref name="I2cSlaveRxDmaChannel" type="REFERENCE" >
+                        <a:a name="ENABLE" value="false"/>
+                        <a:a name="IMPORTER_INFO" value="@DEF"/>
+                      </d:ref>
+                      <d:var name="I2cSlaveFilterEnable" type="BOOLEAN" 
+                             value="true">
+                        <a:a name="IMPORTER_INFO" value="@REC"/>
+                      </d:var>
+                      <d:var name="I2cSlaveAckStall" type="BOOLEAN" 
+                             value="false">
+                        <a:a name="IMPORTER_INFO" value="@REC"/>
+                      </d:var>
+                      <d:var name="I2cSlaveTxStall" type="BOOLEAN" value="false">
+                        <a:a name="IMPORTER_INFO" value="@REC"/>
+                      </d:var>
+                      <d:var name="I2cSlaveRxStall" type="BOOLEAN" value="false">
+                        <a:a name="IMPORTER_INFO" value="@REC"/>
+                      </d:var>
+                      <d:var name="I2cSlaveAdrStall" type="BOOLEAN" 
+                             value="false">
+                        <a:a name="IMPORTER_INFO" value="@REC"/>
+                      </d:var>
+                      <d:var name="I2cGlitchFilterSDA" type="INTEGER" value="0">
+                        <a:a name="IMPORTER_INFO" value="@REC"/>
+                      </d:var>
+                      <d:var name="I2cGlitchFilterSCL" type="INTEGER" value="0">
+                        <a:a name="IMPORTER_INFO" value="@REC"/>
+                      </d:var>
+                      <d:var name="I2cDataValidDelay" type="INTEGER" value="0">
+                        <a:a name="IMPORTER_INFO" value="@REC"/>
+                      </d:var>
+                      <d:var name="I2cClockHoldPeriod" type="INTEGER" value="0">
+                        <a:a name="IMPORTER_INFO" value="@REC"/>
+                      </d:var>
+                    </d:ctr>
+                  </d:ctr>
+                </d:lst>
+              </d:ctr>
+              <d:ctr name="CommonPublishedInformation" type="IDENTIFIABLE">
+                <a:a name="IMPORTER_INFO" value="@REC"/>
+                <d:var name="ArReleaseMajorVersion" type="INTEGER" value="4">
+                  <a:a name="IMPORTER_INFO" value="@REC"/>
+                </d:var>
+                <d:var name="ArReleaseMinorVersion" type="INTEGER" value="6">
+                  <a:a name="IMPORTER_INFO" value="@DEF"/>
+                </d:var>
+                <d:var name="ArReleaseRevisionVersion" type="INTEGER" value="0">
+                  <a:a name="IMPORTER_INFO" value="@DEF"/>
+                </d:var>
+                <d:var name="ModuleId" type="INTEGER" value="255">
+                  <a:a name="IMPORTER_INFO" value="@REC"/>
+                </d:var>
+                <d:var name="SwMajorVersion" type="INTEGER" value="1"/>
+                <d:var name="SwMinorVersion" type="INTEGER" value="5"/>
+                <d:var name="SwPatchVersion" type="INTEGER" value="1"/>
+                <d:var name="VendorId" type="INTEGER" value="174">
+                  <a:a name="IMPORTER_INFO" value="@REC"/>
+                </d:var>
+              </d:ctr>
+            </d:ctr>
+          </d:chc>
+        </d:lst>
+      </d:ctr>
+    </d:lst>
+  </d:ctr>
+
+</datamodel>

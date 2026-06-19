@@ -1,0 +1,31 @@
+#include "Bsp_Ssi.h"
+
+/************ Local Variables *******************/
+
+/************ Interrupt Map *******************/
+#if (defined(SSI_INSTANCE0_INT) && (SSI_INSTANCE0_INT == STD_ON))
+extern ISR(SSI_IsrSSI0_ALL);
+void SSI0_IRQHandler(void)
+{
+    SSI_IsrSSI0_ALL();
+}
+#endif
+
+/************ Callback functions *******************/
+void SsiNotification(Ssi_MessageDataType *pMsg)
+{
+}
+/************ Global functions *******************/
+void Bsp_Ssi_Init(void)
+{
+    Ssi_Init(NULL_PTR);
+#if (defined(SSI_INSTANCE0_INT) && (SSI_INSTANCE0_INT == STD_ON))
+    IntMgr_SetPriority(SSI0_IRQn, 4);
+    IntMgr_EnableInterrupt(SSI0_IRQn);
+#endif
+}
+
+void Bsp_Ssi_1s_Task_Event(void)
+{
+    Ssi_MainFunctionMessageRead();
+}

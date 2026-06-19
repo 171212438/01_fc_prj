@@ -1,0 +1,213 @@
+<?xml version='1.0'?>
+<datamodel version="7.0" 
+           xmlns="http://www.tresos.de/_projects/DataModel2/16/root.xsd" 
+           xmlns:a="http://www.tresos.de/_projects/DataModel2/16/attribute.xsd" 
+           xmlns:v="http://www.tresos.de/_projects/DataModel2/06/schema.xsd" 
+           xmlns:d="http://www.tresos.de/_projects/DataModel2/06/data.xsd">
+
+  <d:ctr type="AUTOSAR" factory="autosar" 
+         xmlns:ad="http://www.tresos.de/_projects/DataModel2/08/admindata.xsd" 
+         xmlns:cd="http://www.tresos.de/_projects/DataModel2/08/customdata.xsd" 
+         xmlns:f="http://www.tresos.de/_projects/DataModel2/14/formulaexpr.xsd" 
+         xmlns:icc="http://www.tresos.de/_projects/DataModel2/08/implconfigclass.xsd" 
+         xmlns:mt="http://www.tresos.de/_projects/DataModel2/11/multitest.xsd"  
+         xmlns:variant="http://www.tresos.de/_projects/DataModel2/11/variant.xsd">
+    <d:lst type="TOP-LEVEL-PACKAGES">
+      <d:ctr name="Pfls" type="AR-PACKAGE">
+        <d:lst type="ELEMENTS">
+          <d:chc name="Pfls" type="AR-ELEMENT" value="MODULE-CONFIGURATION">
+            <d:ctr type="MODULE-CONFIGURATION">
+              <a:a name="DEF" value="ASPath:/FC7300FXXX/Pfls"/>
+              <a:a name="IMPORTER_INFO" value="Plfs_Importer"/>
+              <d:var name="IMPLEMENTATION_CONFIG_VARIANT" type="ENUMERATION" 
+                     value="VariantPreCompile">
+                <a:a name="IMPORTER_INFO" value="Plfs_Importer"/>
+              </d:var>
+              <d:ctr name="CommonPublishedInformation" type="IDENTIFIABLE">
+                <a:a name="IMPORTER_INFO" value="Plfs_Importer"/>
+                <d:var name="ArReleaseMajorVersion" type="INTEGER" value="4">
+                  <a:a name="IMPORTER_INFO" value="@REC"/>
+                </d:var>
+                <d:var name="ArReleaseMinorVersion" type="INTEGER" value="6">
+                  <a:a name="IMPORTER_INFO" value="@REC"/>
+                </d:var>
+                <d:var name="ArReleaseRevisionVersion" type="INTEGER" value="0">
+                  <a:a name="IMPORTER_INFO" value="@REC"/>
+                </d:var>
+                <d:var name="ModuleId" type="INTEGER" value="92">
+                  <a:a name="IMPORTER_INFO" value="@REC"/>
+                </d:var>
+                <d:var name="SwMajorVersion" type="INTEGER" value="1">
+                  <a:a name="IMPORTER_INFO" value="@REC"/>
+                </d:var>
+                <d:var name="SwMinorVersion" type="INTEGER" value="5">
+                  <a:a name="IMPORTER_INFO" value="@REC"/>
+                </d:var>
+                <d:var name="SwPatchVersion" type="INTEGER" value="1"/>
+                <d:var name="VendorId" type="INTEGER" value="174">
+                  <a:a name="IMPORTER_INFO" value="@REC"/>
+                </d:var>
+              </d:ctr>
+              <d:ctr name="PflsConfigSet" type="IDENTIFIABLE">
+                <a:a name="IMPORTER_INFO" value="Plfs_Importer"/>
+                <d:var name="PflsCallCycle" type="FLOAT" value="0.01">
+                  <a:a name="IMPORTER_INFO" value="Plfs_Importer"/>
+                </d:var>
+                <d:var name="PflsDefaultMode" type="ENUMERATION" 
+                       value="MEMIF_MODE_SLOW">
+                  <a:a name="IMPORTER_INFO" value="Plfs_Importer"/>
+                </d:var>
+                <d:var name="PflsJobEndNotification" type="FUNCTION-NAME" 
+                       value="Pfls_JobEndNotification">
+                  <a:a name="ENABLE" value="false"/>
+                  <a:a name="IMPORTER_INFO" value="@DEF"/>
+                </d:var>
+                <d:var name="PflsJobErrorNotification" type="FUNCTION-NAME" 
+                       value="Pfls_JobErrorNotification">
+                  <a:a name="ENABLE" value="false"/>
+                  <a:a name="IMPORTER_INFO" value="@DEF"/>
+                </d:var>
+                <d:var name="PflsMaxReadFastMode" type="INTEGER" value="1048576">
+                  <a:a name="IMPORTER_INFO" value="Plfs_Importer"/>
+                </d:var>
+                <d:var name="PflsMaxReadNormalMode" type="INTEGER" value="1024">
+                  <a:a name="IMPORTER_INFO" value="Plfs_Importer"/>
+                </d:var>
+                <d:var name="PflsMaxWriteFastMode" type="INTEGER" value="128">
+                  <a:a name="IMPORTER_INFO" value="Plfs_Importer"/>
+                </d:var>
+                <d:var name="PflsMaxWriteNormalMode" type="INTEGER" value="16">
+                  <a:a name="IMPORTER_INFO" value="Plfs_Importer"/>
+                </d:var>
+                <d:var name="PflsProtection" type="INTEGER" value="1">
+                  <a:a name="IMPORTER_INFO" value="Plfs_Importer"/>
+                </d:var>
+                <d:ctr name="PflsSectorList" type="IDENTIFIABLE">
+                  <a:a name="IMPORTER_INFO" value="Plfs_Importer"/>
+                  <d:lst name="PflsSector" type="MAP">
+                    <a:a name="IMPORTER_INFO" value="Plfs_Importer"/>
+                    <d:ctr name="PflsSector_0" type="IDENTIFIABLE">
+                      <a:a name="IMPORTER_INFO" value="Plfs_Importer"/>
+                      <d:var name="PflsNumberOfSectors" type="INTEGER" 
+                             value="1024">
+                        <a:a name="IMPORTER_INFO" value="Plfs_Importer"/>
+                      </d:var>
+                      <d:var name="PflsPageSize" type="INTEGER" value="8">
+                        <a:a name="IMPORTER_INFO" value="Plfs_Importer"/>
+                      </d:var>
+                      <d:var name="PflsSectorIndex" type="INTEGER" value="0">
+                        <a:a name="IMPORTER_INFO" value="Plfs_Importer"/>
+                      </d:var>
+                      <d:var name="PflsSectorSize" type="INTEGER" value="4096">
+                        <a:a name="IMPORTER_INFO" value="Plfs_Importer"/>
+                      </d:var>
+                      <d:var name="PflsSectorStartaddress" type="INTEGER" 
+                             value="0">
+                        <a:a name="IMPORTER_INFO" value="Plfs_Importer"/>
+                      </d:var>
+                    </d:ctr>
+                  </d:lst>
+                </d:ctr>
+              </d:ctr>
+              <d:ctr name="PflsGeneral" type="IDENTIFIABLE">
+                <a:a name="IMPORTER_INFO" value="Plfs_Importer"/>
+                <d:var name="PflsTotalSize" type="INTEGER" value="0">
+                  <a:a name="IMPORTER_INFO" value="@REC"/>
+                </d:var>
+                <d:var name="PflashOtaHalvefSize" type="BOOLEAN" value="false">
+                  <a:a name="IMPORTER_INFO" value="Plfs_Importer"/>
+                </d:var>
+                <d:var name="PflsBaseAddress" type="INTEGER" value="16777216">
+                  <a:a name="IMPORTER_INFO" value="Plfs_Importer"/>
+                </d:var>
+                <d:var name="PflsBlankCheckApi" type="BOOLEAN" value="false">
+                  <a:a name="IMPORTER_INFO" value="Plfs_Importer"/>
+                </d:var>
+                <d:var name="PflsCancelApi" type="BOOLEAN" value="true">
+                  <a:a name="IMPORTER_INFO" value="Plfs_Importer"/>
+                </d:var>
+                <d:var name="PflsCompareApi" type="BOOLEAN" value="false">
+                  <a:a name="IMPORTER_INFO" value="Plfs_Importer"/>
+                </d:var>
+                <d:var name="PflsDataErrorSuppression" type="BOOLEAN" 
+                       value="false">
+                  <a:a name="IMPORTER_INFO" value="Plfs_Importer"/>
+                </d:var>
+                <d:var name="PflsDevErrorDetect" type="BOOLEAN" value="true">
+                  <a:a name="IMPORTER_INFO" value="Plfs_Importer"/>
+                </d:var>
+                <d:var name="PflsDisableDetRuntimeErrorStatus" type="BOOLEAN" 
+                       value="false">
+                  <a:a name="IMPORTER_INFO" value="Plfs_Importer"/>
+                </d:var>
+                <d:var name="PflsDriverIndex" type="INTEGER" value="0">
+                  <a:a name="IMPORTER_INFO" value="Plfs_Importer"/>
+                </d:var>
+                <d:var name="PflsEraseVerificationEnabled" type="BOOLEAN" 
+                       value="false">
+                  <a:a name="IMPORTER_INFO" value="Plfs_Importer"/>
+                </d:var>
+                <d:var name="PflsGetJobResultApi" type="BOOLEAN" value="true">
+                  <a:a name="IMPORTER_INFO" value="Plfs_Importer"/>
+                </d:var>
+                <d:var name="PflsGetStatusApi" type="BOOLEAN" value="true">
+                  <a:a name="IMPORTER_INFO" value="Plfs_Importer"/>
+                </d:var>
+                <d:var name="PflsSetModeApi" type="BOOLEAN" value="true">
+                  <a:a name="IMPORTER_INFO" value="Plfs_Importer"/>
+                </d:var>
+                <d:var name="PflsTimeoutSupervisionEnabled" type="BOOLEAN" 
+                       value="false">
+                  <a:a name="IMPORTER_INFO" value="Plfs_Importer"/>
+                </d:var>
+                <d:var name="PflsVersionInfoApi" type="BOOLEAN" value="false">
+                  <a:a name="IMPORTER_INFO" value="Plfs_Importer"/>
+                </d:var>
+                <d:var name="PflsWriteVerificationEnabled" type="BOOLEAN" 
+                       value="false">
+                  <a:a name="IMPORTER_INFO" value="Plfs_Importer"/>
+                </d:var>
+                <d:ref name="PflsEcucPartitionRef" type="REFERENCE" >
+                  <a:a name="ENABLE" value="false"/>
+                  <a:a name="IMPORTER_INFO" value="@DEF"/>
+                </d:ref>
+              </d:ctr>
+              <d:ctr name="PflsPublishedInformation" type="IDENTIFIABLE">
+                <a:a name="IMPORTER_INFO" value="Plfs_Importer"/>
+                <d:var name="PflsAcLocationErase" type="INTEGER" value="0">
+                  <a:a name="IMPORTER_INFO" value="@REC"/>
+                </d:var>
+                <d:var name="PflsAcLocationWrite" type="INTEGER" value="0">
+                  <a:a name="IMPORTER_INFO" value="@REC"/>
+                </d:var>
+                <d:var name="PflsAcSizeErase" type="INTEGER" value="0">
+                  <a:a name="IMPORTER_INFO" value="@REC"/>
+                </d:var>
+                <d:var name="PflsAcSizeWrite" type="INTEGER" value="0">
+                  <a:a name="IMPORTER_INFO" value="@REC"/>
+                </d:var>
+                <d:var name="PflsEraseTime" type="FLOAT" value="0.0032">
+                  <a:a name="IMPORTER_INFO" value="@REC"/>
+                </d:var>
+                <d:var name="PflsErasedValue" type="INTEGER" value="4294967295">
+                  <a:a name="IMPORTER_INFO" value="@REC"/>
+                </d:var>
+                <d:var name="PflsExpectedHwId" type="STRING" value="0">
+                  <a:a name="IMPORTER_INFO" value="@REC"/>
+                </d:var>
+                <d:var name="PflsSpecifiedEraseCycles" type="INTEGER" 
+                       value="100000">
+                  <a:a name="IMPORTER_INFO" value="@REC"/>
+                </d:var>
+                <d:var name="PflsWriteTime" type="FLOAT" value="1.2E-4">
+                  <a:a name="IMPORTER_INFO" value="@REC"/>
+                </d:var>
+              </d:ctr>
+            </d:ctr>
+          </d:chc>
+        </d:lst>
+      </d:ctr>
+    </d:lst>
+  </d:ctr>
+
+</datamodel>

@@ -1,0 +1,154 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<?fileVersion 4.0.0?><cproject storage_type_id="org.eclipse.cdt.core.XmlProjectDescriptionStorage">
+	<storageModule moduleId="org.eclipse.cdt.core.settings">
+		<cconfiguration id="com.tasking.config.arm.abs.debug.376373620">
+			<storageModule buildSystemId="org.eclipse.cdt.managedbuilder.core.configurationDataProvider" id="com.tasking.config.arm.abs.debug.376373620" moduleId="org.eclipse.cdt.core.settings" name="Debug">
+				<externalSettings/>
+				<extensions>
+					<extension id="com.tasking.managedbuilder.TASKING_IHEX" point="org.eclipse.cdt.core.BinaryParser"/>
+					<extension id="com.tasking.managedbuilder.TASKING_ELF" point="org.eclipse.cdt.core.BinaryParser"/>
+					<extension id="com.tasking.managedbuilder.TASKING_SRECORD" point="org.eclipse.cdt.core.BinaryParser"/>
+					<extension id="com.tasking.managedbuilder.TskRegexErrorParser" point="org.eclipse.cdt.core.ErrorParser"/>
+				</extensions>
+			</storageModule>
+			<storageModule moduleId="cdtBuildSystem" version="4.0.0">
+				<configuration artifactExtension="abs" artifactName="MCAL_FC7300F8MDT_FC_Demo" buildArtefactType="com.tasking.arm.buildArtefactType.elf" buildProperties="org.eclipse.cdt.build.core.buildArtefactType=com.tasking.arm.buildArtefactType.elf" cleanCommand="&quot;${PRODDIR}/bin/rm&quot; -rf" description="" id="com.tasking.config.arm.abs.debug.376373620" name="Debug" parent="com.tasking.config.arm.abs.debug">
+					<folderInfo id="com.tasking.config.arm.abs.debug.376373620." name="/" resourcePath="">
+						<toolChain id="com.tasking.arm.abs.debug.2122499800" name="TASKING Arm toolset" superClass="com.tasking.arm.abs.debug">
+							<option id="com.tasking.arm.pluginVersion.1837925025" name="Plugin version" superClass="com.tasking.arm.pluginVersion" value="1.257.0.0" valueType="string"/>
+							<option id="com.tasking.arm.prodDir.1742846221" name="Product directory:" superClass="com.tasking.arm.prodDir" value="${eclipse_home}/.." valueType="string"/>
+							<option id="com.tasking.arm.coreSelection.486932174" name="Use core:" superClass="com.tasking.arm.coreSelection" value="cm7_0" valueType="string"/>
+							<option id="com.tasking.arm.cpu.1370171431" name="Processor:" superClass="com.tasking.arm.cpu" value="cortex_m7" valueType="string"/>
+							<targetPlatform archList="all" binaryParser="com.tasking.managedbuilder.TASKING_ELF;com.tasking.managedbuilder.TASKING_SRECORD;com.tasking.managedbuilder.TASKING_IHEX" id="com.tasking.arm.platform.abs.debug.496941150" name="Debug" osList="" superClass="com.tasking.arm.platform.abs.debug"/>
+							<builder buildPath="${workspace_loc:/MCAL_FC7300F8MDT_FC_Demo}/Debug" id="com.tasking.arm.builder.abs.debug.1057128871" keepEnvironmentInBuildfile="false" managedBuildOn="true" name="TASKING Arm Makefile generator" parallelBuildOn="true" parallelizationNumber="optimal" superClass="com.tasking.arm.builder.abs.debug"/>
+							<tool id="com.tasking.arm.cc.abs.debug.1946839475" name="C/C++ Compiler" superClass="com.tasking.arm.cc.abs.debug">
+								<option id="com.tasking.arm.cc.pr36858.1594024950" name="workaround for PR36858" superClass="com.tasking.arm.cc.pr36858" value="true" valueType="string"/>
+								<option IS_BUILTIN_EMPTY="false" IS_VALUE_EMPTY="false" id="com.tasking.arm.cc.includePaths.583311076" name="Include paths" superClass="com.tasking.arm.cc.includePaths" valueType="includePath">
+									<listOptionValue builtIn="false" value="../../../../../MCAL/Src/Common/include"/>
+									<listOptionValue builtIn="false" value="../../../../../MCAL/Src/Base/include/MemMap"/>
+									<listOptionValue builtIn="false" value="../../../../../MCAL/Src/Base/include"/>
+									<listOptionValue builtIn="false" value="../../../../../MCAL/Src/Mcu/include"/>
+									<listOptionValue builtIn="false" value="../../../../../MCAL/Src/Pwm/include"/>
+									<listOptionValue builtIn="false" value="../../../../../MCAL/Src/Gpt/include"/>
+									<listOptionValue builtIn="false" value="../../../../../MCAL/Src/Port/include"/>
+									<listOptionValue builtIn="false" value="../../../../../MCAL/Src/Dio/include"/>
+									<listOptionValue builtIn="false" value="../../../../../MCAL/Src/Wdg/include"/>
+									<listOptionValue builtIn="false" value="../../../../../MCAL/Src/WdgIf/include"/>
+									<listOptionValue builtIn="false" value="../../../../../MCAL/Src/Adc/include"/>
+									<listOptionValue builtIn="false" value="../../../../../MCAL/Src/EcuM/include"/>
+									<listOptionValue builtIn="false" value="../../../../../MCAL/Src/Dem/include"/>
+									<listOptionValue builtIn="false" value="../../../../../MCAL/Src/Lin/include"/>
+									<listOptionValue builtIn="false" value="../../../../../MCAL/Src/Uart/include"/>
+									<listOptionValue builtIn="false" value="../../../../../MCAL/Src/LinIf"/>
+									<listOptionValue builtIn="false" value="../../../../../MCAL/Src/Spi/include"/>
+									<listOptionValue builtIn="false" value="../../../../../MCAL/Src/Can/include"/>
+									<listOptionValue builtIn="false" value="../../../../../MCAL/Src/Icu/include"/>
+									<listOptionValue builtIn="false" value="../../../../../MCAL/Src/Fee/include"/>
+									<listOptionValue builtIn="false" value="../../../../../MCAL/Src/Fls/include"/>
+									<listOptionValue builtIn="false" value="../../../../../MCAL/Src/I2c/include"/>
+									<listOptionValue builtIn="false" value="../../../../../MCAL/Src/TrgSel/include"/>
+									<listOptionValue builtIn="false" value="../../../../../MCAL/Src/Dma/include"/>
+									<listOptionValue builtIn="false" value="../../../../../MCAL/Src/Crypto/include"/>
+									<listOptionValue builtIn="false" value="../../../../../MCAL/Src/CryIf/include"/>
+									<listOptionValue builtIn="false" value="../../../../../MCAL/Src/EthTrcv/include"/>
+									<listOptionValue builtIn="false" value="../../../../../MCAL/Src/EthIf/include"/>
+									<listOptionValue builtIn="false" value="../../../../../MCAL/Src/Eth/include"/>
+									<listOptionValue builtIn="false" value="../../../../../MCAL/Src/Os/include"/>
+									<listOptionValue builtIn="false" value="../../../../../MCAL/Src/Mb/include"/>
+									<listOptionValue builtIn="false" value="../../../../../MCAL/Src/Msc/include"/>
+									<listOptionValue builtIn="false" value="../../../../../MCAL/Src/Sent/include"/>
+									<listOptionValue builtIn="false" value="../../../../../MCAL/Src/Ocu/include"/>
+									<listOptionValue builtIn="false" value="../../../../../MCAL/Src/Ospi/include"/>
+									<listOptionValue builtIn="false" value="../../../../../MCAL/Src/Crc/include"/>
+									<listOptionValue builtIn="false" value="../../../_MCAL_multicore_generate_8M/include"/>
+									<listOptionValue builtIn="false" value="../../../_Compile_Related_Files/Common/Include"/>
+									<listOptionValue builtIn="false" value="../../../_Compile_Related_Files/Systick/include"/>
+									<listOptionValue builtIn="false" value="../../../_Compile_Related_Files/Det/include"/>
+									<listOptionValue builtIn="false" value="../../../_BSW_generate/NvM/include"/>
+									<listOptionValue builtIn="false" value="../../../_BSW_generate/Config"/>
+									<listOptionValue builtIn="false" value="../../../MiddleWare/RTT"/>
+									<listOptionValue builtIn="false" value="../../../MiddleWare/UartDriver"/>
+									<listOptionValue builtIn="false" value="../../../MiddleWare/Mpu"/>
+									<listOptionValue builtIn="false" value="../../../Include"/>
+									<listOptionValue builtIn="false" value="../../../App/Include"/>
+									<listOptionValue builtIn="false" value="../../../../../MCAL/Src/Odt/include"/>
+									<listOptionValue builtIn="false" value="../../../../../MCAL/Src/SchM/include"/>
+									<listOptionValue builtIn="false" value="../../../../../MCAL/Src/Pfls/include"/>
+								</option>
+								<option IS_BUILTIN_EMPTY="false" IS_VALUE_EMPTY="false" id="com.tasking.arm.cc.definedSymbols.1314040199" name="Defined symbols" superClass="com.tasking.arm.cc.definedSymbols" valueType="definedSymbols">
+									<listOptionValue builtIn="false" value="DEBUG"/>
+									<listOptionValue builtIn="false" value="__TARGET_USE_FPU"/>
+									<listOptionValue builtIn="false" value="AUTOSAR_OS_NOT_USED"/>
+									<listOptionValue builtIn="false" value="USE_SW_VECTOR_MODE"/>
+									<listOptionValue builtIn="false" value="UART_PRINTF"/>
+								</option>
+								<option id="com.tasking.arm.cc.iso.1099180153" name="Comply to C standard:" superClass="com.tasking.arm.cc.iso" value="com.tasking.arm.cc.iso.c11" valueType="enumerated"/>
+								<option id="com.tasking.arm.cc.language.gcc.267137416" name="Allow GNU C extensions" superClass="com.tasking.arm.cc.language.gcc" value="true" valueType="boolean"/>
+								<option id="com.tasking.arm.cc.optimize.1844476991" name="Optimization level:" superClass="com.tasking.arm.cc.optimize" value="com.tasking.arm.cc.optimize.0" valueType="enumerated"/>
+								<option id="com.tasking.arm.cc.tradeoff.2077088189" name="Trade-off between speed and size:" superClass="com.tasking.arm.cc.tradeoff" value="com.tasking.arm.cc.tradeoff.2" valueType="enumerated"/>
+								<option id="com.tasking.arm.cc.additionalOptions.1960232554" name="Additional options:" superClass="com.tasking.arm.cc.additionalOptions" value="" valueType="string"/>
+								<inputType id="com.tasking.arm.cppInputType.1527952546" name="C++" superClass="com.tasking.arm.cppInputType"/>
+								<inputType id="com.tasking.arm.cpp.cInputType.716566607" name="C" superClass="com.tasking.arm.cpp.cInputType"/>
+								<inputType id="com.tasking.arm.cc.msInputType.696258508" name="MS" superClass="com.tasking.arm.cc.msInputType"/>
+							</tool>
+							<tool id="com.tasking.arm.as.abs.debug.398043827" name="Assembler" superClass="com.tasking.arm.as.abs.debug">
+								<option id="com.tasking.arm.as.misc.asm-thumb.40808311" name="Use full assembler for mixed Arm and Thumb instructions" superClass="com.tasking.arm.as.misc.asm-thumb" value="false" valueType="boolean"/>
+								<option id="com.tasking.arm.as.misc.thumb.417246896" name="Assemble Thumb instructions by default" superClass="com.tasking.arm.as.misc.thumb" value="true" valueType="boolean"/>
+								<option id="com.tasking.arm.as.sectionInfo.console.980559726" name="Display section summary" superClass="com.tasking.arm.as.sectionInfo.console" value="false" valueType="boolean"/>
+								<inputType id="com.tasking.arm.asmInputType.1042459994" name="ASM" superClass="com.tasking.arm.asmInputType"/>
+							</tool>
+							<tool id="com.tasking.arm.lk.abs.debug.151813576" name="Linker" superClass="com.tasking.arm.lk.abs.debug">
+								<option id="com.tasking.arm.lk.lslFile.270729274" name="Linker script file:" superClass="com.tasking.arm.lk.lslFile" value="${ProjDirPath}/Startup/fc7300dt.lsl" valueType="string"/>
+								<option id="com.tasking.arm.lk.outputFormat.ihex.1770704052" name="Generate Intel Hex format file" superClass="com.tasking.arm.lk.outputFormat.ihex" value="true" valueType="boolean"/>
+								<option id="com.tasking.arm.lk.outputFormat.bin.1233210206" name="Generate binary file" superClass="com.tasking.arm.lk.outputFormat.bin" value="true" valueType="boolean"/>
+								<option id="com.tasking.arm.lk.mapFile.mapFile.427321509" name="Generate map file (.map)" superClass="com.tasking.arm.lk.mapFile.mapFile" value="true" valueType="boolean"/>
+								<option id="com.tasking.arm.lk.noDefaultLibraries.611318371" name="Link default libraries" superClass="com.tasking.arm.lk.noDefaultLibraries" value="true" valueType="boolean"/>
+								<option id="com.tasking.arm.lk.noRescan.787052904" name="Rescan libraries to solve unresolved externals" superClass="com.tasking.arm.lk.noRescan" value="false" valueType="boolean"/>
+								<option id="com.tasking.arm.lk.dspLibrary.1315167023" name="Link CMSIS DSP library" superClass="com.tasking.arm.lk.dspLibrary" value="false" valueType="boolean"/>
+								<option id="com.tasking.arm.lk.optimize.copyTableCompression.1616242500" name="Compress copy table" superClass="com.tasking.arm.lk.optimize.copyTableCompression" value="false" valueType="boolean"/>
+								<option id="com.tasking.arm.lk.additionalOptions.1594598562" name="Additional options:" superClass="com.tasking.arm.lk.additionalOptions" value="" valueType="string"/>
+								<option id="com.tasking.arm.lk.userProvidedInitCode.1084833156" name="Do not use standard copy table for initialization" superClass="com.tasking.arm.lk.userProvidedInitCode" value="true" valueType="boolean"/>
+								<option id="com.tasking.arm.lk.misc.longBranchVeneers.1539535797" name="Generate long-branch veneers" superClass="com.tasking.arm.lk.misc.longBranchVeneers" value="true" valueType="boolean"/>
+								<inputType id="com.tasking.arm.lkObjInputType.989157265" name="OBJ" superClass="com.tasking.arm.lkObjInputType"/>
+								<inputType id="com.tasking.arm.lkLibInputType.371693294" name="LIB" superClass="com.tasking.arm.lkLibInputType"/>
+							</tool>
+						</toolChain>
+					</folderInfo>
+					<sourceEntries>
+						<entry excluding="Startup/FC7300_8M.ld|Startup/fc7300_cstart.c|MCAL/Src/EthSwt|MiddleWare/RTT|MCAL/Src/Ssi|MCAL/Src/Cordic|MCAL/Src/Sdadc|MCAL/Src/Qdt|MCAL/Src/EthIf|MCAL/Src/Eftu|MCAL/AMDC_1_1_3|MCAL/EB_Plugins" flags="VALUE_WORKSPACE_PATH" kind="sourcePath" name=""/>
+					</sourceEntries>
+				</configuration>
+			</storageModule>
+			<storageModule moduleId="org.eclipse.cdt.core.externalSettings"/>
+			<storageModule moduleId="com.tasking.toolInfo">
+				<toolInfo>TASKING VX-toolset for Arm v7.1r1 - Arm C compiler Build 25012365</toolInfo>
+				<toolInfo>TASKING VX-toolset for Arm v7.1r1 - Arm object linker Build 25012365</toolInfo>
+				<toolInfo>TASKING VX-toolset for Arm v7.1r1 - Arm control program Build 24082661</toolInfo>
+				<toolInfo>TASKING VX-toolset for Arm v7.1r1 - Arm T32 assembler Build 24082661</toolInfo>
+				<toolInfo>TASKING VX-toolset for Arm v7.1r1 - program builder Build 24082661</toolInfo>
+			</storageModule>
+		</cconfiguration>
+	</storageModule>
+	<storageModule moduleId="cdtBuildSystem" version="4.0.0">
+		<project id="MCAL_FC7300F8MDT_FC_Demo_1.com.tasking.arm.target.abs.1462599786" name="TASKING Arm Application" projectType="com.tasking.arm.target.abs"/>
+	</storageModule>
+	<storageModule moduleId="scannerConfiguration">
+		<autodiscovery enabled="true" problemReportingEnabled="true" selectedProfileId=""/>
+		<scannerConfigBuildInfo instanceId="com.tasking.config.arm.abs.debug.376373620;com.tasking.config.arm.abs.debug.376373620.">
+			<autodiscovery enabled="true" problemReportingEnabled="true" selectedProfileId="com.tasking.arm.TskARMScannerInfo"/>
+		</scannerConfigBuildInfo>
+		<scannerConfigBuildInfo instanceId="com.tasking.config.arm.abs.release.1622971888;com.tasking.config.arm.abs.release.1622971888.">
+			<autodiscovery enabled="true" problemReportingEnabled="true" selectedProfileId="com.tasking.arm.TskARMScannerInfo"/>
+		</scannerConfigBuildInfo>
+	</storageModule>
+	<storageModule moduleId="org.eclipse.cdt.core.LanguageSettingsProviders"/>
+	<storageModule moduleId="org.eclipse.cdt.core.language.mapping">
+		<project-mappings>
+			<content-type-mapping configuration="" content-type="org.eclipse.cdt.core.cHeader" language="com.tasking.arm.clanguage"/>
+			<content-type-mapping configuration="" content-type="org.eclipse.cdt.core.cSource" language="com.tasking.arm.clanguage"/>
+			<content-type-mapping configuration="" content-type="org.eclipse.cdt.core.cxxHeader" language="com.tasking.arm.cpplanguage"/>
+			<content-type-mapping configuration="" content-type="org.eclipse.cdt.core.cxxSource" language="com.tasking.arm.cpplanguage"/>
+		</project-mappings>
+	</storageModule>
+	<storageModule moduleId="refreshScope"/>
+</cproject>

@@ -1,0 +1,14 @@
+#!gbuild 
+[Subproject] 
+..\..\MiddleWare\Mpu\fc7xxx_driver_mpu.h 
+..\..\MiddleWare\Mpu\HwA_mpu.h 
+..\..\MiddleWare\Mpu\Mpu.h 
+..\..\MiddleWare\Mpu\fc7xxx_driver_mpu.c 
+..\..\MiddleWare\Mpu\Mpu.c 
+..\..\MiddleWare\RTT\SEGGER_RTT.h 
+..\..\MiddleWare\RTT\SEGGER_RTT_Conf.h 
+..\..\MiddleWare\RTT\SEGGER_RTT.c 
+..\..\MiddleWare\RTT\SEGGER_RTT_printf.c 
+..\..\MiddleWare\UartDriver\UART.h 
+..\..\MiddleWare\UartDriver\syscalls.c 
+..\..\MiddleWare\UartDriver\UART.c 

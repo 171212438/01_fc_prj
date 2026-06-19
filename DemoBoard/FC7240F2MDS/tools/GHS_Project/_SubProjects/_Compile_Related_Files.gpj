@@ -1,0 +1,13 @@
+#!gbuild 
+[Subproject] 
+..\..\_Compile_Related_Files\Det\include\Det.h 
+..\..\_Compile_Related_Files\Det\src\Det.c 
+..\..\_Compile_Related_Files\Systick\include\Systick.h 
+..\..\_Compile_Related_Files\Systick\include\Systick_Cfg.h 
+..\..\_Compile_Related_Files\Systick\include\Systick_Hw.h 
+..\..\_Compile_Related_Files\Systick\include\Systick_Reg.h 
+..\..\_Compile_Related_Files\Systick\include\Systick_Type.h 
+..\..\_Compile_Related_Files\Systick\src\Systick.c 
+..\..\_Compile_Related_Files\Systick\src\Systick_Hw.c 
+..\..\_Compile_Related_Files\Systick\src\Systick_Irq.c 
+..\..\_Compile_Related_Files\Systick\src\Systick_PBCfg.c 

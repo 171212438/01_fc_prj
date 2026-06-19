@@ -1,0 +1,328 @@
+<?xml version='1.0'?>
+<datamodel version="7.0" 
+           xmlns="http://www.tresos.de/_projects/DataModel2/16/root.xsd" 
+           xmlns:a="http://www.tresos.de/_projects/DataModel2/16/attribute.xsd" 
+           xmlns:v="http://www.tresos.de/_projects/DataModel2/06/schema.xsd" 
+           xmlns:d="http://www.tresos.de/_projects/DataModel2/06/data.xsd">
+
+  <d:ctr type="AUTOSAR" factory="autosar" 
+         xmlns:ad="http://www.tresos.de/_projects/DataModel2/08/admindata.xsd" 
+         xmlns:cd="http://www.tresos.de/_projects/DataModel2/08/customdata.xsd" 
+         xmlns:f="http://www.tresos.de/_projects/DataModel2/14/formulaexpr.xsd" 
+         xmlns:icc="http://www.tresos.de/_projects/DataModel2/08/implconfigclass.xsd" 
+         xmlns:mt="http://www.tresos.de/_projects/DataModel2/11/multitest.xsd"  
+         xmlns:variant="http://www.tresos.de/_projects/DataModel2/11/variant.xsd">
+    <d:lst type="TOP-LEVEL-PACKAGES">
+      <d:ctr name="Fee" type="AR-PACKAGE">
+        <d:lst type="ELEMENTS">
+          <d:chc name="Fee" type="AR-ELEMENT" value="MODULE-CONFIGURATION">
+            <d:ctr type="MODULE-CONFIGURATION">
+              <a:a name="DEF" value="ASPath:/FC7300FXXX/Fee"/>
+              <a:a name="IMPORTER_INFO" value="@REC"/>
+              <d:var name="POST_BUILD_VARIANT_USED" type="BOOLEAN" value="false">
+                <a:a name="IMPORTER_INFO" value="@DEF"/>
+              </d:var>
+              <d:var name="IMPLEMENTATION_CONFIG_VARIANT" type="ENUMERATION" 
+                     value="VariantPreCompile">
+                <a:a name="IMPORTER_INFO" value="@REC"/>
+              </d:var>
+              <d:lst name="FeeChunkGroup" type="MAP">
+                <d:ctr name="FeeChunkGroup_0" type="IDENTIFIABLE">
+                  <d:lst name="FeeChunk" type="MAP">
+                    <d:ctr name="FeeChunk_0" type="IDENTIFIABLE">
+                      <d:lst name="FeeSector" type="MAP">
+                        <d:ctr name="FeeSector_0" type="IDENTIFIABLE">
+                          <d:ref name="FeeSectorRef" type="REFERENCE" 
+                                 value="ASPath:/Fls/Fls/FlsConfigSet/FlsSectorList/FlsSector_0"/>
+                          <d:var name="FeeSectorIndex" type="INTEGER" value="0">
+                            <a:a name="IMPORTER_INFO">
+                              <a:v>@DEF</a:v>
+                              <a:v>@CALC</a:v>
+                            </a:a>
+                          </d:var>
+                        </d:ctr>
+                      </d:lst>
+                    </d:ctr>
+                    <d:ctr name="FeeChunk_1" type="IDENTIFIABLE">
+                      <d:lst name="FeeSector" type="MAP">
+                        <d:ctr name="FeeSector_0" type="IDENTIFIABLE">
+                          <d:ref name="FeeSectorRef" type="REFERENCE" 
+                                 value="ASPath:/Fls/Fls/FlsConfigSet/FlsSectorList/FlsSector_1"/>
+                          <d:var name="FeeSectorIndex" type="INTEGER" value="0">
+                            <a:a name="IMPORTER_INFO">
+                              <a:v>@DEF</a:v>
+                              <a:v>@CALC</a:v>
+                            </a:a>
+                          </d:var>
+                        </d:ctr>
+                      </d:lst>
+                    </d:ctr>
+                  </d:lst>
+                </d:ctr>
+                <d:ctr name="FeeChunkGroup_1" type="IDENTIFIABLE">
+                  <d:lst name="FeeChunk" type="MAP">
+                    <d:ctr name="FeeChunk_0" type="IDENTIFIABLE">
+                      <d:lst name="FeeSector" type="MAP">
+                        <d:ctr name="FeeSector_0" type="IDENTIFIABLE">
+                          <d:ref name="FeeSectorRef" type="REFERENCE" 
+                                 value="ASPath:/Fls/Fls/FlsConfigSet/FlsSectorList/FlsSector_2"/>
+                          <d:var name="FeeSectorIndex" type="INTEGER" value="0">
+                            <a:a name="IMPORTER_INFO">
+                              <a:v>@DEF</a:v>
+                              <a:v>@CALC</a:v>
+                            </a:a>
+                          </d:var>
+                        </d:ctr>
+                      </d:lst>
+                    </d:ctr>
+                    <d:ctr name="FeeChunk_1" type="IDENTIFIABLE">
+                      <d:lst name="FeeSector" type="MAP">
+                        <d:ctr name="FeeSector_0" type="IDENTIFIABLE">
+                          <d:ref name="FeeSectorRef" type="REFERENCE" 
+                                 value="ASPath:/Fls/Fls/FlsConfigSet/FlsSectorList/FlsSector_3"/>
+                          <d:var name="FeeSectorIndex" type="INTEGER" value="0">
+                            <a:a name="IMPORTER_INFO">
+                              <a:v>@DEF</a:v>
+                              <a:v>@CALC</a:v>
+                            </a:a>
+                          </d:var>
+                        </d:ctr>
+                      </d:lst>
+                    </d:ctr>
+                    <d:ctr name="FeeChunk_2" type="IDENTIFIABLE">
+                      <d:lst name="FeeSector" type="MAP">
+                        <d:ctr name="FeeSector_0" type="IDENTIFIABLE">
+                          <d:ref name="FeeSectorRef" type="REFERENCE" 
+                                 value="ASPath:/Fls/Fls/FlsConfigSet/FlsSectorList/FlsSector_4"/>
+                          <d:var name="FeeSectorIndex" type="INTEGER" value="0">
+                            <a:a name="IMPORTER_INFO">
+                              <a:v>@DEF</a:v>
+                              <a:v>@CALC</a:v>
+                            </a:a>
+                          </d:var>
+                        </d:ctr>
+                      </d:lst>
+                    </d:ctr>
+                  </d:lst>
+                </d:ctr>
+                <d:ctr name="FeeChunkGroup_2" type="IDENTIFIABLE">
+                  <d:lst name="FeeChunk" type="MAP">
+                    <d:ctr name="FeeChunk_0" type="IDENTIFIABLE">
+                      <d:lst name="FeeSector" type="MAP">
+                        <d:ctr name="FeeSector_0" type="IDENTIFIABLE">
+                          <d:ref name="FeeSectorRef" type="REFERENCE" 
+                                 value="ASPath:/Fls/Fls/FlsConfigSet/FlsSectorList/FlsSector_5"/>
+                          <d:var name="FeeSectorIndex" type="INTEGER" value="0">
+                            <a:a name="IMPORTER_INFO">
+                              <a:v>@DEF</a:v>
+                              <a:v>@CALC</a:v>
+                            </a:a>
+                          </d:var>
+                        </d:ctr>
+                      </d:lst>
+                    </d:ctr>
+                    <d:ctr name="FeeChunk_1" type="IDENTIFIABLE">
+                      <d:lst name="FeeSector" type="MAP">
+                        <d:ctr name="FeeSector_0" type="IDENTIFIABLE">
+                          <d:ref name="FeeSectorRef" type="REFERENCE" 
+                                 value="ASPath:/Fls/Fls/FlsConfigSet/FlsSectorList/FlsSector_6"/>
+                          <d:var name="FeeSectorIndex" type="INTEGER" value="0">
+                            <a:a name="IMPORTER_INFO">
+                              <a:v>@DEF</a:v>
+                              <a:v>@CALC</a:v>
+                            </a:a>
+                          </d:var>
+                        </d:ctr>
+                      </d:lst>
+                    </d:ctr>
+                  </d:lst>
+                </d:ctr>
+              </d:lst>
+              <d:lst name="FeeBlockConfiguration" type="MAP">
+                <d:ctr name="FeeBlockConfiguration_0" type="IDENTIFIABLE">
+                  <a:a name="IMPORTER_INFO" value="@REC"/>
+                  <d:ref name="FeeChunkGroupRef" type="REFERENCE" 
+                         value="ASPath:/Fee/Fee/FeeChunkGroup_0"/>
+                  <d:var name="FeeBlockNumber" type="INTEGER" value="8">
+                    <a:a name="IMPORTER_INFO" value="@REC"/>
+                  </d:var>
+                  <d:var name="FeeBlockSize" type="INTEGER" value="32">
+                    <a:a name="IMPORTER_INFO" value="@REC"/>
+                  </d:var>
+                  <d:var name="FeeImmediateData" type="BOOLEAN" value="false">
+                    <a:a name="IMPORTER_INFO" value="@REC"/>
+                  </d:var>
+                  <d:var name="FeeNumberOfWriteCycles" type="INTEGER" value="0">
+                    <a:a name="IMPORTER_INFO" value="@REC"/>
+                  </d:var>
+                  <d:ref name="FeeDeviceIndex" type="REFERENCE" 
+                         value="ASPath:/Fls/Fls/FlsGeneral">
+                    <a:a name="IMPORTER_INFO" value="@REC"/>
+                  </d:ref>
+                  <d:var name="FeeBlockAssignment" type="ENUMERATION" 
+                         value="APPLICATION">
+                    <a:a name="IMPORTER_INFO" value="@REC"/>
+                  </d:var>
+                </d:ctr>
+                <d:ctr name="FeeBlockConfiguration_1" type="IDENTIFIABLE">
+                  <a:a name="IMPORTER_INFO" value="@REC"/>
+                  <d:ref name="FeeChunkGroupRef" type="REFERENCE" 
+                         value="ASPath:/Fee/Fee/FeeChunkGroup_0"/>
+                  <d:var name="FeeBlockNumber" type="INTEGER" value="13">
+                    <a:a name="IMPORTER_INFO" value="@REC"/>
+                  </d:var>
+                  <d:var name="FeeBlockSize" type="INTEGER" value="6">
+                    <a:a name="IMPORTER_INFO" value="@REC"/>
+                  </d:var>
+                  <d:var name="FeeImmediateData" type="BOOLEAN" value="false">
+                    <a:a name="IMPORTER_INFO" value="@REC"/>
+                  </d:var>
+                  <d:var name="FeeNumberOfWriteCycles" type="INTEGER" value="0">
+                    <a:a name="IMPORTER_INFO" value="@REC"/>
+                  </d:var>
+                  <d:ref name="FeeDeviceIndex" type="REFERENCE" 
+                         value="ASPath:/Fls/Fls/FlsGeneral">
+                    <a:a name="IMPORTER_INFO" value="@REC"/>
+                  </d:ref>
+                  <d:var name="FeeBlockAssignment" type="ENUMERATION" 
+                         value="APPLICATION">
+                    <a:a name="IMPORTER_INFO" value="@REC"/>
+                  </d:var>
+                </d:ctr>
+                <d:ctr name="FeeBlockConfiguration_2" type="IDENTIFIABLE">
+                  <a:a name="IMPORTER_INFO" value="@REC"/>
+                  <d:ref name="FeeChunkGroupRef" type="REFERENCE" 
+                         value="ASPath:/Fee/Fee/FeeChunkGroup_1"/>
+                  <d:var name="FeeBlockNumber" type="INTEGER" value="26">
+                    <a:a name="IMPORTER_INFO" value="@REC"/>
+                  </d:var>
+                  <d:var name="FeeBlockSize" type="INTEGER" value="88">
+                    <a:a name="IMPORTER_INFO" value="@REC"/>
+                  </d:var>
+                  <d:var name="FeeImmediateData" type="BOOLEAN" value="false"/>
+                  <d:var name="FeeNumberOfWriteCycles" type="INTEGER" value="0">
+                    <a:a name="IMPORTER_INFO" value="@REC"/>
+                  </d:var>
+                  <d:ref name="FeeDeviceIndex" type="REFERENCE" 
+                         value="ASPath:/Fls/Fls/FlsGeneral">
+                    <a:a name="IMPORTER_INFO" value="@REC"/>
+                  </d:ref>
+                  <d:var name="FeeBlockAssignment" type="ENUMERATION" 
+                         value="APPLICATION">
+                    <a:a name="IMPORTER_INFO" value="@REC"/>
+                  </d:var>
+                </d:ctr>
+                <d:ctr name="FeeBlockConfiguration_3" type="IDENTIFIABLE">
+                  <a:a name="IMPORTER_INFO" value="@REC"/>
+                  <d:ref name="FeeChunkGroupRef" type="REFERENCE" 
+                         value="ASPath:/Fee/Fee/FeeChunkGroup_2"/>
+                  <d:var name="FeeBlockNumber" type="INTEGER" value="16">
+                    <a:a name="IMPORTER_INFO" value="@REC"/>
+                  </d:var>
+                  <d:var name="FeeBlockSize" type="INTEGER" value="1020">
+                    <a:a name="IMPORTER_INFO" value="@REC"/>
+                  </d:var>
+                  <d:var name="FeeImmediateData" type="BOOLEAN" value="false">
+                    <a:a name="IMPORTER_INFO" value="@REC"/>
+                  </d:var>
+                  <d:var name="FeeNumberOfWriteCycles" type="INTEGER" value="0">
+                    <a:a name="IMPORTER_INFO" value="@REC"/>
+                  </d:var>
+                  <d:ref name="FeeDeviceIndex" type="REFERENCE" 
+                         value="ASPath:/Fls/Fls/FlsGeneral">
+                    <a:a name="IMPORTER_INFO" value="@REC"/>
+                  </d:ref>
+                  <d:var name="FeeBlockAssignment" type="ENUMERATION" 
+                         value="APPLICATION">
+                    <a:a name="IMPORTER_INFO" value="@REC"/>
+                  </d:var>
+                </d:ctr>
+              </d:lst>
+              <d:ctr name="FeeGeneral" type="IDENTIFIABLE">
+                <a:a name="IMPORTER_INFO" value="@REC"/>
+                <d:var name="FeeDevErrorDetect" type="BOOLEAN" value="false"/>
+                <d:var name="FeeDisableDetRuntimeErrorStatus" type="BOOLEAN" 
+                       value="false"/>
+                <d:var name="FeeMainFunctionPeriod" type="FLOAT" value="0.005">
+                  <a:a name="IMPORTER_INFO" value="@REC"/>
+                </d:var>
+                <d:var name="FeeNvmJobEndNotification" type="FUNCTION-NAME" 
+                       value="NvM_JobEndNotification">
+                  <a:a name="ENABLE" value="false"/>
+                  <a:a name="IMPORTER_INFO" value="@REC"/>
+                </d:var>
+                <d:var name="FeeNvmJobErrorNotification" type="FUNCTION-NAME" 
+                       value="NvM_JobErrorNotification">
+                  <a:a name="ENABLE" value="false"/>
+                  <a:a name="IMPORTER_INFO" value="@REC"/>
+                </d:var>
+                <d:var name="FeePollingMode" type="BOOLEAN" value="false">
+                  <a:a name="IMPORTER_INFO" value="@REC"/>
+                </d:var>
+                <d:var name="FeeSetModeSupported" type="BOOLEAN" value="true">
+                  <a:a name="IMPORTER_INFO" value="@REC"/>
+                </d:var>
+                <d:var name="FeeVersionInfoApi" type="BOOLEAN" value="false">
+                  <a:a name="IMPORTER_INFO" value="@REC"/>
+                </d:var>
+                <d:var name="FeeCancelApi" type="BOOLEAN" value="false">
+                  <a:a name="IMPORTER_INFO" value="@REC"/>
+                </d:var>
+                <d:var name="FeeVirtualPageSize" type="INTEGER" value="16">
+                  <a:a name="IMPORTER_INFO" value="@REC"/>
+                </d:var>
+                <d:var name="FeeDataBufferSize" type="INTEGER" value="1024">
+                  <a:a name="IMPORTER_INFO" value="@REC"/>
+                </d:var>
+                <d:var name="FeeBlockAlwaysAvailable" type="BOOLEAN" 
+                       value="true"/>
+                <d:var name="FeeSwapForeignBlocksEnabled" type="BOOLEAN" 
+                       value="false">
+                  <a:a name="IMPORTER_INFO" value="@DEF"/>
+                </d:var>
+                <d:var name="FeeConfigAssignment" type="ENUMERATION" 
+                       value="APPLICATION">
+                  <a:a name="IMPORTER_INFO" value="@REC"/>
+                </d:var>
+                <d:var name="FeeMaximumNumberBlocks" type="INTEGER" value="1">
+                  <a:a name="IMPORTER_INFO" value="@REC"/>
+                </d:var>
+              </d:ctr>
+              <d:ctr name="CommonPublishedInformation" type="IDENTIFIABLE">
+                <a:a name="IMPORTER_INFO" value="@REC"/>
+                <d:var name="ArReleaseMajorVersion" type="INTEGER" value="4">
+                  <a:a name="IMPORTER_INFO" value="@REC"/>
+                </d:var>
+                <d:var name="ArReleaseMinorVersion" type="INTEGER" value="6">
+                  <a:a name="IMPORTER_INFO" value="@REC"/>
+                </d:var>
+                <d:var name="ArReleaseRevisionVersion" type="INTEGER" value="0">
+                  <a:a name="IMPORTER_INFO" value="@REC"/>
+                </d:var>
+                <d:var name="SwMajorVersion" type="INTEGER" value="1"/>
+                <d:var name="SwMinorVersion" type="INTEGER" value="5"/>
+                <d:var name="SwPatchVersion" type="INTEGER" value="1"/>
+                <d:var name="ModuleId" type="INTEGER" value="21">
+                  <a:a name="IMPORTER_INFO" value="@REC"/>
+                </d:var>
+                <d:var name="VendorId" type="INTEGER" value="174">
+                  <a:a name="IMPORTER_INFO" value="@REC"/>
+                </d:var>
+              </d:ctr>
+              <d:ctr name="FeePublishedInformation" type="IDENTIFIABLE">
+                <a:a name="IMPORTER_INFO" value="@REC"/>
+                <d:var name="FeeBlockOverhead" type="INTEGER" value="0">
+                  <a:a name="IMPORTER_INFO" value="@REC"/>
+                </d:var>
+                <d:var name="FeePageOverhead" type="INTEGER" value="0">
+                  <a:a name="IMPORTER_INFO" value="@REC"/>
+                </d:var>
+              </d:ctr>
+            </d:ctr>
+          </d:chc>
+        </d:lst>
+      </d:ctr>
+    </d:lst>
+  </d:ctr>
+
+</datamodel>

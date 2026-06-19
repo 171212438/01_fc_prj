@@ -1,0 +1,32 @@
+
+BasedOnStyle: Google
+
+IndentWidth: 2
+TabWidth: 2
+UseTab: Never
+ColumnLimit: 200
+
+SortIncludes: false
+IncludeBlocks: Preserve
+
+KeepEmptyLines:
+  AtStartOfFile: true
+  AtEndOfFile: true
+  AtStartOfBlock: true
+MaxEmptyLinesToKeep: 3
+
+AllowShortFunctionsOnASingleLine: None
+AllowShortBlocksOnASingleLine: Never
+
+DerivePointerAlignment: false
+PointerAlignment: Right
+
+IndentPPDirectives: BeforeHash
+PPIndentWidth: 2
+
+AllowShortEnumsOnASingleLine: false
+
+AlignConsecutiveMacros:
+  Enabled: true
+  AcrossEmptyLines: false
+  AcrossComments: false

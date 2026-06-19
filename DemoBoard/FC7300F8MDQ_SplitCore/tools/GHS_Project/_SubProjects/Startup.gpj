@@ -1,0 +1,7 @@
+#!gbuild 
+[Subproject] 
+.\Startup\startup_FC7300_core0.thm 
+.\Startup\startup_FC7300_core1.thm 
+.\Startup\startup_FC7300_core2.thm 
+.\Startup\startup_FC7300_core3.thm 
+.\Startup\system_init.c 

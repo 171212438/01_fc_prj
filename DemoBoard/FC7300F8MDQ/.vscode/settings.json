@@ -1,0 +1,77 @@
+{
+  "files.exclude": {
+    "**/*.pdf": true,
+    "**/*.bin": true,
+    "**/*.7z": true,
+    "**/*.zip": true,
+    "**/*.d": true,
+    "**/*.o": true,
+
+    "**/EB_Project": true,
+    "**/EB_Project/**": true,
+
+    "**/GHS_FC_Project": true,
+    "**/GHS_FC_Project/**": true,
+
+    "**/GHS_Project": true,
+    "**/GHS_Project/**": true,
+
+    "**/HighTec_Project": true,
+    "**/HighTec_Project/**": true,
+
+    "**/IAR_Project": true,
+    "**/IAR_Project/**": true,
+
+    "**/Tasking_Project": true,
+    "**/Tasking_Project/**": true,
+
+    "**/.vscode": true,
+    "**/.metadata": true
+  },
+
+  "search.exclude": {
+    "**/*.pdf": true,
+    "**/*.bin": true,
+    "**/*.7z": true,
+    "**/*.zip": true,
+    "**/*.d": true,
+    "**/*.o": true,
+
+    "**/EB_Project/**": true,
+    "**/GHS_FC_Project/**": true,
+    "**/GHS_Project/**": true,
+    "**/HighTec_Project/**": true,
+    "**/IAR_Project/**": true,
+    "**/Tasking_Project/**": true
+  },
+
+  "files.watcherExclude": {
+    "**/*.pdf": true,
+    "**/*.bin": true,
+    "**/*.7z": true,
+    "**/*.zip": true,
+    "**/*.d": true,
+    "**/*.o": true,
+
+    "**/EB_Project/**": true,
+    "**/GHS_FC_Project/**": true,
+    "**/GHS_Project/**": true,
+    "**/HighTec_Project/**": true,
+    "**/IAR_Project/**": true,
+    "**/Tasking_Project/**": true
+  },
+
+  "emeraldwalk.runonsave": {
+    "autoClearConsole": false,
+    "commands": [
+      {
+        "showElapsed": false,
+        "match": "\\.(c|h|S|s|ld)$",
+        "cmd": "powershell.exe -NoProfile -ExecutionPolicy Bypass -File \"D:\\Workspace\\FlagChip\\01_fc_prj\\DemoBoard\\FC7300F8MDQ\\.vscode\\copy-on-save.ps1\" -FilePath \"${file}\"",
+        "autoShowOutputPanel": "error"
+      }
+    ]
+  },
+
+  "C_Cpp.errorSquiggles": "disabled"
+}

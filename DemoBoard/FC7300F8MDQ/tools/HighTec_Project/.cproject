@@ -1,0 +1,227 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<?fileVersion 4.0.0?><cproject storage_type_id="org.eclipse.cdt.core.XmlProjectDescriptionStorage">
+	<storageModule moduleId="org.eclipse.cdt.core.settings">
+		<cconfiguration id="com.rt.hightec.buildsystem.armllvm.configuration.executable.722213015.1939610158.499023074">
+			<storageModule buildSystemId="org.eclipse.cdt.managedbuilder.core.configurationDataProvider" id="com.rt.hightec.buildsystem.armllvm.configuration.executable.722213015.1939610158.499023074" moduleId="org.eclipse.cdt.core.settings" name="Debug_Flash">
+				<macros>
+					<stringMacro name="Path" type="VALUE_TEXT" value="C:/HighTec/ide/htc-ide-v2.2.5/jre/bin/server;C:/HighTec/ide/htc-ide-v2.2.5/jre/bin;C:/HighTec/ide/htc-ide-v2.2.5/jre/lib/amd64;C:\Program Files (x86)\Common Files\Oracle\Java\javapath;C:\Windows\system32;C:\Windows;C:\Windows\System32\Wbem;C:\Windows\System32\WindowsPowerShell\v1.0\;C:\Windows\System32\OpenSSH\;C:\Program Files\Git\cmd;C:\Program Files\apache-maven-3.6.3\bin;C:\Program Files (x86)\Pico Technology\PicoScope6\;C:\Program Files\Docker\Docker\resources\bin;C:\ProgramData\DockerDesktop\version-bin;C:\Program Files\PuTTY\;C:\HighTec\toolchains\arm\2019.03\bin\clang;C:\Ruby30-x64\bin;C:\Users\Lucas\AppData\Local\Microsoft\WindowsApps;C:\Users\Lucas\AppData\Local\atom\bin;C:\Program Files\apache-maven-3.6.3\bin;C:\HighTec\toolchains\arm\2019.03\bin;C:\HighTec\toolchains\arm\2019.03\bin\clang;;C:\Windows\System32;"/>
+					<stringMacro name="ARMLLVM_TOOLS" type="VALUE_PATH_ANY" value="C:\HighTec\toolchains\arm\2019.03\"/>
+				</macros>
+				<externalSettings/>
+				<extensions>
+					<extension id="org.eclipse.cdt.core.ELF" point="org.eclipse.cdt.core.BinaryParser"/>
+					<extension id="org.eclipse.cdt.core.GASErrorParser" point="org.eclipse.cdt.core.ErrorParser"/>
+					<extension id="org.eclipse.cdt.core.GLDErrorParser" point="org.eclipse.cdt.core.ErrorParser"/>
+					<extension id="org.eclipse.cdt.core.GCCErrorParser" point="org.eclipse.cdt.core.ErrorParser"/>
+				</extensions>
+			</storageModule>
+			<storageModule moduleId="cdtBuildSystem" version="4.0.0">
+				<configuration artifactName="${ProjName}_8M" buildArtefactType="org.eclipse.cdt.build.core.buildArtefactType.exe" buildProperties="org.eclipse.cdt.build.core.buildArtefactType=org.eclipse.cdt.build.core.buildArtefactType.exe,org.eclipse.cdt.build.core.buildType=org.eclipse.cdt.build.core.buildType.debug" description="" errorParsers="org.eclipse.cdt.core.GASErrorParser;org.eclipse.cdt.core.GLDErrorParser;org.eclipse.cdt.core.GCCErrorParser" id="com.rt.hightec.buildsystem.armllvm.configuration.executable.722213015.1939610158.499023074" name="Debug_Flash" parent="com.rt.hightec.buildsystem.armllvm.configuration.executable" postbuildStep="llvm-objcopy.exe -O ihex ${BuildArtifactFileName} ${BuildArtifactFileBaseName}.hex">
+					<folderInfo id="com.rt.hightec.buildsystem.armllvm.configuration.executable.722213015.1939610158.499023074." name="/" resourcePath="">
+						<toolChain id="com.rt.hightec.buildsystem.armllvm.toolChain.executable.620918821" name="ARM-LLVM Toolchain" nonInternalBuilderId="com.rt.hightec.buildsystem.armllvm.builder" superClass="com.rt.hightec.buildsystem.armllvm.toolChain.executable">
+							<option id="com.rt.hightec.buildsystem.armllvm.global.option.mcpu.1258343601" name="CPU type (-mcpu=&lt;value&gt;)" superClass="com.rt.hightec.buildsystem.armllvm.global.option.mcpu" useByScannerDiscovery="false" value="com.rt.hightec.buildsystem.armllvm.abstracttoolchain.hardwaretarget.mcu.cortexm7" valueType="enumerated"/>
+							<option id="com.rt.hightec.buildsystem.armllvm.global.option.march.1735747843" name="Architecture type (-march=&lt;value&gt;)" superClass="com.rt.hightec.buildsystem.armllvm.global.option.march" useByScannerDiscovery="false" value="com.rt.hightec.buildsystem.armllvm.global.enumerated.march.armv7em" valueType="enumerated"/>
+							<targetPlatform archList="ARMLLVM" binaryParser="org.eclipse.cdt.core.ELF" id="com.rt.hightec.buildsystem.armllvm.executable.targetPlatform.895640918" isAbstract="false" name="Cortex-M4-blank" superClass="com.rt.hightec.buildsystem.armllvm.executable.targetPlatform"/>
+							<builder autoBuildTarget="all" buildPath="${workspace_loc:/${ProjName}}/1M_Debug_Flash" cleanBuildTarget="clean" id="org.eclipse.cdt.build.core.internal.builder.96549209" incrementalBuildTarget="all" keepEnvironmentInBuildfile="false" managedBuildOn="true" name="CDT Internal Builder" superClass="org.eclipse.cdt.build.core.internal.builder"/>
+							<tool id="com.rt.hightec.buildsystem.armllvm.compiler.cpp.1066264528" name="ARM-LLVM C++ Compiler" superClass="com.rt.hightec.buildsystem.armllvm.compiler.cpp">
+								<option IS_BUILTIN_EMPTY="false" IS_VALUE_EMPTY="false" id="com.rt.hightec.buildsystem.armllvm.compiler.cpp.option.include-paths.268416735" name="Include paths (-I)" superClass="com.rt.hightec.buildsystem.armllvm.compiler.cpp.option.include-paths" valueType="includePath">
+									<listOptionValue builtIn="false" value="&quot;../h&quot;"/>
+								</option>
+							</tool>
+							<tool command="&quot;$(ARMLLVM_TOOLS)/bin/clang&quot; -c" id="com.rt.hightec.buildsystem.armllvm.compiler.c.915956447" name="ARM-LLVM C Compiler" superClass="com.rt.hightec.buildsystem.armllvm.compiler.c">
+								<option IS_BUILTIN_EMPTY="false" IS_VALUE_EMPTY="false" id="com.rt.hightec.buildsystem.armllvm.compiler.c.option.include-paths.570915288" name="Include paths (-I)" superClass="com.rt.hightec.buildsystem.armllvm.compiler.c.option.include-paths" useByScannerDiscovery="false" valueType="includePath">
+									<listOptionValue builtIn="false" value="&quot;${ARMLLVM_TOOLS}&quot;"/>
+									<listOptionValue builtIn="false" value="../../../../../MCAL/Src/Base/include"/>
+									<listOptionValue builtIn="false" value="../../../../../MCAL/Src/Base/include/MemMap"/>
+									<listOptionValue builtIn="false" value="../../../../../MCAL/Src/Common/include"/>
+									<listOptionValue builtIn="false" value="../../../../../MCAL/Src/Mcu/include"/>
+									<listOptionValue builtIn="false" value="../../../../../MCAL/Src/Pwm/include"/>
+									<listOptionValue builtIn="false" value="../../../../../MCAL/Src/Gpt/include"/>
+									<listOptionValue builtIn="false" value="../../../../../MCAL/Src/Port/include"/>
+									<listOptionValue builtIn="false" value="../../../../../MCAL/Src/Dio/include"/>
+									<listOptionValue builtIn="false" value="../../../../../MCAL/Src/Wdg/include"/>
+									<listOptionValue builtIn="false" value="../../../../../MCAL/Src/WdgIf/include"/>
+									<listOptionValue builtIn="false" value="../../../../../MCAL/Src/Adc/include"/>
+									<listOptionValue builtIn="false" value="../../../../../MCAL/Src/EcuM/include"/>
+									<listOptionValue builtIn="false" value="../../../../../MCAL/Src/Dem/include"/>
+									<listOptionValue builtIn="false" value="../../../../../MCAL/Src/Lin/include"/>
+									<listOptionValue builtIn="false" value="../../../../../MCAL/Src/LinIf"/>
+									<listOptionValue builtIn="false" value="../../../../../MCAL/Src/Spi/include"/>
+									<listOptionValue builtIn="false" value="../../../../../MCAL/Src/Can/include"/>
+									<listOptionValue builtIn="false" value="../../../../../MCAL/Src/Icu/include"/>
+									<listOptionValue builtIn="false" value="../../../../../MCAL/Src/Eftu/include"/>
+									<listOptionValue builtIn="false" value="../../../../../MCAL/Src/Fee/include"/>
+									<listOptionValue builtIn="false" value="../../../../../MCAL/Src/Fls/include"/>
+									<listOptionValue builtIn="false" value="../../../../../MCAL/Src/I2c/include"/>
+									<listOptionValue builtIn="false" value="../../../../../MCAL/Src/TrgSel/include"/>
+									<listOptionValue builtIn="false" value="../../../../../MCAL/Src/Dma/include"/>
+									<listOptionValue builtIn="false" value="../../../../../MCAL/Src/Crypto/include"/>
+									<listOptionValue builtIn="false" value="../../../../../MCAL/Src/CryIf/include"/>
+									<listOptionValue builtIn="false" value="../../../../../MCAL/Src/EthTrcv/include"/>
+									<listOptionValue builtIn="false" value="../../../../../MCAL/Src/EthSwt/include"/>
+									<listOptionValue builtIn="false" value="../../../../../MCAL/Src/EthIf/include"/>
+									<listOptionValue builtIn="false" value="../../../../../MCAL/Src/Eth/include"/>
+									<listOptionValue builtIn="false" value="../../../../../MCAL/Src/Os/include"/>
+									<listOptionValue builtIn="false" value="../../../../../MCAL/Src/Mb/include"/>
+									<listOptionValue builtIn="false" value="../../../../../MCAL/Src/Msc/include"/>
+									<listOptionValue builtIn="false" value="../../../../../MCAL/Src/Sdadc/include"/>
+									<listOptionValue builtIn="false" value="../../../../../MCAL/Src/Sent/include"/>
+									<listOptionValue builtIn="false" value="../../../../../MCAL/Src/Ocu/include"/>
+									<listOptionValue builtIn="false" value="../../../../../MCAL/Src/Pfls/include"/>
+									<listOptionValue builtIn="false" value="../../../../../MCAL/Src/Crc/include"/>
+									<listOptionValue builtIn="false" value="../../../../../MCAL/Src/Cordic/include"/>
+									<listOptionValue builtIn="false" value="../../../../../MCAL/Src/Qdt/include"/>
+									<listOptionValue builtIn="false" value="../../../../../MCAL/Src/Ssi/include"/>
+									<listOptionValue builtIn="false" value="../../../../../MCAL/Src/SchM/include"/>
+									<listOptionValue builtIn="false" value="../../../../../MCAL/Src/Uart/include"/>
+									<listOptionValue builtIn="false" value="../../../_MCAL_multicore_generate_8M/include"/>
+									<listOptionValue builtIn="false" value="../../../_Compile_Related_Files/Systick/include"/>
+									<listOptionValue builtIn="false" value="../../../_Compile_Related_Files/Det/include"/>
+									<listOptionValue builtIn="false" value="../../../_BSW_generate/NvM/include"/>
+									<listOptionValue builtIn="false" value="../../../_BSW_generate/Config"/>
+									<listOptionValue builtIn="false" value="../../../MiddleWare/RTT"/>
+									<listOptionValue builtIn="false" value="../../../MiddleWare/UartDriver"/>
+									<listOptionValue builtIn="false" value="../../../MiddleWare/Mpu"/>
+									<listOptionValue builtIn="false" value="../../../MiddleWare/Phylib"/>
+									<listOptionValue builtIn="false" value="../../../Include"/>
+									<listOptionValue builtIn="false" value="../../../App/Include"/>
+								</option>
+								<option IS_BUILTIN_EMPTY="false" IS_VALUE_EMPTY="false" id="com.rt.hightec.buildsystem.armllvm.compiler.c.option.defined-symbols.2101981393" name="Defined symbols (-D)" superClass="com.rt.hightec.buildsystem.armllvm.compiler.c.option.defined-symbols" useByScannerDiscovery="false" valueType="definedSymbols">
+									<listOptionValue builtIn="false" value="DEBUG"/>
+									<listOptionValue builtIn="false" value="__TARGET_USE_FPU"/>
+									<listOptionValue builtIn="false" value="__ARM_LLVM__"/>
+									<listOptionValue builtIn="false" value="USE_SW_VECTOR_MODE"/>
+									<listOptionValue builtIn="false" value="AUTOSAR_OS_NOT_USED"/>
+									<listOptionValue builtIn="false" value="UART_PRINTF"/>
+								</option>
+								<option IS_BUILTIN_EMPTY="false" IS_VALUE_EMPTY="false" id="com.rt.hightec.buildsystem.armllvm.compiler.c.option.other-options.1041311090" name="Other options" superClass="com.rt.hightec.buildsystem.armllvm.compiler.c.option.other-options" useByScannerDiscovery="false" valueType="stringList">
+									<listOptionValue builtIn="false" value="-mthumb"/>
+									<listOptionValue builtIn="false" value="-mfpu=fpv4-sp-d16"/>
+									<listOptionValue builtIn="false" value="-mfloat-abi=hard"/>
+									<listOptionValue builtIn="false" value="-ffunction-sections"/>
+									<listOptionValue builtIn="false" value="-fdata-sections"/>
+									<listOptionValue builtIn="false" value="-g3"/>
+									<listOptionValue builtIn="false" value="-O0"/>
+									<listOptionValue builtIn="false" value="-fno-exceptions"/>
+									<listOptionValue builtIn="false" value="-fno-common"/>
+									<listOptionValue builtIn="false" value="-fno-short-enums"/>
+									<listOptionValue builtIn="false" value="-fomit-frame-pointer"/>
+									<listOptionValue builtIn="false" value="-pipe"/>
+									<listOptionValue builtIn="false" value="-ffreestanding"/>
+									<listOptionValue builtIn="false" value="-Wall"/>
+									<listOptionValue builtIn="false" value="-Wextra"/>
+									<listOptionValue builtIn="false" value="-Wcast-align"/>
+								</option>
+								<inputType id="com.rt.hightec.buildsystem.armllvm.compiler.c.inputType.2098935600" name="Compiler Input (C)" superClass="com.rt.hightec.buildsystem.armllvm.compiler.c.inputType"/>
+							</tool>
+							<tool command="&quot;$(ARMLLVM_TOOLS)/bin/clang&quot; -c" id="com.rt.hightec.buildsystem.armllvm.assembler.859018675" name="ARM-LLVM Assembler" superClass="com.rt.hightec.buildsystem.armllvm.assembler">
+								<option IS_BUILTIN_EMPTY="false" IS_VALUE_EMPTY="false" id="com.rt.hightec.buildsystem.armllvm.assembler.option.include-paths.850159080" name="Include paths (-I)" superClass="com.rt.hightec.buildsystem.armllvm.assembler.option.include-paths" useByScannerDiscovery="false" valueType="includePath">
+									<listOptionValue builtIn="false" value="../Startup"/>
+								</option>
+								<option IS_BUILTIN_EMPTY="false" IS_VALUE_EMPTY="true" id="com.rt.hightec.buildsystem.armllvm.assembler.option.other-options.1019322085" name="Other options" superClass="com.rt.hightec.buildsystem.armllvm.assembler.option.other-options" useByScannerDiscovery="false" valueType="stringList"/>
+								<option IS_BUILTIN_EMPTY="false" IS_VALUE_EMPTY="false" id="com.rt.hightec.buildsystem.armllvm.assembler.option.defined-symbols.845799850" name="Defined symbols (-D)" superClass="com.rt.hightec.buildsystem.armllvm.assembler.option.defined-symbols" useByScannerDiscovery="false" valueType="definedSymbols">
+									<listOptionValue builtIn="false" value="DEBUG"/>
+									<listOptionValue builtIn="false" value="AUTOSAR_OS_NOT_USED"/>
+									<listOptionValue builtIn="false" value="START_FROM_FLASH"/>
+									<listOptionValue builtIn="false" value="__ARM_LLVM__"/>
+								</option>
+								<option id="com.rt.hightec.buildsystem.armllvm.assembler.option.option-file.1538305511" name="Option file (-Wa,@&lt;file&gt;)" superClass="com.rt.hightec.buildsystem.armllvm.assembler.option.option-file" useByScannerDiscovery="false" value="" valueType="string"/>
+								<inputType id="com.rt.hightec.buildsystem.armllvm.assembler.inputType.1494366129" name="Assembler Input" superClass="com.rt.hightec.buildsystem.armllvm.assembler.inputType"/>
+							</tool>
+							<tool command="&quot;$(ARMLLVM_TOOLS)/bin/clang&quot; -v" id="com.rt.hightec.buildsystem.armllvm.linker.876564837" name="ARM-LLVM Linker" superClass="com.rt.hightec.buildsystem.armllvm.linker">
+								<option IS_BUILTIN_EMPTY="false" IS_VALUE_EMPTY="false" id="com.rt.hightec.buildsystem.armllvm.linker.option.other-options.241026045" name="Other options" superClass="com.rt.hightec.buildsystem.armllvm.linker.option.other-options" useByScannerDiscovery="false" valueType="stringList">
+									<listOptionValue builtIn="false" value="--target=arm-none-eabi"/>
+									<listOptionValue builtIn="false" value="-mthumb"/>
+									<listOptionValue builtIn="false" value="-mfpu=fpv4-sp-d16"/>
+									<listOptionValue builtIn="false" value="-mfloat-abi=hard"/>
+									<listOptionValue builtIn="false" value="-g3"/>
+									<listOptionValue builtIn="false" value="-fno-exceptions"/>
+									<listOptionValue builtIn="false" value="-Wl,-TFC7300_8M.ld"/>
+									<listOptionValue builtIn="false" value="-Wl,--entry=Reset_Handler"/>
+									<listOptionValue builtIn="false" value="-Wl,--gc-sections"/>
+									<listOptionValue builtIn="false" value="-Wl,-z,dead-reloc-in-nonalloc=.debug_ranges=0xfffffffffffffffe"/>
+									<listOptionValue builtIn="false" value="-Wl,-z,dead-reloc-in-nonalloc=.debug_loc=0xfffffffffffffffe"/>
+									<listOptionValue builtIn="false" value="-Wl,-z,dead-reloc-in-nonalloc=.debug_line=0x0"/>
+									<listOptionValue builtIn="false" value="-Wl,-z,dead-reloc-in-nonalloc=.debug_*=0xffffffffffffffff"/>
+									<listOptionValue builtIn="false" value="-Wl,-Map=${ProjName}_8M.map"/>
+								</option>
+								<option IS_BUILTIN_EMPTY="false" IS_VALUE_EMPTY="false" id="com.rt.hightec.buildsystem.armllvm.linker.option.L.582364956" name="Library search path (-L)" superClass="com.rt.hightec.buildsystem.armllvm.linker.option.L" useByScannerDiscovery="false" valueType="libPaths">
+									<listOptionValue builtIn="false" value="../Startup"/>
+								</option>
+								<option id="com.rt.hightec.buildsystem.armllvm.linker.option.option-file.530766536" name="Option file (-Wl,@&lt;file&gt;)" superClass="com.rt.hightec.buildsystem.armllvm.linker.option.option-file" useByScannerDiscovery="false" value="" valueType="string"/>
+								<option IS_BUILTIN_EMPTY="false" IS_VALUE_EMPTY="true" id="com.rt.hightec.buildsystem.armllvm.linker.option.l.841003502" name="Libraries (-l)" superClass="com.rt.hightec.buildsystem.armllvm.linker.option.l" useByScannerDiscovery="false" valueType="libFiles"/>
+								<inputType id="com.rt.hightec.buildsystem.armllvm.linker.inputType.356165821" name="Linker Input" superClass="com.rt.hightec.buildsystem.armllvm.linker.inputType">
+									<additionalInput kind="additionalinput" paths="$(LIBS)"/>
+									<additionalInput kind="additionalinputdependency" paths="$(ASM)"/>
+									<additionalInput kind="additionalinputdependency" paths="$(USER_OBJS)"/>
+								</inputType>
+							</tool>
+							<tool id="com.rt.hightec.buildsystem.armllvm.archiver.1402812031" name="ARM-LLVM Archiver" superClass="com.rt.hightec.buildsystem.armllvm.archiver"/>
+						</toolChain>
+					</folderInfo>
+					<sourceEntries>
+						<entry excluding="MCAL/Src/Ospi|MCAL/Src/EthIf|MCAL/Src/EthTrcv_174_YT8531S|Source/main.c|MCAL/AMDC_1_1_3|MCAL/EB_Plugins" flags="VALUE_WORKSPACE_PATH" kind="sourcePath" name=""/>
+					</sourceEntries>
+				</configuration>
+			</storageModule>
+			<storageModule moduleId="org.eclipse.cdt.core.externalSettings"/>
+		</cconfiguration>
+	</storageModule>
+	<storageModule moduleId="cdtBuildSystem" version="4.0.0">
+		<project id="stm32g474_bsp_example.com.rt.hightec.buildsystem.armllvm.projectType.433315554" name="ARM-LLVM Project" projectType="com.rt.hightec.buildsystem.armllvm.projectType"/>
+	</storageModule>
+	<storageModule moduleId="org.eclipse.cdt.core.LanguageSettingsProviders"/>
+	<storageModule moduleId="org.eclipse.cdt.make.core.buildtargets">
+		<buildTargets>
+			<target name="clean" path="" targetID="org.eclipse.cdt.build.MakeTargetBuilder">
+				<buildCommand>make</buildCommand>
+				<buildArguments/>
+				<buildTarget>clean</buildTarget>
+				<stopOnError>true</stopOnError>
+				<useDefaultCommand>true</useDefaultCommand>
+				<runAllBuilders>true</runAllBuilders>
+			</target>
+			<target name="all" path="" targetID="org.eclipse.cdt.build.MakeTargetBuilder">
+				<buildCommand>make</buildCommand>
+				<buildArguments/>
+				<buildTarget>all</buildTarget>
+				<stopOnError>true</stopOnError>
+				<useDefaultCommand>true</useDefaultCommand>
+				<runAllBuilders>true</runAllBuilders>
+			</target>
+			<target name="rebuild" path="" targetID="org.eclipse.cdt.build.MakeTargetBuilder">
+				<buildCommand>make</buildCommand>
+				<buildArguments/>
+				<buildTarget>rebuild</buildTarget>
+				<stopOnError>true</stopOnError>
+				<useDefaultCommand>true</useDefaultCommand>
+				<runAllBuilders>true</runAllBuilders>
+			</target>
+		</buildTargets>
+	</storageModule>
+	<storageModule moduleId="refreshScope" versionNumber="2">
+		<configuration configurationName="512K_Debug_RAM"/>
+		<configuration configurationName="Debug_Flash"/>
+		<configuration configurationName="2M_Debug_Flash"/>
+		<configuration configurationName="1M_Debug_Flash"/>
+		<configuration configurationName="512K_Debug_Flash"/>
+		<configuration configurationName="2M_Debug_RAM"/>
+		<configuration configurationName="1M_Debug_RAM"/>
+	</storageModule>
+	<storageModule moduleId="org.eclipse.cdt.internal.ui.text.commentOwnerProjectMappings"/>
+	<storageModule moduleId="scannerConfiguration">
+		<autodiscovery enabled="true" problemReportingEnabled="true" selectedProfileId=""/>
+		<scannerConfigBuildInfo instanceId="com.rt.hightec.buildsystem.armllvm.configuration.executable.722213015;com.rt.hightec.buildsystem.armllvm.configuration.executable.722213015.;com.rt.hightec.buildsystem.armllvm.compiler.c.2095657391;com.rt.hightec.buildsystem.armllvm.compiler.c.inputType.459461917">
+			<autodiscovery enabled="true" problemReportingEnabled="true" selectedProfileId="com.rt.hightec.framework.buildsystem.HighTecGCCManagedMakePerProjectProfile"/>
+		</scannerConfigBuildInfo>
+		<scannerConfigBuildInfo instanceId="com.rt.hightec.buildsystem.armllvm.configuration.executable.722213015.1939610158.499023074;com.rt.hightec.buildsystem.armllvm.configuration.executable.722213015.1939610158.499023074.;com.rt.hightec.buildsystem.armllvm.compiler.c.915956447;com.rt.hightec.buildsystem.armllvm.compiler.c.inputType.2098935600">
+			<autodiscovery enabled="true" problemReportingEnabled="true" selectedProfileId="com.rt.hightec.framework.buildsystem.HighTecGCCManagedMakePerProjectProfile"/>
+		</scannerConfigBuildInfo>
+		<scannerConfigBuildInfo instanceId="com.rt.hightec.buildsystem.armllvm.configuration.executable.722213015.1939610158;com.rt.hightec.buildsystem.armllvm.configuration.executable.722213015.1939610158.;com.rt.hightec.buildsystem.armllvm.compiler.c.2020687543;com.rt.hightec.buildsystem.armllvm.compiler.c.inputType.296451603">
+			<autodiscovery enabled="true" problemReportingEnabled="true" selectedProfileId="com.rt.hightec.framework.buildsystem.HighTecGCCManagedMakePerProjectProfile"/>
+		</scannerConfigBuildInfo>
+		<scannerConfigBuildInfo instanceId="com.rt.hightec.buildsystem.armllvm.configuration.executable.722213015.1939610158.2012862462;com.rt.hightec.buildsystem.armllvm.configuration.executable.722213015.1939610158.2012862462.;com.rt.hightec.buildsystem.armllvm.compiler.c.1866838309;com.rt.hightec.buildsystem.armllvm.compiler.c.inputType.1810491827">
+			<autodiscovery enabled="true" problemReportingEnabled="true" selectedProfileId="com.rt.hightec.framework.buildsystem.HighTecGCCManagedMakePerProjectProfile"/>
+		</scannerConfigBuildInfo>
+	</storageModule>
+</cproject>

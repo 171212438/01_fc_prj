@@ -1,0 +1,8 @@
+[
+  {
+    "key": "alt+j",
+    "command": "workbench.action.tasks.runTask",
+    "args": "MCAL: Copy Selection Reference",
+    "when": "editorTextFocus && editorHasSelection"
+  }
+]
