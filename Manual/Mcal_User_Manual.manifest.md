@@ -17,8 +17,21 @@ source_pdf_annotations_count: 82
 ocr_performed: false
 text_layer_available: true
 manifest_doc_id: "DOC-efd89b76f5b5"
+standard_page_locator_headings: "present"
+standard_page_locator_headings_count: 50
+text_layer_search_supplement: "present_with_delta"
+text_layer_search_supplement_generated_at: "2026-06-21T04:04:23Z"
+text_layer_search_supplement_terms: 557
+text_layer_search_supplement_technical_terms: 89
+text_layer_search_supplement_pages: 48
+post_supplement_text_token_recall: "1.000"
+post_supplement_technical_token_recall: "1.000"
+text_layer_search_supplement_delta_generated_at: "2026-06-21T04:04:23Z"
+text_layer_search_supplement_delta_terms: 30
+text_layer_search_supplement_delta_technical_terms: 4
+text_layer_search_supplement_delta_pages: 14
+text_layer_search_supplement_delta_entries: 30
 ---
-
 # PDF Manifest: Mcal_User_Manual.pdf
 
 ## Retrieval Usage Contract
@@ -26,6 +39,7 @@ manifest_doc_id: "DOC-efd89b76f5b5"
 - `physical_page` is the primary locator and is always the 1-based PDF physical page number.
 - `printed_page` is auxiliary and must not be used as the primary locator.
 - This Manifest is an index and evidence map, not a replacement for the source PDF.
+- Use `9A. Text-Layer Search Supplement` for exact keyword lookup gaps; verify exact integration steps, UI screenshots and tables against the PDF.
 - For factual answers, first use this Manifest to locate `source_pdf`, `physical_page`, `section_path`, and `anchor`, then verify against the source PDF page.
 - Treat entries with `confidence < 0.70` or non-empty `quality_flags` as requiring source-page verification.
 - Treat this Manifest as stale if the current PDF SHA256 does not equal `source_pdf_sha256`.
@@ -53,6 +67,21 @@ manifest_doc_id: "DOC-efd89b76f5b5"
 - `pdf_metadata_author`: empty
 - `pdf_metadata_producer`: empty
 - `extraction_engines`: PyMuPDF 1.26.7 table/text/image inspection; PDF skill preflight; manual semantic curation from rendered pages
+- `standard_page_locator_headings`: present
+- `standard_page_locator_headings_count`: 50
+- `text_layer_search_supplement`: "present_with_delta"
+- `text_layer_search_supplement_generated_at`: "2026-06-21T04:04:23Z"
+- `text_layer_search_supplement_terms`: 557
+- `text_layer_search_supplement_technical_terms`: 89
+- `text_layer_search_supplement_pages`: 48
+- `text_layer_search_supplement_entries`: 899
+- `text_layer_search_supplement_delta_entries`: 30
+- `text_layer_search_supplement_delta_pages`: 14
+- `text_layer_search_supplement_delta_technical_terms`: 4
+- `text_layer_search_supplement_delta_terms`: 30
+- `text_layer_search_supplement_delta_generated_at`: "2026-06-21T04:04:23Z"
+- `post_supplement_text_token_recall`: "1.000"
+- `post_supplement_technical_token_recall`: "1.000"
 
 ## 2. Global Summary
 
@@ -769,6 +798,410 @@ manifest_doc_id: "DOC-efd89b76f5b5"
 - `PAGE-0048`: `physical_page`: 48; `printed_page`: 44/46; `segment_id`: SEG-0048; `section_path`: Chapter 9. Known Issues; `content_types`: text; `anchor`: There are no notable known issues in this version
 - `PAGE-0049`: `physical_page`: 49; `printed_page`: 45/46; `segment_id`: SEG-0049; `section_path`: Chapter 10. Deviations and Limitations; `content_types`: text; `anchor`: There are no limitations which are common to all the MCAL modules
 - `PAGE-0050`: `physical_page`: 50; `printed_page`: 46/46; `segment_id`: SEG-0050; `section_path`: Chapter 11. Revision History; `content_types`: text, table; `anchor`: Major changes since the last release
+
+### 4.0A Standard Page Locator Headings
+
+These headings duplicate the compact 4.0 physical page coverage map in standard `PAGE-*` form for generic manifest auditors.
+
+### PAGE-0001
+- `physical_page`: `1`
+- `printed_page`: none
+- `segment_id`: SEG-0001
+- `section_path`: Front Matter / Cover
+- `content_types`: cover, text, graphic
+- `anchor`: FC7xxx MCAL User Manual
+
+### PAGE-0002
+- `physical_page`: `2`
+- `printed_page`: I
+- `segment_id`: SEG-0002-0004
+- `section_path`: Front Matter / About This Document
+- `content_types`: text, notification
+- `anchor`: This User Manual is intended to enable users to integrate the Microcontroller Abstraction Layer
+
+### PAGE-0003
+- `physical_page`: `3`
+- `printed_page`: II
+- `segment_id`: SEG-0002-0004
+- `section_path`: Front Matter / Table of Contents
+- `content_types`: toc, text
+- `anchor`: Chapter 3. MCAL Usage
+
+### PAGE-0004
+- `physical_page`: `4`
+- `printed_page`: III
+- `segment_id`: SEG-0002-0004
+- `section_path`: Front Matter / Table of Contents
+- `content_types`: toc, text
+- `anchor`: Chapter 11. Revision History
+
+### PAGE-0005
+- `physical_page`: `5`
+- `printed_page`: 1/46
+- `segment_id`: SEG-0005-0006
+- `section_path`: Chapter 1. Introduction / 1.1 About This Manual / 1.2 Document Conventions / 1.3 Acronyms and Abbreviations
+- `content_types`: text, notification, warning, table
+- `anchor`: Table 1: Acronyms and Abbreviations
+
+### PAGE-0006
+- `physical_page`: `6`
+- `printed_page`: 2/46
+- `segment_id`: SEG-0005-0006
+- `section_path`: Chapter 1. Introduction / 1.3 Acronyms and Abbreviations
+- `content_types`: text, table
+- `anchor`: ECU Electronic Control Unit
+
+### PAGE-0007
+- `physical_page`: `7`
+- `printed_page`: 3/46
+- `segment_id`: SEG-0007-0008
+- `section_path`: Chapter 1. Introduction / 1.4 Purpose / 1.5 Scope
+- `content_types`: text, table
+- `anchor`: Target IC Variants
+
+### PAGE-0008
+- `physical_page`: `8`
+- `printed_page`: 4/46
+- `segment_id`: SEG-0007-0008
+- `section_path`: Chapter 1. Introduction / 1.5 Scope
+- `content_types`: text, table-continuation
+- `anchor`: FC7300F8MDQ1A257T1A
+
+### PAGE-0009
+- `physical_page`: `9`
+- `printed_page`: 5/46
+- `segment_id`: SEG-0009-0011
+- `section_path`: Chapter 2. Safety MCAL Package / 2.1 MCAL Component
+- `content_types`: text, figure, architecture-diagram
+- `anchor`: Figure 1: MCAL Scope
+
+### PAGE-0010
+- `physical_page`: `10`
+- `printed_page`: 6/46
+- `segment_id`: SEG-0009-0011
+- `section_path`: Chapter 2. Safety MCAL Package / 2.1 MCAL Component
+- `content_types`: text, table
+- `anchor`: Table 2: List of Production Modules
+
+### PAGE-0011
+- `physical_page`: `11`
+- `printed_page`: 7/46
+- `segment_id`: SEG-0009-0011
+- `section_path`: Chapter 2. Safety MCAL Package / 2.1 MCAL Component / 2.2 SW package Content
+- `content_types`: text, table
+- `anchor`: Detailed stub modules list as following
+
+### PAGE-0012
+- `physical_page`: `12`
+- `printed_page`: 8/46
+- `segment_id`: SEG-0012-0013
+- `section_path`: Chapter 2. Safety MCAL Package / 2.2 SW package Content
+- `content_types`: text, figure, file-tree
+- `anchor`: Figure 2: File Structure
+
+### PAGE-0013
+- `physical_page`: `13`
+- `printed_page`: 9/46
+- `segment_id`: SEG-0012-0013
+- `section_path`: Chapter 2. Safety MCAL Package / 2.2 SW package Content
+- `content_types`: text, notification
+- `anchor`: Please do not put the MCAL/EB_Plugins in the folder which is managed by SCM tools
+
+### PAGE-0014
+- `physical_page`: `14`
+- `printed_page`: 10/46
+- `segment_id`: SEG-0014-0016
+- `section_path`: Chapter 3. MCAL Usage / 3.1 Configuration Tools Installation / 3.1.1 EB tresos Installation
+- `content_types`: text, screenshot
+- `anchor`: Components of the FC7XXX MCAL have been developed as plugins of EB tresos 28.1.0
+
+### PAGE-0015
+- `physical_page`: `15`
+- `printed_page`: 11/46
+- `segment_id`: SEG-0014-0016
+- `section_path`: Chapter 3. MCAL Usage / 3.1.2 EB Client License Administrator Installation
+- `content_types`: text, screenshot
+- `anchor`: EB Client License Administrator v1.4.3 and above
+
+### PAGE-0016
+- `physical_page`: `16`
+- `printed_page`: 12/46
+- `segment_id`: SEG-0014-0016
+- `section_path`: Chapter 3. MCAL Usage / 3.1.2 EB Client License Administrator Installation / 3.1.3 EB License Activation / 3.1.3.1 Online Activation
+- `content_types`: text, screenshot
+- `anchor`: Online Activation
+
+### PAGE-0017
+- `physical_page`: `17`
+- `printed_page`: 13/46
+- `segment_id`: SEG-0017-0019
+- `section_path`: Chapter 3. MCAL Usage / 3.1.3.2 Offline Activation
+- `content_types`: text, screenshot
+- `anchor`: Offline Activation
+
+### PAGE-0018
+- `physical_page`: `18`
+- `printed_page`: 14/46
+- `segment_id`: SEG-0017-0019
+- `section_path`: Chapter 3. MCAL Usage / 3.1.3.2 Offline Activation / 3.1.4 MCAL Plugins Installation
+- `content_types`: text, screenshot
+- `anchor`: MCAL Plugins Installation
+
+### PAGE-0019
+- `physical_page`: `19`
+- `printed_page`: 15/46
+- `segment_id`: SEG-0017-0019
+- `section_path`: Chapter 3. MCAL Usage / 3.1.4 MCAL Plugins Installation
+- `content_types`: text, screenshot, figure
+- `anchor`: path=C:/Flagchip/FC7XXX_MCAL/MCAL/EB_Plugins
+
+### PAGE-0020
+- `physical_page`: `20`
+- `printed_page`: 16/46
+- `segment_id`: SEG-0020-0022
+- `section_path`: Chapter 3. MCAL Usage / 3.1.5 MCAL Plugins Update / 3.2 MCAL Project Creation / 3.2.1 Create an EB tresos Project from Scratch
+- `content_types`: text, screenshot, figure
+- `anchor`: Figure 4: EB Cache Files
+
+### PAGE-0021
+- `physical_page`: `21`
+- `printed_page`: 17/46
+- `segment_id`: SEG-0020-0022
+- `section_path`: Chapter 3. MCAL Usage / 3.2.1 Create an EB tresos Project from Scratch
+- `content_types`: text, screenshot
+- `anchor`: In the Configuration Project Data tab
+
+### PAGE-0022
+- `physical_page`: `22`
+- `printed_page`: 18/46
+- `segment_id`: SEG-0020-0022
+- `section_path`: Chapter 3. MCAL Usage / 3.2.1 Create an EB tresos Project from Scratch
+- `content_types`: text, screenshot, notification
+- `anchor`: Module Configuration tab
+
+### PAGE-0023
+- `physical_page`: `23`
+- `printed_page`: 19/46
+- `segment_id`: SEG-0023-0025
+- `section_path`: Chapter 3. MCAL Usage / 3.2.1 Create an EB tresos Project from Scratch / 3.2.2 Import an Existing EB tresos Project
+- `content_types`: text, screenshot
+- `anchor`: Generate Project
+
+### PAGE-0024
+- `physical_page`: `24`
+- `printed_page`: 20/46
+- `segment_id`: SEG-0023-0025
+- `section_path`: Chapter 3. MCAL Usage / 3.2.2 Import an Existing EB tresos Project
+- `content_types`: text, screenshot
+- `anchor`: Existing Projects into Workspace
+
+### PAGE-0025
+- `physical_page`: `25`
+- `printed_page`: 21/46
+- `segment_id`: SEG-0023-0025
+- `section_path`: Chapter 3. MCAL Usage / 3.2.2 Import an Existing EB tresos Project / 3.3 MCAL Project Integration / 3.3.1 Integration of Configurations with Static Code
+- `content_types`: text, screenshot
+- `anchor`: Integration of Configurations with Static Code
+
+### PAGE-0026
+- `physical_page`: `26`
+- `printed_page`: 22/46
+- `segment_id`: SEG-0026-0028
+- `section_path`: Chapter 3. MCAL Usage / 3.3.1 Integration of Configurations with Static Code / 3.3.2 Build and Debug / 3.3.2.1 Build and Debug with Flagchip FC_IDE
+- `content_types`: text, figure, screenshot
+- `anchor`: compiler meeting TCL 3, ASIL-D scenario
+
+### PAGE-0027
+- `physical_page`: `27`
+- `printed_page`: 23/46
+- `segment_id`: SEG-0026-0028
+- `section_path`: Chapter 3. MCAL Usage / 3.3.2.1 Build and Debug with Flagchip FC_IDE
+- `content_types`: text, screenshot
+- `anchor`: DemoBoard/<Chip_Variant>/tools/FC_Project
+
+### PAGE-0028
+- `physical_page`: `28`
+- `printed_page`: 24/46
+- `segment_id`: SEG-0026-0028
+- `section_path`: Chapter 3. MCAL Usage / 3.3.2.1 Build and Debug with Flagchip FC_IDE
+- `content_types`: text, screenshot
+- `anchor`: Build Project
+
+### PAGE-0029
+- `physical_page`: `29`
+- `printed_page`: 25/46
+- `segment_id`: SEG-0029-0031
+- `section_path`: Chapter 3. MCAL Usage / 3.3.2.1 Build and Debug with Flagchip FC_IDE / 3.3.2.2 Build and Debug with IAR Embedded Workbench
+- `content_types`: text, screenshot
+- `anchor`: GDB SEGGER J-Link Debugging
+
+### PAGE-0030
+- `physical_page`: `30`
+- `printed_page`: 26/46
+- `segment_id`: SEG-0029-0031
+- `section_path`: Chapter 3. MCAL Usage / 3.3.2.2 Build and Debug with IAR Embedded Workbench
+- `content_types`: text, screenshot
+- `anchor`: Debugger tab and choose I-jet, J-Link/J-Trace or PE micro
+
+### PAGE-0031
+- `physical_page`: `31`
+- `printed_page`: 27/46
+- `segment_id`: SEG-0029-0031
+- `section_path`: Chapter 3. MCAL Usage / 3.3.2.2 Build and Debug with IAR Embedded Workbench
+- `content_types`: text, screenshot, notification
+- `anchor`: IAR embedded workbench supports multi-core debug only when you uses I-jet
+
+### PAGE-0032
+- `physical_page`: `32`
+- `printed_page`: 28/46
+- `segment_id`: SEG-0032-0033
+- `section_path`: Chapter 4. Extra Feature beyond AUTOSAR R20-11
+- `content_types`: text, table
+- `anchor`: Table 4: MCAL Added Features
+
+### PAGE-0033
+- `physical_page`: `33`
+- `printed_page`: 29/46
+- `segment_id`: SEG-0032-0033
+- `section_path`: Chapter 4. Extra Feature beyond AUTOSAR R20-11
+- `content_types`: text, table-continuation
+- `anchor`: Fls_ECC_Handler
+
+### PAGE-0034
+- `physical_page`: `34`
+- `printed_page`: 30/46
+- `segment_id`: SEG-0034-0035
+- `section_path`: Chapter 5. ECU System Environment / 5.1 MCAL Version and Variant / 5.2 System Safe State / 5.3 ECU System Software Architecture
+- `content_types`: text
+- `anchor`: System Safe State
+
+### PAGE-0035
+- `physical_page`: `35`
+- `printed_page`: 31/46
+- `segment_id`: SEG-0034-0035
+- `section_path`: Chapter 5. ECU System Environment / 5.3 ECU System Software Architecture
+- `content_types`: text
+- `anchor`: Integrator shall perform CRC check for NVM data
+
+### PAGE-0036
+- `physical_page`: `36`
+- `printed_page`: 32/46
+- `segment_id`: SEG-0036-0038
+- `section_path`: Chapter 5. ECU System Environment / 5.4 Multicore Considerations
+- `content_types`: text, figure, configuration-screenshot
+- `anchor`: Figure 6: EcuC Configurations
+
+### PAGE-0037
+- `physical_page`: `37`
+- `printed_page`: 33/46
+- `segment_id`: SEG-0036-0038
+- `section_path`: Chapter 5. ECU System Environment / 5.4.1 Multicore Startup Procedure / 5.4.2 Multicore De-Initialization
+- `content_types`: text, figure, sequence-diagram
+- `anchor`: Figure 8: Multicore Initialization
+
+### PAGE-0038
+- `physical_page`: `38`
+- `printed_page`: 34/46
+- `segment_id`: SEG-0036-0038
+- `section_path`: Chapter 5. ECU System Environment / 5.4.2 Multicore De-Initialization / 5.4.3 Multicore Interrupts / 5.4.4 Data Consistency in Multicore System / 5.4.4.1 Multicore Shared Data Consistency
+- `content_types`: text, notification
+- `anchor`: LDREX and STREX
+
+### PAGE-0039
+- `physical_page`: `39`
+- `printed_page`: 35/46
+- `segment_id`: SEG-0039-0041
+- `section_path`: Chapter 5. ECU System Environment / 5.4.4.1 Multicore Shared Data Consistency / 5.4.4.2 Data Consistency when Cache Enabled
+- `content_types`: text, figure, memory-diagram
+- `anchor`: Figure 9: Data Modified by Core0
+
+### PAGE-0040
+- `physical_page`: `40`
+- `printed_page`: 36/46
+- `segment_id`: SEG-0039-0041
+- `section_path`: Chapter 5. ECU System Environment / 5.4.4.2 Data Consistency when Cache Enabled
+- `content_types`: text, figure, memory-diagram
+- `anchor`: Figure 10: Data Modified by Core1
+
+### PAGE-0041
+- `physical_page`: `41`
+- `printed_page`: 37/46
+- `segment_id`: SEG-0039-0041
+- `section_path`: Chapter 5. ECU System Environment / 5.4.4.2 Data Consistency when Cache Enabled
+- `content_types`: text, figure, memory-diagram
+- `anchor`: Figure 12: Data Write Back by Core1
+
+### PAGE-0042
+- `physical_page`: `42`
+- `printed_page`: 38/46
+- `segment_id`: SEG-0042-0044
+- `section_path`: Chapter 6. AUTOSAR Ecosystem / 6.1 AUTOSAR BASIC SW Package / 6.1.1 MICROSAR Classic Vector SLP4
+- `content_types`: text, notification, figure
+- `anchor`: Figure 13: MICROSAR Classic Vector SLP4 Modules
+
+### PAGE-0043
+- `physical_page`: `43`
+- `printed_page`: 39/46
+- `segment_id`: SEG-0042-0044
+- `section_path`: Chapter 6. AUTOSAR Ecosystem / 6.1.2 INTEWORK-EAS-CP / 6.1.3 ORIENTAIS Classic AUTOSAR (CECT)
+- `content_types`: text, figure
+- `anchor`: Figure 14: Hirain INTEWORK-EAS-CP Modules
+
+### PAGE-0044
+- `physical_page`: `44`
+- `printed_page`: 40/46
+- `segment_id`: SEG-0042-0044
+- `section_path`: Chapter 6. AUTOSAR Ecosystem / 6.1.3 ORIENTAIS Classic AUTOSAR (CECT) / 6.1.4 NeuSAR cCore (Neusoft REACH)
+- `content_types`: text, figure
+- `anchor`: Figure 16: Neusoft NeuSAR Modules
+
+### PAGE-0045
+- `physical_page`: `45`
+- `printed_page`: 41/46
+- `segment_id`: SEG-0045
+- `section_path`: Chapter 6. AUTOSAR Ecosystem / 6.2 MCU Safety Library / 6.2.1 FC7XXX Safety Frame (ZhiCong)
+- `content_types`: text, figure
+- `anchor`: Figure 17: ZhiCong Safety Library Modules
+
+### PAGE-0046
+- `physical_page`: `46`
+- `printed_page`: 42/46
+- `segment_id`: SEG-0046
+- `section_path`: Chapter 7. MCAL safety mechanisms
+- `content_types`: text
+- `anchor`: MCAL module initialization function (<Module>_Init)
+
+### PAGE-0047
+- `physical_page`: `47`
+- `printed_page`: 43/46
+- `segment_id`: SEG-0047
+- `section_path`: Chapter 8. MCU safety mechanisms
+- `content_types`: text
+- `anchor`: Assumption (ASR)
+
+### PAGE-0048
+- `physical_page`: `48`
+- `printed_page`: 44/46
+- `segment_id`: SEG-0048
+- `section_path`: Chapter 9. Known Issues
+- `content_types`: text
+- `anchor`: There are no notable known issues in this version
+
+### PAGE-0049
+- `physical_page`: `49`
+- `printed_page`: 45/46
+- `segment_id`: SEG-0049
+- `section_path`: Chapter 10. Deviations and Limitations
+- `content_types`: text
+- `anchor`: There are no limitations which are common to all the MCAL modules
+
+### PAGE-0050
+- `physical_page`: `50`
+- `printed_page`: 46/46
+- `segment_id`: SEG-0050
+- `section_path`: Chapter 11. Revision History
+- `content_types`: text, table
+- `anchor`: Major changes since the last release
 
 ### 4.1 Page Segments
 
@@ -3335,6 +3768,1196 @@ manifest_doc_id: "DOC-efd89b76f5b5"
 - `aliases`: ["software specification deviations", "limitations", "module specific user manual"]
 - `related_ids`: ["SEC-010"]
 
+## 9A. Text-Layer Search Supplement
+
+### TEXTSUP-SUMMARY
+- `purpose`: "Close keyword lookup gaps between Mcal_User_Manual.pdf extractable text and this Manifest without copying full PDF prose."
+- `source`: `local pypdf text extraction from Mcal_User_Manual.pdf`
+- `source_pdf_sha256`: `efd89b76f5b5672b16f921153a11c62f4a5bc5ced7f5e0889e947a6b5152e803`
+- `source_pdf_size_bytes`: `3106544`
+- `pdf_page_count`: `50`
+- `generated_at`: `2026-06-20T09:49:42Z`
+- `tokenization_rule`: `ASCII identifiers, alphanumeric technical tokens, hex literals, dotted version/section tokens, tool/path tokens and numeric fields with length >= 3.`
+- `normalization`: `Known Private Use Area digit glyphs U+F6B1..U+F6BA, ligatures and soft hyphen variants are normalized before token comparison.`
+- `scope`: `Text-layer token supplement only; screenshots, exact UI labels, diagrams, tables and source prose still require source PDF verification.`
+- `unique_missing_terms_added`: `527`
+- `technical_missing_terms_added`: `85`
+- `pages_with_added_terms`: `48`
+- `supplemented_page_term_entries`: `869`
+- `post_supplement_text_token_recall`: `1.000`
+- `post_supplement_technical_token_recall`: `1.000`
+- `usage`: `Search terms here to locate physical pages, then verify exact integration steps, UI screenshots, tables and safety statements in the source PDF.`
+
+### TEXTSUP-PAGE-0001
+- `physical_page`: `1`
+- `additional_text_terms`:
+  - "FC7300F4MDDxXxxxT1C"
+  - "FC7300F4MDSxXxxxT1C"
+
+### TEXTSUP-PAGE-0002
+- `physical_page`: `2`
+- `additional_text_terms`:
+  - "across"
+  - "anyone"
+  - "attached"
+  - "generic"
+  - "Mcal_Demo_Board_Project_FC7XXX"
+
+### TEXTSUP-PAGE-0005
+- `physical_page`: `5`
+- `additional_text_terms`:
+  - "below"
+  - "commands"
+  - "Confidential"
+  - "important"
+  - "indicate"
+  - "literally"
+  - "means"
+  - "microcontrollers"
+  - "names"
+  - "Notes"
+  - "Proprietary"
+  - "typed"
+
+### TEXTSUP-PAGE-0006
+- `physical_page`: `6`
+- `additional_text_terms`:
+  - "Confidential"
+  - "Moudle"
+  - "Proprietary"
+  - "Tranceiver"
+
+### TEXTSUP-PAGE-0007
+- `physical_page`: `7`
+- `additional_text_terms`:
+  - "100pin"
+  - "144pin"
+  - "176pin"
+  - "4MB"
+  - "8MB"
+  - "additionally"
+  - "applications"
+  - "applied"
+  - "architectural"
+  - "behaviour"
+  - "compared"
+  - "Confidential"
+  - "correct"
+  - "derived"
+  - "difference"
+  - "different"
+  - "dual-core"
+  - "earlier"
+  - "element"
+  - "ensure"
+  - "FC7240F2MDS1P100T1A"
+  - "FC7240F2MDS1P144T1A"
+  - "FC7240F2MDS1P176T1A"
+  - "FC7300F4MDD1A320T1B"
+  - "FC7300F4MDD1P176T1B"
+  - "FC7300F4MDD2A320T1B"
+  - "FC7300F4MDD2P176T1B"
+  - "FC7300F4MDD3A320T1B"
+  - "FC7300F4MDS1A320T1B"
+  - "FC7300F4MDS1P176T1B"
+  - "FC7300F4MDS2A320T1B"
+  - "FC7300F4MDS2P176T1B"
+  - "FC7300F8MDQ1A320T1A"
+  - "FC7300F8MDT2A320T1B"
+  - "FC7300F8MDT2P176T1B"
+  - "finally"
+  - "follows"
+  - "fulfilled"
+  - "generic"
+  - "gives"
+  - "Hence"
+  - "instance"
+  - "market"
+  - "MCUs"
+  - "multiply"
+  - "operation"
+  - "Proprietary"
+  - "quad-core"
+  - "references"
+  - "relevant"
+  - "single-core"
+  - "stage"
+  - "systems"
+  - "technical"
+  - "these"
+  - "tri-core"
+  - "typically"
+  - "use-cases"
+
+### TEXTSUP-PAGE-0008
+- `physical_page`: `8`
+- `additional_text_terms`:
+  - "Confidential"
+  - "FC7300F4MDD1A180T1C"
+  - "FC7300F4MDD1A320T1C"
+  - "FC7300F4MDS1A180T1C"
+  - "FC7300F4MDS1A320T1C"
+  - "FC7300F8MDQ1P176T1A"
+  - "Proprietary"
+
+### TEXTSUP-PAGE-0009
+- `physical_page`: `9`
+- `additional_text_terms`:
+  - "according"
+  - "Confidential"
+  - "CPU"
+  - "customer"
+  - "deliver"
+  - "EcuM"
+  - "nboard"
+  - "Proprietary"
+  - "riversM"
+  - "watchdogs"
+
+### TEXTSUP-PAGE-0010
+- `physical_page`: `10`
+- `additional_text_terms`:
+  - "Analog-to-Digital"
+  - "Confidential"
+  - "Decoder"
+  - "derivative"
+  - "every"
+  - "II/Type"
+  - "Octal"
+  - "Proprietary"
+  - "Quadrature"
+  - "Redundancy"
+  - "Sigma-Delta"
+
+### TEXTSUP-PAGE-0011
+- `physical_page`: `11`
+- `additional_text_terms`:
+  - "Confidential"
+  - "considered"
+  - "design"
+  - "follows"
+  - "functionality"
+  - "II/Type"
+  - "Onboard"
+  - "parts"
+  - "Proprietary"
+  - "referred"
+  - "specifications"
+  - "standalone"
+  - "Therefore"
+  - "These"
+  - "together"
+  - "would"
+
+### TEXTSUP-PAGE-0012
+- `physical_page`: `12`
+- `additional_text_terms`:
+  - "_BSW_generate"
+  - "_Compile_Related_Files"
+  - "_MCAL_multicore_generate_8M"
+  - "arxml"
+  - "Confidential"
+  - "demos"
+  - "eclipse"
+  - "model"
+  - "Proprietary"
+
+### TEXTSUP-PAGE-0013
+- `physical_page`: `13`
+- `additional_text_terms`:
+  - "_BSW_generate"
+  - "_Compile_Related_Files"
+  - "_MCAL_multicore_generate_8M"
+  - "applicable"
+  - "below"
+  - "Board/tools/xxProject"
+  - "care"
+  - "compiling"
+  - "Confidential"
+  - "corruption"
+  - "different"
+  - "eclipse"
+  - "elf/hex/bin"
+  - "ences"
+  - "entry"
+  - "executable"
+  - "genetarion"
+  - "header"
+  - "inside"
+  - "META-INF"
+  - "moudule"
+  - "pre-defined"
+  - "Proprietary"
+  - "respective"
+  - "result"
+  - "semi-hosting"
+  - "simple"
+  - "sub"
+  - "subfolder"
+  - "systick"
+  - "Take"
+  - "these"
+  - "tools/EB_Project"
+  - "tools/GHS_FC_Project"
+
+### TEXTSUP-PAGE-0014
+- `physical_page`: `14`
+- `additional_text_terms`:
+  - "29.2.0"
+  - "active"
+  - "Automotive"
+  - "Besides"
+  - "computer"
+  - "Confidential"
+  - "downloaded"
+  - "https"
+  - "installed"
+  - "involves"
+  - "layers"
+  - "Normally"
+  - "official"
+  - "Proprietary"
+  - "sales"
+  - "steps"
+  - "steup"
+  - "team"
+  - "www"
+  - "yet"
+  - "your"
+
+### TEXTSUP-PAGE-0015
+- `physical_page`: `15`
+- `additional_text_terms`:
+  - "Confidential"
+  - "downloaded"
+  - "Proprietary"
+
+### TEXTSUP-PAGE-0016
+- `physical_page`: `16`
+- `additional_text_terms`:
+  - "accessible"
+  - "activated"
+  - "active"
+  - "automatically"
+  - "Confidential"
+  - "easiest"
+  - "finished"
+  - "internet"
+  - "Just"
+  - "press"
+  - "Proprietary"
+  - "XXXX-XXXX-XXXX-XXXX"
+
+### TEXTSUP-PAGE-0017
+- `physical_page`: `17`
+- `additional_text_terms`:
+  - "com/control/elkb/offlineActivation"
+  - "computer"
+  - "Confidential"
+  - "flexnetoperations"
+  - "follows"
+  - "https"
+  - "internet"
+  - "press"
+  - "Proprietary"
+  - "Send"
+  - "steps"
+
+### TEXTSUP-PAGE-0018
+- `physical_page`: `18`
+- `additional_text_terms`:
+  - "activated"
+  - "Confidential"
+  - "contained"
+  - "installed"
+  - "machine"
+  - "Proprietary"
+  - "Send"
+
+### TEXTSUP-PAGE-0019
+- `physical_page`: `19`
+- `additional_text_terms`:
+  - "assume"
+  - "backslash"
+  - "Confidential"
+  - "easiest"
+  - "intall"
+  - "Proprietary"
+  - "slash"
+  - "substitute"
+
+### TEXTSUP-PAGE-0020
+- `physical_page`: `20`
+- `additional_text_terms`:
+  - "Besides"
+  - "clear"
+  - "Confidential"
+  - "copy"
+  - "MCUs"
+  - "method"
+  - "operation"
+  - "properly"
+  - "Proprietary"
+  - "registered"
+  - "released"
+  - "steps"
+  - "substitute"
+  - "successfully"
+  - "these"
+
+### TEXTSUP-PAGE-0021
+- `physical_page`: `21`
+- `additional_text_terms`:
+  - "Automatically"
+  - "child"
+  - "Confidential"
+  - "elements"
+  - "instance"
+  - "minimum"
+  - "needed"
+  - "Next"
+  - "Proprietary"
+  - "Specify"
+
+### TEXTSUP-PAGE-0022
+- `physical_page`: `22`
+- `additional_text_terms`:
+  - "accelerating"
+  - "ACM-Base"
+  - "assume"
+  - "automatically"
+  - "cannot"
+  - "cases"
+  - "Confidential"
+  - "find"
+  - "Generally"
+  - "hope"
+  - "installing"
+  - "Most"
+  - "namespace"
+  - "necessary"
+  - "needed"
+  - "opened"
+  - "Proprietary"
+  - "same"
+  - "targets"
+  - "they"
+  - "want"
+  - "would"
+
+### TEXTSUP-PAGE-0023
+- `physical_page`: `23`
+- `additional_text_terms`:
+  - "add/remove"
+  - "Confidential"
+  - "Proprietary"
+  - "right"
+  - "want"
+  - "would"
+
+### TEXTSUP-PAGE-0024
+- `physical_page`: `24`
+- `additional_text_terms`:
+  - "Confidential"
+  - "Proprietary"
+  - "them"
+
+### TEXTSUP-PAGE-0025
+- `physical_page`: `25`
+- `additional_text_terms`:
+  - "carefully"
+  - "Confidential"
+  - "contens"
+  - "demos"
+  - "design"
+  - "double"
+  - "familiar"
+  - "imported"
+  - "maunal"
+  - "modify"
+  - "Proprietary"
+  - "serve"
+  - "these"
+  - "together"
+
+### TEXTSUP-PAGE-0026
+- `physical_page`: `26`
+- `additional_text_terms`:
+  - "Below"
+  - "build-in"
+  - "combine"
+  - "compliant"
+  - "compliers"
+  - "Confidential"
+  - "delivered"
+  - "just"
+  - "Proprietary"
+  - "steps"
+
+### TEXTSUP-PAGE-0027
+- `physical_page`: `27`
+- `additional_text_terms`:
+  - "Confidential"
+  - "means"
+  - "Next"
+  - "Proprietary"
+  - "want"
+
+### TEXTSUP-PAGE-0028
+- `physical_page`: `28`
+- `additional_text_terms`:
+  - "arrow"
+  - "compilation"
+  - "Confidential"
+  - "next"
+  - "occured"
+  - "Proprietary"
+  - "Right"
+
+### TEXTSUP-PAGE-0029
+- `physical_page`: `29`
+- `additional_text_terms`:
+  - "Confidential"
+  - "double"
+  - "patch"
+  - "Proprietary"
+  - "Right"
+  - "steps"
+
+### TEXTSUP-PAGE-0030
+- `physical_page`: `30`
+- `additional_text_terms`:
+  - "completed"
+  - "Confidential"
+  - "displayed"
+  - "Proprietary"
+  - "right"
+  - "see"
+  - "your"
+
+### TEXTSUP-PAGE-0031
+- `physical_page`: `31`
+- `additional_text_terms`:
+  - "Confidential"
+  - "Proprietary"
+
+### TEXTSUP-PAGE-0032
+- `physical_page`: `32`
+- `additional_text_terms`:
+  - "accessed"
+  - "additional"
+  - "address"
+  - "both"
+  - "callback"
+  - "channelICU"
+  - "Confidential"
+  - "customer"
+  - "defined"
+  - "directly"
+  - "FIFO"
+  - "GTB"
+  - "Hrh"
+  - "IcuGetInputLevel"
+  - "implemented"
+  - "instance"
+  - "JL3113"
+  - "job"
+  - "operated"
+  - "Proprietary"
+  - "running"
+  - "same"
+  - "Split"
+  - "Therefore"
+  - "These"
+  - "transceivers"
+  - "triggered"
+  - "whether"
+
+### TEXTSUP-PAGE-0033
+- `physical_page`: `33`
+- `additional_text_terms`:
+  - "Confidential"
+  - "FIFO"
+  - "Hrh"
+  - "IcuGetInputLevel"
+  - "N/A"
+  - "N/AICU"
+  - "Proprietary"
+  - "Split"
+
+### TEXTSUP-PAGE-0034
+- `physical_page`: `34`
+- `additional_text_terms`:
+  - "According"
+  - "aims"
+  - "analysis"
+  - "below"
+  - "callback"
+  - "case"
+  - "Confidential"
+  - "considered"
+  - "continues"
+  - "continuously"
+  - "correct"
+  - "critical"
+  - "customer"
+  - "customers"
+  - "defined"
+  - "directly"
+  - "disable"
+  - "doesn"
+  - "EcuM"
+  - "ensure"
+  - "execution"
+  - "expectation"
+  - "functions"
+  - "However"
+  - "identify"
+  - "implemented"
+  - "independent"
+  - "initialize"
+  - "method"
+  - "monitor"
+  - "normally"
+  - "occurs"
+  - "Operation"
+  - "performs"
+  - "Proprietary"
+  - "return"
+  - "stage"
+  - "switches"
+  - "these"
+  - "they"
+  - "upper"
+  - "who"
+  - "would"
+
+### TEXTSUP-PAGE-0035
+- `physical_page`: `35`
+- `additional_text_terms`:
+  - "According"
+  - "achieve"
+  - "address"
+  - "alive"
+  - "appropriate"
+  - "calculate"
+  - "callback"
+  - "callout"
+  - "captured"
+  - "concerns"
+  - "Confidential"
+  - "DAM"
+  - "defined"
+  - "directly"
+  - "executed"
+  - "execution"
+  - "functions"
+  - "hander"
+  - "handled"
+  - "handlers"
+  - "implement"
+  - "involved"
+  - "means"
+  - "monitoring"
+  - "notify"
+  - "operation"
+  - "otherwise"
+  - "payload"
+  - "possible"
+  - "proper"
+  - "Proprietary"
+  - "reading"
+  - "received"
+  - "requires"
+  - "restricted"
+  - "restriction"
+  - "running"
+  - "same"
+  - "save"
+  - "Severe"
+  - "solution"
+  - "soon"
+  - "stage"
+  - "stored"
+  - "them"
+  - "these"
+  - "together"
+  - "transfers"
+  - "transition"
+  - "transport"
+  - "upper"
+  - "would"
+
+### TEXTSUP-PAGE-0036
+- `physical_page`: `36`
+- `additional_text_terms`:
+  - "burn"
+  - "care"
+  - "Confidential"
+  - "confliction"
+  - "correlate"
+  - "corresponding"
+  - "defined"
+  - "design"
+  - "focuses"
+  - "inter-processor"
+  - "MCUs"
+  - "Most"
+  - "mulit-core"
+  - "phase"
+  - "Proprietary"
+  - "resources"
+  - "same"
+  - "sepecific"
+  - "seperate"
+  - "single-core"
+  - "substituted"
+  - "take"
+  - "These"
+  - "whole"
+
+### TEXTSUP-PAGE-0037
+- `physical_page`: `37`
+- `additional_text_terms`:
+  - "Activated"
+  - "activating"
+  - "Besides"
+  - "Completed"
+  - "Confidential"
+  - "done"
+  - "functions"
+  - "However"
+  - "independently"
+  - "infrastructures"
+  - "initialize"
+  - "initialized"
+  - "means"
+  - "Proprietary"
+  - "resources"
+  - "seperate"
+  - "served"
+  - "Similar"
+  - "these"
+
+### TEXTSUP-PAGE-0038
+- `physical_page`: `38`
+- `additional_text_terms`:
+  - "actions"
+  - "Although"
+  - "attribute"
+  - "behaviour"
+  - "Besides"
+  - "care"
+  - "changed"
+  - "Confidential"
+  - "Cortex-M7"
+  - "CPU"
+  - "de-initialized"
+  - "dependant"
+  - "different"
+  - "DMAs"
+  - "effect"
+  - "effects"
+  - "efficiency"
+  - "enables"
+  - "ensured"
+  - "executed"
+  - "Flexcore"
+  - "gurantee"
+  - "guranteed"
+  - "However"
+  - "HSM"
+  - "imple"
+  - "implements"
+  - "IRQs"
+  - "MCUs"
+  - "means"
+  - "mentation"
+  - "more"
+  - "non-cacheable"
+  - "parallel"
+  - "possibly"
+  - "Proprietary"
+  - "reported"
+  - "resources"
+  - "routed"
+  - "routines"
+  - "same"
+  - "sepecific"
+  - "serviced"
+  - "still"
+  - "tagged"
+  - "take"
+  - "these"
+  - "thus"
+  - "who"
+
+### TEXTSUP-PAGE-0039
+- `physical_page`: `39`
+- `additional_text_terms`:
+  - "0x01234567"
+  - "0x11223344"
+  - "0x55555555"
+  - "0x55667788"
+  - "0x89ABCDEF"
+  - "0x99AABBCC"
+  - "0xAAAAAAAA"
+  - "0xDDEEFF00"
+  - "0xDDEEFF23"
+  - "accelerate"
+  - "accessed"
+  - "across"
+  - "address"
+  - "addrss"
+  - "allow"
+  - "backdoor"
+  - "belonged"
+  - "besides"
+  - "cannot"
+  - "care"
+  - "changed"
+  - "clear"
+  - "Confidential"
+  - "cores/masters"
+  - "Cortex-M7"
+  - "coupled"
+  - "delayed"
+  - "etc"
+  - "gurantee"
+  - "However"
+  - "inconve"
+  - "inter-processor"
+  - "invalidation"
+  - "lines"
+  - "marked"
+  - "means"
+  - "much"
+  - "needed"
+  - "nience"
+  - "notifies"
+  - "owned"
+  - "Proprietary"
+  - "result"
+  - "same"
+  - "sending"
+  - "slower"
+  - "take"
+  - "thus"
+  - "tight"
+  - "transfer"
+  - "unaligned"
+  - "variables"
+  - "would"
+
+### TEXTSUP-PAGE-0040
+- `physical_page`: `40`
+- `additional_text_terms`:
+  - "0x01234567"
+  - "0x11223344"
+  - "0x12ABCDEF"
+  - "0x55555555"
+  - "0x55667788"
+  - "0x89ABCDEF"
+  - "0x99AABBCC"
+  - "0xAAAAAAAA"
+  - "0xDDEEFF00"
+  - "0xDDEEFF23"
+  - "changement"
+  - "cleared"
+  - "Confidential"
+  - "evicted"
+  - "knowledge"
+  - "Proprietary"
+
+### TEXTSUP-PAGE-0041
+- `physical_page`: `41`
+- `additional_text_terms`:
+  - "0x01234567"
+  - "0x11223344"
+  - "0x12ABCDEF"
+  - "0x55555555"
+  - "0x55667788"
+  - "0x99AABBCC"
+  - "0xAAAAAAAA"
+  - "0xDDEEFF00"
+  - "4th"
+  - "alongside"
+  - "avoided"
+  - "cannot"
+  - "changed"
+  - "Confidential"
+  - "Proprietary"
+  - "results"
+  - "see"
+  - "tells"
+  - "unexpectedly"
+  - "variables"
+
+### TEXTSUP-PAGE-0042
+- `physical_page`: `42`
+- `additional_text_terms`:
+  - "2012"
+  - "arranged"
+  - "command-line-based"
+  - "Confidential"
+  - "consistent"
+  - "consists"
+  - "cooperates"
+  - "doesn"
+  - "fully"
+  - "functions"
+  - "generators"
+  - "implement"
+  - "included"
+  - "independently"
+  - "individual"
+  - "just"
+  - "OEM"
+  - "optimized"
+  - "Proprietary"
+  - "purchase"
+  - "SDK"
+  - "simple"
+  - "solution"
+  - "user-friendly"
+  - "want"
+  - "whole"
+  - "would"
+  - "your"
+
+### TEXTSUP-PAGE-0043
+- `physical_page`: `43`
+- `additional_text_terms`:
+  - "4.2.2"
+  - "achieve"
+  - "ARXML"
+  - "certificates"
+  - "certification"
+  - "chains"
+  - "combined"
+  - "compatible"
+  - "Confidential"
+  - "customers"
+  - "DBC"
+  - "delivery"
+  - "design"
+  - "documents"
+  - "dual"
+  - "easily"
+  - "etc"
+  - "flexibly"
+  - "formats"
+  - "German"
+  - "helped"
+  - "highest"
+  - "IAR/GreenHills"
+  - "industry"
+  - "LDF"
+  - "mainstream"
+  - "more"
+  - "obtained"
+  - "ODX"
+  - "passed"
+  - "PDX"
+  - "Proprietary"
+  - "purchased"
+  - "R22-11"
+  - "Rhine"
+  - "seamless"
+  - "SWC"
+  - "third-party"
+  - "variety"
+
+### TEXTSUP-PAGE-0044
+- `physical_page`: `44`
+- `additional_text_terms`:
+  - "4.2.2"
+  - "certifi"
+  - "Confidential"
+  - "IAR/GreenHills"
+  - "independent"
+  - "mainstream"
+  - "meets"
+  - "passed"
+  - "Proprietary"
+  - "R19-11"
+  - "realizes"
+  - "research"
+  - "vehicle"
+  - "whole"
+
+### TEXTSUP-PAGE-0045
+- `physical_page`: `45`
+- `additional_text_terms`:
+  - "2018"
+  - "According"
+  - "adaptation"
+  - "architectures"
+  - "Confidential"
+  - "corresponding"
+  - "designed"
+  - "different"
+  - "element"
+  - "flexible"
+  - "hereinafter"
+  - "IAR/GreenHills"
+  - "implement"
+  - "latent"
+  - "Latent-fault"
+  - "microcontrollers"
+  - "Proprietary"
+  - "referred"
+  - "single-point"
+  - "systems"
+  - "they"
+
+### TEXTSUP-PAGE-0046
+- `physical_page`: `46`
+- `additional_text_terms`:
+  - "assume"
+  - "attention"
+  - "AUTOAR"
+  - "beginning"
+  - "bellow"
+  - "both"
+  - "callback"
+  - "calling"
+  - "case"
+  - "Confidential"
+  - "conflicts"
+  - "constrains"
+  - "designed"
+  - "disable"
+  - "dynamic"
+  - "etc"
+  - "executes"
+  - "failure"
+  - "finished"
+  - "generating"
+  - "incompatible"
+  - "incorrect"
+  - "instance"
+  - "logical"
+  - "noticed"
+  - "operation"
+  - "parameter"
+  - "parameters"
+  - "pay"
+  - "predefined"
+  - "prevent"
+  - "processing"
+  - "Proprietary"
+  - "recording"
+  - "resolve"
+  - "resources"
+  - "running"
+  - "save"
+  - "situations"
+  - "stage"
+  - "strictly"
+  - "These"
+  - "unreasonable"
+  - "whole"
+  - "within"
+  - "would"
+
+### TEXTSUP-PAGE-0047
+- `physical_page`: `47`
+- `additional_text_terms`:
+  - "achieved"
+  - "activity"
+  - "analysis"
+  - "applying"
+  - "assumed"
+  - "attention"
+  - "beginning"
+  - "case"
+  - "Confidential"
+  - "contact"
+  - "CPU"
+  - "defined"
+  - "design"
+  - "designed"
+  - "effective"
+  - "establish"
+  - "estimation"
+  - "Failure"
+  - "follows"
+  - "Fraction"
+  - "fulfil"
+  - "fulfilled"
+  - "fulfils"
+  - "functions"
+  - "help"
+  - "identified"
+  - "impact"
+  - "implementation"
+  - "implemented"
+  - "increased"
+  - "initialized"
+  - "initiate"
+  - "Latent"
+  - "monitor"
+  - "operation"
+  - "pay"
+  - "peripherals"
+  - "proper"
+  - "Proprietary"
+  - "re-calculated"
+  - "receive/transfer"
+  - "reduced"
+  - "relevant"
+  - "self-function"
+  - "similarly"
+  - "Single-Point"
+  - "solution"
+  - "solutions"
+  - "stage"
+  - "subsystem"
+  - "supplier"
+  - "supply"
+  - "sure"
+  - "take"
+  - "targeting"
+  - "them"
+  - "these"
+  - "transfer"
+  - "validity"
+  - "voltage"
+  - "whether"
+  - "would"
+
+### TEXTSUP-PAGE-0048
+- `physical_page`: `48`
+- `additional_text_terms`:
+  - "Confidential"
+  - "Proprietary"
+
+### TEXTSUP-PAGE-0049
+- `physical_page`: `49`
+- `additional_text_terms`:
+  - "Confidential"
+  - "Proprietary"
+
+### TEXTSUP-PAGE-0050
+- `physical_page`: `50`
+- `additional_text_terms`:
+  - "2024"
+  - "2025"
+  - "Changed"
+  - "Confidential"
+  - "descriptions"
+  - "Proprietary"
+
+### TEXTSUP-DELTA-SUMMARY
+- `purpose`: "Close residual keyword lookup gaps reported by the unified Manual root audit after the base 9A supplement."
+- `source`: `local text-layer search against Mcal_User_Manual.pdf`
+- `source_pdf_sha256`: `efd89b76f5b5672b16f921153a11c62f4a5bc5ced7f5e0889e947a6b5152e803`
+- `source_pdf_size_bytes`: `3106544`
+- `pdf_page_count`: `50`
+- `base_supplement_generated_at`: `2026-06-20T09:49:42Z`
+- `delta_generated_at`: `2026-06-21T04:04:23Z`
+- `tokenization_rule`: `Unified Manual root audit residual token set; terms are added verbatim for exact lookup.`
+- `normalization`: `Known Private Use Area digit glyphs U+F6B1..U+F6BA, ligatures, soft hyphen variants, non-breaking spaces and dash variants are normalized before page-location checks.`
+- `scope`: `Delta token supplement only; source PDF remains authoritative for values, tables, drawings, screenshots and prose.`
+- `delta_unique_missing_terms_added`: `30`
+- `delta_technical_missing_terms_added`: `4`
+- `delta_pages_with_added_terms`: `14`
+- `delta_supplemented_page_term_entries`: `30`
+- `cumulative_text_layer_search_supplement_terms`: `557`
+- `cumulative_text_layer_search_supplement_technical_terms`: `89`
+- `cumulative_text_layer_search_supplement_pages`: `48`
+- `cumulative_supplemented_page_term_entries`: `899`
+- `post_delta_text_token_recall`: `1.000`
+- `post_delta_technical_token_recall`: `1.000`
+- `usage`: `Search delta terms here to locate physical pages, then verify exact context in the source PDF.`
+
+### TEXTSUP-DELTA-PAGE-0002
+- `physical_page`: `2`
+- `additional_text_terms`:
+  - "using(based"
+
+### TEXTSUP-DELTA-PAGE-0005
+- `physical_page`: `5`
+- `additional_text_terms`:
+  - "soft-"
+
+### TEXTSUP-DELTA-PAGE-0007
+- `physical_page`: `7`
+- `additional_text_terms`:
+  - "Also"
+  - "Includ-"
+  - "core(S"
+  - "dual-core(D"
+  - "integra-"
+  - "quad-core(Q"
+  - "single-core(S"
+  - "tri-core(T"
+  - "will"
+
+### TEXTSUP-DELTA-PAGE-0013
+- `physical_page`: `13`
+- `additional_text_terms`:
+  - "Board/tools/xxProject/"
+  - "file(elf/hex/bin"
+
+### TEXTSUP-DELTA-PAGE-0014
+- `physical_page`: `14`
+- `additional_text_terms`:
+  - "also"
+  - "flagchip.com.cn/"
+  - "https://tools"
+  - "https://www.elektrobit.com"
+  - "steup.exe"
+
+### TEXTSUP-DELTA-PAGE-0017
+- `physical_page`: `17`
+- `additional_text_terms`:
+  - "https://elektrobit.flexnetoperations.com/control/elkb/offlineActivation"
+
+### TEXTSUP-DELTA-PAGE-0027
+- `physical_page`: `27`
+- `additional_text_terms`:
+  - "e.g"
+
+### TEXTSUP-DELTA-PAGE-0034
+- `physical_page`: `34`
+- `additional_text_terms`:
+  - "communica-"
+  - "configu-"
+  - "so-"
+  - "usage.E2E"
+
+### TEXTSUP-DELTA-PAGE-0037
+- `physical_page`: `37`
+- `additional_text_terms`:
+  - "infra-"
+
+### TEXTSUP-DELTA-PAGE-0038
+- `physical_page`: `38`
+- `additional_text_terms`:
+  - "imple-"
+
+### TEXTSUP-DELTA-PAGE-0039
+- `physical_page`: `39`
+- `additional_text_terms`:
+  - "inconve-"
+
+### TEXTSUP-DELTA-PAGE-0042
+- `physical_page`: `42`
+- `additional_text_terms`:
+  - "part-"
+
+### TEXTSUP-DELTA-PAGE-0046
+- `physical_page`: `46`
+- `additional_text_terms`:
+  - "config-"
+
+### TEXTSUP-DELTA-PAGE-0047
+- `physical_page`: `47`
+- `additional_text_terms`:
+  - "Related-"
+
 ## 9. Quality Warnings
 
 ### WARN-0001
@@ -3443,6 +5066,34 @@ manifest_doc_id: "DOC-efd89b76f5b5"
 - `figures_with_generated_ids`: FIG-0001-COVER and all FIG-xxxx-UIxx screenshot entries
 - `low_confidence_figures`: FIG-0009-001, FIG-0037-001, FIG-0039-001, FIG-0040-001, FIG-0040-002, FIG-0041-001
 - `status`: pass_with_warnings
+
+### SELF-CHECK-STANDARD-PAGE-LOCATOR
+
+- `status`: pass
+- `page_heading_count`: 50
+- `missing_page_headings`: []
+- `duplicated_page_headings`: []
+
+### SELF-CHECK-TEXT-LAYER-SUPPLEMENT
+
+
+- `status`: "pass"
+- `base_generated_at`: "2026-06-20T09:49:42Z"
+- `delta_generated_at`: "2026-06-21T04:04:23Z"
+- `base_unique_missing_terms_added`: 527
+- `base_technical_missing_terms_added`: 85
+- `base_pages_with_added_terms`: 48
+- `base_supplemented_page_term_entries`: 869
+- `delta_unique_missing_terms_added`: 30
+- `delta_technical_missing_terms_added`: 4
+- `delta_pages_with_added_terms`: 14
+- `delta_supplemented_page_term_entries`: 30
+- `cumulative_unique_missing_terms_added`: 557
+- `cumulative_technical_missing_terms_added`: 89
+- `cumulative_pages_with_added_terms`: 48
+- `cumulative_supplemented_page_term_entries`: 899
+- `post_supplement_text_token_recall`: "1.000"
+- `post_supplement_technical_token_recall`: "1.000"
 
 ### SELF-CHECK-OVERALL
 - `overall_status`: pass_with_warnings

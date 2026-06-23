@@ -1,0 +1,8268 @@
+---
+manifest_schema_version: "1.1"
+source_pdf: "CAN_User_Manual.pdf"
+source_pdf_sha256: "8337246395cfe1c48ccbb8da4d79ef0a46de86df649f6c53371d635e01f99007"
+source_pdf_size_bytes: 4270049
+pdf_page_count: 121
+generated_at: "2026-06-19T23:50:45Z"
+generator_name: "chatgpt-pdf-manifest-generator"
+generator_version: "0.8.0-file-library-best-effort"
+source_file_library_id: "file_00000000f440720bbc7e5abf433e17b7"
+source_file_created_at: "2026-06-19T09:09:46Z"
+source_file_modified_at: "2026-06-19T09:09:46Z"
+source_document_revision: "Rev.0.3"
+page_numbering_policy: "physical_page is 1-based PDF page index; printed_page is a source-visible footer label only"
+manifest_role: "structured retrieval index; not a replacement for source PDF original content"
+overall_status: "pass_with_warnings"
+---
+
+# PDF Manifest: CAN_User_Manual.pdf
+
+## Retrieval Usage Contract
+
+- `physical_page` is the primary locator and is always a 1-based PDF physical page number.
+- `printed_page` is auxiliary and must not be used as the primary locator.
+- This Manifest is a structured retrieval index, not a replacement for the source PDF.
+- Important entries include short anchors so ChatGPT/Codex can verify claims against the source PDF.
+- Tables and figures are indexed for navigation; entries with `quality_flags` or lower confidence require source-PDF verification.
+- Treat this Manifest as stale if the local PDF bytes differ from the source identity recorded below.
+
+## 1. Document Metadata
+
+- `source_pdf`: `CAN_User_Manual.pdf`
+- `source_pdf_sha256`: `8337246395cfe1c48ccbb8da4d79ef0a46de86df649f6c53371d635e01f99007`
+- `source_pdf_size_bytes`: `4270049`
+- `pdf_page_count`: `121`
+- `source_file_library_id`: `file_00000000f440720bbc7e5abf433e17b7`
+- `source_file_created_at`: `2026-06-19T09:09:46Z`
+- `source_file_modified_at`: `2026-06-19T09:09:46Z`
+- `source_document_revision`: `Rev.0.3`
+- `visible_cover_title`: `FC7xxx CAN User Manual`
+- `visible_cover_revision`: `Rev.0.3`
+- `revision_history_latest_row`: `0.3 / 2023/10/20 / Updated for MCAL V0.3.0`
+- `generated_at`: `2026-06-19T23:50:45Z`
+- `generator_name`: `chatgpt-pdf-manifest-generator`
+- `generator_version`: `0.8.0-file-library-best-effort`
+- `manifest_schema_version`: `1.1`
+- `pdf_format`: `PDF 1.7`
+- `pdf_encrypted`: `false`
+- `pdf_outline_items`: `0`
+- `pdf_internal_link_annotations`: `56`
+- `ocr_status`: `not_run_text_layer_available_in_file_library_snippets`
+- `text_extraction_engine`: `File Library parsed text snippets + local pypdf 6.10.0 text-layer supplement`
+- `image_extraction_policy`: `index observed visual/diagram/screenshot anchors; do not OCR screenshots by default`
+- `page_numbering_policy`: `physical_page is 1-based PDF page index; printed_page is a source-visible footer label only`
+
+## 2. Global Summary
+
+- `topic`: "FC7xxx AUTOSAR MCAL CAN module - User Manual"
+- `module_scope`: "CAN software design, rejected requirements, structures, APIs/HAL/hardware functions, Tresos configuration containers and configuration-guide screenshots."
+- `key_chapters`: ["Chapter 2 Software Design", "Chapter 3 Tresos Configuration Items", "Chapter 4 Configuration Guides"]
+- `key_terms`: ["CAN", "Can_ConfigType", "Can_ControlerInstanceType", "Can_DisableControllerInterrupts", "Can_CheckWakeup", "Can_Hw_DisableBRS", "Can_Hw_SetFDCTRL2", "CanMainFunctionRWPeriods", "CanController", "CanHardwareObject"]
+- `summary`: "This 121-page user manual Manifest indexes all physical pages 1-121. The CAN_User source TOC was not fully returned by File Library, so several chapter/subsection boundaries are marked inferred while observed page anchors remain physical-page based."
+- `retrieval_note`: "Prefer Page Locator Map and anchors for source verification. Treat inferred section boundaries as navigation hints, not as authoritative chapter-range proof."
+
+## 3. Table of Contents Index
+
+### SEC-0001-COVER
+- `source_number`: `null`
+- `title`: "Cover"
+- `path`: "Cover"
+- `physical_page_start`: `1`
+- `physical_page_end`: `1`
+- `printed_page_start`: `cover`
+- `printed_page_end`: `cover`
+- `keywords`: ["CAN", "FC7xxx", "User Manual", "Rev.0.3"]
+- `anchor`: "FC7xxx CAN User Manual"
+- `range_confidence`: `0.78`
+- `quality_flags`: ["cover_page_not_text_extracted_in_search"]
+
+### SEC-0002-REVISION-HISTORY
+- `source_number`: `null`
+- `title`: "Revision History"
+- `path`: "Revision History"
+- `physical_page_start`: `2`
+- `physical_page_end`: `2`
+- `printed_page_start`: `2`
+- `printed_page_end`: `2`
+- `keywords`: ["CAN", "revision", "MCAL V0.1.0", "MCAL V0.3.0"]
+- `anchor`: "Revision History"
+- `range_confidence`: `0.95`
+
+### SEC-0003-TOC
+- `source_number`: `null`
+- `title`: "Table of Contents"
+- `path`: "Table of Contents"
+- `physical_page_start`: `3`
+- `physical_page_end`: `4`
+- `printed_page_start`: `3`
+- `printed_page_end`: `4`
+- `keywords`: ["CAN", "contents", "software design", "Tresos", "configuration guides"]
+- `anchor`: "Table of Contents"
+- `range_confidence`: `0.55`
+- `quality_flags`: ["toc_text_not_fully_returned_by_file_library"]
+
+### SEC-001
+- `source_number`: `Chapter 1`
+- `title`: "CAN Introduction"
+- `path`: "Chapter 1 CAN Introduction"
+- `physical_page_start`: `5`
+- `physical_page_end`: `5`
+- `printed_page_start`: `5`
+- `printed_page_end`: `5`
+- `keywords`: ["CAN", "AUTOSAR", "hardware summary"]
+- `anchor`: "Chapter 1 CAN Introduction"
+- `range_confidence`: `0.55`
+- `quality_flags`: ["section_range_inferred_from_manual_family"]
+
+### SEC-002
+- `source_number`: `Chapter 2`
+- `title`: "Software Design"
+- `path`: "Chapter 2 Software Design"
+- `physical_page_start`: `6`
+- `physical_page_end`: `64`
+- `printed_page_start`: `6`
+- `printed_page_end`: `64`
+- `keywords`: ["CAN", "software design", "API", "hardware functions", "structures"]
+- `anchor`: "Chapter 2 Software Design"
+- `range_confidence`: `0.75`
+- `quality_flags`: ["subsection_ranges_partially_inferred"]
+
+### SEC-002-001
+- `source_number`: `2.1`
+- `title`: "Rejected Requirements"
+- `path`: "Chapter 2 Software Design / 2.1 Rejected Requirements"
+- `physical_page_start`: `6`
+- `physical_page_end`: `8`
+- `printed_page_start`: `6`
+- `printed_page_end`: `8`
+- `keywords`: ["SWS_Can_00361", "SWS_Can_00485", "SWS_Can_00110", "wakeup"]
+- `anchor`: "2.1 Rejected Requirements"
+- `range_confidence`: `0.82`
+
+### SEC-002-002
+- `source_number`: `2.2-2.5`
+- `title`: "File Structure, Macros, Enums and Types"
+- `path`: "Chapter 2 Software Design / 2.2-2.5 File Structure, Macros, Enums and Types"
+- `physical_page_start`: `9`
+- `physical_page_end`: `20`
+- `printed_page_start`: `9`
+- `printed_page_end`: `20`
+- `keywords`: ["file structure", "macros", "enums", "typedefs", "Can_Types"]
+- `anchor`: "2.2 File Structure"
+- `range_confidence`: `0.55`
+- `quality_flags`: ["section_range_inferred"]
+
+### SEC-002-006
+- `source_number`: `2.6`
+- `title`: "Structures"
+- `path`: "Chapter 2 Software Design / 2.6 Structures"
+- `physical_page_start`: `21`
+- `physical_page_end`: `30`
+- `printed_page_start`: `21`
+- `printed_page_end`: `30`
+- `keywords`: ["Can_ConfigType", "Can_ControlerInstanceType", "Can_ControllerBaudrateConfigType"]
+- `anchor`: "2.6 Structures"
+- `range_confidence`: `0.78`
+- `quality_flags`: ["end_page_inferred"]
+
+### SEC-002-007
+- `source_number`: `2.7`
+- `title`: "API Functions"
+- `path`: "Chapter 2 Software Design / 2.7 API Functions"
+- `physical_page_start`: `31`
+- `physical_page_end`: `36`
+- `printed_page_start`: `31`
+- `printed_page_end`: `36`
+- `keywords`: ["Can_DisableControllerInterrupts", "Can_EnableControllerInterrupts", "Can_CheckWakeup", "Can_GetControllerErrorState"]
+- `anchor`: "2.7 API Functions"
+- `range_confidence`: `0.82`
+- `quality_flags`: ["range_inferred_from_observed_pages"]
+
+### SEC-002-008
+- `source_number`: `2.8.1`
+- `title`: "HAL Functions"
+- `path`: "Chapter 2 Software Design / 2.8 Hardware Functions / 2.8.1 HAL Functions"
+- `physical_page_start`: `37`
+- `physical_page_end`: `40`
+- `printed_page_start`: `37`
+- `printed_page_end`: `40`
+- `keywords`: ["Can_Hal_DisableControllerInterrupts", "CanHal_CheckWakeup", "CanHal_GetControllerErrorState"]
+- `anchor`: "2.8.1 HAL Functions"
+- `range_confidence`: `0.82`
+- `quality_flags`: ["range_inferred_from_observed_pages"]
+
+### SEC-002-009
+- `source_number`: `2.8.2`
+- `title`: "Hardware Functions"
+- `path`: "Chapter 2 Software Design / 2.8 Hardware Functions / 2.8.2 Functions in Can_Hw.h"
+- `physical_page_start`: `41`
+- `physical_page_end`: `59`
+- `printed_page_start`: `41`
+- `printed_page_end`: `59`
+- `keywords`: ["Can_Hw_DisableBRS", "Can_Hw_EnableTDC", "Can_Hw_SetFDCBTValue", "Can_Hw_SetFDCTRL2"]
+- `anchor`: "2.8.2 Functions in Can_Hw.h"
+- `range_confidence`: `0.82`
+- `quality_flags`: ["range_inferred_from_observed_pages"]
+
+### SEC-002-010
+- `source_number`: `2.9`
+- `title`: "API Sequence Diagram / Software Design Remainder"
+- `path`: "Chapter 2 Software Design / 2.9 API Sequence Diagram"
+- `physical_page_start`: `60`
+- `physical_page_end`: `64`
+- `printed_page_start`: `60`
+- `printed_page_end`: `64`
+- `keywords`: ["sequence diagram", "CAN API"]
+- `anchor`: "2.9 API Sequence Diagram"
+- `range_confidence`: `0.45`
+- `quality_flags`: ["section_range_inferred"]
+
+### SEC-003
+- `source_number`: `Chapter 3`
+- `title`: "Tresos Configuration Items"
+- `path`: "Chapter 3 Tresos Configuration Items"
+- `physical_page_start`: `65`
+- `physical_page_end`: `114`
+- `printed_page_start`: `65`
+- `printed_page_end`: `114`
+- `keywords`: ["Tresos", "CanGeneral", "CanConfigSet", "CanController", "CanHardwareObject"]
+- `anchor`: "Chapter 3 Tresos Configuration Items"
+- `range_confidence`: `0.82`
+- `quality_flags`: ["end_page_inferred_from_configuration_guide_start"]
+
+### SEC-003-001
+- `source_number`: `3.1`
+- `title`: "Container Inclusion Relation"
+- `path`: "Chapter 3 Tresos Configuration Items / 3.1 Container Inclusion Relation"
+- `physical_page_start`: `65`
+- `physical_page_end`: `65`
+- `printed_page_start`: `65`
+- `printed_page_end`: `65`
+- `keywords`: ["CanGeneral", "CanConfigSet", "CanController", "CanIcom", "CanHardwareObject"]
+- `anchor`: "3.1 Container Inclusion Relation"
+- `range_confidence`: `0.91`
+
+### SEC-003-002
+- `source_number`: `3.2`
+- `title`: "Containers and Variables"
+- `path`: "Chapter 3 Tresos Configuration Items / 3.2 Containers and Variables"
+- `physical_page_start`: `66`
+- `physical_page_end`: `114`
+- `printed_page_start`: `66`
+- `printed_page_end`: `114`
+- `keywords`: ["CanGeneral", "CanMainFunctionRWPeriods", "CanController", "CanHardwareObject", "CanIcom"]
+- `anchor`: "3.2 Containers and Variables"
+- `range_confidence`: `0.72`
+- `quality_flags`: ["subsection_ranges_not_fully_extracted"]
+
+### SEC-004
+- `source_number`: `Chapter 4`
+- `title`: "Configuration Guides"
+- `path`: "Chapter 4 Configuration Guides"
+- `physical_page_start`: `115`
+- `physical_page_end`: `121`
+- `printed_page_start`: `115`
+- `printed_page_end`: `121`
+- `keywords`: ["CAN Usage Common Steps", "baudrate", "CanHardwareObject", "Generate Project"]
+- `anchor`: "Chapter 4 Configuration Guides"
+- `range_confidence`: `0.8`
+- `quality_flags`: ["chapter_start_inferred_from_observed_steps"]
+
+### SEC-004-001
+- `source_number`: `4.x`
+- `title`: "CAN Usage Common Steps"
+- `path`: "Chapter 4 Configuration Guides / CAN Usage Common Steps"
+- `physical_page_start`: `115`
+- `physical_page_end`: `121`
+- `printed_page_start`: `115`
+- `printed_page_end`: `121`
+- `keywords`: ["CanMainFunctionRWPeriods", "CanController", "baudrate", "CanHardwareObjects", "Generate Project"]
+- `anchor`: "CAN Usage Common Steps"
+- `range_confidence`: `0.85`
+
+## 4. Page Locator Map
+
+### PAGE-0001
+- `physical_page`: `1`
+- `printed_page`: `cover`
+- `logical_page`: `null`
+- `section_path`: "Cover"
+- `section_id`: `SEC-0001-COVER`
+- `content_types`: ["text", "cover"]
+- `keywords`: ["CAN", "Can", "FC7xxx", "AUTOSAR", "MCAL"]
+- `anchors`: ["physical_page 1"]
+
+### PAGE-0002
+- `physical_page`: `2`
+- `printed_page`: `2`
+- `logical_page`: `null`
+- `section_path`: "Revision History"
+- `section_id`: `SEC-0002-REVISION-HISTORY`
+- `content_types`: ["text", "revision_history", "table"]
+- `keywords`: ["CAN", "Can", "FC7xxx", "AUTOSAR", "MCAL"]
+- `anchors`: ["Revision History", "0.1 2023/07/14 Initial release for MCAL V0.1.0", "0.3 2023/10/20 Updated for MCAL V0.3.0"]
+
+### PAGE-0003
+- `physical_page`: `3`
+- `printed_page`: `3`
+- `logical_page`: `null`
+- `section_path`: "Table of Contents"
+- `section_id`: `SEC-0003-TOC`
+- `content_types`: ["text", "toc"]
+- `keywords`: ["CAN", "Can", "FC7xxx", "AUTOSAR", "MCAL"]
+- `anchors`: ["Table of Contents"]
+
+### PAGE-0004
+- `physical_page`: `4`
+- `printed_page`: `4`
+- `logical_page`: `null`
+- `section_path`: "Table of Contents"
+- `section_id`: `SEC-0003-TOC`
+- `content_types`: ["text", "toc"]
+- `keywords`: ["CAN", "Can", "FC7xxx", "AUTOSAR", "MCAL"]
+- `anchors`: ["Table of Contents"]
+
+### PAGE-0005
+- `physical_page`: `5`
+- `printed_page`: `5`
+- `logical_page`: `null`
+- `section_path`: "Chapter 1 CAN Introduction"
+- `section_id`: `SEC-001`
+- `content_types`: ["text"]
+- `keywords`: ["CAN", "Can", "FC7xxx", "AUTOSAR", "MCAL"]
+- `anchors`: ["Chapter 1 CAN Introduction"]
+
+### PAGE-0006
+- `physical_page`: `6`
+- `printed_page`: `6`
+- `logical_page`: `null`
+- `section_path`: "Chapter 2 Software Design / 2.1 Rejected Requirements"
+- `section_id`: `SEC-002-001`
+- `content_types`: ["text"]
+- `keywords`: ["CAN", "Can", "FC7xxx", "AUTOSAR", "MCAL"]
+- `anchors`: ["2.1 Rejected Requirements"]
+
+### PAGE-0007
+- `physical_page`: `7`
+- `printed_page`: `7`
+- `logical_page`: `null`
+- `section_path`: "Chapter 2 Software Design / 2.1 Rejected Requirements"
+- `section_id`: `SEC-002-001`
+- `content_types`: ["text"]
+- `keywords`: ["CAN", "Can", "FC7xxx", "AUTOSAR", "MCAL"]
+- `anchors`: ["2.1 Rejected Requirements"]
+
+### PAGE-0008
+- `physical_page`: `8`
+- `printed_page`: `8`
+- `logical_page`: `null`
+- `section_path`: "Chapter 2 Software Design / 2.1 Rejected Requirements"
+- `section_id`: `SEC-002-001`
+- `content_types`: ["text"]
+- `keywords`: ["CAN", "Can", "FC7xxx", "AUTOSAR", "MCAL"]
+- `anchors`: ["SWS_Can_00361", "SWS_Can_00485", "SWS_Can_00110"]
+
+### PAGE-0009
+- `physical_page`: `9`
+- `printed_page`: `9`
+- `logical_page`: `null`
+- `section_path`: "Chapter 2 Software Design / 2.2-2.5 File Structure, Macros, Enums and Types"
+- `section_id`: `SEC-002-002`
+- `content_types`: ["text"]
+- `keywords`: ["CAN", "Can", "FC7xxx", "AUTOSAR", "MCAL"]
+- `anchors`: ["2.2-2.5 File Structure, Macros, Enums and Types"]
+
+### PAGE-0010
+- `physical_page`: `10`
+- `printed_page`: `10`
+- `logical_page`: `null`
+- `section_path`: "Chapter 2 Software Design / 2.2-2.5 File Structure, Macros, Enums and Types"
+- `section_id`: `SEC-002-002`
+- `content_types`: ["text"]
+- `keywords`: ["CAN", "Can", "FC7xxx", "AUTOSAR", "MCAL"]
+- `anchors`: ["2.2-2.5 File Structure, Macros, Enums and Types"]
+
+### PAGE-0011
+- `physical_page`: `11`
+- `printed_page`: `11`
+- `logical_page`: `null`
+- `section_path`: "Chapter 2 Software Design / 2.2-2.5 File Structure, Macros, Enums and Types"
+- `section_id`: `SEC-002-002`
+- `content_types`: ["text"]
+- `keywords`: ["CAN", "Can", "FC7xxx", "AUTOSAR", "MCAL"]
+- `anchors`: ["2.2-2.5 File Structure, Macros, Enums and Types"]
+
+### PAGE-0012
+- `physical_page`: `12`
+- `printed_page`: `12`
+- `logical_page`: `null`
+- `section_path`: "Chapter 2 Software Design / 2.2-2.5 File Structure, Macros, Enums and Types"
+- `section_id`: `SEC-002-002`
+- `content_types`: ["text"]
+- `keywords`: ["CAN", "Can", "FC7xxx", "AUTOSAR", "MCAL"]
+- `anchors`: ["2.2-2.5 File Structure, Macros, Enums and Types"]
+
+### PAGE-0013
+- `physical_page`: `13`
+- `printed_page`: `13`
+- `logical_page`: `null`
+- `section_path`: "Chapter 2 Software Design / 2.2-2.5 File Structure, Macros, Enums and Types"
+- `section_id`: `SEC-002-002`
+- `content_types`: ["text"]
+- `keywords`: ["CAN", "Can", "FC7xxx", "AUTOSAR", "MCAL"]
+- `anchors`: ["2.2-2.5 File Structure, Macros, Enums and Types"]
+
+### PAGE-0014
+- `physical_page`: `14`
+- `printed_page`: `14`
+- `logical_page`: `null`
+- `section_path`: "Chapter 2 Software Design / 2.2-2.5 File Structure, Macros, Enums and Types"
+- `section_id`: `SEC-002-002`
+- `content_types`: ["text"]
+- `keywords`: ["CAN", "Can", "FC7xxx", "AUTOSAR", "MCAL"]
+- `anchors`: ["2.2-2.5 File Structure, Macros, Enums and Types"]
+
+### PAGE-0015
+- `physical_page`: `15`
+- `printed_page`: `15`
+- `logical_page`: `null`
+- `section_path`: "Chapter 2 Software Design / 2.2-2.5 File Structure, Macros, Enums and Types"
+- `section_id`: `SEC-002-002`
+- `content_types`: ["text"]
+- `keywords`: ["CAN", "Can", "FC7xxx", "AUTOSAR", "MCAL"]
+- `anchors`: ["2.2-2.5 File Structure, Macros, Enums and Types"]
+
+### PAGE-0016
+- `physical_page`: `16`
+- `printed_page`: `16`
+- `logical_page`: `null`
+- `section_path`: "Chapter 2 Software Design / 2.2-2.5 File Structure, Macros, Enums and Types"
+- `section_id`: `SEC-002-002`
+- `content_types`: ["text"]
+- `keywords`: ["CAN", "Can", "FC7xxx", "AUTOSAR", "MCAL"]
+- `anchors`: ["2.2-2.5 File Structure, Macros, Enums and Types"]
+
+### PAGE-0017
+- `physical_page`: `17`
+- `printed_page`: `17`
+- `logical_page`: `null`
+- `section_path`: "Chapter 2 Software Design / 2.2-2.5 File Structure, Macros, Enums and Types"
+- `section_id`: `SEC-002-002`
+- `content_types`: ["text"]
+- `keywords`: ["CAN", "Can", "FC7xxx", "AUTOSAR", "MCAL"]
+- `anchors`: ["2.2-2.5 File Structure, Macros, Enums and Types"]
+
+### PAGE-0018
+- `physical_page`: `18`
+- `printed_page`: `18`
+- `logical_page`: `null`
+- `section_path`: "Chapter 2 Software Design / 2.2-2.5 File Structure, Macros, Enums and Types"
+- `section_id`: `SEC-002-002`
+- `content_types`: ["text"]
+- `keywords`: ["CAN", "Can", "FC7xxx", "AUTOSAR", "MCAL"]
+- `anchors`: ["2.2-2.5 File Structure, Macros, Enums and Types"]
+
+### PAGE-0019
+- `physical_page`: `19`
+- `printed_page`: `19`
+- `logical_page`: `null`
+- `section_path`: "Chapter 2 Software Design / 2.2-2.5 File Structure, Macros, Enums and Types"
+- `section_id`: `SEC-002-002`
+- `content_types`: ["text"]
+- `keywords`: ["CAN", "Can", "FC7xxx", "AUTOSAR", "MCAL"]
+- `anchors`: ["2.2-2.5 File Structure, Macros, Enums and Types"]
+
+### PAGE-0020
+- `physical_page`: `20`
+- `printed_page`: `20`
+- `logical_page`: `null`
+- `section_path`: "Chapter 2 Software Design / 2.2-2.5 File Structure, Macros, Enums and Types"
+- `section_id`: `SEC-002-002`
+- `content_types`: ["text"]
+- `keywords`: ["CAN", "Can", "FC7xxx", "AUTOSAR", "MCAL"]
+- `anchors`: ["2.2-2.5 File Structure, Macros, Enums and Types"]
+
+### PAGE-0021
+- `physical_page`: `21`
+- `printed_page`: `21`
+- `logical_page`: `null`
+- `section_path`: "Chapter 2 Software Design / 2.6 Structures"
+- `section_id`: `SEC-002-006`
+- `content_types`: ["text"]
+- `keywords`: ["CAN", "Can", "FC7xxx", "AUTOSAR", "MCAL"]
+- `anchors`: ["2.6 Structures", "Can_ConfigType", "Can_ControlerInstanceType"]
+
+### PAGE-0022
+- `physical_page`: `22`
+- `printed_page`: `22`
+- `logical_page`: `null`
+- `section_path`: "Chapter 2 Software Design / 2.6 Structures"
+- `section_id`: `SEC-002-006`
+- `content_types`: ["text"]
+- `keywords`: ["CAN", "Can", "FC7xxx", "AUTOSAR", "MCAL"]
+- `anchors`: ["2.6 Structures"]
+
+### PAGE-0023
+- `physical_page`: `23`
+- `printed_page`: `23`
+- `logical_page`: `null`
+- `section_path`: "Chapter 2 Software Design / 2.6 Structures"
+- `section_id`: `SEC-002-006`
+- `content_types`: ["text"]
+- `keywords`: ["CAN", "Can", "FC7xxx", "AUTOSAR", "MCAL"]
+- `anchors`: ["2.6 Structures"]
+
+### PAGE-0024
+- `physical_page`: `24`
+- `printed_page`: `24`
+- `logical_page`: `null`
+- `section_path`: "Chapter 2 Software Design / 2.6 Structures"
+- `section_id`: `SEC-002-006`
+- `content_types`: ["text"]
+- `keywords`: ["CAN", "Can", "FC7xxx", "AUTOSAR", "MCAL"]
+- `anchors`: ["2.6 Structures"]
+
+### PAGE-0025
+- `physical_page`: `25`
+- `printed_page`: `25`
+- `logical_page`: `null`
+- `section_path`: "Chapter 2 Software Design / 2.6 Structures"
+- `section_id`: `SEC-002-006`
+- `content_types`: ["text"]
+- `keywords`: ["CAN", "Can", "FC7xxx", "AUTOSAR", "MCAL"]
+- `anchors`: ["2.6 Structures"]
+
+### PAGE-0026
+- `physical_page`: `26`
+- `printed_page`: `26`
+- `logical_page`: `null`
+- `section_path`: "Chapter 2 Software Design / 2.6 Structures"
+- `section_id`: `SEC-002-006`
+- `content_types`: ["text"]
+- `keywords`: ["CAN", "Can", "FC7xxx", "AUTOSAR", "MCAL"]
+- `anchors`: ["2.6 Structures"]
+
+### PAGE-0027
+- `physical_page`: `27`
+- `printed_page`: `27`
+- `logical_page`: `null`
+- `section_path`: "Chapter 2 Software Design / 2.6 Structures"
+- `section_id`: `SEC-002-006`
+- `content_types`: ["text"]
+- `keywords`: ["CAN", "Can", "FC7xxx", "AUTOSAR", "MCAL"]
+- `anchors`: ["2.6 Structures"]
+
+### PAGE-0028
+- `physical_page`: `28`
+- `printed_page`: `28`
+- `logical_page`: `null`
+- `section_path`: "Chapter 2 Software Design / 2.6 Structures"
+- `section_id`: `SEC-002-006`
+- `content_types`: ["text"]
+- `keywords`: ["CAN", "Can", "FC7xxx", "AUTOSAR", "MCAL"]
+- `anchors`: ["2.6 Structures"]
+
+### PAGE-0029
+- `physical_page`: `29`
+- `printed_page`: `29`
+- `logical_page`: `null`
+- `section_path`: "Chapter 2 Software Design / 2.6 Structures"
+- `section_id`: `SEC-002-006`
+- `content_types`: ["text"]
+- `keywords`: ["CAN", "Can", "FC7xxx", "AUTOSAR", "MCAL"]
+- `anchors`: ["2.6 Structures"]
+
+### PAGE-0030
+- `physical_page`: `30`
+- `printed_page`: `30`
+- `logical_page`: `null`
+- `section_path`: "Chapter 2 Software Design / 2.6 Structures"
+- `section_id`: `SEC-002-006`
+- `content_types`: ["text"]
+- `keywords`: ["CAN", "Can", "FC7xxx", "AUTOSAR", "MCAL"]
+- `anchors`: ["2.6 Structures"]
+
+### PAGE-0031
+- `physical_page`: `31`
+- `printed_page`: `31`
+- `logical_page`: `null`
+- `section_path`: "Chapter 2 Software Design / 2.7 API Functions"
+- `section_id`: `SEC-002-007`
+- `content_types`: ["text", "api", "table"]
+- `keywords`: ["CAN", "Can", "FC7xxx", "AUTOSAR", "MCAL", "API", "function", "parameters", "returns"]
+- `anchors`: ["Can_DisableControllerInterrupts", "Can_EnableControllerInterrupts", "Can_CheckWakeup"]
+
+### PAGE-0032
+- `physical_page`: `32`
+- `printed_page`: `32`
+- `logical_page`: `null`
+- `section_path`: "Chapter 2 Software Design / 2.7 API Functions"
+- `section_id`: `SEC-002-007`
+- `content_types`: ["text", "api", "table"]
+- `keywords`: ["CAN", "Can", "FC7xxx", "AUTOSAR", "MCAL", "API", "function", "parameters", "returns"]
+- `anchors`: ["2.7 API Functions"]
+
+### PAGE-0033
+- `physical_page`: `33`
+- `printed_page`: `33`
+- `logical_page`: `null`
+- `section_path`: "Chapter 2 Software Design / 2.7 API Functions"
+- `section_id`: `SEC-002-007`
+- `content_types`: ["text", "api", "table"]
+- `keywords`: ["CAN", "Can", "FC7xxx", "AUTOSAR", "MCAL", "API", "function", "parameters", "returns"]
+- `anchors`: ["2.7 API Functions"]
+
+### PAGE-0034
+- `physical_page`: `34`
+- `printed_page`: `34`
+- `logical_page`: `null`
+- `section_path`: "Chapter 2 Software Design / 2.7 API Functions"
+- `section_id`: `SEC-002-007`
+- `content_types`: ["text", "api", "table"]
+- `keywords`: ["CAN", "Can", "FC7xxx", "AUTOSAR", "MCAL", "API", "function", "parameters", "returns"]
+- `anchors`: ["2.7 API Functions"]
+
+### PAGE-0035
+- `physical_page`: `35`
+- `printed_page`: `35`
+- `logical_page`: `null`
+- `section_path`: "Chapter 2 Software Design / 2.7 API Functions"
+- `section_id`: `SEC-002-007`
+- `content_types`: ["text", "api", "table"]
+- `keywords`: ["CAN", "Can", "FC7xxx", "AUTOSAR", "MCAL", "API", "function", "parameters", "returns"]
+- `anchors`: ["2.7 API Functions"]
+
+### PAGE-0036
+- `physical_page`: `36`
+- `printed_page`: `36`
+- `logical_page`: `null`
+- `section_path`: "Chapter 2 Software Design / 2.7 API Functions"
+- `section_id`: `SEC-002-007`
+- `content_types`: ["text", "api", "table"]
+- `keywords`: ["CAN", "Can", "FC7xxx", "AUTOSAR", "MCAL", "API", "function", "parameters", "returns"]
+- `anchors`: ["2.7 API Functions"]
+
+### PAGE-0037
+- `physical_page`: `37`
+- `printed_page`: `37`
+- `logical_page`: `null`
+- `section_path`: "Chapter 2 Software Design / 2.8 Hardware Functions / 2.8.1 HAL Functions"
+- `section_id`: `SEC-002-008`
+- `content_types`: ["text", "api", "table"]
+- `keywords`: ["CAN", "Can", "FC7xxx", "AUTOSAR", "MCAL", "API", "function", "parameters", "returns"]
+- `anchors`: ["Can_Hal_DisableControllerInterrupts", "CanHal_CheckWakeup", "CanHal_GetControllerErrorState"]
+
+### PAGE-0038
+- `physical_page`: `38`
+- `printed_page`: `38`
+- `logical_page`: `null`
+- `section_path`: "Chapter 2 Software Design / 2.8 Hardware Functions / 2.8.1 HAL Functions"
+- `section_id`: `SEC-002-008`
+- `content_types`: ["text", "api", "table"]
+- `keywords`: ["CAN", "Can", "FC7xxx", "AUTOSAR", "MCAL", "API", "function", "parameters", "returns"]
+- `anchors`: ["2.8.1 HAL Functions"]
+
+### PAGE-0039
+- `physical_page`: `39`
+- `printed_page`: `39`
+- `logical_page`: `null`
+- `section_path`: "Chapter 2 Software Design / 2.8 Hardware Functions / 2.8.1 HAL Functions"
+- `section_id`: `SEC-002-008`
+- `content_types`: ["text", "api", "table"]
+- `keywords`: ["CAN", "Can", "FC7xxx", "AUTOSAR", "MCAL", "API", "function", "parameters", "returns"]
+- `anchors`: ["2.8.1 HAL Functions"]
+
+### PAGE-0040
+- `physical_page`: `40`
+- `printed_page`: `40`
+- `logical_page`: `null`
+- `section_path`: "Chapter 2 Software Design / 2.8 Hardware Functions / 2.8.1 HAL Functions"
+- `section_id`: `SEC-002-008`
+- `content_types`: ["text", "api", "table"]
+- `keywords`: ["CAN", "Can", "FC7xxx", "AUTOSAR", "MCAL", "API", "function", "parameters", "returns"]
+- `anchors`: ["2.8.1 HAL Functions"]
+
+### PAGE-0041
+- `physical_page`: `41`
+- `printed_page`: `41`
+- `logical_page`: `null`
+- `section_path`: "Chapter 2 Software Design / 2.8 Hardware Functions / 2.8.2 Functions in Can_Hw.h"
+- `section_id`: `SEC-002-009`
+- `content_types`: ["text", "api", "table"]
+- `keywords`: ["CAN", "Can", "FC7xxx", "AUTOSAR", "MCAL", "API", "function", "parameters", "returns"]
+- `anchors`: ["2.8.2 Functions in Can_Hw.h"]
+
+### PAGE-0042
+- `physical_page`: `42`
+- `printed_page`: `42`
+- `logical_page`: `null`
+- `section_path`: "Chapter 2 Software Design / 2.8 Hardware Functions / 2.8.2 Functions in Can_Hw.h"
+- `section_id`: `SEC-002-009`
+- `content_types`: ["text", "api", "table"]
+- `keywords`: ["CAN", "Can", "FC7xxx", "AUTOSAR", "MCAL", "API", "function", "parameters", "returns"]
+- `anchors`: ["2.8.2 Functions in Can_Hw.h"]
+
+### PAGE-0043
+- `physical_page`: `43`
+- `printed_page`: `43`
+- `logical_page`: `null`
+- `section_path`: "Chapter 2 Software Design / 2.8 Hardware Functions / 2.8.2 Functions in Can_Hw.h"
+- `section_id`: `SEC-002-009`
+- `content_types`: ["text", "api", "table"]
+- `keywords`: ["CAN", "Can", "FC7xxx", "AUTOSAR", "MCAL", "API", "function", "parameters", "returns"]
+- `anchors`: ["2.8.2 Functions in Can_Hw.h"]
+
+### PAGE-0044
+- `physical_page`: `44`
+- `printed_page`: `44`
+- `logical_page`: `null`
+- `section_path`: "Chapter 2 Software Design / 2.8 Hardware Functions / 2.8.2 Functions in Can_Hw.h"
+- `section_id`: `SEC-002-009`
+- `content_types`: ["text", "api", "table"]
+- `keywords`: ["CAN", "Can", "FC7xxx", "AUTOSAR", "MCAL", "API", "function", "parameters", "returns"]
+- `anchors`: ["2.8.2 Functions in Can_Hw.h"]
+
+### PAGE-0045
+- `physical_page`: `45`
+- `printed_page`: `45`
+- `logical_page`: `null`
+- `section_path`: "Chapter 2 Software Design / 2.8 Hardware Functions / 2.8.2 Functions in Can_Hw.h"
+- `section_id`: `SEC-002-009`
+- `content_types`: ["text", "api", "table"]
+- `keywords`: ["CAN", "Can", "FC7xxx", "AUTOSAR", "MCAL", "API", "function", "parameters", "returns"]
+- `anchors`: ["2.8.2 Functions in Can_Hw.h"]
+
+### PAGE-0046
+- `physical_page`: `46`
+- `printed_page`: `46`
+- `logical_page`: `null`
+- `section_path`: "Chapter 2 Software Design / 2.8 Hardware Functions / 2.8.2 Functions in Can_Hw.h"
+- `section_id`: `SEC-002-009`
+- `content_types`: ["text", "api", "table"]
+- `keywords`: ["CAN", "Can", "FC7xxx", "AUTOSAR", "MCAL", "API", "function", "parameters", "returns"]
+- `anchors`: ["2.8.2 Functions in Can_Hw.h"]
+
+### PAGE-0047
+- `physical_page`: `47`
+- `printed_page`: `47`
+- `logical_page`: `null`
+- `section_path`: "Chapter 2 Software Design / 2.8 Hardware Functions / 2.8.2 Functions in Can_Hw.h"
+- `section_id`: `SEC-002-009`
+- `content_types`: ["text", "api", "table"]
+- `keywords`: ["CAN", "Can", "FC7xxx", "AUTOSAR", "MCAL", "API", "function", "parameters", "returns"]
+- `anchors`: ["2.8.2 Functions in Can_Hw.h"]
+
+### PAGE-0048
+- `physical_page`: `48`
+- `printed_page`: `48`
+- `logical_page`: `null`
+- `section_path`: "Chapter 2 Software Design / 2.8 Hardware Functions / 2.8.2 Functions in Can_Hw.h"
+- `section_id`: `SEC-002-009`
+- `content_types`: ["text", "api", "table"]
+- `keywords`: ["CAN", "Can", "FC7xxx", "AUTOSAR", "MCAL", "API", "function", "parameters", "returns"]
+- `anchors`: ["2.8.2 Functions in Can_Hw.h"]
+
+### PAGE-0049
+- `physical_page`: `49`
+- `printed_page`: `49`
+- `logical_page`: `null`
+- `section_path`: "Chapter 2 Software Design / 2.8 Hardware Functions / 2.8.2 Functions in Can_Hw.h"
+- `section_id`: `SEC-002-009`
+- `content_types`: ["text", "api", "table"]
+- `keywords`: ["CAN", "Can", "FC7xxx", "AUTOSAR", "MCAL", "API", "function", "parameters", "returns"]
+- `anchors`: ["2.8.2 Functions in Can_Hw.h"]
+
+### PAGE-0050
+- `physical_page`: `50`
+- `printed_page`: `50`
+- `logical_page`: `null`
+- `section_path`: "Chapter 2 Software Design / 2.8 Hardware Functions / 2.8.2 Functions in Can_Hw.h"
+- `section_id`: `SEC-002-009`
+- `content_types`: ["text", "api", "table"]
+- `keywords`: ["CAN", "Can", "FC7xxx", "AUTOSAR", "MCAL", "API", "function", "parameters", "returns"]
+- `anchors`: ["2.8.2 Functions in Can_Hw.h"]
+
+### PAGE-0051
+- `physical_page`: `51`
+- `printed_page`: `51`
+- `logical_page`: `null`
+- `section_path`: "Chapter 2 Software Design / 2.8 Hardware Functions / 2.8.2 Functions in Can_Hw.h"
+- `section_id`: `SEC-002-009`
+- `content_types`: ["text", "api", "table"]
+- `keywords`: ["CAN", "Can", "FC7xxx", "AUTOSAR", "MCAL", "API", "function", "parameters", "returns"]
+- `anchors`: ["2.8.2 Functions in Can_Hw.h"]
+
+### PAGE-0052
+- `physical_page`: `52`
+- `printed_page`: `52`
+- `logical_page`: `null`
+- `section_path`: "Chapter 2 Software Design / 2.8 Hardware Functions / 2.8.2 Functions in Can_Hw.h"
+- `section_id`: `SEC-002-009`
+- `content_types`: ["text", "api", "table"]
+- `keywords`: ["CAN", "Can", "FC7xxx", "AUTOSAR", "MCAL", "API", "function", "parameters", "returns"]
+- `anchors`: ["2.8.2 Functions in Can_Hw.h"]
+
+### PAGE-0053
+- `physical_page`: `53`
+- `printed_page`: `53`
+- `logical_page`: `null`
+- `section_path`: "Chapter 2 Software Design / 2.8 Hardware Functions / 2.8.2 Functions in Can_Hw.h"
+- `section_id`: `SEC-002-009`
+- `content_types`: ["text", "api", "table"]
+- `keywords`: ["CAN", "Can", "FC7xxx", "AUTOSAR", "MCAL", "API", "function", "parameters", "returns"]
+- `anchors`: ["2.8.2 Functions in Can_Hw.h"]
+
+### PAGE-0054
+- `physical_page`: `54`
+- `printed_page`: `54`
+- `logical_page`: `null`
+- `section_path`: "Chapter 2 Software Design / 2.8 Hardware Functions / 2.8.2 Functions in Can_Hw.h"
+- `section_id`: `SEC-002-009`
+- `content_types`: ["text", "api", "table"]
+- `keywords`: ["CAN", "Can", "FC7xxx", "AUTOSAR", "MCAL", "API", "function", "parameters", "returns"]
+- `anchors`: ["2.8.2 Functions in Can_Hw.h"]
+
+### PAGE-0055
+- `physical_page`: `55`
+- `printed_page`: `55`
+- `logical_page`: `null`
+- `section_path`: "Chapter 2 Software Design / 2.8 Hardware Functions / 2.8.2 Functions in Can_Hw.h"
+- `section_id`: `SEC-002-009`
+- `content_types`: ["text", "api", "table"]
+- `keywords`: ["CAN", "Can", "FC7xxx", "AUTOSAR", "MCAL", "API", "function", "parameters", "returns"]
+- `anchors`: ["2.8.2 Functions in Can_Hw.h"]
+
+### PAGE-0056
+- `physical_page`: `56`
+- `printed_page`: `56`
+- `logical_page`: `null`
+- `section_path`: "Chapter 2 Software Design / 2.8 Hardware Functions / 2.8.2 Functions in Can_Hw.h"
+- `section_id`: `SEC-002-009`
+- `content_types`: ["text", "api", "table"]
+- `keywords`: ["CAN", "Can", "FC7xxx", "AUTOSAR", "MCAL", "API", "function", "parameters", "returns"]
+- `anchors`: ["2.8.2 Functions in Can_Hw.h"]
+
+### PAGE-0057
+- `physical_page`: `57`
+- `printed_page`: `57`
+- `logical_page`: `null`
+- `section_path`: "Chapter 2 Software Design / 2.8 Hardware Functions / 2.8.2 Functions in Can_Hw.h"
+- `section_id`: `SEC-002-009`
+- `content_types`: ["text", "api", "table"]
+- `keywords`: ["CAN", "Can", "FC7xxx", "AUTOSAR", "MCAL", "API", "function", "parameters", "returns"]
+- `anchors`: ["2.8.2 Functions in Can_Hw.h"]
+
+### PAGE-0058
+- `physical_page`: `58`
+- `printed_page`: `58`
+- `logical_page`: `null`
+- `section_path`: "Chapter 2 Software Design / 2.8 Hardware Functions / 2.8.2 Functions in Can_Hw.h"
+- `section_id`: `SEC-002-009`
+- `content_types`: ["text", "api", "table"]
+- `keywords`: ["CAN", "Can", "FC7xxx", "AUTOSAR", "MCAL", "API", "function", "parameters", "returns"]
+- `anchors`: ["2.8.2 Functions in Can_Hw.h"]
+
+### PAGE-0059
+- `physical_page`: `59`
+- `printed_page`: `59`
+- `logical_page`: `null`
+- `section_path`: "Chapter 2 Software Design / 2.8 Hardware Functions / 2.8.2 Functions in Can_Hw.h"
+- `section_id`: `SEC-002-009`
+- `content_types`: ["text", "api", "table"]
+- `keywords`: ["CAN", "Can", "FC7xxx", "AUTOSAR", "MCAL", "API", "function", "parameters", "returns"]
+- `anchors`: ["Can_Hw_DisableBRS", "Can_Hw_EnableTDC", "Can_Hw_SetFDCTRL2"]
+
+### PAGE-0060
+- `physical_page`: `60`
+- `printed_page`: `60`
+- `logical_page`: `null`
+- `section_path`: "Chapter 2 Software Design / 2.9 API Sequence Diagram"
+- `section_id`: `SEC-002-010`
+- `content_types`: ["text", "api", "table", "figure"]
+- `keywords`: ["CAN", "Can", "FC7xxx", "AUTOSAR", "MCAL", "API", "function", "parameters", "returns"]
+- `anchors`: ["2.9 API Sequence Diagram"]
+
+### PAGE-0061
+- `physical_page`: `61`
+- `printed_page`: `61`
+- `logical_page`: `null`
+- `section_path`: "Chapter 2 Software Design / 2.9 API Sequence Diagram"
+- `section_id`: `SEC-002-010`
+- `content_types`: ["text", "api", "table", "figure"]
+- `keywords`: ["CAN", "Can", "FC7xxx", "AUTOSAR", "MCAL", "API", "function", "parameters", "returns"]
+- `anchors`: ["2.9 API Sequence Diagram"]
+
+### PAGE-0062
+- `physical_page`: `62`
+- `printed_page`: `62`
+- `logical_page`: `null`
+- `section_path`: "Chapter 2 Software Design / 2.9 API Sequence Diagram"
+- `section_id`: `SEC-002-010`
+- `content_types`: ["text", "api", "table", "figure"]
+- `keywords`: ["CAN", "Can", "FC7xxx", "AUTOSAR", "MCAL", "API", "function", "parameters", "returns"]
+- `anchors`: ["2.9 API Sequence Diagram"]
+
+### PAGE-0063
+- `physical_page`: `63`
+- `printed_page`: `63`
+- `logical_page`: `null`
+- `section_path`: "Chapter 2 Software Design / 2.9 API Sequence Diagram"
+- `section_id`: `SEC-002-010`
+- `content_types`: ["text", "api", "table", "figure"]
+- `keywords`: ["CAN", "Can", "FC7xxx", "AUTOSAR", "MCAL", "API", "function", "parameters", "returns"]
+- `anchors`: ["2.9 API Sequence Diagram"]
+
+### PAGE-0064
+- `physical_page`: `64`
+- `printed_page`: `64`
+- `logical_page`: `null`
+- `section_path`: "Chapter 2 Software Design / 2.9 API Sequence Diagram"
+- `section_id`: `SEC-002-010`
+- `content_types`: ["text", "api", "table", "figure"]
+- `keywords`: ["CAN", "Can", "FC7xxx", "AUTOSAR", "MCAL", "API", "function", "parameters", "returns"]
+- `anchors`: ["2.9 API Sequence Diagram"]
+
+### PAGE-0065
+- `physical_page`: `65`
+- `printed_page`: `65`
+- `logical_page`: `null`
+- `section_path`: "Chapter 3 Tresos Configuration Items / 3.1 Container Inclusion Relation"
+- `section_id`: `SEC-003-001`
+- `content_types`: ["text", "configuration"]
+- `keywords`: ["CAN", "Can", "FC7xxx", "AUTOSAR", "MCAL", "Tresos", "configuration", "container", "ECUC"]
+- `anchors`: ["Chapter 3 Tresos Configuration Items", "3.1 Container Inclusion Relation", "CanGeneral"]
+
+### PAGE-0066
+- `physical_page`: `66`
+- `printed_page`: `66`
+- `logical_page`: `null`
+- `section_path`: "Chapter 3 Tresos Configuration Items / 3.2 Containers and Variables"
+- `section_id`: `SEC-003-002`
+- `content_types`: ["text", "configuration"]
+- `keywords`: ["CAN", "Can", "FC7xxx", "AUTOSAR", "MCAL", "Tresos", "configuration", "container", "ECUC"]
+- `anchors`: ["3.2 Containers and Variables"]
+
+### PAGE-0067
+- `physical_page`: `67`
+- `printed_page`: `67`
+- `logical_page`: `null`
+- `section_path`: "Chapter 3 Tresos Configuration Items / 3.2 Containers and Variables"
+- `section_id`: `SEC-003-002`
+- `content_types`: ["text", "configuration"]
+- `keywords`: ["CAN", "Can", "FC7xxx", "AUTOSAR", "MCAL", "Tresos", "configuration", "container", "ECUC"]
+- `anchors`: ["3.2 Containers and Variables"]
+
+### PAGE-0068
+- `physical_page`: `68`
+- `printed_page`: `68`
+- `logical_page`: `null`
+- `section_path`: "Chapter 3 Tresos Configuration Items / 3.2 Containers and Variables"
+- `section_id`: `SEC-003-002`
+- `content_types`: ["text", "configuration"]
+- `keywords`: ["CAN", "Can", "FC7xxx", "AUTOSAR", "MCAL", "Tresos", "configuration", "container", "ECUC"]
+- `anchors`: ["CanMainFunctionModePeriod", "CanMainFunctionWakeupPeriod", "CanMultiplexedTransmission"]
+
+### PAGE-0069
+- `physical_page`: `69`
+- `printed_page`: `69`
+- `logical_page`: `null`
+- `section_path`: "Chapter 3 Tresos Configuration Items / 3.2 Containers and Variables"
+- `section_id`: `SEC-003-002`
+- `content_types`: ["text", "configuration"]
+- `keywords`: ["CAN", "Can", "FC7xxx", "AUTOSAR", "MCAL", "Tresos", "configuration", "container", "ECUC"]
+- `anchors`: ["3.2 Containers and Variables"]
+
+### PAGE-0070
+- `physical_page`: `70`
+- `printed_page`: `70`
+- `logical_page`: `null`
+- `section_path`: "Chapter 3 Tresos Configuration Items / 3.2 Containers and Variables"
+- `section_id`: `SEC-003-002`
+- `content_types`: ["text", "configuration"]
+- `keywords`: ["CAN", "Can", "FC7xxx", "AUTOSAR", "MCAL", "Tresos", "configuration", "container", "ECUC"]
+- `anchors`: ["3.2 Containers and Variables"]
+
+### PAGE-0071
+- `physical_page`: `71`
+- `printed_page`: `71`
+- `logical_page`: `null`
+- `section_path`: "Chapter 3 Tresos Configuration Items / 3.2 Containers and Variables"
+- `section_id`: `SEC-003-002`
+- `content_types`: ["text", "configuration"]
+- `keywords`: ["CAN", "Can", "FC7xxx", "AUTOSAR", "MCAL", "Tresos", "configuration", "container", "ECUC"]
+- `anchors`: ["3.2 Containers and Variables"]
+
+### PAGE-0072
+- `physical_page`: `72`
+- `printed_page`: `72`
+- `logical_page`: `null`
+- `section_path`: "Chapter 3 Tresos Configuration Items / 3.2 Containers and Variables"
+- `section_id`: `SEC-003-002`
+- `content_types`: ["text", "configuration"]
+- `keywords`: ["CAN", "Can", "FC7xxx", "AUTOSAR", "MCAL", "Tresos", "configuration", "container", "ECUC"]
+- `anchors`: ["3.2 Containers and Variables"]
+
+### PAGE-0073
+- `physical_page`: `73`
+- `printed_page`: `73`
+- `logical_page`: `null`
+- `section_path`: "Chapter 3 Tresos Configuration Items / 3.2 Containers and Variables"
+- `section_id`: `SEC-003-002`
+- `content_types`: ["text", "configuration"]
+- `keywords`: ["CAN", "Can", "FC7xxx", "AUTOSAR", "MCAL", "Tresos", "configuration", "container", "ECUC"]
+- `anchors`: ["3.2 Containers and Variables"]
+
+### PAGE-0074
+- `physical_page`: `74`
+- `printed_page`: `74`
+- `logical_page`: `null`
+- `section_path`: "Chapter 3 Tresos Configuration Items / 3.2 Containers and Variables"
+- `section_id`: `SEC-003-002`
+- `content_types`: ["text", "configuration"]
+- `keywords`: ["CAN", "Can", "FC7xxx", "AUTOSAR", "MCAL", "Tresos", "configuration", "container", "ECUC"]
+- `anchors`: ["3.2 Containers and Variables"]
+
+### PAGE-0075
+- `physical_page`: `75`
+- `printed_page`: `75`
+- `logical_page`: `null`
+- `section_path`: "Chapter 3 Tresos Configuration Items / 3.2 Containers and Variables"
+- `section_id`: `SEC-003-002`
+- `content_types`: ["text", "configuration"]
+- `keywords`: ["CAN", "Can", "FC7xxx", "AUTOSAR", "MCAL", "Tresos", "configuration", "container", "ECUC"]
+- `anchors`: ["3.2 Containers and Variables"]
+
+### PAGE-0076
+- `physical_page`: `76`
+- `printed_page`: `76`
+- `logical_page`: `null`
+- `section_path`: "Chapter 3 Tresos Configuration Items / 3.2 Containers and Variables"
+- `section_id`: `SEC-003-002`
+- `content_types`: ["text", "configuration"]
+- `keywords`: ["CAN", "Can", "FC7xxx", "AUTOSAR", "MCAL", "Tresos", "configuration", "container", "ECUC"]
+- `anchors`: ["3.2 Containers and Variables"]
+
+### PAGE-0077
+- `physical_page`: `77`
+- `printed_page`: `77`
+- `logical_page`: `null`
+- `section_path`: "Chapter 3 Tresos Configuration Items / 3.2 Containers and Variables"
+- `section_id`: `SEC-003-002`
+- `content_types`: ["text", "configuration"]
+- `keywords`: ["CAN", "Can", "FC7xxx", "AUTOSAR", "MCAL", "Tresos", "configuration", "container", "ECUC"]
+- `anchors`: ["3.2 Containers and Variables"]
+
+### PAGE-0078
+- `physical_page`: `78`
+- `printed_page`: `78`
+- `logical_page`: `null`
+- `section_path`: "Chapter 3 Tresos Configuration Items / 3.2 Containers and Variables"
+- `section_id`: `SEC-003-002`
+- `content_types`: ["text", "configuration"]
+- `keywords`: ["CAN", "Can", "FC7xxx", "AUTOSAR", "MCAL", "Tresos", "configuration", "container", "ECUC"]
+- `anchors`: ["3.2 Containers and Variables"]
+
+### PAGE-0079
+- `physical_page`: `79`
+- `printed_page`: `79`
+- `logical_page`: `null`
+- `section_path`: "Chapter 3 Tresos Configuration Items / 3.2 Containers and Variables"
+- `section_id`: `SEC-003-002`
+- `content_types`: ["text", "configuration"]
+- `keywords`: ["CAN", "Can", "FC7xxx", "AUTOSAR", "MCAL", "Tresos", "configuration", "container", "ECUC"]
+- `anchors`: ["3.2 Containers and Variables"]
+
+### PAGE-0080
+- `physical_page`: `80`
+- `printed_page`: `80`
+- `logical_page`: `null`
+- `section_path`: "Chapter 3 Tresos Configuration Items / 3.2 Containers and Variables"
+- `section_id`: `SEC-003-002`
+- `content_types`: ["text", "configuration"]
+- `keywords`: ["CAN", "Can", "FC7xxx", "AUTOSAR", "MCAL", "Tresos", "configuration", "container", "ECUC"]
+- `anchors`: ["3.2 Containers and Variables"]
+
+### PAGE-0081
+- `physical_page`: `81`
+- `printed_page`: `81`
+- `logical_page`: `null`
+- `section_path`: "Chapter 3 Tresos Configuration Items / 3.2 Containers and Variables"
+- `section_id`: `SEC-003-002`
+- `content_types`: ["text", "configuration"]
+- `keywords`: ["CAN", "Can", "FC7xxx", "AUTOSAR", "MCAL", "Tresos", "configuration", "container", "ECUC"]
+- `anchors`: ["3.2 Containers and Variables"]
+
+### PAGE-0082
+- `physical_page`: `82`
+- `printed_page`: `82`
+- `logical_page`: `null`
+- `section_path`: "Chapter 3 Tresos Configuration Items / 3.2 Containers and Variables"
+- `section_id`: `SEC-003-002`
+- `content_types`: ["text", "configuration"]
+- `keywords`: ["CAN", "Can", "FC7xxx", "AUTOSAR", "MCAL", "Tresos", "configuration", "container", "ECUC"]
+- `anchors`: ["3.2 Containers and Variables"]
+
+### PAGE-0083
+- `physical_page`: `83`
+- `printed_page`: `83`
+- `logical_page`: `null`
+- `section_path`: "Chapter 3 Tresos Configuration Items / 3.2 Containers and Variables"
+- `section_id`: `SEC-003-002`
+- `content_types`: ["text", "configuration"]
+- `keywords`: ["CAN", "Can", "FC7xxx", "AUTOSAR", "MCAL", "Tresos", "configuration", "container", "ECUC"]
+- `anchors`: ["3.2 Containers and Variables"]
+
+### PAGE-0084
+- `physical_page`: `84`
+- `printed_page`: `84`
+- `logical_page`: `null`
+- `section_path`: "Chapter 3 Tresos Configuration Items / 3.2 Containers and Variables"
+- `section_id`: `SEC-003-002`
+- `content_types`: ["text", "configuration"]
+- `keywords`: ["CAN", "Can", "FC7xxx", "AUTOSAR", "MCAL", "Tresos", "configuration", "container", "ECUC"]
+- `anchors`: ["3.2 Containers and Variables"]
+
+### PAGE-0085
+- `physical_page`: `85`
+- `printed_page`: `85`
+- `logical_page`: `null`
+- `section_path`: "Chapter 3 Tresos Configuration Items / 3.2 Containers and Variables"
+- `section_id`: `SEC-003-002`
+- `content_types`: ["text", "configuration"]
+- `keywords`: ["CAN", "Can", "FC7xxx", "AUTOSAR", "MCAL", "Tresos", "configuration", "container", "ECUC"]
+- `anchors`: ["3.2 Containers and Variables"]
+
+### PAGE-0086
+- `physical_page`: `86`
+- `printed_page`: `86`
+- `logical_page`: `null`
+- `section_path`: "Chapter 3 Tresos Configuration Items / 3.2 Containers and Variables"
+- `section_id`: `SEC-003-002`
+- `content_types`: ["text", "configuration"]
+- `keywords`: ["CAN", "Can", "FC7xxx", "AUTOSAR", "MCAL", "Tresos", "configuration", "container", "ECUC"]
+- `anchors`: ["3.2 Containers and Variables"]
+
+### PAGE-0087
+- `physical_page`: `87`
+- `printed_page`: `87`
+- `logical_page`: `null`
+- `section_path`: "Chapter 3 Tresos Configuration Items / 3.2 Containers and Variables"
+- `section_id`: `SEC-003-002`
+- `content_types`: ["text", "configuration"]
+- `keywords`: ["CAN", "Can", "FC7xxx", "AUTOSAR", "MCAL", "Tresos", "configuration", "container", "ECUC"]
+- `anchors`: ["3.2 Containers and Variables"]
+
+### PAGE-0088
+- `physical_page`: `88`
+- `printed_page`: `88`
+- `logical_page`: `null`
+- `section_path`: "Chapter 3 Tresos Configuration Items / 3.2 Containers and Variables"
+- `section_id`: `SEC-003-002`
+- `content_types`: ["text", "configuration"]
+- `keywords`: ["CAN", "Can", "FC7xxx", "AUTOSAR", "MCAL", "Tresos", "configuration", "container", "ECUC"]
+- `anchors`: ["3.2 Containers and Variables"]
+
+### PAGE-0089
+- `physical_page`: `89`
+- `printed_page`: `89`
+- `logical_page`: `null`
+- `section_path`: "Chapter 3 Tresos Configuration Items / 3.2 Containers and Variables"
+- `section_id`: `SEC-003-002`
+- `content_types`: ["text", "configuration"]
+- `keywords`: ["CAN", "Can", "FC7xxx", "AUTOSAR", "MCAL", "Tresos", "configuration", "container", "ECUC"]
+- `anchors`: ["3.2 Containers and Variables"]
+
+### PAGE-0090
+- `physical_page`: `90`
+- `printed_page`: `90`
+- `logical_page`: `null`
+- `section_path`: "Chapter 3 Tresos Configuration Items / 3.2 Containers and Variables"
+- `section_id`: `SEC-003-002`
+- `content_types`: ["text", "configuration"]
+- `keywords`: ["CAN", "Can", "FC7xxx", "AUTOSAR", "MCAL", "Tresos", "configuration", "container", "ECUC"]
+- `anchors`: ["3.2 Containers and Variables"]
+
+### PAGE-0091
+- `physical_page`: `91`
+- `printed_page`: `91`
+- `logical_page`: `null`
+- `section_path`: "Chapter 3 Tresos Configuration Items / 3.2 Containers and Variables"
+- `section_id`: `SEC-003-002`
+- `content_types`: ["text", "configuration"]
+- `keywords`: ["CAN", "Can", "FC7xxx", "AUTOSAR", "MCAL", "Tresos", "configuration", "container", "ECUC"]
+- `anchors`: ["3.2 Containers and Variables"]
+
+### PAGE-0092
+- `physical_page`: `92`
+- `printed_page`: `92`
+- `logical_page`: `null`
+- `section_path`: "Chapter 3 Tresos Configuration Items / 3.2 Containers and Variables"
+- `section_id`: `SEC-003-002`
+- `content_types`: ["text", "configuration"]
+- `keywords`: ["CAN", "Can", "FC7xxx", "AUTOSAR", "MCAL", "Tresos", "configuration", "container", "ECUC"]
+- `anchors`: ["3.2 Containers and Variables"]
+
+### PAGE-0093
+- `physical_page`: `93`
+- `printed_page`: `93`
+- `logical_page`: `null`
+- `section_path`: "Chapter 3 Tresos Configuration Items / 3.2 Containers and Variables"
+- `section_id`: `SEC-003-002`
+- `content_types`: ["text", "configuration"]
+- `keywords`: ["CAN", "Can", "FC7xxx", "AUTOSAR", "MCAL", "Tresos", "configuration", "container", "ECUC"]
+- `anchors`: ["3.2 Containers and Variables"]
+
+### PAGE-0094
+- `physical_page`: `94`
+- `printed_page`: `94`
+- `logical_page`: `null`
+- `section_path`: "Chapter 3 Tresos Configuration Items / 3.2 Containers and Variables"
+- `section_id`: `SEC-003-002`
+- `content_types`: ["text", "configuration"]
+- `keywords`: ["CAN", "Can", "FC7xxx", "AUTOSAR", "MCAL", "Tresos", "configuration", "container", "ECUC"]
+- `anchors`: ["3.2 Containers and Variables"]
+
+### PAGE-0095
+- `physical_page`: `95`
+- `printed_page`: `95`
+- `logical_page`: `null`
+- `section_path`: "Chapter 3 Tresos Configuration Items / 3.2 Containers and Variables"
+- `section_id`: `SEC-003-002`
+- `content_types`: ["text", "configuration"]
+- `keywords`: ["CAN", "Can", "FC7xxx", "AUTOSAR", "MCAL", "Tresos", "configuration", "container", "ECUC"]
+- `anchors`: ["3.2 Containers and Variables"]
+
+### PAGE-0096
+- `physical_page`: `96`
+- `printed_page`: `96`
+- `logical_page`: `null`
+- `section_path`: "Chapter 3 Tresos Configuration Items / 3.2 Containers and Variables"
+- `section_id`: `SEC-003-002`
+- `content_types`: ["text", "configuration"]
+- `keywords`: ["CAN", "Can", "FC7xxx", "AUTOSAR", "MCAL", "Tresos", "configuration", "container", "ECUC"]
+- `anchors`: ["3.2 Containers and Variables"]
+
+### PAGE-0097
+- `physical_page`: `97`
+- `printed_page`: `97`
+- `logical_page`: `null`
+- `section_path`: "Chapter 3 Tresos Configuration Items / 3.2 Containers and Variables"
+- `section_id`: `SEC-003-002`
+- `content_types`: ["text", "configuration"]
+- `keywords`: ["CAN", "Can", "FC7xxx", "AUTOSAR", "MCAL", "Tresos", "configuration", "container", "ECUC"]
+- `anchors`: ["3.2 Containers and Variables"]
+
+### PAGE-0098
+- `physical_page`: `98`
+- `printed_page`: `98`
+- `logical_page`: `null`
+- `section_path`: "Chapter 3 Tresos Configuration Items / 3.2 Containers and Variables"
+- `section_id`: `SEC-003-002`
+- `content_types`: ["text", "configuration"]
+- `keywords`: ["CAN", "Can", "FC7xxx", "AUTOSAR", "MCAL", "Tresos", "configuration", "container", "ECUC"]
+- `anchors`: ["3.2 Containers and Variables"]
+
+### PAGE-0099
+- `physical_page`: `99`
+- `printed_page`: `99`
+- `logical_page`: `null`
+- `section_path`: "Chapter 3 Tresos Configuration Items / 3.2 Containers and Variables"
+- `section_id`: `SEC-003-002`
+- `content_types`: ["text", "configuration"]
+- `keywords`: ["CAN", "Can", "FC7xxx", "AUTOSAR", "MCAL", "Tresos", "configuration", "container", "ECUC"]
+- `anchors`: ["3.2 Containers and Variables"]
+
+### PAGE-0100
+- `physical_page`: `100`
+- `printed_page`: `100`
+- `logical_page`: `null`
+- `section_path`: "Chapter 3 Tresos Configuration Items / 3.2 Containers and Variables"
+- `section_id`: `SEC-003-002`
+- `content_types`: ["text", "configuration"]
+- `keywords`: ["CAN", "Can", "FC7xxx", "AUTOSAR", "MCAL", "Tresos", "configuration", "container", "ECUC"]
+- `anchors`: ["3.2 Containers and Variables"]
+
+### PAGE-0101
+- `physical_page`: `101`
+- `printed_page`: `101`
+- `logical_page`: `null`
+- `section_path`: "Chapter 3 Tresos Configuration Items / 3.2 Containers and Variables"
+- `section_id`: `SEC-003-002`
+- `content_types`: ["text", "configuration"]
+- `keywords`: ["CAN", "Can", "FC7xxx", "AUTOSAR", "MCAL", "Tresos", "configuration", "container", "ECUC"]
+- `anchors`: ["3.2 Containers and Variables"]
+
+### PAGE-0102
+- `physical_page`: `102`
+- `printed_page`: `102`
+- `logical_page`: `null`
+- `section_path`: "Chapter 3 Tresos Configuration Items / 3.2 Containers and Variables"
+- `section_id`: `SEC-003-002`
+- `content_types`: ["text", "configuration"]
+- `keywords`: ["CAN", "Can", "FC7xxx", "AUTOSAR", "MCAL", "Tresos", "configuration", "container", "ECUC"]
+- `anchors`: ["3.2 Containers and Variables"]
+
+### PAGE-0103
+- `physical_page`: `103`
+- `printed_page`: `103`
+- `logical_page`: `null`
+- `section_path`: "Chapter 3 Tresos Configuration Items / 3.2 Containers and Variables"
+- `section_id`: `SEC-003-002`
+- `content_types`: ["text", "configuration"]
+- `keywords`: ["CAN", "Can", "FC7xxx", "AUTOSAR", "MCAL", "Tresos", "configuration", "container", "ECUC"]
+- `anchors`: ["3.2 Containers and Variables"]
+
+### PAGE-0104
+- `physical_page`: `104`
+- `printed_page`: `104`
+- `logical_page`: `null`
+- `section_path`: "Chapter 3 Tresos Configuration Items / 3.2 Containers and Variables"
+- `section_id`: `SEC-003-002`
+- `content_types`: ["text", "configuration"]
+- `keywords`: ["CAN", "Can", "FC7xxx", "AUTOSAR", "MCAL", "Tresos", "configuration", "container", "ECUC"]
+- `anchors`: ["3.2 Containers and Variables"]
+
+### PAGE-0105
+- `physical_page`: `105`
+- `printed_page`: `105`
+- `logical_page`: `null`
+- `section_path`: "Chapter 3 Tresos Configuration Items / 3.2 Containers and Variables"
+- `section_id`: `SEC-003-002`
+- `content_types`: ["text", "configuration"]
+- `keywords`: ["CAN", "Can", "FC7xxx", "AUTOSAR", "MCAL", "Tresos", "configuration", "container", "ECUC"]
+- `anchors`: ["3.2 Containers and Variables"]
+
+### PAGE-0106
+- `physical_page`: `106`
+- `printed_page`: `106`
+- `logical_page`: `null`
+- `section_path`: "Chapter 3 Tresos Configuration Items / 3.2 Containers and Variables"
+- `section_id`: `SEC-003-002`
+- `content_types`: ["text", "configuration"]
+- `keywords`: ["CAN", "Can", "FC7xxx", "AUTOSAR", "MCAL", "Tresos", "configuration", "container", "ECUC"]
+- `anchors`: ["3.2 Containers and Variables"]
+
+### PAGE-0107
+- `physical_page`: `107`
+- `printed_page`: `107`
+- `logical_page`: `null`
+- `section_path`: "Chapter 3 Tresos Configuration Items / 3.2 Containers and Variables"
+- `section_id`: `SEC-003-002`
+- `content_types`: ["text", "configuration"]
+- `keywords`: ["CAN", "Can", "FC7xxx", "AUTOSAR", "MCAL", "Tresos", "configuration", "container", "ECUC"]
+- `anchors`: ["3.2 Containers and Variables"]
+
+### PAGE-0108
+- `physical_page`: `108`
+- `printed_page`: `108`
+- `logical_page`: `null`
+- `section_path`: "Chapter 3 Tresos Configuration Items / 3.2 Containers and Variables"
+- `section_id`: `SEC-003-002`
+- `content_types`: ["text", "configuration"]
+- `keywords`: ["CAN", "Can", "FC7xxx", "AUTOSAR", "MCAL", "Tresos", "configuration", "container", "ECUC"]
+- `anchors`: ["3.2 Containers and Variables"]
+
+### PAGE-0109
+- `physical_page`: `109`
+- `printed_page`: `109`
+- `logical_page`: `null`
+- `section_path`: "Chapter 3 Tresos Configuration Items / 3.2 Containers and Variables"
+- `section_id`: `SEC-003-002`
+- `content_types`: ["text", "configuration"]
+- `keywords`: ["CAN", "Can", "FC7xxx", "AUTOSAR", "MCAL", "Tresos", "configuration", "container", "ECUC"]
+- `anchors`: ["3.2 Containers and Variables"]
+
+### PAGE-0110
+- `physical_page`: `110`
+- `printed_page`: `110`
+- `logical_page`: `null`
+- `section_path`: "Chapter 3 Tresos Configuration Items / 3.2 Containers and Variables"
+- `section_id`: `SEC-003-002`
+- `content_types`: ["text", "configuration"]
+- `keywords`: ["CAN", "Can", "FC7xxx", "AUTOSAR", "MCAL", "Tresos", "configuration", "container", "ECUC"]
+- `anchors`: ["3.2 Containers and Variables"]
+
+### PAGE-0111
+- `physical_page`: `111`
+- `printed_page`: `111`
+- `logical_page`: `null`
+- `section_path`: "Chapter 3 Tresos Configuration Items / 3.2 Containers and Variables"
+- `section_id`: `SEC-003-002`
+- `content_types`: ["text", "configuration"]
+- `keywords`: ["CAN", "Can", "FC7xxx", "AUTOSAR", "MCAL", "Tresos", "configuration", "container", "ECUC"]
+- `anchors`: ["3.2 Containers and Variables"]
+
+### PAGE-0112
+- `physical_page`: `112`
+- `printed_page`: `112`
+- `logical_page`: `null`
+- `section_path`: "Chapter 3 Tresos Configuration Items / 3.2 Containers and Variables"
+- `section_id`: `SEC-003-002`
+- `content_types`: ["text", "configuration"]
+- `keywords`: ["CAN", "Can", "FC7xxx", "AUTOSAR", "MCAL", "Tresos", "configuration", "container", "ECUC"]
+- `anchors`: ["3.2 Containers and Variables"]
+
+### PAGE-0113
+- `physical_page`: `113`
+- `printed_page`: `113`
+- `logical_page`: `null`
+- `section_path`: "Chapter 3 Tresos Configuration Items / 3.2 Containers and Variables"
+- `section_id`: `SEC-003-002`
+- `content_types`: ["text", "configuration"]
+- `keywords`: ["CAN", "Can", "FC7xxx", "AUTOSAR", "MCAL", "Tresos", "configuration", "container", "ECUC"]
+- `anchors`: ["3.2 Containers and Variables"]
+
+### PAGE-0114
+- `physical_page`: `114`
+- `printed_page`: `114`
+- `logical_page`: `null`
+- `section_path`: "Chapter 3 Tresos Configuration Items / 3.2 Containers and Variables"
+- `section_id`: `SEC-003-002`
+- `content_types`: ["text", "configuration"]
+- `keywords`: ["CAN", "Can", "FC7xxx", "AUTOSAR", "MCAL", "Tresos", "configuration", "container", "ECUC"]
+- `anchors`: ["3.2 Containers and Variables"]
+
+### PAGE-0115
+- `physical_page`: `115`
+- `printed_page`: `115`
+- `logical_page`: `null`
+- `section_path`: "Chapter 4 Configuration Guides / CAN Usage Common Steps"
+- `section_id`: `SEC-004-001`
+- `content_types`: ["text", "configuration"]
+- `keywords`: ["CAN", "Can", "FC7xxx", "AUTOSAR", "MCAL", "Tresos", "configuration", "container", "ECUC"]
+- `anchors`: ["CAN Usage Common Steps"]
+
+### PAGE-0116
+- `physical_page`: `116`
+- `printed_page`: `116`
+- `logical_page`: `null`
+- `section_path`: "Chapter 4 Configuration Guides / CAN Usage Common Steps"
+- `section_id`: `SEC-004-001`
+- `content_types`: ["text", "configuration"]
+- `keywords`: ["CAN", "Can", "FC7xxx", "AUTOSAR", "MCAL", "Tresos", "configuration", "container", "ECUC"]
+- `anchors`: ["CAN Usage Common Steps"]
+
+### PAGE-0117
+- `physical_page`: `117`
+- `printed_page`: `117`
+- `logical_page`: `null`
+- `section_path`: "Chapter 4 Configuration Guides / CAN Usage Common Steps"
+- `section_id`: `SEC-004-001`
+- `content_types`: ["text", "configuration"]
+- `keywords`: ["CAN", "Can", "FC7xxx", "AUTOSAR", "MCAL", "Tresos", "configuration", "container", "ECUC"]
+- `anchors`: ["CanMainFunctionRWPeriods", "Can_MainFunction_Read", "CanController"]
+
+### PAGE-0118
+- `physical_page`: `118`
+- `printed_page`: `118`
+- `logical_page`: `null`
+- `section_path`: "Chapter 4 Configuration Guides / CAN Usage Common Steps"
+- `section_id`: `SEC-004-001`
+- `content_types`: ["text", "configuration"]
+- `keywords`: ["CAN", "Can", "FC7xxx", "AUTOSAR", "MCAL", "Tresos", "configuration", "container", "ECUC"]
+- `anchors`: ["CAN Usage Common Steps"]
+
+### PAGE-0119
+- `physical_page`: `119`
+- `printed_page`: `119`
+- `logical_page`: `null`
+- `section_path`: "Chapter 4 Configuration Guides / CAN Usage Common Steps"
+- `section_id`: `SEC-004-001`
+- `content_types`: ["text", "configuration"]
+- `keywords`: ["CAN", "Can", "FC7xxx", "AUTOSAR", "MCAL", "Tresos", "configuration", "container", "ECUC"]
+- `anchors`: ["Set baudrate", "Create objects in CanHardwareObjects", "CAN Interface only"]
+
+### PAGE-0120
+- `physical_page`: `120`
+- `printed_page`: `120`
+- `logical_page`: `null`
+- `section_path`: "Chapter 4 Configuration Guides / CAN Usage Common Steps"
+- `section_id`: `SEC-004-001`
+- `content_types`: ["text", "configuration"]
+- `keywords`: ["CAN", "Can", "FC7xxx", "AUTOSAR", "MCAL", "Tresos", "configuration", "container", "ECUC"]
+- `anchors`: ["CAN Usage Common Steps"]
+
+### PAGE-0121
+- `physical_page`: `121`
+- `printed_page`: `121`
+- `logical_page`: `null`
+- `section_path`: "Chapter 4 Configuration Guides / CAN Usage Common Steps"
+- `section_id`: `SEC-004-001`
+- `content_types`: ["text", "configuration"]
+- `keywords`: ["CAN", "Can", "FC7xxx", "AUTOSAR", "MCAL", "Tresos", "configuration", "container", "ECUC"]
+- `anchors`: ["Click the Generate Project to generate relevant code"]
+
+## 5. Page Segment Index
+
+### SEG-0001
+- `physical_pages`: `1`
+- `printed_pages`: `cover`
+- `section_path`: "Cover"
+- `content_types`: ["text", "cover"]
+- `summary`: "Indexes CAN USER source physical page(s) 1 under Cover. Use anchors to verify exact wording in the source PDF."
+- `keywords`: ["CAN", "Can", "FC7xxx", "AUTOSAR", "MCAL"]
+- `anchors`:
+  - `p1`: "physical_page 1"
+
+### SEG-0002
+- `physical_pages`: `2`
+- `printed_pages`: `2`
+- `section_path`: "Revision History"
+- `content_types`: ["text", "revision_history", "table"]
+- `summary`: "Indexes CAN USER source physical page(s) 2 under Revision History. Use anchors to verify exact wording in the source PDF."
+- `keywords`: ["CAN", "Can", "FC7xxx", "AUTOSAR", "MCAL"]
+- `anchors`:
+  - `p2`: "Revision History"
+
+### SEG-0003-0004
+- `physical_pages`: `3-4`
+- `printed_pages`: `3-4`
+- `section_path`: "Table of Contents"
+- `content_types`: ["text", "toc"]
+- `summary`: "Indexes CAN USER source physical page(s) 3-4 under Table of Contents. Use anchors to verify exact wording in the source PDF."
+- `keywords`: ["CAN", "Can", "FC7xxx", "AUTOSAR", "MCAL"]
+- `anchors`:
+  - `p3`: "Table of Contents"
+  - `p4`: "Table of Contents"
+
+### SEG-0005
+- `physical_pages`: `5`
+- `printed_pages`: `5`
+- `section_path`: "Chapter 1 CAN Introduction"
+- `content_types`: ["text"]
+- `summary`: "Indexes CAN USER source physical page(s) 5 under Chapter 1 CAN Introduction. Use anchors to verify exact wording in the source PDF."
+- `keywords`: ["CAN", "Can", "FC7xxx", "AUTOSAR", "MCAL"]
+- `anchors`:
+  - `p5`: "Chapter 1 CAN Introduction"
+
+### SEG-0006-0008
+- `physical_pages`: `6-8`
+- `printed_pages`: `6-8`
+- `section_path`: "Chapter 2 Software Design / 2.1 Rejected Requirements"
+- `content_types`: ["text"]
+- `summary`: "Indexes CAN USER source physical page(s) 6-8 under Chapter 2 Software Design / 2.1 Rejected Requirements. Use anchors to verify exact wording in the source PDF."
+- `keywords`: ["CAN", "Can", "FC7xxx", "AUTOSAR", "MCAL"]
+- `anchors`:
+  - `p6`: "2.1 Rejected Requirements"
+  - `p7`: "2.1 Rejected Requirements"
+  - `p8`: "SWS_Can_00361"
+
+### SEG-0009-0011
+- `physical_pages`: `9-11`
+- `printed_pages`: `9-11`
+- `section_path`: "Chapter 2 Software Design / 2.2-2.5 File Structure, Macros, Enums and Types"
+- `content_types`: ["text"]
+- `summary`: "Indexes CAN USER source physical page(s) 9-11 under Chapter 2 Software Design / 2.2-2.5 File Structure, Macros, Enums and Types. Use anchors to verify exact wording in the source PDF."
+- `keywords`: ["CAN", "Can", "FC7xxx", "AUTOSAR", "MCAL"]
+- `anchors`:
+  - `p9`: "2.2-2.5 File Structure, Macros, Enums and Types"
+  - `p10`: "2.2-2.5 File Structure, Macros, Enums and Types"
+  - `p11`: "2.2-2.5 File Structure, Macros, Enums and Types"
+
+### SEG-0012-0014
+- `physical_pages`: `12-14`
+- `printed_pages`: `12-14`
+- `section_path`: "Chapter 2 Software Design / 2.2-2.5 File Structure, Macros, Enums and Types"
+- `content_types`: ["text"]
+- `summary`: "Indexes CAN USER source physical page(s) 12-14 under Chapter 2 Software Design / 2.2-2.5 File Structure, Macros, Enums and Types. Use anchors to verify exact wording in the source PDF."
+- `keywords`: ["CAN", "Can", "FC7xxx", "AUTOSAR", "MCAL"]
+- `anchors`:
+  - `p12`: "2.2-2.5 File Structure, Macros, Enums and Types"
+  - `p13`: "2.2-2.5 File Structure, Macros, Enums and Types"
+  - `p14`: "2.2-2.5 File Structure, Macros, Enums and Types"
+
+### SEG-0015-0017
+- `physical_pages`: `15-17`
+- `printed_pages`: `15-17`
+- `section_path`: "Chapter 2 Software Design / 2.2-2.5 File Structure, Macros, Enums and Types"
+- `content_types`: ["text"]
+- `summary`: "Indexes CAN USER source physical page(s) 15-17 under Chapter 2 Software Design / 2.2-2.5 File Structure, Macros, Enums and Types. Use anchors to verify exact wording in the source PDF."
+- `keywords`: ["CAN", "Can", "FC7xxx", "AUTOSAR", "MCAL"]
+- `anchors`:
+  - `p15`: "2.2-2.5 File Structure, Macros, Enums and Types"
+  - `p16`: "2.2-2.5 File Structure, Macros, Enums and Types"
+  - `p17`: "2.2-2.5 File Structure, Macros, Enums and Types"
+
+### SEG-0018-0020
+- `physical_pages`: `18-20`
+- `printed_pages`: `18-20`
+- `section_path`: "Chapter 2 Software Design / 2.2-2.5 File Structure, Macros, Enums and Types"
+- `content_types`: ["text"]
+- `summary`: "Indexes CAN USER source physical page(s) 18-20 under Chapter 2 Software Design / 2.2-2.5 File Structure, Macros, Enums and Types. Use anchors to verify exact wording in the source PDF."
+- `keywords`: ["CAN", "Can", "FC7xxx", "AUTOSAR", "MCAL"]
+- `anchors`:
+  - `p18`: "2.2-2.5 File Structure, Macros, Enums and Types"
+  - `p19`: "2.2-2.5 File Structure, Macros, Enums and Types"
+  - `p20`: "2.2-2.5 File Structure, Macros, Enums and Types"
+
+### SEG-0021-0023
+- `physical_pages`: `21-23`
+- `printed_pages`: `21-23`
+- `section_path`: "Chapter 2 Software Design / 2.6 Structures"
+- `content_types`: ["text"]
+- `summary`: "Indexes CAN USER source physical page(s) 21-23 under Chapter 2 Software Design / 2.6 Structures. Use anchors to verify exact wording in the source PDF."
+- `keywords`: ["CAN", "Can", "FC7xxx", "AUTOSAR", "MCAL"]
+- `anchors`:
+  - `p21`: "2.6 Structures"
+  - `p22`: "2.6 Structures"
+  - `p23`: "2.6 Structures"
+
+### SEG-0024-0026
+- `physical_pages`: `24-26`
+- `printed_pages`: `24-26`
+- `section_path`: "Chapter 2 Software Design / 2.6 Structures"
+- `content_types`: ["text"]
+- `summary`: "Indexes CAN USER source physical page(s) 24-26 under Chapter 2 Software Design / 2.6 Structures. Use anchors to verify exact wording in the source PDF."
+- `keywords`: ["CAN", "Can", "FC7xxx", "AUTOSAR", "MCAL"]
+- `anchors`:
+  - `p24`: "2.6 Structures"
+  - `p25`: "2.6 Structures"
+  - `p26`: "2.6 Structures"
+
+### SEG-0027-0029
+- `physical_pages`: `27-29`
+- `printed_pages`: `27-29`
+- `section_path`: "Chapter 2 Software Design / 2.6 Structures"
+- `content_types`: ["text"]
+- `summary`: "Indexes CAN USER source physical page(s) 27-29 under Chapter 2 Software Design / 2.6 Structures. Use anchors to verify exact wording in the source PDF."
+- `keywords`: ["CAN", "Can", "FC7xxx", "AUTOSAR", "MCAL"]
+- `anchors`:
+  - `p27`: "2.6 Structures"
+  - `p28`: "2.6 Structures"
+  - `p29`: "2.6 Structures"
+
+### SEG-0030
+- `physical_pages`: `30`
+- `printed_pages`: `30`
+- `section_path`: "Chapter 2 Software Design / 2.6 Structures"
+- `content_types`: ["text"]
+- `summary`: "Indexes CAN USER source physical page(s) 30 under Chapter 2 Software Design / 2.6 Structures. Use anchors to verify exact wording in the source PDF."
+- `keywords`: ["CAN", "Can", "FC7xxx", "AUTOSAR", "MCAL"]
+- `anchors`:
+  - `p30`: "2.6 Structures"
+
+### SEG-0031-0033
+- `physical_pages`: `31-33`
+- `printed_pages`: `31-33`
+- `section_path`: "Chapter 2 Software Design / 2.7 API Functions"
+- `content_types`: ["text", "api", "table"]
+- `summary`: "Indexes CAN USER source physical page(s) 31-33 under Chapter 2 Software Design / 2.7 API Functions. Use anchors to verify exact wording in the source PDF."
+- `keywords`: ["CAN", "Can", "FC7xxx", "AUTOSAR", "MCAL", "API", "function", "parameters", "returns"]
+- `anchors`:
+  - `p31`: "Can_DisableControllerInterrupts"
+  - `p32`: "2.7 API Functions"
+  - `p33`: "2.7 API Functions"
+
+### SEG-0034-0036
+- `physical_pages`: `34-36`
+- `printed_pages`: `34-36`
+- `section_path`: "Chapter 2 Software Design / 2.7 API Functions"
+- `content_types`: ["text", "api", "table"]
+- `summary`: "Indexes CAN USER source physical page(s) 34-36 under Chapter 2 Software Design / 2.7 API Functions. Use anchors to verify exact wording in the source PDF."
+- `keywords`: ["CAN", "Can", "FC7xxx", "AUTOSAR", "MCAL", "API", "function", "parameters", "returns"]
+- `anchors`:
+  - `p34`: "2.7 API Functions"
+  - `p35`: "2.7 API Functions"
+  - `p36`: "2.7 API Functions"
+
+### SEG-0037-0039
+- `physical_pages`: `37-39`
+- `printed_pages`: `37-39`
+- `section_path`: "Chapter 2 Software Design / 2.8 Hardware Functions / 2.8.1 HAL Functions"
+- `content_types`: ["text", "api", "table"]
+- `summary`: "Indexes CAN USER source physical page(s) 37-39 under Chapter 2 Software Design / 2.8 Hardware Functions / 2.8.1 HAL Functions. Use anchors to verify exact wording in the source PDF."
+- `keywords`: ["CAN", "Can", "FC7xxx", "AUTOSAR", "MCAL", "API", "function", "parameters", "returns"]
+- `anchors`:
+  - `p37`: "Can_Hal_DisableControllerInterrupts"
+  - `p38`: "2.8.1 HAL Functions"
+  - `p39`: "2.8.1 HAL Functions"
+
+### SEG-0040
+- `physical_pages`: `40`
+- `printed_pages`: `40`
+- `section_path`: "Chapter 2 Software Design / 2.8 Hardware Functions / 2.8.1 HAL Functions"
+- `content_types`: ["text", "api", "table"]
+- `summary`: "Indexes CAN USER source physical page(s) 40 under Chapter 2 Software Design / 2.8 Hardware Functions / 2.8.1 HAL Functions. Use anchors to verify exact wording in the source PDF."
+- `keywords`: ["CAN", "Can", "FC7xxx", "AUTOSAR", "MCAL", "API", "function", "parameters", "returns"]
+- `anchors`:
+  - `p40`: "2.8.1 HAL Functions"
+
+### SEG-0041-0043
+- `physical_pages`: `41-43`
+- `printed_pages`: `41-43`
+- `section_path`: "Chapter 2 Software Design / 2.8 Hardware Functions / 2.8.2 Functions in Can_Hw.h"
+- `content_types`: ["text", "api", "table"]
+- `summary`: "Indexes CAN USER source physical page(s) 41-43 under Chapter 2 Software Design / 2.8 Hardware Functions / 2.8.2 Functions in Can_Hw.h. Use anchors to verify exact wording in the source PDF."
+- `keywords`: ["CAN", "Can", "FC7xxx", "AUTOSAR", "MCAL", "API", "function", "parameters", "returns"]
+- `anchors`:
+  - `p41`: "2.8.2 Functions in Can_Hw.h"
+  - `p42`: "2.8.2 Functions in Can_Hw.h"
+  - `p43`: "2.8.2 Functions in Can_Hw.h"
+
+### SEG-0044-0046
+- `physical_pages`: `44-46`
+- `printed_pages`: `44-46`
+- `section_path`: "Chapter 2 Software Design / 2.8 Hardware Functions / 2.8.2 Functions in Can_Hw.h"
+- `content_types`: ["text", "api", "table"]
+- `summary`: "Indexes CAN USER source physical page(s) 44-46 under Chapter 2 Software Design / 2.8 Hardware Functions / 2.8.2 Functions in Can_Hw.h. Use anchors to verify exact wording in the source PDF."
+- `keywords`: ["CAN", "Can", "FC7xxx", "AUTOSAR", "MCAL", "API", "function", "parameters", "returns"]
+- `anchors`:
+  - `p44`: "2.8.2 Functions in Can_Hw.h"
+  - `p45`: "2.8.2 Functions in Can_Hw.h"
+  - `p46`: "2.8.2 Functions in Can_Hw.h"
+
+### SEG-0047-0049
+- `physical_pages`: `47-49`
+- `printed_pages`: `47-49`
+- `section_path`: "Chapter 2 Software Design / 2.8 Hardware Functions / 2.8.2 Functions in Can_Hw.h"
+- `content_types`: ["text", "api", "table"]
+- `summary`: "Indexes CAN USER source physical page(s) 47-49 under Chapter 2 Software Design / 2.8 Hardware Functions / 2.8.2 Functions in Can_Hw.h. Use anchors to verify exact wording in the source PDF."
+- `keywords`: ["CAN", "Can", "FC7xxx", "AUTOSAR", "MCAL", "API", "function", "parameters", "returns"]
+- `anchors`:
+  - `p47`: "2.8.2 Functions in Can_Hw.h"
+  - `p48`: "2.8.2 Functions in Can_Hw.h"
+  - `p49`: "2.8.2 Functions in Can_Hw.h"
+
+### SEG-0050-0052
+- `physical_pages`: `50-52`
+- `printed_pages`: `50-52`
+- `section_path`: "Chapter 2 Software Design / 2.8 Hardware Functions / 2.8.2 Functions in Can_Hw.h"
+- `content_types`: ["text", "api", "table"]
+- `summary`: "Indexes CAN USER source physical page(s) 50-52 under Chapter 2 Software Design / 2.8 Hardware Functions / 2.8.2 Functions in Can_Hw.h. Use anchors to verify exact wording in the source PDF."
+- `keywords`: ["CAN", "Can", "FC7xxx", "AUTOSAR", "MCAL", "API", "function", "parameters", "returns"]
+- `anchors`:
+  - `p50`: "2.8.2 Functions in Can_Hw.h"
+  - `p51`: "2.8.2 Functions in Can_Hw.h"
+  - `p52`: "2.8.2 Functions in Can_Hw.h"
+
+### SEG-0053-0055
+- `physical_pages`: `53-55`
+- `printed_pages`: `53-55`
+- `section_path`: "Chapter 2 Software Design / 2.8 Hardware Functions / 2.8.2 Functions in Can_Hw.h"
+- `content_types`: ["text", "api", "table"]
+- `summary`: "Indexes CAN USER source physical page(s) 53-55 under Chapter 2 Software Design / 2.8 Hardware Functions / 2.8.2 Functions in Can_Hw.h. Use anchors to verify exact wording in the source PDF."
+- `keywords`: ["CAN", "Can", "FC7xxx", "AUTOSAR", "MCAL", "API", "function", "parameters", "returns"]
+- `anchors`:
+  - `p53`: "2.8.2 Functions in Can_Hw.h"
+  - `p54`: "2.8.2 Functions in Can_Hw.h"
+  - `p55`: "2.8.2 Functions in Can_Hw.h"
+
+### SEG-0056-0058
+- `physical_pages`: `56-58`
+- `printed_pages`: `56-58`
+- `section_path`: "Chapter 2 Software Design / 2.8 Hardware Functions / 2.8.2 Functions in Can_Hw.h"
+- `content_types`: ["text", "api", "table"]
+- `summary`: "Indexes CAN USER source physical page(s) 56-58 under Chapter 2 Software Design / 2.8 Hardware Functions / 2.8.2 Functions in Can_Hw.h. Use anchors to verify exact wording in the source PDF."
+- `keywords`: ["CAN", "Can", "FC7xxx", "AUTOSAR", "MCAL", "API", "function", "parameters", "returns"]
+- `anchors`:
+  - `p56`: "2.8.2 Functions in Can_Hw.h"
+  - `p57`: "2.8.2 Functions in Can_Hw.h"
+  - `p58`: "2.8.2 Functions in Can_Hw.h"
+
+### SEG-0059
+- `physical_pages`: `59`
+- `printed_pages`: `59`
+- `section_path`: "Chapter 2 Software Design / 2.8 Hardware Functions / 2.8.2 Functions in Can_Hw.h"
+- `content_types`: ["text", "api", "table"]
+- `summary`: "Indexes CAN USER source physical page(s) 59 under Chapter 2 Software Design / 2.8 Hardware Functions / 2.8.2 Functions in Can_Hw.h. Use anchors to verify exact wording in the source PDF."
+- `keywords`: ["CAN", "Can", "FC7xxx", "AUTOSAR", "MCAL", "API", "function", "parameters", "returns"]
+- `anchors`:
+  - `p59`: "Can_Hw_DisableBRS"
+
+### SEG-0060-0062
+- `physical_pages`: `60-62`
+- `printed_pages`: `60-62`
+- `section_path`: "Chapter 2 Software Design / 2.9 API Sequence Diagram"
+- `content_types`: ["text", "api", "table", "figure"]
+- `summary`: "Indexes CAN USER source physical page(s) 60-62 under Chapter 2 Software Design / 2.9 API Sequence Diagram. Use anchors to verify exact wording in the source PDF."
+- `keywords`: ["CAN", "Can", "FC7xxx", "AUTOSAR", "MCAL", "API", "function", "parameters", "returns"]
+- `anchors`:
+  - `p60`: "2.9 API Sequence Diagram"
+  - `p61`: "2.9 API Sequence Diagram"
+  - `p62`: "2.9 API Sequence Diagram"
+
+### SEG-0063-0064
+- `physical_pages`: `63-64`
+- `printed_pages`: `63-64`
+- `section_path`: "Chapter 2 Software Design / 2.9 API Sequence Diagram"
+- `content_types`: ["text", "api", "table", "figure"]
+- `summary`: "Indexes CAN USER source physical page(s) 63-64 under Chapter 2 Software Design / 2.9 API Sequence Diagram. Use anchors to verify exact wording in the source PDF."
+- `keywords`: ["CAN", "Can", "FC7xxx", "AUTOSAR", "MCAL", "API", "function", "parameters", "returns"]
+- `anchors`:
+  - `p63`: "2.9 API Sequence Diagram"
+  - `p64`: "2.9 API Sequence Diagram"
+
+### SEG-0065
+- `physical_pages`: `65`
+- `printed_pages`: `65`
+- `section_path`: "Chapter 3 Tresos Configuration Items / 3.1 Container Inclusion Relation"
+- `content_types`: ["text", "configuration"]
+- `summary`: "Indexes CAN USER source physical page(s) 65 under Chapter 3 Tresos Configuration Items / 3.1 Container Inclusion Relation. Use anchors to verify exact wording in the source PDF."
+- `keywords`: ["CAN", "Can", "FC7xxx", "AUTOSAR", "MCAL", "Tresos", "configuration", "container", "ECUC"]
+- `anchors`:
+  - `p65`: "Chapter 3 Tresos Configuration Items"
+
+### SEG-0066-0068
+- `physical_pages`: `66-68`
+- `printed_pages`: `66-68`
+- `section_path`: "Chapter 3 Tresos Configuration Items / 3.2 Containers and Variables"
+- `content_types`: ["text", "configuration"]
+- `summary`: "Indexes CAN USER source physical page(s) 66-68 under Chapter 3 Tresos Configuration Items / 3.2 Containers and Variables. Use anchors to verify exact wording in the source PDF."
+- `keywords`: ["CAN", "Can", "FC7xxx", "AUTOSAR", "MCAL", "Tresos", "configuration", "container", "ECUC"]
+- `anchors`:
+  - `p66`: "3.2 Containers and Variables"
+  - `p67`: "3.2 Containers and Variables"
+  - `p68`: "CanMainFunctionModePeriod"
+
+### SEG-0069-0071
+- `physical_pages`: `69-71`
+- `printed_pages`: `69-71`
+- `section_path`: "Chapter 3 Tresos Configuration Items / 3.2 Containers and Variables"
+- `content_types`: ["text", "configuration"]
+- `summary`: "Indexes CAN USER source physical page(s) 69-71 under Chapter 3 Tresos Configuration Items / 3.2 Containers and Variables. Use anchors to verify exact wording in the source PDF."
+- `keywords`: ["CAN", "Can", "FC7xxx", "AUTOSAR", "MCAL", "Tresos", "configuration", "container", "ECUC"]
+- `anchors`:
+  - `p69`: "3.2 Containers and Variables"
+  - `p70`: "3.2 Containers and Variables"
+  - `p71`: "3.2 Containers and Variables"
+
+### SEG-0072-0074
+- `physical_pages`: `72-74`
+- `printed_pages`: `72-74`
+- `section_path`: "Chapter 3 Tresos Configuration Items / 3.2 Containers and Variables"
+- `content_types`: ["text", "configuration"]
+- `summary`: "Indexes CAN USER source physical page(s) 72-74 under Chapter 3 Tresos Configuration Items / 3.2 Containers and Variables. Use anchors to verify exact wording in the source PDF."
+- `keywords`: ["CAN", "Can", "FC7xxx", "AUTOSAR", "MCAL", "Tresos", "configuration", "container", "ECUC"]
+- `anchors`:
+  - `p72`: "3.2 Containers and Variables"
+  - `p73`: "3.2 Containers and Variables"
+  - `p74`: "3.2 Containers and Variables"
+
+### SEG-0075-0077
+- `physical_pages`: `75-77`
+- `printed_pages`: `75-77`
+- `section_path`: "Chapter 3 Tresos Configuration Items / 3.2 Containers and Variables"
+- `content_types`: ["text", "configuration"]
+- `summary`: "Indexes CAN USER source physical page(s) 75-77 under Chapter 3 Tresos Configuration Items / 3.2 Containers and Variables. Use anchors to verify exact wording in the source PDF."
+- `keywords`: ["CAN", "Can", "FC7xxx", "AUTOSAR", "MCAL", "Tresos", "configuration", "container", "ECUC"]
+- `anchors`:
+  - `p75`: "3.2 Containers and Variables"
+  - `p76`: "3.2 Containers and Variables"
+  - `p77`: "3.2 Containers and Variables"
+
+### SEG-0078-0080
+- `physical_pages`: `78-80`
+- `printed_pages`: `78-80`
+- `section_path`: "Chapter 3 Tresos Configuration Items / 3.2 Containers and Variables"
+- `content_types`: ["text", "configuration"]
+- `summary`: "Indexes CAN USER source physical page(s) 78-80 under Chapter 3 Tresos Configuration Items / 3.2 Containers and Variables. Use anchors to verify exact wording in the source PDF."
+- `keywords`: ["CAN", "Can", "FC7xxx", "AUTOSAR", "MCAL", "Tresos", "configuration", "container", "ECUC"]
+- `anchors`:
+  - `p78`: "3.2 Containers and Variables"
+  - `p79`: "3.2 Containers and Variables"
+  - `p80`: "3.2 Containers and Variables"
+
+### SEG-0081-0083
+- `physical_pages`: `81-83`
+- `printed_pages`: `81-83`
+- `section_path`: "Chapter 3 Tresos Configuration Items / 3.2 Containers and Variables"
+- `content_types`: ["text", "configuration"]
+- `summary`: "Indexes CAN USER source physical page(s) 81-83 under Chapter 3 Tresos Configuration Items / 3.2 Containers and Variables. Use anchors to verify exact wording in the source PDF."
+- `keywords`: ["CAN", "Can", "FC7xxx", "AUTOSAR", "MCAL", "Tresos", "configuration", "container", "ECUC"]
+- `anchors`:
+  - `p81`: "3.2 Containers and Variables"
+  - `p82`: "3.2 Containers and Variables"
+  - `p83`: "3.2 Containers and Variables"
+
+### SEG-0084-0086
+- `physical_pages`: `84-86`
+- `printed_pages`: `84-86`
+- `section_path`: "Chapter 3 Tresos Configuration Items / 3.2 Containers and Variables"
+- `content_types`: ["text", "configuration"]
+- `summary`: "Indexes CAN USER source physical page(s) 84-86 under Chapter 3 Tresos Configuration Items / 3.2 Containers and Variables. Use anchors to verify exact wording in the source PDF."
+- `keywords`: ["CAN", "Can", "FC7xxx", "AUTOSAR", "MCAL", "Tresos", "configuration", "container", "ECUC"]
+- `anchors`:
+  - `p84`: "3.2 Containers and Variables"
+  - `p85`: "3.2 Containers and Variables"
+  - `p86`: "3.2 Containers and Variables"
+
+### SEG-0087-0089
+- `physical_pages`: `87-89`
+- `printed_pages`: `87-89`
+- `section_path`: "Chapter 3 Tresos Configuration Items / 3.2 Containers and Variables"
+- `content_types`: ["text", "configuration"]
+- `summary`: "Indexes CAN USER source physical page(s) 87-89 under Chapter 3 Tresos Configuration Items / 3.2 Containers and Variables. Use anchors to verify exact wording in the source PDF."
+- `keywords`: ["CAN", "Can", "FC7xxx", "AUTOSAR", "MCAL", "Tresos", "configuration", "container", "ECUC"]
+- `anchors`:
+  - `p87`: "3.2 Containers and Variables"
+  - `p88`: "3.2 Containers and Variables"
+  - `p89`: "3.2 Containers and Variables"
+
+### SEG-0090-0092
+- `physical_pages`: `90-92`
+- `printed_pages`: `90-92`
+- `section_path`: "Chapter 3 Tresos Configuration Items / 3.2 Containers and Variables"
+- `content_types`: ["text", "configuration"]
+- `summary`: "Indexes CAN USER source physical page(s) 90-92 under Chapter 3 Tresos Configuration Items / 3.2 Containers and Variables. Use anchors to verify exact wording in the source PDF."
+- `keywords`: ["CAN", "Can", "FC7xxx", "AUTOSAR", "MCAL", "Tresos", "configuration", "container", "ECUC"]
+- `anchors`:
+  - `p90`: "3.2 Containers and Variables"
+  - `p91`: "3.2 Containers and Variables"
+  - `p92`: "3.2 Containers and Variables"
+
+### SEG-0093-0095
+- `physical_pages`: `93-95`
+- `printed_pages`: `93-95`
+- `section_path`: "Chapter 3 Tresos Configuration Items / 3.2 Containers and Variables"
+- `content_types`: ["text", "configuration"]
+- `summary`: "Indexes CAN USER source physical page(s) 93-95 under Chapter 3 Tresos Configuration Items / 3.2 Containers and Variables. Use anchors to verify exact wording in the source PDF."
+- `keywords`: ["CAN", "Can", "FC7xxx", "AUTOSAR", "MCAL", "Tresos", "configuration", "container", "ECUC"]
+- `anchors`:
+  - `p93`: "3.2 Containers and Variables"
+  - `p94`: "3.2 Containers and Variables"
+  - `p95`: "3.2 Containers and Variables"
+
+### SEG-0096-0098
+- `physical_pages`: `96-98`
+- `printed_pages`: `96-98`
+- `section_path`: "Chapter 3 Tresos Configuration Items / 3.2 Containers and Variables"
+- `content_types`: ["text", "configuration"]
+- `summary`: "Indexes CAN USER source physical page(s) 96-98 under Chapter 3 Tresos Configuration Items / 3.2 Containers and Variables. Use anchors to verify exact wording in the source PDF."
+- `keywords`: ["CAN", "Can", "FC7xxx", "AUTOSAR", "MCAL", "Tresos", "configuration", "container", "ECUC"]
+- `anchors`:
+  - `p96`: "3.2 Containers and Variables"
+  - `p97`: "3.2 Containers and Variables"
+  - `p98`: "3.2 Containers and Variables"
+
+### SEG-0099-0101
+- `physical_pages`: `99-101`
+- `printed_pages`: `99-101`
+- `section_path`: "Chapter 3 Tresos Configuration Items / 3.2 Containers and Variables"
+- `content_types`: ["text", "configuration"]
+- `summary`: "Indexes CAN USER source physical page(s) 99-101 under Chapter 3 Tresos Configuration Items / 3.2 Containers and Variables. Use anchors to verify exact wording in the source PDF."
+- `keywords`: ["CAN", "Can", "FC7xxx", "AUTOSAR", "MCAL", "Tresos", "configuration", "container", "ECUC"]
+- `anchors`:
+  - `p99`: "3.2 Containers and Variables"
+  - `p100`: "3.2 Containers and Variables"
+  - `p101`: "3.2 Containers and Variables"
+
+### SEG-0102-0104
+- `physical_pages`: `102-104`
+- `printed_pages`: `102-104`
+- `section_path`: "Chapter 3 Tresos Configuration Items / 3.2 Containers and Variables"
+- `content_types`: ["text", "configuration"]
+- `summary`: "Indexes CAN USER source physical page(s) 102-104 under Chapter 3 Tresos Configuration Items / 3.2 Containers and Variables. Use anchors to verify exact wording in the source PDF."
+- `keywords`: ["CAN", "Can", "FC7xxx", "AUTOSAR", "MCAL", "Tresos", "configuration", "container", "ECUC"]
+- `anchors`:
+  - `p102`: "3.2 Containers and Variables"
+  - `p103`: "3.2 Containers and Variables"
+  - `p104`: "3.2 Containers and Variables"
+
+### SEG-0105-0107
+- `physical_pages`: `105-107`
+- `printed_pages`: `105-107`
+- `section_path`: "Chapter 3 Tresos Configuration Items / 3.2 Containers and Variables"
+- `content_types`: ["text", "configuration"]
+- `summary`: "Indexes CAN USER source physical page(s) 105-107 under Chapter 3 Tresos Configuration Items / 3.2 Containers and Variables. Use anchors to verify exact wording in the source PDF."
+- `keywords`: ["CAN", "Can", "FC7xxx", "AUTOSAR", "MCAL", "Tresos", "configuration", "container", "ECUC"]
+- `anchors`:
+  - `p105`: "3.2 Containers and Variables"
+  - `p106`: "3.2 Containers and Variables"
+  - `p107`: "3.2 Containers and Variables"
+
+### SEG-0108-0110
+- `physical_pages`: `108-110`
+- `printed_pages`: `108-110`
+- `section_path`: "Chapter 3 Tresos Configuration Items / 3.2 Containers and Variables"
+- `content_types`: ["text", "configuration"]
+- `summary`: "Indexes CAN USER source physical page(s) 108-110 under Chapter 3 Tresos Configuration Items / 3.2 Containers and Variables. Use anchors to verify exact wording in the source PDF."
+- `keywords`: ["CAN", "Can", "FC7xxx", "AUTOSAR", "MCAL", "Tresos", "configuration", "container", "ECUC"]
+- `anchors`:
+  - `p108`: "3.2 Containers and Variables"
+  - `p109`: "3.2 Containers and Variables"
+  - `p110`: "3.2 Containers and Variables"
+
+### SEG-0111-0113
+- `physical_pages`: `111-113`
+- `printed_pages`: `111-113`
+- `section_path`: "Chapter 3 Tresos Configuration Items / 3.2 Containers and Variables"
+- `content_types`: ["text", "configuration"]
+- `summary`: "Indexes CAN USER source physical page(s) 111-113 under Chapter 3 Tresos Configuration Items / 3.2 Containers and Variables. Use anchors to verify exact wording in the source PDF."
+- `keywords`: ["CAN", "Can", "FC7xxx", "AUTOSAR", "MCAL", "Tresos", "configuration", "container", "ECUC"]
+- `anchors`:
+  - `p111`: "3.2 Containers and Variables"
+  - `p112`: "3.2 Containers and Variables"
+  - `p113`: "3.2 Containers and Variables"
+
+### SEG-0114
+- `physical_pages`: `114`
+- `printed_pages`: `114`
+- `section_path`: "Chapter 3 Tresos Configuration Items / 3.2 Containers and Variables"
+- `content_types`: ["text", "configuration"]
+- `summary`: "Indexes CAN USER source physical page(s) 114 under Chapter 3 Tresos Configuration Items / 3.2 Containers and Variables. Use anchors to verify exact wording in the source PDF."
+- `keywords`: ["CAN", "Can", "FC7xxx", "AUTOSAR", "MCAL", "Tresos", "configuration", "container", "ECUC"]
+- `anchors`:
+  - `p114`: "3.2 Containers and Variables"
+
+### SEG-0115-0117
+- `physical_pages`: `115-117`
+- `printed_pages`: `115-117`
+- `section_path`: "Chapter 4 Configuration Guides / CAN Usage Common Steps"
+- `content_types`: ["text", "configuration"]
+- `summary`: "Indexes CAN USER source physical page(s) 115-117 under Chapter 4 Configuration Guides / CAN Usage Common Steps. Use anchors to verify exact wording in the source PDF."
+- `keywords`: ["CAN", "Can", "FC7xxx", "AUTOSAR", "MCAL", "Tresos", "configuration", "container", "ECUC"]
+- `anchors`:
+  - `p115`: "CAN Usage Common Steps"
+  - `p116`: "CAN Usage Common Steps"
+  - `p117`: "CanMainFunctionRWPeriods"
+
+### SEG-0118-0120
+- `physical_pages`: `118-120`
+- `printed_pages`: `118-120`
+- `section_path`: "Chapter 4 Configuration Guides / CAN Usage Common Steps"
+- `content_types`: ["text", "configuration"]
+- `summary`: "Indexes CAN USER source physical page(s) 118-120 under Chapter 4 Configuration Guides / CAN Usage Common Steps. Use anchors to verify exact wording in the source PDF."
+- `keywords`: ["CAN", "Can", "FC7xxx", "AUTOSAR", "MCAL", "Tresos", "configuration", "container", "ECUC"]
+- `anchors`:
+  - `p118`: "CAN Usage Common Steps"
+  - `p119`: "Set baudrate"
+  - `p120`: "CAN Usage Common Steps"
+
+### SEG-0121
+- `physical_pages`: `121`
+- `printed_pages`: `121`
+- `section_path`: "Chapter 4 Configuration Guides / CAN Usage Common Steps"
+- `content_types`: ["text", "configuration"]
+- `summary`: "Indexes CAN USER source physical page(s) 121 under Chapter 4 Configuration Guides / CAN Usage Common Steps. Use anchors to verify exact wording in the source PDF."
+- `keywords`: ["CAN", "Can", "FC7xxx", "AUTOSAR", "MCAL", "Tresos", "configuration", "container", "ECUC"]
+- `anchors`:
+  - `p121`: "Click the Generate Project to generate relevant code"
+
+## 6. Table Index
+
+### TBL-0002-001
+- `source_table_number`: `null`
+- `generated_table_number`: "TBL-0002-001"
+- `caption`: "Revision History"
+- `physical_pages`: [2]
+- `printed_pages`: `2`
+- `section_path`: "Revision History"
+- `bbox`: `null`
+- `key_fields`: ["Revision", "Date", "Changes"]
+- `summary`: "Revision history includes 0.1 initial MCAL V0.1.0 release and 0.3 MCAL V0.3.0 update."
+- `anchor`: "0.3 2023/10/20 Updated for MCAL V0.3.0"
+- `extraction_method`: "file-library text snippet + visual page context"
+- `confidence`: `0.93`
+- `quality_flags`: []
+
+### TBL-0008-001
+- `source_table_number`: `null`
+- `generated_table_number`: "TBL-0008-001"
+- `caption`: "Rejected Requirements"
+- `physical_pages`: [8]
+- `printed_pages`: `8`
+- `section_path`: "Chapter 2 Software Design / 2.1 Rejected Requirements"
+- `bbox`: `null`
+- `key_fields`: ["Rejected Requirement", "Description", "Rejection Reason"]
+- `summary`: "Indexes rejected CAN wakeup/Icu notification/no-order requirements visible on physical page 8."
+- `anchor`: "SWS_Can_00361"
+- `extraction_method`: "file-library text snippet + visual page context"
+- `confidence`: `0.8`
+- `quality_flags`: ["partial_page_context"]
+
+### TBL-0021-001
+- `source_table_number`: `null`
+- `generated_table_number`: "TBL-0021-001"
+- `caption`: "Can_ConfigType and Can_ControlerInstanceType structures"
+- `physical_pages`: [21]
+- `printed_pages`: `21`
+- `section_path`: "Chapter 2 Software Design / 2.6 Structures"
+- `bbox`: `null`
+- `key_fields`: ["Structure", "Description", "Diagram", "Data Fields"]
+- `summary`: "Structure descriptions and data fields for Can_ConfigType and Can_ControlerInstanceType."
+- `anchor`: "2.6.1 Can_ConfigType"
+- `extraction_method`: "file-library text snippet + visual page context"
+- `confidence`: `0.86`
+- `quality_flags`: []
+
+### TBL-0031-001
+- `source_table_number`: `null`
+- `generated_table_number`: "TBL-0031-001"
+- `caption`: "CAN API Function Specifications"
+- `physical_pages`: [31]
+- `printed_pages`: `31`
+- `section_path`: "Chapter 2 Software Design / 2.7 API Functions"
+- `bbox`: `null`
+- `key_fields`: ["Function", "Description", "Diagram", "Parameters", "Returns"]
+- `summary`: "API function specification tables for interrupt control, wakeup check, controller error state and controller mode."
+- `anchor`: "Can_DisableControllerInterrupts"
+- `extraction_method`: "file-library text snippet + visual page context"
+- `confidence`: `0.84`
+- `quality_flags`: ["single_page_sample_from_api_section"]
+
+### TBL-0037-001
+- `source_table_number`: `null`
+- `generated_table_number`: "TBL-0037-001"
+- `caption`: "CAN HAL Function Specifications"
+- `physical_pages`: [37]
+- `printed_pages`: `37`
+- `section_path`: "Chapter 2 Software Design / 2.8 Hardware Functions / 2.8.1 HAL Functions"
+- `bbox`: `null`
+- `key_fields`: ["Function", "Description", "Parameters", "Returns"]
+- `summary`: "HAL function specifications for controller interrupts, wakeup check and controller error state."
+- `anchor`: "Can_Hal_DisableControllerInterrupts"
+- `extraction_method`: "file-library text snippet + visual page context"
+- `confidence`: `0.84`
+- `quality_flags`: ["single_page_sample_from_hal_section"]
+
+### TBL-0059-001
+- `source_table_number`: `null`
+- `generated_table_number`: "TBL-0059-001"
+- `caption`: "CAN Hardware Function Specifications"
+- `physical_pages`: [59]
+- `printed_pages`: `59`
+- `section_path`: "Chapter 2 Software Design / 2.8 Hardware Functions / 2.8.2 Functions in Can_Hw.h"
+- `bbox`: `null`
+- `key_fields`: ["Function", "Description", "Parameters", "Returns"]
+- `summary`: "Hardware function specifications for BRS/TDC and CANFD register control."
+- `anchor`: "Can_Hw_DisableBRS"
+- `extraction_method`: "file-library text snippet + visual page context"
+- `confidence`: `0.86`
+- `quality_flags`: ["single_page_sample_from_hardware_section"]
+
+### TBL-0068-001
+- `source_table_number`: `null`
+- `generated_table_number`: "TBL-0068-001"
+- `caption`: "CAN General Configuration Parameters"
+- `physical_pages`: [68]
+- `printed_pages`: `68`
+- `section_path`: "Chapter 3 Tresos Configuration Items / 3.2 Containers and Variables"
+- `bbox`: `null`
+- `key_fields`: ["Name", "Description", "Type", "Default", "Origin"]
+- `summary`: "Configuration parameter entries for CanMainFunctionModePeriod, CanMainFunctionWakeupPeriod and CanMultiplexedTransmission."
+- `anchor`: "CanMainFunctionModePeriod"
+- `extraction_method`: "file-library text snippet + visual page context"
+- `confidence`: `0.72`
+- `quality_flags`: ["configuration_table_partial"]
+
+### TBL-0117-001
+- `source_table_number`: `null`
+- `generated_table_number`: "TBL-0117-001"
+- `caption`: "CAN Usage Common Steps - MainFunctionRWPeriods and CanController"
+- `physical_pages`: [117]
+- `printed_pages`: `117`
+- `section_path`: "Chapter 4 Configuration Guides / CAN Usage Common Steps"
+- `bbox`: `null`
+- `key_fields`: ["Step", "Configuration container", "Purpose"]
+- `summary`: "Configuration guide screenshots and text for CanMainFunctionRWPeriods and creation of CanController objects."
+- `anchor`: "CanMainFunctionRWPeriods"
+- `extraction_method`: "file-library text snippet + visual page context"
+- `confidence`: `0.72`
+- `quality_flags`: ["screenshot_text_not_ocr_verified"]
+
+### TBL-0119-001
+- `source_table_number`: `null`
+- `generated_table_number`: "TBL-0119-001"
+- `caption`: "CAN Usage Common Steps - Baudrate and CanHardwareObjects"
+- `physical_pages`: [119]
+- `printed_pages`: `119`
+- `section_path`: "Chapter 4 Configuration Guides / CAN Usage Common Steps"
+- `bbox`: `null`
+- `key_fields`: ["Step", "Configuration container", "Purpose"]
+- `summary`: "Configuration guide screenshots and text for setting baudrate and creating CanHardwareObjects."
+- `anchor`: "Create objects in CanHardwareObjects"
+- `extraction_method`: "file-library text snippet + visual page context"
+- `confidence`: `0.72`
+- `quality_flags`: ["screenshot_text_not_ocr_verified"]
+
+## 7. Figure / Image Index
+
+### FIG-0021-001
+- `source_figure_number`: `null`
+- `generated_figure_number`: "Internal Figure FIG-0021-001"
+- `caption`: "Can_ConfigType structure relation diagram"
+- `physical_page`: `21`
+- `printed_page`: `21`
+- `section_path`: "Chapter 2 Software Design / 2.6 Structures"
+- `bbox`: `null`
+- `image_type`: "structure_diagram"
+- `semantic_description`: "Shows relationships between Can_ConfigType and related configuration types such as Can_ControllerConfigContainerType, CanHal_ConfigType and Can_MBConfigContainerType."
+- `keywords`: ["Can_ConfigType", "structure", "configuration types"]
+- `anchor`: "2.6.1 Can_ConfigType"
+- `confidence`: `0.78`
+- `quality_flags`: ["generated_figure_id", "visual_text_not_ocr_verified"]
+
+### FIG-0065-001
+- `source_figure_number`: `null`
+- `generated_figure_number`: "Internal Figure FIG-0065-001"
+- `caption`: "CAN container inclusion relation"
+- `physical_page`: `65`
+- `printed_page`: `65`
+- `section_path`: "Chapter 3 Tresos Configuration Items / 3.1 Container Inclusion Relation"
+- `bbox`: `null`
+- `image_type`: "configuration_diagram"
+- `semantic_description`: "Shows CAN Tresos configuration container hierarchy including CommonPublishedInformation, CanGeneral, CanConfigSet, CanController, CanIcom and CanHardwareObject."
+- `keywords`: ["CanGeneral", "CanConfigSet", "CanController", "CanHardwareObject"]
+- `anchor`: "3.1 Container Inclusion Relation"
+- `confidence`: `0.82`
+- `quality_flags`: ["generated_figure_id"]
+
+### FIG-0117-001
+- `source_figure_number`: `null`
+- `generated_figure_number`: "Internal Figure FIG-0117-001"
+- `caption`: "CAN configuration guide screenshots for MainFunctionRWPeriods and CanController"
+- `physical_page`: `117`
+- `printed_page`: `117`
+- `section_path`: "Chapter 4 Configuration Guides / CAN Usage Common Steps"
+- `bbox`: `null`
+- `image_type`: "screenshot"
+- `semantic_description`: "Shows EB tresos configuration tabs and rows for CanMainFunctionRWPeriods and CanController creation."
+- `keywords`: ["CanMainFunctionRWPeriods", "CanController", "Tresos", "screenshot"]
+- `anchor`: "CanMainFunctionRWPeriods"
+- `confidence`: `0.68`
+- `quality_flags`: ["generated_figure_id", "screenshot_text_not_ocr_verified"]
+
+### FIG-0119-001
+- `source_figure_number`: `null`
+- `generated_figure_number`: "Internal Figure FIG-0119-001"
+- `caption`: "CAN baudrate and hardware-object configuration screenshots"
+- `physical_page`: `119`
+- `printed_page`: `119`
+- `section_path`: "Chapter 4 Configuration Guides / CAN Usage Common Steps"
+- `bbox`: `null`
+- `image_type`: "screenshot"
+- `semantic_description`: "Shows general baudrate settings and CanHardwareObject table entries for CAN Interface configuration."
+- `keywords`: ["baudrate", "CanHardwareObject", "CAN Interface", "screenshot"]
+- `anchor`: "Set baudrate"
+- `confidence`: `0.68`
+- `quality_flags`: ["generated_figure_id", "screenshot_text_not_ocr_verified"]
+
+## 8. Term / API / Config / Requirement Index
+
+### REQ-SWS-CAN-00361
+- `name`: "SWS_Can_00361"
+- `type`: "requirement"
+- `primary_page`: `8`
+- `physical_pages`: [8]
+- `section_paths`: ["Chapter 2 Software Design / 2.1 Rejected Requirements"]
+- `brief`: "Rejected CAN wakeup requirement because SoC does not support wakeup."
+- `anchors`: ["p8: SWS_Can_00361"]
+- `aliases`: ["Can_CheckWakeup wakeup report"]
+
+### REQ-SWS-CAN-00485
+- `name`: "SWS_Can_00485"
+- `type`: "requirement"
+- `primary_page`: `8`
+- `physical_pages`: [8]
+- `section_paths`: ["Chapter 2 Software Design / 2.1 Rejected Requirements"]
+- `brief`: "Rejected pre-compile wakeup functionality API requirement because SoC does not support wakeup."
+- `anchors`: ["p8: SWS_Can_00485"]
+- `aliases`: ["CanWakeupFunctionalityAPI"]
+
+### REQ-SWS-CAN-00110
+- `name`: "SWS_Can_00110"
+- `type`: "requirement"
+- `primary_page`: `8`
+- `physical_pages`: [8]
+- `section_paths`: ["Chapter 2 Software Design / 2.1 Rejected Requirements"]
+- `brief`: "Rejected requirement stating there is no execution order requirement for CAN main processing functions."
+- `anchors`: ["p8: SWS_Can_00110"]
+- `aliases`: ["CAN main function order"]
+
+### TERM-CAN-CONFIGTYPE
+- `name`: "Can_ConfigType"
+- `type`: "type"
+- `primary_page`: `21`
+- `physical_pages`: [21]
+- `section_paths`: ["Chapter 2 Software Design / 2.6 Structures"]
+- `brief`: "External data structure containing overall initialization data and SFR settings affecting all controllers."
+- `anchors`: ["p21: 2.6.1 Can_ConfigType"]
+- `aliases`: ["CAN config type"]
+
+### TERM-CAN-CONTROLERINSTANCETYPE
+- `name`: "Can_ControlerInstanceType"
+- `type`: "type"
+- `primary_page`: `21`
+- `physical_pages`: [21]
+- `section_paths`: ["Chapter 2 Software Design / 2.6 Structures"]
+- `brief`: "CAN controller instance configuration structure."
+- `anchors`: ["p21: 2.6.2 Can_ControlerInstanceType"]
+- `aliases`: ["Can_ControllerInstanceType", "controller instance"]
+
+### API-CAN-DISABLECONTROLLERINTERRUPTS
+- `name`: "Can_DisableControllerInterrupts"
+- `type`: "api"
+- `primary_page`: `31`
+- `physical_pages`: [31]
+- `section_paths`: ["Chapter 2 Software Design / 2.7 API Functions"]
+- `brief`: "Disables all interrupts for a CAN controller."
+- `anchors`: ["p31: Can_DisableControllerInterrupts"]
+- `aliases`: ["disable controller interrupts"]
+
+### API-CAN-ENABLECONTROLLERINTERRUPTS
+- `name`: "Can_EnableControllerInterrupts"
+- `type`: "api"
+- `primary_page`: `31`
+- `physical_pages`: [31]
+- `section_paths`: ["Chapter 2 Software Design / 2.7 API Functions"]
+- `brief`: "Enables all allowed interrupts for a CAN controller."
+- `anchors`: ["p31: Can_EnableControllerInterrupts"]
+- `aliases`: ["enable controller interrupts"]
+
+### API-CAN-CHECKWAKEUP
+- `name`: "Can_CheckWakeup"
+- `type`: "api"
+- `primary_page`: `31`
+- `physical_pages`: [31, 8]
+- `section_paths`: ["Chapter 2 Software Design / 2.7 API Functions", "Chapter 2 Software Design / 2.1 Rejected Requirements"]
+- `brief`: "Checks if a wakeup has occurred for the given controller; wakeup support is rejected/unsupported on observed SoC context."
+- `anchors`: ["p31: Can_CheckWakeup", "p8: SoC does not support wakeup"]
+- `aliases`: ["CAN wakeup check"]
+
+### API-CAN-GETCONTROLLERERRORSTATE
+- `name`: "Can_GetControllerErrorState"
+- `type`: "api"
+- `primary_page`: `31`
+- `physical_pages`: [31]
+- `section_paths`: ["Chapter 2 Software Design / 2.7 API Functions"]
+- `brief`: "Obtains the error state of a CAN controller."
+- `anchors`: ["p31: Can_GetControllerErrorState"]
+- `aliases`: ["controller error state"]
+
+### API-CAN-GETCONTROLLERMODE
+- `name`: "Can_GetControllerMode"
+- `type`: "api"
+- `primary_page`: `31`
+- `physical_pages`: [31]
+- `section_paths`: ["Chapter 2 Software Design / 2.7 API Functions"]
+- `brief`: "Reports the current status/mode of the requested CAN controller."
+- `anchors`: ["p31: Can_GetControllerMode"]
+- `aliases`: ["controller mode"]
+
+### API-CAN-HAL-DISABLECONTROLLERINTERRUPTS
+- `name`: "Can_Hal_DisableControllerInterrupts"
+- `type`: "api"
+- `primary_page`: `37`
+- `physical_pages`: [37]
+- `section_paths`: ["Chapter 2 Software Design / 2.8 Hardware Functions / 2.8.1 HAL Functions"]
+- `brief`: "HAL helper to disable CAN controller interrupts."
+- `anchors`: ["p37: Can_Hal_DisableControllerInterrupts"]
+- `aliases`: ["HAL disable interrupts"]
+
+### API-CANHAL-CHECKWAKEUP
+- `name`: "CanHal_CheckWakeup"
+- `type`: "api"
+- `primary_page`: `37`
+- `physical_pages`: [37]
+- `section_paths`: ["Chapter 2 Software Design / 2.8 Hardware Functions / 2.8.1 HAL Functions"]
+- `brief`: "HAL helper to check wakeup occurrence for controller."
+- `anchors`: ["p37: CanHal_CheckWakeup"]
+- `aliases`: ["Can_Hal_CheckWakeup"]
+
+### API-CAN-HW-DISABLEBRS
+- `name`: "Can_Hw_DisableBRS"
+- `type`: "api"
+- `primary_page`: `59`
+- `physical_pages`: [59]
+- `section_paths`: ["Chapter 2 Software Design / 2.8 Hardware Functions / 2.8.2 Functions in Can_Hw.h"]
+- `brief`: "Disables Bit Rate Switch."
+- `anchors`: ["p59: Can_Hw_DisableBRS"]
+- `aliases`: ["Disable BRS"]
+
+### API-CAN-HW-DISABLETDC
+- `name`: "Can_Hw_DisableTDC"
+- `type`: "api"
+- `primary_page`: `59`
+- `physical_pages`: [59]
+- `section_paths`: ["Chapter 2 Software Design / 2.8 Hardware Functions / 2.8.2 Functions in Can_Hw.h"]
+- `brief`: "Disables Transceiver Delay Compensation."
+- `anchors`: ["p59: Can_Hw_DisableTDC"]
+- `aliases`: ["Disable TDC"]
+
+### API-CAN-HW-ENABLEBRS
+- `name`: "Can_Hw_EnableBRS"
+- `type`: "api"
+- `primary_page`: `59`
+- `physical_pages`: [59]
+- `section_paths`: ["Chapter 2 Software Design / 2.8 Hardware Functions / 2.8.2 Functions in Can_Hw.h"]
+- `brief`: "Enables Bit Rate Switch."
+- `anchors`: ["p59: Can_Hw_EnableBRS"]
+- `aliases`: ["Enable BRS"]
+
+### API-CAN-HW-ENABLETDC
+- `name`: "Can_Hw_EnableTDC"
+- `type`: "api"
+- `primary_page`: `59`
+- `physical_pages`: [59]
+- `section_paths`: ["Chapter 2 Software Design / 2.8 Hardware Functions / 2.8.2 Functions in Can_Hw.h"]
+- `brief`: "Enables Transceiver Delay Compensation."
+- `anchors`: ["p59: Can_Hw_EnableTDC"]
+- `aliases`: ["Enable TDC"]
+
+### API-CAN-HW-SETFDCBTVALUE
+- `name`: "Can_Hw_SetFDCBTValue"
+- `type`: "api"
+- `primary_page`: `59`
+- `physical_pages`: [59]
+- `section_paths`: ["Chapter 2 Software Design / 2.8 Hardware Functions / 2.8.2 Functions in Can_Hw.h"]
+- `brief`: "Sets FDCBT register value."
+- `anchors`: ["p59: Can_Hw_SetFDCBTValue"]
+- `aliases`: ["FDCBT register"]
+
+### API-CAN-HW-SETFDCTRL2
+- `name`: "Can_Hw_SetFDCTRL2"
+- `type`: "api"
+- `primary_page`: `59`
+- `physical_pages`: [59]
+- `section_paths`: ["Chapter 2 Software Design / 2.8 Hardware Functions / 2.8.2 Functions in Can_Hw.h"]
+- `brief`: "Sets CTRL2 register for CANFD."
+- `anchors`: ["p59: Can_Hw_SetFDCTRL2"]
+- `aliases`: ["FDCTRL2", "CANFD CTRL2"]
+
+### CFG-CANMAINFUNCTIONRWPERIODS
+- `name`: "CanMainFunctionRWPeriods"
+- `type`: "config"
+- `primary_page`: `117`
+- `physical_pages`: [117, 65]
+- `section_paths`: ["Chapter 4 Configuration Guides / CAN Usage Common Steps", "Chapter 3 Tresos Configuration Items"]
+- `brief`: "Configuration container/parameter for cyclic call period to Can_MainFunction_Read or Can_MainFunction_Write."
+- `anchors`: ["p117: CanMainFunctionRWPeriods contains the parameter"]
+- `aliases`: ["RW period", "Read/Write main function period"]
+
+### CFG-CANCONTROLLER
+- `name`: "CanController"
+- `type`: "config"
+- `primary_page`: `117`
+- `physical_pages`: [117, 65]
+- `section_paths`: ["Chapter 4 Configuration Guides / CAN Usage Common Steps", "Chapter 3 Tresos Configuration Items"]
+- `brief`: "Container containing configuration parameters of CAN controller(s)."
+- `anchors`: ["p117: Create at least one item in CanController"]
+- `aliases`: ["CAN controller container"]
+
+### CFG-CANHARDWAREOBJECT
+- `name`: "CanHardwareObject"
+- `type`: "config"
+- `primary_page`: `119`
+- `physical_pages`: [119, 65]
+- `section_paths`: ["Chapter 4 Configuration Guides / CAN Usage Common Steps", "Chapter 3 Tresos Configuration Items"]
+- `brief`: "Container holding configuration parameters of CAN Hardware Objects for CAN Interface information."
+- `anchors`: ["p119: Create objects in CanHardwareObjects"]
+- `aliases`: ["CAN Hardware Object", "HOH", "HTH", "HRH"]
+
+## 9. Search Aliases
+
+### ALIAS-AUTOSAR
+- `canonical`: "AUTOSAR"
+- `aliases`: ["AUTOSAR Classic Platform", "AUTOSAR CP", "汽车开放系统架构", "AUTOSAR 4.6.0"]
+- `related_ids`: ["TERM-AUTOSAR"]
+
+### ALIAS-MCAL
+- `canonical`: "MCAL"
+- `aliases`: ["Microcontroller Abstraction Layer", "微控制器抽象层", "底层驱动", "AUTOSAR MCAL"]
+- `related_ids`: ["TERM-MCAL"]
+
+### ALIAS-EB-TRESOS
+- `canonical`: "EB tresos"
+- `aliases`: ["Tresos", "EB Tresos Studio", "EB tresos Studio", "配置工具", "Tresos configuration"]
+- `related_ids`: ["TERM-EB-TRESOS"]
+
+### ALIAS-DET
+- `canonical`: "Det"
+- `aliases`: ["Development Error Tracer", "development error detection", "开发错误检测", "DET error"]
+- `related_ids`: ["TERM-DET"]
+
+### ALIAS-DEM
+- `canonical`: "Dem"
+- `aliases`: ["Diagnostic Event Manager", "诊断事件管理", "DEM event"]
+- `related_ids`: ["TERM-DEM"]
+
+### ALIAS-MEMMAP
+- `canonical`: "MemMap"
+- `aliases`: ["memory map", "START_SEC", "STOP_SEC", "linker section", "内存段"]
+- `related_ids`: ["TERM-MEMMAP"]
+
+### ALIAS-CAN
+- `canonical`: "CAN"
+- `aliases`: ["Controller Area Network", "FlexCAN", "CAN driver", "CAN module", "控制器局域网"]
+- `related_ids`: ["TERM-CAN"]
+
+### ALIAS-BRS
+- `canonical`: "BRS"
+- `aliases`: ["Bit Rate Switch", "Can_Hw_EnableBRS", "Can_Hw_DisableBRS", "CAN FD BRS"]
+- `related_ids`: ["API-CAN-HW-ENABLEBRS", "API-CAN-HW-DISABLEBRS"]
+
+### ALIAS-TDC
+- `canonical`: "TDC"
+- `aliases`: ["Transceiver Delay Compensation", "Can_Hw_EnableTDC", "Can_Hw_DisableTDC", "CAN FD TDC"]
+- `related_ids`: ["API-CAN-HW-ENABLETDC", "API-CAN-HW-DISABLETDC"]
+
+### ALIAS-CANHARDWAREOBJECT
+- `canonical`: "CanHardwareObject"
+- `aliases`: ["CAN Hardware Object", "CanHardwareObjects", "HOH", "HTH", "HRH", "CAN Interface object"]
+- `related_ids`: ["CFG-CANHARDWAREOBJECT"]
+
+
+## 9A. Text-Layer Search Supplement
+
+### TEXTSUP-SUMMARY
+- `purpose`: `Close keyword lookup gaps between CAN_User_Manual.pdf extractable text and this Manifest without copying full PDF prose.`
+- `source_pdf`: `CAN_User_Manual.pdf`
+- `source_pdf_sha256`: `8337246395cfe1c48ccbb8da4d79ef0a46de86df649f6c53371d635e01f99007`
+- `generated_at`: `2026-06-20T08:11:45Z`
+- `tokenization_rule`: `ASCII identifiers, alphanumeric technical tokens, hex literals and dotted version tokens with length >= 3.`
+- `scope`: `Text-layer token supplement only; screenshot text, vector drawing internals and table cell layout still require source PDF verification.`
+- `unique_missing_terms_added`: `2017`
+- `technical_missing_terms_added`: `678`
+- `pages_with_added_terms`: `120`
+- `supplemented_missing_token_count`: `2017`
+- `supplemented_missing_technical_token_count`: `678`
+- `supplemented_physical_pages_count`: `120`
+- `post_supplement_text_token_recall`: `1.000`
+- `post_supplement_technical_token_recall`: `1.000`
+- `usage`: `Search terms here to locate physical pages, then verify exact wording in the source PDF.`
+
+### TEXTSUP-PAGE-0002
+- `physical_page`: `2`
+- `additional_text_terms`:
+  - "Confidential"
+  - "Flagchip"
+  - "Proprietary"
+
+### TEXTSUP-PAGE-0003
+- `physical_page`: `3`
+- `additional_text_terms`:
+  - "1.2"
+  - "2.3"
+  - "2.3.1"
+  - "2.3.2"
+  - "2.3.3"
+  - "2.3.4"
+  - "2.4"
+  - "2.4.1"
+  - "2.4.2"
+  - "2.5.1"
+  - "2.6.10"
+  - "2.6.11"
+  - "2.6.12"
+  - "2.6.13"
+  - "2.6.14"
+  - "2.6.15"
+  - "2.6.16"
+  - "2.6.17"
+  - "2.6.18"
+  - "2.6.19"
+  - "2.6.3"
+  - "2.6.4"
+  - "2.6.5"
+  - "2.6.6"
+  - "2.6.7"
+  - "2.6.8"
+  - "2.6.9"
+  - "CanHal_ControlerInstanceType"
+  - "CanHal_ControllerStatusType"
+  - "CanHw_MbOffsetWithHoh"
+  - "CanHw_Message"
+  - "Can_Cfg"
+  - "Can_ControllerFdConfigType"
+  - "Can_GeneralTypes"
+  - "Can_Hal"
+  - "Can_HwType"
+  - "Can_IcomConfigsType"
+  - "Can_IcomRxMessageConfigsType"
+  - "Can_IcomRxMessageSignalType"
+  - "Can_MBConfigObjectType"
+  - "Can_MBDlcMaxMinType"
+  - "Can_PduType"
+  - "Can_RxFiFoTableIdConfigType"
+  - "Can_Version"
+  - "Confidential"
+  - "Enumerations"
+  - "Flagchip"
+  - "Proprietary"
+  - "Typedefs"
+
+### TEXTSUP-PAGE-0004
+- `physical_page`: `4`
+- `additional_text_terms`:
+  - "2.7.1"
+  - "2.8.3"
+  - "2.9.1"
+  - "2.9.2"
+  - "2.9.3"
+  - "2.9.4"
+  - "3.2.1"
+  - "3.2.2"
+  - "3.2.3"
+  - "4.1"
+  - "4.2"
+  - "Buffering"
+  - "Can_Hal"
+  - "Can_Irq"
+  - "Confidential"
+  - "Confirmation"
+  - "Demo"
+  - "Driver"
+  - "Flagchip"
+  - "Interrupt"
+  - "Mode"
+  - "Polling"
+  - "Proprietary"
+  - "Request"
+  - "Single"
+  - "Transmit"
+  - "variables"
+
+### TEXTSUP-PAGE-0005
+- `physical_page`: `5`
+- `additional_text_terms`:
+  - "1.2"
+  - "2.0"
+  - "AUTOSAR_SWS_CANDriver"
+  - "Compliant"
+  - "Confidential"
+  - "Content"
+  - "Extended"
+  - "FC7300"
+  - "FIFO"
+  - "FLEX"
+  - "FLEXCAN"
+  - "FLEXCAN0"
+  - "FLEXCAN7"
+  - "Flagchip"
+  - "Flexible"
+  - "For"
+  - "Full"
+  - "IDs"
+  - "ISO"
+  - "Independence"
+  - "Individual"
+  - "Listen"
+  - "Low"
+  - "Mask"
+  - "Networking"
+  - "Part"
+  - "Powerful"
+  - "Pretended"
+  - "Programmable"
+  - "Proprietary"
+  - "Release"
+  - "Short"
+  - "Specification"
+  - "Standard"
+  - "Support"
+  - "addressing"
+  - "arbitration"
+  - "assumed"
+  - "bit"
+  - "buffer"
+  - "capability"
+  - "capable"
+  - "compensation"
+  - "configurable"
+  - "delay"
+  - "detailed"
+  - "due"
+  - "eight"
+  - "either"
+  - "extended"
+  - "external"
+  - "faster"
+  - "feature"
+  - "features"
+  - "filtering"
+  - "following"
+  - "follows"
+  - "frames"
+  - "highest"
+  - "implementation"
+  - "incoming"
+  - "individual"
+  - "instances"
+  - "latency"
+  - "length"
+  - "low"
+  - "lowest"
+  - "mailbox"
+  - "mailboxes"
+  - "major"
+  - "masking"
+  - "matching"
+  - "messages"
+  - "modes"
+  - "partial"
+  - "per"
+  - "power"
+  - "priority"
+  - "protocol"
+  - "rate"
+  - "rates"
+  - "received"
+  - "refer"
+  - "registers"
+  - "scheme"
+  - "series"
+  - "specified"
+  - "standard"
+  - "stop"
+  - "store"
+  - "supports"
+  - "time"
+  - "transceiver"
+  - "transmission"
+  - "transmitting"
+
+### TEXTSUP-PAGE-0006
+- `physical_page`: `6`
+- `additional_text_terms`:
+  - "Bus"
+  - "CAN_CS_SLEEP"
+  - "CAN_T_SLEEP"
+  - "Can_SetControllerMode"
+  - "Compare"
+  - "Confidential"
+  - "Controllers"
+  - "Flagchip"
+  - "Only"
+  - "Otherwise"
+  - "Proprietary"
+  - "SLEEP"
+  - "SPI"
+  - "SWS_Can_00242"
+  - "SWS_Can_00244"
+  - "SWS_Can_00257"
+  - "SWS_Can_00265"
+  - "SWS_Can_00266"
+  - "SWS_Can_00270"
+  - "SWS_Can_00391"
+  - "SWS_Can_00398"
+  - "Spi"
+  - "When"
+  - "able"
+  - "access"
+  - "applicable"
+  - "assured"
+  - "callaback"
+  - "callback"
+  - "called"
+  - "chip"
+  - "drivers"
+  - "external"
+  - "header"
+  - "implementations"
+  - "implemented"
+  - "included"
+  - "into"
+  - "limited"
+  - "logical"
+  - "off"
+  - "onchip"
+  - "other"
+  - "over"
+  - "platform"
+  - "provide"
+  - "services"
+  - "set"
+  - "shall"
+  - "sleep"
+  - "supports"
+  - "synchronous"
+  - "that"
+  - "time"
+  - "transition"
+  - "triggered"
+  - "underlying"
+  - "until"
+  - "wait"
+  - "wake"
+  - "which"
+  - "woken"
+
+### TEXTSUP-PAGE-0007
+- `physical_page`: `7`
+- `additional_text_terms`:
+  - "CAN_NOT_OK"
+  - "CAN_T_WAKEUP"
+  - "CanHwObjectCount"
+  - "CanWakeupSourceRef"
+  - "Can_MainFunction_Wakeup"
+  - "Can_SetControllerMode"
+  - "Confidential"
+  - "Controllers"
+  - "EcuM_CheckWakeup"
+  - "FIFO"
+  - "Flagchip"
+  - "For"
+  - "ISR"
+  - "Only"
+  - "PDU"
+  - "Proprietary"
+  - "STOPPED"
+  - "SWS_CAN_00490"
+  - "SWS_Can_00048"
+  - "SWS_Can_00269"
+  - "SWS_Can_00271"
+  - "SWS_Can_00274"
+  - "SWS_Can_00294"
+  - "SWS_Can_00364"
+  - "WAKE"
+  - "additional"
+  - "allow"
+  - "also"
+  - "applicable"
+  - "automatic"
+  - "buffer"
+  - "bus"
+  - "busy"
+  - "called"
+  - "capabilities"
+  - "case"
+  - "caused"
+  - "checking"
+  - "chip"
+  - "configured"
+  - "during"
+  - "either"
+  - "events"
+  - "further"
+  - "implement"
+  - "into"
+  - "mechanism"
+  - "numberof"
+  - "occur"
+  - "off"
+  - "often"
+  - "over"
+  - "passed"
+  - "platform"
+  - "process"
+  - "provide"
+  - "recovery"
+  - "referenced"
+  - "shadow"
+  - "shall"
+  - "sleep"
+  - "suppress"
+  - "take"
+  - "that"
+  - "transition"
+  - "triggered"
+  - "turn"
+  - "via"
+  - "wake"
+  - "where"
+  - "will"
+
+### TEXTSUP-PAGE-0008
+- `physical_page`: `8`
+- `additional_text_terms`:
+  - "CANIF_CS_SLEEP"
+  - "CANIF_CS_STOPPED"
+  - "CAN_E_PARAM_CONTROLLER"
+  - "CAN_E_UNINIT"
+  - "Confidential"
+  - "EcuM"
+  - "EcuM_SetWakeupEvent"
+  - "Flagchip"
+  - "Icu_DisableNotification"
+  - "Icu_EnableNotification"
+  - "Icu_EnableNotificationIcu_DisableNotification"
+  - "Not"
+  - "Off"
+  - "OnChip"
+  - "Our"
+  - "Proprietary"
+  - "SLEEP"
+  - "STOPPED"
+  - "SWS_Can_00362"
+  - "SWS_Can_00363"
+  - "SWS_Can_00445"
+  - "SWS_Can_00446"
+  - "SWS_Can_00447"
+  - "There"
+  - "been"
+  - "called"
+  - "chip"
+  - "configurable"
+  - "detected"
+  - "done"
+  - "enabled"
+  - "external"
+  - "following"
+  - "have"
+  - "implemented"
+  - "initialized"
+  - "out"
+  - "platform"
+  - "provided"
+  - "raise"
+  - "regarding"
+  - "reporting"
+  - "shall"
+  - "successfully"
+  - "time"
+  - "transitioned"
+  - "via"
+  - "yet"
+
+### TEXTSUP-PAGE-0009
+- `physical_page`: `9`
+- `additional_text_terms`:
+  - "0x0a"
+  - "Build"
+  - "CanIfPrivateCfg"
+  - "CanIfSupportTTCAN"
+  - "CanSupportTTCANRef"
+  - "Can_MainFunction_Wakeu"
+  - "Can_MainFunction_Wakeup"
+  - "Class"
+  - "Confidential"
+  - "Dependency"
+  - "ECU"
+  - "ECUC_Can_00430"
+  - "Flagchip"
+  - "Included"
+  - "Item"
+  - "Link"
+  - "Module"
+  - "Multiplicity"
+  - "Not"
+  - "Our"
+  - "Parent"
+  - "Post"
+  - "Pre"
+  - "Proprietary"
+  - "Reference"
+  - "SWS_Can_00112"
+  - "SWS_Can_00185"
+  - "SWS_Can_00228"
+  - "Scope"
+  - "Service"
+  - "Syntax"
+  - "TTCAN"
+  - "Value"
+  - "Variant"
+  - "Variants"
+  - "WdgGeneral"
+  - "build"
+  - "case"
+  - "configured"
+  - "define"
+  - "defines"
+  - "empty"
+  - "events"
+  - "hex"
+  - "implement"
+  - "implemented"
+  - "may"
+  - "perform"
+  - "performs"
+  - "platform"
+  - "polled"
+  - "polling"
+  - "refers"
+  - "scope"
+  - "shall"
+  - "statically"
+  - "supported"
+  - "that"
+  - "time"
+  - "void"
+  - "wake"
+  - "whether"
+
+### TEXTSUP-PAGE-0010
+- `physical_page`: `10`
+- `additional_text_terms`:
+  - "Adds"
+  - "Base"
+  - "Build"
+  - "CanControllerBaseAddress"
+  - "CanIcomGeneral"
+  - "Class"
+  - "Confidential"
+  - "Dependency"
+  - "ECUC_Can_00382"
+  - "ECUC_Can_00466"
+  - "EcucBooleanParamDef"
+  - "EcucIntegerParamDef"
+  - "False"
+  - "Flagchip"
+  - "ICOM"
+  - "Item"
+  - "Link"
+  - "Multiplicity"
+  - "Post"
+  - "Pre"
+  - "Proprietary"
+  - "Range"
+  - "Scope"
+  - "Specifies"
+  - "TTCan"
+  - "True"
+  - "Value"
+  - "Variant"
+  - "Variants"
+  - "address"
+  - "base"
+  - "build"
+  - "cannot"
+  - "configuring"
+  - "dependency"
+  - "depending"
+  - "feature"
+  - "limitation"
+  - "platform"
+  - "referring"
+  - "removes"
+  - "scope"
+  - "service"
+  - "should"
+  - "some"
+  - "taken"
+  - "time"
+
+### TEXTSUP-PAGE-0011
+- `physical_page`: `11`
+- `additional_text_terms`:
+  - "2.3"
+  - "2.3.1"
+  - "CAN_AR_RELEASE_MAJOR_VERSION_PCCFG_CUR"
+  - "CAN_AR_RELEASE_MINOR_VERSION_PCCFG_CUR"
+  - "CAN_AR_RELEASE_REVISION_VERSION_PCCFG_CUR"
+  - "CAN_MODULE_ID_PCCFG_CUR"
+  - "CAN_SW_MAJOR_VERSION_PCCFG_CUR"
+  - "CAN_SW_MINOR_VERSION_PCCFG_CUR"
+  - "CAN_SW_PATCH_VERSION_PCCFG_CUR"
+  - "CAN_VENDOR_ID_PCCFG_CUR"
+  - "Can_Cfg"
+  - "Confidential"
+  - "Flagchip"
+  - "Proprietary"
+  - "Shall"
+  - "define"
+  - "platforms"
+  - "supported"
+  - "wake"
+  - "which"
+
+### TEXTSUP-PAGE-0012
+- `physical_page`: `12`
+- `additional_text_terms`:
+  - "CAN_ABORT_ONLY_ONE_MB"
+  - "CAN_API_ENABLE_ABORT_MB"
+  - "CAN_DEV_ERROR_DETECT"
+  - "CAN_EXTENDEDID"
+  - "CAN_HW_TRANSMIT_CANCELLATION"
+  - "CAN_LPDU_NOTIFICATION_ENABLE"
+  - "CAN_MAXMASKCOUNT"
+  - "CAN_MBCOUNTEXTENSION"
+  - "CAN_MULTIPLEXED_TRANSMISSION"
+  - "CAN_MULTIPLE_INTERRUPTS_SUPPORT"
+  - "CAN_SET_BAUDRATE_API"
+  - "CAN_VERSION_INFO_API"
+  - "CAN_WAKEUP_ENABLE"
+  - "CanConf_CanController_CanController_0"
+  - "CanConf_CanController_CanController_1"
+  - "CanHardwareObject_0"
+  - "CanHardwareObject_1"
+  - "CanHardwareObject_2"
+  - "CanHardwareObject_3"
+  - "CanHardwareObject_4"
+  - "CanHardwareObject_5"
+  - "CanHardwareObject_6"
+  - "Can_HwHandleType"
+  - "Confidential"
+  - "Flagchip"
+  - "Proprietary"
+  - "STD_OFF"
+  - "STD_ON"
+  - "define"
+  - "uint8"
+
+### TEXTSUP-PAGE-0013
+- `physical_page`: `13`
+- `additional_text_terms`:
+  - "CAN_0_BUSOFFINT_SUPPORTED"
+  - "CAN_0_RXINT_SUPPORTED"
+  - "CAN_0_TXINT_SUPPORTED"
+  - "CAN_1_BUSOFFINT_SUPPORTED"
+  - "CAN_BUSOFFINT_SUPPORTED"
+  - "CAN_BUSOFFPOLL_SUPPORTED"
+  - "CAN_CONTROLLER__MAXMB_CONFIGURED"
+  - "CAN_INSTANCE"
+  - "CAN_MAXCONTROLLERCOUNT_0"
+  - "CAN_MAXCTRL_CONFIGURED"
+  - "CAN_MAXCTRL_SUPPORTED"
+  - "CAN_MAXMBCOUNT_0"
+  - "CAN_MAXMB_CONFIGURED"
+  - "CAN_MAXMB_SUPPORTED"
+  - "CAN_MEMORY_ECC_SUPPORT"
+  - "CAN_MIX_MB_SUPPORT"
+  - "CAN_RXINT_SUPPORTED"
+  - "CAN_RXPOLL_SUPPORTED"
+  - "CAN_TRIGGER_TRANSMIT_EN"
+  - "CAN_TXINT_SUPPORTED"
+  - "CAN_TXPOLL_SUPPORTED"
+  - "CAN_TX_RX_INTRRUPT_SUPPORTED"
+  - "Confidential"
+  - "Flagchip"
+  - "Proprietary"
+  - "STD_OFF"
+  - "STD_ON"
+  - "define"
+
+### TEXTSUP-PAGE-0014
+- `physical_page`: `14`
+- `additional_text_terms`:
+  - "CAN_0_ERROR_NOTIFICATION_ENABLE"
+  - "CAN_0_FD_EN"
+  - "CAN_0_ISOFD_EN"
+  - "CAN_0_LEGACY_FIFO_EN"
+  - "CAN_0_MB_BUF_SIZE"
+  - "CAN_1_LEGACY_FIFO_EN"
+  - "CAN_CAN0_CONTROLLER_ID"
+  - "CAN_CAN1_CONTROLLER_ID"
+  - "CAN_CFGSET0_MAX_BAUDRATE_FC_0_0"
+  - "CAN_CFGSET0_MAX_BAUDRATE_FC_1_1"
+  - "CAN_CONTROLLER_FD_EDFLTDIS"
+  - "CAN_CONTROLLER_FD_ISO_CANFD"
+  - "CAN_CONTROLLER_FD_PREXCEN"
+  - "CAN_ENHANCED_RXFIFO_ENABLE"
+  - "CAN_ERROR_NOTIFICATION_ENABLE"
+  - "CAN_FD_MODE_ENABLE"
+  - "CAN_LEGACY_FIFO_MAX_TABLEID_0"
+  - "CAN_LEGACY_RXFIFO_ENABLE"
+  - "CAN_LEGACY_RXFIFO_EVENT_UNIFIED"
+  - "CAN_MAXFILTERCOUNT_0"
+  - "Confidential"
+  - "FLEXCAN_0_INDEX"
+  - "FLEXCAN_1_INDEX"
+  - "Flagchip"
+  - "Proprietary"
+  - "STD_OFF"
+  - "STD_ON"
+  - "define"
+  - "uint8"
+
+### TEXTSUP-PAGE-0015
+- `physical_page`: `15`
+- `additional_text_terms`:
+  - "CAN_1_ERROR_NOTIFICATION_ENABLE"
+  - "CAN_1_FD_EN"
+  - "CAN_1_ISOFD_EN"
+  - "CAN_1_MB_BUF_SIZE"
+  - "CAN_BCC_SUPPORT_ENABLE"
+  - "CAN_CONTROLLER_REFERENCE_COUNTER"
+  - "CAN_ISROPTCODESIZE"
+  - "CAN_MAINFUNCTION_MODE_PERIOD"
+  - "CAN_MAINFUNCTION_MULTIPLE_READ"
+  - "CAN_MAINFUNCTION_MULTIPLE_WRITE"
+  - "CAN_MAINFUNCTION_PERIOD"
+  - "CAN_MAINFUNCTION_PERIOD_READ"
+  - "CAN_MAINFUNCTION_PERIOD_WRITE"
+  - "CAN_MAX_OBJECT_ID"
+  - "CAN_MB_CONTROLLER_1"
+  - "CAN_MB_CONTROLLER_2"
+  - "CAN_MB_CONTROLLER_3"
+  - "CAN_MB_CONTROLLER_4"
+  - "CAN_PUBLIC_ICOM_SUPPORT"
+  - "CAN_TIMEOUT_COUNTER_NAME"
+  - "CAN_TIMEOUT_COUNTER_TICK2NS"
+  - "CAN_TIMEOUT_DURATION"
+  - "Confidential"
+  - "E8F"
+  - "Flagchip"
+  - "OS_TICKS2NS_SystemCounterOsCore0"
+  - "Proprietary"
+  - "STD_OFF"
+  - "STD_ON"
+  - "SystemCounterOsCore0"
+  - "define"
+  - "uint32"
+
+### TEXTSUP-PAGE-0016
+- `physical_page`: `16`
+- `additional_text_terms`:
+  - "0x00"
+  - "0x01"
+  - "0x02"
+  - "0x03"
+  - "0x04"
+  - "0x05"
+  - "0x06"
+  - "0x07"
+  - "0x07FF"
+  - "0x08"
+  - "0x09"
+  - "0x0F"
+  - "0x10"
+  - "0x1FFFFFFF"
+  - "0x80000000"
+  - "2.3.2"
+  - "CANFD_MAX_DLC"
+  - "CAN_DET_SID_DEINIT"
+  - "CAN_DET_SID_GET_VERSION_INFO"
+  - "CAN_DET_SID_INIT"
+  - "CAN_DET_SID_SET_BAUDRATE"
+  - "CAN_EXT_CANID_FLAG"
+  - "CAN_EXT_MAX_CANID"
+  - "CAN_E_DATALOST"
+  - "CAN_E_ICOM_CONFIG_INVALID"
+  - "CAN_E_INIT_FAILED"
+  - "CAN_E_PARAM_BAUDRATE"
+  - "CAN_E_PARAM_CONTROLLER"
+  - "CAN_E_PARAM_DATA_LENGTH"
+  - "CAN_E_PARAM_HANDLE"
+  - "CAN_E_PARAM_POINTER"
+  - "CAN_E_TRANSITION"
+  - "CAN_E_UNINIT"
+  - "CAN_MAX_DLC"
+  - "CAN_MB_CONTROLLER_5"
+  - "CAN_MB_CONTROLLER_6"
+  - "CAN_STD_MAX_CANID"
+  - "Can_GeneralTypes"
+  - "Can_IdType"
+  - "Confidential"
+  - "Flagchip"
+  - "Proprietary"
+  - "Receive"
+  - "define"
+  - "lost"
+  - "uint8"
+
+### TEXTSUP-PAGE-0017
+- `physical_page`: `17`
+- `additional_text_terms`:
+  - "0x01"
+  - "0x03"
+  - "0x04"
+  - "0x05"
+  - "0x06"
+  - "0x08"
+  - "0x09"
+  - "0x0A"
+  - "0x0B"
+  - "0x0C"
+  - "0x11"
+  - "0x12"
+  - "0x21"
+  - "2.3.3"
+  - "CAN_AREAD_REG32"
+  - "CAN_BIT_CLR_REG32"
+  - "CAN_BIT_CLR_REG8"
+  - "CAN_DET_SID_CBK_CHECK_WAKEUP"
+  - "CAN_DET_SID_DISABLE_CONTROLLER_INTERRUPTS"
+  - "CAN_DET_SID_ENABLE_CONTROLLER_INTERRUPTS"
+  - "CAN_DET_SID_GET_CONTROLLER_ERROR_STATE"
+  - "CAN_DET_SID_GET_CONTROLLER_MODE"
+  - "CAN_DET_SID_MAIN_FUNCTION_BUS_OFF"
+  - "CAN_DET_SID_MAIN_FUNCTION_MODE"
+  - "CAN_DET_SID_MAIN_FUNCTION_READ"
+  - "CAN_DET_SID_MAIN_FUNCTION_WAKEUP"
+  - "CAN_DET_SID_MAIN_FUNCTION_WRITE"
+  - "CAN_DET_SID_SET_CONTROLLER_MODE"
+  - "CAN_DET_SID_SET_ICOM_CONFIG"
+  - "CAN_DET_SID_WRITE"
+  - "CAN_HW_REG_WORD_LEN"
+  - "CAN_READ_REG32"
+  - "CAN_READ_REG8"
+  - "CAN_WRITE_REG32"
+  - "CAN_WRITE_REG8"
+  - "Can_HwType"
+  - "Confidential"
+  - "Flagchip"
+  - "Proprietary"
+  - "address"
+  - "define"
+  - "mask"
+  - "uint32"
+  - "uint8"
+  - "volatile"
+
+### TEXTSUP-PAGE-0018
+- `physical_page`: `18`
+- `additional_text_terms`:
+  - "2.3.4"
+  - "2.4"
+  - "2.4.1"
+  - "CAN_AR_RELEASE_MAJOR_VERSION"
+  - "CAN_AR_RELEASE_MINOR_VERSION"
+  - "CAN_AR_RELEASE_REVISION_VERSION"
+  - "CAN_BIT_GET_REG32"
+  - "CAN_BIT_SET_REG32"
+  - "CAN_BIT_SET_REG8"
+  - "CAN_MODULE_ID"
+  - "CAN_READ_REG32"
+  - "CAN_READ_REG8"
+  - "CAN_RECEIVE"
+  - "CAN_RMW_REG32"
+  - "CAN_RMW_REG8"
+  - "CAN_SW_MAJOR_VERSION"
+  - "CAN_SW_MINOR_VERSION"
+  - "CAN_SW_PATCH_VERSION"
+  - "CAN_TRANSMIT"
+  - "CAN_VENDOR_ID"
+  - "CAN_WRITE_REG32"
+  - "CAN_WRITE_REG8"
+  - "Can_GeneralTypes"
+  - "Can_HwObjType"
+  - "Can_IdTypeType"
+  - "Can_Version"
+  - "Confidential"
+  - "Enumeration"
+  - "Enumerations"
+  - "Flagchip"
+  - "Proprietary"
+  - "Value"
+  - "Values"
+  - "address"
+  - "define"
+  - "mask"
+  - "uint32"
+  - "uint8"
+  - "volatile"
+
+### TEXTSUP-PAGE-0019
+- `physical_page`: `19`
+- `additional_text_terms`:
+  - "2.4.1"
+  - "CAN_BUSY"
+  - "CAN_CS_SLEEPED"
+  - "CAN_CS_STARTED"
+  - "CAN_CS_STOPPED"
+  - "CAN_CS_UNINIT"
+  - "CAN_ERRORSTATE_ACTIVE"
+  - "CAN_ERRORSTATE_BUSOFF"
+  - "CAN_ERRORSTATE_PASSIVE"
+  - "CAN_EXTENDED"
+  - "CAN_MIXED"
+  - "CAN_NOT_OK"
+  - "CAN_OK"
+  - "CAN_READY"
+  - "CAN_STANDARD"
+  - "CAN_UNINIT"
+  - "Call"
+  - "Can_ControllerStateType"
+  - "Can_ErrorStateType"
+  - "Can_IcomSignalOperationType"
+  - "Can_ReturnType"
+  - "Can_StatusType"
+  - "Confidential"
+  - "Enumeration"
+  - "Flagchip"
+  - "Operation"
+  - "Pretended"
+  - "Proprietary"
+  - "Result"
+  - "Run"
+  - "Signal"
+  - "Value"
+  - "Values"
+  - "states"
+
+### TEXTSUP-PAGE-0020
+- `physical_page`: `20`
+- `additional_text_terms`:
+  - "2.4.1"
+  - "2.4.2"
+  - "2.5.1"
+  - "AND"
+  - "CAN_ICOM_ACTIVATED"
+  - "CAN_ICOM_DEACTIVATED"
+  - "CAN_INTERRUPT_DISABLED"
+  - "CAN_INTERRUPT_ENABLED"
+  - "CanHal_IcomStateType"
+  - "CanHal_InterruptStateType"
+  - "Can_GeneralTypes"
+  - "Can_Hal"
+  - "Can_HwHandleType"
+  - "Can_IcomIdOperationType"
+  - "Can_IdType"
+  - "Can_PCallBackType"
+  - "Can_RxEnhancedFiFoTableIdConfigType"
+  - "Confidential"
+  - "EQUAL"
+  - "EXACTLY"
+  - "Enumeration"
+  - "Enumerations"
+  - "Flagchip"
+  - "GREATER"
+  - "GREATER_MINNUM"
+  - "INSIDE_RANGE"
+  - "Interrupt"
+  - "Pretended"
+  - "Proprietary"
+  - "SMALLER"
+  - "SMALLER_MAXNUM"
+  - "Status"
+  - "Typedefs"
+  - "Value"
+  - "Values"
+  - "XOR"
+  - "operation"
+  - "typedef"
+  - "uint16"
+  - "uint32"
+  - "uint8"
+  - "void"
+
+### TEXTSUP-PAGE-0021
+- `physical_page`: `21`
+- `additional_text_terms`:
+  - "Array"
+  - "Can_HwHandleType"
+  - "Can_IdType"
+  - "Can_PCallBackType"
+  - "Can_RxFiFoTableIdConfigType"
+  - "Can_RxFifoOverflowNotification"
+  - "Can_RxFifoWarningNotification"
+  - "Confidential"
+  - "FIFO"
+  - "Filter"
+  - "First"
+  - "Flagchip"
+  - "Furthermore"
+  - "Instance"
+  - "Legacy"
+  - "Overflow"
+  - "Pointer"
+  - "Proprietary"
+  - "RxFifo"
+  - "Warning"
+  - "array"
+  - "const"
+  - "external"
+  - "handler"
+  - "pControllerBaudCfgsPtr"
+  - "pFilterMasks"
+  - "pRxFiFoTableIdConfig"
+  - "pointers"
+  - "specific"
+  - "tControllerContainer"
+  - "tHwCfgContainer"
+  - "tMBCfgContainer"
+  - "transmit"
+  - "u16CanFirstHTHIndex"
+  - "uint16Can_u16RxFiFoHrhFirst"
+
+### TEXTSUP-PAGE-0022
+- `physical_page`: `22`
+- `additional_text_terms`:
+  - "2.6.3"
+  - "2.6.4"
+  - "BaudRate"
+  - "Buffer"
+  - "CBT"
+  - "CTRL"
+  - "Can_ControllerFdConfigTypeControllerFD"
+  - "Confidential"
+  - "Current"
+  - "Fifo"
+  - "Flagchip"
+  - "Ftu"
+  - "Legacy"
+  - "MBs"
+  - "Mask"
+  - "Max"
+  - "Message"
+  - "Number"
+  - "Options"
+  - "Prescaler"
+  - "Proprietary"
+  - "RAM"
+  - "Size"
+  - "TASD"
+  - "common"
+  - "configured"
+  - "const"
+  - "regions"
+  - "u16ControllerBaud"
+  - "u16ControllerBaudRateConfigID"
+  - "u16CtrlPrescaler"
+  - "u32CbtReg"
+  - "u32MBBlockSize"
+  - "u32Options"
+  - "u8DefaultBaudIndex"
+  - "u8MaxBaudCnt"
+  - "u8MaxMBCnt"
+  - "u8RxFiFoUsedMb"
+  - "u8TASD"
+  - "uint16"
+  - "uint32"
+  - "uint32u32RxFifoGlobalMask"
+  - "uint8"
+
+### TEXTSUP-PAGE-0023
+- `physical_page`: `23`
+- `additional_text_terms`:
+  - "2.6.5"
+  - "2.6.6"
+  - "Array"
+  - "CanDrv"
+  - "CanId"
+  - "CanIf"
+  - "Can_ControllerFdConfigType"
+  - "Can_HwType"
+  - "Can_IdType"
+  - "Confidential"
+  - "ControllerId"
+  - "Count"
+  - "Extended"
+  - "Flagchip"
+  - "Handle"
+  - "Instance"
+  - "PDU"
+  - "Proprietary"
+  - "Register"
+  - "Standard"
+  - "TDCOFF"
+  - "clearly"
+  - "const"
+  - "corresponding"
+  - "defines"
+  - "identify"
+  - "its"
+  - "pInstanceCfgsPtr"
+  - "provided"
+  - "provides"
+  - "specific"
+  - "therefore"
+  - "u16InstanceCfgCnt"
+  - "u32CanControllerTDCOFF"
+  - "u32CanControllerTxBRS"
+  - "u32CanFdBaud"
+  - "u32CanFdCTRL2Reg"
+  - "u32CanFdCbtReg"
+  - "u32CanFdEN"
+  - "uint16"
+  - "uint32"
+  - "uint8"
+  - "well"
+  - "which"
+
+### TEXTSUP-PAGE-0024
+- `physical_page`: `24`
+- `additional_text_terms`:
+  - "2.6.7"
+  - "2.6.8"
+  - "Bus"
+  - "CanFiltPayload"
+  - "CanIcomCounterValue"
+  - "CanIcomIdOperation"
+  - "CanIcomMessageId"
+  - "CanIcomMessageIdMask"
+  - "CanIcomMissingMessageTimerValue"
+  - "CanIcomWakeOnBusOff"
+  - "Can_HwHandleType"
+  - "Can_IcomConfigsType"
+  - "Can_IcomIdOperationType"
+  - "Can_IcomRxMessageConfigsType"
+  - "Confidential"
+  - "Counter"
+  - "Filt"
+  - "Flagchip"
+  - "Hoh"
+  - "Mask"
+  - "Message"
+  - "Number"
+  - "Off"
+  - "Payload"
+  - "Pretended"
+  - "Proprietary"
+  - "Range"
+  - "Wake"
+  - "array"
+  - "boolean"
+  - "const"
+  - "corresponding"
+  - "operation"
+  - "pCanIcomRxMessageConfigs"
+  - "u8CanIcomConfigId"
+  - "u8NumberCanIcomRxMessage"
+  - "uint32"
+  - "uint8"
+
+### TEXTSUP-PAGE-0025
+- `physical_page`: `25`
+- `additional_text_terms`:
+  - "2.6.10"
+  - "2.6.9"
+  - "Array"
+  - "Buffer"
+  - "CanIcomSignalMaskHigh"
+  - "CanIcomSignalMaskLow"
+  - "CanIcomSignalOperation"
+  - "CanIcomSignalRef"
+  - "CanIcomSignalValueHigh"
+  - "CanIcomSignalValueLow"
+  - "Can_IcomRxMessageSignalType"
+  - "Can_IcomSignalOperationType"
+  - "Can_MBConfigObjectType"
+  - "Confidential"
+  - "Count"
+  - "DLCHighValue"
+  - "DLCLowValue"
+  - "Flagchip"
+  - "High"
+  - "Length"
+  - "Low"
+  - "Mask"
+  - "Message"
+  - "Missing"
+  - "Number"
+  - "Operation"
+  - "Pretended"
+  - "Proprietary"
+  - "Reference"
+  - "Signal"
+  - "Value"
+  - "const"
+  - "may"
+  - "now"
+  - "pCanIcomRxMessageSignalConfigs"
+  - "pMsgBufCfgsPtr"
+  - "referenced"
+  - "timer"
+  - "u16MsgBufCfgCnt"
+  - "u8NumCanIcomRxMessageSignal"
+  - "uint16"
+  - "uint32"
+  - "uint8"
+  - "upper"
+
+### TEXTSUP-PAGE-0026
+- `physical_page`: `26`
+- `additional_text_terms`:
+  - "2.6.11"
+  - "2.6.12"
+  - "Buffer"
+  - "CanTriggerTransmitEnable"
+  - "Can_HwObjType"
+  - "Can_IdTypeType"
+  - "Can_MBConfigObjectType"
+  - "Can_MBDlcMaxMinType"
+  - "Confidential"
+  - "Current"
+  - "Extended"
+  - "Flagchip"
+  - "Length"
+  - "Logical"
+  - "Mask"
+  - "Max"
+  - "Message"
+  - "Min"
+  - "Mixed"
+  - "Multi"
+  - "Offset"
+  - "Pad"
+  - "Polling"
+  - "Priority"
+  - "Proprietary"
+  - "Range"
+  - "Receive"
+  - "Standard"
+  - "Transmit"
+  - "Trigger"
+  - "bInterruptEn"
+  - "boolean"
+  - "configured"
+  - "const"
+  - "eIdType"
+  - "eMBType"
+  - "transmit"
+  - "u16IdMaskIndex"
+  - "u16MBOffsetAddr"
+  - "u32HWObjID"
+  - "u32MessageId"
+  - "u8CanMainFuncRWPeriodRef"
+  - "u8ControllerId"
+  - "u8DlcMax"
+  - "u8DlcMin"
+  - "u8FdPaddingValue"
+  - "u8HWMBIndex"
+  - "u8LocalPriority"
+  - "u8MBPayloadLength"
+  - "uint16"
+  - "uint32"
+  - "uint8"
+
+### TEXTSUP-PAGE-0027
+- `physical_page`: `27`
+- `additional_text_terms`:
+  - "2.6.13"
+  - "2.6.14"
+  - "2.6.15"
+  - "Array"
+  - "CanHal_ControlerInstanceType"
+  - "CanId"
+  - "Can_IcomConfigsType"
+  - "Can_IdType"
+  - "Can_PduType"
+  - "Can_RxFiFoTableIdConfigType"
+  - "Confidential"
+  - "Count"
+  - "Flagchip"
+  - "Handler"
+  - "Instance"
+  - "Length"
+  - "Pdu"
+  - "PduId"
+  - "PduIdType"
+  - "Point"
+  - "Pretended"
+  - "Proprietary"
+  - "SDU"
+  - "SduData"
+  - "SduLength"
+  - "any"
+  - "const"
+  - "length"
+  - "pCanIcomCfgs"
+  - "pControllerInstances"
+  - "sdu"
+  - "swPduHandle"
+  - "u32CanObjCount"
+  - "u8ControllerCount"
+  - "u8NumCanIcomCfgs"
+  - "uint32"
+  - "uint8"
+  - "unites"
+
+### TEXTSUP-PAGE-0028
+- `physical_page`: `28`
+- `additional_text_terms`:
+  - "2.6.16"
+  - "2.6.17"
+  - "Buffers"
+  - "BusOff"
+  - "BusoffProcessing"
+  - "CTRL"
+  - "CanHal_ControlerInstanceType"
+  - "CanHal_ControllerStatusType"
+  - "CanHal_IcomStateType"
+  - "CanHal_InterruptStateType"
+  - "Can_ControllerStateType"
+  - "Can_ErrorFDNotification"
+  - "Can_ErrorNotification"
+  - "Can_PCallBackType"
+  - "Confidential"
+  - "Disabled"
+  - "ERRFAST_INT"
+  - "ERR_INT"
+  - "ESR"
+  - "EcuM"
+  - "Enabled"
+  - "FIFO"
+  - "Flagchip"
+  - "FlexCan"
+  - "IDAM"
+  - "Instance"
+  - "Interrupt"
+  - "Legacy"
+  - "Mask"
+  - "Mode"
+  - "Number"
+  - "Pointer"
+  - "Pretended"
+  - "Processing"
+  - "Proprietary"
+  - "RXFifo"
+  - "Recovery"
+  - "Register"
+  - "RxProcessing"
+  - "State"
+  - "Status"
+  - "Store"
+  - "Trigger"
+  - "TxProcessing"
+  - "Wakeup"
+  - "bPnSupported"
+  - "bTxGuard"
+  - "boolean"
+  - "const"
+  - "eCanIcomState"
+  - "eControllerState"
+  - "eInterruptMode"
+  - "s8IntDisableLevel"
+  - "sint8"
+  - "u32ControlReg"
+  - "u32ECUMWakeupSourceId"
+  - "u32Options"
+  - "u32TableFilterMask"
+  - "u32TableId"
+  - "u8CanIndex"
+  - "u8NumberOfMB"
+  - "uint32"
+  - "uint8"
+  - "unit"
+  - "volatile"
+
+### TEXTSUP-PAGE-0029
+- `physical_page`: `29`
+- `additional_text_terms`:
+  - "2.6.18"
+  - "2.6.19"
+  - "2.7.1"
+  - "Buffer"
+  - "CAN_MAXMB_CONFIGURED"
+  - "CanHw_MbOffsetWithHoh"
+  - "CanHw_Message"
+  - "Can_Init"
+  - "Confidential"
+  - "Configured"
+  - "Counter"
+  - "Current"
+  - "First"
+  - "Flagchip"
+  - "Interrupt"
+  - "Logical"
+  - "MBs"
+  - "Mask"
+  - "Message"
+  - "Offset"
+  - "One"
+  - "Pdu"
+  - "PduIdType"
+  - "Physical"
+  - "Proprietary"
+  - "Store"
+  - "aData"
+  - "const"
+  - "initializes"
+  - "mask"
+  - "mask1"
+  - "u16HohIndex"
+  - "u16HwMbIndex"
+  - "u16MBMapping"
+  - "u32MBInterruptMask"
+  - "u32MBInterruptRxMask"
+  - "u32MBInterruptTxMask"
+  - "u32MbMessageId"
+  - "u32MbOffset"
+  - "u8CurrentBaudRateIndex"
+  - "u8DataLength"
+  - "u8FirstTxMBIndex"
+  - "u8TxPduId"
+  - "uint16"
+  - "uint32"
+  - "uint8"
+  - "void"
+  - "volatile"
+
+### TEXTSUP-PAGE-0030
+- `physical_page`: `30`
+- `additional_text_terms`:
+  - "2.7.1"
+  - "BaudRateConfigID"
+  - "CanControllerBaudRateConfigID"
+  - "Can_ControllerStateType"
+  - "Can_DeInit"
+  - "Can_GetVersionInfo"
+  - "Can_SetBaudrate"
+  - "Can_SetControllerMode"
+  - "Confidential"
+  - "Depending"
+  - "E_NOT_OK"
+  - "E_OK"
+  - "Flagchip"
+  - "Parameter"
+  - "Pointer"
+  - "Proprietary"
+  - "Service"
+  - "State"
+  - "Std_ReturnType"
+  - "Std_VersionInfoType"
+  - "Transition"
+  - "Versioninfo"
+  - "accepted"
+  - "baud"
+  - "changed"
+  - "const"
+  - "have"
+  - "initializes"
+  - "machine"
+  - "might"
+  - "modifications"
+  - "necessary"
+  - "new"
+  - "performs"
+  - "rate"
+  - "references"
+  - "request"
+  - "reset"
+  - "see"
+  - "service"
+  - "set"
+  - "shall"
+  - "started"
+  - "store"
+  - "transitions"
+  - "triggered"
+  - "uint16"
+  - "uint8"
+  - "version"
+  - "void"
+  - "where"
+  - "which"
+  - "whose"
+
+### TEXTSUP-PAGE-0031
+- `physical_page`: `31`
+- `additional_text_terms`:
+  - "2.7.1"
+  - "Abstracted"
+  - "CanIf"
+  - "Can_ControllerStateType"
+  - "Can_ErrorStateType"
+  - "Confidential"
+  - "ControllerId"
+  - "ControllerModePtr"
+  - "E_NOT_OK"
+  - "E_OK"
+  - "ErrorState"
+  - "ErrorStatePtr"
+  - "Flagchip"
+  - "Parameter"
+  - "Pointer"
+  - "Proprietary"
+  - "Std_ReturnType"
+  - "about"
+  - "accepted"
+  - "assigned"
+  - "been"
+  - "checked"
+  - "checks"
+  - "disabled"
+  - "disables"
+  - "enabled"
+  - "enables"
+  - "location"
+  - "obtains"
+  - "reports"
+  - "request"
+  - "service"
+  - "shall"
+  - "stored"
+  - "uint8"
+  - "void"
+  - "where"
+  - "which"
+  - "will"
+
+### TEXTSUP-PAGE-0032
+- `physical_page`: `32`
+- `additional_text_terms`:
+  - "2.7.1"
+  - "CAN_BUSY"
+  - "CAN_TX_PROCESSING"
+  - "CanDrv"
+  - "CanIf"
+  - "Can_HwHandleType"
+  - "Can_MainFunction_Write_0"
+  - "Can_MainFunction_Write_1"
+  - "Can_PduType"
+  - "Can_ReturnType"
+  - "Can_Write"
+  - "Confidential"
+  - "ControllerModePtr"
+  - "Different"
+  - "E_NOT_OK"
+  - "E_OK"
+  - "Flagchip"
+  - "Hth"
+  - "Identifier"
+  - "Implicitly"
+  - "Information"
+  - "Length"
+  - "MainRwmainFunction"
+  - "POLLING"
+  - "Parameter"
+  - "PduInfo"
+  - "Pointer"
+  - "Proprietary"
+  - "SDU"
+  - "Std_ReturnType"
+  - "about"
+  - "accepted"
+  - "also"
+  - "been"
+  - "buffer"
+  - "called"
+  - "command"
+  - "confirmation"
+  - "const"
+  - "emptive"
+  - "entrant"
+  - "handle"
+  - "implemented"
+  - "inside"
+  - "location"
+  - "numbers"
+  - "performs"
+  - "polling"
+  - "process"
+  - "request"
+  - "see"
+  - "set"
+  - "shall"
+  - "stored"
+  - "that"
+  - "transmission"
+  - "transmit"
+  - "unique"
+  - "unit"
+  - "void"
+  - "where"
+  - "which"
+  - "will"
+
+### TEXTSUP-PAGE-0033
+- `physical_page`: `33`
+- `additional_text_terms`:
+  - "2.7.1"
+  - "CAN_RX_PROCESSING"
+  - "CAN_TX_PROCESSING"
+  - "Can_MainFunction_Read_0"
+  - "Can_MainFunction_Write_2"
+  - "Can_MainFunction_Write_3"
+  - "Can_MainFunction_Write_4"
+  - "Confidential"
+  - "Different"
+  - "Flagchip"
+  - "MainRwmainFunction"
+  - "POLLING"
+  - "Proprietary"
+  - "confirmation"
+  - "indications"
+  - "performs"
+  - "polling"
+  - "process"
+  - "set"
+  - "void"
+
+### TEXTSUP-PAGE-0034
+- `physical_page`: `34`
+- `additional_text_terms`:
+  - "2.7.1"
+  - "CAN_RX_PROCESSING"
+  - "Can_MainFunction_BusOff"
+  - "Can_MainFunction_Read_1"
+  - "Can_MainFunction_Read_2"
+  - "Can_MainFunction_Read_3"
+  - "Can_MainFunction_Read_4"
+  - "Can_MainFunction_Wakeup"
+  - "Confidential"
+  - "Different"
+  - "Flagchip"
+  - "MainRwmainFunction"
+  - "POLLING"
+  - "Proprietary"
+  - "bus"
+  - "configured"
+  - "events"
+  - "indications"
+  - "off"
+  - "performs"
+  - "polled"
+  - "polling"
+  - "process"
+  - "set"
+  - "statically"
+  - "that"
+  - "void"
+
+### TEXTSUP-PAGE-0035
+- `physical_page`: `35`
+- `additional_text_terms`:
+  - "2.7.1"
+  - "Can_Hal"
+  - "Can_MainFunction_Mode"
+  - "Can_ReportDetError"
+  - "Can_ReportRuntimeDetError"
+  - "Can_SetIcomConfiguration"
+  - "Confidential"
+  - "E_NOT_OK"
+  - "E_OK"
+  - "Flagchip"
+  - "Icom"
+  - "IcomConfigIdType"
+  - "Parameter"
+  - "Proprietary"
+  - "Requested"
+  - "Std_ReturnType"
+  - "caller"
+  - "change"
+  - "changed"
+  - "configured"
+  - "events"
+  - "failed"
+  - "failure"
+  - "inline"
+  - "performs"
+  - "polled"
+  - "polling"
+  - "records"
+  - "reported"
+  - "reports"
+  - "running"
+  - "service"
+  - "set"
+  - "shall"
+  - "static"
+  - "statically"
+  - "succeeded"
+  - "that"
+  - "transitions"
+  - "u8ConfigurationId"
+  - "u8Controller"
+  - "u8ErrorId"
+  - "u8ServiceId"
+  - "uint8"
+  - "valid"
+  - "void"
+  - "wake"
+  - "which"
+
+### TEXTSUP-PAGE-0036
+- `physical_page`: `36`
+- `additional_text_terms`:
+  - "Buffer"
+  - "Can_Hal_CheckControllerStarted"
+  - "Can_Hal_DeInit"
+  - "Can_Hal_GetErrorNofify"
+  - "Can_Hal_GetFdErrorNofify"
+  - "Can_Hal_Init"
+  - "Can_Hal_SetControllerMode"
+  - "Can_PCallBackType"
+  - "Can_ReturnType"
+  - "Can_StateTransitionType"
+  - "Confidential"
+  - "Current"
+  - "E_OK"
+  - "Flagchip"
+  - "Get"
+  - "Message"
+  - "Mode"
+  - "Notification"
+  - "Parameter"
+  - "Point"
+  - "Proprietary"
+  - "Std_ReturnType"
+  - "Transition"
+  - "boolean"
+  - "canif_notification_required"
+  - "const"
+  - "generated"
+  - "initializes"
+  - "means"
+  - "pConfigCurrent"
+  - "started"
+  - "u8Controller"
+  - "u8ControllerId"
+  - "uint8"
+  - "void"
+
+### TEXTSUP-PAGE-0037
+- `physical_page`: `37`
+- `additional_text_terms`:
+  - "Abstracted"
+  - "CanIf"
+  - "Can_ErrorStateType"
+  - "Can_Hal_EnableControllerInterrupts"
+  - "Confidential"
+  - "ControllerId"
+  - "E_NOT_OK"
+  - "E_OK"
+  - "ErrorState"
+  - "ErrorStatePtr"
+  - "Flagchip"
+  - "Interrupt"
+  - "Parameter"
+  - "Pointer"
+  - "Proprietary"
+  - "Std_ReturnType"
+  - "Transition"
+  - "accepted"
+  - "assigned"
+  - "been"
+  - "canif_notification_required"
+  - "checked"
+  - "checks"
+  - "correctly"
+  - "location"
+  - "means"
+  - "new"
+  - "notify"
+  - "obtains"
+  - "request"
+  - "service"
+  - "set"
+  - "stored"
+  - "u8ControllerId"
+  - "uint8"
+  - "void"
+  - "where"
+  - "which"
+  - "will"
+
+### TEXTSUP-PAGE-0038
+- `physical_page`: `38`
+- `additional_text_terms`:
+  - "BaudrateConfigID"
+  - "Bus"
+  - "CanHal_GetControllerMode"
+  - "Can_ControllerStateType"
+  - "Can_Hal_CheckBusOff"
+  - "Can_Hal_ProcessBusOff"
+  - "Can_Hal_SetBaudrate"
+  - "Can_Hal_Write"
+  - "Can_HwHandleType"
+  - "Can_PduType"
+  - "Can_ReturnType"
+  - "Confidential"
+  - "ControllerModePtr"
+  - "E_NOT_OK"
+  - "E_OK"
+  - "Flagchip"
+  - "Message"
+  - "Parameter"
+  - "PduInfo"
+  - "Pointer"
+  - "Proprietary"
+  - "Std_ReturnType"
+  - "about"
+  - "accepted"
+  - "appeared"
+  - "been"
+  - "bus"
+  - "clear"
+  - "const"
+  - "correctly"
+  - "hth"
+  - "location"
+  - "means"
+  - "off"
+  - "point"
+  - "reports"
+  - "request"
+  - "service"
+  - "set"
+  - "shall"
+  - "stored"
+  - "u8ControllerId"
+  - "uint16"
+  - "uint8"
+  - "void"
+  - "where"
+  - "which"
+  - "will"
+  - "write"
+
+### TEXTSUP-PAGE-0039
+- `physical_page`: `39`
+- `additional_text_terms`:
+  - "Buffer"
+  - "Bus"
+  - "CanIf"
+  - "Can_Hal_BusOffPoll"
+  - "Can_Hal_MainFunctionMultipleWritePoll"
+  - "Can_Hal_MainFunctionWritePoll"
+  - "Can_Hal_ProcessRx"
+  - "Can_Hal_ProcessTx"
+  - "Confidential"
+  - "Different"
+  - "End"
+  - "Flagchip"
+  - "Interrupt"
+  - "MainRwmainFunction"
+  - "Message"
+  - "Multi"
+  - "Parameter"
+  - "Polling"
+  - "Process"
+  - "Proprietary"
+  - "Receive"
+  - "Start"
+  - "buffer"
+  - "const"
+  - "core"
+  - "diffreent"
+  - "end"
+  - "indicate"
+  - "mbindex_end"
+  - "mbindex_start"
+  - "multi"
+  - "off"
+  - "process"
+  - "set"
+  - "start"
+  - "successfully"
+  - "thread"
+  - "transmit"
+  - "u8ControllerId"
+  - "uint8"
+  - "void"
+  - "write"
+  - "writepoll"
+
+### TEXTSUP-PAGE-0040
+- `physical_page`: `40`
+- `additional_text_terms`:
+  - "CanIf"
+  - "Can_Hal_MainFunctionMultipleReadPoll"
+  - "Can_Hal_MainFunctionReadPoll"
+  - "Can_Hal_ModePoll"
+  - "Can_Hal_ProcessWakeupPN"
+  - "Can_Hal_SetIcomConfiguration"
+  - "Can_Hw_InitLogicMbOffset"
+  - "Confidential"
+  - "Different"
+  - "E_OK"
+  - "Flagchip"
+  - "IcomConfigIdType"
+  - "Indicate"
+  - "Logical"
+  - "MBs"
+  - "MCR"
+  - "MainRwmainFunction"
+  - "Message"
+  - "Mode"
+  - "Multi"
+  - "Offset"
+  - "Parameter"
+  - "Physical"
+  - "Polling"
+  - "Pretended"
+  - "Process"
+  - "Proprietary"
+  - "Std_ReturnType"
+  - "Thread"
+  - "Wakeup"
+  - "const"
+  - "core"
+  - "correctly"
+  - "diffreent"
+  - "means"
+  - "multi"
+  - "process"
+  - "readpoll"
+  - "received"
+  - "set"
+  - "thread"
+  - "u16HohIndex"
+  - "u16MbIndex"
+  - "u32MbOffset"
+  - "u8ConfigurationId"
+  - "u8Controller"
+  - "u8controller"
+  - "uint16"
+  - "uint32"
+  - "uint8"
+  - "void"
+
+### TEXTSUP-PAGE-0041
+- `physical_page`: `41`
+- `additional_text_terms`:
+  - "Avoid"
+  - "Can_Hw_CheckReadyMode"
+  - "Can_Hw_EnablePNMode"
+  - "Can_Hw_GetMCRValue"
+  - "Can_Hw_Init"
+  - "Can_Hw_InitEmbeddedRam"
+  - "Confidential"
+  - "Current"
+  - "ECC"
+  - "E_OK"
+  - "Embedded"
+  - "Flagchip"
+  - "GET"
+  - "Logical"
+  - "MCR"
+  - "Memory"
+  - "Offset"
+  - "Parameter"
+  - "Proprietary"
+  - "Std_ReturnType"
+  - "appearing"
+  - "bEnable"
+  - "boolean"
+  - "freeze"
+  - "means"
+  - "network"
+  - "pretended"
+  - "true"
+  - "u16HohIndex"
+  - "u16MbIndex"
+  - "u32MbOffset"
+  - "u8CanIndex"
+  - "uint32"
+  - "uint8"
+  - "variables"
+  - "void"
+
+### TEXTSUP-PAGE-0042
+- `physical_page`: `42`
+- `additional_text_terms`:
+  - "CanHw_LegacyFifoFilterType"
+  - "Can_Hw_CheckFreezeMode"
+  - "Can_Hw_CheckLowPowerMode"
+  - "Can_Hw_CheckModuleDisable"
+  - "Can_Hw_CheckResetDone"
+  - "Can_Hw_EnableLegacyFifo"
+  - "Can_Hw_SetLegacyFifoFilterFormat"
+  - "Confidential"
+  - "E_OK"
+  - "FIFO"
+  - "Filter"
+  - "Flagchip"
+  - "Format"
+  - "Legacy"
+  - "Parameter"
+  - "Proprietary"
+  - "Std_ReturnType"
+  - "done"
+  - "eFilterType"
+  - "freeze"
+  - "low"
+  - "means"
+  - "power"
+  - "reset"
+  - "u8CanIndex"
+  - "uint8"
+  - "void"
+
+### TEXTSUP-PAGE-0043
+- `physical_page`: `43`
+- `additional_text_terms`:
+  - "Bus"
+  - "Can_Hw_ChkBusOffStatus"
+  - "Can_Hw_ClrBusoffInterruptFlag"
+  - "Can_Hw_GetBusoffInterruptFlag"
+  - "Can_Hw_GetErrorInterruptFlag"
+  - "Can_Hw_GetErrorStatus"
+  - "Can_Hw_GetFdErrorInterruptFlag"
+  - "Clear"
+  - "Confidential"
+  - "ESR"
+  - "E_OK"
+  - "Flag"
+  - "Flagchip"
+  - "Get"
+  - "Interrupt"
+  - "Off"
+  - "Parameter"
+  - "Proprietary"
+  - "Register"
+  - "Status"
+  - "Std_ReturnType"
+  - "bit"
+  - "means"
+  - "off"
+  - "shift"
+  - "u8CanIndex"
+  - "uint32"
+  - "uint8"
+  - "void"
+  - "without"
+
+### TEXTSUP-PAGE-0044
+- `physical_page`: `44`
+- `additional_text_terms`:
+  - "Attach"
+  - "Bus"
+  - "BusOff"
+  - "CTRL"
+  - "Can_Hw_ClrErrorInterruptFlag"
+  - "Can_Hw_ClrFdErrorInterruptFlag"
+  - "Can_Hw_GetBusoffInterruptMask"
+  - "Can_Hw_GetErrorInterruptMask"
+  - "Can_Hw_SetBusoffInterrupt"
+  - "Can_Hw_SetErrorInterrupt"
+  - "Clear"
+  - "Confidential"
+  - "ESR"
+  - "ErrMask"
+  - "Flag"
+  - "Flagchip"
+  - "Get"
+  - "Interrupt"
+  - "Mask"
+  - "Off"
+  - "Parameter"
+  - "Proprietary"
+  - "Register"
+  - "bit"
+  - "bitout"
+  - "mask"
+  - "shift"
+  - "u8CanIndex"
+  - "uint32"
+  - "uint8"
+  - "void"
+  - "without"
+
+### TEXTSUP-PAGE-0045
+- `physical_page`: `45`
+- `additional_text_terms`:
+  - "Bus"
+  - "CTRL"
+  - "Can_Hw_ClrBusoffInterrupt"
+  - "Can_Hw_ClrErrorInterrupt"
+  - "Can_Hw_GetFdErrorInterruptMask"
+  - "Can_Hw_GetIFlag1"
+  - "Can_Hw_SetLegacyFifoNum"
+  - "Confidential"
+  - "Flagchip"
+  - "Get"
+  - "IFLAG1"
+  - "Interrupt"
+  - "Mask"
+  - "Off"
+  - "Parameter"
+  - "Proprietary"
+  - "RFFN"
+  - "Register"
+  - "Remove"
+  - "bit"
+  - "mask"
+  - "u32Num"
+  - "u8CanIndex"
+  - "uint32"
+  - "uint8"
+  - "void"
+
+### TEXTSUP-PAGE-0046
+- `physical_page`: `46`
+- `additional_text_terms`:
+  - "Can_Hw_ClrLegacyFifoOverFlowIFlag1"
+  - "Can_Hw_ClrLegacyFifoWarningIFlag1"
+  - "Can_Hw_GetLegacyFifoAvailableIFlag1"
+  - "Can_Hw_GetMBIFlag"
+  - "Can_Hw_SetIFlag1"
+  - "Can_Hw_SetMBIFlag"
+  - "Clear"
+  - "Confidential"
+  - "E_OK"
+  - "FIFO"
+  - "Flagchip"
+  - "Get"
+  - "IFLAG"
+  - "IFLAG1"
+  - "Legacy"
+  - "Parameter"
+  - "Proprietary"
+  - "Std_ReturnType"
+  - "W1C"
+  - "each"
+  - "flag"
+  - "frame"
+  - "means"
+  - "others"
+  - "overflow"
+  - "received"
+  - "set"
+  - "u32IFlag"
+  - "u8CanIndex"
+  - "u8MbIndex"
+  - "uint32"
+  - "uint8"
+  - "void"
+  - "warning"
+
+### TEXTSUP-PAGE-0047
+- `physical_page`: `47`
+- `additional_text_terms`:
+  - "Buffer"
+  - "Can_Hw_CheckMbFlag"
+  - "Can_Hw_GetIMask1"
+  - "Can_Hw_SetGlobalMask"
+  - "Can_Hw_SetIMask1"
+  - "Can_Hw_SetRx14Mask"
+  - "Confidential"
+  - "E_OK"
+  - "Flag"
+  - "Flagchip"
+  - "Get"
+  - "IMASK1"
+  - "MB14"
+  - "MB15"
+  - "Mask"
+  - "Message"
+  - "Parameter"
+  - "Proprietary"
+  - "Register"
+  - "Std_ReturnType"
+  - "active"
+  - "buffer"
+  - "except"
+  - "mask"
+  - "means"
+  - "u16MbIndex"
+  - "u32IMask"
+  - "u8CanIndex"
+  - "uint16"
+  - "uint32"
+  - "uint8"
+  - "void"
+
+### TEXTSUP-PAGE-0048
+- `physical_page`: `48`
+- `additional_text_terms`:
+  - "Can_Hw_InitReceiveMBs"
+  - "Can_Hw_InitRxInvidualMask"
+  - "Can_Hw_SetGlobalRxMask"
+  - "Can_Hw_SetRx15Mask"
+  - "Can_Hw_WriteFilterMask"
+  - "Confidential"
+  - "FIFO"
+  - "Flagchip"
+  - "Individual"
+  - "Legacy"
+  - "MB15"
+  - "Mask"
+  - "Message"
+  - "Parameter"
+  - "Proprietary"
+  - "Receive"
+  - "Special"
+  - "Start"
+  - "each"
+  - "mask"
+  - "u16HohIndex"
+  - "u16MbIndex"
+  - "u32IMask"
+  - "u32Mask"
+  - "u32MsgId"
+  - "u32TableFilterMask"
+  - "u8CanIndex"
+  - "u8RxFifoTableIdIndex"
+  - "uint16"
+  - "uint32"
+  - "uint8"
+  - "void"
+
+### TEXTSUP-PAGE-0049
+- `physical_page`: `49`
+- `additional_text_terms`:
+  - "Can_Hw_CheckTxMbEmpty"
+  - "Can_Hw_EnableTransmit"
+  - "Can_Hw_SetDlcAndTransmitWithConfig"
+  - "Can_Hw_SetTxId"
+  - "Confidential"
+  - "DLC"
+  - "E_OK"
+  - "Flagchip"
+  - "Logical"
+  - "Message"
+  - "Parameter"
+  - "Priority"
+  - "Proprietary"
+  - "Special"
+  - "Start"
+  - "Std_ReturnType"
+  - "Transmit"
+  - "configured"
+  - "empty"
+  - "means"
+  - "u16HohIndex"
+  - "u32MbConfig"
+  - "u32MbMessageId"
+  - "u32MsgId"
+  - "u8CanIndex"
+  - "uint16"
+  - "uint32"
+  - "uint8"
+  - "void"
+  - "word"
+
+### TEXTSUP-PAGE-0050
+- `physical_page`: `50`
+- `additional_text_terms`:
+  - "Busy"
+  - "CanHw_Message"
+  - "Can_Hw_CheckRxMbBusy"
+  - "Can_Hw_GetMbData"
+  - "Can_Hw_GetMbDataMaxMin"
+  - "Can_Hw_GetMbMsg"
+  - "Can_Hw_WaitMbOutBusy"
+  - "Confidential"
+  - "Correctly"
+  - "E_OK"
+  - "Flagchip"
+  - "From"
+  - "Get"
+  - "IFlag1"
+  - "Logical"
+  - "Mailbox"
+  - "Message"
+  - "Parameter"
+  - "Point"
+  - "Proprietary"
+  - "Std_ReturnType"
+  - "Wait"
+  - "bMax"
+  - "busy"
+  - "configured"
+  - "exit"
+  - "length"
+  - "maximum"
+  - "means"
+  - "minimum"
+  - "offset"
+  - "pData"
+  - "pRxData"
+  - "u16HohIndex"
+  - "u32TempFlag"
+  - "u8CanIndex"
+  - "u8Offset"
+  - "u8WordLength"
+  - "uint16"
+  - "uint32"
+  - "uint8"
+  - "void"
+  - "write"
+
+### TEXTSUP-PAGE-0051
+- `physical_page`: `51`
+- `additional_text_terms`:
+  - "Buffer"
+  - "Can_Hw_FillMbData"
+  - "Can_Hw_FillMbDataWithPad"
+  - "Can_Hw_GetFreeTimer"
+  - "Confidential"
+  - "Fill"
+  - "Flagchip"
+  - "Get"
+  - "Length"
+  - "Logical"
+  - "Message"
+  - "Pad"
+  - "Parameter"
+  - "Point"
+  - "Proprietary"
+  - "Start"
+  - "Timer"
+  - "Total"
+  - "buffer"
+  - "configured"
+  - "fill"
+  - "length"
+  - "pData"
+  - "u16HohIndex"
+  - "u8CanIndex"
+  - "u8DataLength"
+  - "u8DataStart"
+  - "u8PadData"
+  - "u8WordLength"
+  - "uint16"
+  - "uint8"
+  - "void"
+  - "word"
+
+### TEXTSUP-PAGE-0052
+- `physical_page`: `52`
+- `additional_text_terms`:
+  - "Can_Hw_DisableEcc"
+  - "Can_Hw_GetERFIER"
+  - "Can_Hw_GetERFSR"
+  - "Can_Hw_GetMBInterruptStatus"
+  - "Can_Hw_SetERFSR"
+  - "Can_Hw_WriteIdToLegacyFifoTable"
+  - "Confidential"
+  - "ERFSR"
+  - "FIFO"
+  - "Flagchip"
+  - "Get"
+  - "Parameter"
+  - "Proprietary"
+  - "Received"
+  - "Status"
+  - "completely"
+  - "correction"
+  - "mechanism"
+  - "u32Status"
+  - "u32TableId"
+  - "u8CanIndex"
+  - "u8RxFifoTableIdIndex"
+  - "uint32"
+  - "uint8"
+  - "void"
+
+### TEXTSUP-PAGE-0053
+- `physical_page`: `53`
+- `additional_text_terms`:
+  - "CanHw_Message"
+  - "Can_Hw_EnableEnhancedFifo"
+  - "Can_Hw_GetEnhancedFifoMsg"
+  - "Can_Hw_SetEnhancedFifoFilterNumber"
+  - "Can_Hw_SetEnhancedFifoWatermark"
+  - "Can_Hw_WriteEnhancedFifoFilterTable"
+  - "Confidential"
+  - "ERFIER"
+  - "Enhanced"
+  - "FIFO"
+  - "Filter"
+  - "Flagchip"
+  - "Get"
+  - "Message"
+  - "NEXIF"
+  - "NFE"
+  - "Parameter"
+  - "Proprietary"
+  - "Std_ReturnType"
+  - "enhanced"
+  - "fifo"
+  - "filter"
+  - "pRxData"
+  - "u32Filter"
+  - "u8CanIndex"
+  - "u8NEXIF"
+  - "u8NFE"
+  - "u8RxFifoTableIdIndex"
+  - "u8TableIndex"
+  - "u8Watermark"
+  - "uint32"
+  - "uint8"
+  - "void"
+  - "watermark"
+
+### TEXTSUP-PAGE-0054
+- `physical_page`: `54`
+- `additional_text_terms`:
+  - "Can_Hw_DisableEnhancedFifoInterrupt"
+  - "Can_Hw_DisableModule"
+  - "Can_Hw_EnableEnhancedFifoInterrupt"
+  - "Can_Hw_EnableModule"
+  - "Can_Hw_GetEnhancedFifoInterruptStatus"
+  - "Confidential"
+  - "Correctly"
+  - "E_OK"
+  - "Enhanced"
+  - "FIFO"
+  - "Flagchip"
+  - "Get"
+  - "Interrupt"
+  - "Parameter"
+  - "Point"
+  - "Proprietary"
+  - "enhanced"
+  - "fifo"
+  - "mask"
+  - "means"
+  - "pRxData"
+  - "u32Mask"
+  - "u8CanIndex"
+  - "uint32"
+  - "uint8"
+  - "void"
+
+### TEXTSUP-PAGE-0055
+- `physical_page`: `55`
+- `additional_text_terms`:
+  - "Can_Hw_ClearErrorStatus"
+  - "Can_Hw_ClearFifoOperation"
+  - "Can_Hw_ClrFreezeRequest"
+  - "Can_Hw_DisableSelfReceptionMode"
+  - "Can_Hw_EnableSelfReceptionMode"
+  - "Can_Hw_SetFreezeRequest"
+  - "Clear"
+  - "Confidential"
+  - "ESR"
+  - "FIFO"
+  - "Flagchip"
+  - "Parameter"
+  - "Proprietary"
+  - "Reception"
+  - "Register"
+  - "Trigger"
+  - "clear"
+  - "freeze"
+  - "operation"
+  - "request"
+  - "u32value"
+  - "u8CanIndex"
+  - "uint32"
+  - "uint8"
+  - "void"
+
+### TEXTSUP-PAGE-0056
+- `physical_page`: `56`
+- `additional_text_terms`:
+  - "Abort"
+  - "Can_Hw_AbortTransmit"
+  - "Can_Hw_ClrMB"
+  - "Can_Hw_EnableIndividualMask"
+  - "Can_Hw_EnableLocalPriority"
+  - "Can_Hw_RequestSoftReset"
+  - "Can_Hw_SetMAXMBNumber"
+  - "Confidential"
+  - "Flagchip"
+  - "Individual"
+  - "MAX"
+  - "Masking"
+  - "Parameter"
+  - "Priority"
+  - "Proprietary"
+  - "request"
+  - "reset"
+  - "soft"
+  - "transmit"
+  - "u8CanIndex"
+  - "u8MBIndex"
+  - "u8MBNumber"
+  - "uint8"
+  - "void"
+
+### TEXTSUP-PAGE-0057
+- `physical_page`: `57`
+- `additional_text_terms`:
+  - "Arbitration"
+  - "CBT"
+  - "Can_Hw_EnableWRMFRZ"
+  - "Can_Hw_GetMBConfig"
+  - "Can_Hw_SelectBusClock"
+  - "Can_Hw_SetCBTValue"
+  - "Can_Hw_SetTASD"
+  - "Confidential"
+  - "FLEXCAN"
+  - "Flagchip"
+  - "Get"
+  - "Mailbox"
+  - "Parameter"
+  - "Proprietary"
+  - "Select"
+  - "Start"
+  - "access"
+  - "bBusClockEn"
+  - "boolean"
+  - "bus"
+  - "clear"
+  - "clock"
+  - "configure"
+  - "delay"
+  - "engine"
+  - "ram"
+  - "select"
+  - "true"
+  - "u16HohIndex"
+  - "u32Value"
+  - "u32value"
+  - "u8CanIndex"
+  - "u8MBIndex"
+  - "uint16"
+  - "uint32"
+  - "uint8"
+  - "unrestricted"
+  - "void"
+  - "write"
+  - "zero"
+
+### TEXTSUP-PAGE-0058
+- `physical_page`: `58`
+- `additional_text_terms`:
+  - "CTRL"
+  - "Can_Hw_EnableFDMode"
+  - "Can_Hw_SWRecoverFromBOFF"
+  - "Can_Hw_SetCtrl"
+  - "Can_Hw_SetDefaultRegs"
+  - "Can_Hw_SetMBConfig"
+  - "Confidential"
+  - "Flagchip"
+  - "Parameter"
+  - "Proprietary"
+  - "Register"
+  - "Value"
+  - "bus"
+  - "configure"
+  - "off"
+  - "recovers"
+  - "reset"
+  - "u16HohIndex"
+  - "u32Value"
+  - "u32value"
+  - "u8CanIndex"
+  - "uint16"
+  - "uint32"
+  - "uint8"
+  - "void"
+
+### TEXTSUP-PAGE-0059
+- `physical_page`: `59`
+- `additional_text_terms`:
+  - "Confidential"
+  - "FIFO"
+  - "Flagchip"
+  - "Parameter"
+  - "Proprietary"
+  - "Register"
+  - "u32Value"
+  - "u32value"
+  - "u8CanIndex"
+  - "u8RxFifoTableIdIndex"
+  - "uint32"
+  - "uint8"
+  - "void"
+
+### TEXTSUP-PAGE-0060
+- `physical_page`: `60`
+- `additional_text_terms`:
+  - "2.8.3"
+  - "Can0"
+  - "Can1"
+  - "Can2"
+  - "Can3"
+  - "Can4"
+  - "Can_Hw_SetTDCValue"
+  - "Can_Irq"
+  - "Can_IsrCAN0_All"
+  - "Can_IsrCAN1_All"
+  - "Can_IsrCAN2_All"
+  - "Can_IsrCAN3_All"
+  - "Can_IsrCAN4_All"
+  - "Confidential"
+  - "Flagchip"
+  - "ISR"
+  - "Parameter"
+  - "Proprietary"
+  - "Register"
+  - "Value"
+  - "entry"
+  - "hander"
+  - "u32Value"
+  - "u32value"
+  - "u8CanIndex"
+  - "uint32"
+  - "uint8"
+  - "void"
+
+### TEXTSUP-PAGE-0061
+- `physical_page`: `61`
+- `additional_text_terms`:
+  - "2.8.3"
+  - "2.9.1"
+  - "Activity"
+  - "CAN_BUSY"
+  - "Can5"
+  - "CanDrv"
+  - "CanIf"
+  - "CanIf_Transmit"
+  - "CanTxPduId"
+  - "Can_IsrCAN5_All"
+  - "Can_Write"
+  - "Confidential"
+  - "Copying"
+  - "Driver"
+  - "E_OK"
+  - "Flagchip"
+  - "ISR"
+  - "PDU"
+  - "PduInfoPtr"
+  - "Proprietary"
+  - "Request"
+  - "SDU"
+  - "SduDataPtr"
+  - "SduLength"
+  - "Single"
+  - "Start"
+  - "Transmission"
+  - "Transmit"
+  - "buffer"
+  - "calls"
+  - "confirmation"
+  - "corresponding"
+  - "definition"
+  - "detects"
+  - "entry"
+  - "following"
+  - "free"
+  - "hander"
+  - "identifies"
+  - "initiates"
+  - "input"
+  - "inserted"
+  - "interactions"
+  - "into"
+  - "next"
+  - "performs"
+  - "pointer"
+  - "request"
+  - "requests"
+  - "second"
+  - "service"
+  - "sets"
+  - "show"
+  - "steps"
+  - "transmission"
+  - "transmit"
+  - "until"
+  - "upper"
+  - "validation"
+  - "via"
+  - "will"
+  - "writes"
+
+### TEXTSUP-PAGE-0062
+- `physical_page`: `62`
+- `additional_text_terms`:
+  - "2.9.2"
+  - "Activity"
+  - "Calling"
+  - "CanDrv"
+  - "CanIf"
+  - "CanIf_TxConfirmation"
+  - "CanTxPduId"
+  - "Can_Write"
+  - "Confidential"
+  - "Confirmation"
+  - "E_OK"
+  - "Flagchip"
+  - "HTHs"
+  - "Ids"
+  - "Interrupt"
+  - "Mode"
+  - "PDU"
+  - "Proprietary"
+  - "SDU"
+  - "Transmit"
+  - "User_TxConfirmation"
+  - "acknowledged"
+  - "array"
+  - "avoid"
+  - "calls"
+  - "confirmation"
+  - "corresponding"
+  - "frame"
+  - "new"
+  - "organized"
+  - "pending"
+  - "per"
+  - "previously"
+  - "receiving"
+  - "sent"
+  - "service"
+  - "signals"
+  - "specifies"
+  - "store"
+  - "successful"
+  - "transmission"
+  - "transmit"
+  - "triggers"
+  - "upper"
+
+### TEXTSUP-PAGE-0063
+- `physical_page`: `63`
+- `additional_text_terms`:
+  - "2.9.3"
+  - "2.9.4"
+  - "Acknowledged"
+  - "Activity"
+  - "BSW"
+  - "Buffering"
+  - "Calling"
+  - "CanDrv"
+  - "CanIf"
+  - "CanIf_TxConfirmation"
+  - "CanTxPduId"
+  - "Can_Write"
+  - "Confidential"
+  - "Confirmation"
+  - "Cyclic"
+  - "E_OK"
+  - "Flagchip"
+  - "HTHs"
+  - "Ids"
+  - "Mode"
+  - "PDU"
+  - "Polling"
+  - "Proprietary"
+  - "SDU"
+  - "Scheduler"
+  - "Task"
+  - "Transmit"
+  - "User_TxConfirmation"
+  - "about"
+  - "acknowledged"
+  - "array"
+  - "avoid"
+  - "called"
+  - "calls"
+  - "checks"
+  - "confirmation"
+  - "confirmations"
+  - "corresponding"
+  - "events"
+  - "frame"
+  - "new"
+  - "organized"
+  - "pending"
+  - "per"
+  - "previously"
+  - "receiving"
+  - "sending"
+  - "sent"
+  - "service"
+  - "signals"
+  - "specifies"
+  - "store"
+  - "succeeded"
+  - "successful"
+  - "transmission"
+  - "transmit"
+  - "triggers"
+  - "underlying"
+  - "upper"
+
+### TEXTSUP-PAGE-0064
+- `physical_page`: `64`
+- `additional_text_terms`:
+  - "Calling"
+  - "CanDrv"
+  - "CanIf"
+  - "CanIf_TxConfirmation"
+  - "CanTxPduId"
+  - "Can_Write"
+  - "Confidential"
+  - "Confirmation"
+  - "E_OK"
+  - "Flagchip"
+  - "HTHs"
+  - "Ids"
+  - "PDU"
+  - "PDUs"
+  - "Parameter"
+  - "Proprietary"
+  - "Remove"
+  - "SDU"
+  - "Thus"
+  - "Transmit"
+  - "User_TxConfirmation"
+  - "array"
+  - "avoid"
+  - "buffers"
+  - "called"
+  - "calls"
+  - "case"
+  - "checked"
+  - "confirmation"
+  - "corresponding"
+  - "entrant"
+  - "highest"
+  - "latest"
+  - "new"
+  - "organized"
+  - "passed"
+  - "pending"
+  - "per"
+  - "previously"
+  - "priority"
+  - "removed"
+  - "request"
+  - "service"
+  - "signals"
+  - "specifies"
+  - "store"
+  - "stored"
+  - "successful"
+  - "transmission"
+  - "transmit"
+  - "transmitted"
+  - "upper"
+  - "whether"
+
+### TEXTSUP-PAGE-0065
+- `physical_page`: `65`
+- `additional_text_terms`:
+  - "Confidential"
+  - "Flagchip"
+  - "Proprietary"
+
+### TEXTSUP-PAGE-0066
+- `physical_page`: `66`
+- `additional_text_terms`:
+  - "3.2.1"
+  - "Confidential"
+  - "Driver"
+  - "Flagchip"
+  - "Proprietary"
+  - "Screenshot"
+  - "Unit"
+  - "each"
+  - "holds"
+  - "variables"
+
+### TEXTSUP-PAGE-0067
+- `physical_page`: `67`
+- `additional_text_terms`:
+  - "3.2.1"
+  - "AUTOSAR_ECUC"
+  - "BOOLEAN"
+  - "Busoff"
+  - "CanDevErrorDetection"
+  - "CanIndex"
+  - "CanLPduReceiveCalloutFunction"
+  - "CanMainFunctionBusoffPeriod"
+  - "Can_MainFunction_Busoff"
+  - "Confidential"
+  - "Detection"
+  - "Driver"
+  - "ECUC_Can_00355"
+  - "FUNCTION"
+  - "Flagchip"
+  - "IDENTIFIABLE"
+  - "INTEGER"
+  - "InstanceId"
+  - "Main"
+  - "NAME"
+  - "NULL_PTR"
+  - "PDU"
+  - "Period"
+  - "Properties"
+  - "Property"
+  - "Proprietary"
+  - "Screenshot"
+  - "Specifies"
+  - "Switches"
+  - "SymbolicName"
+  - "Unit"
+  - "Value"
+  - "Variable"
+  - "after"
+  - "called"
+  - "callout"
+  - "defines"
+  - "describes"
+  - "disabled"
+  - "enabled"
+  - "existence"
+  - "have"
+  - "off"
+  - "omitted"
+  - "place"
+  - "present"
+  - "received"
+  - "reception"
+  - "seconds"
+  - "shall"
+  - "successful"
+  - "take"
+  - "that"
+  - "true"
+
+### TEXTSUP-PAGE-0068
+- `physical_page`: `68`
+- `additional_text_terms`:
+  - "0.001"
+  - "0.0010"
+  - "3.2.1"
+  - "AUTOSAR_ECUC"
+  - "BOOLEAN"
+  - "CanWakeupSupport"
+  - "Can_MainFunction_Mode"
+  - "Can_MainFunction_Wakeup"
+  - "Can_Write"
+  - "Confidential"
+  - "FC7300"
+  - "FLOAT"
+  - "Flagchip"
+  - "Hth"
+  - "Main"
+  - "Mode"
+  - "Multiplex"
+  - "Multiplexed"
+  - "OFF"
+  - "ObjectId"
+  - "Period"
+  - "Properties"
+  - "Property"
+  - "Proprietary"
+  - "Screenshot"
+  - "Specifies"
+  - "SymbolicName"
+  - "Transmission"
+  - "Unit"
+  - "Value"
+  - "Variable"
+  - "Wakeup"
+  - "busy"
+  - "dependency"
+  - "describes"
+  - "editable"
+  - "free"
+  - "means"
+  - "multiplexed"
+  - "same"
+  - "seconds"
+  - "shall"
+  - "supported"
+  - "supports"
+  - "that"
+  - "transmission"
+  - "transmitted"
+  - "true"
+
+### TEXTSUP-PAGE-0069
+- `physical_page`: `69`
+- `additional_text_terms`:
+  - "3.2.1"
+  - "AUTOSAR_ECUC"
+  - "Activation"
+  - "Api"
+  - "BOOLEAN"
+  - "CANu"
+  - "CANuested"
+  - "CTRL"
+  - "CanPublicIcomSupport"
+  - "CanSetBaudrateApi"
+  - "CanTimeoutDuration"
+  - "CanVersionInfoApi"
+  - "Can_GetVersionInfo"
+  - "Can_SetBaudrate"
+  - "Confidential"
+  - "Control"
+  - "Disabled"
+  - "Driver"
+  - "Duration"
+  - "ECUC_Can_00482"
+  - "Enabled"
+  - "Errors"
+  - "FLOAT"
+  - "False"
+  - "Flagchip"
+  - "Info"
+  - "MCR"
+  - "Module"
+  - "Networking"
+  - "OFF"
+  - "Once"
+  - "Pretended"
+  - "Production"
+  - "Properties"
+  - "Property"
+  - "Proprietary"
+  - "Provide"
+  - "Register"
+  - "Screenshot"
+  - "Selects"
+  - "Specifies"
+  - "Switches"
+  - "SymbolicName"
+  - "Timeout"
+  - "True"
+  - "Unit"
+  - "Value"
+  - "Variable"
+  - "Version"
+  - "When"
+  - "allow"
+  - "been"
+  - "blocking"
+  - "configured"
+  - "could"
+  - "detect"
+  - "detected"
+  - "effect"
+  - "features"
+  - "getting"
+  - "like"
+  - "maximum"
+  - "new"
+  - "option"
+  - "registers"
+  - "reported"
+  - "second"
+  - "seconds"
+  - "set"
+  - "shall"
+  - "some"
+  - "supported"
+  - "supports"
+  - "take"
+  - "takes"
+  - "then"
+  - "these"
+  - "time"
+  - "timeout"
+  - "true"
+  - "until"
+
+### TEXTSUP-PAGE-0070
+- `physical_page`: `70`
+- `additional_text_terms`:
+  - "3.2.1"
+  - "AUTOSAR_ECUC"
+  - "AutoSar"
+  - "BOOLEAN"
+  - "CanAllowLoopAsCycle"
+  - "CanExtendedIDSupport"
+  - "CanMBCountExtensionSupport"
+  - "CanNumberOfTimeOutLoop"
+  - "Confidential"
+  - "Count"
+  - "Duration"
+  - "Extended"
+  - "Extension"
+  - "Flagchip"
+  - "IDs"
+  - "INTEGER"
+  - "Implementation"
+  - "MBS"
+  - "Mixed"
+  - "Not"
+  - "Note"
+  - "Number"
+  - "Parameter"
+  - "Properties"
+  - "Property"
+  - "Proprietary"
+  - "Required"
+  - "Screenshot"
+  - "Some"
+  - "Support"
+  - "SymbolicName"
+  - "Timeout"
+  - "Value"
+  - "Variable"
+  - "bigger"
+  - "bits"
+  - "cycle"
+  - "define"
+  - "have"
+  - "length"
+  - "loop"
+  - "loops"
+  - "more"
+  - "permit"
+  - "platforms"
+  - "specific"
+  - "specified"
+  - "sum"
+  - "than"
+  - "total"
+  - "true"
+  - "uint8"
+
+### TEXTSUP-PAGE-0071
+- `physical_page`: `71`
+- `additional_text_terms`:
+  - "18.1"
+  - "3.2.1"
+  - "AUTOSAR_ECUC"
+  - "Autosar"
+  - "BOOLEAN"
+  - "CanEcucPartitionRef"
+  - "CanMainFunctionWritePeriod"
+  - "CanOsCounterRef"
+  - "CanSupportTTCANRef"
+  - "Confidential"
+  - "Counter"
+  - "Flagchip"
+  - "IDENTIFIABLE"
+  - "Implementation"
+  - "MBs"
+  - "Maps"
+  - "Note"
+  - "OsCounter"
+  - "Properties"
+  - "Property"
+  - "Proprietary"
+  - "REFERENCE"
+  - "Reference"
+  - "Screenshot"
+  - "Specific"
+  - "SymbolicName"
+  - "Value"
+  - "Variable"
+  - "configurable"
+  - "configured"
+  - "configuring"
+  - "counter"
+  - "depending"
+  - "each"
+  - "enabled"
+  - "have"
+  - "independent"
+  - "make"
+  - "modules"
+  - "more"
+  - "multiple"
+  - "operate"
+  - "option"
+  - "partition"
+  - "partitions"
+  - "platform"
+  - "platforms"
+  - "polled"
+  - "reference"
+  - "referring"
+  - "shall"
+  - "should"
+  - "smaller"
+  - "summing"
+  - "than"
+  - "that"
+  - "true"
+  - "via"
+  - "which"
+  - "will"
+  - "zero"
+
+### TEXTSUP-PAGE-0072
+- `physical_page`: `72`
+- `additional_text_terms`:
+  - "0.001"
+  - "18.2"
+  - "19.1"
+  - "3.2.1"
+  - "AUTOSAR_ECUC"
+  - "CAN_ICOM_LEVEL_ONE"
+  - "CanIcomGeneral"
+  - "CanIcomLevel"
+  - "CanMainFunctionPeriod"
+  - "Confidential"
+  - "Defines"
+  - "Different"
+  - "Driver"
+  - "ECUC_Can_00445"
+  - "ENUMERATION"
+  - "FLOAT"
+  - "Flagchip"
+  - "ICOM"
+  - "IDENTIFIABLE"
+  - "Networking"
+  - "Pretended"
+  - "Properties"
+  - "Property"
+  - "Proprietary"
+  - "REF"
+  - "Screenshot"
+  - "SymbolicName"
+  - "SynmbolicName"
+  - "Unit"
+  - "Value"
+  - "Variable"
+  - "case"
+  - "configurable"
+  - "configured"
+  - "cycles"
+  - "depending"
+  - "describes"
+  - "future"
+  - "implementations"
+  - "level"
+  - "more"
+  - "multiple"
+  - "poll"
+  - "provided"
+  - "referring"
+  - "reserved"
+  - "seconds"
+  - "than"
+  - "thi"
+  - "will"
+
+### TEXTSUP-PAGE-0073
+- `physical_page`: `73`
+- `additional_text_terms`:
+  - "1.2"
+  - "19.2"
+  - "3.2.1"
+  - "3.2.2"
+  - "AUTOSAR_ECUC"
+  - "AutoSar"
+  - "CAN_ICOM_VARIANT_NONE"
+  - "CanBusoffProcessing"
+  - "CanHwChannel"
+  - "CanIcomVariant"
+  - "Can_MainFunction_BusOff"
+  - "Confidential"
+  - "Defines"
+  - "Driver"
+  - "ENUMERATION"
+  - "Flagchip"
+  - "IDENTIFIABLE"
+  - "Implementation"
+  - "Not"
+  - "Note"
+  - "POLLING"
+  - "Properties"
+  - "Property"
+  - "Proprietary"
+  - "Required"
+  - "Screenshot"
+  - "Specific"
+  - "Specifies"
+  - "SymbolicName"
+  - "Value"
+  - "Variable"
+  - "associated"
+  - "busoff"
+  - "chip"
+  - "events"
+  - "handling"
+  - "interfaces"
+  - "multiple"
+  - "set"
+  - "supported"
+  - "variant"
+  - "which"
+
+### TEXTSUP-PAGE-0074
+- `physical_page`: `74`
+- `additional_text_terms`:
+  - "1.3"
+  - "1.4"
+  - "1.5"
+  - "1.6"
+  - "3.2.2"
+  - "AUTOSAR_ECUC"
+  - "Activation"
+  - "Address"
+  - "BOOLEAN"
+  - "Base"
+  - "CanControllerActivation"
+  - "CanControllerBaseAddress"
+  - "CanControllerId"
+  - "CanRxProcessing"
+  - "Confidential"
+  - "Deactivation"
+  - "Defines"
+  - "Driver"
+  - "ENUMERATION"
+  - "Flagchip"
+  - "INTEGER"
+  - "PDU"
+  - "POLLING"
+  - "Processing"
+  - "Properties"
+  - "Property"
+  - "Proprietary"
+  - "Screenshot"
+  - "Specifies"
+  - "SymbolicName"
+  - "Value"
+  - "Variable"
+  - "address"
+  - "any"
+  - "base"
+  - "continue"
+  - "equivalent"
+  - "events"
+  - "gaps"
+  - "handling"
+  - "particular"
+  - "provides"
+  - "reception"
+  - "starts"
+  - "true"
+  - "unique"
+  - "which"
+  - "without"
+
+### TEXTSUP-PAGE-0075
+- `physical_page`: `75`
+- `additional_text_terms`:
+  - "1.10"
+  - "1.8"
+  - "1.9"
+  - "3.2.2"
+  - "AUTOSAR_ECUC"
+  - "Adds"
+  - "BOOLEAN"
+  - "CanTxProcessing"
+  - "CanWakeupProcessing"
+  - "CanWakeupSupport"
+  - "Can_MainFunction_Wakeup"
+  - "Confidential"
+  - "ENUMERATION"
+  - "False"
+  - "Flagchip"
+  - "Note"
+  - "PDU"
+  - "POLLING"
+  - "Processing"
+  - "Properties"
+  - "Property"
+  - "Proprietary"
+  - "Screenshot"
+  - "Support"
+  - "SymbolicName"
+  - "True"
+  - "Value"
+  - "Variable"
+  - "Wakeup"
+  - "cannot"
+  - "enabled"
+  - "events"
+  - "global"
+  - "handling"
+  - "option"
+  - "removes"
+  - "service"
+  - "transmission"
+  - "true"
+
+### TEXTSUP-PAGE-0076
+- `physical_page`: `76`
+- `additional_text_terms`:
+  - "1.11"
+  - "1.12"
+  - "1.13"
+  - "3.2.2"
+  - "AUTOSAR_ECUC"
+  - "BOOLEAN"
+  - "Bus"
+  - "CPU"
+  - "CanControllerDefaultBaudrate"
+  - "CanControllerEcucPartitionRef"
+  - "CanCpuModuleClockRef"
+  - "Clock"
+  - "Confidential"
+  - "Every"
+  - "Flagchip"
+  - "Maps"
+  - "Module"
+  - "Properties"
+  - "Property"
+  - "Proprietary"
+  - "Reference"
+  - "Screenshot"
+  - "SymbolicName"
+  - "SynmbolicName"
+  - "Value"
+  - "Variable"
+  - "WKUP"
+  - "WakeUp"
+  - "Wakeup"
+  - "checkbox"
+  - "clock"
+  - "configured"
+  - "enabled"
+  - "enables"
+  - "ignored"
+  - "internal"
+  - "mapped"
+  - "over"
+  - "partition"
+  - "partitions"
+  - "platform"
+  - "process"
+  - "referenced"
+  - "registers"
+  - "set"
+  - "subset"
+  - "supported"
+  - "supports"
+  - "using"
+  - "where"
+  - "will"
+  - "zero"
+
+### TEXTSUP-PAGE-0077
+- `physical_page`: `77`
+- `additional_text_terms`:
+  - "1.14"
+  - "1.15"
+  - "1.16"
+  - "1.17"
+  - "3.2.2"
+  - "AUTOSAR_ECUC"
+  - "BCC"
+  - "BOOLEAN"
+  - "Backwards"
+  - "CPU"
+  - "CanBccSupport"
+  - "CanControllerIcomSupported"
+  - "CanCpuFunctionClockRef"
+  - "CanCpuModuleClockRef"
+  - "CanWakeupSourceRef"
+  - "Clock"
+  - "Compatibility"
+  - "Confidential"
+  - "Define"
+  - "Defines"
+  - "ECU"
+  - "EcuM"
+  - "EcuM_WakeupSourceType"
+  - "Flagchip"
+  - "Icom"
+  - "Implementation"
+  - "Individual"
+  - "MCU"
+  - "Networking"
+  - "Note"
+  - "Pretended"
+  - "Properties"
+  - "Property"
+  - "Proprietary"
+  - "Reference"
+  - "Screenshot"
+  - "Source"
+  - "Specific"
+  - "State"
+  - "Supported"
+  - "SymbolicName"
+  - "SynmbolicName"
+  - "Value"
+  - "Variable"
+  - "Wakeup"
+  - "added"
+  - "clock"
+  - "defined"
+  - "disabled"
+  - "enabled"
+  - "feature"
+  - "give"
+  - "masking"
+  - "need"
+  - "plugin"
+  - "queue"
+  - "reference"
+  - "set"
+  - "then"
+  - "which"
+
+### TEXTSUP-PAGE-0078
+- `physical_page`: `78`
+- `additional_text_terms`:
+  - "1.18"
+  - "1.19"
+  - "1.20"
+  - "3.2.2"
+  - "AutoSar"
+  - "BOOLEAN"
+  - "Back"
+  - "Bus"
+  - "BusOff"
+  - "CTRL"
+  - "CanAutoBusOffRecovery"
+  - "CanListenOnlyMode"
+  - "CanLoopBackMode"
+  - "CanSoftwareBusOffRecovery"
+  - "Confidential"
+  - "Flagchip"
+  - "Implementation"
+  - "LOM"
+  - "LPB"
+  - "Listen"
+  - "Loop"
+  - "Mode"
+  - "Not"
+  - "Note"
+  - "Off"
+  - "Only"
+  - "Parameter"
+  - "Passive"
+  - "Properties"
+  - "Property"
+  - "Proprietary"
+  - "Recovery"
+  - "Required"
+  - "Screenshot"
+  - "SymbolicName"
+  - "Value"
+  - "Variable"
+  - "automatic"
+  - "back"
+  - "bit"
+  - "counters"
+  - "disabled"
+  - "enabled"
+  - "fed"
+  - "frozen"
+  - "goes"
+  - "ignored"
+  - "input"
+  - "internally"
+  - "logic"
+  - "operate"
+  - "operates"
+  - "output"
+  - "pin"
+  - "receiver"
+  - "recessive"
+  - "recovering"
+  - "recovery"
+  - "set"
+  - "specific"
+  - "stream"
+  - "transmission"
+  - "transmitter"
+
+### TEXTSUP-PAGE-0079
+- `physical_page`: `79`
+- `additional_text_terms`:
+  - "1.21"
+  - "1.22"
+  - "1.23"
+  - "1.24"
+  - "3.2.2"
+  - "Auto"
+  - "AutoSar"
+  - "Automatic"
+  - "BOFF_REC"
+  - "BOOLEAN"
+  - "Buffer"
+  - "Bus"
+  - "BusOff"
+  - "CTRL"
+  - "CanAutoBusOffRecovery"
+  - "CanLowestBuffTransmitFirst"
+  - "CanTrippleSamplingEnable"
+  - "CanWakeUpSourceFilter"
+  - "Checked"
+  - "Confidential"
+  - "Defines"
+  - "Filter"
+  - "First"
+  - "Flagchip"
+  - "Implementation"
+  - "Just"
+  - "LBUF"
+  - "Lowest"
+  - "MCR"
+  - "Mode"
+  - "Not"
+  - "Note"
+  - "Off"
+  - "Parameter"
+  - "Properties"
+  - "Property"
+  - "Proprietary"
+  - "Recovery"
+  - "Required"
+  - "SMP"
+  - "Sampling"
+  - "Screenshot"
+  - "Source"
+  - "Specification"
+  - "SymbolicName"
+  - "Transmit"
+  - "Triple"
+  - "Unchecked"
+  - "Value"
+  - "Variable"
+  - "WAK_SRC"
+  - "WakeUp"
+  - "according"
+  - "acquisition"
+  - "applied"
+  - "automatic"
+  - "bit"
+  - "bits"
+  - "bus"
+  - "defines"
+  - "detect"
+  - "determine"
+  - "disabled"
+  - "dominant"
+  - "edges"
+  - "filter"
+  - "filtered"
+  - "init"
+  - "input"
+  - "integrated"
+  - "low"
+  - "majority"
+  - "negated"
+  - "occurs"
+  - "option"
+  - "protect"
+  - "provide"
+  - "received"
+  - "recessive"
+  - "recovering"
+  - "recovery"
+  - "remains"
+  - "sample"
+  - "samples"
+  - "sampling"
+  - "set"
+  - "specific"
+  - "spurious"
+  - "unfiltered"
+  - "until"
+  - "uses"
+  - "voting"
+  - "wake"
+  - "whether"
+  - "will"
+  - "zero"
+
+### TEXTSUP-PAGE-0080
+- `physical_page`: `80`
+- `additional_text_terms`:
+  - "1.25"
+  - "1.26"
+  - "1.27"
+  - "3.2.2"
+  - "AutoSar"
+  - "BOOLEAN"
+  - "Buffer"
+  - "Bus"
+  - "CLK_SRC"
+  - "CTRL"
+  - "CanClockFromBus"
+  - "CanControllerFdEnable"
+  - "CanLocalPriorityEn"
+  - "Clock"
+  - "Confidential"
+  - "Flagchip"
+  - "Implementation"
+  - "LBUF"
+  - "LPRIO_EN"
+  - "MCR"
+  - "MCU"
+  - "Message"
+  - "Not"
+  - "Note"
+  - "Parameter"
+  - "Priority"
+  - "Properties"
+  - "Property"
+  - "Proprietary"
+  - "Required"
+  - "Screenshot"
+  - "Switches"
+  - "SymbolicName"
+  - "Value"
+  - "Variable"
+  - "When"
+  - "affect"
+  - "arbitration"
+  - "asserted"
+  - "bit"
+  - "bus"
+  - "clock"
+  - "controls"
+  - "crystal"
+  - "defines"
+  - "doesn"
+  - "enabled"
+  - "engine"
+  - "feature"
+  - "mechanism"
+  - "ordering"
+  - "oscillator"
+  - "priority"
+  - "rather"
+  - "specific"
+  - "system"
+  - "than"
+  - "transmission"
+  - "true"
+  - "whether"
+
+### TEXTSUP-PAGE-0081
+- `physical_page`: `81`
+- `additional_text_terms`:
+  - "1.28"
+  - "1.29"
+  - "1.30"
+  - "1.31"
+  - "3.2.2"
+  - "BOOLEAN"
+  - "BOSCH_CAN_FD"
+  - "Buffers"
+  - "CAN_8_BYTES_PAYLOAD"
+  - "CanControllerEnhancedRxFifoEnable"
+  - "CanControllerFdType"
+  - "CanControllerLegacyRxFifoEnable"
+  - "CanLegacyMessageBufferDataBlockSize"
+  - "Confidential"
+  - "Defines"
+  - "ENUMERATION"
+  - "Enhanced"
+  - "FDCTRL"
+  - "FIFO"
+  - "First"
+  - "Flagchip"
+  - "ISO_CAN_FD"
+  - "Legacy"
+  - "MBDSR0"
+  - "Message"
+  - "Mode"
+  - "Only"
+  - "Properties"
+  - "Property"
+  - "Proprietary"
+  - "Range"
+  - "RxFifo"
+  - "Screenshot"
+  - "Selects"
+  - "SymbolicName"
+  - "Value"
+  - "Variable"
+  - "buffer"
+  - "disabled"
+  - "enabled"
+  - "engine"
+  - "feature"
+  - "maximum"
+  - "payload"
+  - "will"
+
+### TEXTSUP-PAGE-0082
+- `physical_page`: `82`
+- `additional_text_terms`:
+  - "1.32"
+  - "1.33"
+  - "1.34"
+  - "1.35"
+  - "3.2.2"
+  - "AutoSar"
+  - "BOOLEAN"
+  - "Buffer"
+  - "Buffers"
+  - "CAN_16_BYTES_PAYLOAD"
+  - "CAN_32_BYTES_PAYLOAD"
+  - "CAN_64_BYTES_PAYLOAD"
+  - "CAN_8_BYTES_PAYLOAD"
+  - "CanErrorControllerNotifEn"
+  - "CanErrorControllerNotification"
+  - "CanErrorFDControllerNotification"
+  - "CanLegacyMaxMessageBuffersCnt"
+  - "Confidential"
+  - "Disabled"
+  - "FUNCTION"
+  - "Flagchip"
+  - "INTEGER"
+  - "INTERRUPT"
+  - "Implementation"
+  - "Legacy"
+  - "Maximum"
+  - "Message"
+  - "NAME"
+  - "NULL_PTR"
+  - "Not"
+  - "Note"
+  - "Notification"
+  - "Number"
+  - "Phase"
+  - "Properties"
+  - "Property"
+  - "Proprietary"
+  - "Range"
+  - "Required"
+  - "Screenshot"
+  - "Specific"
+  - "SymbolicName"
+  - "Value"
+  - "Variable"
+  - "bit"
+  - "describes"
+  - "detected"
+  - "errors"
+  - "frames"
+  - "here"
+  - "maximum"
+  - "place"
+  - "set"
+  - "shall"
+  - "take"
+  - "true"
+
+### TEXTSUP-PAGE-0083
+- `physical_page`: `83`
+- `additional_text_terms`:
+  - "1.36"
+  - "1.37"
+  - "1.38"
+  - "1.39"
+  - "1.40"
+  - "3.2.2"
+  - "AUTOSAR_ECUC"
+  - "CPU"
+  - "CanControllerBaudrateConfig"
+  - "CanControllerDefaultBaudrate"
+  - "CanCpuFunctionClockRef"
+  - "CanCpuModuleClockRef"
+  - "CanWakeupSourceRef"
+  - "Clock"
+  - "Confidential"
+  - "ECU"
+  - "EcuM"
+  - "EcuM_WakeupSourceType"
+  - "FUNCTION"
+  - "Flagchip"
+  - "MCU"
+  - "Module"
+  - "NAME"
+  - "NULL_PTR"
+  - "Properties"
+  - "Property"
+  - "Proprietary"
+  - "REFERENCE"
+  - "Reference"
+  - "SYMBOLIC"
+  - "Screenshot"
+  - "Source"
+  - "State"
+  - "SymbolicName"
+  - "Value"
+  - "Variable"
+  - "Wakeup"
+  - "added"
+  - "clock"
+  - "configured"
+  - "defined"
+  - "give"
+  - "need"
+  - "plugin"
+  - "reference"
+  - "set"
+  - "then"
+  - "which"
+
+### TEXTSUP-PAGE-0084
+- `physical_page`: `84`
+- `additional_text_terms`:
+  - "1.40.1"
+  - "1.40.2"
+  - "1.40.3"
+  - "1.40.4"
+  - "3.2.2"
+  - "AUTOSAR_ECUC"
+  - "BaudRate"
+  - "CLK_SRC"
+  - "CanControllerBaudRate"
+  - "CanControllerBaudRateConfigID"
+  - "CanControllerPrescaller"
+  - "CanModuleClock"
+  - "Clock"
+  - "Confidential"
+  - "Divided"
+  - "Flagchip"
+  - "IDENTIFIABLE"
+  - "INTEGER"
+  - "Kbps"
+  - "Mbps"
+  - "Mcu"
+  - "Module"
+  - "OSC"
+  - "PCC"
+  - "Point"
+  - "Prescaller"
+  - "Properties"
+  - "Property"
+  - "Proprietary"
+  - "Range"
+  - "Reference"
+  - "Reselect"
+  - "Screenshot"
+  - "SetBaudrate"
+  - "Specifies"
+  - "SymbolicName"
+  - "Uniquely"
+  - "Value"
+  - "Variable"
+  - "after"
+  - "baud"
+  - "bit"
+  - "buadrate"
+  - "change"
+  - "clock"
+  - "identifies"
+  - "kbps"
+  - "maximum"
+  - "rate"
+  - "set"
+  - "specific"
+  - "speed"
+  - "timing"
+
+### TEXTSUP-PAGE-0085
+- `physical_page`: `85`
+- `additional_text_terms`:
+  - "1.40.5"
+  - "1.40.6"
+  - "1.40.7"
+  - "3.2.2"
+  - "AUTOSAR_ECUC"
+  - "Baud"
+  - "CTRL"
+  - "CanControllerPropSeg"
+  - "CanControllerSyncSeg"
+  - "CanControllerTimeQuanta"
+  - "CanNeedTqs"
+  - "Confidential"
+  - "Flagchip"
+  - "FreqCanClk"
+  - "FreqTq"
+  - "INTEGER"
+  - "Needed"
+  - "PROPSEG"
+  - "Prescaler"
+  - "Propagation"
+  - "Properties"
+  - "Property"
+  - "Proprietary"
+  - "Quantum"
+  - "Range"
+  - "SYNC_SEG"
+  - "Screenshot"
+  - "Specifies"
+  - "SymbolicName"
+  - "Synchronization"
+  - "Time"
+  - "Total"
+  - "Value"
+  - "Variable"
+  - "across"
+  - "calculation"
+  - "clocking"
+  - "compensate"
+  - "delay"
+  - "depending"
+  - "done"
+  - "fixed"
+  - "generally"
+  - "interval"
+  - "may"
+  - "network"
+  - "nodes"
+  - "num"
+  - "offline"
+  - "prescaler"
+  - "resulting"
+  - "set"
+  - "shall"
+  - "synchronize"
+  - "time"
+  - "within"
+
+### TEXTSUP-PAGE-0086
+- `physical_page`: `86`
+- `additional_text_terms`:
+  - "1.40.10"
+  - "1.40.11"
+  - "1.40.8"
+  - "1.40.9"
+  - "3.2.2"
+  - "AUTOSAR_ECUC"
+  - "CLK_SRC"
+  - "CTRL"
+  - "CanControllerSeg1"
+  - "CanControllerSeg2"
+  - "CanControllerSyncJumpWidth"
+  - "CanSamplePoint"
+  - "Confidential"
+  - "Divided"
+  - "Flagchip"
+  - "INTEGER"
+  - "Jump"
+  - "Module"
+  - "OSC"
+  - "PCC"
+  - "PSEG1"
+  - "PSEG2"
+  - "Phase"
+  - "Point"
+  - "Properties"
+  - "Property"
+  - "Proprietary"
+  - "Range"
+  - "Resynch"
+  - "Sample"
+  - "Screenshot"
+  - "Specifies"
+  - "SymbolicName"
+  - "Value"
+  - "Variable"
+  - "Width"
+  - "clock"
+  - "disabled"
+  - "enabled"
+  - "jump"
+  - "quantas"
+  - "set"
+  - "synchronization"
+  - "time"
+  - "valid"
+  - "values"
+  - "width"
+
+### TEXTSUP-PAGE-0087
+- `physical_page`: `87`
+- `additional_text_terms`:
+  - "1.40.12"
+  - "1.40.13"
+  - "3.2.2"
+  - "AUTOSAR_ECUC"
+  - "ArbitrationStart"
+  - "BaudRate"
+  - "CRC"
+  - "CanControllerFdBaudRate"
+  - "CanControllerFdBaudrateConfig"
+  - "CanControllerFdPrescaller"
+  - "CanTxArbitrationStartDelay"
+  - "Confidential"
+  - "FLOAT"
+  - "Flagchip"
+  - "IDENTIFIABLE"
+  - "INTEGER"
+  - "Kbps"
+  - "Prescaller"
+  - "Properties"
+  - "Property"
+  - "Proprietary"
+  - "Range"
+  - "Reference"
+  - "Screenshot"
+  - "See"
+  - "Specifies"
+  - "SymbolicName"
+  - "TASD"
+  - "Value"
+  - "Variable"
+  - "arbitration"
+  - "baud"
+  - "bit"
+  - "bits"
+  - "bus"
+  - "calculation"
+  - "delayed"
+  - "exists"
+  - "field"
+  - "first"
+  - "frame"
+  - "frames"
+  - "have"
+  - "how"
+  - "indicates"
+  - "kbps"
+  - "many"
+  - "method"
+  - "optimal"
+  - "optional"
+  - "payload"
+  - "point"
+  - "process"
+  - "rate"
+  - "segment"
+  - "start"
+  - "supports"
+  - "timing"
+
+### TEXTSUP-PAGE-0088
+- `physical_page`: `88`
+- `additional_text_terms`:
+  - "AUTOSAR_ECUC"
+  - "CLK_SRC"
+  - "CanControllerFdSyncSeg"
+  - "CanControllerFdTimeQuanta"
+  - "CanControllerPropSeg"
+  - "CanControllerTimeQuanta"
+  - "CanFdNeedTqs"
+  - "Confidential"
+  - "Divided"
+  - "Flagchip"
+  - "FreqCanClk"
+  - "FreqTq"
+  - "INTEGER"
+  - "Module"
+  - "Needed"
+  - "OSC"
+  - "PCC"
+  - "Prescaler"
+  - "Propagation"
+  - "Properties"
+  - "Property"
+  - "Proprietary"
+  - "Quantum"
+  - "Range"
+  - "SYNC_SEG"
+  - "Screenshot"
+  - "Specifies"
+  - "SymbolicName"
+  - "Synchronization"
+  - "Time"
+  - "Total"
+  - "Value"
+  - "Variable"
+  - "across"
+  - "calculation"
+  - "clock"
+  - "clocking"
+  - "delay"
+  - "depending"
+  - "done"
+  - "fixed"
+  - "interval"
+  - "network"
+  - "nodes"
+  - "offline"
+  - "prescaler"
+  - "prescaller"
+  - "propagation"
+  - "quantas"
+  - "resulting"
+  - "set"
+  - "shall"
+  - "synchronize"
+  - "time"
+
+### TEXTSUP-PAGE-0089
+- `physical_page`: `89`
+- `additional_text_terms`:
+  - "AUTOSAR_ECUC"
+  - "CLK_SRC"
+  - "CanControllerSeg1"
+  - "CanControllerSeg2"
+  - "CanControllerSyncJumpWidth"
+  - "CanFdSamplePoint"
+  - "Confidential"
+  - "Divided"
+  - "Flagchip"
+  - "INTEGER"
+  - "Jump"
+  - "Module"
+  - "OSC"
+  - "PCC"
+  - "Phase"
+  - "Point"
+  - "Properties"
+  - "Property"
+  - "Proprietary"
+  - "Range"
+  - "Resynch"
+  - "Sample"
+  - "Screenshot"
+  - "Specifies"
+  - "SymbolicName"
+  - "Value"
+  - "Variable"
+  - "Width"
+  - "clock"
+  - "jump"
+  - "phase"
+  - "quantas"
+  - "segment"
+  - "set"
+  - "synchronization"
+  - "time"
+  - "width"
+
+### TEXTSUP-PAGE-0090
+- `physical_page`: `90`
+- `additional_text_terms`:
+  - "AUTOSAR_ECUC"
+  - "Add"
+  - "BOOLEAN"
+  - "CanControllerFdIsoCANFD"
+  - "CanControllerFdPrExcEn"
+  - "CanControllerTrcvDelayCompensationOffset"
+  - "CanControllerTxBitRateSwitch"
+  - "Confidential"
+  - "Exception"
+  - "FLOAT"
+  - "Flagchip"
+  - "INTEGER"
+  - "ISO"
+  - "Offset"
+  - "Properties"
+  - "Property"
+  - "Proprietary"
+  - "Protocol"
+  - "Range"
+  - "Screenshot"
+  - "Specifies"
+  - "SymbolicName"
+  - "Trcv"
+  - "Value"
+  - "Variable"
+  - "bit"
+  - "disabled"
+  - "enables"
+  - "feature"
+  - "non"
+  - "rate"
+  - "selecting"
+  - "shall"
+  - "specified"
+  - "switching"
+  - "transmissions"
+  - "true"
+
+### TEXTSUP-PAGE-0091
+- `physical_page`: `91`
+- `additional_text_terms`:
+  - "1.41"
+  - "1.41.1"
+  - "1.41.2"
+  - "3.2.2"
+  - "BOOLEAN"
+  - "BOSCH_CAN_FD"
+  - "Boolean"
+  - "CanControllerFdEdgeFilterDis"
+  - "CanControllerFdType"
+  - "CanControllerLegacyIDAcceptanceMode"
+  - "CanFDSupport"
+  - "Confidential"
+  - "Edge"
+  - "Filter"
+  - "Flagchip"
+  - "IDENTIFIABLE"
+  - "ISO_CAN_FD"
+  - "Mode"
+  - "Properties"
+  - "Property"
+  - "Proprietary"
+  - "Range"
+  - "Screenshot"
+  - "Support"
+  - "SymbolicName"
+  - "SynmbolicName"
+  - "Value"
+  - "Variable"
+  - "bit"
+  - "disables"
+  - "true"
+
+### TEXTSUP-PAGE-0092
+- `physical_page`: `92`
+- `additional_text_terms`:
+  - "1.41.3"
+  - "1.41.4"
+  - "1.42"
+  - "1.42.1"
+  - "3.2.2"
+  - "BOSCH_CAN_FD"
+  - "Buffer"
+  - "Buffers"
+  - "CAN_16_BYTES_PAYLOAD"
+  - "CAN_32_BYTES_PAYLOAD"
+  - "CAN_64_BYTES_PAYLOAD"
+  - "CAN_8_BYTES_PAYLOAD"
+  - "CanControllerLegacyRxFifoEnable"
+  - "CanLegacyMaxMessageBuffersCnt"
+  - "CanLegacyMessageBufferDataBlockSize"
+  - "CanLegacyRxFifo"
+  - "Confidential"
+  - "ENABLED"
+  - "FALSE"
+  - "FDCTRL"
+  - "FIFO"
+  - "Flagchip"
+  - "IDENTIFIABLE"
+  - "ISO_CAN_FD"
+  - "Integer"
+  - "Legacy"
+  - "MBDSR0"
+  - "Maximum"
+  - "Message"
+  - "Note"
+  - "Number"
+  - "Properties"
+  - "Property"
+  - "Proprietary"
+  - "Range"
+  - "RxFifo"
+  - "Screenshot"
+  - "Selects"
+  - "String"
+  - "Support"
+  - "SynmbolicName"
+  - "TRUE"
+  - "Value"
+  - "Variable"
+  - "buffer"
+  - "describes"
+  - "maximum"
+  - "payload"
+
+### TEXTSUP-PAGE-0093
+- `physical_page`: `93`
+- `additional_text_terms`:
+  - "1.42.2"
+  - "1.42.3"
+  - "1.42.4"
+  - "3.2.2"
+  - "AUTOSAR_ECUC"
+  - "Acceptance"
+  - "Boolean"
+  - "Buffers"
+  - "CanControllerLegacyIDAcceptanceMode"
+  - "CanHardwareObjectUsesPolling"
+  - "CanMainFunctionRWPeriodRef"
+  - "CanRxProcessing"
+  - "Confidential"
+  - "Defines"
+  - "ENUMERATION"
+  - "Enhanced"
+  - "Explanation"
+  - "FIFO"
+  - "Filter"
+  - "First"
+  - "Flagchip"
+  - "Format"
+  - "Four"
+  - "IDs"
+  - "Legacy"
+  - "MIXED"
+  - "MainFunction"
+  - "Mask"
+  - "Message"
+  - "Mode"
+  - "Note"
+  - "NoteImplementation"
+  - "One"
+  - "Period"
+  - "Polling"
+  - "Properties"
+  - "Property"
+  - "Proprietary"
+  - "REFERENCE"
+  - "Range"
+  - "Reference"
+  - "RxFifo"
+  - "Screenshot"
+  - "Specific"
+  - "SynmbolicName"
+  - "TableID"
+  - "Two"
+  - "Uses"
+  - "Value"
+  - "Variable"
+  - "associated"
+  - "bit"
+  - "care"
+  - "disabled"
+  - "don"
+  - "element"
+  - "elements"
+  - "enabled"
+  - "engine"
+  - "exist"
+  - "extended"
+  - "feature"
+  - "field"
+  - "fifo"
+  - "filter"
+  - "format"
+  - "frames"
+  - "identifies"
+  - "node"
+  - "option"
+  - "partial"
+  - "per"
+  - "polling"
+  - "set"
+  - "shall"
+  - "standard"
+  - "true"
+  - "two"
+  - "values"
+  - "which"
+  - "will"
+
+### TEXTSUP-PAGE-0094
+- `physical_page`: `94`
+- `additional_text_terms`:
+  - "1.42.5"
+  - "1.42.6"
+  - "1.42.7"
+  - "3.2.2"
+  - "CanControllerLegacyIDAcceptanceMode"
+  - "CanIDValue0"
+  - "CanIDValue1"
+  - "CanIDValue2"
+  - "CanIDValue3"
+  - "CanLegacyRxFifoFiltersNumber"
+  - "CanLegacyRxFifoGlobalMaskValue"
+  - "CanRxFifoWarningNotification"
+  - "CanTableIDType"
+  - "Confidential"
+  - "ENUMERATION"
+  - "Extended"
+  - "FIFO"
+  - "FILTERS_NUMBER_104"
+  - "FILTERS_NUMBER_112"
+  - "FILTERS_NUMBER_120"
+  - "FILTERS_NUMBER_128"
+  - "FILTERS_NUMBER_16"
+  - "FILTERS_NUMBER_24"
+  - "FILTERS_NUMBER_32"
+  - "FILTERS_NUMBER_40"
+  - "FILTERS_NUMBER_48"
+  - "FILTERS_NUMBER_56"
+  - "FILTERS_NUMBER_64"
+  - "FILTERS_NUMBER_72"
+  - "FILTERS_NUMBER_8"
+  - "FILTERS_NUMBER_80"
+  - "FILTERS_NUMBER_88"
+  - "FILTERS_NUMBER_96"
+  - "Fifo"
+  - "Filter"
+  - "Filtermask"
+  - "Filters"
+  - "Flagchip"
+  - "IDs"
+  - "INTEGER"
+  - "Implementation"
+  - "Legacy"
+  - "Mask"
+  - "Note"
+  - "NoteImplementation"
+  - "Number"
+  - "One"
+  - "Properties"
+  - "Property"
+  - "Proprietary"
+  - "Range"
+  - "RxFifo"
+  - "Screenshot"
+  - "Specific"
+  - "Specifies"
+  - "Standard"
+  - "SynmbolicName"
+  - "Value"
+  - "Variable"
+  - "Warning"
+  - "acceptance"
+  - "bit"
+  - "care"
+  - "corresponding"
+  - "covered"
+  - "criteria"
+  - "defines"
+  - "distinguished"
+  - "don"
+  - "during"
+  - "entered"
+  - "explained"
+  - "extended"
+  - "field"
+  - "filter"
+  - "filters"
+  - "handler"
+  - "here"
+  - "identifier"
+  - "individual"
+  - "mask"
+  - "masks"
+  - "matching"
+  - "process"
+  - "selected"
+  - "shall"
+  - "should"
+  - "standard"
+  - "which"
+
+### TEXTSUP-PAGE-0095
+- `physical_page`: `95`
+- `additional_text_terms`:
+  - "1.42.8"
+  - "1.42.9"
+  - "3.2.2"
+  - "CanControllerLegacyIDAcceptanceMode"
+  - "CanIDValue0"
+  - "CanLegacyRxFifoFiltersNumber"
+  - "CanLegacyRxFifoTable"
+  - "CanRxFifoOverflowNotification"
+  - "CanTableIDType"
+  - "Confidential"
+  - "Extended"
+  - "FIFO"
+  - "FUNCTION"
+  - "Flagchip"
+  - "IDENTIFIABLE"
+  - "INTEGER"
+  - "Identifier"
+  - "NAME"
+  - "NULL_PTR"
+  - "NoteImplementation"
+  - "One"
+  - "Overflow"
+  - "Properties"
+  - "Property"
+  - "Proprietary"
+  - "RxFifo"
+  - "Screenshot"
+  - "Specific"
+  - "Specifies"
+  - "Standard"
+  - "SynmbolicName"
+  - "Value"
+  - "Variable"
+  - "acceptance"
+  - "bit"
+  - "configure"
+  - "configured"
+  - "criteria"
+  - "element"
+  - "entered"
+  - "entry"
+  - "equal"
+  - "explained"
+  - "extended"
+  - "filter"
+  - "filters"
+  - "handler"
+  - "here"
+  - "most"
+  - "multiple"
+  - "per"
+  - "required"
+  - "selected"
+  - "shall"
+  - "should"
+  - "significant"
+  - "standard"
+  - "using"
+
+### TEXTSUP-PAGE-0096
+- `physical_page`: `96`
+- `additional_text_terms`:
+  - "Accepted"
+  - "CanControllerLegacyIDAcceptanceMode"
+  - "CanIDValue1"
+  - "CanIDValue2"
+  - "CanIDValue3"
+  - "CanTableIDType"
+  - "Confidential"
+  - "Extended"
+  - "Flagchip"
+  - "Frame"
+  - "INTEGER"
+  - "Identifier"
+  - "Mode"
+  - "NoteImplementation"
+  - "One"
+  - "Properties"
+  - "Property"
+  - "Proprietary"
+  - "RxFifo"
+  - "Screenshot"
+  - "Specific"
+  - "Specifies"
+  - "Standard"
+  - "SynmbolicName"
+  - "Value"
+  - "Variable"
+  - "acceptance"
+  - "bit"
+  - "criteria"
+  - "enterd"
+  - "entered"
+  - "explained"
+  - "most"
+  - "selected"
+  - "should"
+  - "significant"
+  - "standard"
+
+### TEXTSUP-PAGE-0097
+- `physical_page`: `97`
+- `additional_text_terms`:
+  - "1.43"
+  - "1.43.1"
+  - "3.2.2"
+  - "CanControllerEnhancedRxFifoEnable"
+  - "CanControllerLegacyIDAcceptanceMode"
+  - "CanEnhancedRxFifo"
+  - "CanIDValue0"
+  - "CanIDValue1"
+  - "CanIDValue2"
+  - "CanIDValue3"
+  - "CanMBFilterMaskValue"
+  - "CanTableIDType"
+  - "Confidential"
+  - "Defines"
+  - "ENABLED"
+  - "ENUMERATION"
+  - "Enhanced"
+  - "Extended"
+  - "FIFO"
+  - "Filetr"
+  - "Filter"
+  - "Filtermask"
+  - "Flagchip"
+  - "IDENTIFIABLE"
+  - "INTEGER"
+  - "Mask"
+  - "Mode"
+  - "Note"
+  - "NoteImplementation"
+  - "One"
+  - "Only"
+  - "Properties"
+  - "Property"
+  - "Proprietary"
+  - "Range"
+  - "RxFifo"
+  - "Screenshot"
+  - "Specific"
+  - "Specifies"
+  - "Standard"
+  - "SynmbolicName"
+  - "Value"
+  - "Variable"
+  - "acceptance"
+  - "accepted"
+  - "bit"
+  - "criteria"
+  - "enabled"
+  - "entered"
+  - "explained"
+  - "extended"
+  - "feature"
+  - "field"
+  - "frames"
+  - "into"
+  - "selected"
+  - "should"
+  - "standard"
+  - "whether"
+
+### TEXTSUP-PAGE-0098
+- `physical_page`: `98`
+- `additional_text_terms`:
+  - "1.43.2"
+  - "1.43.3"
+  - "1.43.4"
+  - "1.43.5"
+  - "3.2.2"
+  - "AUTOSAR_ECUC"
+  - "Boolean"
+  - "CanExtendedIdFilterNumber"
+  - "CanHardwareObjectUsesPolling"
+  - "CanMainFunctionRWPeriodRef"
+  - "CanRxProcessing"
+  - "CanStandardIDFilterNumber"
+  - "Confidential"
+  - "Enhanced"
+  - "Extended"
+  - "FIFO"
+  - "Filter"
+  - "Flagchip"
+  - "INTEGER"
+  - "MIXED"
+  - "MainFunction"
+  - "NOTICE"
+  - "Number"
+  - "Period"
+  - "Polling"
+  - "Properties"
+  - "Property"
+  - "Proprietary"
+  - "REFERENCE"
+  - "Range"
+  - "Reference"
+  - "Screenshot"
+  - "SynmbolicName"
+  - "Uses"
+  - "Value"
+  - "Variable"
+  - "associated"
+  - "exist"
+  - "fifo"
+  - "filter"
+  - "node"
+  - "polling"
+  - "set"
+  - "shall"
+  - "standard"
+  - "true"
+  - "which"
+
+### TEXTSUP-PAGE-0099
+- `physical_page`: `99`
+- `additional_text_terms`:
+  - "1.43.6"
+  - "1.43.7"
+  - "1.43.8"
+  - "3.2.2"
+  - "CanFifoWatermark"
+  - "CanRxFifoOverflowNotification"
+  - "CanRxFifoWarningNotification"
+  - "Confidential"
+  - "DMA"
+  - "Enhanced"
+  - "FIFO"
+  - "FUNCTION"
+  - "Flagchip"
+  - "INTEGER"
+  - "Interrupt"
+  - "NAME"
+  - "NULL_PTR"
+  - "NoteImplementation"
+  - "Number"
+  - "Overflow"
+  - "Properties"
+  - "Property"
+  - "Proprietary"
+  - "Range"
+  - "RxFifo"
+  - "Screenshot"
+  - "Specific"
+  - "SynmbolicName"
+  - "Value"
+  - "Variable"
+  - "Warning"
+  - "Watermark"
+  - "When"
+  - "defines"
+  - "enabled"
+  - "field"
+  - "generated"
+  - "handler"
+  - "here"
+  - "messages"
+  - "minimum"
+  - "reached"
+  - "request"
+  - "stored"
+  - "that"
+  - "then"
+  - "would"
+
+### TEXTSUP-PAGE-0100
+- `physical_page`: `100`
+- `additional_text_terms`:
+  - "1.43.9"
+  - "3.2.2"
+  - "CANEnhancedFifoFilterIdType"
+  - "CANEnhancedFifoFilterType"
+  - "CanEnhancedRxFifoTable"
+  - "CanRtrFilter1"
+  - "Confidential"
+  - "ENUMERATION"
+  - "Enhanced"
+  - "Extended"
+  - "FIFO"
+  - "Filter"
+  - "FilterId"
+  - "Flagchip"
+  - "Holds"
+  - "IDENTIFIABLE"
+  - "INTEGER"
+  - "Integer"
+  - "Mask"
+  - "Properties"
+  - "Property"
+  - "Proprietary"
+  - "RTR"
+  - "Range"
+  - "Screenshot"
+  - "Standard"
+  - "SynmbolicName"
+  - "TwoMatch"
+  - "Value"
+  - "Variable"
+  - "filter"
+  - "handle"
+
+### TEXTSUP-PAGE-0101
+- `physical_page`: `101`
+- `additional_text_terms`:
+  - "CanIDFilter1"
+  - "CanIDFilter2"
+  - "CanIDMask1"
+  - "CanRtrFilter2"
+  - "CanRtrFilterMask1"
+  - "Confidential"
+  - "Enhanced"
+  - "FIFO"
+  - "Filter"
+  - "Flagchip"
+  - "INTEGER"
+  - "MASK"
+  - "Mask"
+  - "Properties"
+  - "Property"
+  - "Proprietary"
+  - "RTR"
+  - "Screenshot"
+  - "SynmbolicName"
+  - "Value"
+  - "Variable"
+  - "filter"
+  - "filter2"
+
+### TEXTSUP-PAGE-0102
+- `physical_page`: `102`
+- `additional_text_terms`:
+  - "3.2.2"
+  - "AUTOSAR_ECUC"
+  - "BASIC"
+  - "Basic"
+  - "CONVENTION"
+  - "CanFdPaddingValue"
+  - "CanHandleType"
+  - "Confidential"
+  - "DLC"
+  - "ENUMERATION"
+  - "FIFO"
+  - "First"
+  - "Flagchip"
+  - "Full"
+  - "IDENTIFIABLE"
+  - "INTEGER"
+  - "Implementation"
+  - "MBCS"
+  - "Note"
+  - "PDU"
+  - "PRIO"
+  - "Properties"
+  - "Property"
+  - "Proprietary"
+  - "RECEIVE"
+  - "Screenshot"
+  - "Specifies"
+  - "SymbolicName"
+  - "SynmbolicName"
+  - "Value"
+  - "Variable"
+  - "configured"
+  - "define"
+  - "defined"
+  - "discrete"
+  - "done"
+  - "due"
+  - "element"
+  - "enabled"
+  - "filter"
+  - "frames"
+  - "have"
+  - "identifier"
+  - "length"
+  - "mask"
+  - "match"
+  - "necessary"
+  - "next"
+  - "pad"
+  - "padded"
+  - "padding"
+  - "possible"
+  - "receive"
+  - "remaining"
+  - "sent"
+  - "shall"
+  - "transmission"
+  - "unspecified"
+  - "values"
+  - "which"
+
+### TEXTSUP-PAGE-0103
+- `physical_page`: `103`
+- `additional_text_terms`:
+  - "2.3"
+  - "2.4"
+  - "3.2.2"
+  - "AUTOSAR_ECUC"
+  - "AutoSar"
+  - "BASIC"
+  - "Bits"
+  - "CTRL"
+  - "CanHwObjectCount"
+  - "CanIdType"
+  - "CanMBPrio"
+  - "Confidential"
+  - "Count"
+  - "ENUMERATION"
+  - "EXTENDED"
+  - "FIFO"
+  - "FULL"
+  - "Flagchip"
+  - "FullCAN"
+  - "INTEGER"
+  - "IdValue"
+  - "Implementation"
+  - "LBUF"
+  - "LPRIO_EN"
+  - "MBCS"
+  - "MBs"
+  - "MCR"
+  - "MIXED"
+  - "Message"
+  - "Not"
+  - "Note"
+  - "Number"
+  - "PRIO"
+  - "Parameter"
+  - "Priority"
+  - "Properties"
+  - "Property"
+  - "Proprietary"
+  - "RECEIVE"
+  - "Range"
+  - "Required"
+  - "STANDARD"
+  - "Screenshot"
+  - "Specifies"
+  - "SymbolicName"
+  - "These"
+  - "They"
+  - "Value"
+  - "Variable"
+  - "appended"
+  - "bit"
+  - "bits"
+  - "buffers"
+  - "case"
+  - "configured"
+  - "define"
+  - "defines"
+  - "elements"
+  - "extended"
+  - "field"
+  - "identifier"
+  - "implement"
+  - "length"
+  - "makes"
+  - "mixed"
+  - "multiplexed"
+  - "priority"
+  - "regular"
+  - "sense"
+  - "set"
+  - "shadow"
+  - "specific"
+  - "standard"
+  - "transmission"
+  - "transmitted"
+  - "treated"
+  - "whether"
+  - "will"
+
+### TEXTSUP-PAGE-0104
+- `physical_page`: `104`
+- `additional_text_terms`:
+  - "3.2.2"
+  - "AUTOSAR_ECUC"
+  - "BOOLEAN"
+  - "CanControllerRef"
+  - "CanObjectId"
+  - "CanObjectType"
+  - "CanTriggerTransmitEnable"
+  - "Confidential"
+  - "Driver"
+  - "ENUMERATION"
+  - "EXTENDED"
+  - "Example"
+  - "Flagchip"
+  - "HRH0"
+  - "HRH1"
+  - "HTH0"
+  - "HTH1"
+  - "Handle"
+  - "HardwareObject"
+  - "Holds"
+  - "INTEGER"
+  - "Ids"
+  - "MBs"
+  - "MIXED"
+  - "Note"
+  - "Properties"
+  - "Property"
+  - "Proprietary"
+  - "RECEIVE"
+  - "REFERENCE"
+  - "Range"
+  - "Receive"
+  - "Reference"
+  - "Screenshot"
+  - "Specifies"
+  - "SymbolicName"
+  - "TRANSMIT"
+  - "Transmit"
+  - "Value"
+  - "Variable"
+  - "any"
+  - "associated"
+  - "configured"
+  - "continue"
+  - "defined"
+  - "defines"
+  - "different"
+  - "gaps"
+  - "handle"
+  - "should"
+  - "spaces"
+  - "standard"
+  - "start"
+  - "supports"
+  - "transmit"
+  - "treated"
+  - "trigger"
+  - "true"
+  - "two"
+  - "unique"
+  - "which"
+  - "will"
+  - "without"
+
+### TEXTSUP-PAGE-0105
+- `physical_page`: `105`
+- `additional_text_terms`:
+  - "0x00"
+  - "0x1FFFFFFF"
+  - "0x7FF"
+  - "2.10"
+  - "2.11"
+  - "2.12"
+  - "2.12.1"
+  - "2.12.2"
+  - "3.2.2"
+  - "AUTOSAR_ECUC"
+  - "CanHwFilter"
+  - "CanHwFilterCode"
+  - "CanHwFilterMask"
+  - "CanMainFunctionRWPeriodRef"
+  - "CanRAMBlockRef"
+  - "Code"
+  - "Confidential"
+  - "EXT"
+  - "Extended"
+  - "FFFFFFF"
+  - "Filter"
+  - "Flagchip"
+  - "HRHs"
+  - "IDENTIFIABLE"
+  - "IDs"
+  - "MainFunction"
+  - "Mask"
+  - "Parameter"
+  - "Period"
+  - "Properties"
+  - "Property"
+  - "Proprietary"
+  - "RAM"
+  - "REFERENCE"
+  - "Reference"
+  - "STD"
+  - "STRING"
+  - "Screenshot"
+  - "Select"
+  - "Specifies"
+  - "Standard"
+  - "SymbolicName"
+  - "Value"
+  - "Variable"
+  - "above"
+  - "any"
+  - "assign"
+  - "associated"
+  - "bits"
+  - "block"
+  - "but"
+  - "filter"
+  - "identifiers"
+  - "mask"
+  - "passes"
+  - "respect"
+  - "rule"
+  - "that"
+  - "together"
+  - "valid"
+  - "which"
+
+### TEXTSUP-PAGE-0106
+- `physical_page`: `106`
+- `additional_text_terms`:
+  - "3.1.1"
+  - "3.2.2"
+  - "AUTOSAR_ECUC"
+  - "CAN_ID_VALUE"
+  - "CanFilterMask"
+  - "CanFilterMaskRef"
+  - "CanHandleType"
+  - "CanIcomConfig"
+  - "CanIcomConfigId"
+  - "CanIdTypes"
+  - "CanIdValue"
+  - "CanObjectType"
+  - "Confidential"
+  - "ConfigID"
+  - "Different"
+  - "ECUC_Can_00321"
+  - "EXTENDED"
+  - "FIFO"
+  - "FULL"
+  - "Flagchip"
+  - "ICOM"
+  - "ICom"
+  - "IDENTIFIABLE"
+  - "INTEGER"
+  - "Icom"
+  - "MBs"
+  - "MIXED"
+  - "Properties"
+  - "Property"
+  - "Proprietary"
+  - "RECEIVE"
+  - "Reference"
+  - "STANDARD"
+  - "STRING"
+  - "Screenshot"
+  - "Specifies"
+  - "SymbolicName"
+  - "TRANSMIT"
+  - "Value"
+  - "Variable"
+  - "acceptance"
+  - "configure"
+  - "configured"
+  - "configuring"
+  - "different"
+  - "filter"
+  - "filtering"
+  - "follow"
+  - "generators"
+  - "have"
+  - "identifiers"
+  - "identifies"
+  - "issue"
+  - "mask"
+  - "masks"
+  - "match"
+  - "multiple"
+  - "networking"
+  - "omitted"
+  - "passes"
+  - "please"
+  - "pretended"
+  - "prevent"
+  - "received"
+  - "reference"
+  - "same"
+  - "set"
+  - "shall"
+  - "share"
+  - "single"
+  - "supported"
+  - "that"
+  - "these"
+  - "together"
+  - "very"
+  - "via"
+
+### TEXTSUP-PAGE-0107
+- `physical_page`: `107`
+- `additional_text_terms`:
+  - "3.1.2"
+  - "3.1.3"
+  - "3.2.2"
+  - "ASR421"
+  - "AUTOSAR_ECUC"
+  - "BOOLEAN"
+  - "CanIcomCounterValue"
+  - "CanIcomMessageId"
+  - "CanIcomRxMessage"
+  - "CanIcomRxMessageIdMask"
+  - "CanIcomWakeOnBusOff"
+  - "CanIcomWakeupCauses"
+  - "Confidential"
+  - "Counter"
+  - "Flagchip"
+  - "For"
+  - "IDENTIFIABLE"
+  - "IDs"
+  - "Icom"
+  - "MCU"
+  - "Message"
+  - "NOTE"
+  - "Properties"
+  - "Property"
+  - "Proprietary"
+  - "Screenshot"
+  - "SymbolicName"
+  - "Value"
+  - "Variable"
+  - "bit"
+  - "bus"
+  - "busoff"
+  - "but"
+  - "cause"
+  - "causes"
+  - "channel"
+  - "communication"
+  - "configured"
+  - "constraint"
+  - "defined"
+  - "defines"
+  - "detected"
+  - "field"
+  - "instances"
+  - "leave"
+  - "limitation"
+  - "matching"
+  - "messages"
+  - "off"
+  - "often"
+  - "overlap"
+  - "power"
+  - "received"
+  - "requires"
+  - "saving"
+  - "shall"
+  - "that"
+  - "times"
+  - "wake"
+  - "which"
+
+### TEXTSUP-PAGE-0108
+- `physical_page`: `108`
+- `additional_text_terms`:
+  - "ASR421"
+  - "AUTOSAR_ECUC"
+  - "Bits"
+  - "CanIcomMessageId"
+  - "CanIcomMessageIdMask"
+  - "CanIcomMissingMessageTimerValue"
+  - "CanIcomRxMessage"
+  - "Confidential"
+  - "Describes"
+  - "Flagchip"
+  - "INTEGER"
+  - "Icom"
+  - "MCU"
+  - "Mask"
+  - "Message"
+  - "Missing"
+  - "NOTE"
+  - "Properties"
+  - "Property"
+  - "Proprietary"
+  - "Screenshot"
+  - "SymbolicName"
+  - "Time"
+  - "Timer"
+  - "Value"
+  - "Variable"
+  - "When"
+  - "about"
+  - "addition"
+  - "bit"
+  - "built"
+  - "but"
+  - "care"
+  - "case"
+  - "causes"
+  - "channel"
+  - "communication"
+  - "compare"
+  - "condition"
+  - "configured"
+  - "create"
+  - "define"
+  - "defined"
+  - "defines"
+  - "don"
+  - "field"
+  - "filling"
+  - "filtering"
+  - "have"
+  - "identifier"
+  - "identifiers"
+  - "incoming"
+  - "incremented"
+  - "internal"
+  - "leading"
+  - "limitation"
+  - "mask"
+  - "masked"
+  - "matches"
+  - "mean"
+  - "meaning"
+  - "messages"
+  - "periodic"
+  - "position"
+  - "possible"
+  - "received"
+  - "respective"
+  - "shall"
+  - "should"
+  - "specific"
+  - "that"
+  - "ticks"
+  - "time"
+  - "timer"
+  - "times"
+  - "unit"
+  - "wake"
+  - "want"
+  - "which"
+  - "you"
+
+### TEXTSUP-PAGE-0109
+- `physical_page`: `109`
+- `additional_text_terms`:
+  - "AUTOSAR_ECUC"
+  - "BOOLEAN"
+  - "CanIcomIdOperation"
+  - "CanIcomPayloadLengthError"
+  - "CanIcomRxMessageSignalConfig"
+  - "CanPayloadFilter"
+  - "Confidential"
+  - "ENUMERATION"
+  - "EXACTLY"
+  - "FLOAT"
+  - "Filter"
+  - "Flagchip"
+  - "GREATER"
+  - "GREATER_MINNUM"
+  - "INSIDE_RANGE"
+  - "Icom"
+  - "Length"
+  - "MCU"
+  - "Networking"
+  - "Operation"
+  - "Payload"
+  - "Pretended"
+  - "Properties"
+  - "Property"
+  - "Proprietary"
+  - "Range"
+  - "SMALLER"
+  - "SMALLER_MAXNUM"
+  - "Screenshot"
+  - "Signal"
+  - "SymbolicName"
+  - "Value"
+  - "Variable"
+  - "autosar"
+  - "cause"
+  - "causes"
+  - "conditions"
+  - "configured"
+  - "defined"
+  - "defines"
+  - "filter"
+  - "generated"
+  - "matching"
+  - "messages"
+  - "non"
+  - "occurs"
+  - "often"
+  - "options"
+  - "payload"
+  - "selection"
+  - "shall"
+  - "signal"
+  - "signals"
+  - "supports"
+  - "that"
+  - "wake"
+
+### TEXTSUP-PAGE-0110
+- `physical_page`: `110`
+- `additional_text_terms`:
+  - "0x7fffffffffffffff"
+  - "AND"
+  - "ASR"
+  - "AUTOSAR_ECUC"
+  - "Calypso"
+  - "CanIcomMessageId"
+  - "CanIcomRxMessageSignalConfig"
+  - "CanIcomSignalMask"
+  - "CanIcomSignalOperation"
+  - "CanIcomSignalRef"
+  - "CanIcomSignalValue"
+  - "Confidential"
+  - "ECUC_Can_00462"
+  - "ENUMERATION"
+  - "EQUAL"
+  - "Flagchip"
+  - "GREATER"
+  - "IDENTIFIABLE"
+  - "INTEGER"
+  - "Icom"
+  - "Integers"
+  - "Mask"
+  - "Operation"
+  - "Properties"
+  - "Property"
+  - "Proprietary"
+  - "Range"
+  - "SMALLER"
+  - "Screenshot"
+  - "Signal"
+  - "SymbolicName"
+  - "Value"
+  - "Variable"
+  - "XOR"
+  - "binary"
+  - "bit"
+  - "but"
+  - "combination"
+  - "compared"
+  - "condition"
+  - "considered"
+  - "creates"
+  - "define"
+  - "defined"
+  - "defines"
+  - "don"
+  - "evaluates"
+  - "fact"
+  - "filter"
+  - "frame"
+  - "greatest"
+  - "instances"
+  - "mask"
+  - "masked"
+  - "operation"
+  - "operations"
+  - "payload"
+  - "pdu"
+  - "platform"
+  - "received"
+  - "refer"
+  - "request"
+  - "result"
+  - "same"
+  - "see"
+  - "shall"
+  - "signal"
+  - "tool"
+  - "true"
+  - "which"
+  - "whole"
+  - "will"
+
+### TEXTSUP-PAGE-0111
+- `physical_page`: `111`
+- `additional_text_terms`:
+  - "3.2.3"
+  - "AUTOSAR_ECUC"
+  - "CAN_FLT_DLC"
+  - "CanIcomMessageId"
+  - "CanIcomSignalRef"
+  - "ComSignal"
+  - "Confidential"
+  - "DLC"
+  - "DLCHighValue"
+  - "DLCLowValue"
+  - "Flagchip"
+  - "High"
+  - "INTEGER"
+  - "Icom"
+  - "Low"
+  - "PDU"
+  - "Properties"
+  - "Property"
+  - "Proprietary"
+  - "REFERENCE"
+  - "Reference"
+  - "Screenshot"
+  - "Signal"
+  - "SymbolicName"
+  - "That"
+  - "Value"
+  - "Variable"
+  - "about"
+  - "additional"
+  - "aggregated"
+  - "autosar"
+  - "being"
+  - "byte"
+  - "checked"
+  - "configure"
+  - "define"
+  - "defines"
+  - "documentation"
+  - "filter"
+  - "highest"
+  - "lowest"
+  - "messages"
+  - "modules"
+  - "non"
+  - "originates"
+  - "point"
+  - "published"
+  - "reference"
+  - "referred"
+  - "same"
+  - "shall"
+  - "signal"
+  - "signals"
+  - "vendor"
+  - "versions"
+  - "wake"
+  - "which"
+
+### TEXTSUP-PAGE-0112
+- `physical_page`: `112`
+- `additional_text_terms`:
+  - "3.2.3"
+  - "ArReleaseMajorVersion"
+  - "ArReleaseMinorVersion"
+  - "ArReleaseRevisionVersion"
+  - "Confidential"
+  - "Flagchip"
+  - "IDENTIFIABLE"
+  - "INTEGER_LABEL"
+  - "Implementation"
+  - "List"
+  - "Major"
+  - "Minor"
+  - "Module"
+  - "ModuleId"
+  - "Note"
+  - "Parameter"
+  - "Properties"
+  - "Property"
+  - "Proprietary"
+  - "Release"
+  - "Screenshot"
+  - "Specific"
+  - "SymbolicName"
+  - "Value"
+  - "Variable"
+  - "Version"
+  - "appropriate"
+  - "implementation"
+  - "version"
+  - "which"
+
+### TEXTSUP-PAGE-0113
+- `physical_page`: `113`
+- `additional_text_terms`:
+  - "3.2.3"
+  - "Api"
+  - "BSW00347"
+  - "Confidential"
+  - "ECU"
+  - "Flagchip"
+  - "INTEGER_LABEL"
+  - "Implementat"
+  - "Implementation"
+  - "Major"
+  - "Minor"
+  - "ModuleName"
+  - "Note"
+  - "Parameter"
+  - "Patch"
+  - "Properties"
+  - "Property"
+  - "Proprietary"
+  - "Screenshot"
+  - "Specific"
+  - "SwMajorVersion"
+  - "SwMinorVersion"
+  - "SwPatchVersion"
+  - "SymbolicName"
+  - "Value"
+  - "Variable"
+  - "VendorApiInfix"
+  - "VendorId"
+  - "assuming"
+  - "extended"
+  - "follows"
+  - "generated"
+  - "implementation"
+  - "instantiated"
+  - "ion"
+  - "level"
+  - "modules"
+  - "numbering"
+  - "requires"
+  - "single"
+  - "specific"
+  - "specify"
+  - "that"
+  - "times"
+  - "total"
+  - "vendor"
+  - "version"
+  - "which"
+
+### TEXTSUP-PAGE-0114
+- `physical_page`: `114`
+- `additional_text_terms`:
+  - "3.2.3"
+  - "Can_123_v11r456Write"
+  - "Can_Write"
+  - "Confidential"
+  - "Flagchip"
+  - "INTEGER_LABEL"
+  - "Implementation"
+  - "Note"
+  - "Parameter"
+  - "Properties"
+  - "Property"
+  - "Proprietary"
+  - "STRING_LABEL"
+  - "Screenshot"
+  - "Specific"
+  - "SymbolicName"
+  - "Value"
+  - "Variable"
+  - "Vendor"
+  - "VendorApiInfix"
+  - "VendorId"
+  - "according"
+  - "chose"
+  - "dedicated"
+  - "defined"
+  - "implementation"
+  - "implementer"
+  - "implementor"
+  - "list"
+  - "mandatory"
+  - "modules"
+  - "multiplicity"
+  - "shall"
+  - "translate"
+  - "upper"
+  - "v11r456"
+  - "vendor"
+  - "will"
+
+### TEXTSUP-PAGE-0115
+- `physical_page`: `115`
+- `additional_text_terms`:
+  - "4.1"
+  - "4.2"
+  - "Basically"
+  - "Confidential"
+  - "Configure"
+  - "Demo"
+  - "FLEXCAN"
+  - "Flagchip"
+  - "FlexCan"
+  - "Port"
+  - "PortContainer"
+  - "Proprietary"
+  - "configurations"
+  - "configured"
+  - "files"
+  - "firstly"
+  - "following"
+  - "pin"
+  - "steps"
+
+### TEXTSUP-PAGE-0116
+- `physical_page`: `116`
+- `additional_text_terms`:
+  - "Confidential"
+  - "Detection"
+  - "FlEXCAN"
+  - "Flagchip"
+  - "McuClockReferencepoint_PCC"
+  - "Proprietary"
+  - "busoff"
+  - "checkbox"
+  - "checked"
+  - "clock"
+  - "configurations"
+  - "isn"
+  - "need"
+  - "needed"
+  - "other"
+  - "periods"
+  - "set"
+  - "tag"
+
+### TEXTSUP-PAGE-0117
+- `physical_page`: `117`
+- `additional_text_terms`:
+  - "Confidential"
+  - "Flagchip"
+  - "Proprietary"
+  - "configuring"
+  - "depending"
+  - "referring"
+
+### TEXTSUP-PAGE-0118
+- `physical_page`: `118`
+- `additional_text_terms`:
+  - "Cancontroller"
+  - "Confidential"
+  - "Flagchip"
+  - "Proprietary"
+
+### TEXTSUP-PAGE-0119
+- `physical_page`: `119`
+- `additional_text_terms`:
+  - "Confidential"
+  - "Flagchip"
+  - "Proprietary"
+  - "element"
+
+### TEXTSUP-PAGE-0120
+- `physical_page`: `120`
+- `additional_text_terms`:
+  - "Confidential"
+  - "Flagchip"
+  - "HardwareObject"
+  - "Proprietary"
+  - "configurations"
+  - "following"
+  - "receive"
+  - "set"
+  - "transmit"
+
+### TEXTSUP-PAGE-0121
+- `physical_page`: `121`
+- `additional_text_terms`:
+  - "Confidential"
+  - "Flagchip"
+  - "Proprietary"
+
+## 10. Quality Warnings
+
+### WARN-GLOBAL-SOURCE-BYTES
+- `severity`: "info"
+- `category`: "source_integrity"
+- `physical_pages`: []
+- `affected_ids`: ["Document Metadata", "SELF-CHECK-SUMMARY"]
+- `message`: "Local PDF bytes are available; SHA256, file size, encryption state and link annotation count were patched from the local source PDF."
+- `recommended_action`: "Treat this Manifest as stale if local CAN_User_Manual.pdf SHA256 differs from 8337246395cfe1c48ccbb8da4d79ef0a46de86df649f6c53371d635e01f99007."
+
+
+### WARN-GLOBAL-TOC-PARTIAL
+- `severity`: "high"
+- `category`: "toc_extraction"
+- `physical_pages`: [3, 4]
+- `affected_ids`: ["SEC-0003-TOC", "SEC-*"]
+- `message`: "The File Library search did not return the full CAN_User_Manual table of contents. Several section ranges are inferred from observed headings/pages and MCAL manual family structure."
+- `recommended_action`: "Verify CAN User Manual sections 1-4 against the source PDF table of contents before relying on exact subsection boundaries."
+
+### WARN-GLOBAL-OCR
+- `severity`: "info"
+- `category`: "ocr"
+- `physical_pages`: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49, 50, 51, 52, 53, 54, 55, 56, 57, 58, 59, 60, 61, 62, 63, 64, 65, 66, 67, 68, 69, 70, 71, 72, 73, 74, 75, 76, 77, 78, 79, 80, 81, 82, 83, 84, 85, 86, 87, 88, 89, 90, 91, 92, 93, 94, 95, 96, 97, 98, 99, 100, 101, 102, 103, 104, 105, 106, 107, 108, 109, 110, 111, 112, 113, 114, 115, 116, 117, 118, 119, 120, 121]
+- `affected_ids`: []
+- `message`: "File Library returned an extractable text layer; OCR was not executed."
+- `recommended_action`: "Use source PDF rendering for visual verification of screenshots, diagrams and complex tables."
+
+### WARN-GLOBAL-FIGURES
+- `severity`: "medium"
+- `category`: "figure_extraction"
+- `physical_pages`: [21, 65, 117, 119, 121]
+- `affected_ids`: ["FIG-*"]
+- `message`: "Figure/image entries are navigation aids created from visible page context; screenshots were not OCR-verified."
+- `recommended_action`: "Verify screenshot text and diagram labels in the source PDF before relying on them."
+
+## 11. Self Check Report
+
+### SELF-CHECK-SUMMARY
+- `source_pdf`: "CAN_User_Manual.pdf"
+- `pdf_page_count`: `121`
+- `indexed_physical_pages_count`: `121`
+- `missing_physical_pages`: []
+- `duplicated_physical_pages`: []
+- `out_of_range_pages`: []
+- `page_coverage_status`: `pass`
+- `section_range_status`: `pass`
+- `invalid_section_ranges`: []
+- `duplicate_ids`: []
+- `entries_without_physical_page`: []
+- `tables_without_confidence`: []
+- `figures_without_confidence`: []
+- `source_integrity_status`: `pass`
+- `text_layer_search_supplement`: `present`
+- `text_layer_search_supplement_generated_at`: `2026-06-20T08:11:45Z`
+- `text_layer_search_supplement_terms`: `2017`
+- `post_supplement_text_token_recall`: `1.000`
+- `post_supplement_technical_token_recall`: `1.000`
+- `quality_warning_count`: `4`
+- `overall_status`: "pass_with_warnings"
+
+### SELF-CHECK-NOTES
+- `page_numbering`: "All locator fields use 1-based PDF physical pages as primary keys; printed_page is auxiliary."
+- `source_freshness_rule`: "Regenerate this Manifest when the source PDF SHA256 can be computed locally and differs from this Manifest, or when page count / visible revision changes."
+- `manifest_scope`: "This Manifest indexes the source PDF and intentionally avoids long verbatim excerpts."

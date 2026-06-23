@@ -135,6 +135,14 @@
    STCU_SRAM_INI_SEL_ITCM_CPU3  | STCU_SRAM_INI_SEL_DTCM0_CPU3 |  \
    STCU_SRAM_INI_SEL_DTCM1_CPU3)
 
+/* The crash record is linked into CRASH_RAM, which maps to SRAM2_2.
+ * Keep this bank across ordinary system resets so .crash_noinit can be checked after reboot. */
+#define STCU_SRAM_INI_SEL_CRASH_RECORD_RETAINED                   \
+  (STCU_SRAM_INI_SEL_SRAM2_2)
+
+#define STCU_SRAM_INI_SEL_RUNTIME_CLEAR                           \
+  (STCU_SRAM_INI_SEL_ALL & (~STCU_SRAM_INI_SEL_CRASH_RECORD_RETAINED))
+
 /* STCU_SRAM_INI_DONE_STATUS Fields */
 #define STCU_SRAM_INI_DONE_STATUS_SRAM0_0           (1 << 0)
 #define STCU_SRAM_INI_DONE_STATUS_SRAM0_1           (1 << 1)
@@ -526,8 +534,8 @@ __attribute__((noreturn)) void system_init(void)
         else
         {
             /* The user could change the behavior when the reset type is other system reset type */
-            /* In the demo we select all memory regions to clear */
-            REG_WRITE32(STCU_BASE_ADDR + STCU_SRAM_INI_SEL_OFFSET, STCU_SRAM_INI_SEL_ALL);
+            /* Keep the crash record RAM for post-reset fault analysis */
+            REG_WRITE32(STCU_BASE_ADDR + STCU_SRAM_INI_SEL_OFFSET, STCU_SRAM_INI_SEL_RUNTIME_CLEAR);
             REG_WRITE32(STCU_BASE_ADDR + STCU_SRAM_INI_CTRL_OFFSET, STCU_SRAM_INI_CTRL_EN);
             /* wait busy */
             while (0 == ((REG_READ32(STCU_BASE_ADDR + STCU_SRAM_INI_STATUS_OFFSET)) & STCU_SRAM_INI_STATUS_BUSY));

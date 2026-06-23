@@ -18,6 +18,11 @@ MaxEmptyLinesToKeep: 3
 AllowShortFunctionsOnASingleLine: None
 AllowShortBlocksOnASingleLine: Never
 
+BreakBeforeBraces: Custom
+BraceWrapping:
+  AfterFunction: true
+  SplitEmptyFunction: true
+
 DerivePointerAlignment: false
 PointerAlignment: Right
 

@@ -10,9 +10,15 @@ generator_version: "0.4.0"
 source_document_id: "IDEUG -V2.0-Y23M02"
 source_document_revision: "Rev.2.0"
 page_numbering_policy: "physical_page is 1-based PDF page index; printed_page is a source-visible footer label only"
+text_layer_search_supplement: "present"
+text_layer_search_supplement_generated_at: "2026-06-20T11:56:14Z"
+text_layer_search_supplement_terms: 66
+text_layer_search_supplement_technical_terms: 1
+text_layer_search_supplement_pages: 30
+post_supplement_text_token_recall: "1.000"
+post_supplement_technical_token_recall: "1.000"
 overall_status: "pass_with_warnings"
 ---
-
 # PDF Manifest: FC_IDE_User_Guide_V2.0.pdf
 
 ## Retrieval Usage Contract
@@ -20,6 +26,7 @@ overall_status: "pass_with_warnings"
 - `physical_page` is the primary locator and is always a 1-based PDF physical page number.
 - `printed_page` is auxiliary and must not be used as the primary locator.
 - This Manifest is an index, not a replacement for the source PDF.
+- Use `9A. Text-Layer Search Supplement` for exact keyword lookup gaps; verify exact wording, screenshots, tables, commands and diagrams against the PDF.
 - Important entries include short anchors so ChatGPT/Codex can verify claims against the source PDF.
 - Tables and figures are indexed for navigation; entries with `quality_flags` or lower confidence require source-PDF verification.
 - Treat this Manifest as stale if the SHA256 of the local PDF differs from `source_pdf_sha256`.
@@ -30,6 +37,13 @@ overall_status: "pass_with_warnings"
 - `source_pdf_sha256`: `d5b806e01ca4f3c48e6915a6ff6985c102610ff0c38fde7d9df6aad976084be9`
 - `source_pdf_size_bytes`: `3111729`
 - `pdf_page_count`: `31`
+- `text_layer_search_supplement`: present
+- `text_layer_search_supplement_generated_at`: 2026-06-20T11:56:14Z
+- `text_layer_search_supplement_terms`: 66
+- `text_layer_search_supplement_technical_terms`: 1
+- `text_layer_search_supplement_pages`: 30
+- `post_supplement_text_token_recall`: 1.000
+- `post_supplement_technical_token_recall`: 1.000
 - `source_document_id`: `IDEUG -V2.0-Y23M02`
 - `source_document_revision`: `Rev.2.0`
 - `visible_cover_title`: `FC_IDE User Guide`
@@ -2477,6 +2491,334 @@ overall_status: "pass_with_warnings"
 - `aliases`: ["FC7300F8MD", "FC7300F8MD_CORE0", "FC7300F8MD_CORE1", "FC7300F8MD_CORE2", "FC7300 build configuration"]
 - `related_ids`: ["DEV-FC7300", "DEV-FC7300F8MD-CORE0", "DEV-FC7300F8MD-CORE1", "DEV-FC7300F8MD-CORE2"]
 
+## 9A. Text-Layer Search Supplement
+
+### TEXTSUP-SUMMARY
+- `purpose`: "Close keyword lookup gaps between FC_IDE_User_Guide_V2.0.pdf extractable text and this Manifest without copying full PDF prose."
+- `source`: `local pypdf text extraction from FC_IDE_User_Guide_V2.0.pdf`
+- `source_pdf_sha256`: `d5b806e01ca4f3c48e6915a6ff6985c102610ff0c38fde7d9df6aad976084be9`
+- `source_pdf_size_bytes`: `3111729`
+- `pdf_page_count`: `31`
+- `generated_at`: `2026-06-20T11:56:14Z`
+- `tokenization_rule`: `ASCII identifiers, alphanumeric technical tokens, hex literals, dotted section/version values, register fields, instruction/API symbols, GUI/menu tokens and numeric unit tokens with length >= 3.`
+- `normalization`: `Ligatures, soft hyphen variants, Unicode dash variants and known Private Use Area digit glyphs are normalized before token comparison.`
+- `scope`: `Text-layer token supplement only; source PDF remains authoritative for FC IDE GUI workflows, screenshots, project settings and table content.`
+- `unique_missing_terms_added`: `66`
+- `technical_missing_terms_added`: `1`
+- `pages_with_added_terms`: `30`
+- `supplemented_page_term_entries`: `188`
+- `post_supplement_text_token_recall`: `1.000`
+- `post_supplement_technical_token_recall`: `1.000`
+- `usage`: `Search terms here to locate physical pages, then verify exact FC IDE menu names, GUI workflow steps, screenshots, project settings and tables in the source PDF.`
+
+### TEXTSUP-PAGE-0002
+- `physical_page`: `2`
+- `additional_text_terms`:
+  - "about"
+  - "Confidential"
+  - "Editorial"
+  - "moved"
+  - "Proprietary"
+  - "typo"
+  - "Updated"
+
+### TEXTSUP-PAGE-0003
+- `physical_page`: `3`
+- `additional_text_terms`:
+  - "Confidential"
+  - "Proprietary"
+
+### TEXTSUP-PAGE-0004
+- `physical_page`: `4`
+- `additional_text_terms`:
+  - "Confidential"
+  - "Proprietary"
+
+### TEXTSUP-PAGE-0005
+- `physical_page`: `5`
+- `additional_text_terms`:
+  - "computer"
+  - "Confidential"
+  - "following"
+  - "Proprietary"
+  - "take"
+  - "want"
+  - "your"
+
+### TEXTSUP-PAGE-0006
+- `physical_page`: `6`
+- `additional_text_terms`:
+  - "another"
+  - "Confidential"
+  - "following"
+  - "frequently"
+  - "prompted"
+  - "Proprietary"
+  - "puts"
+  - "software"
+  - "specify"
+  - "store"
+  - "take"
+  - "want"
+  - "your"
+
+### TEXTSUP-PAGE-0007
+- `physical_page`: `7`
+- `additional_text_terms`:
+  - "Confidential"
+  - "corresponding"
+  - "Proprietary"
+  - "your"
+
+### TEXTSUP-PAGE-0008
+- `physical_page`: `8`
+- `additional_text_terms`:
+  - "Confidential"
+  - "Proprietary"
+
+### TEXTSUP-PAGE-0009
+- `physical_page`: `9`
+- `additional_text_terms`:
+  - "Confidential"
+  - "following"
+  - "Proprietary"
+  - "taking"
+
+### TEXTSUP-PAGE-0010
+- `physical_page`: `10`
+- `additional_text_terms`:
+  - "case"
+  - "Confidential"
+  - "corresponding"
+  - "Proprietary"
+  - "usual"
+
+### TEXTSUP-PAGE-0011
+- `physical_page`: `11`
+- `additional_text_terms`:
+  - "Confidential"
+  - "following"
+  - "need"
+  - "Proprietary"
+  - "taking"
+  - "them"
+
+### TEXTSUP-PAGE-0012
+- `physical_page`: `12`
+- `additional_text_terms`:
+  - "Confidential"
+  - "corner"
+  - "Proprietary"
+  - "YES"
+  - "your"
+
+### TEXTSUP-PAGE-0013
+- `physical_page`: `13`
+- `additional_text_terms`:
+  - "Confidential"
+  - "Proprietary"
+
+### TEXTSUP-PAGE-0014
+- `physical_page`: `14`
+- `additional_text_terms`:
+  - "another"
+  - "between"
+  - "Confidential"
+  - "difference"
+  - "example"
+  - "following"
+  - "kinds"
+  - "major"
+  - "Proprietary"
+  - "starting"
+  - "Taking"
+  - "three"
+  - "triangle"
+  - "two"
+  - "upside-down"
+  - "your"
+
+### TEXTSUP-PAGE-0015
+- `physical_page`: `15`
+- `additional_text_terms`:
+  - "already"
+  - "Confidential"
+  - "following"
+  - "haven"
+  - "installed"
+  - "jump"
+  - "Proprietary"
+  - "take"
+
+### TEXTSUP-PAGE-0016
+- `physical_page`: `16`
+- `additional_text_terms`:
+  - "computer"
+  - "Confidential"
+  - "corresponding"
+  - "following"
+  - "Proprietary"
+  - "take"
+  - "your"
+
+### TEXTSUP-PAGE-0017
+- `physical_page`: `17`
+- `additional_text_terms`:
+  - "Confidential"
+  - "following"
+  - "Proprietary"
+  - "take"
+  - "triangle"
+  - "two"
+  - "upside-down"
+
+### TEXTSUP-PAGE-0018
+- `physical_page`: `18`
+- `additional_text_terms`:
+  - "Confidential"
+  - "need"
+  - "Proprietary"
+  - "triangle"
+  - "upside-down"
+
+### TEXTSUP-PAGE-0019
+- `physical_page`: `19`
+- `additional_text_terms`:
+  - "Confidential"
+  - "following"
+  - "Proprietary"
+  - "take"
+
+### TEXTSUP-PAGE-0020
+- `physical_page`: `20`
+- `additional_text_terms`:
+  - "Confidential"
+  - "Proprietary"
+
+### TEXTSUP-PAGE-0021
+- `physical_page`: `21`
+- `additional_text_terms`:
+  - "Confidential"
+  - "correctly"
+  - "encountered"
+  - "need"
+  - "Proprietary"
+  - "want"
+
+### TEXTSUP-PAGE-0022
+- `physical_page`: `22`
+- `additional_text_terms`:
+  - "Confidential"
+  - "following"
+  - "Proprietary"
+  - "take"
+
+### TEXTSUP-PAGE-0023
+- `physical_page`: `23`
+- `additional_text_terms`:
+  - "any"
+  - "Confidential"
+  - "iii"
+  - "make"
+  - "Proprietary"
+  - "Return"
+
+### TEXTSUP-PAGE-0024
+- `physical_page`: `24`
+- `additional_text_terms`:
+  - "changing"
+  - "Confidential"
+  - "convenient"
+  - "located"
+  - "methods"
+  - "Proprietary"
+  - "two"
+  - "your"
+
+### TEXTSUP-PAGE-0025
+- `physical_page`: `25`
+- `additional_text_terms`:
+  - "Confidential"
+  - "following"
+  - "located"
+  - "Notepad"
+  - "Proprietary"
+  - "specified"
+  - "updated"
+  - "want"
+  - "within"
+  - "your"
+
+### TEXTSUP-PAGE-0026
+- `physical_page`: `26`
+- `additional_text_terms`:
+  - "certain"
+  - "Confidential"
+  - "errors"
+  - "example"
+  - "methods"
+  - "Proprietary"
+  - "shares"
+  - "similar"
+  - "Taking"
+  - "two"
+  - "updated"
+  - "want"
+  - "which"
+  - "your"
+
+### TEXTSUP-PAGE-0027
+- `physical_page`: `27`
+- `additional_text_terms`:
+  - "Confidential"
+  - "example"
+  - "located"
+  - "Proprietary"
+  - "Taking"
+  - "want"
+
+### TEXTSUP-PAGE-0028
+- `physical_page`: `28`
+- `additional_text_terms`:
+  - "Confidential"
+  - "example"
+  - "following"
+  - "located"
+  - "Proprietary"
+  - "take"
+  - "Taking"
+  - "want"
+
+### TEXTSUP-PAGE-0029
+- `physical_page`: `29`
+- `additional_text_terms`:
+  - "Confidential"
+  - "example"
+  - "need"
+  - "Proprietary"
+  - "Take"
+  - "them"
+  - "want"
+  - "which"
+
+### TEXTSUP-PAGE-0030
+- `physical_page`: `30`
+- `additional_text_terms`:
+  - "better"
+  - "bottom"
+  - "Confidential"
+  - "following"
+  - "press"
+  - "Proprietary"
+  - "take"
+  - "upper"
+
+### TEXTSUP-PAGE-0031
+- `physical_page`: `31`
+- `additional_text_terms`:
+  - "Confidential"
+  - "Proprietary"
+
 ## 10. Quality Warnings
 
 ### WARN-0003-001
@@ -2571,6 +2913,7 @@ overall_status: "pass_with_warnings"
 - `source_pdf_sha256`: `d5b806e01ca4f3c48e6915a6ff6985c102610ff0c38fde7d9df6aad976084be9`
 - `manifest_source_pdf_sha256`: `d5b806e01ca4f3c48e6915a6ff6985c102610ff0c38fde7d9df6aad976084be9`
 - `sha256_match_at_generation`: `true`
+- `text_layer_search_supplement`: {"status": "pass", "generated_at": "2026-06-20T11:56:14Z", "unique_missing_terms_added": 66, "technical_missing_terms_added": 1, "pages_with_added_terms": 30, "supplemented_page_term_entries": 188, "post_supplement_text_token_recall": "1.000", "post_supplement_technical_token_recall": "1.000"}
 - `duplicate_ids`: []
 - `entries_without_physical_page`: []
 - `entries_without_anchor`: []

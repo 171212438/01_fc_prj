@@ -11,6 +11,13 @@ generator_name: "pdf-manifest-generator"
 generator_version: "0.5.0-chatgpt-cortexm7"
 page_numbering_policy: "physical_page is 1-based PDF page index; printed_page is auxiliary and must not be used as primary locator"
 manifest_role: "structured retrieval index; not a replacement for source PDF original content"
+text_layer_search_supplement: "present"
+text_layer_search_supplement_generated_at: "2026-06-20T11:49:24Z"
+text_layer_search_supplement_terms: 1919
+text_layer_search_supplement_technical_terms: 560
+text_layer_search_supplement_pages: 315
+post_supplement_text_token_recall: "1.000"
+post_supplement_technical_token_recall: "1.000"
 overall_status: "pass_with_warnings"
 ---
 # PDF Manifest: Arm_Cortex-M7_Devices_Generic_User_Guide.pdf
@@ -20,6 +27,7 @@ overall_status: "pass_with_warnings"
 - `printed_page` is auxiliary; do not use it as the primary locator.
 - This Manifest is an index, not a replacement for the source PDF.
 - For factual answers, use Manifest entries to locate the source PDF page, then verify against the PDF.
+- Use `9A. Text-Layer Search Supplement` for exact keyword lookup gaps; verify exact wording, tables, register fields and diagrams against the PDF.
 - Treat entries with `confidence < 0.70` or non-empty `quality_flags` as requiring manual verification.
 - Treat this Manifest as stale if `source_pdf_sha256` does not match the current source PDF.
 - Formal captions and short anchors are retained; long prose, full tables, and complete instruction bodies are intentionally not copied.
@@ -29,6 +37,13 @@ overall_status: "pass_with_warnings"
 - `source_pdf_sha256`: "4b474102e4dc490fdb759dde329715b1f348ebe433e97830f585bb92481f463a"
 - `source_pdf_size_bytes`: 2016314
 - `pdf_page_count`: 315
+- `text_layer_search_supplement`: present
+- `text_layer_search_supplement_generated_at`: 2026-06-20T11:49:24Z
+- `text_layer_search_supplement_terms`: 1919
+- `text_layer_search_supplement_technical_terms`: 560
+- `text_layer_search_supplement_pages`: 315
+- `post_supplement_text_token_recall`: 1.000
+- `post_supplement_technical_token_recall`: 1.000
 - `source_document_id`: "ARM DUI 0646B (ID082615)"
 - `source_document_revision`: "Issue B / ID082615 / 07-July-2015"
 - `pdf_title`: "ARM Cortex-M7 Devices Generic User Guide"
@@ -14784,6 +14799,4926 @@ These entries cover important vector-drawn diagrams that do not have standalone 
 - `aliases`: ["WFI", "WFE", "SEV", "sleep mode", "deep sleep", "sleep-on-exit", "Wakeup Interrupt Controller", "WIC"]
 - `related_ids`: ["INS-WFI", "INS-WFE", "INS-SEV", "TERM-WIC"]
 
+## 9A. Text-Layer Search Supplement
+
+### TEXTSUP-SUMMARY
+- `purpose`: "Close keyword lookup gaps between Arm_Cortex-M7_Devices_Generic_User_Guide.pdf extractable text and this Manifest without copying full PDF prose."
+- `source`: `local pypdf text extraction from Arm_Cortex-M7_Devices_Generic_User_Guide.pdf`
+- `source_pdf_sha256`: `4b474102e4dc490fdb759dde329715b1f348ebe433e97830f585bb92481f463a`
+- `source_pdf_size_bytes`: `2016314`
+- `pdf_page_count`: `315`
+- `generated_at`: `2026-06-20T11:49:24Z`
+- `tokenization_rule`: `ASCII identifiers, alphanumeric technical tokens, hex literals, dotted section/version values, register fields, instruction mnemonics and numeric unit tokens with length >= 3.`
+- `normalization`: `Ligatures, soft hyphen variants, Unicode dash variants and known Private Use Area digit glyphs are normalized before token comparison.`
+- `scope`: `Text-layer token supplement only; source PDF remains authoritative for Cortex-M7 device behavior, examples, tables and register details.`
+- `unique_missing_terms_added`: `1919`
+- `technical_missing_terms_added`: `560`
+- `pages_with_added_terms`: `315`
+- `supplemented_page_term_entries`: `3640`
+- `post_supplement_text_token_recall`: `1.000`
+- `post_supplement_technical_token_recall`: `1.000`
+- `usage`: `Search terms here to locate physical pages, then verify exact Cortex-M7 device behavior, CMSIS details, register fields and examples in the source PDF.`
+
+### TEXTSUP-PAGE-0001
+- `physical_page`: `1`
+- `additional_text_terms`:
+  - "Copyright"
+
+### TEXTSUP-PAGE-0002
+- `physical_page`: `2`
+- `additional_text_terms`:
+  - "9NJ"
+  - "acceptance"
+  - "ADVISED"
+  - "affiliates"
+  - "analysis"
+  - "and/or"
+  - "ARISING"
+  - "assure"
+  - "avoidance"
+  - "brands"
+  - "Cambridge"
+  - "CB1"
+  - "commercial"
+  - "company"
+  - "complies"
+  - "conflict"
+  - "conflicting"
+  - "CONSEQUENTIAL"
+  - "consists"
+  - "contained"
+  - "convenience"
+  - "Copyright"
+  - "copyrights"
+  - "customers"
+  - "determining"
+  - "disclosure"
+  - "doubt"
+  - "duplication"
+  - "elsewhere"
+  - "England"
+  - "English"
+  - "ensuring"
+  - "estoppel"
+  - "export"
+  - "exported"
+  - "EXTENT"
+  - "FITNESS"
+  - "Fulbourn"
+  - "fully"
+  - "granted"
+  - "guidelines"
+  - "history"
+  - "HOWEVER"
+  - "http://www.arm.com/about/trademark-usage-guidelines.php"
+  - "identify"
+  - "implementations"
+  - "implied"
+  - "inaccuracies"
+  - "INCIDENTAL"
+  - "INDIRECT"
+  - "indirectly"
+  - "infringe"
+  - "intellectual"
+  - "items"
+  - "languages"
+  - "laws"
+  - "LIABILITY"
+  - "LIABLE"
+  - "logos"
+  - "makes"
+  - "March-2015"
+  - "marked"
+  - "mentioned"
+  - "MERCHANTABILITY"
+  - "NON-INFRINGEMENT"
+  - "Notice"
+  - "others"
+  - "owners"
+  - "PARTICULAR"
+  - "partnership"
+  - "Please"
+  - "portion"
+  - "POSSIBILITY"
+  - "practice"
+  - "prevail"
+  - "prevails"
+  - "PROHIBITED"
+  - "property"
+  - "Proprietary"
+  - "protected"
+  - "PROVIDED"
+  - "PUNITIVE"
+  - "purposes"
+  - "r1p0"
+  - "r1p1"
+  - "registered"
+  - "regulations"
+  - "relevant"
+  - "representation"
+  - "REPRESENTATIONS"
+  - "reproduced"
+  - "RESPECT"
+  - "respective"
+  - "responsible"
+  - "Road"
+  - "SATISFACTORY"
+  - "secrets"
+  - "shall"
+  - "solely"
+  - "specifically"
+  - "stated"
+  - "STATUTORY"
+  - "supersedes"
+  - "their"
+  - "THEORY"
+  - "thereof"
+  - "trade"
+  - "trademark"
+  - "trademarks"
+  - "translated"
+  - "understand"
+  - "undertaken"
+  - "unless"
+  - "upon"
+  - "WARRANTIES"
+  - "will"
+
+### TEXTSUP-PAGE-0003
+- `physical_page`: `3`
+- `additional_text_terms`:
+  - "Copyright"
+  - "delivered"
+  - "developed"
+  - "final"
+  - "http://www.arm.com"
+  - "Web"
+
+### TEXTSUP-PAGE-0004
+- `physical_page`: `4`
+- `additional_text_terms`:
+  - "Copyright"
+
+### TEXTSUP-PAGE-0005
+- `physical_page`: `5`
+- `additional_text_terms`:
+  - "Copyright"
+
+### TEXTSUP-PAGE-0006
+- `physical_page`: `6`
+- `additional_text_terms`:
+  - "Copyright"
+
+### TEXTSUP-PAGE-0007
+- `physical_page`: `7`
+- `additional_text_terms`:
+  - "choices"
+  - "choose"
+  - "Copyright"
+  - "designs"
+  - "developers"
+  - "familiar"
+  - "functionality"
+  - "Implementers"
+  - "includes"
+  - "incorporates"
+  - "minor"
+  - "organized"
+  - "particular"
+  - "rnpn"
+  - "supplied"
+  - "unless"
+  - "want"
+  - "who"
+
+### TEXTSUP-PAGE-0008
+- `physical_page`: `8`
+- `additional_text_terms`:
+  - "abbreviation"
+  - "appear"
+  - "argument"
+  - "arguments"
+  - "body"
+  - "bold"
+  - "CAPITALS"
+  - "citations"
+  - "command"
+  - "commands"
+  - "Copyright"
+  - "CRm"
+  - "CRn"
+  - "cross-references"
+  - "descriptive"
+  - "elements"
+  - "Encloses"
+  - "few"
+  - "fragments"
+  - "Highlights"
+  - "instead"
+  - "italic"
+  - "keyboard"
+  - "language"
+  - "meanings"
+  - "menu"
+  - "MRC"
+  - "Opcode_2"
+  - "p15"
+  - "replaceable"
+  - "replaced"
+  - "SMALL"
+  - "Style"
+  - "underlined"
+
+### TEXTSUP-PAGE-0009
+- `physical_page`: `9`
+- `additional_text_terms`:
+  - "Copyright"
+  - "published"
+  - "relevant"
+  - "v7-M"
+
+### TEXTSUP-PAGE-0010
+- `physical_page`: `10`
+- `additional_text_terms`:
+  - "additions"
+  - "Adobe"
+  - "apply"
+  - "concise"
+  - "Copyright"
+  - "explanation"
+  - "guarantee"
+  - "improvements"
+  - "Reader"
+  - "represented"
+  - "suggestions"
+  - "tests"
+
+### TEXTSUP-PAGE-0011
+- `physical_page`: `11`
+- `additional_text_terms`:
+  - "Copyright"
+
+### TEXTSUP-PAGE-0012
+- `physical_page`: `12`
+- `additional_text_terms`:
+  - "built"
+  - "capabilities"
+  - "combined"
+  - "computation"
+  - "Copyright"
+  - "cost-sensitive"
+  - "dedicated"
+  - "delivers"
+  - "demanding"
+  - "designed"
+  - "developers"
+  - "division"
+  - "efficiency"
+  - "Efficient"
+  - "Enhanced"
+  - "ensuring"
+  - "extensively"
+  - "facilitate"
+  - "fast"
+  - "Harvard"
+  - "high-end"
+  - "high-performance"
+  - "ideal"
+  - "IEEE75-complaint"
+  - "improving"
+  - "in-order"
+  - "includes"
+  - "making"
+  - "market"
+  - "memories"
+  - "multiply-with-accumulate"
+  - "nsive"
+  - "offers"
+  - "pipeline"
+  - "Platform"
+  - "robustness"
+  - "security"
+  - "significantly"
+  - "SIMD"
+  - "single-cycle"
+  - "stage"
+  - "superscalar"
+  - "Ultra-low"
+  - "while"
+
+### TEXTSUP-PAGE-0013
+- `physical_page`: `13`
+- `additional_text_terms`:
+  - "achieved"
+  - "AMBA"
+  - "automotive"
+  - "basis"
+  - "becoming"
+  - "built-in"
+  - "capability"
+  - "capture"
+  - "certain"
+  - "Copyright"
+  - "Correcting"
+  - "cost"
+  - "cost-effective"
+  - "designs"
+  - "detection"
+  - "dramatically"
+  - "dual-redundant"
+  - "entire"
+  - "export"
+  - "families"
+  - "fast"
+  - "grain"
+  - "ideal"
+  - "includes"
+  - "increase"
+  - "increased"
+  - "industry-leading"
+  - "integration"
+  - "ISRs"
+  - "latency"
+  - "load-multiple"
+  - "lock-step"
+  - "low-power"
+  - "MBIST"
+  - "MCU"
+  - "MCUs"
+  - "memories"
+  - "messages"
+  - "optimization"
+  - "overhead"
+  - "package"
+  - "powered"
+  - "protecting"
+  - "rapidly"
+  - "reduces"
+  - "reducing"
+  - "Reliability"
+  - "removing"
+  - "retaining"
+  - "routines"
+  - "SEC-DED"
+  - "separating"
+  - "serial"
+  - "significantly"
+  - "simultaneously"
+  - "small"
+  - "smaller"
+  - "solution"
+  - "speed"
+  - "store-multiple"
+  - "stream"
+  - "suspend"
+  - "tail-chain"
+  - "task-by-task"
+  - "throughput"
+  - "together"
+  - "traditional"
+  - "units"
+  - "unrivalled"
+  - "utilize"
+  - "Viewer"
+  - "visibility"
+  - "while"
+  - "wire"
+  - "wrapping"
+
+### TEXTSUP-PAGE-0014
+- `physical_page`: `14`
+- `additional_text_terms`:
+  - "accessed"
+  - "average"
+  - "background"
+  - "capabilities"
+  - "comparators"
+  - "Copyright"
+  - "costs"
+  - "debuggers"
+  - "debugging"
+  - "digital-signal-processing"
+  - "division"
+  - "eight"
+  - "Extensive"
+  - "Fast"
+  - "frequently"
+  - "high-perform"
+  - "IEEE754-compliant"
+  - "improves"
+  - "increased"
+  - "increases"
+  - "integration"
+  - "latency"
+  - "optimizatio"
+  - "orientated"
+  - "permits"
+  - "pins"
+  - "predefined"
+  - "reduces"
+  - "reliability"
+  - "reporting"
+  - "required"
+  - "Serial"
+  - "slower"
+  - "time-critical"
+  - "tracing"
+  - "wire"
+
+### TEXTSUP-PAGE-0015
+- `physical_page`: `15`
+- `additional_text_terms`:
+  - "Copyright"
+
+### TEXTSUP-PAGE-0016
+- `physical_page`: `16`
+- `additional_text_terms`:
+  - "Copyright"
+  - "decrements"
+  - "enters"
+  - "executes"
+  - "finished"
+  - "held"
+  - "independent"
+  - "pushes"
+  - "restricted"
+  - "returns"
+  - "stacka"
+  - "stacked"
+  - "unprivilegeda"
+
+### TEXTSUP-PAGE-0017
+- `physical_page`: `17`
+- `additional_text_terms`:
+  - "0x00000000"
+  - "0x01000000c"
+  - "0xFFFFFFFF"
+  - "ASPR"
+  - "Banked"
+  - "Copyright"
+  - "privilegeb"
+  - "R13"
+  - "R15"
+  - "Required"
+  - "Typea"
+
+### TEXTSUP-PAGE-0018
+- `physical_page`: `18`
+- `additional_text_terms`:
+  - "0x00000000"
+  - "0x00000004"
+  - "0xFFFFFFFF"
+  - "APSR_nzcvq"
+  - "argument"
+  - "calls"
+  - "Copyright"
+  - "ICI/ITT"
+  - "individually"
+  - "mutually"
+  - "R13"
+  - "R15"
+  - "ReservedAPSR"
+  - "ReservedICI/IT"
+  - "subroutines"
+  - "T-bit"
+  - "three"
+
+### TEXTSUP-PAGE-0019
+- `physical_page`: `19`
+- `additional_text_terms`:
+  - "borrow"
+  - "Copyright"
+  - "DSP"
+  - "EAPSR"
+  - "executions"
+  - "IAPSR"
+  - "IEPSR"
+  - "ignores"
+  - "previous"
+  - "RWa"
+  - "RWb"
+
+### TEXTSUP-PAGE-0020
+- `physical_page`: `20`
+- `additional_text_terms`:
+  - "Copyright"
+  - "interrupted"
+  - "Interruptible-c"
+  - "Interruptible-Continuable"
+  - "IRQ0"
+  - "IRQ239a"
+  - "ontinuable"
+  - "Routine"
+
+### TEXTSUP-PAGE-0021
+- `physical_page`: `21`
+- `additional_text_terms`:
+  - "Copyright"
+  - "ignored"
+  - "Interruptible-continuable"
+  - "inverse"
+  - "others"
+  - "pointed"
+  - "Resumes"
+  - "Returns"
+  - "servicing"
+  - "stacked"
+  - "tasks"
+  - "temporarily"
+  - "timing"
+
+### TEXTSUP-PAGE-0022
+- `physical_page`: `22`
+- `additional_text_terms`:
+  - "BASEPRIReserved"
+  - "Copyright"
+  - "lower"
+  - "nonzero"
+
+### TEXTSUP-PAGE-0023
+- `physical_page`: `23`
+- `additional_text_terms`:
+  - "0x00"
+  - "automatically"
+  - "BASEPRIa"
+  - "Copyright"
+  - "environment"
+  - "explicit"
+  - "ignores"
+  - "kernel"
+  - "lower"
+  - "M-x:0"
+  - "Nonzero"
+  - "preserve"
+  - "recommends"
+  - "Remember"
+  - "running"
+  - "similar"
+  - "threads"
+  - "updates"
+
+### TEXTSUP-PAGE-0024
+- `physical_page`: `24`
+- `additional_text_terms`:
+  - "changing"
+  - "common"
+  - "Copyright"
+  - "device-independent"
+  - "includes"
+  - "kernels"
+  - "Manages"
+  - "prioritize"
+  - "Private"
+  - "structures"
+  - "vectors"
+
+### TEXTSUP-PAGE-0025
+- `physical_page`: `25`
+- `additional_text_terms`:
+  - "architectural"
+  - "Copyright"
+  - "expand"
+  - "few"
+  - "includes"
+  - "their"
+  - "those"
+
+### TEXTSUP-PAGE-0026
+- `physical_page`: `26`
+- `additional_text_terms`:
+  - "0x00000000"
+  - "0x1FFFFFFF"
+  - "0x20000000"
+  - "0x3FFFFFFF"
+  - "0x40000000"
+  - "0x5FFFFFFF"
+  - "0x60000000"
+  - "0x9FFFFFFF"
+  - "0xA0000000"
+  - "0xDFFFFFFF"
+  - "0xE0000000"
+  - "0xE00FFFFF"
+  - "0xE0100000"
+  - "0xFFFFFFFF"
+  - "511MB"
+  - "Copyright"
+  - "efficiency"
+  - "preserves"
+  - "Private"
+  - "re-order"
+  - "reserves"
+  - "speculative"
+
+### TEXTSUP-PAGE-0027
+- `physical_page`: `27`
+- `additional_text_terms`:
+  - "coherency"
+  - "completing"
+  - "Copyright"
+  - "depends"
+  - "explicit"
+  - "guarantee"
+  - "However"
+  - "masters"
+  - "matches"
+  - "observed"
+  - "providing"
+
+### TEXTSUP-PAGE-0028
+- `physical_page`: `28`
+- `additional_text_terms`:
+  - "0x00000000"
+  - "0x1FFFFFFF"
+  - "0x20000000"
+  - "0x3FFFFFFF"
+  - "0x40000000"
+  - "0x5FFFFFFF"
+  - "0x60000000"
+  - "0x7FFFFFFF"
+  - "0x80000000"
+  - "0x9FFFFFFF"
+  - "0xA0000000"
+  - "0xBFFFFFFF"
+  - "0xC0000000"
+  - "0xDFFFFFFF"
+  - "0xE0000000"
+  - "0xE00FFFFF"
+  - "0xE0100000"
+  - "0xFFFFFFFF"
+  - "constraints"
+  - "Copyright"
+  - "Devicea"
+  - "Executable"
+  - "includes"
+  - "Normala"
+  - "Ordereda"
+  - "override"
+  - "Private"
+  - "programs"
+  - "shared"
+  - "subdivided"
+  - "typea"
+  - "WBWAb"
+  - "WTb"
+  - "XNa"
+
+### TEXTSUP-PAGE-0029
+- `physical_page`: `29`
+- `additional_text_terms`:
+  - "ahead"
+  - "ascending"
+  - "buffered"
+  - "collection"
+  - "Copyright"
+  - "detailed"
+  - "efficiency"
+  - "explanation"
+  - "guarantee"
+  - "guarantees"
+  - "improve"
+  - "linear"
+  - "Prefetches"
+  - "providing"
+  - "recognizable"
+  - "reorder"
+  - "required"
+  - "speculative"
+  - "Speculatively"
+  - "subsequent"
+  - "views"
+  - "WBWA"
+
+### TEXTSUP-PAGE-0030
+- `physical_page`: `30`
+- `additional_text_terms`:
+  - "A+1"
+  - "A+2"
+  - "A+3"
+  - "B0B1B3"
+  - "B3B2B0"
+  - "comprises"
+  - "Copyright"
+  - "gained"
+  - "guaranteed"
+  - "highest-numbered"
+  - "includes"
+  - "lowest-numbered"
+  - "lsbyte"
+  - "msbyte"
+  - "non-blocking"
+  - "read-modify-write"
+  - "requesting"
+  - "returning"
+  - "succeeds"
+  - "them"
+
+### TEXTSUP-PAGE-0031
+- `physical_page`: `31`
+- `additional_text_terms`:
+  - "addressed"
+  - "claim"
+  - "claimed"
+  - "conflicts"
+  - "Copyright"
+  - "entire"
+  - "executes"
+  - "failed"
+  - "free"
+  - "globally"
+  - "However"
+  - "includes"
+  - "Modify"
+  - "multiprocessor"
+  - "read-modify-write"
+  - "removes"
+  - "required"
+  - "resolve"
+  - "retry"
+  - "returned"
+  - "shared"
+  - "step"
+  - "succeeded"
+  - "succeeds"
+  - "successfully"
+  - "tags"
+  - "threads"
+
+### TEXTSUP-PAGE-0032
+- `physical_page`: `32`
+- `additional_text_terms`:
+  - "0x20001002"
+  - "allocates"
+  - "allocating"
+  - "behave"
+  - "BIU"
+  - "burst"
+  - "completes"
+  - "continues"
+  - "Copyright"
+  - "discarded"
+  - "entire"
+  - "generation"
+  - "However"
+  - "includes"
+  - "large"
+  - "library"
+  - "linefill"
+  - "linefills"
+  - "marked"
+  - "memset("
+  - "pollute"
+  - "situation"
+  - "situations"
+  - "starting"
+  - "subsequently"
+  - "switches"
+  - "three"
+  - "uint16_t"
+  - "uint8_t"
+  - "undesirable"
+  - "unnecessary"
+  - "until"
+  - "waste"
+  - "Write-Allocate"
+  - "Writing"
+
+### TEXTSUP-PAGE-0033
+- `physical_page`: `33`
+- `additional_text_terms`:
+  - "asserted"
+  - "Copyright"
+  - "deasserted"
+  - "Inactive"
+  - "invoked"
+  - "Masked"
+  - "meaning"
+  - "NMIs"
+  - "permanently"
+  - "potentially"
+  - "Preempted"
+  - "prevented"
+  - "provided"
+  - "restarts"
+  - "signaled"
+  - "treats"
+  - "triggered"
+  - "waiting"
+  - "warm"
+
+### TEXTSUP-PAGE-0034
+- `physical_page`: `34`
+- `additional_text_terms`:
+  - "0x00000004"
+  - "0x00000008"
+  - "0x0000000C"
+  - "0x00000010"
+  - "0x00000014"
+  - "0x00000018"
+  - "0x0000002C"
+  - "communicate"
+  - "Configurablec"
+  - "constraints"
+  - "Copyright"
+  - "Division"
+  - "drivers"
+  - "environment"
+  - "illegal"
+  - "imprecise"
+  - "includes"
+  - "kernel"
+  - "numbera"
+  - "offsetb"
+  - "precise"
+  - "reaches"
+  - "signaled"
+  - "them"
+  - "triggered"
+
+### TEXTSUP-PAGE-0035
+- `physical_page`: `35`
+- `additional_text_terms`:
+  - "0x00000038"
+  - "0x0000003C"
+  - "0x00000040"
+  - "above"
+  - "aboved"
+  - "aboveg"
+  - "Configurablec"
+  - "Configurablef"
+  - "Copyright"
+  - "enters"
+  - "handles"
+  - "having"
+  - "Increasing"
+  - "indicating"
+  - "IRQ0"
+  - "IRQ239"
+  - "ISRs"
+  - "least-significant"
+  - "numbera"
+  - "offsetb"
+  - "returns"
+  - "Routines"
+  - "simplify"
+  - "steps"
+  - "triggered"
+  - "vectors"
+
+### TEXTSUP-PAGE-0036
+- `physical_page`: `36`
+- `additional_text_terms`:
+  - "0x0000"
+  - "0x00000000"
+  - "0x0004"
+  - "0x0008"
+  - "0x000C"
+  - "0x0010"
+  - "0x0014"
+  - "0x0018"
+  - "0x002C"
+  - "0x0038"
+  - "0x003C"
+  - "0x0040"
+  - "0x0044"
+  - "0x0048"
+  - "0x004C"
+  - "0x03FC"
+  - "0xFFFFFF80"
+  - "adjust"
+  - "areas"
+  - "boundary"
+  - "Copyright"
+  - "depends"
+  - "enough"
+  - "IRQ0"
+  - "IRQ1"
+  - "IRQ2"
+  - "IRQ239"
+  - "load/store"
+  - "OffsetException"
+  - "Private"
+  - "recommends"
+  - "relocate"
+  - "required"
+  - "self-modifying"
+  - "silicon"
+  - "synchronize"
+  - "systems"
+  - "typically"
+
+### TEXTSUP-PAGE-0037
+- `physical_page`: `37`
+- `additional_text_terms`:
+  - "asserted"
+  - "assigning"
+  - "configuring"
+  - "Copyright"
+  - "However"
+  - "increase"
+  - "indicating"
+  - "irrespective"
+  - "lower"
+  - "pre-empts"
+  - "precedence"
+  - "preempted"
+  - "preemption"
+  - "processed"
+  - "splitting"
+  - "systems"
+  - "takes"
+  - "upper"
+
+### TEXTSUP-PAGE-0038
+- `physical_page`: `38`
+- `additional_text_terms`:
+  - "accept"
+  - "apply"
+  - "architected"
+  - "ARMv7-M"
+  - "arrival"
+  - "arriving"
+  - "automatically"
+  - "completion"
+  - "continues"
+  - "Copyright"
+  - "eight"
+  - "enters"
+  - "implementations"
+  - "initiates"
+  - "late-arriving"
+  - "limits"
+  - "meets"
+  - "occurred"
+  - "pops"
+  - "preemption"
+  - "preserved"
+  - "previous"
+  - "pushes"
+  - "restores"
+  - "routines"
+  - "rules"
+  - "saved"
+  - "saving"
+  - "servicing"
+  - "skipped"
+  - "speeds"
+  - "stage"
+  - "switches"
+  - "tail-chained"
+  - "Tail-chaining"
+  - "takes"
+  - "uninterrupted"
+  - "unless"
+  - "until"
+
+### TEXTSUP-PAGE-0039
+- `physical_page`: `39`
+- `additional_text_terms`:
+  - "automatically"
+  - "Copyright"
+  - "corresponds"
+  - "Decreasing"
+  - "includes"
+  - "interrupted"
+  - "occurred"
+  - "parallel"
+  - "performs"
+  - "Pre-IRQ"
+  - "read-only"
+  - "restored"
+  - "resumes"
+  - "S10"
+  - "S11"
+  - "S12"
+  - "S13"
+  - "S14"
+  - "S15"
+  - "starting"
+
+### TEXTSUP-PAGE-0040
+- `physical_page`: `40`
+- `additional_text_terms`:
+  - "0xFFFFFFE1"
+  - "0xFFFFFFE9"
+  - "0xFFFFFFED"
+  - "0xFFFFFFF1"
+  - "0xFFFFFFF9"
+  - "0xFFFFFFFD"
+  - "arrival"
+  - "Copyright"
+  - "executes"
+  - "five"
+  - "floating-point-statea"
+  - "initiates"
+  - "non-floating-point"
+  - "relies"
+
+### TEXTSUP-PAGE-0041
+- `physical_page`: `41`
+- `additional_text_terms`:
+  - "accessb"
+  - "Copyright"
+  - "DACCVIOL"
+  - "escalated"
+  - "IACCVIOLa"
+  - "IBUSERR"
+  - "Imprecise"
+  - "IMPRECISERR"
+  - "internally-detected"
+  - "LSPERR"
+  - "marked"
+  - "MLSPERR"
+  - "MSTKERR"
+  - "MUNSKERR"
+  - "occurred"
+  - "Precise"
+  - "PRECISERR"
+  - "preservationc"
+  - "stackingb"
+  - "STKERR"
+  - "subset"
+  - "unstacking"
+  - "unstackingb"
+  - "UNSTKERR"
+  - "VECTTBL"
+
+### TEXTSUP-PAGE-0042
+- `physical_page`: `42`
+- `additional_text_terms`:
+  - "causes"
+  - "Copyright"
+  - "corrupted"
+  - "DIVBYZERO"
+  - "enters"
+  - "escalated"
+  - "executes"
+  - "failed"
+  - "Illegal"
+  - "INVPC"
+  - "INVSTATE"
+  - "itself"
+  - "kind"
+  - "load/store-multiple"
+  - "lower"
+  - "NOCP"
+  - "operates"
+  - "returns"
+  - "servicing"
+  - "situations"
+  - "statee"
+  - "though"
+  - "together"
+  - "UNDEFINSTR"
+  - "Usually"
+
+### TEXTSUP-PAGE-0043
+- `physical_page`: `43`
+- `additional_text_terms`:
+  - "accessed"
+  - "Copyright"
+  - "Debugger"
+  - "drain"
+  - "enters"
+  - "halted"
+  - "instead"
+  - "leave"
+  - "pended"
+  - "remains"
+  - "shown"
+  - "subsequent"
+  - "triggered"
+  - "until"
+
+### TEXTSUP-PAGE-0044
+- `physical_page`: `44`
+- `additional_text_terms`:
+  - "asserted"
+  - "causes"
+  - "checks"
+  - "completes"
+  - "continues"
+  - "Copyright"
+  - "enters"
+  - "executes"
+  - "flash"
+  - "idle"
+  - "loop"
+  - "one-bit"
+  - "PLL"
+  - "providing"
+  - "returns"
+  - "saving"
+  - "spurious"
+  - "supplied"
+  - "switches"
+  - "Typically"
+  - "unless"
+
+### TEXTSUP-PAGE-0045
+- `physical_page`: `45`
+- `additional_text_terms`:
+  - "achieve"
+  - "arrives"
+  - "connection"
+  - "Copyright"
+  - "cycles"
+  - "debugger"
+  - "DEEPSLEEP"
+  - "enters"
+  - "entirely"
+  - "executes"
+  - "increased"
+  - "insufficient"
+  - "latency"
+  - "later"
+  - "multiprocessor"
+  - "operates"
+  - "programmable"
+  - "receives"
+  - "restore"
+  - "several"
+  - "signals"
+  - "stopping"
+  - "systems"
+  - "takes"
+  - "tasks"
+  - "until"
+
+### TEXTSUP-PAGE-0046
+- `physical_page`: `46`
+- `additional_text_terms`:
+  - "__WFI(void"
+  - "Copyright"
+
+### TEXTSUP-PAGE-0047
+- `physical_page`: `47`
+- `additional_text_terms`:
+  - "Copyright"
+  - "functional"
+  - "Together"
+
+### TEXTSUP-PAGE-0048
+- `physical_page`: `48`
+- `additional_text_terms`:
+  - "ADCS"
+  - "ADDW"
+  - "Angle"
+  - "ASRS"
+  - "BICS"
+  - "Braces"
+  - "brackets"
+  - "column"
+  - "Copyright"
+  - "enclose"
+  - "exhaustive"
+  - "imm8"
+  - "indirect"
+
+### TEXTSUP-PAGE-0049
+- `physical_page`: `49`
+- `additional_text_terms`:
+  - "Copyright"
+  - "decrement"
+  - "EORS"
+  - "increment"
+  - "LDMDB"
+  - "LDMEA"
+  - "LDMFD"
+  - "LDMIA"
+  - "LDRB"
+  - "LDRBT"
+  - "LDRD"
+  - "LDRH"
+  - "LDRHT"
+  - "LDRSB"
+  - "LDRSBT"
+  - "LDRSH"
+  - "LDRSHT"
+  - "LDRT"
+  - "literal"
+
+### TEXTSUP-PAGE-0050
+- `physical_page`: `50`
+- `additional_text_terms`:
+  - "Copyright"
+  - "LDRSB"
+  - "LDRSH"
+  - "LSLS"
+  - "LSRS"
+  - "MOVW"
+  - "MULS"
+  - "ORNS"
+  - "ORRS"
+  - "QADD16"
+  - "QADD8"
+
+### TEXTSUP-PAGE-0051
+- `physical_page`: `51`
+- `additional_text_terms`:
+  - "Copyright"
+  - "QSUB16"
+  - "QSUB8"
+  - "RSBS"
+  - "SBCS"
+
+### TEXTSUP-PAGE-0052
+- `physical_page`: `52`
+- `additional_text_terms`:
+  - "Copyright"
+  - "decrement"
+  - "increment"
+  - "SMLSDX"
+  - "SMLSLDX"
+  - "SMMLAR"
+  - "SMMLSR"
+  - "SMMULR"
+  - "SMUADX"
+  - "SMULBB"
+  - "SMULBT"
+  - "SMULTB"
+  - "SMULTT"
+  - "SMULWB"
+  - "SMULWT"
+  - "SMUSDX"
+  - "STMDB"
+  - "STMEA"
+  - "STMFD"
+  - "STMIA"
+  - "STRB"
+  - "STRBT"
+  - "STRD"
+  - "STRH"
+  - "STRHT"
+  - "STRT"
+
+### TEXTSUP-PAGE-0053
+- `physical_page`: `53`
+- `additional_text_terms`:
+  - "Copyright"
+  - "SUBW"
+  - "SXTAB"
+  - "SXTAB16"
+  - "SXTAH"
+  - "SXTB16"
+
+### TEXTSUP-PAGE-0054
+- `physical_page`: `54`
+- `additional_text_terms`:
+  - "Copyright"
+  - "UQADD16"
+  - "UQADD8"
+  - "UQSUB16"
+  - "UQSUB8"
+  - "UXTAB"
+  - "UXTAB16"
+  - "UXTAH"
+  - "UXTB16"
+  - "zero-extend"
+
+### TEXTSUP-PAGE-0055
+- `physical_page`: `55`
+- `additional_text_terms`:
+  - "Away"
+  - "Copyright"
+  - "F16.F"
+  - "infinity"
+  - "Minus"
+  - "nearest"
+  - "VLDR.F"
+
+### TEXTSUP-PAGE-0056
+- `physical_page`: `56`
+- `additional_text_terms`:
+  - "Away"
+  - "Copyright"
+  - "immm"
+  - "infinity"
+  - "Minus"
+  - "Nearest"
+
+### TEXTSUP-PAGE-0057
+- `physical_page`: `57`
+- `additional_text_terms`:
+  - "architectures"
+  - "ARMv6-M"
+  - "ARMv7-M"
+  - "bit-banding"
+  - "Calculates"
+  - "compatible"
+  - "Copyright"
+  - "Cortex-M0"
+  - "Cortex-M0+"
+  - "Cortex-M3"
+  - "designed"
+  - "Do-Not-Modify"
+  - "DSP"
+  - "extensions"
+  - "implementations"
+  - "Leave"
+  - "obey"
+  - "provided"
+  - "recommends"
+  - "rely"
+  - "rules"
+  - "SCS"
+  - "smooth"
+  - "their"
+  - "transition"
+  - "unused"
+  - "VSUB.F"
+
+### TEXTSUP-PAGE-0058
+- `physical_page`: `58`
+- `additional_text_terms`:
+  - "__disable_fault_irq(void"
+  - "__disable_irq(void"
+  - "__DMB(void"
+  - "__DSB(void"
+  - "__enable_fault_irq(void"
+  - "__enable_irq(void"
+  - "__ISB(void"
+  - "__RBIT(uint32_t"
+  - "__REV(uint32_t"
+  - "__REV16(uint32_t"
+  - "__REVSH(uint32_t"
+  - "__SEV(void"
+  - "__WFI(void"
+  - "compiler"
+  - "Copyright"
+  - "CPSID"
+  - "CPSIE"
+  - "inline"
+  - "provided"
+
+### TEXTSUP-PAGE-0059
+- `physical_page`: `59`
+- `additional_text_terms`:
+  - "Copyright"
+  - "TopOfProcStack"
+
+### TEXTSUP-PAGE-0060
+- `physical_page`: `60`
+- `additional_text_terms`:
+  - "Copyright"
+
+### TEXTSUP-PAGE-0061
+- `physical_page`: `61`
+- `additional_text_terms`:
+  - "00XY"
+  - "0x00"
+  - "0xXY"
+  - "0xXYXYXYXY"
+  - "BICS"
+  - "constants"
+  - "Copyright"
+  - "digits"
+  - "EORS"
+  - "hexadecimal"
+  - "ORNS"
+  - "ORRS"
+  - "produced"
+  - "required"
+  - "shifting"
+  - "shown"
+  - "small"
+  - "usually"
+  - "wider"
+  - "XY00XY"
+
+### TEXTSUP-PAGE-0062
+- `physical_page`: `62`
+- `additional_text_terms`:
+  - "0x2"
+  - "0xFFFFFFFE"
+  - "applied"
+  - "certain"
+  - "Copyright"
+  - "holding"
+  - "However"
+  - "lengths"
+  - "Specifying"
+  - "sub-sections"
+  - "unchanged"
+  - "updates"
+
+### TEXTSUP-PAGE-0063
+- `physical_page`: `63`
+- `additional_text_terms`:
+  - "ASRS"
+  - "BICS"
+  - "cleared"
+  - "Copyright"
+  - "EORS"
+  - "LSRS"
+  - "n-1"
+  - "negative-infinity"
+  - "ORNS"
+  - "ORRS"
+  - "rounded"
+
+### TEXTSUP-PAGE-0064
+- `physical_page`: `64`
+- `additional_text_terms`:
+  - "BICS"
+  - "cleared"
+  - "Copyright"
+  - "EORS"
+  - "LSLS"
+  - "n-1"
+  - "n-32"
+  - "ORNS"
+  - "ORRS"
+  - "rotation"
+
+### TEXTSUP-PAGE-0065
+- `physical_page`: `65`
+- `additional_text_terms`:
+  - "accidental"
+  - "BICS"
+  - "calculates"
+  - "cleared"
+  - "Copyright"
+  - "EORS"
+  - "generation"
+  - "LDRH"
+  - "LDRHT"
+  - "LDRSH"
+  - "LDRSHT"
+  - "LDRT"
+  - "literal"
+  - "minus"
+  - "numeric"
+  - "ORNS"
+  - "ORRS"
+  - "recommends"
+  - "represented"
+  - "represents"
+  - "required"
+  - "slower"
+  - "STRH"
+  - "STRHT"
+  - "STRT"
+  - "syntaxes"
+  - "their"
+  - "too"
+  - "usually"
+
+### TEXTSUP-PAGE-0066
+- `physical_page`: `66`
+- `additional_text_terms`:
+  - "adding"
+  - "automatically"
+  - "branches"
+  - "conditionally"
+  - "Copyright"
+  - "fails"
+  - "intervening"
+  - "preserved"
+  - "subset"
+  - "them"
+
+### TEXTSUP-PAGE-0067
+- `physical_page`: `67`
+- `additional_text_terms`:
+  - "adding"
+  - "borrow"
+  - "cleared"
+  - "Copyright"
+  - "discarded"
+  - "identical"
+  - "incorporat"
+  - "infinite"
+  - "Meaning"
+  - "meet"
+  - "non-addition"
+  - "positive"
+  - "preceding"
+  - "produced"
+  - "requires"
+  - "resulted"
+  - "shifter"
+  - "shown"
+  - "subtracting"
+  - "subtraction"
+  - "subtractions"
+  - "unchanged"
+  - "underflow"
+
+### TEXTSUP-PAGE-0068
+- `physical_page`: `68`
+- `additional_text_terms`:
+  - "CMPGT"
+  - "Copyright"
+  - "Lower"
+  - "Meaning"
+  - "MOVGT"
+  - "positive"
+  - "RSBMI"
+  - "Skip"
+  - "Skipping"
+  - "unless"
+
+### TEXTSUP-PAGE-0069
+- `physical_page`: `69`
+- `additional_text_terms`:
+  - "ADDS.W"
+  - "automatically"
+  - "BCS.W"
+  - "Copyright"
+  - "Creates"
+  - "done"
+  - "forces"
+  - "literal"
+  - "requested"
+  - "The.N"
+  - "though"
+
+### TEXTSUP-PAGE-0070
+- `physical_page`: `70`
+- `additional_text_terms`:
+  - "Copyright"
+  - "LDRD"
+
+### TEXTSUP-PAGE-0071
+- `physical_page`: `71`
+- `additional_text_terms`:
+  - "adding"
+  - "Copyright"
+  - "position-independent"
+  - "TextMessage"
+  - "to1"
+
+### TEXTSUP-PAGE-0072
+- `physical_page`: `72`
+- `additional_text_terms`:
+  - "Copyright"
+  - "opD"
+
+### TEXTSUP-PAGE-0073
+- `physical_page`: `73`
+- `additional_text_terms`:
+  - "assembly"
+  - "Copyright"
+  - "language"
+  - "obtained"
+  - "unaltered"
+
+### TEXTSUP-PAGE-0074
+- `physical_page`: `74`
+- `additional_text_terms`:
+  - "0x20"
+  - "above"
+  - "changing"
+  - "conditionally"
+  - "const-struc"
+  - "Copyright"
+  - "created"
+  - "decrement"
+  - "increment"
+  - "increments"
+  - "LDRD"
+  - "LDRNE"
+  - "STRD"
+  - "STRH"
+
+### TEXTSUP-PAGE-0075
+- `physical_page`: `75`
+- `additional_text_terms`:
+  - "Copyright"
+
+### TEXTSUP-PAGE-0076
+- `physical_page`: `76`
+- `additional_text_terms`:
+  - "Copyright"
+  - "extended"
+  - "LDRSB"
+
+### TEXTSUP-PAGE-0077
+- `physical_page`: `77`
+- `additional_text_terms`:
+  - "behave"
+  - "Conditionally"
+  - "Copyright"
+  - "exactly"
+  - "LDRHT"
+  - "STRBTEQ"
+
+### TEXTSUP-PAGE-0078
+- `physical_page`: `78`
+- `additional_text_terms`:
+  - "Copyright"
+  - "LDRD"
+
+### TEXTSUP-PAGE-0079
+- `physical_page`: `79`
+- `additional_text_terms`:
+  - "Copyright"
+  - "LDRSB"
+
+### TEXTSUP-PAGE-0080
+- `physical_page`: `80`
+- `additional_text_terms`:
+  - "Ascending"
+  - "braces"
+  - "comma"
+  - "Copyright"
+  - "decreasing"
+  - "Decrement"
+  - "enclosed"
+  - "final"
+  - "happen"
+  - "happens"
+  - "increasing"
+  - "Increment"
+  - "intervals"
+  - "LDMDB"
+  - "LDMEA"
+  - "LDMFD"
+  - "LDMIA"
+  - "n-1"
+  - "popping"
+  - "pushing"
+  - "ranging"
+  - "separated"
+  - "STMDB"
+  - "STMEA"
+  - "STMFD"
+  - "STMIA"
+  - "synonyms"
+
+### TEXTSUP-PAGE-0081
+- `physical_page`: `81`
+- `additional_text_terms`:
+  - "Copyright"
+  - "Incorrect"
+  - "LDMIA"
+  - "R3-R6"
+  - "STMDB"
+
+### TEXTSUP-PAGE-0082
+- `physical_page`: `82`
+- `additional_text_terms`:
+  - "accessed"
+  - "apply"
+  - "assumed"
+  - "behaves"
+  - "Copyright"
+  - "future"
+  - "likely"
+  - "Literal"
+  - "meaning"
+  - "near"
+  - "pre-loading"
+  - "responds"
+  - "signals"
+
+### TEXTSUP-PAGE-0083
+- `physical_page`: `83`
+- `additional_text_terms`:
+  - "above"
+  - "braces"
+  - "comma"
+  - "completion"
+  - "Copyright"
+  - "enclosed"
+  - "final"
+  - "implementing"
+  - "includes"
+  - "LDMIA"
+  - "minus"
+  - "separated"
+  - "STMDB"
+  - "synonyms"
+  - "T-bit"
+  - "updates"
+
+### TEXTSUP-PAGE-0084
+- `physical_page`: `84`
+- `additional_text_terms`:
+  - "Copyright"
+
+### TEXTSUP-PAGE-0085
+- `physical_page`: `85`
+- `additional_text_terms`:
+  - "accessed"
+  - "applied"
+  - "Copyright"
+  - "guaranteed"
+  - "keep"
+  - "matching"
+  - "performs"
+  - "preceding"
+  - "reasons"
+  - "recently"
+  - "respectively"
+  - "returned"
+
+### TEXTSUP-PAGE-0086
+- `physical_page`: `86`
+- `additional_text_terms`:
+  - "BNE"
+  - "claim"
+  - "CMPEQ"
+  - "Copyright"
+  - "free"
+  - "Initialize"
+  - "STREXEQ"
+  - "succeed"
+  - "Yes"
+
+### TEXTSUP-PAGE-0087
+- `physical_page`: `87`
+- `additional_text_terms`:
+  - "automatically"
+  - "boundary"
+  - "Copyright"
+  - "fail"
+  - "failure"
+  - "matching"
+
+### TEXTSUP-PAGE-0088
+- `physical_page`: `88`
+- `additional_text_terms`:
+  - "ADDW"
+  - "Copyright"
+  - "MOVW"
+
+### TEXTSUP-PAGE-0089
+- `physical_page`: `89`
+- `additional_text_terms`:
+  - "Copyright"
+  - "SUBW"
+
+### TEXTSUP-PAGE-0090
+- `physical_page`: `90`
+- `additional_text_terms`:
+  - "ADDW"
+  - "Copyright"
+  - "holding"
+  - "multiword"
+  - "SUBW"
+  - "synthesize"
+  - "together"
+  - "useful"
+  - "wide"
+
+### TEXTSUP-PAGE-0091
+- `physical_page`: `91`
+- `additional_text_terms`:
+  - "ADCHI"
+  - "adjust"
+  - "automatically"
+  - "calculates"
+  - "contained"
+  - "Copyright"
+  - "created"
+  - "forcing"
+  - "ignored"
+  - "instead"
+  - "making"
+  - "Multiword"
+  - "performing"
+  - "recommends"
+  - "rounded"
+  - "subtraction"
+  - "want"
+
+### TEXTSUP-PAGE-0092
+- `physical_page`: `92`
+- `additional_text_terms`:
+  - "contained"
+  - "Copyright"
+  - "Multiword"
+  - "SBCS"
+  - "subtraction"
+
+### TEXTSUP-PAGE-0093
+- `physical_page`: `93`
+- `additional_text_terms`:
+  - "bitwise"
+  - "complements"
+  - "Copyright"
+  - "holding"
+  - "performs"
+
+### TEXTSUP-PAGE-0094
+- `physical_page`: `94`
+- `additional_text_terms`:
+  - "0x18181818"
+  - "0xab"
+  - "Copyright"
+  - "EORS"
+  - "ORNS"
+
+### TEXTSUP-PAGE-0095
+- `physical_page`: `95`
+- `additional_text_terms`:
+  - "apply"
+  - "Copyright"
+  - "depends"
+  - "holding"
+  - "LSLS"
+
+### TEXTSUP-PAGE-0096
+- `physical_page`: `96`
+- `additional_text_terms`:
+  - "Copyright"
+  - "LSLS"
+  - "remains"
+  - "unchanged"
+
+### TEXTSUP-PAGE-0097
+- `physical_page`: `97`
+- `additional_text_terms`:
+  - "CLZNE"
+  - "Copyright"
+  - "counts"
+  - "returns"
+
+### TEXTSUP-PAGE-0098
+- `physical_page`: `98`
+- `additional_text_terms`:
+  - "CMPGT"
+  - "Copyright"
+  - "discarded"
+  - "holding"
+
+### TEXTSUP-PAGE-0099
+- `physical_page`: `99`
+- `additional_text_terms`:
+  - "bitwise"
+  - "Copyright"
+  - "MOVW"
+  - "performs"
+  - "permits"
+  - "restricted"
+  - "synonyms"
+  - "takes"
+
+### TEXTSUP-PAGE-0100
+- `physical_page`: `100`
+- `additional_text_terms`:
+  - "0x000B"
+  - "0xFA05"
+  - "0xFFFFFFF0"
+  - "bitwise"
+  - "Copyright"
+  - "created"
+  - "forcing"
+  - "ignored"
+  - "inverse"
+  - "portability"
+  - "recommends"
+  - "Though"
+
+### TEXTSUP-PAGE-0101
+- `physical_page`: `101`
+- `additional_text_terms`:
+  - "0xF123"
+  - "Copyright"
+  - "lower"
+  - "unchanged"
+  - "upper"
+
+### TEXTSUP-PAGE-0102
+- `physical_page`: `102`
+- `additional_text_terms`:
+  - "Copyright"
+  - "holding"
+  - "independently"
+  - "REVHS"
+
+### TEXTSUP-PAGE-0103
+- `physical_page`: `103`
+- `additional_text_terms`:
+  - "additions"
+  - "Copyright"
+  - "parallel"
+  - "Performs"
+
+### TEXTSUP-PAGE-0104
+- `physical_page`: `104`
+- `additional_text_terms`:
+  - "Copyright"
+
+### TEXTSUP-PAGE-0105
+- `physical_page`: `105`
+- `additional_text_terms`:
+  - "Copyright"
+  - "Shuffles"
+  - "writing"
+
+### TEXTSUP-PAGE-0106
+- `physical_page`: `106`
+- `additional_text_terms`:
+  - "Copyright"
+  - "division"
+
+### TEXTSUP-PAGE-0107
+- `physical_page`: `107`
+- `additional_text_terms`:
+  - "Copyright"
+
+### TEXTSUP-PAGE-0108
+- `physical_page`: `108`
+- `additional_text_terms`:
+  - "Copyright"
+  - "SHSUBB8"
+  - "Shuffles"
+  - "writing"
+
+### TEXTSUP-PAGE-0109
+- `physical_page`: `109`
+- `additional_text_terms`:
+  - "Copyright"
+  - "Performs"
+  - "subtractions"
+
+### TEXTSUP-PAGE-0110
+- `physical_page`: `110`
+- `additional_text_terms`:
+  - "Copyright"
+
+### TEXTSUP-PAGE-0111
+- `physical_page`: `111`
+- `additional_text_terms`:
+  - "Copyright"
+  - "subtracti"
+  - "subtraction"
+
+### TEXTSUP-PAGE-0112
+- `physical_page`: `112`
+- `additional_text_terms`:
+  - "Copyright"
+
+### TEXTSUP-PAGE-0113
+- `physical_page`: `113`
+- `additional_text_terms`:
+  - "0x3F8"
+  - "affecting"
+  - "bitwise"
+  - "cleared"
+  - "Conditionally"
+  - "Copyright"
+  - "discarded"
+  - "discards"
+  - "EORS"
+  - "performs"
+  - "TEQEQ"
+  - "testing"
+  - "useful"
+
+### TEXTSUP-PAGE-0114
+- `physical_page`: `114`
+- `additional_text_terms`:
+  - "0x10000"
+  - "additions"
+  - "Copyright"
+  - "Performs"
+
+### TEXTSUP-PAGE-0115
+- `physical_page`: `115`
+- `additional_text_terms`:
+  - "0x100"
+  - "Copyright"
+
+### TEXTSUP-PAGE-0116
+- `physical_page`: `116`
+- `additional_text_terms`:
+  - "0x10000"
+  - "Copyright"
+  - "subtracti"
+  - "subtraction"
+
+### TEXTSUP-PAGE-0117
+- `physical_page`: `117`
+- `additional_text_terms`:
+  - "0x10000"
+  - "Copyright"
+
+### TEXTSUP-PAGE-0118
+- `physical_page`: `118`
+- `additional_text_terms`:
+  - "Copyright"
+
+### TEXTSUP-PAGE-0119
+- `physical_page`: `119`
+- `additional_text_terms`:
+  - "Copyright"
+  - "holding"
+  - "Shuffles"
+  - "writing"
+
+### TEXTSUP-PAGE-0120
+- `physical_page`: `120`
+- `additional_text_terms`:
+  - "Copyright"
+  - "Shifts"
+  - "subtraction"
+
+### TEXTSUP-PAGE-0121
+- `physical_page`: `121`
+- `additional_text_terms`:
+  - "Copyright"
+
+### TEXTSUP-PAGE-0122
+- `physical_page`: `122`
+- `additional_text_terms`:
+  - "Copyright"
+  - "halves"
+  - "Performs"
+  - "Shuffles"
+  - "subtractions"
+  - "writing"
+
+### TEXTSUP-PAGE-0123
+- `physical_page`: `123`
+- `additional_text_terms`:
+  - "assigns"
+  - "Copyright"
+
+### TEXTSUP-PAGE-0124
+- `physical_page`: `124`
+- `additional_text_terms`:
+  - "Copyright"
+  - "together"
+
+### TEXTSUP-PAGE-0125
+- `physical_page`: `125`
+- `additional_text_terms`:
+  - "accumulation"
+  - "Copyright"
+  - "together"
+
+### TEXTSUP-PAGE-0126
+- `physical_page`: `126`
+- `additional_text_terms`:
+  - "Copyright"
+  - "subtractions"
+  - "writing"
+
+### TEXTSUP-PAGE-0127
+- `physical_page`: `127`
+- `additional_text_terms`:
+  - "Copyright"
+
+### TEXTSUP-PAGE-0128
+- `physical_page`: `128`
+- `additional_text_terms`:
+  - "Copyright"
+  - "SMMLSR"
+  - "SMMULR"
+  - "SMUADX"
+  - "SMULWB"
+  - "SMULWT"
+  - "SMUSDX"
+
+### TEXTSUP-PAGE-0129
+- `physical_page`: `129`
+- `additional_text_terms`:
+  - "Copyright"
+  - "holding"
+  - "multiplied"
+
+### TEXTSUP-PAGE-0130
+- `physical_page`: `130`
+- `additional_text_terms`:
+  - "Conditionally"
+  - "Copyright"
+  - "MULLT"
+  - "MULS"
+
+### TEXTSUP-PAGE-0131
+- `physical_page`: `131`
+- `additional_text_terms`:
+  - "accumulating"
+  - "contained"
+  - "Copyright"
+  - "interpret"
+  - "lower"
+
+### TEXTSUP-PAGE-0132
+- `physical_page`: `132`
+- `additional_text_terms`:
+  - "Copyright"
+  - "R1:R2"
+
+### TEXTSUP-PAGE-0133
+- `physical_page`: `133`
+- `additional_text_terms`:
+  - "Copyright"
+  - "holding"
+  - "ignored"
+  - "multiplied"
+  - "non-specified"
+
+### TEXTSUP-PAGE-0134
+- `physical_page`: `134`
+- `additional_text_terms`:
+  - "Copyright"
+
+### TEXTSUP-PAGE-0135
+- `physical_page`: `135`
+- `additional_text_terms`:
+  - "Copyright"
+  - "holding"
+  - "multiplied"
+  - "overflows"
+
+### TEXTSUP-PAGE-0136
+- `physical_page`: `136`
+- `additional_text_terms`:
+  - "Copyright"
+
+### TEXTSUP-PAGE-0137
+- `physical_page`: `137`
+- `additional_text_terms`:
+  - "accumulating"
+  - "Copyright"
+  - "held"
+  - "holding"
+  - "ignored"
+  - "interpret"
+  - "lower"
+  - "non-specified"
+  - "respectively"
+  - "reversed"
+  - "sign-extended"
+  - "upper"
+
+### TEXTSUP-PAGE-0138
+- `physical_page`: `138`
+- `additional_text_terms`:
+  - "Copyright"
+  - "R1:R2"
+  - "R5:R4"
+  - "R8:R6"
+
+### TEXTSUP-PAGE-0139
+- `physical_page`: `139`
+- `additional_text_terms`:
+  - "Copyright"
+  - "holding"
+  - "interprets"
+  - "lower"
+  - "Performs"
+  - "reversed"
+  - "SMLSDX"
+  - "SMLSLDX"
+  - "subtraction"
+  - "Supplies"
+  - "upper"
+
+### TEXTSUP-PAGE-0140
+- `physical_page`: `140`
+- `additional_text_terms`:
+  - "Copyright"
+  - "overflows"
+  - "R6:R3"
+  - "SMLSDX"
+  - "SMLSLDX"
+  - "subtraction"
+
+### TEXTSUP-PAGE-0141
+- `physical_page`: `141`
+- `additional_text_terms`:
+  - "0x80000000"
+  - "adding"
+  - "Copyright"
+  - "holding"
+  - "instead"
+  - "interprets"
+  - "rounded"
+  - "subtraction"
+  - "truncated"
+
+### TEXTSUP-PAGE-0142
+- `physical_page`: `142`
+- `additional_text_terms`:
+  - "Copyright"
+  - "SMMLAR"
+  - "SMMLSR"
+
+### TEXTSUP-PAGE-0143
+- `physical_page`: `143`
+- `additional_text_terms`:
+  - "0x80000000"
+  - "Copyright"
+  - "holding"
+  - "instead"
+  - "interprets"
+  - "rounded"
+  - "SMULLR"
+  - "truncated"
+
+### TEXTSUP-PAGE-0144
+- `physical_page`: `144`
+- `additional_text_terms`:
+  - "Copyright"
+  - "holding"
+  - "interprets"
+  - "overflows"
+  - "Performs"
+  - "reversed"
+  - "SMUADX"
+  - "SMUSDX"
+  - "subtraction"
+  - "together"
+
+### TEXTSUP-PAGE-0145
+- `physical_page`: `145`
+- `additional_text_terms`:
+  - "Copyright"
+  - "SMUADX"
+  - "SMUSDX"
+
+### TEXTSUP-PAGE-0146
+- `physical_page`: `146`
+- `additional_text_terms`:
+  - "Copyright"
+  - "holding"
+  - "interprets"
+  - "SMULBB"
+  - "SMULBT"
+  - "SMULTB"
+  - "SMULTT"
+  - "SMULWB"
+  - "SMULWT"
+  - "used.If"
+
+### TEXTSUP-PAGE-0147
+- `physical_page`: `147`
+- `additional_text_terms`:
+  - "Copyright"
+  - "SMULBB"
+  - "SMULBT"
+  - "SMULTB"
+  - "SMULTT"
+  - "SMULWB"
+  - "SMULWT"
+
+### TEXTSUP-PAGE-0148
+- `physical_page`: `148`
+- `additional_text_terms`:
+  - "accumulating"
+  - "contained"
+  - "Copyright"
+  - "holding"
+  - "interprets"
+  - "lower"
+  - "respectively"
+  - "upper"
+
+### TEXTSUP-PAGE-0149
+- `physical_page`: `149`
+- `additional_text_terms`:
+  - "Copyright"
+  - "divided"
+  - "division"
+  - "divisor"
+  - "holding"
+  - "performs"
+  - "R2/R4"
+  - "R8/R1"
+  - "rounded"
+
+### TEXTSUP-PAGE-0150
+- `physical_page`: `150`
+- `additional_text_terms`:
+  - "Copyright"
+  - "leaves"
+  - "QSUB16"
+  - "returned"
+  - "unchanged"
+  - "UQADD16"
+  - "UQADD8"
+  - "UQSUB16"
+  - "UQSUB8"
+
+### TEXTSUP-PAGE-0151
+- `physical_page`: `151`
+- `additional_text_terms`:
+  - "applied"
+  - "applies"
+  - "Conditionally"
+  - "Copyright"
+  - "USATNE"
+
+### TEXTSUP-PAGE-0152
+- `physical_page`: `152`
+- `additional_text_terms`:
+  - "Conditionally"
+  - "Copyright"
+  - "highwords"
+  - "USAT16NE"
+
+### TEXTSUP-PAGE-0153
+- `physical_page`: `153`
+- `additional_text_terms`:
+  - "additions"
+  - "applied"
+  - "apply"
+  - "Copyright"
+  - "eight"
+  - "given"
+  - "holding"
+  - "leave"
+  - "leaves"
+  - "QADD16"
+  - "QADD8"
+  - "QSUB16"
+  - "QSUB8"
+  - "returned"
+  - "subtraction"
+  - "unchanged"
+
+### TEXTSUP-PAGE-0154
+- `physical_page`: `154`
+- `additional_text_terms`:
+  - "Copyright"
+  - "QADD16"
+  - "QADD8"
+  - "QSUB16"
+  - "QSUB8"
+
+### TEXTSUP-PAGE-0155
+- `physical_page`: `155`
+- `additional_text_terms`:
+  - "Copyright"
+  - "equals"
+  - "holding"
+  - "subtraction"
+
+### TEXTSUP-PAGE-0156
+- `physical_page`: `156`
+- `additional_text_terms`:
+  - "Copyright"
+
+### TEXTSUP-PAGE-0157
+- `physical_page`: `157`
+- `additional_text_terms`:
+  - "Copyright"
+  - "doubled"
+  - "Doubles"
+  - "doubling"
+  - "holding"
+  - "subtraction"
+  - "their"
+
+### TEXTSUP-PAGE-0158
+- `physical_page`: `158`
+- `additional_text_terms`:
+  - "Copyright"
+  - "equals"
+  - "holding"
+  - "subtraction"
+
+### TEXTSUP-PAGE-0159
+- `physical_page`: `159`
+- `additional_text_terms`:
+  - "Copyright"
+
+### TEXTSUP-PAGE-0160
+- `physical_page`: `160`
+- `additional_text_terms`:
+  - "additions"
+  - "Copyright"
+  - "holding"
+  - "respective"
+  - "subtractions"
+  - "UQADD16"
+  - "UQADD8"
+  - "UQSUB16"
+  - "UQSUB8"
+
+### TEXTSUP-PAGE-0161
+- `physical_page`: `161`
+- `additional_text_terms`:
+  - "Copyright"
+  - "UQADD16"
+  - "UQADD8"
+  - "UQSUB16"
+  - "UQSUB8"
+
+### TEXTSUP-PAGE-0162
+- `physical_page`: `162`
+- `additional_text_terms`:
+  - "Copyright"
+  - "SXTAB"
+  - "SXTAB16"
+  - "SXTAH"
+  - "SXTB16"
+  - "UXTAB"
+  - "UXTAB16"
+  - "UXTAH"
+  - "UXTB16"
+
+### TEXTSUP-PAGE-0163
+- `physical_page`: `163`
+- `additional_text_terms`:
+  - "Copyright"
+  - "depends"
+  - "encoded"
+  - "holding"
+
+### TEXTSUP-PAGE-0164
+- `physical_page`: `164`
+- `additional_text_terms`:
+  - "Copyright"
+
+### TEXTSUP-PAGE-0165
+- `physical_page`: `165`
+- `additional_text_terms`:
+  - "Copyright"
+  - "holding"
+  - "rotated"
+  - "rotation"
+  - "SXTB16"
+  - "UXTB16"
+
+### TEXTSUP-PAGE-0166
+- `physical_page`: `166`
+- `additional_text_terms`:
+  - "Copyright"
+
+### TEXTSUP-PAGE-0167
+- `physical_page`: `167`
+- `additional_text_terms`:
+  - "Copyright"
+  - "extended"
+  - "holding"
+  - "rotated"
+  - "rotation"
+  - "SXTAB"
+  - "SXTAB16"
+  - "SXTAH"
+  - "UXTAB"
+  - "UXTAB16"
+  - "UXTAH"
+
+### TEXTSUP-PAGE-0168
+- `physical_page`: `168`
+- `additional_text_terms`:
+  - "Copyright"
+  - "SXTAH"
+  - "UXTAB"
+
+### TEXTSUP-PAGE-0169
+- `physical_page`: `169`
+- `additional_text_terms`:
+  - "Copyright"
+
+### TEXTSUP-PAGE-0170
+- `physical_page`: `170`
+- `additional_text_terms`:
+  - "Copyright"
+  - "replaces"
+  - "starting"
+  - "unchanged"
+
+### TEXTSUP-PAGE-0171
+- `physical_page`: `171`
+- `additional_text_terms`:
+  - "Copyright"
+
+### TEXTSUP-PAGE-0172
+- `physical_page`: `172`
+- `additional_text_terms`:
+  - "Copyright"
+  - "holding"
+  - "lower"
+  - "rotated"
+  - "rotation"
+
+### TEXTSUP-PAGE-0173
+- `physical_page`: `173`
+- `additional_text_terms`:
+  - "Copyright"
+  - "indirect"
+
+### TEXTSUP-PAGE-0174
+- `physical_page`: `174`
+- `additional_text_terms`:
+  - "Bcond"
+  - "changing"
+  - "Copyright"
+  - "created"
+  - "indicated"
+  - "indirect"
+  - "unconditional"
+
+### TEXTSUP-PAGE-0175
+- `physical_page`: `175`
+- `additional_text_terms`:
+  - "16MB"
+  - "1MB"
+  - "B.W"
+  - "Bcond"
+  - "BEQ"
+  - "BEQ.W"
+  - "BXNE"
+  - "changing"
+  - "Conditionally"
+  - "Copyright"
+  - "created"
+  - "However"
+  - "longer"
+  - "loopA"
+  - "required"
+
+### TEXTSUP-PAGE-0176
+- `physical_page`: `176`
+- `additional_text_terms`:
+  - "avoid"
+  - "BEQ"
+  - "BNE"
+  - "changing"
+  - "Copyright"
+  - "Forward"
+  - "holding"
+
+### TEXTSUP-PAGE-0177
+- `physical_page`: `177`
+- `additional_text_terms`:
+  - "Applies"
+  - "automatically"
+  - "branches"
+  - "Copyright"
+  - "correctly"
+  - "CPSID"
+  - "CPSIE"
+  - "designed"
+  - "done"
+  - "fails"
+  - "fourth"
+  - "inverse"
+  - "makes"
+  - "others"
+  - "PC-modifying"
+  - "required"
+  - "resumes"
+  - "returns"
+  - "stacked"
+  - "suitable"
+  - "their"
+  - "them"
+  - "unconditional"
+  - "yourself"
+
+### TEXTSUP-PAGE-0178
+- `physical_page`: `178`
+- `additional_text_terms`:
+  - "0x0"
+  - "0xA"
+  - "ADDEQ"
+  - "ADDGT"
+  - "ADDLE"
+  - "ADDSNE"
+  - "ANDNE"
+  - "ASCII"
+  - "Bcond"
+  - "BNE.W"
+  - "conditionally"
+  - "Copyright"
+  - "directives"
+  - "dloop"
+  - "hex"
+  - "Increment"
+  - "inverse"
+  - "ITTEE"
+  - "larger"
+  - "MOVEQ"
+  - "prohibiting"
+  - "returning"
+  - "them"
+  - "updates"
+
+### TEXTSUP-PAGE-0179
+- `physical_page`: `179`
+- `additional_text_terms`:
+  - "Copyright"
+  - "doubles"
+  - "forward"
+  - "lengths"
+  - "returned"
+  - "supplies"
+  - "twice"
+
+### TEXTSUP-PAGE-0180
+- `physical_page`: `180`
+- `additional_text_terms`:
+  - "ADR.W"
+  - "BranchTable_H)/2"
+  - "Case1"
+  - "Case2"
+  - "Case2-Case1)/2"
+  - "Case3"
+  - "Case3-Case1)/2"
+  - "CaseA"
+  - "CaseB"
+  - "CaseC"
+  - "Copyright"
+  - "DCW"
+
+### TEXTSUP-PAGE-0181
+- `physical_page`: `181`
+- `additional_text_terms`:
+  - "Copyright"
+
+### TEXTSUP-PAGE-0182
+- `physical_page`: `182`
+- `additional_text_terms`:
+  - "Copyright"
+
+### TEXTSUP-PAGE-0183
+- `physical_page`: `183`
+- `additional_text_terms`:
+  - "Copyright"
+  - "Takes"
+  - "VABS.F32"
+
+### TEXTSUP-PAGE-0184
+- `physical_page`: `184`
+- `additional_text_terms`:
+  - "Copyright"
+  - "VADD.F32"
+
+### TEXTSUP-PAGE-0185
+- `physical_page`: `185`
+- `additional_text_terms`:
+  - "causes"
+  - "compared"
+  - "Copyright"
+  - "raise"
+  - "raises"
+  - "signaling"
+  - "subsequent"
+  - "transferred"
+  - "VCMP.F32"
+
+### TEXTSUP-PAGE-0186
+- `physical_page`: `186`
+- `additional_text_terms`:
+  - "Copyright"
+
+### TEXTSUP-PAGE-0187
+- `physical_page`: `187`
+- `additional_text_terms`:
+  - "Conversions"
+  - "Copyright"
+  - "fraction"
+  - "low-order"
+  - "Nearest"
+  - "S16"
+  - "sign-extend"
+  - "their"
+  - "U16"
+  - "zero-extend"
+
+### TEXTSUP-PAGE-0188
+- `physical_page`: `188`
+- `additional_text_terms`:
+  - "Copyright"
+  - "F16.F"
+  - "preserving"
+
+### TEXTSUP-PAGE-0189
+- `physical_page`: `189`
+- `additional_text_terms`:
+  - "Copyright"
+
+### TEXTSUP-PAGE-0190
+- `physical_page`: `190`
+- `additional_text_terms`:
+  - "accumulation"
+  - "Copyright"
+  - "Negates"
+  - "products"
+  - "rounded"
+
+### TEXTSUP-PAGE-0191
+- `physical_page`: `191`
+- `additional_text_terms`:
+  - "Copyright"
+  - "Negates"
+  - "rounded"
+
+### TEXTSUP-PAGE-0192
+- `physical_page`: `192`
+- `additional_text_terms`:
+  - "appended"
+  - "brackets"
+  - "command"
+  - "commas"
+  - "Copyright"
+  - "Decrement"
+  - "Increment"
+  - "modified"
+  - "required"
+  - "separated"
+  - "singleword"
+  - "specification"
+  - "specifier"
+  - "surrounded"
+  - "VLDMIA.F64"
+
+### TEXTSUP-PAGE-0193
+- `physical_page`: `193`
+- `additional_text_terms`:
+  - "Copyright"
+  - "literal"
+  - "multiples"
+  - "singleword"
+  - "specifiers"
+
+### TEXTSUP-PAGE-0194
+- `physical_page`: `194`
+- `additional_text_terms`:
+  - "Copyright"
+  - "products"
+
+### TEXTSUP-PAGE-0195
+- `physical_page`: `195`
+- `additional_text_terms`:
+  - "Copyright"
+
+### TEXTSUP-PAGE-0196
+- `physical_page`: `196`
+- `additional_text_terms`:
+  - "Copyright"
+  - "singleword"
+
+### TEXTSUP-PAGE-0197
+- `physical_page`: `197`
+- `additional_text_terms`:
+  - "Copyright"
+  - "lower"
+  - "upper"
+
+### TEXTSUP-PAGE-0198
+- `physical_page`: `198`
+- `additional_text_terms`:
+  - "Copyright"
+
+### TEXTSUP-PAGE-0199
+- `physical_page`: `199`
+- `additional_text_terms`:
+  - "contiguous"
+  - "Copyright"
+  - "transferred"
+
+### TEXTSUP-PAGE-0200
+- `physical_page`: `200`
+- `additional_text_terms`:
+  - "Copyright"
+
+### TEXTSUP-PAGE-0201
+- `physical_page`: `201`
+- `additional_text_terms`:
+  - "Copyright"
+  - "lower"
+  - "specifier"
+  - "transferred"
+  - "upper"
+
+### TEXTSUP-PAGE-0202
+- `physical_page`: `202`
+- `additional_text_terms`:
+  - "Copyright"
+  - "performs"
+  - "R0-R14"
+
+### TEXTSUP-PAGE-0203
+- `physical_page`: `203`
+- `additional_text_terms`:
+  - "Copyright"
+  - "transferred"
+  - "updates"
+
+### TEXTSUP-PAGE-0204
+- `physical_page`: `204`
+- `additional_text_terms`:
+  - "Copyright"
+
+### TEXTSUP-PAGE-0205
+- `physical_page`: `205`
+- `additional_text_terms`:
+  - "Copyright"
+  - "inverts"
+  - "Negates"
+
+### TEXTSUP-PAGE-0206
+- `physical_page`: `206`
+- `additional_text_terms`:
+  - "Copyright"
+  - "together"
+
+### TEXTSUP-PAGE-0207
+- `physical_page`: `207`
+- `additional_text_terms`:
+  - "brackets"
+  - "commas"
+  - "Copyright"
+  - "separated"
+  - "singleword"
+  - "sixteen"
+  - "specifier"
+  - "surrounded"
+
+### TEXTSUP-PAGE-0208
+- `physical_page`: `208`
+- `additional_text_terms`:
+  - "brackets"
+  - "commas"
+  - "Copyright"
+  - "separated"
+  - "singleword"
+  - "sixteen"
+  - "specifier"
+  - "surrounded"
+
+### TEXTSUP-PAGE-0209
+- `physical_page`: `209`
+- `additional_text_terms`:
+  - "Calculates"
+  - "Copyright"
+
+### TEXTSUP-PAGE-0210
+- `physical_page`: `210`
+- `additional_text_terms`:
+  - "brackets"
+  - "causes"
+  - "commas"
+  - "Copyright"
+  - "Decrement"
+  - "deprecated"
+  - "Increment"
+  - "just"
+  - "modified"
+  - "Required"
+  - "separated"
+  - "singleword"
+  - "specifier"
+  - "surrounded"
+
+### TEXTSUP-PAGE-0211
+- `physical_page`: `211`
+- `additional_text_terms`:
+  - "Copyright"
+  - "deprecated"
+  - "meaning"
+  - "multiples"
+  - "singleword"
+  - "specifiers"
+
+### TEXTSUP-PAGE-0212
+- `physical_page`: `212`
+- `additional_text_terms`:
+  - "Copyright"
+
+### TEXTSUP-PAGE-0213
+- `physical_page`: `213`
+- `additional_text_terms`:
+  - "achievable"
+  - "ConditionHolds(cond"
+  - "Copyright"
+  - "dp_operation"
+  - "exchanging"
+  - "ExecuteFPCheck("
+  - "subset"
+
+### TEXTSUP-PAGE-0214
+- `physical_page`: `214`
+- `additional_text_terms`:
+  - "Copyright"
+  - "largest"
+  - "VMINNM.F"
+
+### TEXTSUP-PAGE-0215
+- `physical_page`: `215`
+- `additional_text_terms`:
+  - "away"
+  - "Copyright"
+  - "infinity"
+  - "minus"
+  - "nearest"
+
+### TEXTSUP-PAGE-0216
+- `physical_page`: `216`
+- `additional_text_terms`:
+  - "Copyright"
+  - "nearest"
+  - "VRINTZX"
+
+### TEXTSUP-PAGE-0217
+- `physical_page`: `217`
+- `additional_text_terms`:
+  - "away"
+  - "Copyright"
+  - "inexact"
+  - "Infinity"
+  - "Minus"
+  - "nearest"
+
+### TEXTSUP-PAGE-0218
+- `physical_page`: `218`
+- `additional_text_terms`:
+  - "Copyright"
+  - "CPSID"
+  - "CPSIE"
+
+### TEXTSUP-PAGE-0219
+- `physical_page`: `219`
+- `additional_text_terms`:
+  - "0x3"
+  - "0xAB"
+  - "causes"
+  - "Copyright"
+  - "debugger"
+  - "executes"
+  - "ignored"
+  - "investigate"
+  - "particular"
+  - "placed"
+  - "reached"
+  - "required"
+  - "Semi-hosting"
+  - "tools"
+  - "unaffected"
+  - "unconditionally"
+
+### TEXTSUP-PAGE-0220
+- `physical_page`: `220`
+- `additional_text_terms`:
+  - "Copyright"
+  - "CPSID"
+  - "CPSIE"
+  - "Language"
+  - "pre-Unified"
+
+### TEXTSUP-PAGE-0221
+- `physical_page`: `221`
+- `additional_text_terms`:
+  - "appear"
+  - "Copyright"
+  - "encoded"
+  - "explicit"
+  - "rely"
+
+### TEXTSUP-PAGE-0222
+- `physical_page`: `222`
+- `additional_text_terms`:
+  - "completes"
+  - "completion"
+  - "Copyright"
+  - "encoded"
+  - "explicit"
+  - "rely"
+  - "until"
+
+### TEXTSUP-PAGE-0223
+- `physical_page`: `223`
+- `additional_text_terms`:
+  - "Copyright"
+  - "encoded"
+  - "fetched"
+  - "flushes"
+  - "Fully"
+  - "pipeline"
+  - "rely"
+
+### TEXTSUP-PAGE-0224
+- `physical_page`: `224`
+- `additional_text_terms`:
+  - "BASEPRI_MAX"
+  - "Copyright"
+  - "EAPSR"
+  - "IAPSR"
+  - "IEPSR"
+  - "read-modify-write"
+  - "relevant"
+  - "restored"
+  - "saved"
+  - "Similarly"
+  - "state-restoring"
+  - "state-saving"
+  - "swap"
+  - "swapped"
+
+### TEXTSUP-PAGE-0225
+- `physical_page`: `225`
+- `additional_text_terms`:
+  - "APSR_g"
+  - "APSR_nzcvq"
+  - "APSR_nzcvqg"
+  - "BASEPRI_MAX"
+  - "Copyright"
+  - "depends"
+  - "explicitly"
+  - "ignored"
+  - "unallocated"
+  - "updates"
+
+### TEXTSUP-PAGE-0226
+- `physical_page`: `226`
+- `additional_text_terms`:
+  - "Copyright"
+  - "RSBS"
+
+### TEXTSUP-PAGE-0227
+- `physical_page`: `227`
+- `additional_text_terms`:
+  - "boundary"
+  - "Copyright"
+  - "necessarily"
+  - "nothing"
+  - "padding"
+  - "pipeline"
+  - "reaches"
+  - "stage"
+  - "time-consuming"
+
+### TEXTSUP-PAGE-0228
+- `physical_page`: `228`
+- `additional_text_terms`:
+  - "causes"
+  - "Copyright"
+  - "multiprocessor"
+  - "signaled"
+
+### TEXTSUP-PAGE-0229
+- `physical_page`: `229`
+- `additional_text_terms`:
+  - "0x32"
+  - "causes"
+  - "Copyright"
+  - "ignored"
+  - "requested"
+  - "required"
+  - "retrieved"
+  - "stacked"
+
+### TEXTSUP-PAGE-0230
+- `physical_page`: `230`
+- `additional_text_terms`:
+  - "Copyright"
+  - "enters"
+  - "masked"
+  - "multiprocessor"
+  - "returns"
+  - "signaled"
+  - "suspends"
+  - "unless"
+  - "until"
+
+### TEXTSUP-PAGE-0231
+- `physical_page`: `231`
+- `additional_text_terms`:
+  - "becomes"
+  - "Copyright"
+  - "masked"
+  - "non-masked"
+  - "suspends"
+  - "until"
+
+### TEXTSUP-PAGE-0232
+- `physical_page`: `232`
+- `additional_text_terms`:
+  - "Copyright"
+
+### TEXTSUP-PAGE-0233
+- `physical_page`: `233`
+- `additional_text_terms`:
+  - "0xE000E008"
+  - "0xE000E00F"
+  - "0xE000E010"
+  - "0xE000E01F"
+  - "0xE000E100"
+  - "0xE000E4EF"
+  - "0xE000ED00"
+  - "0xE000ED3F"
+  - "0xE000ED78"
+  - "0xE000ED84"
+  - "0xE000ED90"
+  - "0xE000EDB8"
+  - "0xE000EF00"
+  - "0xE000EF03"
+  - "0xE000EF30"
+  - "0xE000EF44"
+  - "0xE000EF50"
+  - "0xE000EF78"
+  - "0xE000EF90"
+  - "0xE000EFA8"
+  - "controla"
+  - "Copyright"
+  - "featuresa"
+  - "gives"
+  - "Ignored"
+  - "operationsa"
+  - "presence"
+  - "Private"
+  - "Read-only"
+  - "required"
+  - "Unita"
+  - "Unitab"
+  - "Write-only"
+
+### TEXTSUP-PAGE-0234
+- `physical_page`: `234`
+- `additional_text_terms`:
+  - "0x00000000"
+  - "0xE000E100"
+  - "0xE000E11C"
+  - "0xE000E19C"
+  - "0xE000E21C"
+  - "0xE000E29C"
+  - "0xE000E300"
+  - "0xE000E31C"
+  - "0xE000E400"
+  - "0xE000E4EF"
+  - "0xE000EF00"
+  - "automatically"
+  - "Configurablec"
+  - "Copyright"
+  - "corresponds"
+  - "detection"
+  - "latency"
+  - "lower"
+  - "Nameb"
+  - "NVIC_IABR0-"
+  - "NVIC_ICER0-"
+  - "NVIC_IPR0-"
+  - "NVIC_ISPR0-"
+  - "ogrammable"
+  - "overhead"
+  - "providing"
+  - "reprioritization"
+  - "Required"
+  - "signals"
+  - "tail-chaining"
+  - "ultra-low"
+  - "unstacks"
+
+### TEXTSUP-PAGE-0235
+- `physical_page`: `235`
+- `additional_text_terms`:
+  - "asserting"
+  - "Copyright"
+  - "IRQn)a"
+  - "NVIC_ClearPendingIRQ(IRQn_Type"
+  - "NVIC_DisableIRQ(IRQn_Type"
+  - "NVIC_EnableIRQ(IRQn_Type"
+  - "NVIC_GetPendingIRQ(IRQn_Type"
+  - "NVIC_GetPriority(IRQn_Type"
+  - "NVIC_ISER0-NVIC_ISER7"
+  - "NVIC_SetPendingIRQ(IRQn_Type"
+  - "NVIC_SetPriority(IRQn_Type"
+  - "portability"
+  - "priority)a"
+  - "returns"
+  - "SETENA"
+
+### TEXTSUP-PAGE-0236
+- `physical_page`: `236`
+- `additional_text_terms`:
+  - "CLRENA"
+  - "Copyright"
+  - "NVIC_ICER0-NVIC_ICER7"
+  - "NVIC_ISPR0-NVIC_ISPR7"
+  - "Writing"
+
+### TEXTSUP-PAGE-0237
+- `physical_page`: `237`
+- `additional_text_terms`:
+  - "CLRPEND"
+  - "Copyright"
+  - "Removes"
+  - "Writing"
+
+### TEXTSUP-PAGE-0238
+- `physical_page`: `238`
+- `additional_text_terms`:
+  - "array"
+  - "byte-accessible"
+  - "Copyright"
+  - "lower"
+  - "n-x:0"
+  - "NVIC_IABR0-NVIC_IABR7"
+  - "NVIC_IPR0-NVIC_IPR59"
+  - "PRI_N0IPR0"
+  - "PRI_N1"
+  - "PRI_N2"
+  - "PRI_N236IPR59"
+  - "PRI_N237"
+  - "PRI_N238"
+  - "PRI_N239"
+  - "PRI_N3"
+  - "PRI_N4n+1"
+  - "PRI_N4n+2"
+  - "PRI_N4n+3"
+  - "PRI_N4nIPRn"
+  - "shown"
+  - "their"
+  - "view"
+
+### TEXTSUP-PAGE-0239
+- `physical_page`: `239`
+- `additional_text_terms`:
+  - "0x03"
+  - "asserted"
+  - "automatically"
+  - "becomes"
+  - "Copyright"
+  - "deasserted"
+  - "deasserts"
+  - "edge-triggered"
+  - "enters"
+  - "given"
+  - "happens"
+  - "held"
+  - "INTID"
+  - "IRQ3"
+  - "latches"
+  - "level-based"
+  - "longer"
+  - "pulsed"
+  - "removes"
+  - "required"
+  - "requires"
+  - "returns"
+  - "sampled"
+  - "servicing"
+  - "supplied"
+  - "synchronously"
+  - "Typically"
+  - "until"
+  - "USERSETMPEND"
+
+### TEXTSUP-PAGE-0240
+- `physical_page`: `240`
+- `additional_text_terms`:
+  - "__disable_irq(void"
+  - "__enable_irq(void"
+  - "asserted"
+  - "becomes"
+  - "continues"
+  - "Copyright"
+  - "correctly"
+  - "CPSID"
+  - "CPSIE"
+  - "Disabling"
+  - "enters"
+  - "exception-like"
+  - "inactive"
+  - "latches"
+  - "pulsed"
+  - "re-enter"
+  - "reasons"
+  - "relocate"
+  - "remains"
+  - "returns"
+  - "samples"
+  - "sizes"
+  - "taking"
+  - "until"
+  - "while"
+
+### TEXTSUP-PAGE-0241
+- `physical_page`: `241`
+- `additional_text_terms`:
+  - "Copyright"
+  - "IRQ-Number"
+
+### TEXTSUP-PAGE-0242
+- `physical_page`: `242`
+- `additional_text_terms`:
+  - "0x00"
+  - "0x0000"
+  - "0x00000000"
+  - "0x00000200a"
+  - "0x411FC271a"
+  - "0xE000E008"
+  - "0xE000ED00"
+  - "0xE000ED04"
+  - "0xE000ED08"
+  - "0xE000ED0C"
+  - "0xE000ED10"
+  - "0xE000ED14"
+  - "0xE000ED18"
+  - "0xE000ED1C"
+  - "0xE000ED20"
+  - "0xE000ED24"
+  - "0xE000ED28"
+  - "0xE000ED29"
+  - "0xE000ED2A"
+  - "0xE000ED2C"
+  - "0xE000ED34"
+  - "0xE000ED38"
+  - "0xE000ED3C"
+  - "0xFA050000"
+  - "AFSR"
+  - "BFSRc"
+  - "Copyright"
+  - "Dual-issue"
+  - "Flushing"
+  - "functionality"
+  - "includes"
+  - "MMSRc"
+  - "optimum"
+  - "output"
+  - "outputs"
+  - "RAZ/WI"
+  - "reporting"
+  - "Required"
+  - "RWb"
+  - "SHCRS"
+  - "subregister"
+  - "UFSRc"
+
+### TEXTSUP-PAGE-0243
+- `physical_page`: `243`
+- `additional_text_terms`:
+  - "backwards"
+  - "branches"
+  - "compatible"
+  - "Copyright"
+  - "decreased"
+  - "DEV/SO"
+  - "DISBTACALLOC"
+  - "DISBTACREAD"
+  - "DISCRITAXIRUR"
+  - "DISCRITAXIRUW"
+  - "DISDI"
+  - "DISDYNADD"
+  - "DISFOLD"
+  - "DISFPUISSOPT"
+  - "DISISSCH1"
+  - "DISITMATBFLUSH"
+  - "dual-issued"
+  - "EX1"
+  - "EX2"
+  - "FPEXCODIS"
+  - "improve"
+  - "Indirect"
+  - "initiated"
+  - "interrupted"
+  - "latency"
+  - "Nothing"
+  - "progress"
+  - "Read-Under-Read"
+  - "read-under-write"
+  - "resolved"
+  - "until"
+  - "worst"
+
+### TEXTSUP-PAGE-0244
+- `physical_page`: `244`
+- `additional_text_terms`:
+  - "0x0"
+  - "0x41"
+  - "AFREADY"
+  - "AFV"
+  - "Copyright"
+  - "DISBTACALLOC"
+  - "DISBTACREAD"
+  - "DISFOLD"
+  - "DISITMATBFLUSH"
+  - "existing"
+  - "flush"
+  - "FPEXCODIS"
+  - "held"
+  - "ignored"
+  - "Implementer"
+  - "npn"
+  - "outputs"
+  - "RevisionPartNo"
+  - "RO/WI"
+  - "static"
+  - "Write-Allocate"
+
+### TEXTSUP-PAGE-0245
+- `physical_page`: `245`
+- `additional_text_terms`:
+  - "0x0"
+  - "0x2"
+  - "0xC27"
+  - "Copyright"
+  - "ISRPENDING"
+  - "NMIPENDSET"
+  - "npn"
+  - "PartNo"
+  - "Patch"
+  - "PENDSTCLRPENDSTSET"
+  - "processed"
+  - "pted"
+  - "RETTOBASE"
+  - "VECTACTIVE"
+  - "VECTPENDING"
+
+### TEXTSUP-PAGE-0246
+- `physical_page`: `246`
+- `additional_text_terms`:
+  - "Copyright"
+  - "enters"
+  - "excluding"
+  - "highest-priority"
+  - "ISRPENDING"
+  - "NMIPENDSET"
+  - "reads-as-zero"
+  - "reasserted"
+  - "Removes"
+  - "returns"
+  - "soon"
+  - "while"
+  - "Writing"
+
+### TEXTSUP-PAGE-0247
+- `physical_page`: `247`
+- `additional_text_terms`:
+  - "Copyright"
+  - "currently-executing"
+  - "includes"
+  - "indicated"
+  - "Nonzero"
+  - "numbera"
+  - "preempted"
+  - "required"
+  - "RETTOBASE"
+  - "VECTACTIVEa"
+  - "VECTPENDING"
+
+### TEXTSUP-PAGE-0248
+- `physical_page`: `248`
+- `additional_text_terms`:
+  - "0x00000000"
+  - "0x5FA"
+  - "adjust"
+  - "boundary"
+  - "Copyright"
+  - "enough"
+  - "ignores"
+  - "lower"
+  - "required"
+
+### TEXTSUP-PAGE-0249
+- `physical_page`: `249`
+- `additional_text_terms`:
+  - "0x5FA"
+  - "0xFA05"
+  - "Copyright"
+  - "ignored"
+  - "large"
+  - "SYSRESETREQ"
+  - "VECTCLRACTIVE"
+  - "VECTRESET"
+  - "writing"
+
+### TEXTSUP-PAGE-0250
+- `physical_page`: `250`
+- `additional_text_terms`:
+  - "000c"
+  - "001c"
+  - "010c"
+  - "011c"
+  - "b.yyyyyyyy"
+  - "bx.yyyyyyy"
+  - "bxx.yyyyyy"
+  - "bxxx.yyyyy"
+  - "bxxxx.yyyy"
+  - "bxxxxx.yyy"
+  - "bxxxxxx.yy"
+  - "bxxxxxxx.y"
+  - "Copyright"
+  - "Determining"
+  - "having"
+  - "Implementations"
+  - "least-significant"
+  - "preemption"
+  - "showing"
+  - "Subprioritiesb"
+
+### TEXTSUP-PAGE-0251
+- `physical_page`: `251`
+- `additional_text_terms`:
+  - "avoid"
+  - "Copyright"
+  - "enters"
+  - "escalated"
+  - "excluded"
+  - "registered"
+  - "returning"
+  - "turning"
+  - "waiting"
+
+### TEXTSUP-PAGE-0252
+- `physical_page`: `252`
+- `additional_text_terms`:
+  - "absolutely"
+  - "applies"
+  - "BFHFNMIGN"
+  - "bridges"
+  - "Copyright"
+  - "DIV_0_TRP"
+  - "divisor"
+  - "escalated"
+  - "executes"
+  - "faulting"
+  - "L1data"
+  - "lock-up"
+  - "NONBASETHRDENA"
+  - "probe"
+  - "problems"
+  - "quotient"
+  - "reads-as-one"
+  - "restore"
+  - "returns"
+  - "running"
+  - "stacked"
+  - "them"
+  - "USERSETMPEND"
+
+### TEXTSUP-PAGE-0253
+- `physical_page`: `253`
+- `additional_text_terms`:
+  - "Copyright"
+  - "enters"
+  - "identified"
+  - "irrespective"
+  - "LDRD"
+  - "M-1:0"
+  - "NONBASETHRDENA"
+  - "PRI_11"
+  - "PRI_14"
+  - "PRI_15"
+  - "PRI_4"
+  - "PRI_5"
+  - "PRI_6"
+  - "SHPR1-SHPR3"
+  - "STRD"
+  - "their"
+  - "traps"
+  - "under"
+  - "USERSETMPEND"
+  - "wide"
+
+### TEXTSUP-PAGE-0254
+- `physical_page`: `254`
+- `additional_text_terms`:
+  - "Copyright"
+  - "PRI_11"
+  - "PRI_14"
+  - "PRI_15"
+  - "PRI_4"
+  - "PRI_5"
+  - "PRI_6"
+  - "PRI_7"
+
+### TEXTSUP-PAGE-0255
+- `physical_page`: `255`
+- `additional_text_terms`:
+  - "activec"
+  - "BUSFAULTACT"
+  - "BUSFAULTENA"
+  - "BUSFAULTPENDED"
+  - "Copyright"
+  - "MEMFAULTACT"
+  - "MEMFAULTENA"
+  - "MEMFAULTPENDED"
+  - "MONITORACT"
+  - "pendingb"
+  - "PENDSVACT"
+  - "SVCALLACT"
+  - "SVCALLPENDED"
+  - "SYSTICKACT"
+  - "USGFAULTACT"
+  - "USGFAULTENA"
+  - "USGFAULTPENDED"
+
+### TEXTSUP-PAGE-0256
+- `physical_page`: `256`
+- `additional_text_terms`:
+  - "0xE000ED28"
+  - "0xE000ED29"
+  - "0xE000ED2A"
+  - "adjustment"
+  - "BUSFAULTACT"
+  - "Caution"
+  - "Copyright"
+  - "kernel"
+  - "MEMFAULTACT"
+  - "procedure"
+  - "read-modify-write"
+  - "required"
+  - "restores"
+  - "retains"
+  - "stacked"
+  - "subregisters"
+  - "subsections"
+  - "subsequently"
+  - "treats"
+
+### TEXTSUP-PAGE-0257
+- `physical_page`: `257`
+- `additional_text_terms`:
+  - "adjusted"
+  - "attempted"
+  - "chained"
+  - "Copyright"
+  - "DACCVIOL"
+  - "escalated"
+  - "failing"
+  - "faulting"
+  - "IACCVIOL"
+  - "incorrect"
+  - "MLSPERR"
+  - "MMARV"
+  - "MMARVALID"
+  - "MSTKERR"
+  - "MUNSTKERR"
+  - "occurred"
+  - "overwritten"
+  - "problems"
+  - "ReservedMLSPERR"
+  - "save"
+  - "stacked"
+  - "unsta"
+  - "Unstack"
+  - "unstacking"
+  - "violations"
+  - "whose"
+
+### TEXTSUP-PAGE-0258
+- `physical_page`: `258`
+- `additional_text_terms`:
+  - "adjust"
+  - "adjusted"
+  - "BFARV"
+  - "BFARVALID"
+  - "chained"
+  - "cleared"
+  - "Copyright"
+  - "escalated"
+  - "failing"
+  - "IBUSERR"
+  - "IMPRECISERR"
+  - "incorrect"
+  - "later"
+  - "LSPERR"
+  - "LSPERRa"
+  - "occurred"
+  - "occurring"
+  - "overwritten"
+  - "PRECISERR"
+  - "problems"
+  - "returning"
+  - "save"
+  - "stacked"
+  - "STKERR"
+  - "Unstack"
+  - "unstacki"
+  - "unstacking"
+  - "UNSTKERR"
+  - "whose"
+  - "writing"
+
+### TEXTSUP-PAGE-0259
+- `physical_page`: `259`
+- `additional_text_terms`:
+  - "becomes"
+  - "cleared"
+  - "Copyright"
+  - "enters"
+  - "faulting"
+  - "IBUSERR"
+  - "Imprec"
+  - "imprecise"
+  - "IMPRECISERR"
+  - "occurred"
+  - "precise"
+  - "PRECISERR"
+  - "processes"
+  - "returns"
+  - "stacked"
+  - "writing"
+
+### TEXTSUP-PAGE-0260
+- `physical_page`: `260`
+- `additional_text_terms`:
+  - "attempted"
+  - "Copyright"
+  - "DIV_0_TRP"
+  - "DIVBYZERO"
+  - "divisor"
+  - "INVPC"
+  - "INVSTATE"
+  - "irrespective"
+  - "LDRD"
+  - "NOCP"
+  - "stacked"
+  - "STRD"
+  - "UNDEFINSTR"
+
+### TEXTSUP-PAGE-0261
+- `physical_page`: `261`
+- `additional_text_terms`:
+  - "attempted"
+  - "cleared"
+  - "Copyright"
+  - "decode"
+  - "illegal"
+  - "INVPC"
+  - "INVSTATE"
+  - "makes"
+  - "stacked"
+  - "tried"
+  - "UNDEFINSTR"
+  - "writing"
+
+### TEXTSUP-PAGE-0262
+- `physical_page`: `262`
+- `additional_text_terms`:
+  - "cleared"
+  - "Copyright"
+  - "DEBUGEVT"
+  - "gives"
+  - "MMARV"
+  - "preempted"
+  - "stacked"
+  - "VECTTBL"
+  - "writing"
+
+### TEXTSUP-PAGE-0263
+- `physical_page`: `263`
+- `additional_text_terms`:
+  - "BFARV"
+  - "Copyright"
+  - "faulted"
+  - "faulting"
+  - "MMARV"
+  - "requested"
+  - "save"
+  - "SHPR1-SHPR"
+  - "SHPR1-SHPR3"
+
+### TEXTSUP-PAGE-0264
+- `physical_page`: `264`
+- `additional_text_terms`:
+  - "0Reserved"
+  - "0x00000004"
+  - "0xC0000000"
+  - "0xE000E010"
+  - "0xE000E014"
+  - "0xE000E018"
+  - "0xE000E01C"
+  - "CLKSOURCE"
+  - "clocks"
+  - "Copyright"
+  - "counted"
+  - "counts"
+  - "debugging"
+  - "decrement"
+  - "halted"
+  - "reloads"
+  - "Required"
+  - "Returns"
+  - "since"
+  - "subsequent"
+  - "summarized"
+  - "SYST_CALIBb"
+  - "TICKINT"
+  - "valuea"
+  - "wraps"
+
+### TEXTSUP-PAGE-0265
+- `physical_page`: `265`
+- `additional_text_terms`:
+  - "0x00000001"
+  - "0x00FFFFFF"
+  - "activated"
+  - "begins"
+  - "calculated"
+  - "Calculating"
+  - "CLKSOURCE"
+  - "Copyright"
+  - "counted"
+  - "counts"
+  - "cycles"
+  - "every"
+  - "multi-shot"
+  - "N-1"
+  - "period"
+  - "pulses"
+  - "reaches"
+  - "reaching"
+  - "RELOADReserved"
+  - "required"
+  - "TICKINT"
+
+### TEXTSUP-PAGE-0266
+- `physical_page`: `266`
+- `additional_text_terms`:
+  - "100H"
+  - "10ms"
+  - "calculate"
+  - "Copyright"
+  - "CURRENTReserved"
+  - "frequency"
+  - "Functiona"
+  - "given"
+  - "ignores"
+  - "inexact"
+  - "NOREF"
+  - "provided"
+  - "reads-as-one"
+  - "required"
+  - "SKEW"
+  - "suitability"
+  - "SYST_CSR.CLKSOURCE"
+  - "TENMSReserved"
+  - "timing"
+
+### TEXTSUP-PAGE-0267
+- `physical_page`: `267`
+- `additional_text_terms`:
+  - "Copyright"
+  - "Creates"
+  - "interval"
+  - "periodic"
+  - "runs"
+  - "SysTick_Config(uint32_t"
+  - "ticks"
+
+### TEXTSUP-PAGE-0268
+- `physical_page`: `268`
+- `additional_text_terms`:
+  - "0x09000003"
+  - "0x8303C003"
+  - "0xE000ED78"
+  - "0xE000ED7C"
+  - "0xE000ED80"
+  - "0xE000ED84"
+  - "39r"
+  - "coherency"
+  - "Copyright"
+  - "LoU"
+  - "LoUIS"
+  - "neither"
+  - "Required"
+  - "SBZ"
+  - "summarized"
+  - "valuea"
+
+### TEXTSUP-PAGE-0269
+- `physical_page`: `269`
+- `additional_text_terms`:
+  - "ARMv7"
+  - "CL1"
+  - "Copyright"
+  - "CWG"
+  - "DMinLine"
+  - "entire"
+  - "ERG"
+  - "ERG0"
+  - "Exclusives"
+  - "granularity"
+  - "Granule"
+  - "IminLine"
+  - "matching"
+  - "previous"
+  - "RAO"
+  - "Smallest"
+  - "treats"
+  - "under"
+  - "unified"
+
+### TEXTSUP-PAGE-0270
+- `physical_page`: `270`
+- `additional_text_terms`:
+  - "0x0"
+  - "allocation"
+  - "Associativity"
+  - "AssociativityNumSets"
+  - "Copyright"
+  - "eight"
+  - "encoded"
+  - "Functiona"
+  - "LineSize"
+  - "log(2"
+  - "NumSets"
+
+### TEXTSUP-PAGE-0271
+- `physical_page`: `271`
+- `additional_text_terms`:
+  - "0x0"
+  - "0x001F"
+  - "0x003F"
+  - "0x007F"
+  - "0x00FF"
+  - "0x01FF"
+  - "0x03FF"
+  - "0x3"
+  - "0xF003E019"
+  - "0xF007E009"
+  - "0xF007E019"
+  - "0xF00FE009"
+  - "0xF00FE019"
+  - "0xF01FE009"
+  - "0xF01FE019"
+  - "0xF03FE009"
+  - "0xF03FE019"
+  - "0xF07FE009"
+  - "16KB"
+  - "32KB"
+  - "4KB"
+  - "64KB"
+  - "8KB"
+  - "Associativity"
+  - "characteristics"
+  - "Copyright"
+  - "ignored"
+  - "LevelReserved"
+  - "LineSize"
+  - "NumSets"
+  - "whose"
+
+### TEXTSUP-PAGE-0272
+- `physical_page`: `272`
+- `additional_text_terms`:
+  - "allocation"
+  - "allowed"
+  - "Configurations"
+  - "Constraints"
+  - "Copyright"
+  - "Correctable"
+  - "corruption"
+  - "errora"
+  - "found"
+  - "Non-correctable"
+  - "non-recoverable"
+  - "User-defined"
+
+### TEXTSUP-PAGE-0273
+- `physical_page`: `273`
+- `additional_text_terms`:
+  - "allocation"
+  - "allowed"
+  - "characteristics"
+  - "Configurations"
+  - "Constraints"
+  - "Copyright"
+  - "Correctable"
+  - "corruption"
+  - "errora"
+  - "found"
+  - "Non-correctable"
+  - "non-recoverable"
+  - "User-defined"
+
+### TEXTSUP-PAGE-0274
+- `physical_page`: `274`
+- `additional_text_terms`:
+  - "assumed"
+  - "background"
+  - "causes"
+  - "Copyright"
+  - "dynamically"
+  - "environment"
+  - "Export"
+  - "generally"
+  - "Independent"
+  - "kernel"
+  - "Memory-mapped"
+  - "Non-shared"
+  - "overlap"
+  - "Overlapping"
+  - "overlaps"
+  - "precedence"
+  - "prohibited"
+  - "relevant"
+  - "settings"
+  - "several"
+  - "shared"
+  - "termination"
+  - "Typically"
+  - "unified"
+
+### TEXTSUP-PAGE-0275
+- `physical_page`: `275`
+- `additional_text_terms`:
+  - "0x00000000"
+  - "0x00000800"
+  - "0xE000ED90"
+  - "0xE000ED94"
+  - "0xE000ED9C"
+  - "0xE000EDA0"
+  - "0xE000EDA4"
+  - "0xE000EDA8"
+  - "0xE000EDAC"
+  - "0xE000EDB0"
+  - "0xE000EDB4"
+  - "0xE000EDB8"
+  - "apart"
+  - "Copyright"
+  - "MPU_RASR_A1"
+  - "MPU_RASR_A2"
+  - "MPU_RASR_A3"
+  - "MPU_RBAR_A1"
+  - "MPU_RBAR_A2"
+  - "MPU_RBAR_A3"
+  - "Required"
+  - "their"
+
+### TEXTSUP-PAGE-0276
+- `physical_page`: `276`
+- `additional_text_terms`:
+  - "0x00"
+  - "0x08"
+  - "0x10"
+  - "background"
+  - "Copyright"
+  - "DREGION"
+  - "escalated"
+  - "HFNMIENA"
+  - "IREGION"
+  - "predefined"
+  - "PRIVDEFENA"
+  - "unified"
+
+### TEXTSUP-PAGE-0277
+- `physical_page`: `277`
+- `additional_text_terms`:
+  - "applies"
+  - "apply"
+  - "areas"
+  - "background"
+  - "behaves"
+  - "causes"
+  - "Copyright"
+  - "HFNMIENA"
+  - "ignores"
+  - "PRIVDEFENA"
+  - "rules"
+  - "unless"
+
+### TEXTSUP-PAGE-0278
+- `physical_page`: `278`
+- `additional_text_terms`:
+  - "Copyright"
+  - "However"
+  - "required"
+  - "updates"
+  - "writing"
+
+### TEXTSUP-PAGE-0279
+- `physical_page`: `279`
+- `additional_text_terms`:
+  - "0x00000000"
+  - "0x00010000"
+  - "0x00020000"
+  - "32B"
+  - "64KB"
+  - "changed"
+  - "Copyright"
+  - "Ignores"
+  - "Log2(Region"
+  - "N-1"
+  - "N-1):5"
+  - "occupies"
+  - "returns"
+  - "subregions"
+  - "Updates"
+
+### TEXTSUP-PAGE-0280
+- `physical_page`: `280`
+- `additional_text_terms`:
+  - "0x00"
+  - "Copyright"
+  - "SIZE+1"
+  - "sizes"
+  - "sub-region"
+  - "subregion"
+  - "Subregions"
+  - "writing"
+
+### TEXTSUP-PAGE-0281
+- `physical_page`: `281`
+- `additional_text_terms`:
+  - "1GB"
+  - "1KB"
+  - "1MB"
+  - "32B"
+  - "Contact"
+  - "Copyright"
+  - "gives"
+  - "inner"
+  - "noncacheable"
+  - "Outer"
+  - "required"
+  - "smallest"
+  - "Write-Allocate"
+
+### TEXTSUP-PAGE-0282
+- `physical_page`: `282`
+- `additional_text_terms`:
+  - "1BB"
+  - "Cached"
+  - "Copyright"
+  - "ignores"
+  - "inner"
+  - "Nonshared"
+  - "outer"
+  - "Read-"
+  - "Write-Allocate"
+
+### TEXTSUP-PAGE-0283
+- `physical_page`: `283`
+- `additional_text_terms`:
+  - "0x0"
+  - "0x4"
+  - "0x8"
+  - "buffered"
+  - "changed"
+  - "changing"
+  - "Copyright"
+  - "includes"
+  - "multiple-word"
+  - "previously"
+  - "required"
+  - "settings"
+  - "setup"
+  - "simultaneously"
+  - "size/enable"
+  - "upper"
+  - "violates"
+  - "want"
+  - "writing"
+
+### TEXTSUP-PAGE-0284
+- `physical_page`: `284`
+- `additional_text_terms`:
+  - "0x0"
+  - "0x00"
+  - "0x4"
+  - "0x8"
+  - "0xE000ED9C"
+  - "background"
+  - "boot"
+  - "combined"
+  - "Copyright"
+  - "Disabling"
+  - "divided"
+  - "eight"
+  - "equal-sized"
+  - "exited"
+  - "instead"
+  - "loader"
+  - "matches"
+  - "overlapping"
+  - "overlaps"
+  - "packed"
+  - "pre-packed"
+  - "programs"
+  - "R1-R3"
+  - "reprogramming"
+  - "required"
+  - "sizes"
+  - "statically"
+  - "subregion"
+  - "Subregions"
+  - "taking"
+
+### TEXTSUP-PAGE-0285
+- `physical_page`: `285`
+- `additional_text_terms`:
+  - "128KB"
+  - "192KB"
+  - "256KB"
+  - "320KB"
+  - "384KB"
+  - "448KB"
+  - "512KB"
+  - "64KB"
+  - "affecting"
+  - "apply"
+  - "avoid"
+  - "Copyright"
+  - "overlap"
+  - "previous"
+  - "previously"
+  - "programmed"
+  - "settings"
+  - "setup"
+  - "subregion"
+  - "subregions"
+  - "unexpected"
+  - "unused"
+
+### TEXTSUP-PAGE-0286
+- `physical_page`: `286`
+- `additional_text_terms`:
+  - "0x00000000"
+  - "0xC0000000"
+  - "0xE000EF34"
+  - "0xE000EF38"
+  - "0xE000EF3C"
+  - "accessed"
+  - "ANSI/IEEE"
+  - "computation"
+  - "conversions"
+  - "Copyright"
+  - "extensions"
+  - "formats"
+  - "FPSCRa"
+  - "fully"
+  - "functionality"
+  - "implementations"
+  - "memory-mapped"
+  - "Required"
+  - "Std"
+  - "whose"
+
+### TEXTSUP-PAGE-0287
+- `physical_page`: `287`
+- `additional_text_terms`:
+  - "attempted"
+  - "BFRDY"
+  - "coprocessors"
+  - "Copyright"
+  - "CPn"
+  - "denied"
+  - "HFRDY"
+  - "LSPACT"
+  - "MMRDY"
+  - "MONRDY"
+  - "NOCP"
+  - "privileges"
+  - "returns"
+  - "values10"
+
+### TEXTSUP-PAGE-0288
+- `physical_page`: `288`
+- `additional_text_terms`:
+  - "BFRDY"
+  - "Copyright"
+  - "DebugMonitor"
+  - "deferred"
+  - "HFRDY"
+  - "Ignored"
+  - "LSPACT"
+  - "MMRDY"
+  - "MON_PEND"
+  - "MONRDY"
+  - "permits"
+  - "saving"
+  - "unpopulated"
+
+### TEXTSUP-PAGE-0289
+- `physical_page`: `289`
+- `additional_text_terms`:
+  - "AHP"
+  - "almost"
+  - "Copyright"
+  - "Denormal"
+  - "DZC"
+  - "Flush-to-zero"
+  - "fully"
+  - "IDC"
+  - "Infinity"
+  - "involving"
+  - "IOC"
+  - "IXC"
+  - "Minus"
+  - "NaNs"
+  - "Nearest"
+  - "OFC"
+  - "output"
+  - "propagate"
+  - "returns"
+  - "UFC"
+
+### TEXTSUP-PAGE-0290
+- `physical_page`: `290`
+- `additional_text_terms`:
+  - "0Reserved"
+  - "AHP"
+  - "Copyright"
+  - "Denormal"
+  - "Division"
+  - "DZC"
+  - "FPSCR.AHP"
+  - "FPSCR.DN"
+  - "FPSCR.FZ"
+  - "FPSCR.RMode"
+  - "IDC"
+  - "Inexact"
+  - "IOC"
+  - "IXC"
+  - "occurred"
+  - "OFC"
+  - "since"
+  - "UFC"
+  - "Underflow"
+
+### TEXTSUP-PAGE-0291
+- `physical_page`: `291`
+- `additional_text_terms`:
+  - "coprocessors"
+  - "Copyright"
+  - "modified"
+  - "pipeline"
+
+### TEXTSUP-PAGE-0292
+- `physical_page`: `292`
+- `additional_text_terms`:
+  - "0xE000EF50"
+  - "0xE000EF54"
+  - "0xE000EF58"
+  - "0xE000EF5C"
+  - "0xE000EF60"
+  - "0xE000EF64"
+  - "0xE000EF68"
+  - "0xE000EF6C"
+  - "0xE000EF70"
+  - "0xE000EF74"
+  - "0xE000EF78"
+  - "agent"
+  - "BPIA"
+  - "BPIALL"
+  - "Coherency"
+  - "Copyright"
+  - "DCCIMV"
+  - "DCCISW"
+  - "DCCMV"
+  - "DCCSW"
+  - "DCIMV"
+  - "DCISW"
+  - "ICIALLU"
+  - "ICIMV"
+  - "ignored"
+  - "PoC"
+  - "PoC)b"
+  - "PoCb"
+  - "PoU"
+  - "PoU)a"
+  - "PoUa"
+  - "predictor"
+  - "RAZ/WI"
+  - "requested"
+  - "required"
+  - "self-modifying"
+  - "set/way"
+  - "synchronize"
+
+### TEXTSUP-PAGE-0293
+- `physical_page`: `293`
+- `additional_text_terms`:
+  - "applies"
+  - "Copyright"
+  - "DCCIMV"
+  - "DCCISW"
+  - "DCCMV"
+  - "DCCSW"
+  - "DCIMV"
+  - "DCISW"
+  - "depends"
+  - "ICIMV"
+  - "indices"
+  - "portability"
+  - "pplies"
+  - "requested"
+  - "ReservedSetReservedWay"
+  - "Set/index"
+  - "their"
+
+### TEXTSUP-PAGE-0294
+- `physical_page`: `294`
+- `additional_text_terms`:
+  - "0x0"
+  - "0xE000ED80"
+  - "0xE000ED84"
+  - "0xE000EF60"
+  - "basis"
+  - "carried"
+  - "changed"
+  - "Copyright"
+  - "DCISW"
+  - "dirty"
+  - "disabling"
+  - "dsize"
+  - "entire"
+  - "flush"
+  - "flushed"
+  - "future"
+  - "iterating"
+  - "latest"
+  - "Manipulating"
+  - "masters"
+  - "pipeline"
+  - "Private"
+  - "recommends"
+  - "regular"
+  - "set/way"
+  - "shared"
+  - "since"
+  - "subsequent"
+
+### TEXTSUP-PAGE-0295
+- `physical_page`: `295`
+- `additional_text_terms`:
+  - "0x0"
+  - "0x4"
+  - "0x7"
+  - "0xE000ED14"
+  - "0xE000EF50"
+  - "BGE"
+  - "calculate"
+  - "carried"
+  - "CCR.DC"
+  - "CCR.IC"
+  - "Copyright"
+  - "DCISW"
+  - "decrement"
+  - "entire"
+  - "ICIALLU"
+  - "initialized"
+  - "inv_loop1"
+  - "inv_loop2"
+  - "LSLS"
+  - "merge"
+  - "modifying"
+  - "ORRS"
+  - "set/way"
+  - "SHL:16"
+  - "SHL:17"
+  - "writing"
+
+### TEXTSUP-PAGE-0296
+- `physical_page`: `296`
+- `additional_text_terms`:
+  - "accessed"
+  - "causes"
+  - "cleaned"
+  - "completion"
+  - "Copyright"
+  - "correctly"
+  - "DCCMV"
+  - "DCCMVAU"
+  - "dirty"
+  - "executes"
+  - "fetched"
+  - "guarantee"
+  - "guarantees"
+  - "ICIMVAU"
+  - "in-order"
+  - "inst_address1"
+  - "instead"
+  - "invalidations"
+  - "MVA"
+  - "observed"
+  - "PoU"
+  - "previous"
+  - "required"
+  - "respect"
+  - "self-modifying"
+  - "set/way"
+  - "stream"
+  - "STRH"
+  - "synchronize"
+
+### TEXTSUP-PAGE-0297
+- `physical_page`: `297`
+- `additional_text_terms`:
+  - "0x00000000"
+  - "0x00000000a"
+  - "0x00000002"
+  - "0x00000800"
+  - "0xE000EF90"
+  - "0xE000EF94"
+  - "0xE000EF98"
+  - "0xE000EF9C"
+  - "0xE000EFA0"
+  - "0xE000EFA8"
+  - "Copyright"
+  - "dependent"
+  - "override"
+  - "Required"
+  - "silicon"
+  - "traffic"
+
+### TEXTSUP-PAGE-0298
+- `physical_page`: `298`
+- `additional_text_terms`:
+  - "128KB"
+  - "16KB"
+  - "16MB"
+  - "1MB"
+  - "256KB"
+  - "2MB"
+  - "32KB"
+  - "4KB"
+  - "4MB"
+  - "512KB"
+  - "64KB"
+  - "8KB"
+  - "8MB"
+  - "apply"
+  - "Copyright"
+  - "correction"
+  - "detection"
+  - "given"
+  - "guarantees"
+  - "honor"
+  - "levant"
+  - "output"
+  - "phase"
+  - "RAZ/WI"
+  - "Read-Modify-Write"
+  - "RETEN"
+  - "RETENa"
+  - "Retry"
+  - "RMWb"
+  - "sub-chunk"
+
+### TEXTSUP-PAGE-0299
+- `physical_page`: `299`
+- `additional_text_terms`:
+  - "0xE000EF90"
+  - "0xE000EF94"
+  - "connected"
+  - "Copyright"
+  - "correction"
+  - "detection"
+  - "DTCMCR.EN"
+  - "DTCMCR.RETEN"
+  - "DTCMCR.RMW"
+  - "ITCMCR.EN"
+  - "ITCMCR.RETEN"
+  - "ITCMCR.RMW"
+  - "read-modify-write"
+  - "retry"
+  - "SHL:1"
+  - "SHL:2"
+  - "signals"
+  - "them"
+
+### TEXTSUP-PAGE-0300
+- `physical_page`: `300`
+- `additional_text_terms`:
+  - "0xE000EF98"
+  - "128MB"
+  - "256MB"
+  - "512MB"
+  - "64MB"
+  - "AHBPCR.EN"
+  - "AHPB"
+  - "apply"
+  - "Copyright"
+  - "RAZ/WI"
+
+### TEXTSUP-PAGE-0301
+- `physical_page`: `301`
+- `additional_text_terms`:
+  - "0xE000EF9C"
+  - "Accelerator"
+  - "ACP"
+  - "agent"
+  - "cacheable-is-WT"
+  - "carried"
+  - "checking"
+  - "coherency"
+  - "Copyright"
+  - "correction"
+  - "Disabling"
+  - "ECCDIS"
+  - "excluded"
+  - "FORCEWT"
+  - "globally"
+  - "heterogeneous"
+  - "ignored"
+  - "inner"
+  - "maintain"
+  - "modifying"
+  - "MP-capable"
+  - "MP-systems"
+  - "Programmed"
+  - "RAO/WI"
+  - "RAZ/WI"
+  - "required"
+  - "Shared"
+  - "suitable"
+  - "transparent"
+  - "updates"
+  - "Useful"
+
+### TEXTSUP-PAGE-0302
+- `physical_page`: `302`
+- `additional_text_terms`:
+  - "Copyright"
+  - "turned"
+  - "unexpected"
+
+### TEXTSUP-PAGE-0303
+- `physical_page`: `303`
+- `additional_text_terms`:
+  - "0xxxxxxx"
+  - "AHBSCR.CTL"
+  - "AHBSCR.INITCOUNT"
+  - "AHBSCR.TPRI"
+  - "AHBSPRI"
+  - "arithmetically"
+  - "below"
+  - "contention"
+  - "Copyright"
+  - "demote"
+  - "demoted"
+  - "demotion"
+  - "Fairness"
+  - "INITCOUNT"
+  - "initialized"
+  - "larger"
+  - "livelock"
+  - "lower"
+  - "prioritization"
+  - "programmed"
+  - "represent"
+  - "requestor"
+  - "round-robin"
+  - "takes"
+  - "Threshold"
+  - "traffic"
+
+### TEXTSUP-PAGE-0304
+- `physical_page`: `304`
+- `additional_text_terms`:
+  - "AXIMTYPE"
+  - "bus-fault"
+  - "cleared"
+  - "Copyright"
+  - "DECERR"
+  - "EPPB"
+  - "EXOKAY"
+  - "interface.a"
+  - "interfacea"
+  - "OKAY"
+  - "remains"
+  - "SLVERR"
+  - "until"
+  - "writing"
+
+### TEXTSUP-PAGE-0305
+- `physical_page`: `305`
+- `additional_text_terms`:
+  - "Copyright"
+
+### TEXTSUP-PAGE-0306
+- `physical_page`: `306`
+- `additional_text_terms`:
+  - "0xE000ED90"
+  - "0xE000ED93"
+  - "ailability"
+  - "applies"
+  - "cides"
+  - "Copyright"
+  - "decides"
+  - "DREGION"
+  - "Footnote"
+  - "guidance"
+  - "IACCVIOL"
+  - "implementer"
+  - "Interruptible-continua"
+  - "LSPERR"
+  - "MLSPERR"
+  - "particularly"
+  - "presence"
+  - "references"
+  - "required"
+  - "row"
+  - "RTL"
+
+### TEXTSUP-PAGE-0307
+- `physical_page`: `307`
+- `additional_text_terms`:
+  - "CFGBIGEND"
+  - "Copyright"
+  - "decide"
+  - "decides"
+  - "depends"
+  - "footnote"
+  - "implementer"
+  - "introductory"
+  - "low-order"
+  - "power-saving"
+  - "References"
+  - "saving"
+  - "sentence"
+  - "un-implemented"
+  - "wide"
+
+### TEXTSUP-PAGE-0308
+- `physical_page`: `308`
+- `additional_text_terms`:
+  - "0x00000000"
+  - "0x5FFFFFFF"
+  - "Copyright"
+  - "decides"
+  - "depends"
+  - "implementer"
+  - "INITVTOR"
+  - "Memories"
+  - "references"
+  - "TCMs"
+  - "VTOR.TBLOFF"
+
+### TEXTSUP-PAGE-0309
+- `physical_page`: `309`
+- `additional_text_terms`:
+  - "Copyright"
+  - "Introductory"
+
+### TEXTSUP-PAGE-0310
+- `physical_page`: `310`
+- `additional_text_terms`:
+  - "ACTLR.DISCRITAXIRUW"
+  - "AIRCR.SYSRESETREQ"
+  - "checking"
+  - "Copyright"
+  - "correction"
+  - "CPUID.Revision"
+  - "CPUID.Variant"
+  - "Disabling"
+  - "entire"
+  - "r1p1"
+
+### TEXTSUP-PAGE-0311
+- `physical_page`: `311`
+- `additional_text_terms`:
+  - "Banked"
+  - "Copyright"
+  - "decreasing"
+  - "increasing"
+  - "R13"
+  - "respectively"
+  - "said"
+  - "scheme"
+  - "significance"
+  - "stipulate"
+
+### TEXTSUP-PAGE-0312
+- `physical_page`: `312`
+- `additional_text_terms`:
+  - "arranged"
+  - "aspect"
+  - "average"
+  - "Breakpoints"
+  - "concerned"
+  - "coprocessors"
+  - "Copyright"
+  - "correctly"
+  - "custom"
+  - "Debugger"
+  - "debuggers"
+  - "debugging"
+  - "dirty"
+  - "done"
+  - "Doubleword-aligned"
+  - "eight"
+  - "environment"
+  - "executes"
+  - "expects"
+  - "fast"
+  - "four-bit"
+  - "greatly"
+  - "halted"
+  - "having"
+  - "identify"
+  - "improve"
+  - "includes"
+  - "increase"
+  - "indicated"
+  - "inserted"
+  - "larger"
+  - "making"
+  - "mapping"
+  - "modified"
+  - "multitasking"
+  - "nothing"
+  - "off-chip"
+  - "on-chip"
+  - "operates"
+  - "performing"
+  - "provided"
+  - "remains"
+  - "removed"
+  - "retrieving"
+  - "said"
+  - "scheme"
+  - "situated"
+  - "speed"
+  - "stated"
+  - "storing"
+  - "successfully"
+  - "successive"
+  - "supplements"
+  - "suspends"
+  - "systems"
+  - "tested"
+  - "together"
+  - "unchanged"
+  - "under"
+  - "unless"
+  - "variable"
+  - "while"
+
+### TEXTSUP-PAGE-0313
+- `physical_page`: `313`
+- `additional_text_terms`:
+  - "architecturally"
+  - "chosen"
+  - "Copyright"
+  - "cycles"
+  - "data-processing"
+  - "documented"
+  - "done"
+  - "Flat"
+  - "flush"
+  - "Illegal"
+  - "implementations"
+  - "increasing"
+  - "lines"
+  - "Load/store"
+  - "mapping"
+  - "Marking"
+  - "occupies"
+  - "organizing"
+  - "pipeline"
+  - "routine"
+  - "scheme"
+  - "significance"
+  - "stage"
+  - "subtraction"
+  - "vectors"
+  - "virtual"
+  - "whenever"
+
+### TEXTSUP-PAGE-0314
+- `physical_page`: `314`
+- `additional_text_terms`:
+  - "causes"
+  - "conflicts"
+  - "Copyright"
+  - "debugging"
+  - "environment"
+  - "excluding"
+  - "extensions"
+  - "fill"
+  - "finished"
+  - "future"
+  - "halt"
+  - "holes"
+  - "implementation-specific"
+  - "Initializes"
+  - "LDRB"
+  - "LDRH"
+  - "LDRSB"
+  - "LDRSH"
+  - "majority"
+  - "multi-tasking"
+  - "partition"
+  - "parts"
+  - "pipeline"
+  - "pipelined"
+  - "preceding"
+  - "Preserved"
+  - "previously"
+  - "rely"
+  - "represent"
+  - "risk"
+  - "safeguard"
+  - "said"
+  - "SBO"
+  - "SBZ"
+  - "SBZP"
+  - "security"
+  - "semantics"
+  - "shared"
+  - "storing"
+  - "STRB"
+  - "STRH"
+  - "Thread-safe"
+  - "useful"
+  - "Warm"
+  - "Write-allocate"
+  - "Writing"
+
+### TEXTSUP-PAGE-0315
+- `physical_page`: `315`
+- `additional_text_terms`:
+  - "arranged"
+  - "Copyright"
+  - "FIFO"
+  - "high-speed"
+  - "whose"
+
 ## 11. Quality Warnings
 ### WARN-OCR-001
 - `severity`: "info"
@@ -14836,6 +19771,7 @@ These entries cover important vector-drawn diagrams that do not have standalone 
 ## 12. Self Check Report
 - `page_coverage`: {"pdf_page_count": 315, "indexed_physical_pages_count": 315, "page_locator_map_entries": 315, "page_segment_entries": 105, "missing_physical_pages": [], "duplicated_physical_pages_in_segments": [], "out_of_range_pages": [], "coverage_status": "pass"}
 - `source_integrity`: {"source_pdf_sha256": "4b474102e4dc490fdb759dde329715b1f348ebe433e97830f585bb92481f463a", "manifest_source_pdf_sha256": "4b474102e4dc490fdb759dde329715b1f348ebe433e97830f585bb92481f463a", "sha256_match": true, "status": "pass"}
+- `text_layer_search_supplement`: {"status": "pass", "generated_at": "2026-06-20T11:49:24Z", "unique_missing_terms_added": 1919, "technical_missing_terms_added": 560, "pages_with_added_terms": 315, "supplemented_page_term_entries": 3640, "post_supplement_text_token_recall": "1.000", "post_supplement_technical_token_recall": "1.000"}
 - `outline_integrity`: {"pdf_outline_count": 264, "toc_index_entries": 264, "sections_without_pages": [], "invalid_ranges": [], "status": "pass"}
 - `table_figure_integrity`: {"formal_table_count": 109, "formal_figure_count": 10, "generated_vector_diagram_anchor_count": 64, "tables_without_confidence": [], "figures_without_confidence": [], "tables_without_caption_or_anchor": [], "figures_without_caption_or_anchor": [], "status": "pass_with_warnings"}
 - `symbol_integrity`: {"symbol_index_entries": 354, "instruction_symbol_entries": 189, "register_symbol_entries": 61, "api_symbol_entries": 67, "config_symbol_entries": 14, "requirement_marker_entries": 1, "entries_without_physical_page": [], "duplicate_ids": [], "status": "pass"}

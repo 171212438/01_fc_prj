@@ -13,9 +13,15 @@ generator_version: "0.6.0"
 page_numbering_policy: "physical_page is 1-based PDF physical page index; printed_page is auxiliary only"
 ocr_status: "not_run_text_layer_available"
 pdf_outline_count: 43
+text_layer_search_supplement: "present"
+text_layer_search_supplement_generated_at: "2026-06-20T11:56:13Z"
+text_layer_search_supplement_terms: 458
+text_layer_search_supplement_technical_terms: 27
+text_layer_search_supplement_pages: 63
+post_supplement_text_token_recall: "1.000"
+post_supplement_technical_token_recall: "1.000"
 overall_status: "pass_with_warnings"
 ---
-
 # PDF Manifest: Arm_Cortex-M7_Software_Developer_Errata_Notice.pdf
 
 ## Retrieval Usage Contract
@@ -23,6 +29,7 @@ overall_status: "pass_with_warnings"
 - `physical_page` is the primary locator and is always the 1-based PDF physical page number.
 - `printed_page` is auxiliary. In this PDF, pages 3-63 visibly use `Page n of 63`; pages 1-2 have no explicit printed page footer.
 - This Manifest is an index, not a substitute for the source PDF. Verify factual claims against the referenced source page.
+- Use `9A. Text-Layer Search Supplement` for exact keyword lookup gaps; verify exact wording, screenshots, tables, commands and diagrams against the PDF.
 - Important index entries include a short `anchor`; use the anchor to confirm the relevant source location.
 - Tables and images include `confidence`, `bbox`, or `bbox_by_page` where available; use these fields to decide whether visual/source-page verification is required.
 - Treat this Manifest as stale if `source_pdf_sha256` does not match the current source PDF.
@@ -33,6 +40,13 @@ overall_status: "pass_with_warnings"
 - `source_pdf_sha256`: "c4e31658732e82f79d47c42c008daf937e2aee96f04d378caa9942f0c3c35df5"
 - `source_pdf_size_bytes`: 447605
 - `pdf_page_count`: 63
+- `text_layer_search_supplement`: present
+- `text_layer_search_supplement_generated_at`: 2026-06-20T11:56:13Z
+- `text_layer_search_supplement_terms`: 458
+- `text_layer_search_supplement_technical_terms`: 27
+- `text_layer_search_supplement_pages`: 63
+- `post_supplement_text_token_recall`: 1.000
+- `post_supplement_technical_token_recall`: 1.000
 - `source_document_id`: "SDEN-1068427"
 - `source_document_revision`: "Document version 11.0"
 - `source_document_issue_date`: "May 28, 2024"
@@ -3712,6 +3726,1030 @@ overall_status: "pass_with_warnings"
 - `aliases`: ["3092511", "Erratum 3092511", "Cortex-M7 can halt in an incorrect address when breakpoint and exception occurs simultaneously", "open erratum 3092511"]
 - `related_ids`: ["ERR-3092511"]
 
+## 9A. Text-Layer Search Supplement
+
+### TEXTSUP-SUMMARY
+- `purpose`: "Close keyword lookup gaps between Arm_Cortex-M7_Software_Developer_Errata_Notice.pdf extractable text and this Manifest without copying full PDF prose."
+- `source`: `local pypdf text extraction from Arm_Cortex-M7_Software_Developer_Errata_Notice.pdf`
+- `source_pdf_sha256`: `c4e31658732e82f79d47c42c008daf937e2aee96f04d378caa9942f0c3c35df5`
+- `source_pdf_size_bytes`: `447605`
+- `pdf_page_count`: `63`
+- `generated_at`: `2026-06-20T11:56:13Z`
+- `tokenization_rule`: `ASCII identifiers, alphanumeric technical tokens, hex literals, dotted section/version values, register fields, instruction/API symbols, GUI/menu tokens and numeric unit tokens with length >= 3.`
+- `normalization`: `Ligatures, soft hyphen variants, Unicode dash variants and known Private Use Area digit glyphs are normalized before token comparison.`
+- `scope`: `Text-layer token supplement only; source PDF remains authoritative for erratum wording, affected configurations, implications, workarounds and status.`
+- `unique_missing_terms_added`: `458`
+- `technical_missing_terms_added`: `27`
+- `pages_with_added_terms`: `63`
+- `supplemented_page_term_entries`: `752`
+- `post_supplement_text_token_recall`: `1.000`
+- `post_supplement_technical_token_recall`: `1.000`
+- `usage`: `Search terms here to locate physical pages, then verify exact erratum IDs, affected configurations, conditions, implications and workaround wording in the source PDF.`
+
+### TEXTSUP-PAGE-0001
+- `physical_page`: `1`
+- `additional_text_terms`:
+  - "affiliates"
+  - "reserved"
+  - "rights"
+
+### TEXTSUP-PAGE-0002
+- `physical_page`: `2`
+- `additional_text_terms`:
+  - "accepted"
+  - "affiliates"
+  - "arm.com"
+  - "communities"
+  - "create"
+  - "email"
+  - "http://developer.arm.com/documentation/SDEN-1068427"
+  - "https://developer.arm.com/documentation-feedback-survey"
+  - "https://support.developer.arm.com"
+  - "industry"
+  - "intellectual"
+  - "offensive"
+  - "permits"
+  - "property"
+  - "protected"
+  - "recognizes"
+  - "reserved"
+  - "reviewed"
+  - "rights"
+  - "strives"
+  - "survey"
+  - "ticket"
+  - "welcomes"
+
+### TEXTSUP-PAGE-0003
+- `physical_page`: `3`
+- `additional_text_terms`:
+  - "affiliates"
+  - "ContentsIntroduction"
+  - "reserved"
+  - "rights"
+
+### TEXTSUP-PAGE-0004
+- `physical_page`: `4`
+- `additional_text_terms`:
+  - "affiliates"
+  - "reserved"
+  - "rights"
+
+### TEXTSUP-PAGE-0005
+- `physical_page`: `5`
+- `additional_text_terms`:
+  - "affiliates"
+  - "analysis"
+  - "application"
+  - "applications"
+  - "categorized"
+  - "common"
+  - "determined"
+  - "deviates"
+  - "erroneous"
+  - "further"
+  - "impactful"
+  - "implementation"
+  - "IntroductionScope"
+  - "level"
+  - "levels"
+  - "limitations"
+  - "most"
+  - "qualified"
+  - "reserved"
+  - "rights"
+  - "specification"
+  - "split"
+  - "typical"
+
+### TEXTSUP-PAGE-0006
+- `physical_page`: `6`
+- `additional_text_terms`:
+  - "affiliates"
+  - "identifies"
+  - "listed"
+  - "reserved"
+  - "rights"
+  - "shown"
+  - "unless"
+
+### TEXTSUP-PAGE-0007
+- `physical_page`: `7`
+- `additional_text_terms`:
+  - "affiliates"
+  - "March"
+  - "reserved"
+  - "rights"
+
+### TEXTSUP-PAGE-0008
+- `physical_page`: `8`
+- `additional_text_terms`:
+  - "affiliates"
+  - "April"
+  - "reserved"
+  - "rights"
+
+### TEXTSUP-PAGE-0009
+- `physical_page`: `9`
+- `additional_text_terms`:
+  - "affiliates"
+  - "associated"
+  - "reserved"
+  - "rights"
+
+### TEXTSUP-PAGE-0010
+- `physical_page`: `10`
+- `additional_text_terms`:
+  - "affiliates"
+  - "reserved"
+  - "rights"
+
+### TEXTSUP-PAGE-0011
+- `physical_page`: `11`
+- `additional_text_terms`:
+  - "affiliates"
+  - "allocates"
+  - "anywhere"
+  - "cacheline"
+  - "double-word"
+  - "observed"
+  - "reserved"
+  - "rights"
+  - "shared"
+  - "started"
+
+### TEXTSUP-PAGE-0012
+- `physical_page`: `12`
+- `additional_text_terms`:
+  - "affiliates"
+  - "gets"
+  - "reserved"
+  - "rights"
+  - "second"
+
+### TEXTSUP-PAGE-0013
+- `physical_page`: `13`
+- `additional_text_terms`:
+  - "affiliates"
+  - "completion"
+  - "decompression"
+  - "entry"
+  - "halts"
+  - "inactive"
+  - "misinterpretation"
+  - "periodically"
+  - "presented"
+  - "preventing"
+  - "receive"
+  - "reserved"
+  - "rights"
+  - "thereby"
+
+### TEXTSUP-PAGE-0014
+- `physical_page`: `14`
+- `additional_text_terms`:
+  - "affiliates"
+  - "reserved"
+  - "rights"
+
+### TEXTSUP-PAGE-0015
+- `physical_page`: `15`
+- `additional_text_terms`:
+  - "affiliates"
+  - "attempted"
+  - "attempting"
+  - "interrupted"
+  - "killed"
+  - "lookups"
+  - "performs"
+  - "recognised"
+  - "reserved"
+  - "rights"
+  - "such"
+
+### TEXTSUP-PAGE-0016
+- `physical_page`: `16`
+- `additional_text_terms`:
+  - "absence"
+  - "affiliates"
+  - "appropriate"
+  - "caches"
+  - "caching"
+  - "clean"
+  - "however"
+  - "modifying"
+  - "reserved"
+  - "rights"
+  - "self-"
+  - "self-modifying"
+  - "still"
+  - "violation"
+
+### TEXTSUP-PAGE-0017
+- `physical_page`: `17`
+- `additional_text_terms`:
+  - "Affects:Cortex-M7"
+  - "affiliates"
+  - "allowing"
+  - "boosted"
+  - "boosting"
+  - "guaranteed"
+  - "higher"
+  - "interrupted"
+  - "lower"
+  - "next"
+  - "reserved"
+  - "rights"
+  - "see"
+  - "stacked"
+  - "takes"
+  - "window"
+
+### TEXTSUP-PAGE-0018
+- `physical_page`: `18`
+- `additional_text_terms`:
+  - "affiliates"
+  - "reserved"
+  - "rights"
+
+### TEXTSUP-PAGE-0019
+- `physical_page`: `19`
+- `additional_text_terms`:
+  - "affiliates"
+  - "asserts"
+  - "attempts"
+  - "caused"
+  - "correctable"
+  - "dirty"
+  - "dynamic"
+  - "entered"
+  - "evictions"
+  - "fatal"
+  - "gets"
+  - "reason"
+  - "reasons"
+  - "reserved"
+  - "rights"
+  - "second"
+  - "storing"
+  - "write-after-write"
+
+### TEXTSUP-PAGE-0020
+- `physical_page`: `20`
+- `additional_text_terms`:
+  - "affiliates"
+  - "also"
+  - "Dynamic"
+  - "reserved"
+  - "rights"
+  - "small"
+
+### TEXTSUP-PAGE-0021
+- `physical_page`: `21`
+- `additional_text_terms`:
+  - "accessed"
+  - "affiliates"
+  - "branch"
+  - "cases"
+  - "decodes"
+  - "hits"
+  - "iii"
+  - "level"
+  - "literal"
+  - "meet"
+  - "mispredicted"
+  - "permission"
+  - "reserved"
+  - "rights"
+  - "shadow"
+  - "speculatively"
+  - "such"
+  - "theoretically"
+  - "unprivileged"
+
+### TEXTSUP-PAGE-0022
+- `physical_page`: `22`
+- `additional_text_terms`:
+  - "accessed"
+  - "affiliates"
+  - "b000"
+  - "b00000000"
+  - "b11111"
+  - "entire"
+  - "itself"
+  - "level"
+  - "making"
+  - "non-cacheable"
+  - "permissions"
+  - "reserved"
+  - "response"
+  - "rights"
+  - "side-effects"
+  - "sub-regions"
+
+### TEXTSUP-PAGE-0023
+- `physical_page`: `23`
+- `additional_text_terms`:
+  - "accepted"
+  - "adequate"
+  - "affiliates"
+  - "ahead"
+  - "Also"
+  - "closely"
+  - "contention"
+  - "discarded"
+  - "exacerbate"
+  - "fairly"
+  - "further"
+  - "Hence"
+  - "ingress"
+  - "ongoing"
+  - "repeated"
+  - "reserved"
+  - "rights"
+  - "scheme"
+  - "stalled"
+  - "stalling"
+  - "stalls"
+  - "still"
+  - "stop"
+  - "therefore"
+
+### TEXTSUP-PAGE-0024
+- `physical_page`: `24`
+- `additional_text_terms`:
+  - "affiliates"
+  - "consecutive"
+  - "every"
+  - "reserved"
+  - "rights"
+  - "T/2"
+  - "takes"
+
+### TEXTSUP-PAGE-0025
+- `physical_page`: `25`
+- `additional_text_terms`:
+  - "affiliates"
+  - "attempts"
+  - "drain"
+  - "four"
+  - "interrupted"
+  - "management"
+  - "next"
+  - "reprogrammed"
+  - "reserved"
+  - "rights"
+  - "such"
+
+### TEXTSUP-PAGE-0026
+- `physical_page`: `26`
+- `additional_text_terms`:
+  - "affiliates"
+  - "allowed"
+  - "areas"
+  - "degradation"
+  - "reserved"
+  - "rights"
+  - "such"
+
+### TEXTSUP-PAGE-0027
+- `physical_page`: `27`
+- `additional_text_terms`:
+  - "affiliates"
+  - "cases"
+  - "destination"
+  - "handlers"
+  - "load/store"
+  - "reserved"
+  - "rights"
+  - "second"
+  - "Thread"
+  - "unprivileged"
+  - "UsageFault"
+
+### TEXTSUP-PAGE-0028
+- `physical_page`: `28`
+- `additional_text_terms`:
+  - "affiliates"
+  - "allowed"
+  - "flow"
+  - "however"
+  - "load/store"
+  - "majority"
+  - "potentially"
+  - "requests"
+  - "reserved"
+  - "restricted"
+  - "rights"
+  - "such"
+  - "Therefore"
+  - "thread"
+  - "unpredictable"
+  - "unprivileged"
+  - "very"
+
+### TEXTSUP-PAGE-0029
+- `physical_page`: `29`
+- `additional_text_terms`:
+  - "affiliates"
+  - "continuously"
+  - "enabling"
+  - "held"
+  - "however"
+  - "next"
+  - "prevents"
+  - "reserved"
+  - "rights"
+
+### TEXTSUP-PAGE-0030
+- `physical_page`: `30`
+- `additional_text_terms`:
+  - "affiliates"
+  - "reserved"
+  - "rights"
+  - "twice"
+
+### TEXTSUP-PAGE-0031
+- `physical_page`: `31`
+- `additional_text_terms`:
+  - "affiliates"
+  - "also"
+  - "apply"
+  - "appropriate"
+  - "configurable-priority"
+  - "Entering"
+  - "escalated"
+  - "every"
+  - "fails"
+  - "handles"
+  - "original"
+  - "reserved"
+  - "resulting"
+  - "rights"
+  - "situations"
+  - "thus"
+
+### TEXTSUP-PAGE-0032
+- `physical_page`: `32`
+- `additional_text_terms`:
+  - "affiliates"
+  - "difficult"
+  - "faulty"
+  - "more"
+  - "reserved"
+  - "rights"
+  - "Therefore"
+  - "understand"
+
+### TEXTSUP-PAGE-0033
+- `physical_page`: `33`
+- `additional_text_terms`:
+  - "4.9"
+  - "5.03"
+  - "7.40"
+  - "affiliates"
+  - "changing"
+  - "code-alignment"
+  - "completely"
+  - "dependency"
+  - "destination"
+  - "gcc"
+  - "operand"
+  - "Passes"
+  - "q1-update"
+  - "reserved"
+  - "rights"
+  - "second"
+  - "therefore"
+  - "trunk"
+  - "verified"
+
+### TEXTSUP-PAGE-0034
+- `physical_page`: `34`
+- `additional_text_terms`:
+  - "affiliates"
+  - "reserved"
+  - "rights"
+
+### TEXTSUP-PAGE-0035
+- `physical_page`: `35`
+- `additional_text_terms`:
+  - "accessing"
+  - "affiliates"
+  - "Alternatively"
+  - "aspects"
+  - "executes"
+  - "few"
+  - "guaranteed"
+  - "lookups"
+  - "more"
+  - "near"
+  - "reserved"
+  - "rights"
+  - "running"
+  - "stalled"
+  - "therefore"
+  - "traffic"
+  - "wait-states"
+
+### TEXTSUP-PAGE-0036
+- `physical_page`: `36`
+- `additional_text_terms`:
+  - "affiliates"
+  - "caches"
+  - "circumvent"
+  - "level"
+  - "reserved"
+  - "rights"
+  - "themselves"
+  - "therefore"
+
+### TEXTSUP-PAGE-0037
+- `physical_page`: `37`
+- `additional_text_terms`:
+  - "active"
+  - "affiliates"
+  - "entry"
+  - "loading"
+  - "made"
+  - "recognized"
+  - "reserved"
+  - "rights"
+  - "separate"
+  - "such"
+
+### TEXTSUP-PAGE-0038
+- `physical_page`: `38`
+- `additional_text_terms`:
+  - "affiliates"
+  - "reserved"
+  - "rights"
+
+### TEXTSUP-PAGE-0039
+- `physical_page`: `39`
+- `additional_text_terms`:
+  - "affiliates"
+  - "aspects"
+  - "lower"
+  - "reserved"
+  - "rights"
+  - "them"
+
+### TEXTSUP-PAGE-0040
+- `physical_page`: `40`
+- `additional_text_terms`:
+  - "affiliates"
+  - "reserved"
+  - "rights"
+
+### TEXTSUP-PAGE-0041
+- `physical_page`: `41`
+- `additional_text_terms`:
+  - "affiliates"
+  - "controls"
+  - "differs"
+  - "eight"
+  - "flush-to-zero"
+  - "modes"
+  - "next"
+  - "reserved"
+  - "rights"
+  - "settings"
+  - "VFNMA"
+  - "VFNMS"
+  - "Within"
+
+### TEXTSUP-PAGE-0042
+- `physical_page`: `42`
+- `additional_text_terms`:
+  - "affiliates"
+  - "reserved"
+  - "rights"
+
+### TEXTSUP-PAGE-0043
+- `physical_page`: `43`
+- `additional_text_terms`:
+  - "affiliates"
+  - "counted"
+  - "double"
+  - "entirely"
+  - "increment"
+  - "incremented"
+  - "load-store"
+  - "missed"
+  - "non-stalled"
+  - "reserved"
+  - "rights"
+  - "spends"
+  - "spent"
+  - "whilst"
+
+### TEXTSUP-PAGE-0044
+- `physical_page`: `44`
+- `additional_text_terms`:
+  - "affiliates"
+  - "reserved"
+  - "rights"
+
+### TEXTSUP-PAGE-0045
+- `physical_page`: `45`
+- `additional_text_terms`:
+  - "affiliates"
+  - "buffered"
+  - "entry"
+  - "model"
+  - "reserved"
+  - "rights"
+  - "second"
+  - "standard"
+  - "such"
+
+### TEXTSUP-PAGE-0046
+- `physical_page`: `46`
+- `additional_text_terms`:
+  - "affiliates"
+  - "reserved"
+  - "rights"
+
+### TEXTSUP-PAGE-0047
+- `physical_page`: `47`
+- `additional_text_terms`:
+  - "affiliates"
+  - "assumes"
+  - "carries"
+  - "livelock"
+  - "reserved"
+  - "rights"
+
+### TEXTSUP-PAGE-0048
+- `physical_page`: `48`
+- `additional_text_terms`:
+  - "affiliates"
+  - "reserved"
+  - "rights"
+
+### TEXTSUP-PAGE-0049
+- `physical_page`: `49`
+- `additional_text_terms`:
+  - "affiliates"
+  - "algorithms"
+  - "allocation"
+  - "asserted"
+  - "attempts"
+  - "automatically"
+  - "aware"
+  - "bursts"
+  - "carried"
+  - "cases"
+  - "clock"
+  - "commences"
+  - "conjunction"
+  - "details"
+  - "disables"
+  - "gap"
+  - "helps"
+  - "large"
+  - "line-fill"
+  - "memories"
+  - "more"
+  - "performs"
+  - "period"
+  - "prevents"
+  - "production"
+  - "reason"
+  - "reserved"
+  - "rights"
+  - "running"
+  - "See"
+  - "still"
+  - "tested"
+  - "tests"
+  - "transparent"
+  - "very"
+  - "works"
+
+### TEXTSUP-PAGE-0050
+- `physical_page`: `50`
+- `additional_text_terms`:
+  - "affiliates"
+  - "array"
+  - "commences"
+  - "functions"
+  - "memories"
+  - "period"
+  - "progress"
+  - "reason"
+  - "reserved"
+  - "rights"
+  - "running"
+  - "selects"
+  - "stalling"
+  - "unexpectedly"
+
+### TEXTSUP-PAGE-0051
+- `physical_page`: `51`
+- `additional_text_terms`:
+  - "affiliates"
+  - "cleared"
+  - "entered"
+  - "entering"
+  - "exits"
+  - "invoked"
+  - "kept"
+  - "masked"
+  - "reserved"
+  - "rights"
+
+### TEXTSUP-PAGE-0052
+- `physical_page`: `52`
+- `additional_text_terms`:
+  - "affiliates"
+  - "entered"
+  - "entering"
+  - "leaving"
+  - "performs"
+  - "previously"
+  - "prone"
+  - "requests"
+  - "reserved"
+  - "rights"
+  - "rules"
+  - "soon"
+  - "steps"
+  - "Subsequently"
+  - "user"
+  - "window"
+
+### TEXTSUP-PAGE-0053
+- `physical_page`: `53`
+- `additional_text_terms`:
+  - "affiliates"
+  - "allocations"
+  - "automatically"
+  - "containing"
+  - "future"
+  - "onto"
+  - "prevents"
+  - "reserved"
+  - "rights"
+
+### TEXTSUP-PAGE-0054
+- `physical_page`: `54`
+- `additional_text_terms`:
+  - "affiliates"
+  - "merged"
+  - "occurred"
+  - "reason"
+  - "reserved"
+  - "rights"
+  - "Subsequently"
+  - "very"
+
+### TEXTSUP-PAGE-0055
+- `physical_page`: `55`
+- `additional_text_terms`:
+  - "affiliates"
+  - "reserved"
+  - "rights"
+
+### TEXTSUP-PAGE-0056
+- `physical_page`: `56`
+- `additional_text_terms`:
+  - "affiliates"
+  - "implementations"
+  - "most"
+  - "reserved"
+  - "rights"
+  - "such"
+
+### TEXTSUP-PAGE-0057
+- `physical_page`: `57`
+- `additional_text_terms`:
+  - "affiliates"
+  - "reserved"
+  - "rights"
+
+### TEXTSUP-PAGE-0058
+- `physical_page`: `58`
+- `additional_text_terms`:
+  - "affiliates"
+  - "DWT_FUNCTIONn.DATAVSIZE"
+  - "DWTFUNCTIONn.DATAVMATCH"
+  - "given"
+  - "halfword"
+  - "Performing"
+  - "reserved"
+  - "rights"
+  - "sensitive"
+
+### TEXTSUP-PAGE-0059
+- `physical_page`: `59`
+- `additional_text_terms`:
+  - "affiliates"
+  - "authentication"
+  - "beginning"
+  - "cases"
+  - "clears"
+  - "followings"
+  - "invoked"
+  - "occurred"
+  - "permitted"
+  - "pointed"
+  - "reach"
+  - "reaches"
+  - "reserved"
+  - "rights"
+  - "see"
+  - "servicing"
+  - "taking"
+
+### TEXTSUP-PAGE-0060
+- `physical_page`: `60`
+- `additional_text_terms`:
+  - "affiliates"
+  - "optionally"
+  - "reason"
+  - "reserved"
+  - "resume"
+  - "resumed"
+  - "rights"
+  - "serviced"
+  - "unknown"
+
+### TEXTSUP-PAGE-0061
+- `physical_page`: `61`
+- `additional_text_terms`:
+  - "acceptance"
+  - "acknowledge"
+  - "adequate"
+  - "ADVISED"
+  - "affiliates"
+  - "agree"
+  - "analysis"
+  - "applications"
+  - "approval"
+  - "ARISING"
+  - "assure"
+  - "avoidance"
+  - "CAUSED"
+  - "changing"
+  - "commercial"
+  - "compliance"
+  - "complies"
+  - "concerning"
+  - "conflict"
+  - "conjunction"
+  - "CONSEQUENTIAL"
+  - "contained"
+  - "convenience"
+  - "copyrights"
+  - "create"
+  - "customers"
+  - "DAMAGES"
+  - "design"
+  - "determining"
+  - "disclosure"
+  - "doubt"
+  - "duplication"
+  - "efforts"
+  - "endorsement"
+  - "English"
+  - "estoppel"
+  - "exceed"
+  - "expertise"
+  - "export"
+  - "exported"
+  - "EXTENT"
+  - "FITNESS"
+  - "fully"
+  - "further"
+  - "governed"
+  - "granted"
+  - "herein"
+  - "HOWEVER"
+  - "implementation"
+  - "inaccuracies"
+  - "INCIDENTAL"
+  - "INDIRECT"
+  - "indirectly"
+  - "informational"
+  - "infringes"
+  - "intellectual"
+  - "items"
+  - "languages"
+  - "LAW"
+  - "laws"
+  - "LIABLE"
+  - "license"
+  - "makes"
+  - "merely"
+  - "minimize"
+  - "more"
+  - "NON-INFRINGEMENT"
+  - "notwithstanding"
+  - "obligations"
+  - "others"
+  - "partner"
+  - "partnership"
+  - "party"
+  - "patents"
+  - "permission"
+  - "permitted"
+  - "portion"
+  - "possess"
+  - "POSSIBILITY"
+  - "presented"
+  - "prevail"
+  - "produced"
+  - "products"
+  - "PROHIBITED"
+  - "property"
+  - "protected"
+  - "PUNITIVE"
+  - "PURPOSE"
+  - "purposes"
+  - "reasonable"
+  - "recipient"
+  - "regulations"
+  - "regulatory"
+  - "relationship"
+  - "reproduced"
+  - "reserved"
+  - "responsible"
+  - "rights"
+  - "safeguards"
+  - "SATISFACTORY"
+  - "secrets"
+  - "security"
+  - "services"
+  - "shall"
+  - "solely"
+  - "solutions"
+  - "SPECIAL"
+  - "specifically"
+  - "stated"
+  - "such"
+  - "technology"
+  - "THEORY"
+  - "thereof"
+  - "third"
+  - "translated"
+  - "translation"
+  - "typographical"
+  - "understand"
+  - "undertaken"
+  - "unless"
+  - "upon"
+  - "validity"
+  - "violation"
+  - "within"
+  - "Your"
+
+### TEXTSUP-PAGE-0062
+- `physical_page`: `62`
+- `additional_text_terms`:
+  - "9NJ"
+  - "affiliates"
+  - "and/or"
+  - "brands"
+  - "Cambridge"
+  - "elsewhere"
+  - "England"
+  - "Fulbourn"
+  - "guidelines"
+  - "https://www.arm.com/company/policies/trademarks"
+  - "mentioned"
+  - "names"
+  - "owners"
+  - "reserved"
+  - "respective"
+  - "rights"
+  - "Road"
+
+### TEXTSUP-PAGE-0063
+- `physical_page`: `63`
+- `additional_text_terms`:
+  - "0x0"
+  - "affiliates"
+  - "appropriate"
+  - "associated"
+  - "conventions"
+  - "deliverables"
+  - "developed"
+  - "documents"
+  - "Identifies"
+  - "indicates"
+  - "level"
+  - "levels"
+  - "made"
+  - "major"
+  - "prepared"
+  - "products"
+  - "reserved"
+  - "rights"
+  - "Services"
+  - "understand"
+
 ## 11. Quality Warnings
 
 ### WARN-0001-OCR-NOT-RUN
@@ -3800,6 +4838,16 @@ overall_status: "pass_with_warnings"
 - `manifest_source_pdf_sha256`: "c4e31658732e82f79d47c42c008daf937e2aee96f04d378caa9942f0c3c35df5"
 - `sha256_match`: true
 - `status`: "pass"
+
+### Text-Layer Search Supplement
+- `status`: "pass"
+- `generated_at`: "2026-06-20T11:56:13Z"
+- `unique_missing_terms_added`: 458
+- `technical_missing_terms_added`: 27
+- `pages_with_added_terms`: 63
+- `supplemented_page_term_entries`: 752
+- `post_supplement_text_token_recall`: "1.000"
+- `post_supplement_technical_token_recall`: "1.000"
 
 ### Index Integrity
 - `stable_id_policy`: "DOC, SEC, SEG, TBL, FIG, ERR, TERM, ALIAS, WARN IDs are deterministic and non-random."

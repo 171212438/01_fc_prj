@@ -350,3 +350,70 @@ Binding(CTRL+7,
 
 !ENTRY org.eclipse.update.configurator 4 0 2026-06-12 14:50:37.591
 !MESSAGE Can't find bundle for base name feature, locale zh_CN
+!SESSION 2026-06-23 16:40:45.855 -----------------------------------------------
+eclipse.buildId=4.20.0.I20210611-1600
+java.version=19.0.1
+java.vendor=Eclipse Adoptium
+BootLoader constants: OS=win32, ARCH=x86_64, WS=win32, NL=zh_CN
+Framework arguments:  -product org.eclipse.epp.package.cpp.product
+Command-line arguments:  -os win32 -ws win32 -arch x86_64 -product org.eclipse.epp.package.cpp.product
+
+!ENTRY br.ufal.ic.colligens 4 0 2026-06-23 16:40:46.340
+!MESSAGE FrameworkEvent ERROR
+!STACK 0
+org.osgi.framework.BundleException: Could not resolve module: br.ufal.ic.colligens [3]
+  Unresolved requirement: Require-Bundle: de.ovgu.featureide.fm.core
+
+	at org.eclipse.osgi.container.Module.start(Module.java:463)
+	at org.eclipse.osgi.container.ModuleContainer$ContainerStartLevel$2.run(ModuleContainer.java:1849)
+	at org.eclipse.osgi.internal.framework.EquinoxContainerAdaptor$1$1.execute(EquinoxContainerAdaptor.java:136)
+	at org.eclipse.osgi.container.ModuleContainer$ContainerStartLevel.incStartLevel(ModuleContainer.java:1842)
+	at org.eclipse.osgi.container.ModuleContainer$ContainerStartLevel.incStartLevel(ModuleContainer.java:1783)
+	at org.eclipse.osgi.container.ModuleContainer$ContainerStartLevel.doContainerStartLevel(ModuleContainer.java:1747)
+	at org.eclipse.osgi.container.ModuleContainer$ContainerStartLevel.dispatchEvent(ModuleContainer.java:1669)
+	at org.eclipse.osgi.container.ModuleContainer$ContainerStartLevel.dispatchEvent(ModuleContainer.java:1)
+	at org.eclipse.osgi.framework.eventmgr.EventManager.dispatchEvent(EventManager.java:234)
+	at org.eclipse.osgi.framework.eventmgr.EventManager$EventThread.run(EventManager.java:345)
+
+!ENTRY org.eclipse.ui 2 0 2026-06-23 16:40:50.028
+!MESSAGE Warnings while parsing the key bindings from the 'org.eclipse.ui.commands' and 'org.eclipse.ui.bindings' extension point
+!SUBENTRY 1 org.eclipse.ui 2 0 2026-06-23 16:40:50.028
+!MESSAGE Cannot bind to an undefined command: plug-in='cn.com.flagchip.menu.ui', id='cn.com.flagchip.commands.runUnlock'
+
+!ENTRY org.eclipse.jface 2 0 2026-06-23 16:40:51.262
+!MESSAGE Keybinding conflicts occurred.  They may interfere with normal accelerator operation.
+!SUBENTRY 1 org.eclipse.jface 2 0 2026-06-23 16:40:51.262
+!MESSAGE A conflict occurred for CTRL+7:
+Binding(CTRL+7,
+	ParameterizedCommand(Command(cn.com.flagchip.commands.runExt,Run External Tools,
+		,
+		Category(cn.com.flagchip.commands.category,FC Category,null,true),
+		org.eclipse.ui.internal.WorkbenchHandlerServiceHandler@5e80d5,
+		[Parameter(cn.com.flagchip.runExt.msg,Message,null,true)],,true),null),
+	org.eclipse.ui.defaultAcceleratorConfiguration,
+	org.eclipse.ui.contexts.window,,,system)
+Binding(CTRL+7,
+	ParameterizedCommand(Command(cn.com.flagchip.commands.runAstyle,Run A-Style,
+		,
+		Category(cn.com.flagchip.commands.category,FC Category,null,true),
+		org.eclipse.ui.internal.WorkbenchHandlerServiceHandler@257b3561,
+		[Parameter(cn.com.flagchip.runAstyle.msg,Message,null,true)],,true),null),
+	org.eclipse.ui.defaultAcceleratorConfiguration,
+	org.eclipse.ui.contexts.window,,,system)
+Binding(CTRL+7,
+	ParameterizedCommand(Command(cn.com.flagchip.commands.jlinkLoadBin,Jlink Load Bin,
+		,
+		Category(cn.com.flagchip.commands.category,FC Category,null,true),
+		org.eclipse.ui.internal.WorkbenchHandlerServiceHandler@78861d9e,
+		,,true),null),
+	org.eclipse.ui.defaultAcceleratorConfiguration,
+	org.eclipse.ui.contexts.window,,,system)
+
+!ENTRY org.eclipse.ui 4 4 2026-06-23 16:40:51.320
+!MESSAGE Plugin cn.com.flagchip.editor.ui, extension org.eclipse.ui.editors: Unknown editor with id: net.sourceforge.ehep.editors.HexEditor
+
+!ENTRY org.eclipse.update.configurator 4 0 2026-06-23 16:40:55.964
+!MESSAGE Can't find bundle for base name feature, locale zh_CN
+
+!ENTRY org.eclipse.update.configurator 4 0 2026-06-23 16:40:56.387
+!MESSAGE Can't find bundle for base name feature, locale zh_CN

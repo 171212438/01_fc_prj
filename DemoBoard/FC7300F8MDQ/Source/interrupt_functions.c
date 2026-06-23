@@ -1,31 +1,273 @@
 #if 1
 #include "Mcu.h"
-#include "Fls.h"
-#include "Fee.h"
+#include "Mcu_CM7_Regs.h"
+#include "Bsp_CrashRecord.h"
 
-/* Flash ECC info register address */
-#define FLASH_ECC_REG_ADDR 0x40020068
+#define EXCEPTION_STACK_FRAME_SIZE      (32U)
+#define EXCEPTION_DTCM_START_ADDR       (0x20000000U)
+#define EXCEPTION_DTCM_END_ADDR         (0x20020000U)
+#define EXCEPTION_SRAM_START_ADDR       (0x21000000U)
+#define EXCEPTION_SRAM_END_ADDR         (0x210E0000U)
 
-typedef struct
-{
-    char  *type;
-    char  *cause;
-    uint32 address;
+#define EXCEPTION_FAULT_ACTION_HALT     (0U)
+#define EXCEPTION_FAULT_ACTION_RESET    (1U)
+
+#ifndef EXCEPTION_FAULT_ACTION
+#define EXCEPTION_FAULT_ACTION          EXCEPTION_FAULT_ACTION_HALT
+#endif
+
+#if ((EXCEPTION_FAULT_ACTION != EXCEPTION_FAULT_ACTION_HALT) && \
+     (EXCEPTION_FAULT_ACTION != EXCEPTION_FAULT_ACTION_RESET))
+#error "Unsupported EXCEPTION_FAULT_ACTION"
+#endif
+
+#define EXCEPTION_CFSR_MEMFAULT_MASK \
+  (FC7XXX_SCB_CFSR_IACCVIOL_MASK | FC7XXX_SCB_CFSR_DACCVIOL_MASK | \
+   FC7XXX_SCB_CFSR_MUNSTKERR_MASK | FC7XXX_SCB_CFSR_MSTKERR_MASK | \
+   FC7XXX_SCB_CFSR_MLSPERR_MASK)
+
+#define EXCEPTION_CFSR_BUSFAULT_MASK \
+  (FC7XXX_SCB_CFSR_IBUSERR_MASK | FC7XXX_SCB_CFSR_PRECISERR_MASK | \
+   FC7XXX_SCB_CFSR_IMPRECISERR_MASK | FC7XXX_SCB_CFSR_UNSTKERR_MASK | \
+   FC7XXX_SCB_CFSR_STKERR_MASK | FC7XXX_SCB_CFSR_LSPERR_MASK)
+
+#define EXCEPTION_CFSR_USAGEFAULT_MASK \
+  (FC7XXX_SCB_CFSR_UNDEFINSTR_MASK | FC7XXX_SCB_CFSR_INVSTATE_MASK | \
+   FC7XXX_SCB_CFSR_INVPC_MASK | FC7XXX_SCB_CFSR_NOCP_MASK | \
+   FC7XXX_SCB_CFSR_UNALIGNED_MASK | FC7XXX_SCB_CFSR_DIVBYZERO_MASK)
+
+typedef Bsp_CrashRecord_StackFrameType Hardfault_StackType;
+
+typedef struct {
+  const char *type;              /* Decoded fault class, for example HardFault or BusFault. */
+  const char *cause;             /* Decoded fault cause from HFSR/CFSR status bits. */
+  uint32 fault_type;             /* Numeric fault class for crash record storage. */
+  uint32 fault_cause;            /* Raw cause bits selected from HFSR/CFSR for crash record storage. */
+  uint32 address;                /* Fault address when address_valid is set. */
+  uint32 address_valid;          /* Nonzero when address contains a valid MMFAR/BFAR value. */
+  uint32 stack_frame_valid;      /* Nonzero when active_sp points to a readable exception frame. */
+  uint32 active_sp;              /* MSP or PSP selected from EXC_RETURN bit 2. */
+  uint32 exc_return;             /* EXC_RETURN value captured from LR on exception entry. */
+  uint32 icsr;                   /* Raw Interrupt Control and State Register snapshot. */
+  uint32 hfsr;                   /* Raw HardFault Status Register snapshot. */
+  uint32 cfsr;                   /* Raw Configurable Fault Status Register snapshot. */
+  uint32 shcsr;                  /* Raw System Handler Control and State Register snapshot. */
+  uint32 dfsr;                   /* Raw Debug Fault Status Register snapshot. */
+  uint32 afsr;                   /* Raw Auxiliary Fault Status Register snapshot. */
+  uint32 mmfar;                  /* Raw MemManage Fault Address Register snapshot. */
+  uint32 bfar;                   /* Raw BusFault Address Register snapshot. */
+  Hardfault_StackType stacked;   /* Hardware-stacked core registers from the interrupted context. */
 } Exception_Inf;
 
-typedef struct
-{
-    unsigned int stacked_r0;
-    unsigned int stacked_r1;
-    unsigned int stacked_r2;
-    unsigned int stacked_r3;
-    unsigned int stacked_r12;
-    unsigned int stacked_lr;
-    unsigned int stacked_pc;
-    unsigned int stacked_psr;
-} Hardfault_StackType;
+volatile Exception_Inf Exception_Info;
 
-Exception_Inf Exception_Info;
+static uint32 Exception_IsStackFrameReadable(uint32 u32StackAddr)
+{
+  uint32 u32StackEnd = u32StackAddr + EXCEPTION_STACK_FRAME_SIZE;
+
+  if (((u32StackAddr & 0x3U) != 0U) || (u32StackEnd < u32StackAddr)) {
+    return 0U;
+  }
+
+  if (((u32StackAddr >= EXCEPTION_DTCM_START_ADDR) && (u32StackEnd <= EXCEPTION_DTCM_END_ADDR)) || ((u32StackAddr >= EXCEPTION_SRAM_START_ADDR) && (u32StackEnd <= EXCEPTION_SRAM_END_ADDR))) {
+    return 1U;
+  }
+
+  return 0U;
+}
+
+static void Exception_ClearStackSnapshot(void)
+{
+  Exception_Info.stacked.stacked_r0 = 0U;
+  Exception_Info.stacked.stacked_r1 = 0U;
+  Exception_Info.stacked.stacked_r2 = 0U;
+  Exception_Info.stacked.stacked_r3 = 0U;
+  Exception_Info.stacked.stacked_r12 = 0U;
+  Exception_Info.stacked.stacked_lr = 0U;
+  Exception_Info.stacked.stacked_pc = 0U;
+  Exception_Info.stacked.stacked_psr = 0U;
+}
+
+static void Exception_CaptureStackFrame(const Hardfault_StackType *pStackFrame)
+{
+  uint32 u32StackAddr = (uint32)pStackFrame;
+
+  Exception_Info.active_sp = u32StackAddr;
+  Exception_Info.stack_frame_valid = Exception_IsStackFrameReadable(u32StackAddr);
+
+  if (0U != Exception_Info.stack_frame_valid) {
+    Exception_Info.stacked.stacked_r0 = pStackFrame->stacked_r0;
+    Exception_Info.stacked.stacked_r1 = pStackFrame->stacked_r1;
+    Exception_Info.stacked.stacked_r2 = pStackFrame->stacked_r2;
+    Exception_Info.stacked.stacked_r3 = pStackFrame->stacked_r3;
+    Exception_Info.stacked.stacked_r12 = pStackFrame->stacked_r12;
+    Exception_Info.stacked.stacked_lr = pStackFrame->stacked_lr;
+    Exception_Info.stacked.stacked_pc = pStackFrame->stacked_pc;
+    Exception_Info.stacked.stacked_psr = pStackFrame->stacked_psr;
+  } else {
+    Exception_ClearStackSnapshot();
+  }
+}
+
+static void Exception_CaptureContext(uint32 u32FaultType, uint32 u32FaultCause, const char *pType, const char *pCause, const Hardfault_StackType *pStackFrame, uint32 u32ExcReturn)
+{
+  Exception_Info.type = pType;
+  Exception_Info.cause = pCause;
+  Exception_Info.fault_type = u32FaultType;
+  Exception_Info.fault_cause = u32FaultCause;
+  Exception_Info.address = 0U;
+  Exception_Info.address_valid = 0U;
+  Exception_Info.exc_return = u32ExcReturn;
+  Exception_Info.icsr = FC7XXX_SCB->ICSR;
+  Exception_Info.hfsr = FC7XXX_SCB->HFSR;
+  Exception_Info.cfsr = FC7XXX_SCB->CFSR;
+  Exception_Info.shcsr = FC7XXX_SCB->SHCSR;
+  Exception_Info.dfsr = FC7XXX_SCB->DFSR;
+  Exception_Info.afsr = FC7XXX_SCB->AFSR;
+  Exception_Info.mmfar = FC7XXX_SCB->MMFAR;
+  Exception_Info.bfar = FC7XXX_SCB->BFAR;
+  Exception_CaptureStackFrame(pStackFrame);
+}
+
+static void Exception_CommitCrashRecord(void)
+{
+  Bsp_CrashRecord_ExceptionInfoType tExceptionInfo;
+
+  /* Keep fault context minimal: only copy to retained RAM here. */
+  tExceptionInfo.fault_type = Exception_Info.fault_type;
+  tExceptionInfo.fault_cause = Exception_Info.fault_cause;
+  tExceptionInfo.address = Exception_Info.address;
+  tExceptionInfo.address_valid = Exception_Info.address_valid;
+  tExceptionInfo.stack_frame_valid = Exception_Info.stack_frame_valid;
+  tExceptionInfo.active_sp = Exception_Info.active_sp;
+  tExceptionInfo.exc_return = Exception_Info.exc_return;
+  tExceptionInfo.icsr = Exception_Info.icsr;
+  tExceptionInfo.hfsr = Exception_Info.hfsr;
+  tExceptionInfo.cfsr = Exception_Info.cfsr;
+  tExceptionInfo.shcsr = Exception_Info.shcsr;
+  tExceptionInfo.dfsr = Exception_Info.dfsr;
+  tExceptionInfo.afsr = Exception_Info.afsr;
+  tExceptionInfo.mmfar = Exception_Info.mmfar;
+  tExceptionInfo.bfar = Exception_Info.bfar;
+  tExceptionInfo.stacked = Exception_Info.stacked;
+
+  Bsp_CrashRecord_CaptureFromException(&tExceptionInfo);
+}
+
+static void Exception_SetBusFaultAddress(uint32 u32Cfsr)
+{
+  if (0U != (u32Cfsr & FC7XXX_SCB_CFSR_BFARVALID_MASK)) {
+    Exception_Info.address = FC7XXX_SCB->BFAR;
+    Exception_Info.address_valid = 1U;
+  }
+}
+
+static void Exception_SetMemFaultAddress(uint32 u32Cfsr)
+{
+  if (0U != (u32Cfsr & FC7XXX_SCB_CFSR_MMARVALID_MASK)) {
+    Exception_Info.address = FC7XXX_SCB->MMFAR;
+    Exception_Info.address_valid = 1U;
+  }
+}
+
+static const char *Exception_GetBusFaultCause(uint32 u32Cfsr)
+{
+  if (0U != (u32Cfsr & FC7XXX_SCB_CFSR_IBUSERR_MASK)) {
+    return "Instruction bus error";
+  } else if (0U != (u32Cfsr & FC7XXX_SCB_CFSR_PRECISERR_MASK)) {
+    return "Precise data bus error";
+  } else if (0U != (u32Cfsr & FC7XXX_SCB_CFSR_IMPRECISERR_MASK)) {
+    return "Imprecise data bus error";
+  } else if (0U != (u32Cfsr & FC7XXX_SCB_CFSR_STKERR_MASK)) {
+    return "BusFault on exception stacking";
+  } else if (0U != (u32Cfsr & FC7XXX_SCB_CFSR_UNSTKERR_MASK)) {
+    return "BusFault on exception unstacking";
+  } else if (0U != (u32Cfsr & FC7XXX_SCB_CFSR_LSPERR_MASK)) {
+    return "BusFault on lazy FP state preservation";
+  } else {
+    return "BusFault";
+  }
+}
+
+static const char *Exception_GetMemFaultCause(uint32 u32Cfsr)
+{
+  if (0U != (u32Cfsr & FC7XXX_SCB_CFSR_IACCVIOL_MASK)) {
+    return "MPU instruction access violation";
+  } else if (0U != (u32Cfsr & FC7XXX_SCB_CFSR_DACCVIOL_MASK)) {
+    return "MPU data access violation";
+  } else if (0U != (u32Cfsr & FC7XXX_SCB_CFSR_MSTKERR_MASK)) {
+    return "MemManage fault on exception stacking";
+  } else if (0U != (u32Cfsr & FC7XXX_SCB_CFSR_MUNSTKERR_MASK)) {
+    return "MemManage fault on exception unstacking";
+  } else if (0U != (u32Cfsr & FC7XXX_SCB_CFSR_MLSPERR_MASK)) {
+    return "MemManage fault on lazy FP state preservation";
+  } else {
+    return "MemManage fault";
+  }
+}
+
+static const char *Exception_GetUsageFaultCause(uint32 u32Cfsr)
+{
+  if (0U != (u32Cfsr & FC7XXX_SCB_CFSR_UNDEFINSTR_MASK)) {
+    return "Undefined instruction";
+  } else if (0U != (u32Cfsr & FC7XXX_SCB_CFSR_INVSTATE_MASK)) {
+    return "Invalid instruction state";
+  } else if (0U != (u32Cfsr & FC7XXX_SCB_CFSR_INVPC_MASK)) {
+    return "Invalid EXC_RETURN value";
+  } else if (0U != (u32Cfsr & FC7XXX_SCB_CFSR_NOCP_MASK)) {
+    return "Coprocessor access error";
+  } else if (0U != (u32Cfsr & FC7XXX_SCB_CFSR_UNALIGNED_MASK)) {
+    return "Illegal unaligned access";
+  } else if (0U != (u32Cfsr & FC7XXX_SCB_CFSR_DIVBYZERO_MASK)) {
+    return "Divide by zero";
+  } else {
+    return "UsageFault";
+  }
+}
+
+static void Exception_Halt(void) __attribute__((noreturn));
+static void Exception_Halt(void)
+{
+  __asm volatile("dsb");
+  __asm volatile("isb");
+
+  while (1) {
+    __asm volatile("nop");
+  }
+}
+
+#if (EXCEPTION_FAULT_ACTION == EXCEPTION_FAULT_ACTION_RESET)
+static void Exception_SystemReset(void) __attribute__((noreturn));
+static void Exception_SystemReset(void)
+{
+  uint32 u32Aircr;
+
+  __asm volatile("dsb");
+  __asm volatile("isb");
+
+  u32Aircr = FC7XXX_SCB->AIRCR;
+  u32Aircr &= ~(uint32)FC7XXX_SCB_AIRCR_VECTKEY_MASK;
+  u32Aircr |= (uint32)(FC7XXX_SCB_AIRCR_VECTKEY(0x5FAU) | FC7XXX_SCB_AIRCR_SYSRESETREQ_MASK);
+  FC7XXX_SCB->AIRCR = u32Aircr;
+
+  __asm volatile("dsb");
+  __asm volatile("isb");
+
+  while (1) {
+    __asm volatile("nop");
+  }
+}
+#endif
+
+static void Exception_FaultFinalAction(void) __attribute__((noreturn));
+static void Exception_FaultFinalAction(void)
+{
+#if (EXCEPTION_FAULT_ACTION == EXCEPTION_FAULT_ACTION_RESET)
+  Exception_SystemReset();
+#else
+  Exception_Halt();
+#endif
+}
 
 __attribute__((naked)) void HardFault_Handler(void)
 {
@@ -33,10 +275,8 @@ __attribute__((naked)) void HardFault_Handler(void)
                    " ite   ne \n"
                    " mrsne r0, psp \n"
                    " mrseq r0, msp \n"
-                   " push  {lr} \n"
-                   " bl    HardFault_Process   \n"
-                   " pop   {lr} \n"
-                   " bx    lr \n");
+                   " mov   r1, lr \n"
+                   " b     HardFault_Process   \n");
 }
 
 __attribute__((naked)) void BusFault_Handler(void)
@@ -45,143 +285,166 @@ __attribute__((naked)) void BusFault_Handler(void)
                    " ite   ne \n"
                    " mrsne r0, psp \n"
                    " mrseq r0, msp \n"
-                   " push  {lr} \n"
-                   " bl    BusFault_Process \n"
-                   " pop   {lr} \n"
-                   " bx    lr \n");
+                   " mov   r1, lr \n"
+                   " b     BusFault_Process \n");
 }
 
-/**
- *  Demo for handling Fee-Fls ECC error automatically (DFlash Fee region)
- *  when FLS_ECC_HANDLE_API enabled in Fls module configuration
- *
- *  It can be integrated to user project optionally
- *
- */
-void BusFault_Process(unsigned int pStackAddr)
+void BusFault_Process(const Hardfault_StackType *pStackFrame, uint32 u32ExcReturn) __attribute__((noreturn));
+void BusFault_Process(const Hardfault_StackType *pStackFrame, uint32 u32ExcReturn)
 {
-    (void)pStackAddr;
-    if (FC7XXX_SCB->CFSR & 0x200)
-    {
-        Exception_Info.address = FC7XXX_SCB->BFAR;
-        Exception_Info.cause   = "Precise bus error";
+  uint32 u32Cfsr = FC7XXX_SCB->CFSR;
+
+  Exception_CaptureContext(BSP_CRASH_RECORD_FAULT_BUSFAULT,
+                           u32Cfsr & EXCEPTION_CFSR_BUSFAULT_MASK,
+                           "BusFault",
+                           Exception_GetBusFaultCause(u32Cfsr),
+                           pStackFrame,
+                           u32ExcReturn);
+  Exception_SetBusFaultAddress(u32Cfsr);
+  Exception_CommitCrashRecord();
+
+  Exception_FaultFinalAction();
+}
+
+void MemManage_Process(const Hardfault_StackType *pStackFrame, uint32 u32ExcReturn) __attribute__((noreturn));
+void MemManage_Process(const Hardfault_StackType *pStackFrame, uint32 u32ExcReturn)
+{
+  uint32 u32Cfsr = FC7XXX_SCB->CFSR;
+
+  Exception_CaptureContext(BSP_CRASH_RECORD_FAULT_MEMMANAGE,
+                           u32Cfsr & EXCEPTION_CFSR_MEMFAULT_MASK,
+                           "MemManage",
+                           Exception_GetMemFaultCause(u32Cfsr),
+                           pStackFrame,
+                           u32ExcReturn);
+  Exception_SetMemFaultAddress(u32Cfsr);
+  Exception_CommitCrashRecord();
+  Exception_FaultFinalAction();
+}
+
+void UsageFault_Process(const Hardfault_StackType *pStackFrame, uint32 u32ExcReturn) __attribute__((noreturn));
+void UsageFault_Process(const Hardfault_StackType *pStackFrame, uint32 u32ExcReturn)
+{
+  uint32 u32Cfsr = FC7XXX_SCB->CFSR;
+
+  Exception_CaptureContext(BSP_CRASH_RECORD_FAULT_USAGEFAULT,
+                           u32Cfsr & EXCEPTION_CFSR_USAGEFAULT_MASK,
+                           "UsageFault",
+                           Exception_GetUsageFaultCause(u32Cfsr),
+                           pStackFrame,
+                           u32ExcReturn);
+  Exception_CommitCrashRecord();
+  Exception_FaultFinalAction();
+}
+
+void NMI_Process(const Hardfault_StackType *pStackFrame, uint32 u32ExcReturn) __attribute__((noreturn));
+void NMI_Process(const Hardfault_StackType *pStackFrame, uint32 u32ExcReturn)
+{
+  Exception_CaptureContext(BSP_CRASH_RECORD_FAULT_NMI,
+                           0U,
+                           "NMI",
+                           "Non-maskable interrupt",
+                           pStackFrame,
+                           u32ExcReturn);
+  Exception_CommitCrashRecord();
+  Exception_FaultFinalAction();
+}
+
+void HardFault_Process(const Hardfault_StackType *pStackFrame, uint32 u32ExcReturn) __attribute__((noreturn));
+void HardFault_Process(const Hardfault_StackType *pStackFrame, uint32 u32ExcReturn)
+{
+  uint32 u32Hfsr = FC7XXX_SCB->HFSR;
+  uint32 u32Cfsr = FC7XXX_SCB->CFSR;
+
+  if (0U != (u32Hfsr & FC7XXX_SCB_HFSR_FORCED_MASK)) {
+    if (0U != (u32Cfsr & EXCEPTION_CFSR_BUSFAULT_MASK)) {
+      BusFault_Process(pStackFrame, u32ExcReturn);
+    } else if (0U != (u32Cfsr & EXCEPTION_CFSR_MEMFAULT_MASK)) {
+      MemManage_Process(pStackFrame, u32ExcReturn);
+    } else if (0U != (u32Cfsr & EXCEPTION_CFSR_USAGEFAULT_MASK)) {
+      UsageFault_Process(pStackFrame, u32ExcReturn);
+    } else {
+      Exception_CaptureContext(BSP_CRASH_RECORD_FAULT_HARDFAULT,
+                               u32Hfsr & FC7XXX_SCB_HFSR_FORCED_MASK,
+                               "HardFault",
+                               "Forced HardFault without CFSR cause",
+                               pStackFrame,
+                               u32ExcReturn);
     }
-    else
-    {
-        Exception_Info.cause = "Imprecise bus error";
-    }
-    /* ECC error not in Fee region  */
-    while (1)
-        ; /* User Code */
+  } else if (0U != (u32Hfsr & FC7XXX_SCB_HFSR_VECTTBL_MASK)) {
+    Exception_CaptureContext(BSP_CRASH_RECORD_FAULT_HARDFAULT,
+                             u32Hfsr & FC7XXX_SCB_HFSR_VECTTBL_MASK,
+                             "HardFault",
+                             "Vector table read fault",
+                             pStackFrame,
+                             u32ExcReturn);
+  } else if (0U != (u32Hfsr & FC7XXX_SCB_HFSR_DEBUGEVT_MASK)) {
+    Exception_CaptureContext(BSP_CRASH_RECORD_FAULT_HARDFAULT,
+                             u32Hfsr & FC7XXX_SCB_HFSR_DEBUGEVT_MASK,
+                             "HardFault",
+                             "Debug event",
+                             pStackFrame,
+                             u32ExcReturn);
+  } else {
+    Exception_CaptureContext(BSP_CRASH_RECORD_FAULT_HARDFAULT,
+                             0U,
+                             "HardFault",
+                             "Unknown",
+                             pStackFrame,
+                             u32ExcReturn);
+  }
+
+  Exception_CommitCrashRecord();
+  Exception_FaultFinalAction();
 }
 
-void HardFault_Process(uint32 pStackAddr)
+__attribute__((naked)) void NMI_Handler(void)
 {
-    if (FC7XXX_SCB->HFSR & (1 << 30))
-    {
-        if (FC7XXX_SCB->CFSR & 0x3F00)
-        {
-            Exception_Info.type = "BusFault";
-            BusFault_Process(pStackAddr);
-        }
-        else if (FC7XXX_SCB->CFSR & 0x3B)
-        {
-            Exception_Info.type = "MemFault";
-            if (FC7XXX_SCB->CFSR & 0x80)
-            {
-                Exception_Info.address = FC7XXX_SCB->MMFAR;
-            }
-            if (FC7XXX_SCB->CFSR & 0x01)
-            {
-                Exception_Info.cause = "On instruction access";
-            }
-            else if (FC7XXX_SCB->CFSR & 0x02)
-            {
-                Exception_Info.cause = "On data access";
-            }
-            else
-            {
-                Exception_Info.cause = "Unknown";
-            }
-            while (1)
-                ; /* User Code  */
-        }
-        else
-        {
-            Exception_Info.type = "UsageFault";
-            if (FC7XXX_SCB->CFSR & 0x10000)
-            {
-                Exception_Info.cause = "Undefined instruction";
-            }
-            else if (FC7XXX_SCB->CFSR & 0x20000)
-            {
-                Exception_Info.cause = "Attempt to enter an invalid instruction set state";
-            }
-            else if (FC7XXX_SCB->CFSR & 0x40000)
-            {
-                Exception_Info.cause = "Invalid EXC_RETURN value";
-            }
-            else if (FC7XXX_SCB->CFSR & 0x80000)
-            {
-                Exception_Info.cause = "Attempt to access a coprocessor";
-            }
-            else if (FC7XXX_SCB->CFSR & 0x100000)
-            {
-                Exception_Info.cause = "Illegal unaligned load or store";
-            }
-            else
-            {
-                Exception_Info.cause = "Divide by 0";
-            }
-            while (1)
-                ; /* User Code  */
-        }
-    }
-    else
-    {
-        Exception_Info.type  = "HardFault";
-        Exception_Info.cause = "Unknown";
-        while (1)
-            ; /* User Code  */
-    }
+    __asm volatile(" tst   lr, #4 \n"
+                   " ite   ne \n"
+                   " mrsne r0, psp \n"
+                   " mrseq r0, msp \n"
+                   " mov   r1, lr \n"
+                   " b     NMI_Process \n");
 }
 
-void NMI_Handler(void)
+__attribute__((naked)) void MemManage_Handler(void)
 {
-    unsigned int result = 1;
-    while (result)
-        ;
+    __asm volatile(" tst   lr, #4 \n"
+                   " ite   ne \n"
+                   " mrsne r0, psp \n"
+                   " mrseq r0, msp \n"
+                   " mov   r1, lr \n"
+                   " b     MemManage_Process \n");
 }
 
-void MemManage_Handler(void)
+__attribute__((naked)) void UsageFault_Handler(void)
 {
-    while (1)
-        ;
+    __asm volatile(" tst   lr, #4 \n"
+                   " ite   ne \n"
+                   " mrsne r0, psp \n"
+                   " mrseq r0, msp \n"
+                   " mov   r1, lr \n"
+                   " b     UsageFault_Process \n");
 }
 
-void UsageFault_Handler(void)
-{
-    while (1)
-        ;
-}
 void SVC_Handler(void)
 {
-    while (1)
-        ;
-}
-void DebugMon_Handler(void)
-{
-    while (1)
-        ;
-}
-void PendSV_Handler(void)
-{
-    while (1)
-        ;
+  while (1);
 }
 
-/*  Open what you need  */
-#if 0 
+void DebugMon_Handler(void)
+{
+  while (1);
+}
+
+void PendSV_Handler(void)
+{
+  while (1);
+}
+
+  /*  Open what you need  */
+  #if 0 
 void SysTick_Handler(void)
 {
     while(1);
@@ -798,6 +1061,6 @@ void CTI2_IRQHandler(void)
 {
     while(1);
 }
-#endif
+  #endif
 
 #endif

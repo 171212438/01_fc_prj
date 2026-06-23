@@ -12,15 +12,22 @@ generator_version: "0.6.0"
 page_numbering_policy: "physical_page is 1-based PDF physical page index; printed_page is auxiliary only"
 ocr_status: "not_run_text_layer_available"
 pdf_outline_count: 0
+text_layer_search_supplement: "present"
+text_layer_search_supplement_generated_at: "2026-06-20T11:56:07Z"
+text_layer_search_supplement_terms: 589
+text_layer_search_supplement_technical_terms: 100
+text_layer_search_supplement_pages: 244
+post_supplement_text_token_recall: "1.000"
+post_supplement_technical_token_recall: "1.000"
 overall_status: "pass_with_warnings"
 ---
-
 # PDF Manifest: FC7300F8MDQ_SDK_Quick_Start_V0.2.pdf
 
 ## Retrieval Usage Contract
 - `physical_page` is the primary locator and is always the 1-based PDF physical page number.
 - `printed_page` is auxiliary and must not be used as the primary locator.
 - This Manifest is an index, not a substitute for the source PDF. Verify factual claims against the referenced source page.
+- Use `9A. Text-Layer Search Supplement` for exact keyword lookup gaps; verify exact wording, screenshots, tables, commands and diagrams against the PDF.
 - For tables and figures, use `confidence`, `bbox`, `quality_flags`, and `anchor` to decide whether manual source-page verification is required.
 - Treat this Manifest as stale if `source_pdf_sha256` does not match the current source PDF.
 
@@ -29,6 +36,13 @@ overall_status: "pass_with_warnings"
 - `source_pdf_sha256`: "c5fec0b26de68636b7b0cc33477700adf44a366b95aa5c6864b25794254cb0de"
 - `source_pdf_size_bytes`: 15119797
 - `pdf_page_count`: 245
+- `text_layer_search_supplement`: present
+- `text_layer_search_supplement_generated_at`: 2026-06-20T11:56:07Z
+- `text_layer_search_supplement_terms`: 589
+- `text_layer_search_supplement_technical_terms`: 100
+- `text_layer_search_supplement_pages`: 244
+- `post_supplement_text_token_recall`: 1.000
+- `post_supplement_technical_token_recall`: 1.000
 - `source_document_id`: "SDKQS-FC7300F8MDQ-V0.2-Y26M01"
 - `source_document_revision`: "Rev.0.2"
 - `pdf_format`: "PDF 1.7"
@@ -22526,6 +22540,2342 @@ Each `PAGE-*` item maps one 1-based PDF physical page to its best-known section 
 - `aliases`: ["WDOG", "WDOG", "wdog"]
 - `related_ids`: ["MODULE-WDOG"]
 
+## 9A. Text-Layer Search Supplement
+
+### TEXTSUP-SUMMARY
+- `purpose`: "Close keyword lookup gaps between FC7300F8MDQ_SDK_Quick_Start_V0.2.pdf extractable text and this Manifest without copying full PDF prose."
+- `source`: `local pypdf text extraction from FC7300F8MDQ_SDK_Quick_Start_V0.2.pdf`
+- `source_pdf_sha256`: `c5fec0b26de68636b7b0cc33477700adf44a366b95aa5c6864b25794254cb0de`
+- `source_pdf_size_bytes`: `15119797`
+- `pdf_page_count`: `245`
+- `generated_at`: `2026-06-20T11:56:07Z`
+- `tokenization_rule`: `ASCII identifiers, alphanumeric technical tokens, hex literals, dotted section/version values, register fields, instruction/API symbols, GUI/menu tokens and numeric unit tokens with length >= 3.`
+- `normalization`: `Ligatures, soft hyphen variants, Unicode dash variants and known Private Use Area digit glyphs are normalized before token comparison.`
+- `scope`: `Text-layer token supplement only; source PDF remains authoritative for SDK setup procedures, screenshots, demo behavior, pins, commands and tables.`
+- `unique_missing_terms_added`: `589`
+- `technical_missing_terms_added`: `100`
+- `pages_with_added_terms`: `244`
+- `supplemented_page_term_entries`: `1340`
+- `post_supplement_text_token_recall`: `1.000`
+- `post_supplement_technical_token_recall`: `1.000`
+- `usage`: `Search terms here to locate physical pages, then verify exact SDK setup steps, demo names, board pins, screenshots, command lines and examples in the source PDF.`
+
+### TEXTSUP-PAGE-0002
+- `physical_page`: `2`
+- `additional_text_terms`:
+  - "Confidential"
+  - "Proprietary"
+
+### TEXTSUP-PAGE-0003
+- `physical_page`: `3`
+- `additional_text_terms`:
+  - "Confidential"
+  - "Proprietary"
+
+### TEXTSUP-PAGE-0004
+- `physical_page`: `4`
+- `additional_text_terms`:
+  - "Confidential"
+  - "Proprietary"
+
+### TEXTSUP-PAGE-0005
+- `physical_page`: `5`
+- `additional_text_terms`:
+  - "Confidential"
+  - "Proprietary"
+
+### TEXTSUP-PAGE-0006
+- `physical_page`: `6`
+- `additional_text_terms`:
+  - "Confidential"
+  - "Proprietary"
+
+### TEXTSUP-PAGE-0007
+- `physical_page`: `7`
+- `additional_text_terms`:
+  - "Confidential"
+  - "Proprietary"
+
+### TEXTSUP-PAGE-0008
+- `physical_page`: `8`
+- `additional_text_terms`:
+  - "Confidential"
+  - "Proprietary"
+
+### TEXTSUP-PAGE-0009
+- `physical_page`: `9`
+- `additional_text_terms`:
+  - "Confidential"
+  - "Proprietary"
+
+### TEXTSUP-PAGE-0010
+- `physical_page`: `10`
+- `additional_text_terms`:
+  - "components"
+  - "Confidential"
+  - "easy-to-use"
+  - "expected"
+  - "intended"
+  - "into"
+  - "knowledge"
+  - "microcontrollers"
+  - "Proprietary"
+  - "readers"
+  - "their"
+  - "typical"
+  - "who"
+
+### TEXTSUP-PAGE-0011
+- `physical_page`: `11`
+- `additional_text_terms`:
+  - "Confidential"
+  - "Proprietary"
+
+### TEXTSUP-PAGE-0012
+- `physical_page`: `12`
+- `additional_text_terms`:
+  - "Confidential"
+  - "Proprietary"
+
+### TEXTSUP-PAGE-0013
+- `physical_page`: `13`
+- `additional_text_terms`:
+  - "Confidential"
+  - "Proprietary"
+
+### TEXTSUP-PAGE-0014
+- `physical_page`: `14`
+- `additional_text_terms`:
+  - "Confidential"
+  - "Proprietary"
+
+### TEXTSUP-PAGE-0015
+- `physical_page`: `15`
+- `additional_text_terms`:
+  - "Browse"
+  - "Confidential"
+  - "Desired_Example_Name"
+  - "Existing"
+  - "Finish"
+  - "into"
+  - "kinds"
+  - "major"
+  - "Proprietary"
+  - "Right-click"
+  - "supports"
+  - "where"
+  - "Workspace"
+
+### TEXTSUP-PAGE-0016
+- `physical_page`: `16`
+- `additional_text_terms`:
+  - "Confidential"
+  - "Proprietary"
+
+### TEXTSUP-PAGE-0017
+- `physical_page`: `17`
+- `additional_text_terms`:
+  - "C/C++"
+  - "Confidential"
+  - "continue"
+  - "left"
+  - "new"
+  - "pane"
+  - "Proprietary"
+  - "Refresh"
+  - "right-click"
+
+### TEXTSUP-PAGE-0018
+- `physical_page`: `18`
+- `additional_text_terms`:
+  - "Confidential"
+  - "developing"
+  - "official"
+  - "Proprietary"
+  - "visit"
+  - "website"
+  - "x/8.3x"
+
+### TEXTSUP-PAGE-0019
+- `physical_page`: `19`
+- `additional_text_terms`:
+  - "Confidential"
+  - "Proprietary"
+
+### TEXTSUP-PAGE-0020
+- `physical_page`: `20`
+- `additional_text_terms`:
+  - "Confidential"
+  - "Proprietary"
+  - "provided"
+
+### TEXTSUP-PAGE-0021
+- `physical_page`: `21`
+- `additional_text_terms`:
+  - "Confidential"
+  - "Proprietary"
+
+### TEXTSUP-PAGE-0022
+- `physical_page`: `22`
+- `additional_text_terms`:
+  - "Confidential"
+  - "Proprietary"
+
+### TEXTSUP-PAGE-0023
+- `physical_page`: `23`
+- `additional_text_terms`:
+  - "Confidential"
+  - "Proprietary"
+
+### TEXTSUP-PAGE-0024
+- `physical_page`: `24`
+- `additional_text_terms`:
+  - "Confidential"
+  - "Proprietary"
+
+### TEXTSUP-PAGE-0025
+- `physical_page`: `25`
+- `additional_text_terms`:
+  - "Confidential"
+  - "Proprietary"
+
+### TEXTSUP-PAGE-0026
+- `physical_page`: `26`
+- `additional_text_terms`:
+  - "Confidential"
+  - "Proprietary"
+
+### TEXTSUP-PAGE-0027
+- `physical_page`: `27`
+- `additional_text_terms`:
+  - "Confidential"
+  - "Proprietary"
+
+### TEXTSUP-PAGE-0028
+- `physical_page`: `28`
+- `additional_text_terms`:
+  - "Confidential"
+  - "Proprietary"
+
+### TEXTSUP-PAGE-0029
+- `physical_page`: `29`
+- `additional_text_terms`:
+  - "assume"
+  - "Confidential"
+  - "grasp"
+  - "modify"
+  - "Proprietary"
+  - "references"
+  - "specific"
+  - "their"
+
+### TEXTSUP-PAGE-0030
+- `physical_page`: `30`
+- `additional_text_terms`:
+  - "Confidential"
+  - "Proprietary"
+
+### TEXTSUP-PAGE-0031
+- `physical_page`: `31`
+- `additional_text_terms`:
+  - "Confidential"
+  - "functions"
+  - "properly"
+  - "Proprietary"
+  - "return"
+  - "transferred"
+
+### TEXTSUP-PAGE-0032
+- `physical_page`: `32`
+- `additional_text_terms`:
+  - "2.1.1.4.1"
+  - "2.1.1.4.2"
+  - "2.1.1.4.3"
+  - "benefits"
+  - "Confidential"
+  - "except"
+  - "Expressions"
+  - "g_aVoltageBuffer"
+  - "getting"
+  - "likely"
+  - "offload"
+  - "optional"
+  - "Proprietary"
+  - "transferring"
+
+### TEXTSUP-PAGE-0033
+- `physical_page`: `33`
+- `additional_text_terms`:
+  - "Confidential"
+  - "Proprietary"
+
+### TEXTSUP-PAGE-0034
+- `physical_page`: `34`
+- `additional_text_terms`:
+  - "Confidential"
+  - "except"
+  - "pre-trigger"
+  - "Proprietary"
+  - "thus"
+
+### TEXTSUP-PAGE-0035
+- `physical_page`: `35`
+- `additional_text_terms`:
+  - "Confidential"
+  - "Proprietary"
+
+### TEXTSUP-PAGE-0036
+- `physical_page`: `36`
+- `additional_text_terms`:
+  - "Confidential"
+  - "likely"
+  - "Proprietary"
+  - "threshold"
+  - "thus"
+
+### TEXTSUP-PAGE-0037
+- `physical_page`: `37`
+- `additional_text_terms`:
+  - "Confidential"
+  - "Proprietary"
+
+### TEXTSUP-PAGE-0038
+- `physical_page`: `38`
+- `additional_text_terms`:
+  - "Confidential"
+  - "converting"
+  - "individually"
+  - "parallel"
+  - "Proprietary"
+  - "supports"
+
+### TEXTSUP-PAGE-0039
+- `physical_page`: `39`
+- `additional_text_terms`:
+  - "Confidential"
+  - "Proprietary"
+
+### TEXTSUP-PAGE-0040
+- `physical_page`: `40`
+- `additional_text_terms`:
+  - "Confidential"
+  - "enters"
+  - "periodic"
+  - "Proprietary"
+  - "received"
+  - "relies"
+  - "threshold"
+  - "woken"
+
+### TEXTSUP-PAGE-0041
+- `physical_page`: `41`
+- `additional_text_terms`:
+  - "Confidential"
+  - "Proprietary"
+
+### TEXTSUP-PAGE-0042
+- `physical_page`: `42`
+- `additional_text_terms`:
+  - "Confidential"
+  - "Proprietary"
+
+### TEXTSUP-PAGE-0043
+- `physical_page`: `43`
+- `additional_text_terms`:
+  - "2.2.1.4.1"
+  - "2.2.1.4.2"
+  - "2.2.1.4.3"
+  - "Confidential"
+  - "Proprietary"
+
+### TEXTSUP-PAGE-0044
+- `physical_page`: `44`
+- `additional_text_terms`:
+  - "2.2.2.4.1"
+  - "2.2.2.4.2"
+  - "Confidential"
+  - "Proprietary"
+
+### TEXTSUP-PAGE-0045
+- `physical_page`: `45`
+- `additional_text_terms`:
+  - "2.2.2.4.3"
+  - "Confidential"
+  - "device.h"
+  - "expected"
+  - "Proprietary"
+  - "regularly"
+  - "SOSC_FREQUENCY"
+
+### TEXTSUP-PAGE-0046
+- `physical_page`: `46`
+- `additional_text_terms`:
+  - "Confidential"
+  - "Proprietary"
+
+### TEXTSUP-PAGE-0047
+- `physical_page`: `47`
+- `additional_text_terms`:
+  - "1bit"
+  - "1MHz"
+  - "3MHz"
+  - "8bit"
+  - "Confidential"
+  - "parity"
+  - "picture"
+  - "PortE10"
+  - "Proprietary"
+  - "regularly"
+  - "stop"
+
+### TEXTSUP-PAGE-0048
+- `physical_page`: `48`
+- `additional_text_terms`:
+  - "compared"
+  - "Confidential"
+  - "FC7300F8MDQ-EVB"
+  - "Proprietary"
+  - "PTA30"
+  - "PTD15"
+  - "PTD16"
+  - "PTE9"
+
+### TEXTSUP-PAGE-0049
+- `physical_page`: `49`
+- `additional_text_terms`:
+  - "Confidential"
+  - "Proprietary"
+
+### TEXTSUP-PAGE-0050
+- `physical_page`: `50`
+- `additional_text_terms`:
+  - "2.4.2.4.1"
+  - "2.4.2.4.2"
+  - "Confidential"
+  - "Proprietary"
+
+### TEXTSUP-PAGE-0051
+- `physical_page`: `51`
+- `additional_text_terms`:
+  - "2.4.2.4.3"
+  - "Confidential"
+  - "Proprietary"
+
+### TEXTSUP-PAGE-0052
+- `physical_page`: `52`
+- `additional_text_terms`:
+  - "2.4.3.4.1"
+  - "2.4.3.4.2"
+  - "2.4.3.4.3"
+  - "assert"
+  - "compares"
+  - "Confidential"
+  - "fixed"
+  - "preset"
+  - "Proprietary"
+  - "supports"
+
+### TEXTSUP-PAGE-0053
+- `physical_page`: `53`
+- `additional_text_terms`:
+  - "2.4.4.4.1"
+  - "2.4.4.4.2"
+  - "Confidential"
+  - "Proprietary"
+
+### TEXTSUP-PAGE-0054
+- `physical_page`: `54`
+- `additional_text_terms`:
+  - "2.4.4.4.3"
+  - "blinking"
+  - "CMU_Demo"
+  - "Confidential"
+  - "five"
+  - "keep"
+  - "monitoring"
+  - "Proprietary"
+  - "units"
+
+### TEXTSUP-PAGE-0055
+- `physical_page`: `55`
+- `additional_text_terms`:
+  - "accelerate"
+  - "attached"
+  - "Confidential"
+  - "hundred"
+  - "into"
+  - "iterative"
+  - "operations"
+  - "Pinout"
+  - "Proprietary"
+  - "shift"
+
+### TEXTSUP-PAGE-0056
+- `physical_page`: `56`
+- `additional_text_terms`:
+  - "Confidential"
+  - "Proprietary"
+
+### TEXTSUP-PAGE-0057
+- `physical_page`: `57`
+- `additional_text_terms`:
+  - "C/C++"
+  - "Confidential"
+  - "FPDSCR"
+  - "fpv5-sp-d16"
+  - "menu"
+  - "Properties"
+  - "Proprietary"
+  - "Right-click"
+
+### TEXTSUP-PAGE-0058
+- `physical_page`: `58`
+- `additional_text_terms`:
+  - "Confidential"
+  - "Proprietary"
+
+### TEXTSUP-PAGE-0059
+- `physical_page`: `59`
+- `additional_text_terms`:
+  - "bit/32-bit"
+  - "bits"
+  - "calculated"
+  - "CCITT-False"
+  - "computed"
+  - "Confidential"
+  - "CRC16"
+  - "CRC_POLY"
+  - "detects"
+  - "firstly"
+  - "HU:HL"
+  - "HU:HL:LU:LL"
+  - "intermediate"
+  - "into"
+  - "kinds"
+  - "LU:LL"
+  - "otherwise"
+  - "performing"
+  - "polynomial"
+  - "Proprietary"
+  - "storage"
+  - "stored"
+  - "TCRC"
+  - "values"
+  - "writing"
+
+### TEXTSUP-PAGE-0060
+- `physical_page`: `60`
+- `additional_text_terms`:
+  - "Confidential"
+  - "Proprietary"
+
+### TEXTSUP-PAGE-0061
+- `physical_page`: `61`
+- `additional_text_terms`:
+  - "2.8.1.4.1"
+  - "Confidential"
+  - "Proprietary"
+
+### TEXTSUP-PAGE-0062
+- `physical_page`: `62`
+- `additional_text_terms`:
+  - "2.8.1.4.2"
+  - "Confidential"
+  - "Proprietary"
+
+### TEXTSUP-PAGE-0063
+- `physical_page`: `63`
+- `additional_text_terms`:
+  - "2.8.1.4.3"
+  - "2.8.2.4.1"
+  - "blocking"
+  - "calculate"
+  - "calculated"
+  - "Confidential"
+  - "CRC16"
+  - "CRC32"
+  - "CRC8"
+  - "methods"
+  - "non-blocking"
+  - "Proprietary"
+  - "SDK_FC7300_Demo_CRC"
+
+### TEXTSUP-PAGE-0064
+- `physical_page`: `64`
+- `additional_text_terms`:
+  - "2.8.2.4.2"
+  - "2.8.2.4.3"
+  - "calculate"
+  - "calculated"
+  - "Confidential"
+  - "obtained"
+  - "Proprietary"
+  - "separated"
+
+### TEXTSUP-PAGE-0065
+- `physical_page`: `65`
+- `additional_text_terms`:
+  - "Confidential"
+  - "Proprietary"
+
+### TEXTSUP-PAGE-0066
+- `physical_page`: `66`
+- `additional_text_terms`:
+  - "2.8.3.4.1"
+  - "2.8.3.4.2"
+  - "Confidential"
+  - "Proprietary"
+
+### TEXTSUP-PAGE-0067
+- `physical_page`: `67`
+- `additional_text_terms`:
+  - "2.8.3.4.3"
+  - "Confidential"
+  - "destAddr"
+  - "DMA_Init(pInitCfg"
+  - "DMA_InitChannel(u8Channel"
+  - "DMA_InitChannelInterrupt(u8Channel"
+  - "DMA_StartChannel(u8Channel"
+  - "pChnCfg"
+  - "Proprietary"
+  - "srcAddr"
+  - "u32BlockSize"
+
+### TEXTSUP-PAGE-0068
+- `physical_page`: `68`
+- `additional_text_terms`:
+  - "2.9.1.4.1"
+  - "2.9.1.4.2"
+  - "2.9.1.4.3"
+  - "completed"
+  - "Confidential"
+  - "Expressions"
+  - "Hello"
+  - "Proprietary"
+  - "srcStr"
+  - "variables"
+  - "World"
+
+### TEXTSUP-PAGE-0069
+- `physical_page`: `69`
+- `additional_text_terms`:
+  - "2.9.2.4.1"
+  - "beginning"
+  - "Confidential"
+  - "Expressions"
+  - "Hello"
+  - "last"
+  - "loops"
+  - "Proprietary"
+  - "srcStr"
+  - "third"
+  - "variables"
+  - "World"
+
+### TEXTSUP-PAGE-0070
+- `physical_page`: `70`
+- `additional_text_terms`:
+  - "2.9.2.4.2"
+  - "2.9.2.4.3"
+  - "Confidential"
+  - "Proprietary"
+
+### TEXTSUP-PAGE-0071
+- `physical_page`: `71`
+- `additional_text_terms`:
+  - "Confidential"
+  - "Proprietary"
+
+### TEXTSUP-PAGE-0072
+- `physical_page`: `72`
+- `additional_text_terms`:
+  - "Confidential"
+  - "Proprietary"
+
+### TEXTSUP-PAGE-0073
+- `physical_page`: `73`
+- `additional_text_terms`:
+  - "Confidential"
+  - "Proprietary"
+  - "PTC9"
+  - "their"
+
+### TEXTSUP-PAGE-0074
+- `physical_page`: `74`
+- `additional_text_terms`:
+  - "Confidential"
+  - "interrupts_ram"
+  - "MCM"
+  - "Proprietary"
+  - "relates"
+  - "their"
+
+### TEXTSUP-PAGE-0075
+- `physical_page`: `75`
+- `additional_text_terms`:
+  - "1000BaseTx"
+  - "Confidential"
+  - "enet_config.h"
+  - "Network_Test"
+  - "NetworkInit"
+  - "Proprietary"
+  - "selection"
+  - "SGMII"
+  - "starts"
+
+### TEXTSUP-PAGE-0076
+- `physical_page`: `76`
+- `additional_text_terms`:
+  - "Confidential"
+  - "echo"
+  - "Proprietary"
+
+### TEXTSUP-PAGE-0077
+- `physical_page`: `77`
+- `additional_text_terms`:
+  - "Confidential"
+  - "Proprietary"
+
+### TEXTSUP-PAGE-0078
+- `physical_page`: `78`
+- `additional_text_terms`:
+  - "1000BaseTx"
+  - "Confidential"
+  - "enet_config.h"
+  - "Network_Test"
+  - "NetworkInit"
+  - "Proprietary"
+  - "selection"
+  - "SGMII"
+  - "starts"
+
+### TEXTSUP-PAGE-0079
+- `physical_page`: `79`
+- `additional_text_terms`:
+  - "Confidential"
+  - "Proprietary"
+
+### TEXTSUP-PAGE-0080
+- `physical_page`: `80`
+- `additional_text_terms`:
+  - "Confidential"
+  - "echo"
+  - "Proprietary"
+
+### TEXTSUP-PAGE-0081
+- `physical_page`: `81`
+- `additional_text_terms`:
+  - "1000BaseTx"
+  - "Confidential"
+  - "Proprietary"
+  - "rtconfig.h"
+  - "selection"
+  - "SGMII"
+
+### TEXTSUP-PAGE-0082
+- `physical_page`: `82`
+- `additional_text_terms`:
+  - "Confidential"
+  - "Proprietary"
+
+### TEXTSUP-PAGE-0083
+- `physical_page`: `83`
+- `additional_text_terms`:
+  - "Confidential"
+  - "Proprietary"
+  - "PuTTY"
+  - "SecureCRT"
+
+### TEXTSUP-PAGE-0084
+- `physical_page`: `84`
+- `additional_text_terms`:
+  - "Confidential"
+  - "echo"
+  - "Proprietary"
+  - "rtconfig.h"
+
+### TEXTSUP-PAGE-0085
+- `physical_page`: `85`
+- `additional_text_terms`:
+  - "Confidential"
+  - "Proprietary"
+
+### TEXTSUP-PAGE-0086
+- `physical_page`: `86`
+- `additional_text_terms`:
+  - "Confidential"
+  - "creates"
+  - "Proprietary"
+
+### TEXTSUP-PAGE-0087
+- `physical_page`: `87`
+- `additional_text_terms`:
+  - "Confidential"
+  - "evaluation"
+  - "Proprietary"
+  - "PuTTY"
+  - "SecureCRT"
+
+### TEXTSUP-PAGE-0088
+- `physical_page`: `88`
+- `additional_text_terms`:
+  - "Confidential"
+  - "IIC_Master_DMA/"
+  - "IIC_Master_Interrupt/"
+  - "IIC_Master_Polling/"
+  - "IIC_Slave_Demo/"
+  - "IIC_Slave_DMA_Demo"
+  - "probes"
+  - "Proprietary"
+
+### TEXTSUP-PAGE-0089
+- `physical_page`: `89`
+- `additional_text_terms`:
+  - "Confidential"
+  - "Proprietary"
+
+### TEXTSUP-PAGE-0090
+- `physical_page`: `90`
+- `additional_text_terms`:
+  - "Confidential"
+  - "Proprietary"
+
+### TEXTSUP-PAGE-0091
+- `physical_page`: `91`
+- `additional_text_terms`:
+  - "Confidential"
+  - "Proprietary"
+  - "seconds"
+
+### TEXTSUP-PAGE-0092
+- `physical_page`: `92`
+- `additional_text_terms`:
+  - "Confidential"
+  - "Proprietary"
+  - "seconds"
+
+### TEXTSUP-PAGE-0093
+- `physical_page`: `93`
+- `additional_text_terms`:
+  - "Confidential"
+  - "Proprietary"
+
+### TEXTSUP-PAGE-0094
+- `physical_page`: `94`
+- `additional_text_terms`:
+  - "Confidential"
+  - "Proprietary"
+
+### TEXTSUP-PAGE-0095
+- `physical_page`: `95`
+- `additional_text_terms`:
+  - "accomplished"
+  - "blocking"
+  - "Bsp_Spi_Init"
+  - "Bsp_Spi_Test"
+  - "calling"
+  - "clock(FCSPI2"
+  - "CMD"
+  - "Confidential"
+  - "configures"
+  - "GD25Q32(SPI"
+  - "handled"
+  - "Manufacture"
+  - "participates"
+  - "Proprietary"
+  - "reads"
+  - "receiving"
+  - "return"
+  - "returned"
+  - "RxBuffer"
+  - "sending"
+  - "stores"
+  - "texts"
+
+### TEXTSUP-PAGE-0096
+- `physical_page`: `96`
+- `additional_text_terms`:
+  - "Confidential"
+  - "Proprietary"
+
+### TEXTSUP-PAGE-0097
+- `physical_page`: `97`
+- `additional_text_terms`:
+  - "Confidential"
+  - "Proprietary"
+
+### TEXTSUP-PAGE-0098
+- `physical_page`: `98`
+- `additional_text_terms`:
+  - "Confidential"
+  - "Proprietary"
+
+### TEXTSUP-PAGE-0099
+- `physical_page`: `99`
+- `additional_text_terms`:
+  - "blocking"
+  - "Bsp_Spi_Init"
+  - "Bsp_Spi_Test"
+  - "calling"
+  - "completes"
+  - "Confidential"
+  - "continuously"
+  - "determine"
+  - "During"
+  - "entire"
+  - "executes"
+  - "FCSPI_Handle"
+  - "Interrup_Init"
+  - "into"
+  - "kind"
+  - "last"
+  - "member"
+  - "more"
+  - "non-blocking"
+  - "printf"
+  - "Proprietary"
+  - "return"
+  - "RXFIFO"
+  - "shall"
+  - "soon"
+  - "TansferEndNotification("
+  - "TansferStartNotification("
+  - "transfer.In"
+  - "transmitted"
+  - "tStatus.state"
+  - "TXFIFO"
+
+### TEXTSUP-PAGE-0100
+- `physical_page`: `100`
+- `additional_text_terms`:
+  - "Confidential"
+  - "Proprietary"
+
+### TEXTSUP-PAGE-0101
+- `physical_page`: `101`
+- `additional_text_terms`:
+  - "Confidential"
+  - "Proprietary"
+
+### TEXTSUP-PAGE-0102
+- `physical_page`: `102`
+- `additional_text_terms`:
+  - "another"
+  - "automatically"
+  - "Bsp_Spi_Init"
+  - "Bsp_Spi_Test"
+  - "carry"
+  - "Confidential"
+  - "configures"
+  - "correctly"
+  - "DMA0"
+  - "DMAMUX0"
+  - "Interrup_Init"
+  - "into"
+  - "non-blocking"
+  - "participation"
+  - "printf"
+  - "Proprietary"
+  - "received"
+  - "RxBuffer"
+  - "RXFIFO"
+  - "soon"
+  - "TansferEndNotification("
+  - "TansferStartNotification("
+  - "transfer.In"
+  - "TxBuffer"
+  - "TXFIFO"
+  - "well"
+
+### TEXTSUP-PAGE-0103
+- `physical_page`: `103`
+- `additional_text_terms`:
+  - "Confidential"
+  - "Proprietary"
+
+### TEXTSUP-PAGE-0104
+- `physical_page`: `104`
+- `additional_text_terms`:
+  - "Confidential"
+  - "Proprietary"
+
+### TEXTSUP-PAGE-0105
+- `physical_page`: `105`
+- `additional_text_terms`:
+  - "Confidential"
+  - "Proprietary"
+
+### TEXTSUP-PAGE-0106
+- `physical_page`: `106`
+- `additional_text_terms`:
+  - "Confidential"
+  - "Proprietary"
+  - "schematic"
+  - "together"
+
+### TEXTSUP-PAGE-0107
+- `physical_page`: `107`
+- `additional_text_terms`:
+  - "Bsp_Spi_Init"
+  - "Bsp_Spi_Test"
+  - "Confidential"
+  - "determine"
+  - "Interrup_Init"
+  - "printf"
+  - "Proprietary"
+  - "received"
+  - "transmit/receive"
+  - "twice"
+  - "until"
+  - "Wait"
+
+### TEXTSUP-PAGE-0108
+- `physical_page`: `108`
+- `additional_text_terms`:
+  - "Confidential"
+  - "Proprietary"
+
+### TEXTSUP-PAGE-0109
+- `physical_page`: `109`
+- `additional_text_terms`:
+  - "Confidential"
+  - "Proprietary"
+
+### TEXTSUP-PAGE-0110
+- `physical_page`: `110`
+- `additional_text_terms`:
+  - "Confidential"
+  - "Printf"
+  - "Proprietary"
+  - "redirect"
+  - "RxInterrupt"
+  - "six"
+  - "transport"
+  - "TxInterrupt"
+  - "Uart_Polling"
+  - "Uart_Printf"
+  - "UUART"
+
+### TEXTSUP-PAGE-0111
+- `physical_page`: `111`
+- `additional_text_terms`:
+  - "Confidential"
+  - "Proprietary"
+
+### TEXTSUP-PAGE-0112
+- `physical_page`: `112`
+- `additional_text_terms`:
+  - "attached"
+  - "Confidential"
+  - "inner"
+  - "Pinout"
+  - "Proprietary"
+
+### TEXTSUP-PAGE-0113
+- `physical_page`: `113`
+- `additional_text_terms`:
+  - "Confidential"
+  - "Proprietary"
+  - "Uart_Polling"
+  - "Uart_Printf"
+  - "Uart_RxInterrupt"
+  - "Uart_TxInterrupt"
+
+### TEXTSUP-PAGE-0114
+- `physical_page`: `114`
+- `additional_text_terms`:
+  - "Confidential"
+  - "Proprietary"
+
+### TEXTSUP-PAGE-0115
+- `physical_page`: `115`
+- `additional_text_terms`:
+  - "Confidential"
+  - "Proprietary"
+
+### TEXTSUP-PAGE-0116
+- `physical_page`: `116`
+- `additional_text_terms`:
+  - "Confidential"
+  - "Proprietary"
+
+### TEXTSUP-PAGE-0117
+- `physical_page`: `117`
+- `additional_text_terms`:
+  - "Confidential"
+  - "Proprietary"
+
+### TEXTSUP-PAGE-0118
+- `physical_page`: `118`
+- `additional_text_terms`:
+  - "Confidential"
+  - "Proprietary"
+
+### TEXTSUP-PAGE-0119
+- `physical_page`: `119`
+- `additional_text_terms`:
+  - "canfd"
+  - "Confidential"
+  - "includes"
+  - "Proprietary"
+  - "selecting"
+
+### TEXTSUP-PAGE-0120
+- `physical_page`: `120`
+- `additional_text_terms`:
+  - "automatically"
+  - "Confidential"
+  - "desired"
+  - "functions"
+  - "handling"
+  - "includes"
+  - "interrupt-driven"
+  - "loopback"
+  - "movement"
+  - "Proprietary"
+  - "sending"
+
+### TEXTSUP-PAGE-0121
+- `physical_page`: `121`
+- `additional_text_terms`:
+  - "automatically"
+  - "busmaster"
+  - "Confidential"
+  - "desired"
+  - "efficient"
+  - "functions"
+  - "handling"
+  - "improved"
+  - "includes"
+  - "interrupt-driven"
+  - "intervention"
+  - "movement"
+  - "Proprietary"
+  - "receiving"
+  - "selecting"
+
+### TEXTSUP-PAGE-0122
+- `physical_page`: `122`
+- `additional_text_terms`:
+  - "busmaster"
+  - "Confidential"
+  - "Proprietary"
+
+### TEXTSUP-PAGE-0123
+- `physical_page`: `123`
+- `additional_text_terms`:
+  - "automatically"
+  - "Confidential"
+  - "desired"
+  - "efficient"
+  - "functions"
+  - "handling"
+  - "improved"
+  - "includes"
+  - "interrupt-driven"
+  - "intervention"
+  - "movement"
+  - "Proprietary"
+  - "receiving"
+  - "selecting"
+
+### TEXTSUP-PAGE-0124
+- `physical_page`: `124`
+- `additional_text_terms`:
+  - "busmaster"
+  - "Confidential"
+  - "desired"
+  - "functions"
+  - "handling"
+  - "includes"
+  - "interrupt-driven"
+  - "issues"
+  - "Proprietary"
+  - "selecting"
+
+### TEXTSUP-PAGE-0125
+- `physical_page`: `125`
+- `additional_text_terms`:
+  - "busmaster"
+  - "Confidential"
+  - "Proprietary"
+
+### TEXTSUP-PAGE-0126
+- `physical_page`: `126`
+- `additional_text_terms`:
+  - "Confidential"
+  - "desired"
+  - "functions"
+  - "handling"
+  - "includes"
+  - "interrupt-driven"
+  - "issues"
+  - "Proprietary"
+  - "selecting"
+
+### TEXTSUP-PAGE-0127
+- `physical_page`: `127`
+- `additional_text_terms`:
+  - "beginning"
+  - "busmaster"
+  - "compiler"
+  - "computation"
+  - "Confidential"
+  - "depends"
+  - "extension"
+  - "floating-point"
+  - "FPU_Enable"
+  - "FPU_Enable/FPU_Disable"
+  - "FPv5-sp-d16"
+  - "implements"
+  - "into"
+  - "library"
+  - "Proprietary"
+  - "provided"
+  - "supports"
+  - "wants"
+  - "who"
+
+### TEXTSUP-PAGE-0128
+- `physical_page`: `128`
+- `additional_text_terms`:
+  - "Confidential"
+  - "Proprietary"
+
+### TEXTSUP-PAGE-0129
+- `physical_page`: `129`
+- `additional_text_terms`:
+  - "Confidential"
+  - "Proprietary"
+
+### TEXTSUP-PAGE-0130
+- `physical_page`: `130`
+- `additional_text_terms`:
+  - "Confidential"
+  - "Fpu_Dsp_Sample"
+  - "Proprietary"
+
+### TEXTSUP-PAGE-0131
+- `physical_page`: `131`
+- `additional_text_terms`:
+  - "Confidential"
+  - "Proprietary"
+  - "queue"
+  - "receives"
+  - "sender"
+  - "SystemCoreClock"
+  - "wherein"
+
+### TEXTSUP-PAGE-0132
+- `physical_page`: `132`
+- `additional_text_terms`:
+  - "Confidential"
+  - "DIVH"
+  - "OS_ToggleLED"
+  - "procedures"
+  - "Proprietary"
+  - "stops"
+
+### TEXTSUP-PAGE-0133
+- `physical_page`: `133`
+- `additional_text_terms`:
+  - "Confidential"
+  - "FREQM_Demo"
+  - "Proprietary"
+
+### TEXTSUP-PAGE-0134
+- `physical_page`: `134`
+- `additional_text_terms`:
+  - "12s"
+  - "Confidential"
+  - "five"
+  - "jumps"
+  - "plugs"
+  - "Proprietary"
+  - "remove"
+  - "restart"
+  - "Wait"
+
+### TEXTSUP-PAGE-0135
+- `physical_page`: `135`
+- `additional_text_terms`:
+  - "Confidential"
+  - "Proprietary"
+  - "PTA30"
+
+### TEXTSUP-PAGE-0136
+- `physical_page`: `136`
+- `additional_text_terms`:
+  - "Confidential"
+  - "Proprietary"
+  - "PTA30"
+
+### TEXTSUP-PAGE-0137
+- `physical_page`: `137`
+- `additional_text_terms`:
+  - "Confidential"
+  - "Proprietary"
+
+### TEXTSUP-PAGE-0138
+- `physical_page`: `138`
+- `additional_text_terms`:
+  - "1ms"
+  - "300us"
+  - "50us"
+  - "complementary"
+  - "Confidential"
+  - "Proprietary"
+  - "recover"
+  - "sending"
+  - "stop"
+  - "switch"
+  - "switching"
+  - "USE_FAULT"
+  - "USE_LINK_MODE"
+
+### TEXTSUP-PAGE-0139
+- `physical_page`: `139`
+- `additional_text_terms`:
+  - "Confidential"
+  - "decrease"
+  - "Proprietary"
+  - "PTA30"
+
+### TEXTSUP-PAGE-0140
+- `physical_page`: `140`
+- `additional_text_terms`:
+  - "CHB"
+  - "Confidential"
+  - "Proprietary"
+  - "PTA3"
+  - "PTA30"
+
+### TEXTSUP-PAGE-0141
+- `physical_page`: `141`
+- `additional_text_terms`:
+  - "Confidential"
+  - "Proprietary"
+
+### TEXTSUP-PAGE-0142
+- `physical_page`: `142`
+- `additional_text_terms`:
+  - "Confidential"
+  - "KEY2(PTD26)/"
+  - "Proprietary"
+  - "PTD20)/"
+
+### TEXTSUP-PAGE-0143
+- `physical_page`: `143`
+- `additional_text_terms`:
+  - "Confidential"
+  - "KEY2(PTD26)/"
+  - "Proprietary"
+  - "PTD20)/"
+  - "specific"
+
+### TEXTSUP-PAGE-0144
+- `physical_page`: `144`
+- `additional_text_terms`:
+  - "Confidential"
+  - "Proprietary"
+
+### TEXTSUP-PAGE-0145
+- `physical_page`: `145`
+- `additional_text_terms`:
+  - "assume"
+  - "Confidential"
+  - "monitors"
+  - "Proprietary"
+  - "references"
+
+### TEXTSUP-PAGE-0146
+- `physical_page`: `146`
+- `additional_text_terms`:
+  - "Confidential"
+  - "Proprietary"
+
+### TEXTSUP-PAGE-0147
+- `physical_page`: `147`
+- `additional_text_terms`:
+  - "Confidential"
+  - "Proprietary"
+
+### TEXTSUP-PAGE-0148
+- `physical_page`: `148`
+- `additional_text_terms`:
+  - "Confidential"
+  - "functions"
+  - "properly"
+  - "Proprietary"
+  - "return"
+  - "transferred"
+
+### TEXTSUP-PAGE-0149
+- `physical_page`: `149`
+- `additional_text_terms`:
+  - "Confidential"
+  - "converting"
+  - "Expressions"
+  - "g_aVoltageBuffer"
+  - "individually"
+  - "optional"
+  - "parallel"
+  - "Proprietary"
+  - "supports"
+
+### TEXTSUP-PAGE-0150
+- `physical_page`: `150`
+- `additional_text_terms`:
+  - "Confidential"
+  - "Proprietary"
+
+### TEXTSUP-PAGE-0151
+- `physical_page`: `151`
+- `additional_text_terms`:
+  - "Confidential"
+  - "Proprietary"
+  - "sampled"
+  - "Total"
+  - "works"
+
+### TEXTSUP-PAGE-0152
+- `physical_page`: `152`
+- `additional_text_terms`:
+  - "Confidential"
+  - "Proprietary"
+
+### TEXTSUP-PAGE-0153
+- `physical_page`: `153`
+- `additional_text_terms`:
+  - "commands"
+  - "Confidential"
+  - "fill"
+  - "modes"
+  - "Proprietary"
+  - "random"
+  - "simple"
+  - "works"
+
+### TEXTSUP-PAGE-0154
+- `physical_page`: `154`
+- `additional_text_terms`:
+  - "Confidential"
+  - "Proprietary"
+
+### TEXTSUP-PAGE-0155
+- `physical_page`: `155`
+- `additional_text_terms`:
+  - "Confidential"
+  - "Proprietary"
+
+### TEXTSUP-PAGE-0156
+- `physical_page`: `156`
+- `additional_text_terms`:
+  - "Confidential"
+  - "Proprietary"
+
+### TEXTSUP-PAGE-0157
+- `physical_page`: `157`
+- `additional_text_terms`:
+  - "Confidential"
+  - "delayed"
+  - "expected"
+  - "faster"
+  - "functions"
+  - "happen"
+  - "INTM_Demo"
+  - "longer"
+  - "Proprietary"
+  - "shorter"
+  - "texts"
+  - "threshold"
+  - "verifying"
+
+### TEXTSUP-PAGE-0158
+- `physical_page`: `158`
+- `additional_text_terms`:
+  - "Confidential"
+  - "functions"
+  - "Proprietary"
+  - "receiving"
+  - "sending"
+  - "tested"
+  - "texts"
+  - "Totally"
+
+### TEXTSUP-PAGE-0159
+- `physical_page`: `159`
+- `additional_text_terms`:
+  - "Confidential"
+  - "please"
+  - "Plugin"
+  - "Proprietary"
+
+### TEXTSUP-PAGE-0160
+- `physical_page`: `160`
+- `additional_text_terms`:
+  - "Confidential"
+  - "Proprietary"
+
+### TEXTSUP-PAGE-0161
+- `physical_page`: `161`
+- `additional_text_terms`:
+  - "Confidential"
+  - "Proprietary"
+  - "USB-Type"
+
+### TEXTSUP-PAGE-0162
+- `physical_page`: `162`
+- `additional_text_terms`:
+  - "Confidential"
+  - "Proprietary"
+
+### TEXTSUP-PAGE-0163
+- `physical_page`: `163`
+- `additional_text_terms`:
+  - "Additonal"
+  - "Confidential"
+  - "Proprietary"
+  - "Telnet"
+  - "workspaces"
+
+### TEXTSUP-PAGE-0164
+- `physical_page`: `164`
+- `additional_text_terms`:
+  - "Confidential"
+  - "Proprietary"
+  - "Switch"
+  - "Telnet"
+
+### TEXTSUP-PAGE-0165
+- `physical_page`: `165`
+- `additional_text_terms`:
+  - "Confidential"
+  - "continuing"
+  - "framework"
+  - "isolation"
+  - "locking"
+  - "malicious"
+  - "memories"
+  - "namely"
+  - "Non-core"
+  - "occupy"
+  - "prevent"
+  - "programs"
+  - "Proprietary"
+  - "rights"
+  - "scalable"
+  - "supervisor"
+  - "supports"
+  - "tampering"
+
+### TEXTSUP-PAGE-0166
+- `physical_page`: `166`
+- `additional_text_terms`:
+  - "0x21020000"
+  - "accessed"
+  - "b1111"
+  - "been"
+  - "Confidential"
+  - "fetches"
+  - "MAM_Config"
+  - "MAM_MASTER_CPU0"
+  - "permission"
+  - "Proprietary"
+  - "suspend"
+
+### TEXTSUP-PAGE-0167
+- `physical_page`: `167`
+- `additional_text_terms`:
+  - "0x21001000"
+  - "0x21010000"
+  - "4KB"
+  - "accessible"
+  - "Confidential"
+  - "Continue"
+  - "Due"
+  - "dwData"
+  - "dwFlagVar"
+  - "inaccessible"
+  - "interrupted"
+  - "permission"
+  - "Proprietary"
+  - "starting"
+  - "uint32_t"
+
+### TEXTSUP-PAGE-0168
+- `physical_page`: `168`
+- `additional_text_terms`:
+  - "Confidential"
+  - "Mpu_Example"
+  - "Mpu_Sample"
+  - "Proprietary"
+  - "repeatedly"
+
+### TEXTSUP-PAGE-0169
+- `physical_page`: `169`
+- `additional_text_terms`:
+  - "Confidential"
+  - "Proprietary"
+
+### TEXTSUP-PAGE-0170
+- `physical_page`: `170`
+- `additional_text_terms`:
+  - "boards"
+  - "Confidential"
+  - "e.g"
+  - "FCL-SE"
+  - "logged"
+  - "MSC_Demo"
+  - "Proprietary"
+  - "Putty"
+  - "SO-SE"
+  - "SSY1"
+  - "Switch"
+  - "Vref"
+
+### TEXTSUP-PAGE-0171
+- `physical_page`: `171`
+- `additional_text_terms`:
+  - "Confidential"
+  - "delay"
+  - "includes"
+  - "Modify"
+  - "Proprietary"
+  - "specific"
+
+### TEXTSUP-PAGE-0172
+- `physical_page`: `172`
+- `additional_text_terms`:
+  - "Confidential"
+  - "operations"
+  - "Proprietary"
+  - "toggles"
+
+### TEXTSUP-PAGE-0173
+- `physical_page`: `173`
+- `additional_text_terms`:
+  - "backup"
+  - "been"
+  - "checks"
+  - "Confidential"
+  - "determines"
+  - "dflash"
+  - "entirely"
+  - "faster"
+  - "flashes"
+  - "flashing"
+  - "FMC-"
+  - "increments"
+  - "jumps"
+  - "milliseconds"
+  - "occurred"
+  - "omitted"
+  - "Otherwise"
+  - "performs"
+  - "preserved"
+  - "prints"
+  - "Proprietary"
+  - "store"
+  - "toggles"
+  - "validity"
+  - "versions"
+
+### TEXTSUP-PAGE-0174
+- `physical_page`: `174`
+- `additional_text_terms`:
+  - "C-Array"
+  - "compiling"
+  - "Confidential"
+  - "Export"
+  - "files"
+  - "hexview"
+  - "into"
+  - "OTA_DEMO"
+  - "Proprietary"
+
+### TEXTSUP-PAGE-0175
+- `physical_page`: `175`
+- `additional_text_terms`:
+  - "Confidential"
+  - "Proprietary"
+
+### TEXTSUP-PAGE-0176
+- `physical_page`: `176`
+- `additional_text_terms`:
+  - "0xAAAA5555"
+  - "actually"
+  - "automatically"
+  - "backup"
+  - "been"
+  - "checks"
+  - "Confidential"
+  - "executes"
+  - "firmware"
+  - "flashes"
+  - "higher"
+  - "jumps"
+  - "lower"
+  - "mapped"
+  - "operate"
+  - "Otherwise"
+  - "preserved"
+  - "Proprietary"
+  - "register-based"
+  - "starts"
+  - "third-party"
+  - "UFM"
+  - "validity"
+  - "writing"
+
+### TEXTSUP-PAGE-0177
+- `physical_page`: `177`
+- `additional_text_terms`:
+  - "0x01"
+  - "0x17FF000"
+  - "0xFF000"
+  - "5FF"
+  - "been"
+  - "checks"
+  - "Confidential"
+  - "either"
+  - "faster"
+  - "flashes"
+  - "higher"
+  - "increments"
+  - "jumps"
+  - "milliseconds"
+  - "occurred"
+  - "placed"
+  - "prints"
+  - "Proprietary"
+  - "toggles"
+  - "versions"
+
+### TEXTSUP-PAGE-0178
+- `physical_page`: `178`
+- `additional_text_terms`:
+  - "C-Array"
+  - "compiling"
+  - "Confidential"
+  - "Export"
+  - "files"
+  - "hexview"
+  - "into"
+  - "OTA_DEMO"
+  - "Proprietary"
+  - "specific"
+
+### TEXTSUP-PAGE-0179
+- `physical_page`: `179`
+- `additional_text_terms`:
+  - "Confidential"
+  - "Proprietary"
+
+### TEXTSUP-PAGE-0180
+- `physical_page`: `180`
+- `additional_text_terms`:
+  - "actually"
+  - "automatically"
+  - "been"
+  - "Confidential"
+  - "higher"
+  - "lower"
+  - "mapped"
+  - "operate"
+  - "Proprietary"
+  - "writing"
+
+### TEXTSUP-PAGE-0181
+- `physical_page`: `181`
+- `additional_text_terms`:
+  - "Confidential"
+  - "Proprietary"
+
+### TEXTSUP-PAGE-0182
+- `physical_page`: `182`
+- `additional_text_terms`:
+  - "0x08000000"
+  - "Confidential"
+  - "Proprietary"
+  - "reading"
+  - "reads"
+  - "remapped"
+
+### TEXTSUP-PAGE-0183
+- `physical_page`: `183`
+- `additional_text_terms`:
+  - "Confidential"
+  - "modify"
+  - "Proprietary"
+  - "responsible"
+
+### TEXTSUP-PAGE-0184
+- `physical_page`: `184`
+- `additional_text_terms`:
+  - "Confidential"
+  - "often"
+  - "periodic"
+  - "periodically"
+  - "please"
+  - "Pmc_Sample"
+  - "Proprietary"
+  - "simple"
+  - "standalone"
+  - "together"
+
+### TEXTSUP-PAGE-0185
+- `physical_page`: `185`
+- `additional_text_terms`:
+  - "Confidential"
+  - "pInitCfg"
+  - "Proprietary"
+  - "PTIMER_Enable(eInstance"
+  - "PTIMER_GenerateSWTrigger(eInstance"
+  - "PTIMER_Init(eInstance"
+  - "PTIMER_LoadValue(eInstance"
+  - "PTIMER_SetPeriod(eInstance"
+  - "u32PeriodUs"
+
+### TEXTSUP-PAGE-0186
+- `physical_page`: `186`
+- `additional_text_terms`:
+  - "Confidential"
+  - "Proprietary"
+  - "six"
+
+### TEXTSUP-PAGE-0187
+- `physical_page`: `187`
+- `additional_text_terms`:
+  - "Confidential"
+  - "Proprietary"
+
+### TEXTSUP-PAGE-0188
+- `physical_page`: `188`
+- `additional_text_terms`:
+  - "Confidential"
+  - "Proprietary"
+
+### TEXTSUP-PAGE-0189
+- `physical_page`: `189`
+- `additional_text_terms`:
+  - "Confidential"
+  - "Proprietary"
+
+### TEXTSUP-PAGE-0190
+- `physical_page`: `190`
+- `additional_text_terms`:
+  - "Confidential"
+  - "Proprietary"
+
+### TEXTSUP-PAGE-0191
+- `physical_page`: `191`
+- `additional_text_terms`:
+  - "Confidential"
+  - "Proprietary"
+
+### TEXTSUP-PAGE-0192
+- `physical_page`: `192`
+- `additional_text_terms`:
+  - "Confidential"
+  - "Proprietary"
+
+### TEXTSUP-PAGE-0193
+- `physical_page`: `193`
+- `additional_text_terms`:
+  - "Confidential"
+  - "intervals"
+  - "notification"
+  - "pressed"
+  - "Proprietary"
+  - "regular"
+  - "SWRS"
+  - "SYSRST"
+
+### TEXTSUP-PAGE-0194
+- `physical_page`: `194`
+- `additional_text_terms`:
+  - "beginning"
+  - "Confidential"
+  - "jumper"
+  - "last"
+  - "learn"
+  - "Proprietary"
+  - "referring"
+  - "requires"
+  - "RGM_C0_SRS"
+  - "RGM_Demo"
+  - "RGM_SRS"
+
+### TEXTSUP-PAGE-0195
+- `physical_page`: `195`
+- `additional_text_terms`:
+  - "Confidential"
+  - "Proprietary"
+
+### TEXTSUP-PAGE-0196
+- `physical_page`: `196`
+- `additional_text_terms`:
+  - "Confidential"
+  - "Proprietary"
+
+### TEXTSUP-PAGE-0197
+- `physical_page`: `197`
+- `additional_text_terms`:
+  - "Confidential"
+  - "Proprietary"
+
+### TEXTSUP-PAGE-0198
+- `physical_page`: `198`
+- `additional_text_terms`:
+  - "Confidential"
+  - "Proprietary"
+
+### TEXTSUP-PAGE-0199
+- `physical_page`: `199`
+- `additional_text_terms`:
+  - "Confidential"
+  - "Proprietary"
+
+### TEXTSUP-PAGE-0200
+- `physical_page`: `200`
+- `additional_text_terms`:
+  - "Confidential"
+  - "Proprietary"
+
+### TEXTSUP-PAGE-0201
+- `physical_page`: `201`
+- `additional_text_terms`:
+  - "Confidential"
+  - "jumps"
+  - "Plugin"
+  - "plugs"
+  - "Proprietary"
+
+### TEXTSUP-PAGE-0202
+- `physical_page`: `202`
+- `additional_text_terms`:
+  - "12s"
+  - "Confidential"
+  - "jumps"
+  - "Proprietary"
+  - "remove"
+  - "restart"
+  - "Wait"
+
+### TEXTSUP-PAGE-0203
+- `physical_page`: `203`
+- `additional_text_terms`:
+  - "Confidential"
+  - "Proprietary"
+
+### TEXTSUP-PAGE-0204
+- `physical_page`: `204`
+- `additional_text_terms`:
+  - "beginning"
+  - "Confidential"
+  - "demand"
+  - "outputs"
+  - "Performs"
+  - "powered"
+  - "Prints"
+  - "prompt"
+  - "Proprietary"
+  - "retrieves"
+  - "return"
+  - "SCST_Demo"
+  - "signature"
+  - "single-shot"
+  - "test_index"
+  - "them"
+
+### TEXTSUP-PAGE-0205
+- `physical_page`: `205`
+- `additional_text_terms`:
+  - "Confidential"
+  - "Proprietary"
+
+### TEXTSUP-PAGE-0206
+- `physical_page`: `206`
+- `additional_text_terms`:
+  - "Confidential"
+  - "configures"
+  - "continuously"
+  - "events"
+  - "Interrupt-Driven"
+  - "outputs"
+  - "Prints"
+  - "Proprietary"
+  - "ready"
+  - "Samples"
+  - "seconds"
+  - "watermark"
+
+### TEXTSUP-PAGE-0207
+- `physical_page`: `207`
+- `additional_text_terms`:
+  - "calculates"
+  - "Confidential"
+  - "factor"
+  - "Measures"
+  - "outputs"
+  - "Prints"
+  - "Proprietary"
+
+### TEXTSUP-PAGE-0208
+- `physical_page`: `208`
+- `additional_text_terms`:
+  - "Confidential"
+  - "Proprietary"
+
+### TEXTSUP-PAGE-0209
+- `physical_page`: `209`
+- `additional_text_terms`:
+  - "Confidential"
+  - "Proprietary"
+
+### TEXTSUP-PAGE-0210
+- `physical_page`: `210`
+- `additional_text_terms`:
+  - "Acquire"
+  - "acquires"
+  - "Confidential"
+  - "inner"
+  - "light"
+  - "Proprietary"
+  - "Release"
+  - "releases"
+  - "SEC_Demo"
+  - "USB-Type"
+
+### TEXTSUP-PAGE-0211
+- `physical_page`: `211`
+- `additional_text_terms`:
+  - "Confidential"
+  - "Proprietary"
+  - "Sema_SpinLock"
+  - "SpinLock"
+
+### TEXTSUP-PAGE-0212
+- `physical_page`: `212`
+- `additional_text_terms`:
+  - "Confidential"
+  - "Proprietary"
+
+### TEXTSUP-PAGE-0213
+- `physical_page`: `213`
+- `additional_text_terms`:
+  - "Confidential"
+  - "Proprietary"
+
+### TEXTSUP-PAGE-0214
+- `physical_page`: `214`
+- `additional_text_terms`:
+  - "Confidential"
+  - "Proprietary"
+
+### TEXTSUP-PAGE-0215
+- `physical_page`: `215`
+- `additional_text_terms`:
+  - "Confidential"
+  - "Proprietary"
+
+### TEXTSUP-PAGE-0216
+- `physical_page`: `216`
+- `additional_text_terms`:
+  - "Confidential"
+  - "Proprietary"
+  - "TLE4998"
+
+### TEXTSUP-PAGE-0217
+- `physical_page`: `217`
+- `additional_text_terms`:
+  - "Confidential"
+  - "pressed"
+  - "Proprietary"
+  - "refers"
+  - "woken"
+
+### TEXTSUP-PAGE-0218
+- `physical_page`: `218`
+- `additional_text_terms`:
+  - "Confidential"
+  - "Proprietary"
+
+### TEXTSUP-PAGE-0219
+- `physical_page`: `219`
+- `additional_text_terms`:
+  - "Confidential"
+  - "Proprietary"
+  - "regularly"
+  - "USB-Type"
+
+### TEXTSUP-PAGE-0220
+- `physical_page`: `220`
+- `additional_text_terms`:
+  - "Confidential"
+  - "Proprietary"
+
+### TEXTSUP-PAGE-0221
+- `physical_page`: `221`
+- `additional_text_terms`:
+  - "Confidential"
+  - "Proprietary"
+  - "STCU_Demo"
+  - "STCU_RAM"
+
+### TEXTSUP-PAGE-0222
+- `physical_page`: `222`
+- `additional_text_terms`:
+  - "Confidential"
+  - "flag-based"
+  - "monitoring"
+  - "Proprietary"
+  - "Systick_demo"
+  - "voltage-based"
+
+### TEXTSUP-PAGE-0223
+- `physical_page`: `223`
+- `additional_text_terms`:
+  - "Confidential"
+  - "Proprietary"
+
+### TEXTSUP-PAGE-0224
+- `physical_page`: `224`
+- `additional_text_terms`:
+  - "Confidential"
+  - "Proprietary"
+
+### TEXTSUP-PAGE-0225
+- `physical_page`: `225`
+- `additional_text_terms`:
+  - "Confidential"
+  - "five"
+  - "printing"
+  - "Proprietary"
+  - "PTC6"
+  - "TMU_Demo"
+  - "toggles"
+  - "TPUCH0"
+
+### TEXTSUP-PAGE-0226
+- `physical_page`: `226`
+- `additional_text_terms`:
+  - "Confidential"
+  - "Proprietary"
+
+### TEXTSUP-PAGE-0227
+- `physical_page`: `227`
+- `additional_text_terms`:
+  - "Confidential"
+  - "determined"
+  - "MHz"
+  - "much"
+  - "Proprietary"
+  - "PTG14"
+  - "TCR1"
+  - "ticks"
+  - "toggles"
+  - "TPU_CH8"
+  - "u32ActiveTime"
+  - "u32PeriodTime"
+
+### TEXTSUP-PAGE-0228
+- `physical_page`: `228`
+- `additional_text_terms`:
+  - "Confidential"
+  - "Proprietary"
+
+### TEXTSUP-PAGE-0229
+- `physical_page`: `229`
+- `additional_text_terms`:
+  - "combination"
+  - "Confidential"
+  - "determined"
+  - "due"
+  - "enables"
+  - "HST"
+  - "MHz"
+  - "much"
+  - "Proprietary"
+  - "shall"
+  - "subsystem"
+  - "TCR1"
+  - "ticks"
+  - "u32SampleTime"
+
+### TEXTSUP-PAGE-0230
+- `physical_page`: `230`
+- `additional_text_terms`:
+  - "Confidential"
+  - "Proprietary"
+
+### TEXTSUP-PAGE-0231
+- `physical_page`: `231`
+- `additional_text_terms`:
+  - "Carefully"
+  - "Confidential"
+  - "packed.hex"
+  - "Proprietary"
+  - "subsystem"
+  - "Tpu_xxx_FlexCore"
+
+### TEXTSUP-PAGE-0232
+- `physical_page`: `232`
+- `additional_text_terms`:
+  - "Confidential"
+  - "post-processing"
+  - "Proprietary"
+
+### TEXTSUP-PAGE-0233
+- `physical_page`: `233`
+- `additional_text_terms`:
+  - "Confidential"
+  - "Proprietary"
+
+### TEXTSUP-PAGE-0234
+- `physical_page`: `234`
+- `additional_text_terms`:
+  - "Confidential"
+  - "post-processing"
+  - "Proprietary"
+
+### TEXTSUP-PAGE-0235
+- `physical_page`: `235`
+- `additional_text_terms`:
+  - "Confidential"
+  - "Proprietary"
+
+### TEXTSUP-PAGE-0236
+- `physical_page`: `236`
+- `additional_text_terms`:
+  - "Confidential"
+  - "PCC-reset"
+  - "PIN-reset"
+  - "POR-reset"
+  - "Proprietary"
+  - "TSTMP0"
+  - "TSTMP1"
+  - "TSTMP1-3"
+
+### TEXTSUP-PAGE-0237
+- `physical_page`: `237`
+- `additional_text_terms`:
+  - "Confidential"
+  - "Proprietary"
+
+### TEXTSUP-PAGE-0238
+- `physical_page`: `238`
+- `additional_text_terms`:
+  - "Confidential"
+  - "Proprietary"
+  - "supports"
+  - "windowed"
+
+### TEXTSUP-PAGE-0239
+- `physical_page`: `239`
+- `additional_text_terms`:
+  - "37500U"
+  - "Confidential"
+  - "pre-scaler"
+  - "Proprietary"
+  - "Wdog_InitStruct.bEnableInDebug"
+  - "Wdog_InitStruct.bEnableInStop"
+  - "Wdog_InitStruct.bEnableInWait"
+  - "Wdog_InitStruct.bPrescalerEnable"
+  - "Wdog_InitStruct.eClkSource"
+  - "Wdog_InitStruct.eTesttype"
+  - "Wdog_InitStruct.eTimeoutReaction"
+  - "Wdog_InitStruct.u16WindowValue"
+
+### TEXTSUP-PAGE-0240
+- `physical_page`: `240`
+- `additional_text_terms`:
+  - "3times"
+  - "Bsp_Systick_Init"
+  - "Confidential"
+  - "detailed"
+  - "Interrupt_Init"
+  - "Pressed"
+  - "Proprietary"
+  - "RGM-"
+  - "WDG"
+  - "WDOG_IRQHandler"
+  - "window"
+  - "windowed"
+
+### TEXTSUP-PAGE-0241
+- `physical_page`: `241`
+- `additional_text_terms`:
+  - "Confidential"
+  - "feeding"
+  - "initializes"
+  - "parameter"
+  - "Proprietary"
+  - "resets"
+  - "starts"
+  - "stop"
+  - "windowed"
+
+### TEXTSUP-PAGE-0242
+- `physical_page`: `242`
+- `additional_text_terms`:
+  - "Confidential"
+  - "Proprietary"
+
+### TEXTSUP-PAGE-0243
+- `physical_page`: `243`
+- `additional_text_terms`:
+  - "Confidential"
+  - "Fixed"
+  - "Proprietary"
+
+### TEXTSUP-PAGE-0244
+- `physical_page`: `244`
+- `additional_text_terms`:
+  - "commercial"
+  - "completeness"
+  - "Confidential"
+  - "damages"
+  - "design"
+  - "designed"
+  - "designing"
+  - "disclaims"
+  - "expenses"
+  - "fabricating"
+  - "familiar"
+  - "further"
+  - "hereby"
+  - "herein"
+  - "hereinabove"
+  - "hereinafter"
+  - "illustrative"
+  - "intended"
+  - "interpretation"
+  - "liabilities"
+  - "losses"
+  - "Ltd"
+  - "makes"
+  - "Proprietary"
+  - "provided"
+  - "referred"
+  - "responsibilities"
+  - "Semiconductor"
+  - "shall"
+  - "skilled"
+  - "subject"
+  - "Suzhou"
+  - "their"
+  - "validate"
+  - "well"
+  - "who"
+
+### TEXTSUP-PAGE-0245
+- `physical_page`: `245`
+- `additional_text_terms`:
+  - "Confidential"
+  - "Proprietary"
+
 ## 10. Quality Warnings
 ### WARN-DOC-OUTLINE-0001
 - `severity`: "medium"
@@ -22612,6 +24962,16 @@ Each `PAGE-*` item maps one 1-based PDF physical page to its best-known section 
 - `manifest_source_pdf_sha256`: "c5fec0b26de68636b7b0cc33477700adf44a366b95aa5c6864b25794254cb0de"
 - `sha256_match`: true
 - `status`: "pass"
+
+### Text-Layer Search Supplement
+- `status`: "pass"
+- `generated_at`: "2026-06-20T11:56:07Z"
+- `unique_missing_terms_added`: 589
+- `technical_missing_terms_added`: 100
+- `pages_with_added_terms`: 244
+- `supplemented_page_term_entries`: 1340
+- `post_supplement_text_token_recall`: "1.000"
+- `post_supplement_technical_token_recall`: "1.000"
 
 ### Index Integrity
 - `page_locator_items`: 245

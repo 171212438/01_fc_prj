@@ -12,9 +12,22 @@ generator_version: "0.5.0"
 page_numbering_policy: "physical_page is 1-based PDF physical page index; printed_page is auxiliary only"
 ocr_status: "not_run_text_layer_available"
 pdf_outline_count: 0
+standard_page_locator_headings: "present"
+standard_page_locator_headings_count: 54
+text_layer_search_supplement: "present_with_delta"
+text_layer_search_supplement_generated_at: "2026-06-21T04:04:23Z"
+text_layer_search_supplement_terms: 673
+text_layer_search_supplement_technical_terms: 119
+text_layer_search_supplement_pages: 53
+post_supplement_text_token_recall: "1.000"
+post_supplement_technical_token_recall: "1.000"
 overall_status: "pass_with_warnings"
+text_layer_search_supplement_delta_generated_at: "2026-06-21T04:04:23Z"
+text_layer_search_supplement_delta_terms: 20
+text_layer_search_supplement_delta_technical_terms: 3
+text_layer_search_supplement_delta_pages: 13
+text_layer_search_supplement_delta_entries: 20
 ---
-
 # PDF Manifest: FC7300F8MDQ_Errata_Sheet_V0.5.pdf
 
 ## Retrieval Usage Contract
@@ -22,6 +35,7 @@ overall_status: "pass_with_warnings"
 - `physical_page` is the primary locator and is always the 1-based PDF physical page number.
 - `printed_page` is auxiliary and must not be used as the primary locator.
 - This Manifest is an index, not a substitute for the source PDF. Verify factual claims against the referenced source page.
+- Use `9A. Text-Layer Search Supplement` for exact keyword lookup gaps; verify exact erratum wording, workaround text and diagrams against the PDF.
 - For tables and figures, use `confidence`, `bbox`, `quality_flags`, and `anchor` to decide whether manual source-page verification is required.
 - Treat this Manifest as stale if `source_pdf_sha256` does not match the current source PDF.
 
@@ -42,6 +56,21 @@ overall_status: "pass_with_warnings"
 - `generator`: "chatgpt-pdf-manifest-generator 0.5.0"
 - `manifest_schema_version`: "1.0"
 - `page_numbering_policy`: "physical_page is 1-based PDF physical page index; printed_page is auxiliary only"
+- `standard_page_locator_headings`: present
+- `standard_page_locator_headings_count`: 54
+- `text_layer_search_supplement`: "present_with_delta"
+- `text_layer_search_supplement_generated_at`: "2026-06-21T04:04:23Z"
+- `text_layer_search_supplement_terms`: 673
+- `text_layer_search_supplement_technical_terms`: 119
+- `text_layer_search_supplement_pages`: 53
+- `text_layer_search_supplement_entries`: 1153
+- `text_layer_search_supplement_delta_entries`: 20
+- `text_layer_search_supplement_delta_pages`: 13
+- `text_layer_search_supplement_delta_technical_terms`: 3
+- `text_layer_search_supplement_delta_terms`: 20
+- `text_layer_search_supplement_delta_generated_at`: "2026-06-21T04:04:23Z"
+- `post_supplement_text_token_recall`: "1.000"
+- `post_supplement_technical_token_recall`: "1.000"
 
 ### Extraction Engines
 
@@ -682,6 +711,442 @@ overall_status: "pass_with_warnings"
 | 52 | 52 | Chapter 2 Device Errata / 2.18 ENET Errata / 2.18.23 Synopsys ID: 5938448 / 2.18.24 Synopsys ID: 3542857 | 2.18.24 Synopsys ID: 3542857 | erratum |  |
 | 53 | 53 | Chapter 2 Device Errata / 2.18 ENET Errata / 2.18.24 Synopsys ID: 3542857 | BTR and time intervals of fully executed GCL rows must be greater than 8 PTP... | text |  |
 | 54 | 54 | Revision History | Revision History | erratum, revision_history, table |  |
+
+### 4.0A Standard Page Locator Headings
+
+These headings duplicate the table-form Page Locator Map in standard `PAGE-*` form for generic manifest auditors.
+
+### PAGE-0001
+- `physical_page`: `1`
+- `printed_page`: ""
+- `section_path`: "Cover"
+- `anchor`: "FC7300F8MDQ Errata Sheet"
+- `content_types`: "cover"
+- `quality_flags`: "sparse_cover_text"
+
+### PAGE-0002
+- `physical_page`: `2`
+- `printed_page`: "2"
+- `section_path`: "Front Matter / Table of Contents"
+- `anchor`: "Table of Contents"
+- `content_types`: "erratum, text, toc"
+- `quality_flags`: ""
+
+### PAGE-0003
+- `physical_page`: `3`
+- `printed_page`: "3"
+- `section_path`: "Front Matter / Table of Contents"
+- `anchor`: "2.18.4 Synopsys ID: 3873623"
+- `content_types`: "erratum, revision_history, text, toc"
+- `quality_flags`: ""
+
+### PAGE-0004
+- `physical_page`: `4`
+- `printed_page`: "4"
+- `section_path`: "Chapter 1 Introduction / 1.1 Conventions / 1.2 Summary"
+- `anchor`: "Chapter 1 Introduction"
+- `content_types`: "erratum, table"
+- `quality_flags`: ""
+
+### PAGE-0005
+- `physical_page`: `5`
+- `printed_page`: "5"
+- `section_path`: "Chapter 1 Introduction / 1.2 Summary / 1.3 Arm-related Errata / 1.4 Errata ID Mapping"
+- `anchor`: "1.3"
+- `content_types`: "erratum, table"
+- `quality_flags`: ""
+
+### PAGE-0006
+- `physical_page`: `6`
+- `printed_page`: "6"
+- `section_path`: "Chapter 1 Introduction / 1.4 Errata ID Mapping (continued)"
+- `anchor`: "ERR_DMA_001"
+- `content_types`: "erratum, table"
+- `quality_flags`: ""
+
+### PAGE-0007
+- `physical_page`: `7`
+- `printed_page`: "7"
+- `section_path`: "Chapter 2 Device Errata / 2.1 ERR_ADC_3612112 / 2.2 ERR_ADC_3612113"
+- `anchor`: "Chapter 2 Device Errata"
+- `content_types`: "erratum, table"
+- `quality_flags`: ""
+
+### PAGE-0008
+- `physical_page`: `8`
+- `printed_page`: "8"
+- `section_path`: "Chapter 2 Device Errata / 2.2 ERR_ADC_3612113"
+- `anchor`: "SCM_ADC_GROUP0_RES1, the timestamp stored in the transferred SCM_TSTMP_RES0..."
+- `content_types`: "image, table"
+- `quality_flags`: ""
+
+### PAGE-0009
+- `physical_page`: `9`
+- `printed_page`: "9"
+- `section_path`: "Chapter 2 Device Errata / 2.2 ERR_ADC_3612113 / 2.3 ERR_Debug_3514113"
+- `anchor`: "2.3"
+- `content_types`: "erratum, image, table"
+- `quality_flags`: ""
+
+### PAGE-0010
+- `physical_page`: `10`
+- `printed_page`: "10"
+- `section_path`: "Chapter 2 Device Errata / 2.3 ERR_Debug_3514113 / 2.4 ERR_Debug_3514112 / 2.5 ERR_DMA_3613112"
+- `anchor`: "2.4"
+- `content_types`: "erratum, table"
+- `quality_flags`: ""
+
+### PAGE-0011
+- `physical_page`: `11`
+- `printed_page`: "11"
+- `section_path`: "Chapter 2 Device Errata / 2.5 ERR_DMA_3613112"
+- `anchor`: "CN"
+- `content_types`: "table"
+- `quality_flags`: ""
+
+### PAGE-0012
+- `physical_page`: `12`
+- `printed_page`: "12"
+- `section_path`: "Chapter 2 Device Errata / 2.5 ERR_DMA_3613112"
+- `anchor`: "91"
+- `content_types`: "table"
+- `quality_flags`: ""
+
+### PAGE-0013
+- `physical_page`: `13`
+- `printed_page`: "13"
+- `section_path`: "Chapter 2 Device Errata / 2.5 ERR_DMA_3613112 / 2.6 ERR_DMA_3614121"
+- `anchor`: "2.6"
+- `content_types`: "erratum, table"
+- `quality_flags`: ""
+
+### PAGE-0014
+- `physical_page`: `14`
+- `printed_page`: "14"
+- `section_path`: "Chapter 2 Device Errata / 2.6 ERR_DMA_3614121"
+- `anchor`: "• DMA_CFG_DLASTn"
+- `content_types`: "table"
+- `quality_flags`: ""
+
+### PAGE-0015
+- `physical_page`: `15`
+- `printed_page`: "15"
+- `section_path`: "Chapter 2 Device Errata / 2.7 ERR_FLEXCAN_3519117"
+- `anchor`: "2.7"
+- `content_types`: "erratum, image, table"
+- `quality_flags`: ""
+
+### PAGE-0016
+- `physical_page`: `16`
+- `printed_page`: "16"
+- `section_path`: "Chapter 2 Device Errata / 2.7 ERR_FLEXCAN_3519117 / 2.8 ERR_FLEXCAN_3519113"
+- `anchor`: "2.8"
+- `content_types`: "erratum, table"
+- `quality_flags`: ""
+
+### PAGE-0017
+- `physical_page`: `17`
+- `printed_page`: "17"
+- `section_path`: "Chapter 2 Device Errata / 2.8 ERR_FLEXCAN_3519113 / 2.9 ERR_LU_3617113"
+- `anchor`: "2.9"
+- `content_types`: "erratum, table"
+- `quality_flags`: ""
+
+### PAGE-0018
+- `physical_page`: `18`
+- `printed_page`: "18"
+- `section_path`: "Chapter 2 Device Errata / 2.9 ERR_LU_3617113 / 2.10 ERR_HSADC_3712112"
+- `anchor`: "2.10 ERR_HSADC_3712112"
+- `content_types`: "erratum, table"
+- `quality_flags`: ""
+
+### PAGE-0019
+- `physical_page`: `19`
+- `printed_page`: "19"
+- `section_path`: "Chapter 2 Device Errata / 2.11 ERR_QDT_3612114"
+- `anchor`: "2.11 ERR_QDT_3612114"
+- `content_types`: "erratum, image, table"
+- `quality_flags`: ""
+
+### PAGE-0020
+- `physical_page`: `20`
+- `printed_page`: "20"
+- `section_path`: "Chapter 2 Device Errata / 2.11 ERR_QDT_3612114"
+- `anchor`: "4)"
+- `content_types`: "image, table"
+- `quality_flags`: ""
+
+### PAGE-0021
+- `physical_page`: `21`
+- `printed_page`: "21"
+- `section_path`: "Chapter 2 Device Errata / 2.12 ERR_RGM_3522113 / 2.13 ERR_RGM_3614122"
+- `anchor`: "2.12 ERR_RGM_3522113"
+- `content_types`: "erratum, table"
+- `quality_flags`: ""
+
+### PAGE-0022
+- `physical_page`: `22`
+- `printed_page`: "22"
+- `section_path`: "Chapter 2 Device Errata / 2.13 ERR_RGM_3614122 / 2.14 ERR_RGM_3615114 / 2.15 ERR_SCG_3712113"
+- `anchor`: "2.14 ERR_RGM_3615114"
+- `content_types`: "erratum, table"
+- `quality_flags`: ""
+
+### PAGE-0023
+- `physical_page`: `23`
+- `printed_page`: "23"
+- `section_path`: "Chapter 2 Device Errata / 2.15 ERR_SCG_3712113 / 2.16 ERR_SCG_3715113"
+- `anchor`: "2.16 ERR_SCG_3715113"
+- `content_types`: "erratum, table"
+- `quality_flags`: ""
+
+### PAGE-0024
+- `physical_page`: `24`
+- `printed_page`: "24"
+- `section_path`: "Chapter 2 Device Errata / 2.17 ERR_SSI_3612116"
+- `anchor`: "2.17 ERR_SSI_3612116"
+- `content_types`: "erratum, table"
+- `quality_flags`: ""
+
+### PAGE-0025
+- `physical_page`: `25`
+- `printed_page`: "25"
+- `section_path`: "Chapter 2 Device Errata / 2.18 ENET Errata / 2.18.1 Synopsys ID: 4171346 / 2.18.2 Synopsys ID: 3900281"
+- `anchor`: "2.18 ENET Errata"
+- `content_types`: "erratum"
+- `quality_flags`: ""
+
+### PAGE-0026
+- `physical_page`: `26`
+- `printed_page`: "26"
+- `section_path`: "Chapter 2 Device Errata / 2.18 ENET Errata / 2.18.2 Synopsys ID: 3900281"
+- `anchor`: "Impacted Configurations:"
+- `content_types`: "text"
+- `quality_flags`: ""
+
+### PAGE-0027
+- `physical_page`: `27`
+- `printed_page`: "27"
+- `section_path`: "Chapter 2 Device Errata / 2.18 ENET Errata / 2.18.2 Synopsys ID: 3900281 / 2.18.3 Synopsys ID: 3876182"
+- `anchor`: "2.18.3"
+- `content_types`: "erratum"
+- `quality_flags`: ""
+
+### PAGE-0028
+- `physical_page`: `28`
+- `printed_page`: "28"
+- `section_path`: "Chapter 2 Device Errata / 2.18 ENET Errata / 2.18.3 Synopsys ID: 3876182 / 2.18.4 Synopsys ID: 3873623"
+- `anchor`: "2.18.4"
+- `content_types`: "erratum"
+- `quality_flags`: ""
+
+### PAGE-0029
+- `physical_page`: `29`
+- `printed_page`: "29"
+- `section_path`: "Chapter 2 Device Errata / 2.18 ENET Errata / 2.18.4 Synopsys ID: 3873623 / 2.18.5 Synopsys ID: 3683170"
+- `anchor`: "2.18.5"
+- `content_types`: "erratum"
+- `quality_flags`: ""
+
+### PAGE-0030
+- `physical_page`: `30`
+- `printed_page`: "30"
+- `section_path`: "Chapter 2 Device Errata / 2.18 ENET Errata / 2.18.5 Synopsys ID: 3683170 / 2.18.6 Synopsys ID: 3413311"
+- `anchor`: "2.18.6"
+- `content_types`: "erratum"
+- `quality_flags`: ""
+
+### PAGE-0031
+- `physical_page`: `31`
+- `printed_page`: "31"
+- `section_path`: "Chapter 2 Device Errata / 2.18 ENET Errata / 2.18.6 Synopsys ID: 3413311"
+- `anchor`: "2)"
+- `content_types`: "text"
+- `quality_flags`: ""
+
+### PAGE-0032
+- `physical_page`: `32`
+- `printed_page`: "32"
+- `section_path`: "Chapter 2 Device Errata / 2.18 ENET Errata / 2.18.6 Synopsys ID: 3413311 / 2.18.7 Synopsys ID: 3380358"
+- `anchor`: "2.18.7"
+- `content_types`: "erratum"
+- `quality_flags`: ""
+
+### PAGE-0033
+- `physical_page`: `33`
+- `printed_page`: "33"
+- `section_path`: "Chapter 2 Device Errata / 2.18 ENET Errata / 2.18.7 Synopsys ID: 3380358 / 2.18.8 Synopsys ID: 3379533"
+- `anchor`: "2.18.8"
+- `content_types`: "erratum"
+- `quality_flags`: ""
+
+### PAGE-0034
+- `physical_page`: `34`
+- `printed_page`: "34"
+- `section_path`: "Chapter 2 Device Errata / 2.18 ENET Errata / 2.18.8 Synopsys ID: 3379533 / 2.18.9 Synopsys ID: 3368939"
+- `anchor`: "2.18.9"
+- `content_types`: "erratum"
+- `quality_flags`: ""
+
+### PAGE-0035
+- `physical_page`: `35`
+- `printed_page`: "35"
+- `section_path`: "Chapter 2 Device Errata / 2.18 ENET Errata / 2.18.9 Synopsys ID: 3368939 / 2.18.10 Synopsys ID: 3340890"
+- `anchor`: "2.18.10 Synopsys ID: 3340890"
+- `content_types`: "erratum"
+- `quality_flags`: ""
+
+### PAGE-0036
+- `physical_page`: `36`
+- `printed_page`: "36"
+- `section_path`: "Chapter 2 Device Errata / 2.18 ENET Errata / 2.18.10 Synopsys ID: 3340890"
+- `anchor`: "- The PPS output (width and interval) is incorrect when the fine correction..."
+- `content_types`: "text"
+- `quality_flags`: ""
+
+### PAGE-0037
+- `physical_page`: `37`
+- `printed_page`: "37"
+- `section_path`: "Chapter 2 Device Errata / 2.18 ENET Errata / 2.18.10 Synopsys ID: 3340890 / 2.18.11 Synopsys ID: 3338201"
+- `anchor`: "2.18.11 Synopsys ID: 3338201"
+- `content_types`: "erratum"
+- `quality_flags`: ""
+
+### PAGE-0038
+- `physical_page`: `38`
+- `printed_page`: "38"
+- `section_path`: "Chapter 2 Device Errata / 2.18 ENET Errata / 2.18.11 Synopsys ID: 3338201 / 2.18.12 Synopsys ID: 3309847"
+- `anchor`: "2.18.12 Synopsys ID: 3309847"
+- `content_types`: "erratum"
+- `quality_flags`: ""
+
+### PAGE-0039
+- `physical_page`: `39`
+- `printed_page`: "39"
+- `section_path`: "Chapter 2 Device Errata / 2.18 ENET Errata / 2.18.13 Synopsys ID: 3294970"
+- `anchor`: "2.18.13 Synopsys ID: 3294970"
+- `content_types`: "erratum"
+- `quality_flags`: ""
+
+### PAGE-0040
+- `physical_page`: `40`
+- `printed_page`: "40"
+- `section_path`: "Chapter 2 Device Errata / 2.18 ENET Errata / 2.18.13 Synopsys ID: 3294970 / 2.18.14 Synopsys ID: 3290261"
+- `anchor`: "2.18.14 Synopsys ID: 3290261"
+- `content_types`: "erratum"
+- `quality_flags`: ""
+
+### PAGE-0041
+- `physical_page`: `41`
+- `printed_page`: "41"
+- `section_path`: "Chapter 2 Device Errata / 2.18 ENET Errata / 2.18.14 Synopsys ID: 3290261 / 2.18.15 Synopsys ID: 3290231"
+- `anchor`: "2.18.15 Synopsys ID: 3290231"
+- `content_types`: "erratum"
+- `quality_flags`: ""
+
+### PAGE-0042
+- `physical_page`: `42`
+- `printed_page`: "42"
+- `section_path`: "Chapter 2 Device Errata / 2.18 ENET Errata / 2.18.15 Synopsys ID: 3290231 / 2.18.16 Synopsys ID: 3288309"
+- `anchor`: "2.18.16 Synopsys ID: 3288309"
+- `content_types`: "erratum"
+- `quality_flags`: ""
+
+### PAGE-0043
+- `physical_page`: `43`
+- `printed_page`: "43"
+- `section_path`: "Chapter 2 Device Errata / 2.18 ENET Errata / 2.18.16 Synopsys ID: 3288309 / 2.18.17 Synopsys ID: 6129927"
+- `anchor`: "2.18.17 Synopsys ID: 6129927"
+- `content_types`: "erratum"
+- `quality_flags`: ""
+
+### PAGE-0044
+- `physical_page`: `44`
+- `printed_page`: "44"
+- `section_path`: "Chapter 2 Device Errata / 2.18 ENET Errata / 2.18.17 Synopsys ID: 6129927 / 2.18.18 Synopsys ID: 3275809"
+- `anchor`: "2.18.18 Synopsys ID: 3275809"
+- `content_types`: "erratum"
+- `quality_flags`: ""
+
+### PAGE-0045
+- `physical_page`: `45`
+- `printed_page`: "45"
+- `section_path`: "Chapter 2 Device Errata / 2.18 ENET Errata / 2.18.18 Synopsys ID: 3275809 / 2.18.19 Synopsys ID: 4974260"
+- `anchor`: "2.18.19 Synopsys ID: 4974260"
+- `content_types`: "erratum"
+- `quality_flags`: ""
+
+### PAGE-0046
+- `physical_page`: `46`
+- `printed_page`: "46"
+- `section_path`: "Chapter 2 Device Errata / 2.18 ENET Errata / 2.18.19 Synopsys ID: 4974260 / 2.18.20 Synopsys ID: 5121311"
+- `anchor`: "2.18.20 Synopsys ID: 5121311"
+- `content_types`: "erratum"
+- `quality_flags`: ""
+
+### PAGE-0047
+- `physical_page`: `47`
+- `printed_page`: "47"
+- `section_path`: "Chapter 2 Device Errata / 2.18 ENET Errata / 2.18.20 Synopsys ID: 5121311 / 2.18.21 Synopsys ID: 5584644"
+- `anchor`: "2.18.21 Synopsys ID: 5584644"
+- `content_types`: "erratum"
+- `quality_flags`: ""
+
+### PAGE-0048
+- `physical_page`: `48`
+- `printed_page`: "48"
+- `section_path`: "Chapter 2 Device Errata / 2.18 ENET Errata / 2.18.21 Synopsys ID: 5584644"
+- `anchor`: "Impacted Configurations: Configurations in which the Enable Enhancements to..."
+- `content_types`: "text"
+- `quality_flags`: ""
+
+### PAGE-0049
+- `physical_page`: `49`
+- `printed_page`: "49"
+- `section_path`: "Chapter 2 Device Errata / 2.18 ENET Errata / 2.18.21 Synopsys ID: 5584644 / 2.18.22 Synopsys ID: 5575379"
+- `anchor`: "2.18.22 Synopsys ID: 5575379"
+- `content_types`: "erratum"
+- `quality_flags`: ""
+
+### PAGE-0050
+- `physical_page`: `50`
+- `printed_page`: "50"
+- `section_path`: "Chapter 2 Device Errata / 2.18 ENET Errata / 2.18.22 Synopsys ID: 5575379"
+- `anchor`: "Consequences:"
+- `content_types`: "text"
+- `quality_flags`: ""
+
+### PAGE-0051
+- `physical_page`: `51`
+- `printed_page`: "51"
+- `section_path`: "Chapter 2 Device Errata / 2.18 ENET Errata / 2.18.23 Synopsys ID: 5938448"
+- `anchor`: "2.18.23 Synopsys ID: 5938448"
+- `content_types`: "erratum"
+- `quality_flags`: ""
+
+### PAGE-0052
+- `physical_page`: `52`
+- `printed_page`: "52"
+- `section_path`: "Chapter 2 Device Errata / 2.18 ENET Errata / 2.18.23 Synopsys ID: 5938448 / 2.18.24 Synopsys ID: 3542857"
+- `anchor`: "2.18.24 Synopsys ID: 3542857"
+- `content_types`: "erratum"
+- `quality_flags`: ""
+
+### PAGE-0053
+- `physical_page`: `53`
+- `printed_page`: "53"
+- `section_path`: "Chapter 2 Device Errata / 2.18 ENET Errata / 2.18.24 Synopsys ID: 3542857"
+- `anchor`: "BTR and time intervals of fully executed GCL rows must be greater than 8 PTP..."
+- `content_types`: "text"
+- `quality_flags`: ""
+
+### PAGE-0054
+- `physical_page`: `54`
+- `printed_page`: "54"
+- `section_path`: "Revision History"
+- `anchor`: "Revision History"
+- `content_types`: "erratum, revision_history, table"
+- `quality_flags`: ""
 
 ## 5. Page Segment Index
 
@@ -5091,6 +5556,1466 @@ The source PDF does not assign formal figure numbers to the errata diagrams. Int
   - `ERR_SCG_001` -> `ERR_SCG_3712113`
   - `ERR_SSI_001` -> `ERR_SSI_3612116`
 
+## 9A. Text-Layer Search Supplement
+
+### TEXTSUP-SUMMARY
+- `purpose`: "Close keyword lookup gaps between FC7300F8MDQ_Errata_Sheet_V0.5.pdf extractable text and this Manifest without copying full PDF prose."
+- `source`: `local pypdf text extraction from FC7300F8MDQ_Errata_Sheet_V0.5.pdf`
+- `source_pdf_sha256`: `5405c2212dc7098f5bf812644b4eb16b4c12f055a19cbe5ed94b029854d61baa`
+- `source_pdf_size_bytes`: `3310663`
+- `pdf_page_count`: `54`
+- `generated_at`: `2026-06-20T11:22:51Z`
+- `tokenization_rule`: `ASCII identifiers, alphanumeric technical tokens, hex literals, dotted section/version tokens, errata IDs, register/field names and numeric fields with length >= 3.`
+- `normalization`: `Known Private Use Area digit glyphs U+F6B1..U+F6BA, ligatures and soft hyphen variants are normalized before token comparison.`
+- `scope`: `Text-layer token supplement only; exact errata wording, EN/CN table panels, diagrams and workaround text still require source PDF verification.`
+- `unique_missing_terms_added`: `653`
+- `technical_missing_terms_added`: `116`
+- `pages_with_added_terms`: `53`
+- `supplemented_page_term_entries`: `1133`
+- `post_supplement_text_token_recall`: `1.000`
+- `post_supplement_technical_token_recall`: `1.000`
+- `usage`: `Search terms here to locate physical pages, then verify exact erratum descriptions, consequences, workarounds and diagrams in the source PDF.`
+
+### TEXTSUP-PAGE-0002
+- `physical_page`: `2`
+- `additional_text_terms`:
+  - "Confidential"
+  - "Proprietary"
+
+### TEXTSUP-PAGE-0003
+- `physical_page`: `3`
+- `additional_text_terms`:
+  - "Confidential"
+  - "Proprietary"
+
+### TEXTSUP-PAGE-0004
+- `physical_page`: `4`
+- `additional_text_terms`:
+  - "activated"
+  - "behavior"
+  - "being"
+  - "Confidential"
+  - "describes"
+  - "fails"
+  - "follows"
+  - "indicating"
+  - "pattern"
+  - "peripherals"
+  - "persists"
+  - "Proprietary"
+  - "real"
+  - "series"
+  - "Setting"
+  - "seven-digit"
+  - "situation"
+  - "subsystems"
+  - "transmitted/received"
+  - "updates"
+
+### TEXTSUP-PAGE-0005
+- `physical_page`: `5`
+- `additional_text_terms`:
+  - "across"
+  - "approximately"
+  - "been"
+  - "completely"
+  - "Confidential"
+  - "cross-reference"
+  - "Customers"
+  - "documents"
+  - "ENET-related"
+  - "excerpted"
+  - "experience"
+  - "filtered"
+  - "indicates"
+  - "items"
+  - "limited"
+  - "locate"
+  - "older"
+  - "Potential"
+  - "Proprietary"
+  - "see"
+  - "sensors"
+  - "starting"
+  - "Their"
+  - "variants"
+
+### TEXTSUP-PAGE-0006
+- `physical_page`: `6`
+- `additional_text_terms`:
+  - "Confidential"
+  - "Proprietary"
+
+### TEXTSUP-PAGE-0007
+- `physical_page`: `7`
+- `additional_text_terms`:
+  - "According"
+  - "addresses"
+  - "automatically"
+  - "behavior"
+  - "being"
+  - "completed"
+  - "Confidential"
+  - "detailed"
+  - "disabled"
+  - "enables"
+  - "Furthermore"
+  - "indicates"
+  - "initial"
+  - "operations"
+  - "persists"
+  - "Proprietary"
+  - "sequential"
+  - "setting"
+  - "situation"
+  - "theoretically"
+  - "Therefore"
+  - "upon"
+
+### TEXTSUP-PAGE-0008
+- `physical_page`: `8`
+- `additional_text_terms`:
+  - "010b"
+  - "adopted"
+  - "allows"
+  - "approximately"
+  - "behavior"
+  - "Confidential"
+  - "de-assertion"
+  - "discontinuous"
+  - "duration"
+  - "encounter"
+  - "equal"
+  - "generation"
+  - "noted"
+  - "nothing"
+  - "original"
+  - "Proprietary"
+  - "sending"
+  - "Since"
+  - "single"
+  - "stops"
+
+### TEXTSUP-PAGE-0009
+- `physical_page`: `9`
+- `additional_text_terms`:
+  - "Channel"
+  - "Confidential"
+  - "discontinuous"
+  - "held"
+  - "make"
+  - "processed"
+  - "Proprietary"
+  - "some"
+  - "suggested"
+
+### TEXTSUP-PAGE-0010
+- `physical_page`: `10`
+- `additional_text_terms`:
+  - "Confidential"
+  - "conflicts"
+  - "finished"
+  - "happens"
+  - "mismatch"
+  - "Proprietary"
+  - "root"
+
+### TEXTSUP-PAGE-0011
+- `physical_page`: `11`
+- `additional_text_terms`:
+  - "AONTIMER"
+  - "AONTIMER0"
+  - "CH0-3"
+  - "CH12-15"
+  - "CH16-19"
+  - "CH20-23"
+  - "CH24"
+  - "CH25"
+  - "CH26"
+  - "CH4-7"
+  - "CH8-11"
+  - "CMP"
+  - "CMP0"
+  - "Confidential"
+  - "eFTU0"
+  - "eFTU1"
+  - "eFTU2"
+  - "PORTB"
+  - "PORTC"
+  - "PORTD"
+  - "PORTF"
+  - "PORTG"
+  - "PORTH"
+  - "PORTI"
+  - "Proprietary"
+  - "PTIMER0"
+  - "SRC1"
+  - "SRC2"
+  - "SRC4"
+  - "SRC5"
+
+### TEXTSUP-PAGE-0012
+- `physical_page`: `12`
+- `additional_text_terms`:
+  - "102"
+  - "103"
+  - "104"
+  - "107"
+  - "108"
+  - "109"
+  - "118"
+  - "119"
+  - "120"
+  - "124"
+  - "CH28"
+  - "CH29"
+  - "CH30"
+  - "CH31"
+  - "Channel"
+  - "Channels"
+  - "Confidential"
+  - "eFTU1"
+  - "eFTU2"
+  - "Flash"
+  - "FLEXCAN10"
+  - "FLEXCAN11"
+  - "FLEXCAN12"
+  - "FLEXCAN13"
+  - "FTU0"
+  - "FTU3"
+  - "FTU5"
+  - "FTU6"
+  - "FTU7"
+  - "Odd"
+  - "Proprietary"
+  - "SENT0"
+
+### TEXTSUP-PAGE-0013
+- `physical_page`: `13`
+- `additional_text_terms`:
+  - "125"
+  - "allowed"
+  - "Channel"
+  - "Confidential"
+  - "operations"
+  - "Proprietary"
+  - "read/write"
+
+### TEXTSUP-PAGE-0014
+- `physical_page`: `14`
+- `additional_text_terms`:
+  - "channel"
+  - "Confidential"
+  - "later"
+  - "Proprietary"
+
+### TEXTSUP-PAGE-0015
+- `physical_page`: `15`
+- `additional_text_terms`:
+  - "Confidential"
+  - "currently"
+  - "frames"
+  - "initialization"
+  - "matches"
+  - "Proprietary"
+  - "see"
+  - "tick"
+
+### TEXTSUP-PAGE-0016
+- `physical_page`: `16`
+- `additional_text_terms`:
+  - "199"
+  - "Confidential"
+  - "Examples"
+  - "fixed"
+  - "frames"
+  - "indication"
+  - "lost"
+  - "minimum-length"
+  - "new"
+  - "Proprietary"
+  - "RTR/RRS"
+  - "stuff"
+
+### TEXTSUP-PAGE-0017
+- `physical_page`: `17`
+- `additional_text_terms`:
+  - "activated"
+  - "Another"
+  - "Confidential"
+  - "depending"
+  - "fails"
+  - "lost"
+  - "Proprietary"
+  - "Therefore"
+  - "transmitted/received"
+  - "unaware"
+  - "unserviced"
+  - "updates"
+
+### TEXTSUP-PAGE-0018
+- `physical_page`: `18`
+- `additional_text_terms`:
+  - "bypassed"
+  - "Confidential"
+  - "consecutive"
+  - "elapsed"
+  - "exceeding"
+  - "initiates"
+  - "longer"
+  - "mandatory"
+  - "Proprietary"
+  - "since"
+  - "single"
+  - "Specifically"
+  - "their"
+  - "unavoidably"
+  - "untriggered"
+  - "unused"
+
+### TEXTSUP-PAGE-0019
+- `physical_page`: `19`
+- `additional_text_terms`:
+  - "1000"
+  - "120"
+  - "Calculate"
+  - "channel"
+  - "Confidential"
+  - "configurable"
+  - "CV0-CV1"
+  - "CV1-CV0"
+  - "lower"
+  - "measurement"
+  - "Proprietary"
+
+### TEXTSUP-PAGE-0020
+- `physical_page`: `20`
+- `additional_text_terms`:
+  - "Confidential"
+  - "measurement"
+  - "Proprietary"
+
+### TEXTSUP-PAGE-0021
+- `physical_page`: `21`
+- `additional_text_terms`:
+  - "causes"
+  - "Confidential"
+  - "make"
+  - "Proprietary"
+  - "stuck"
+
+### TEXTSUP-PAGE-0022
+- `physical_page`: `22`
+- `additional_text_terms`:
+  - "approximately"
+  - "Confidential"
+  - "CPUs"
+  - "default"
+  - "experience"
+  - "masters"
+  - "memory"
+  - "peripherals"
+  - "Proprietary"
+  - "suggested"
+
+### TEXTSUP-PAGE-0023
+- `physical_page`: `23`
+- `additional_text_terms`:
+  - "abnormal"
+  - "circuit"
+  - "Confidential"
+  - "divide-by-1"
+  - "metastability"
+  - "metastable"
+  - "pre-divided"
+  - "Proprietary"
+
+### TEXTSUP-PAGE-0024
+- `physical_page`: `24`
+- `additional_text_terms`:
+  - "behavior"
+  - "comparator"
+  - "completely"
+  - "Confidential"
+  - "conform"
+  - "filtered"
+  - "influence"
+  - "limited"
+  - "Proprietary"
+  - "relatively"
+  - "specification"
+
+### TEXTSUP-PAGE-0025
+- `physical_page`: `25`
+- `additional_text_terms`:
+  - "causes"
+  - "Confidential"
+  - "documents"
+  - "ENET-related"
+  - "excerpted"
+  - "fails"
+  - "forwarded"
+  - "Further"
+  - "h0001"
+  - "h0002"
+  - "information"
+  - "Machine"
+  - "perfect"
+  - "Proprietary"
+  - "Reproducing"
+  - "send"
+  - "static"
+  - "Tagged"
+  - "Virtual"
+  - "Virtualization"
+  - "visit"
+  - "website"
+
+### TEXTSUP-PAGE-0026
+- `physical_page`: `26`
+- `additional_text_terms`:
+  - "1970"
+  - "b00"
+  - "closer"
+  - "Confidential"
+  - "domain"
+  - "features"
+  - "follows"
+  - "hFFFF_FFFF"
+  - "indicates"
+  - "Initialize"
+  - "internally"
+  - "January"
+  - "likely"
+  - "master"
+  - "maximum"
+  - "operate"
+  - "ordinary"
+  - "periodic"
+  - "polling"
+  - "Proprietary"
+  - "real"
+  - "Reproducing"
+  - "rolls"
+  - "slave"
+  - "systems"
+  - "UDP/IP"
+  - "years"
+
+### TEXTSUP-PAGE-0027
+- `physical_page`: `27`
+- `additional_text_terms`:
+  - "b01"
+  - "Confidential"
+  - "follows"
+  - "generation"
+  - "identifies"
+  - "inaccuracies"
+  - "maintained"
+  - "mechanisms"
+  - "node"
+  - "operates"
+  - "original"
+  - "performs"
+  - "Proprietary"
+  - "receives"
+  - "Reproducing"
+  - "send"
+  - "settings"
+  - "slave"
+
+### TEXTSUP-PAGE-0028
+- `physical_page`: `28`
+- `additional_text_terms`:
+  - "automatic"
+  - "Automotive"
+  - "b01"
+  - "become"
+  - "becomes"
+  - "categorized"
+  - "Confidential"
+  - "disabled"
+  - "domain"
+  - "driven"
+  - "driving"
+  - "duration"
+  - "enables"
+  - "enters"
+  - "exceeds"
+  - "excluded"
+  - "Features"
+  - "fetched"
+  - "FSMs"
+  - "generates"
+  - "indicates"
+  - "longer"
+  - "monitoring"
+  - "pattern"
+  - "Proprietary"
+  - "respectively"
+  - "resuming"
+  - "scenario"
+  - "send"
+  - "Therefore"
+  - "transition"
+  - "transitions"
+  - "transmitting"
+  - "until"
+  - "updates"
+
+### TEXTSUP-PAGE-0029
+- `physical_page`: `29`
+- `additional_text_terms`:
+  - "automated"
+  - "Confidential"
+  - "disabled"
+  - "domain"
+  - "duration"
+  - "EQOS-AHB"
+  - "EQOS-AXI"
+  - "EQOS-AXI4"
+  - "every"
+  - "features"
+  - "flushed"
+  - "followed"
+  - "FSMs"
+  - "generates"
+  - "header-payload"
+  - "indicating"
+  - "information"
+  - "occurred"
+  - "performs"
+  - "pre-empted"
+  - "Proprietary"
+  - "pushes"
+  - "reached"
+  - "Reproducing"
+  - "sbd_sfty_ue_intr_o"
+  - "send"
+  - "Single"
+  - "synchronizers"
+
+### TEXTSUP-PAGE-0030
+- `physical_page`: `30`
+- `additional_text_terms`:
+  - "accepted"
+  - "assembly"
+  - "cascading"
+  - "Channel"
+  - "Confidential"
+  - "connected"
+  - "easily"
+  - "effect"
+  - "empty"
+  - "fetching"
+  - "header-payload"
+  - "heavy"
+  - "latter"
+  - "lesser"
+  - "observes"
+  - "ongoing"
+  - "overflows"
+  - "performs"
+  - "places"
+  - "pre-empted"
+  - "Proprietary"
+  - "reproduced"
+  - "Reproducing"
+  - "retransmission"
+  - "simulations"
+  - "stop"
+  - "synchronization"
+  - "tasks"
+  - "Terminates"
+  - "Therefore"
+  - "transitioning"
+
+### TEXTSUP-PAGE-0031
+- `physical_page`: `31`
+- `additional_text_terms`:
+  - "Accept"
+  - "accesses"
+  - "burst"
+  - "Bus/Slave/Interconnect"
+  - "Cache"
+  - "Channel"
+  - "coincide"
+  - "come"
+  - "Confidential"
+  - "corrective"
+  - "defects"
+  - "encountered"
+  - "Flush"
+  - "generation"
+  - "gracefully"
+  - "handle"
+  - "indicated"
+  - "indicates"
+  - "indication"
+  - "interfaced"
+  - "lead"
+  - "memory"
+  - "misses"
+  - "neither"
+  - "non-last"
+  - "Operating"
+  - "Proprietary"
+  - "pushed"
+  - "reported"
+  - "Reproducing"
+  - "requires"
+  - "restart/reconfigure"
+  - "restarting"
+  - "serious"
+  - "single"
+  - "steps"
+  - "take"
+
+### TEXTSUP-PAGE-0032
+- `physical_page`: `32`
+- `additional_text_terms`:
+  - "1518"
+  - "behavior"
+  - "burst"
+  - "Channel"
+  - "Confidential"
+  - "corrupted"
+  - "Distribute"
+  - "error-free"
+  - "Operate"
+  - "Proprietary"
+  - "send"
+  - "write-back"
+
+### TEXTSUP-PAGE-0033
+- `physical_page`: `33`
+- `additional_text_terms`:
+  - "128"
+  - "1Qbu"
+  - "1Qbv"
+  - "3br"
+  - "_Quantum_Weight"
+  - "adhere"
+  - "being"
+  - "Confidential"
+  - "controlled"
+  - "dedicated"
+  - "depends"
+  - "describes"
+  - "EQOS-CORE"
+  - "highest"
+  - "hold"
+  - "interference"
+  - "limited"
+  - "maximum"
+  - "negative"
+  - "ongoing"
+  - "other"
+  - "participating"
+  - "pre-empted"
+  - "Proprietary"
+  - "providing"
+  - "Reproducing"
+  - "Robin"
+  - "Scheduler"
+  - "schedules"
+  - "send"
+  - "serviced"
+  - "Shaper"
+  - "though"
+  - "until"
+  - "utilization"
+  - "Weighted"
+  - "weights"
+  - "window"
+
+### TEXTSUP-PAGE-0034
+- `physical_page`: `34`
+- `additional_text_terms`:
+  - "_Quantum_Weight"
+  - "availability"
+  - "Confidential"
+  - "considered"
+  - "duration"
+  - "every"
+  - "fixed"
+  - "highest"
+  - "independent"
+  - "monitoring"
+  - "new"
+  - "other"
+  - "Proprietary"
+  - "reported"
+  - "Reproducing"
+  - "restarts"
+  - "scheduler"
+  - "schedules"
+  - "selects"
+  - "send"
+  - "serviced"
+  - "started"
+  - "weight"
+  - "weights"
+
+### TEXTSUP-PAGE-0035
+- `physical_page`: `35`
+- `additional_text_terms`:
+  - "128"
+  - "accuracy"
+  - "Confidential"
+  - "effective"
+  - "elapsed"
+  - "improve"
+  - "lesser"
+  - "monitoring"
+  - "new"
+  - "options"
+  - "Proprietary"
+  - "Pulse-Per-Second"
+  - "reduce"
+  - "reports"
+  - "Reproducing"
+  - "requires"
+  - "scheduler"
+  - "send"
+  - "slot-time"
+
+### TEXTSUP-PAGE-0036
+- `physical_page`: `36`
+- `additional_text_terms`:
+  - "50MHz"
+  - "accuracy"
+  - "being"
+  - "clk_ptp_ref_i"
+  - "Confidential"
+  - "Connect"
+  - "inaccuracies"
+  - "inserted"
+  - "insignificant"
+  - "lesser"
+  - "make"
+  - "non-zero"
+  - "operating"
+  - "programs"
+  - "Proprietary"
+  - "Reproducing"
+
+### TEXTSUP-PAGE-0037
+- `physical_page`: `37`
+- `additional_text_terms`:
+  - "100ns"
+  - "80ns"
+  - "Busy"
+  - "Channel"
+  - "clk_ptp_ref_i"
+  - "Confidential"
+  - "duration"
+  - "enables"
+  - "equal"
+  - "h0000_0001"
+  - "h0001_0700"
+  - "h0001_0701"
+  - "half"
+  - "half-word"
+  - "indicates"
+  - "Proprietary"
+  - "Queue/DMA"
+  - "Reproducing"
+
+### TEXTSUP-PAGE-0038
+- `physical_page`: `38`
+- `additional_text_terms`:
+  - "0x2A"
+  - "0x4C"
+  - "0x52"
+  - "0x55"
+  - "0x61"
+  - "0x7F"
+  - "0x9E"
+  - "0xB3"
+  - "0xD5"
+  - "0xE6"
+  - "802.3"
+  - "absent"
+  - "checks"
+  - "Confidential"
+  - "corrupted"
+  - "discarded"
+  - "few"
+  - "h0700"
+  - "might"
+  - "MII/GMII"
+  - "modes"
+  - "non-PREAMBLE"
+  - "of-packet"
+  - "other"
+  - "precedes"
+  - "Proprietary"
+  - "reasons"
+  - "removes"
+  - "Repeater"
+  - "Reproducing"
+  - "retransmission"
+  - "Retransmissions"
+  - "retransmit"
+  - "send"
+  - "standard"
+  - "successfully"
+  - "transient"
+  - "transit"
+
+### TEXTSUP-PAGE-0039
+- `physical_page`: `39`
+- `additional_text_terms`:
+  - "ati_err_i"
+  - "Automotive"
+  - "behavior"
+  - "belonging"
+  - "checker"
+  - "Confidential"
+  - "context"
+  - "corner-case"
+  - "corrupted"
+  - "corruption"
+  - "DMAs"
+  - "Features"
+  - "forwarded"
+  - "indication"
+  - "informed"
+  - "initiated"
+  - "injected"
+  - "injection"
+  - "injects"
+  - "inserted"
+  - "interfaces"
+  - "interleaving"
+  - "interprets"
+  - "meanwhile"
+  - "memories"
+  - "mti_err_i"
+  - "neither"
+  - "operate"
+  - "operations"
+  - "other"
+  - "processing"
+  - "Proprietary"
+  - "Protection"
+  - "requires"
+  - "scenario"
+  - "segments"
+  - "soon"
+  - "terminated"
+  - "though"
+  - "towards"
+  - "updates"
+  - "yet"
+
+### TEXTSUP-PAGE-0040
+- `physical_page`: `40`
+- `additional_text_terms`:
+  - "alarm"
+  - "behavior"
+  - "Confidential"
+  - "corrupted"
+  - "Corruption"
+  - "CRC/Pad"
+  - "duration"
+  - "excessive"
+  - "expiry"
+  - "false"
+  - "features"
+  - "few"
+  - "fixed"
+  - "forwards"
+  - "Inject"
+  - "injected"
+  - "insertion"
+  - "might"
+  - "operations"
+  - "options"
+  - "overhead"
+  - "performs"
+  - "Proprietary"
+  - "raising"
+  - "Reproducing"
+  - "retransmission"
+  - "scheduler"
+  - "schedules"
+  - "seen"
+  - "send"
+  - "Single-Port"
+
+### TEXTSUP-PAGE-0041
+- `physical_page`: `41`
+- `additional_text_terms`:
+  - "almost"
+  - "being"
+  - "computed"
+  - "Confidential"
+  - "considering"
+  - "depends"
+  - "domain"
+  - "dropping"
+  - "encounter"
+  - "exactly"
+  - "excessive"
+  - "expiry"
+  - "fit"
+  - "fits"
+  - "fixed"
+  - "inaccuracies"
+  - "maximum"
+  - "minor"
+  - "operates"
+  - "overhead"
+  - "Proprietary"
+  - "Reproducing"
+  - "scheduler"
+  - "send"
+
+### TEXTSUP-PAGE-0042
+- `physical_page`: `42`
+- `additional_text_terms`:
+  - "16383"
+  - "16384B"
+  - "accumulates"
+  - "being"
+  - "Confidential"
+  - "duration"
+  - "exceed"
+  - "exceeds"
+  - "indicates"
+  - "Jabber"
+  - "preempts"
+  - "Proprietary"
+  - "Reproducing"
+  - "respectively"
+  - "saturating"
+  - "send"
+  - "setting"
+  - "short"
+  - "updates"
+  - "within"
+
+### TEXTSUP-PAGE-0043
+- `physical_page`: `43`
+- `additional_text_terms`:
+  - "all-zeros"
+  - "being"
+  - "bypassed"
+  - "Confidential"
+  - "enables"
+  - "equal"
+  - "exchange"
+  - "Hash"
+  - "matched"
+  - "processing"
+  - "Proprietary"
+  - "Reproducing"
+  - "some"
+  - "though"
+  - "yet"
+
+### TEXTSUP-PAGE-0044
+- `physical_page`: `44`
+- `additional_text_terms`:
+  - "0x11"
+  - "0x112233445566"
+  - "0x665544332211"
+  - "among"
+  - "bigendian"
+  - "bypassed"
+  - "compared"
+  - "Confidential"
+  - "consecutive"
+  - "corrected"
+  - "Domain"
+  - "domains"
+  - "double"
+  - "equal"
+  - "follows"
+  - "guidelines"
+  - "holds"
+  - "little-endian"
+  - "Management"
+  - "non-zero"
+  - "Otherwise"
+  - "passes"
+  - "Power"
+  - "processing"
+  - "proper"
+  - "Proprietary"
+  - "providing"
+  - "Quality-of-Service"
+  - "Reproducing"
+  - "send"
+  - "Setup"
+  - "slowest"
+  - "station"
+  - "synchronization"
+  - "Tx/Rx"
+  - "updates"
+  - "upper"
+
+### TEXTSUP-PAGE-0045
+- `physical_page`: `45`
+- `additional_text_terms`:
+  - "_Current_App_RxDesc"
+  - "_RxDesc_List_Address"
+  - "_TxDesc_List_Address"
+  - "ahead"
+  - "beyond"
+  - "Confidential"
+  - "corrective"
+  - "Domain"
+  - "dropping"
+  - "ensures"
+  - "enters"
+  - "equal"
+  - "exits"
+  - "filtering"
+  - "finds"
+  - "further"
+  - "generates"
+  - "indicate"
+  - "leads"
+  - "located"
+  - "made"
+  - "Management"
+  - "moved"
+  - "non-EQOS-CORE"
+  - "non-EQOS-MTL"
+  - "Otherwise"
+  - "pointed"
+  - "position"
+  - "Power"
+  - "processing"
+  - "prompts"
+  - "Proprietary"
+  - "Recommendation"
+  - "restarts"
+  - "Setup"
+  - "stop"
+  - "suspend"
+  - "take"
+  - "Tx/Rx"
+  - "updates"
+  - "yet"
+
+### TEXTSUP-PAGE-0046
+- `physical_page`: `46`
+- `additional_text_terms`:
+  - "accumulates"
+  - "although"
+  - "Audio"
+  - "behavior"
+  - "Bridging"
+  - "Confidential"
+  - "decrements"
+  - "depends"
+  - "Equally"
+  - "exited"
+  - "fetched"
+  - "fifth"
+  - "four"
+  - "fourth"
+  - "had"
+  - "increments"
+  - "indicates"
+  - "indicating"
+  - "negative"
+  - "opportunity"
+  - "owned"
+  - "percentage"
+  - "positive"
+  - "procedure"
+  - "Proprietary"
+  - "Reproducing"
+  - "send"
+  - "Shaper"
+  - "suspend"
+  - "total"
+  - "updates"
+  - "Video"
+  - "zero"
+
+### TEXTSUP-PAGE-0047
+- `physical_page`: `47`
+- `additional_text_terms`:
+  - "128"
+  - "2.65"
+  - "32.65"
+  - "assuming"
+  - "Audio/Video"
+  - "average"
+  - "closer"
+  - "Confidential"
+  - "Consequently"
+  - "consumed"
+  - "Continuously"
+  - "CRC/FCS"
+  - "decrements"
+  - "depends"
+  - "desired"
+  - "determine"
+  - "effective"
+  - "Effectively"
+  - "equal"
+  - "equation"
+  - "estimate"
+  - "exceeds"
+  - "faster"
+  - "Fractional"
+  - "guidelines"
+  - "increments"
+  - "lesser"
+  - "measured"
+  - "nominal"
+  - "overheads"
+  - "parameters"
+  - "percentage"
+  - "Proprietary"
+  - "Quality-of-Service"
+  - "receives"
+  - "repeats"
+  - "Reproducing"
+  - "reservation"
+  - "send"
+  - "standard"
+  - "stream"
+  - "Total"
+  - "window"
+
+### TEXTSUP-PAGE-0048
+- `physical_page`: `48`
+- `additional_text_terms`:
+  - "accepts"
+  - "although"
+  - "approximately"
+  - "approximatively"
+  - "clocks"
+  - "completely"
+  - "Confidential"
+  - "converted"
+  - "crossing"
+  - "defers"
+  - "determined"
+  - "domain"
+  - "eligible"
+  - "enables"
+  - "equal"
+  - "every"
+  - "forwarded"
+  - "forwarding"
+  - "increased"
+  - "incremented"
+  - "increments"
+  - "indication"
+  - "lower"
+  - "maintains"
+  - "Networking"
+  - "one-Gbps"
+  - "operating"
+  - "overhead"
+  - "overheads"
+  - "priority"
+  - "Proprietary"
+  - "reached"
+  - "reaches"
+  - "receives"
+  - "reflects"
+  - "Scenario"
+  - "scheduler"
+  - "Sensitive"
+  - "slower"
+  - "slowest"
+  - "Therefore"
+  - "towards"
+  - "turn"
+  - "two-port"
+  - "until"
+
+### TEXTSUP-PAGE-0049
+- `physical_page`: `49`
+- `additional_text_terms`:
+  - "16384"
+  - "additionally"
+  - "alternate"
+  - "and/or"
+  - "Confidential"
+  - "continuously"
+  - "eligible"
+  - "ends"
+  - "exactly"
+  - "exceeds"
+  - "fit"
+  - "five"
+  - "four"
+  - "individual"
+  - "information"
+  - "nine"
+  - "one-Gbps"
+  - "opens"
+  - "overhead"
+  - "overheads"
+  - "priority"
+  - "profile"
+  - "programs"
+  - "Proprietary"
+  - "Quality-of-Service"
+  - "Reproducing"
+  - "reprogramming"
+  - "Scenario"
+  - "see"
+  - "send"
+  - "total"
+  - "TxQs"
+  - "well"
+
+### TEXTSUP-PAGE-0050
+- `physical_page`: `50`
+- `additional_text_terms`:
+  - "130894"
+  - "131072"
+  - "131074"
+  - "16384"
+  - "180"
+  - "20.27"
+  - "20.27.1"
+  - "393222"
+  - "524296"
+  - "Allows"
+  - "cascades"
+  - "causes"
+  - "Confidential"
+  - "Continuously"
+  - "effect"
+  - "even-numbered"
+  - "fit"
+  - "Gbps"
+  - "Guidelines"
+  - "individual"
+  - "information"
+  - "Linked"
+  - "nine"
+  - "other"
+  - "overheads"
+  - "Proprietary"
+  - "Quality-of-Service"
+  - "reached"
+  - "Reproducing"
+  - "see"
+  - "send"
+  - "sizes"
+  - "their"
+  - "total"
+  - "TxQs"
+  - "wants"
+
+### TEXTSUP-PAGE-0051
+- `physical_page`: `51`
+- `additional_text_terms`:
+  - "_Rx_Control"
+  - "accepted"
+  - "along"
+  - "being"
+  - "burst"
+  - "called"
+  - "capturing"
+  - "Channels"
+  - "Confidential"
+  - "context"
+  - "enables"
+  - "enters"
+  - "features"
+  - "flush"
+  - "flushed"
+  - "forwarded"
+  - "indicating"
+  - "launched"
+  - "limited"
+  - "made"
+  - "neither"
+  - "other"
+  - "parked"
+  - "pointed"
+  - "preventing"
+  - "Proprietary"
+  - "Reproducing"
+  - "stopped"
+  - "suspend"
+  - "suspended"
+  - "Therefore"
+  - "unavailability"
+  - "until"
+  - "updates"
+
+### TEXTSUP-PAGE-0052
+- `physical_page`: `52`
+- `additional_text_terms`:
+  - "40a"
+  - "capturing"
+  - "completely"
+  - "Confidential"
+  - "eight"
+  - "equal"
+  - "executing"
+  - "expressed"
+  - "followed"
+  - "follows"
+  - "four"
+  - "Gate-Control"
+  - "guidelines"
+  - "Initialize"
+  - "integer"
+  - "lesser"
+  - "longer"
+  - "memory"
+  - "Proprietary"
+  - "Quality-of-Service"
+  - "respectively"
+  - "scheduler"
+  - "send"
+  - "seven"
+  - "Similarly"
+  - "situations"
+  - "skips"
+  - "Statically"
+  - "takes"
+  - "twice"
+  - "updates"
+
+### TEXTSUP-PAGE-0053
+- `physical_page`: `53`
+- `additional_text_terms`:
+  - "Confidential"
+  - "equal"
+  - "expressed"
+  - "Proprietary"
+
+### TEXTSUP-PAGE-0054
+- `physical_page`: `54`
+- `additional_text_terms`:
+  - "0.1.1"
+  - "0.1.2"
+  - "0.1.3"
+  - "0.2.1"
+  - "0.2.2"
+  - "0.3.1"
+  - "2025"
+  - "3340878"
+  - "3630627"
+  - "across"
+  - "alphabetical"
+  - "Confidential"
+  - "Editorial"
+  - "Fixed"
+  - "misplacement"
+  - "new"
+  - "omission"
+  - "order"
+  - "Preliminary"
+  - "Proprietary"
+  - "Removed"
+  - "See"
+  - "Sorted"
+  - "variants"
+
+### TEXTSUP-DELTA-SUMMARY
+- `purpose`: "Close residual keyword lookup gaps reported by the unified Manual root audit after the base 9A supplement."
+- `source`: `local text-layer search against FC7300F8MDQ_Errata_Sheet_V0.5.pdf`
+- `source_pdf_sha256`: `5405c2212dc7098f5bf812644b4eb16b4c12f055a19cbe5ed94b029854d61baa`
+- `source_pdf_size_bytes`: `3310663`
+- `pdf_page_count`: `54`
+- `base_supplement_generated_at`: `2026-06-20T11:22:51Z`
+- `delta_generated_at`: `2026-06-21T04:04:23Z`
+- `tokenization_rule`: `Unified Manual root audit residual token set; terms are added verbatim for exact lookup.`
+- `normalization`: `Known Private Use Area digit glyphs U+F6B1..U+F6BA, ligatures, soft hyphen variants, non-breaking spaces and dash variants are normalized before page-location checks.`
+- `scope`: `Delta token supplement only; source PDF remains authoritative for values, tables, drawings, screenshots and prose.`
+- `delta_unique_missing_terms_added`: `20`
+- `delta_technical_missing_terms_added`: `3`
+- `delta_pages_with_added_terms`: `13`
+- `delta_supplemented_page_term_entries`: `20`
+- `cumulative_text_layer_search_supplement_terms`: `673`
+- `cumulative_text_layer_search_supplement_technical_terms`: `119`
+- `cumulative_text_layer_search_supplement_pages`: `53`
+- `cumulative_supplemented_page_term_entries`: `1153`
+- `post_delta_text_token_recall`: `1.000`
+- `post_delta_technical_token_recall`: `1.000`
+- `usage`: `Search delta terms here to locate physical pages, then verify exact context in the source PDF.`
+
+### TEXTSUP-DELTA-PAGE-0004
+- `physical_page`: `4`
+- `additional_text_terms`:
+  - "will"
+
+### TEXTSUP-DELTA-PAGE-0009
+- `physical_page`: `9`
+- `additional_text_terms`:
+  - "i.e"
+
+### TEXTSUP-DELTA-PAGE-0016
+- `physical_page`: `16`
+- `additional_text_terms`:
+  - "also"
+
+### TEXTSUP-DELTA-PAGE-0028
+- `physical_page`: `28`
+- `additional_text_terms`:
+  - "i)_Tx_Control"
+
+### TEXTSUP-DELTA-PAGE-0029
+- `physical_page`: `29`
+- `additional_text_terms`:
+  - "Also"
+
+### TEXTSUP-DELTA-PAGE-0031
+- `physical_page`: `31`
+- `additional_text_terms`:
+  - "i)_TX_Control"
+
+### TEXTSUP-DELTA-PAGE-0033
+- `physical_page`: `33`
+- `additional_text_terms`:
+  - "R.3"
+  - "R.4"
+  - "i)_Quantum_Weight"
+  - "use-"
+
+### TEXTSUP-DELTA-PAGE-0038
+- `physical_page`: `38`
+- `additional_text_terms`:
+  - "start-"
+
+### TEXTSUP-DELTA-PAGE-0043
+- `physical_page`: `43`
+- `additional_text_terms`:
+  - "Parser(FRP"
+
+### TEXTSUP-DELTA-PAGE-0044
+- `physical_page`: `44`
+- `additional_text_terms`:
+  - "G)MII"
+  - "double-"
+
+### TEXTSUP-DELTA-PAGE-0045
+- `physical_page`: `45`
+- `additional_text_terms`:
+  - "i)_Current_App_RxDesc"
+  - "i)_Current_App_TxDesc"
+  - "i)_RxDesc_List_Address"
+  - "i)_TxDesc_List_Address"
+
+### TEXTSUP-DELTA-PAGE-0051
+- `physical_page`: `51`
+- `additional_text_terms`:
+  - "i)_Rx_Control"
+
+### TEXTSUP-DELTA-PAGE-0052
+- `physical_page`: `52`
+- `additional_text_terms`:
+  - "5.40"
+
 ## 10. Quality Warnings
 
 ### WARN-0001-NO-PDF-OUTLINE
@@ -5207,6 +7132,32 @@ The source PDF does not assign formal figure numbers to the errata diagrams. Int
 - `tables_without_caption_or_anchor`: []
 - `figures_without_caption_or_anchor`: []
 - `status`: "pass"
+
+### Standard Page Locator Headings
+- `status`: "pass"
+- `page_heading_count`: 54
+- `missing_page_headings`: []
+- `duplicated_page_headings`: []
+
+### Text-Layer Search Supplement
+
+- `status`: "pass"
+- `base_generated_at`: "2026-06-20T11:22:51Z"
+- `delta_generated_at`: "2026-06-21T04:04:23Z"
+- `base_unique_missing_terms_added`: 653
+- `base_technical_missing_terms_added`: 116
+- `base_pages_with_added_terms`: 53
+- `base_supplemented_page_term_entries`: 1133
+- `delta_unique_missing_terms_added`: 20
+- `delta_technical_missing_terms_added`: 3
+- `delta_pages_with_added_terms`: 13
+- `delta_supplemented_page_term_entries`: 20
+- `cumulative_unique_missing_terms_added`: 673
+- `cumulative_technical_missing_terms_added`: 119
+- `cumulative_pages_with_added_terms`: 53
+- `cumulative_supplemented_page_term_entries`: 1153
+- `post_supplement_text_token_recall`: "1.000"
+- `post_supplement_technical_token_recall`: "1.000"
 
 ### Quality Status
 - `quality_warning_count`: 9
