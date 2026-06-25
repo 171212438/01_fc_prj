@@ -61,6 +61,10 @@ typedef struct {
 
 volatile Exception_Inf Exception_Info;
 
+/* checks the readability of stack frames, only allowing reads from:
+ *   DTCM: 0x20000000 ~ 0x20020000
+ *   SRAM: 0x21000000 ~ 0x210E0000
+ * Prevent accessing illegal addresses again during fault handling. */
 static uint32 Exception_IsStackFrameReadable(uint32 u32StackAddr)
 {
   uint32 u32StackEnd = u32StackAddr + EXCEPTION_STACK_FRAME_SIZE;
@@ -294,12 +298,7 @@ void BusFault_Process(const Hardfault_StackType *pStackFrame, uint32 u32ExcRetur
 {
   uint32 u32Cfsr = FC7XXX_SCB->CFSR;
 
-  Exception_CaptureContext(BSP_CRASH_RECORD_FAULT_BUSFAULT,
-                           u32Cfsr & EXCEPTION_CFSR_BUSFAULT_MASK,
-                           "BusFault",
-                           Exception_GetBusFaultCause(u32Cfsr),
-                           pStackFrame,
-                           u32ExcReturn);
+  Exception_CaptureContext(BSP_CRASH_RECORD_FAULT_BUSFAULT, u32Cfsr & EXCEPTION_CFSR_BUSFAULT_MASK, "BusFault", Exception_GetBusFaultCause(u32Cfsr), pStackFrame, u32ExcReturn);
   Exception_SetBusFaultAddress(u32Cfsr);
   Exception_CommitCrashRecord();
 
@@ -311,12 +310,7 @@ void MemManage_Process(const Hardfault_StackType *pStackFrame, uint32 u32ExcRetu
 {
   uint32 u32Cfsr = FC7XXX_SCB->CFSR;
 
-  Exception_CaptureContext(BSP_CRASH_RECORD_FAULT_MEMMANAGE,
-                           u32Cfsr & EXCEPTION_CFSR_MEMFAULT_MASK,
-                           "MemManage",
-                           Exception_GetMemFaultCause(u32Cfsr),
-                           pStackFrame,
-                           u32ExcReturn);
+  Exception_CaptureContext(BSP_CRASH_RECORD_FAULT_MEMMANAGE, u32Cfsr & EXCEPTION_CFSR_MEMFAULT_MASK, "MemManage", Exception_GetMemFaultCause(u32Cfsr), pStackFrame, u32ExcReturn);
   Exception_SetMemFaultAddress(u32Cfsr);
   Exception_CommitCrashRecord();
   Exception_FaultFinalAction();
@@ -327,12 +321,7 @@ void UsageFault_Process(const Hardfault_StackType *pStackFrame, uint32 u32ExcRet
 {
   uint32 u32Cfsr = FC7XXX_SCB->CFSR;
 
-  Exception_CaptureContext(BSP_CRASH_RECORD_FAULT_USAGEFAULT,
-                           u32Cfsr & EXCEPTION_CFSR_USAGEFAULT_MASK,
-                           "UsageFault",
-                           Exception_GetUsageFaultCause(u32Cfsr),
-                           pStackFrame,
-                           u32ExcReturn);
+  Exception_CaptureContext(BSP_CRASH_RECORD_FAULT_USAGEFAULT, u32Cfsr & EXCEPTION_CFSR_USAGEFAULT_MASK, "UsageFault", Exception_GetUsageFaultCause(u32Cfsr), pStackFrame, u32ExcReturn);
   Exception_CommitCrashRecord();
   Exception_FaultFinalAction();
 }
@@ -340,12 +329,7 @@ void UsageFault_Process(const Hardfault_StackType *pStackFrame, uint32 u32ExcRet
 void NMI_Process(const Hardfault_StackType *pStackFrame, uint32 u32ExcReturn) __attribute__((noreturn));
 void NMI_Process(const Hardfault_StackType *pStackFrame, uint32 u32ExcReturn)
 {
-  Exception_CaptureContext(BSP_CRASH_RECORD_FAULT_NMI,
-                           0U,
-                           "NMI",
-                           "Non-maskable interrupt",
-                           pStackFrame,
-                           u32ExcReturn);
+  Exception_CaptureContext(BSP_CRASH_RECORD_FAULT_NMI, 0U, "NMI", "Non-maskable interrupt", pStackFrame, u32ExcReturn);
   Exception_CommitCrashRecord();
   Exception_FaultFinalAction();
 }
@@ -364,34 +348,14 @@ void HardFault_Process(const Hardfault_StackType *pStackFrame, uint32 u32ExcRetu
     } else if (0U != (u32Cfsr & EXCEPTION_CFSR_USAGEFAULT_MASK)) {
       UsageFault_Process(pStackFrame, u32ExcReturn);
     } else {
-      Exception_CaptureContext(BSP_CRASH_RECORD_FAULT_HARDFAULT,
-                               u32Hfsr & FC7XXX_SCB_HFSR_FORCED_MASK,
-                               "HardFault",
-                               "Forced HardFault without CFSR cause",
-                               pStackFrame,
-                               u32ExcReturn);
+      Exception_CaptureContext(BSP_CRASH_RECORD_FAULT_HARDFAULT, u32Hfsr & FC7XXX_SCB_HFSR_FORCED_MASK, "HardFault", "Forced HardFault without CFSR cause", pStackFrame, u32ExcReturn);
     }
   } else if (0U != (u32Hfsr & FC7XXX_SCB_HFSR_VECTTBL_MASK)) {
-    Exception_CaptureContext(BSP_CRASH_RECORD_FAULT_HARDFAULT,
-                             u32Hfsr & FC7XXX_SCB_HFSR_VECTTBL_MASK,
-                             "HardFault",
-                             "Vector table read fault",
-                             pStackFrame,
-                             u32ExcReturn);
+    Exception_CaptureContext(BSP_CRASH_RECORD_FAULT_HARDFAULT, u32Hfsr & FC7XXX_SCB_HFSR_VECTTBL_MASK, "HardFault", "Vector table read fault", pStackFrame, u32ExcReturn);
   } else if (0U != (u32Hfsr & FC7XXX_SCB_HFSR_DEBUGEVT_MASK)) {
-    Exception_CaptureContext(BSP_CRASH_RECORD_FAULT_HARDFAULT,
-                             u32Hfsr & FC7XXX_SCB_HFSR_DEBUGEVT_MASK,
-                             "HardFault",
-                             "Debug event",
-                             pStackFrame,
-                             u32ExcReturn);
+    Exception_CaptureContext(BSP_CRASH_RECORD_FAULT_HARDFAULT, u32Hfsr & FC7XXX_SCB_HFSR_DEBUGEVT_MASK, "HardFault", "Debug event", pStackFrame, u32ExcReturn);
   } else {
-    Exception_CaptureContext(BSP_CRASH_RECORD_FAULT_HARDFAULT,
-                             0U,
-                             "HardFault",
-                             "Unknown",
-                             pStackFrame,
-                             u32ExcReturn);
+    Exception_CaptureContext(BSP_CRASH_RECORD_FAULT_HARDFAULT, 0U, "HardFault", "Unknown", pStackFrame, u32ExcReturn);
   }
 
   Exception_CommitCrashRecord();

@@ -321,8 +321,8 @@ Reset_Handler:
 
     ldr     r0, =0xE000ED08
     ldr     r1, =__rom_intvec_start
-    str     r1, [r0]
-    ldr     r2, [r1]
+    str     r1, [r0]                 /* *(0xE000ED08) = __rom_intvec_start */
+    ldr     r2, [r1]                 /* r2 = *(uint32_t *)__rom_intvec_start */
     mov     r3, r2
 
     /*
@@ -336,7 +336,7 @@ Reset_Handler:
 
 LoopClearStack:
     str     r0, [r2]
-    sub     r2, r2, #4
+    sub     r2, r2, #4  /* The stack grows towards lower addresses */
     add     r1, r1, #1
     cmp     r1, #8
     bne     LoopClearStack

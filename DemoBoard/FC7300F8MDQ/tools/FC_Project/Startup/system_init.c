@@ -351,12 +351,11 @@ static void data_clear(uint32 *pHead, uint32 *pTail)
 
 static void data_copy(uint32 *pHead, uint32 *pTail, uint32 *pSrc)
 {
-    while (pHead < pTail)
-    {
-        *pHead = *pSrc;
-        pHead++;
-        pSrc++;
-    }
+  while (pHead < pTail) {
+    *pHead = *pSrc;
+    pHead++;
+    pSrc++;
+  }
 }
 
 static void wdog_disable(uint32 wdog_base)
@@ -406,189 +405,161 @@ static void wdog_disable(uint32 wdog_base)
 ==================================================================================================*/
 void data_init(void)
 {
-    /* core 0 */
-    if (0U == Cpm_HWA_GetCoreId())
-    {
-        /* bss */
-        data_clear(__bss_start, __bss_end);
-        /* non-cached bss */
-        data_clear(__nocachable_bss_start, __nocachable_bss_end);
-        /* rtt buffer */
-        data_clear(__rtt_buffer_bss_start, __rtt_buffer_bss_end);
-        /* shared bss */
-        data_clear(__shareable_bss_start, __shareable_bss_end);
-        /* data */
-        data_copy(__ram_data_start, __ram_data_end, __rom_data_start);
-        /* non-cached data */
-        data_copy(__ram_nocachable_data_start,
-                  __ram_nocachable_data_end,
-                  __rom_nocachable_data_start);
-        /* shared data */
-        data_copy(__ram_shareable_data_start,
-                  __ram_shareable_data_end,
-                  __rom_shareable_data_start);
-    }
-    /* core 1 */
-    else if (1U == Cpm_HWA_GetCoreId())
-    {
+  /* core 0 */
+  if (0U == Cpm_HWA_GetCoreId()) {
+    /* bss */
+    data_clear(__bss_start, __bss_end);
+    /* non-cached bss */
+    data_clear(__nocachable_bss_start, __nocachable_bss_end);
+    /* rtt buffer */
+    data_clear(__rtt_buffer_bss_start, __rtt_buffer_bss_end);
+    /* shared bss */
+    data_clear(__shareable_bss_start, __shareable_bss_end);
+    /* data */
+    data_copy(__ram_data_start, __ram_data_end, __rom_data_start);
+    /* non-cached data */
+    data_copy(__ram_nocachable_data_start, __ram_nocachable_data_end, __rom_nocachable_data_start);
+    /* shared data */
+    data_copy(__ram_shareable_data_start, __ram_shareable_data_end, __rom_shareable_data_start);
+  }
+  /* core 1 */
+  else if (1U == Cpm_HWA_GetCoreId()) {
 #if defined DATA_IN_DTCM
-        /* bss */
-        data_clear(__bss_start, __bss_end);
-        /* data */
-        data_copy(__ram_data_start, __ram_data_end, __rom_data_start);
+    /* bss */
+    data_clear(__bss_start, __bss_end);
+    /* data */
+    data_copy(__ram_data_start, __ram_data_end, __rom_data_start);
 #endif
-    }
-    /* core 2 */
-    else if (2U == Cpm_HWA_GetCoreId())
-    {
+  }
+  /* core 2 */
+  else if (2U == Cpm_HWA_GetCoreId()) {
 #if defined DATA_IN_DTCM
-        /* bss */
-        data_clear(__bss_start, __bss_end);
-        /* data */
-        data_copy(__ram_data_start, __ram_data_end, __rom_data_start);
+    /* bss */
+    data_clear(__bss_start, __bss_end);
+    /* data */
+    data_copy(__ram_data_start, __ram_data_end, __rom_data_start);
 #endif
-    }
+  }
 
-    data_clear(__seperated_bss_start, __seperated_bss_end);
+  data_clear(__seperated_bss_start, __seperated_bss_end);
 
-    data_copy(__ram_seperated_data_start,
-              __ram_seperated_data_end,
-              __rom_seperated_data_start);
+  data_copy(__ram_seperated_data_start, __ram_seperated_data_end, __rom_seperated_data_start);
 
-    /* RAM function */
-    data_copy(__ram_itcm_func_start,
-              __ram_itcm_func_end,
-              __rom_itcm_func_start);
+  /* RAM function */
+  data_copy(__ram_itcm_func_start, __ram_itcm_func_end, __rom_itcm_func_start);
 
-    /* RAM vector table */
-    data_copy(__ram_intvec_start,
-              __ram_intvec_end,
-              __rom_intvec_start);
+  /* RAM vector table */
+  data_copy(__ram_intvec_start, __ram_intvec_end, __rom_intvec_start);
 
-    /* Set VTOR */
-    REG_WRITE32(SCB_VTOR_ADDR, (uint32)__ram_intvec_start);
+  /* Set VTOR */
+  REG_WRITE32(SCB_VTOR_ADDR, (uint32)__ram_intvec_start);
 }
 
 __attribute__((noreturn)) void system_init(void)
 {
-    uint32 u32CoreId;
-    uint32 u32ResetType;
-    uint32 standbymode;
+  uint32 u32CoreId;
+  uint32 u32ResetType;
+  uint32 standbymode;
 
-    /* Workaround for erratum ERR_Debug_001 */
-    /* clear dwt counter to handle cpu0 lockstep error under debug */
-    REG_WRITE32(DEMCR_ADDR, DEMCR_TRCENA); /* Enable DWT and ITM features */
-    REG_WRITE32(DWT_CYCCNT_ADDR, 0U); /* Clear DWT_CYCCNT */
+  /* Workaround for erratum ERR_Debug_001 */
+  /* clear dwt counter to handle cpu0 lockstep error under debug */
+  REG_WRITE32(DEMCR_ADDR, DEMCR_TRCENA); /* Enable DWT and ITM features */
+  REG_WRITE32(DWT_CYCCNT_ADDR, 0U);      /* Clear DWT_CYCCNT */
 
-    /* Enable FPU when FPU is used in compiler */
+  /* Enable FPU when FPU is used in compiler */
 #if ((__FPU_PRESENT == 1) && (__FPU_USED == 1))
-    /* set CP10, CP11 Full Access */
-    REG_WRITE32(CPACR_ADDR, CPACR_CP10_FULL_ACCESS | CPACR_CP11_FULL_ACCESS);
+  /* set CP10, CP11 Full Access */
+  REG_WRITE32(CPACR_ADDR, CPACR_CP10_FULL_ACCESS | CPACR_CP11_FULL_ACCESS);
 #endif /* ((__FPU_PRESENT == 1) && (__FPU_USED == 1)) */
 
-    u32CoreId = Cpm_HWA_GetCoreId();
-    if (0U == u32CoreId)
-    {
-        /* disable AXBS/CPU0/1/2/3 ECC */
-        REG_WRITE32(SCM_BASE_ADDR + SCM_MAMECCEN0_OFFSET, 0x0AAAAAAA);
-        REG_WRITE32(SCM_BASE_ADDR + SCM_MAMECCEN1_OFFSET, 0x002AABAA);
-        REG_WRITE32(SCM_BASE_ADDR + SCM_CPU0ECCEN_OFFSET, 0x00000A8A);
-        REG_WRITE32(SCM_BASE_ADDR + SCM_CPU1ECCEN_OFFSET, 0x00000A8A);
-        REG_WRITE32(SCM_BASE_ADDR + SCM_CPU2ECCEN_OFFSET, 0x00000A8A);
-        REG_WRITE32(SCM_BASE_ADDR + SCM_CPU3ECCEN_OFFSET, 0x00000AAA);
+  u32CoreId = Cpm_HWA_GetCoreId();
+  if (0U == u32CoreId) {
+    /* disable AXBS/CPU0/1/2/3 ECC */
+    REG_WRITE32(SCM_BASE_ADDR + SCM_MAMECCEN0_OFFSET, 0x0AAAAAAA);
+    REG_WRITE32(SCM_BASE_ADDR + SCM_MAMECCEN1_OFFSET, 0x002AABAA);
+    REG_WRITE32(SCM_BASE_ADDR + SCM_CPU0ECCEN_OFFSET, 0x00000A8A);
+    REG_WRITE32(SCM_BASE_ADDR + SCM_CPU1ECCEN_OFFSET, 0x00000A8A);
+    REG_WRITE32(SCM_BASE_ADDR + SCM_CPU2ECCEN_OFFSET, 0x00000A8A);
+    REG_WRITE32(SCM_BASE_ADDR + SCM_CPU3ECCEN_OFFSET, 0x00000AAA);
 
-        /* STCU PCC Enable */
-        REG_WRITE32(PCC_STCU_ADDR, 0x00800000);
+    /* STCU PCC Enable */
+    REG_WRITE32(PCC_STCU_ADDR, 0x00800000);
 
-        /* Make sure previous instructions are completed */
-        __asm volatile("dsb");
-        __asm volatile("isb");
+    /* Make sure previous instructions are completed */
+    __asm volatile("dsb");
+    __asm volatile("isb");
 
-        /* Get the reset reason */
-        u32ResetType = REG_READ32(RGM_BASE_ADDR + RGM_SRS_OFFSET);
-        /* Clear all RAM when RAM is invalid */
-        if (0U != (u32ResetType & RGM_SRS_RAM_INVALID))
-        {
-            /* Select all memory regions to clear */
-            REG_WRITE32(STCU_BASE_ADDR + STCU_SRAM_INI_SEL_OFFSET, STCU_SRAM_INI_SEL_ALL);
-            REG_WRITE32(STCU_BASE_ADDR + STCU_SRAM_INI_CTRL_OFFSET, STCU_SRAM_INI_CTRL_EN);
-            /* wait busy */
-            while (0 == ((REG_READ32(STCU_BASE_ADDR + STCU_SRAM_INI_STATUS_OFFSET)) & STCU_SRAM_INI_STATUS_BUSY));
-            /* wait done */
-            while (0 == ((REG_READ32(STCU_BASE_ADDR + STCU_SRAM_INI_STATUS_OFFSET)) & STCU_SRAM_INI_STATUS_DONE));
-        }
-        /* Clear the RAM according to standby mode when wakeup from standby */
-        else if (0U != (u32ResetType & RGM_SRS_WAKEUP))
-        {
-            /* Select all memory regions to clear */
-            REG_WRITE32(STCU_BASE_ADDR + STCU_SRAM_INI_SEL_OFFSET, STCU_SRAM_INI_SEL_ALL);
-            standbymode = REG_READ32(SMC_BASE_ADDR + SMC_STANDBY_CFG_OFFSET) & SMC_STANDBY_CFG_OPTION_MASK;
-            /* Keep the standby retention RAM */
-            REG_WRITE32(STCU_BASE_ADDR + STCU_SRAM_INI_CTRL_OFFSET, STCU_SRAM_INI_CTRL_EN |
-                                                                    STCU_SRAM_INI_CTRL_MODE(standbymode));
-            /* wait busy */
-            while (0 == ((REG_READ32(STCU_BASE_ADDR + STCU_SRAM_INI_STATUS_OFFSET)) & STCU_SRAM_INI_STATUS_BUSY));
-            /* wait done */
-            while (0 == ((REG_READ32(STCU_BASE_ADDR + STCU_SRAM_INI_STATUS_OFFSET)) & STCU_SRAM_INI_STATUS_DONE));
-        }
-        else
-        {
-            /* The user could change the behavior when the reset type is other system reset type */
-            /* Keep the crash record RAM for post-reset fault analysis */
-            REG_WRITE32(STCU_BASE_ADDR + STCU_SRAM_INI_SEL_OFFSET, STCU_SRAM_INI_SEL_RUNTIME_CLEAR);
-            REG_WRITE32(STCU_BASE_ADDR + STCU_SRAM_INI_CTRL_OFFSET, STCU_SRAM_INI_CTRL_EN);
-            /* wait busy */
-            while (0 == ((REG_READ32(STCU_BASE_ADDR + STCU_SRAM_INI_STATUS_OFFSET)) & STCU_SRAM_INI_STATUS_BUSY));
-            /* wait done */
-            while (0 == ((REG_READ32(STCU_BASE_ADDR + STCU_SRAM_INI_STATUS_OFFSET)) & STCU_SRAM_INI_STATUS_DONE));
-        }
-
-        /* Make sure STCU does not affect the following operations */
-        __asm volatile("dsb");
-        __asm volatile("isb");
-
-        /* enable AXBS/CPU0/1/2/3 ECC after every reset */
-        REG_WRITE32(SCM_BASE_ADDR + SCM_MAMECCEN0_OFFSET, 0x0FFFFFFF);
-        REG_WRITE32(SCM_BASE_ADDR + SCM_MAMECCEN1_OFFSET, 0x003FFFFF);
-        REG_WRITE32(SCM_BASE_ADDR + SCM_CPU0ECCEN_OFFSET, 0x00000FCF);
-        REG_WRITE32(SCM_BASE_ADDR + SCM_CPU1ECCEN_OFFSET, 0x00000FCF);
-        REG_WRITE32(SCM_BASE_ADDR + SCM_CPU2ECCEN_OFFSET, 0x00000FCF);
-        REG_WRITE32(SCM_BASE_ADDR + SCM_CPU3ECCEN_OFFSET, 0x00000FFF);
-
-        /* disable wdog 0 */
-        wdog_disable(WDOG0_BASE_ADDR);
+    /* Get the reset reason */
+    u32ResetType = REG_READ32(RGM_BASE_ADDR + RGM_SRS_OFFSET);
+    /* Clear all RAM when RAM is invalid */
+    if (0U != (u32ResetType & RGM_SRS_RAM_INVALID)) {
+      /* Select all memory regions to clear */
+      REG_WRITE32(STCU_BASE_ADDR + STCU_SRAM_INI_SEL_OFFSET, STCU_SRAM_INI_SEL_ALL);
+      REG_WRITE32(STCU_BASE_ADDR + STCU_SRAM_INI_CTRL_OFFSET, STCU_SRAM_INI_CTRL_EN);
+      /* wait busy */
+      while (0 == ((REG_READ32(STCU_BASE_ADDR + STCU_SRAM_INI_STATUS_OFFSET)) & STCU_SRAM_INI_STATUS_BUSY));
+      /* wait done */
+      while (0 == ((REG_READ32(STCU_BASE_ADDR + STCU_SRAM_INI_STATUS_OFFSET)) & STCU_SRAM_INI_STATUS_DONE));
     }
-    else if (1U == u32CoreId)
-    {
-        /* disable wdog 1 */
-        wdog_disable(WDOG1_BASE_ADDR);
-    }
-    else if (2U == u32CoreId)
-    {
-        /* disable wdog 2 */
-        wdog_disable(WDOG2_BASE_ADDR);
-    }
-    else if (3U == u32CoreId)
-    {
-        /* disable wdog 3 */
-        wdog_disable(WDOG3_BASE_ADDR);
-    }
-    else
-    {
-        /* This shall never be reached */
+    /* Clear the RAM according to standby mode when wakeup from standby */
+    else if (0U != (u32ResetType & RGM_SRS_WAKEUP)) {
+      /* Select all memory regions to clear */
+      REG_WRITE32(STCU_BASE_ADDR + STCU_SRAM_INI_SEL_OFFSET, STCU_SRAM_INI_SEL_ALL);
+      standbymode = REG_READ32(SMC_BASE_ADDR + SMC_STANDBY_CFG_OFFSET) & SMC_STANDBY_CFG_OPTION_MASK;
+      /* Keep the standby retention RAM */
+      REG_WRITE32(STCU_BASE_ADDR + STCU_SRAM_INI_CTRL_OFFSET, STCU_SRAM_INI_CTRL_EN | STCU_SRAM_INI_CTRL_MODE(standbymode));
+      /* wait busy */
+      while (0 == ((REG_READ32(STCU_BASE_ADDR + STCU_SRAM_INI_STATUS_OFFSET)) & STCU_SRAM_INI_STATUS_BUSY));
+      /* wait done */
+      while (0 == ((REG_READ32(STCU_BASE_ADDR + STCU_SRAM_INI_STATUS_OFFSET)) & STCU_SRAM_INI_STATUS_DONE));
+    } else {
+      /* The user could change the behavior when the reset type is other system reset type */
+      /* Keep the crash record RAM for post-reset fault analysis */
+      REG_WRITE32(STCU_BASE_ADDR + STCU_SRAM_INI_SEL_OFFSET, STCU_SRAM_INI_SEL_RUNTIME_CLEAR);
+      REG_WRITE32(STCU_BASE_ADDR + STCU_SRAM_INI_CTRL_OFFSET, STCU_SRAM_INI_CTRL_EN);
+      /* wait busy */
+      while (0 == ((REG_READ32(STCU_BASE_ADDR + STCU_SRAM_INI_STATUS_OFFSET)) & STCU_SRAM_INI_STATUS_BUSY));
+      /* wait done */
+      while (0 == ((REG_READ32(STCU_BASE_ADDR + STCU_SRAM_INI_STATUS_OFFSET)) & STCU_SRAM_INI_STATUS_DONE));
     }
 
-    /* Initialize data */
-    data_init();
+    /* Make sure STCU does not affect the following operations */
+    __asm volatile("dsb");
+    __asm volatile("isb");
 
-    /* Enable global interrupt */
-    __asm volatile("cpsie i");
+    /* enable AXBS/CPU0/1/2/3 ECC after every reset */
+    REG_WRITE32(SCM_BASE_ADDR + SCM_MAMECCEN0_OFFSET, 0x0FFFFFFF);
+    REG_WRITE32(SCM_BASE_ADDR + SCM_MAMECCEN1_OFFSET, 0x003FFFFF);
+    REG_WRITE32(SCM_BASE_ADDR + SCM_CPU0ECCEN_OFFSET, 0x00000FCF);
+    REG_WRITE32(SCM_BASE_ADDR + SCM_CPU1ECCEN_OFFSET, 0x00000FCF);
+    REG_WRITE32(SCM_BASE_ADDR + SCM_CPU2ECCEN_OFFSET, 0x00000FCF);
+    REG_WRITE32(SCM_BASE_ADDR + SCM_CPU3ECCEN_OFFSET, 0x00000FFF);
 
-    /* Call main function */
-    main();
+    /* disable wdog 0 */
+    wdog_disable(WDOG0_BASE_ADDR);
+  } else if (1U == u32CoreId) {
+    /* disable wdog 1 */
+    wdog_disable(WDOG1_BASE_ADDR);
+  } else if (2U == u32CoreId) {
+    /* disable wdog 2 */
+    wdog_disable(WDOG2_BASE_ADDR);
+  } else if (3U == u32CoreId) {
+    /* disable wdog 3 */
+    wdog_disable(WDOG3_BASE_ADDR);
+  } else {
+    /* This shall never be reached */
+  }
 
-    /* Infinite loop */
-    for (;;)
-    {
-    }
+  /* Initialize data */
+  data_init();
+
+  /* Enable global interrupt */
+  __asm volatile("cpsie i");
+
+  /* Call main function */
+  main();
+
+  /* Infinite loop */
+  for (;;) {
+  }
 }
