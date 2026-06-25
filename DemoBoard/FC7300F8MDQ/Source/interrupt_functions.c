@@ -26,11 +26,28 @@
    FC7XXX_SCB_CFSR_MUNSTKERR_MASK | FC7XXX_SCB_CFSR_MSTKERR_MASK | \
    FC7XXX_SCB_CFSR_MLSPERR_MASK)
 
+/* BusFault cause bits only.
+ * IBUSERR      → Instruction bus error
+ * PRECISERR    → Precise data bus error
+ * IMPRECISERR  → Imprecise data bus error
+ * STKERR       → BusFault on exception stacking
+ * UNSTKERR     → BusFault on exception unstacking
+ * LSPERR       → BusFault on lazy FP state preservation
+ * BFARVALID is not included here because it is an address-valid flag,
+ * and is handled separately by Exception_SetBusFaultAddress().
+ */
 #define EXCEPTION_CFSR_BUSFAULT_MASK \
   (FC7XXX_SCB_CFSR_IBUSERR_MASK | FC7XXX_SCB_CFSR_PRECISERR_MASK | \
    FC7XXX_SCB_CFSR_IMPRECISERR_MASK | FC7XXX_SCB_CFSR_UNSTKERR_MASK | \
    FC7XXX_SCB_CFSR_STKERR_MASK | FC7XXX_SCB_CFSR_LSPERR_MASK)
 
+/* UNDEFINSTR   → Undefined instruction
+ * INVSTATE     → Invalid instruction state
+ * INVPC        → Invalid EXC_RETURN value
+ * NOCP         → Coprocessor access error
+ * UNALIGNED    → Illegal unaligned access
+ * DIVBYZERO    → Divide by zero
+ */
 #define EXCEPTION_CFSR_USAGEFAULT_MASK \
   (FC7XXX_SCB_CFSR_UNDEFINSTR_MASK | FC7XXX_SCB_CFSR_INVSTATE_MASK | \
    FC7XXX_SCB_CFSR_INVPC_MASK | FC7XXX_SCB_CFSR_NOCP_MASK | \
@@ -64,7 +81,8 @@ volatile Exception_Inf Exception_Info;
 /* checks the readability of stack frames, only allowing reads from:
  *   DTCM: 0x20000000 ~ 0x20020000
  *   SRAM: 0x21000000 ~ 0x210E0000
- * Prevent accessing illegal addresses again during fault handling. */
+ * Prevent accessing illegal addresses again during fault handling.
+ */
 static uint32 Exception_IsStackFrameReadable(uint32 u32StackAddr)
 {
   uint32 u32StackEnd = u32StackAddr + EXCEPTION_STACK_FRAME_SIZE;
