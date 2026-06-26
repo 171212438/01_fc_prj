@@ -326,6 +326,149 @@ Reset_Handler:
     mov     r3, r2
 
     /*
+      Core0 initializes SRAM/TCM with STCU before the C stack is used.
+      The selected RAM must not be accessed while hardware initialization is running.
+    */
+    ldr     r0, =0xE0080004           /* CPM_MISCR_BASE */
+    ldr     r1, [r0]
+    ubfx    r1, r1, #17, #3           /* CPM_MISCR_CPU_ID */
+    cmp     r1, #0
+    bne     EarlyRamInitDone
+
+    ldr     r0, =0x40072020           /* SCM_MAMECCEN0 */
+    ldr     r1, =0x0AAAAAAA
+    str     r1, [r0]
+    ldr     r0, =0x40072024           /* SCM_MAMECCEN1 */
+    ldr     r1, =0x002AABAA
+    str     r1, [r0]
+    ldr     r0, =0x40072028           /* SCM_CPU0ECCEN */
+    ldr     r1, =0x00000A8A
+    str     r1, [r0]
+    ldr     r0, =0x40072030           /* SCM_CPU1ECCEN */
+    str     r1, [r0]
+    ldr     r0, =0x40072038           /* SCM_CPU2ECCEN */
+    str     r1, [r0]
+    ldr     r0, =0x40072130           /* SCM_CPU3ECCEN */
+    ldr     r1, =0x00000AAA
+    str     r1, [r0]
+
+    ldr     r0, =0x400241FC           /* PCC_STCU */
+    ldr     r1, =0x00800000
+    str     r1, [r0]
+    dsb
+    isb
+
+    ldr     r0, =0x40046008           /* RGM_SRS */
+    ldr     r1, [r0]
+    /* SYSRST_TOUT, PINRST_TOUT, FSM_ERR, CMU, CLKERR0, CLKERR1, POR, LVR, LBIST */
+    ldr     r2, =0xE000C08E           /* Reset sources that require full RAM initialization */
+    tst     r1, r2
+    bne     EarlyRamInitAll
+    tst     r1, #1                    /* RGM_SRS_WAKEUP */
+    bne     EarlyRamInitWakeup
+
+EarlyRamInitRuntime:
+    ldr     r4, =0x0007FFBF           /* All SRAM/TCM except SRAM2_2 crash-record bank */
+    movs    r5, #0                    /* STCU_SRAM_INI_CTRL.MODE = POR/STANDBY0 */
+    mov     r6, r4                    /* Expected done mask */
+    b       EarlyRamInitRun
+
+EarlyRamInitAll:
+    ldr     r4, =0x0007FFFF           /* All SRAM/TCM banks */
+    movs    r5, #0                    /* STCU_SRAM_INI_CTRL.MODE = POR/STANDBY0 */
+    mov     r6, r4                    /* Expected done mask */
+    b       EarlyRamInitRun
+
+EarlyRamInitWakeup:
+    ldr     r4, =0x0007FFFF           /* Let STCU MODE preserve standby retention banks */
+    ldr     r0, =0x40045010           /* SMC_STANDBY_CFG */
+    ldr     r5, [r0]
+    and     r5, r5, #3
+    lsls    r5, r5, #16               /* STCU_SRAM_INI_CTRL.MODE */
+    movs    r6, #0                    /* Retention mode can intentionally skip selected banks */
+
+EarlyRamInitRun:
+    ldr     r0, =0x4007F04C           /* STCU_SRAM_INI_STATUS */
+    ldr     r7, =0x01000000
+EarlyRamWaitIdle:
+    ldr     r1, [r0]
+    tst     r1, #2                    /* BUSY */
+    beq     EarlyRamClearStatus
+    subs    r7, r7, #1
+    bne     EarlyRamWaitIdle
+    b       EarlyRamInitFailed
+
+EarlyRamClearStatus:
+    movs    r1, #0
+    str     r1, [r0]                  /* DONE/ABORT are W0C */
+    ldr     r0, =0x4007F054           /* STCU_SRAM_INI_DONE_STATUS */
+    str     r1, [r0]
+    ldr     r0, =0x4007F050           /* STCU_SRAM_INI_SEL */
+    str     r4, [r0]
+    ldr     r0, =0x4007F048           /* STCU_SRAM_INI_CTRL */
+    str     r5, [r0]                  /* Configure MODE before EN */
+    dsb
+    isb
+    orr     r1, r5, #1                /* EN */
+    str     r1, [r0]
+
+    ldr     r0, =0x4007F04C           /* STCU_SRAM_INI_STATUS */
+    ldr     r7, =0x01000000
+EarlyRamWaitDone:
+    ldr     r1, [r0]
+    tst     r1, #4                    /* ABORT */
+    bne     EarlyRamInitFailed
+    tst     r1, #1                    /* DONE */
+    bne     EarlyRamCheckDone
+    subs    r7, r7, #1
+    bne     EarlyRamWaitDone
+    b       EarlyRamInitFailed
+
+EarlyRamCheckDone:
+    cmp     r6, #0
+    beq     EarlyRamClearDoneFlag
+    ldr     r0, =0x4007F054           /* STCU_SRAM_INI_DONE_STATUS */
+    ldr     r1, [r0]
+    and     r1, r1, r6
+    cmp     r1, r6
+    bne     EarlyRamInitFailed
+
+EarlyRamClearDoneFlag:
+    ldr     r0, =0x4007F04C           /* STCU_SRAM_INI_STATUS */
+    movs    r1, #0
+    str     r1, [r0]                  /* Clear DONE before later software observes STCU */
+    dsb
+    isb
+
+    ldr     r0, =0x40072020           /* SCM_MAMECCEN0 */
+    ldr     r1, =0x0FFFFFFF
+    str     r1, [r0]
+    ldr     r0, =0x40072024           /* SCM_MAMECCEN1 */
+    ldr     r1, =0x003FFFFF
+    str     r1, [r0]
+    ldr     r0, =0x40072028           /* SCM_CPU0ECCEN */
+    ldr     r1, =0x00000FCF
+    str     r1, [r0]
+    ldr     r0, =0x40072030           /* SCM_CPU1ECCEN */
+    str     r1, [r0]
+    ldr     r0, =0x40072038           /* SCM_CPU2ECCEN */
+    str     r1, [r0]
+    ldr     r0, =0x40072130           /* SCM_CPU3ECCEN */
+    ldr     r1, =0x00000FFF
+    str     r1, [r0]
+    dsb
+    isb
+    b       EarlyRamInitDone
+
+EarlyRamInitFailed:
+    cpsid   i
+EarlyRamInitFailedLoop:
+    b       EarlyRamInitFailedLoop
+
+EarlyRamInitDone:
+    mov     r2, r3
+
+    /*
       initialization startup stack,
       for ecc
     */

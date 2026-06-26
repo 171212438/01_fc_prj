@@ -384,6 +384,7 @@ static void Bsp_CrashRecord_DataSync(void)
 
 static void Bsp_CrashRecord_ClearRamRecord(void)
 {
+  /* Only checks validity based on these fields */
   Bsp_CrashRecord_Record.magic = 0U;
   Bsp_CrashRecord_Record.crc = 0U;
   Bsp_CrashRecord_Record.state = 0U;

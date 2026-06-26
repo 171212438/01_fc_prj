@@ -259,6 +259,9 @@ static void Exception_Halt(void)
 }
 
 #if (EXCEPTION_FAULT_ACTION == EXCEPTION_FAULT_ACTION_RESET)
+/* Initiate a software reset request through Cortex-M7 SCB's 
+ * AIRCR.SYSRESETREQ, and never return.
+ */
 static void Exception_SystemReset(void) __attribute__((noreturn));
 static void Exception_SystemReset(void)
 {
@@ -268,9 +271,12 @@ static void Exception_SystemReset(void)
   __asm volatile("isb");
 
   u32Aircr = FC7XXX_SCB->AIRCR;
+  /* Because AIRCR write protection mechanism, first clear AIRCR[31:16]
+   * Reading AIRCR[31:16] gives VECTKEYSTAT = 0xFA05;
+   * writing to AIRCR[31:16], VECTKEY must be 0x5FA, otherwise the write will be ignored. */
   u32Aircr &= ~(uint32)FC7XXX_SCB_AIRCR_VECTKEY_MASK;
-  u32Aircr |= (uint32)(FC7XXX_SCB_AIRCR_VECTKEY(0x5FAU) | FC7XXX_SCB_AIRCR_SYSRESETREQ_MASK);
-  FC7XXX_SCB->AIRCR = u32Aircr;
+  u32Aircr |= (uint32)(FC7XXX_SCB_AIRCR_VECTKEY(0x5FAU) | FC7XXX_SCB_AIRCR_SYSRESETREQ_MASK);  /* Write VECTKEY=0x5FA and set SYSRESETREQ */
+  FC7XXX_SCB->AIRCR = u32Aircr;  /* Write back to AIRCR and send a reset request */
 
   __asm volatile("dsb");
   __asm volatile("isb");
@@ -319,7 +325,6 @@ void BusFault_Process(const Hardfault_StackType *pStackFrame, uint32 u32ExcRetur
   Exception_CaptureContext(BSP_CRASH_RECORD_FAULT_BUSFAULT, u32Cfsr & EXCEPTION_CFSR_BUSFAULT_MASK, "BusFault", Exception_GetBusFaultCause(u32Cfsr), pStackFrame, u32ExcReturn);
   Exception_SetBusFaultAddress(u32Cfsr);
   Exception_CommitCrashRecord();
-
   Exception_FaultFinalAction();
 }
 
