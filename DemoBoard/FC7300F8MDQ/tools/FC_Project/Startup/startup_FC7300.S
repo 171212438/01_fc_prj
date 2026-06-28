@@ -19,6 +19,7 @@
     .arch armv7-m
 
     .extern __stack_top
+    .extern Bsp_CrashRecord_ResetSnapshot
 
 /* ================================================================================================== */
 /*                                        Set vector table                                            */
@@ -329,10 +330,10 @@ Reset_Handler:
       Core0 initializes SRAM/TCM with STCU before the C stack is used.
       The selected RAM must not be accessed while hardware initialization is running.
     */
-    ldr     r0, =0xE0080004           /* CPM_MISCR_BASE */
+    ldr     r0, =0xE0080004           /* CPM_MISCR address: CPU_ID at bits[19:17] */
     ldr     r1, [r0]
-    ubfx    r1, r1, #17, #3           /* CPM_MISCR_CPU_ID */
-    cmp     r1, #0
+    ubfx    r1, r1, #17, #3           /* CPM_MISCR_CPU_ID: r1 = (r1 >> 17) & 0x7U; */
+    cmp     r1, #0                    /* CPU0? */
     bne     EarlyRamInitDone
 
     ldr     r0, =0x40072020           /* SCM_MAMECCEN0 */
@@ -353,20 +354,21 @@ Reset_Handler:
     str     r1, [r0]
 
     ldr     r0, =0x400241FC           /* PCC_STCU */
-    ldr     r1, =0x00800000
+    ldr     r1, =0x00800000           /* Control the STCU peripheral clock, 1b: enable clock */
     str     r1, [r0]
     dsb
     isb
 
-    ldr     r0, =0x40046008           /* RGM_SRS */
+    ldr     r0, =0x40046008           /* RGM_SRS: System Reset Status Register, record last reset source */
     ldr     r1, [r0]
     /* SYSRST_TOUT, PINRST_TOUT, FSM_ERR, CMU, CLKERR0, CLKERR1, POR, LVR, LBIST */
     ldr     r2, =0xE000C08E           /* Reset sources that require full RAM initialization */
-    tst     r1, r2
-    bne     EarlyRamInitAll
+    tst     r1, r2                    /* Bitwise AND, don't keep the result, just update the condition flags */
+    bne     EarlyRamInitAll           /* If the tst result is not 0, jump to EarlyRamInitAll */
     tst     r1, #1                    /* RGM_SRS_WAKEUP */
     bne     EarlyRamInitWakeup
 
+    /* SRAM0/1/2_0/1, SRAM2_2, ITCM_CPU0/1/2/3, DTCM0/1_CPU0/1/2/3 */
 EarlyRamInitRuntime:
     ldr     r4, =0x0007FFBF           /* All SRAM/TCM except SRAM2_2 crash-record bank */
     movs    r5, #0                    /* STCU_SRAM_INI_CTRL.MODE = POR/STANDBY0 */
@@ -384,13 +386,13 @@ EarlyRamInitWakeup:
     ldr     r0, =0x40045010           /* SMC_STANDBY_CFG */
     ldr     r5, [r0]
     and     r5, r5, #3
-    lsls    r5, r5, #16               /* STCU_SRAM_INI_CTRL.MODE */
+    lsls    r5, r5, #16               /* STCU_SRAM_INI_CTRL.MODE: OPTION[1:0] Move to STCU_SRAM_INI_CTRL.MODE[17:16] */
     movs    r6, #0                    /* Retention mode can intentionally skip selected banks */
 
 EarlyRamInitRun:
     ldr     r0, =0x4007F04C           /* STCU_SRAM_INI_STATUS */
     ldr     r7, =0x01000000
-EarlyRamWaitIdle:
+EarlyRamWaitIdle:                     /* Wait, STCU isn't busy */
     ldr     r1, [r0]
     tst     r1, #2                    /* BUSY */
     beq     EarlyRamClearStatus
@@ -437,6 +439,55 @@ EarlyRamClearDoneFlag:
     ldr     r0, =0x4007F04C           /* STCU_SRAM_INI_STATUS */
     movs    r1, #0
     str     r1, [r0]                  /* Clear DONE before later software observes STCU */
+    dsb
+    isb
+
+    ldr     r0, =Bsp_CrashRecord_ResetSnapshot
+    movs    r1, #0
+    str     r1, [r0, #0]              /* magic: invalid until the full snapshot is written */
+    movs    r1, #1
+    str     r1, [r0, #4]              /* version */
+    movs    r1, #56
+    str     r1, [r0, #8]              /* length: sizeof(Bsp_CrashRecord_ResetSnapshotType) */
+
+    ldr     r2, =0x40046000           /* RGM base */
+    ldr     r1, [r2, #0x008]          /* RGM_SRS */
+    str     r1, [r0, #12]
+    ldr     r1, [r2, #0x018]          /* RGM_SSRS */
+    str     r1, [r0, #16]
+    ldr     r1, [r2, #0x108]          /* RGM_C0_SRS */
+    str     r1, [r0, #20]
+    ldr     r1, [r2, #0x208]          /* RGM_C1_SRS */
+    str     r1, [r0, #24]
+    ldr     r1, [r2, #0x308]          /* RGM_C2_SRS */
+    str     r1, [r0, #28]
+    ldr     r1, [r2, #0x408]          /* RGM_C3_SRS */
+    str     r1, [r0, #32]
+    ldr     r1, [r2, #0x114]          /* RGM_C0_SSRS */
+    str     r1, [r0, #36]
+    ldr     r1, [r2, #0x214]          /* RGM_C1_SSRS */
+    str     r1, [r0, #40]
+    ldr     r1, [r2, #0x314]          /* RGM_C2_SSRS */
+    str     r1, [r0, #44]
+    ldr     r1, [r2, #0x414]          /* RGM_C3_SSRS */
+    str     r1, [r0, #48]
+
+    ldr     r1, [r0, #16]
+    str     r1, [r2, #0x018]          /* RGM_SSRS is W1C */
+    ldr     r1, [r0, #36]
+    str     r1, [r2, #0x114]          /* RGM_C0_SSRS is W1C */
+    ldr     r1, [r0, #40]
+    str     r1, [r2, #0x214]          /* RGM_C1_SSRS is W1C */
+    ldr     r1, [r0, #44]
+    str     r1, [r2, #0x314]          /* RGM_C2_SSRS is W1C */
+    ldr     r1, [r0, #48]
+    str     r1, [r2, #0x414]          /* RGM_C3_SSRS is W1C */
+    movs    r1, #1
+    str     r1, [r0, #52]             /* sticky_cleared */
+    dsb
+    isb
+    ldr     r1, =0x52475354           /* "RGST" */
+    str     r1, [r0, #0]
     dsb
     isb
 
