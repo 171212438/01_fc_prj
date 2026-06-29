@@ -51,8 +51,10 @@ typedef enum {
 
 volatile Bsp_CrashRecord_RecordType Bsp_CrashRecord_Record __attribute__((section(".crash_noinit"), aligned(32)));
 volatile Bsp_CrashRecord_ResetSnapshotType Bsp_CrashRecord_ResetSnapshot __attribute__((section(".crash_noinit"), aligned(32)));
+volatile Bsp_CrashRecord_BootFailureSnapshotType Bsp_CrashRecord_BootFailureSnapshot __attribute__((section(".crash_noinit"), aligned(32)));
 
 typedef char Bsp_CrashRecord_ResetSnapshotSizeCheck[(sizeof(Bsp_CrashRecord_ResetSnapshotType) == 56U) ? 1 : -1];
+typedef char Bsp_CrashRecord_BootFailureSnapshotSizeCheck[(sizeof(Bsp_CrashRecord_BootFailureSnapshotType) == 48U) ? 1 : -1];
 
 #if (BSP_CRASH_RECORD_STORAGE_ENABLE == STD_ON)
 static Bsp_CrashRecord_StorageStateType Bsp_CrashRecord_eStorageState = BSP_CRASH_RECORD_STORAGE_IDLE;
@@ -117,6 +119,20 @@ static uint32 Bsp_CrashRecord_IsValidResetSnapshot(void)
 
   if ((BSP_CRASH_RECORD_RESET_SNAPSHOT_VERSION != Bsp_CrashRecord_ResetSnapshot.version) ||
       ((uint32)sizeof(Bsp_CrashRecord_ResetSnapshotType) != Bsp_CrashRecord_ResetSnapshot.length)) {
+    return 0U;
+  }
+
+  return 1U;
+}
+
+static uint32 Bsp_CrashRecord_IsValidBootFailureSnapshot(void)
+{
+  if (BSP_CRASH_RECORD_BOOT_FAILURE_MAGIC != Bsp_CrashRecord_BootFailureSnapshot.magic) {
+    return 0U;
+  }
+
+  if ((BSP_CRASH_RECORD_BOOT_FAILURE_VERSION != Bsp_CrashRecord_BootFailureSnapshot.version) ||
+      ((uint32)sizeof(Bsp_CrashRecord_BootFailureSnapshotType) != Bsp_CrashRecord_BootFailureSnapshot.length)) {
     return 0U;
   }
 
@@ -768,9 +784,38 @@ Std_ReturnType Bsp_CrashRecord_GetResetSnapshot(Bsp_CrashRecord_ResetSnapshotTyp
   return (Std_ReturnType)E_OK;
 }
 
+Std_ReturnType Bsp_CrashRecord_GetBootFailureSnapshot(Bsp_CrashRecord_BootFailureSnapshotType *pSnapshot)
+{
+  if ((NULL_PTR == pSnapshot) || (0U == Bsp_CrashRecord_IsValidBootFailureSnapshot())) {
+    return (Std_ReturnType)E_NOT_OK;
+  }
+
+  pSnapshot->magic = Bsp_CrashRecord_BootFailureSnapshot.magic;
+  pSnapshot->version = Bsp_CrashRecord_BootFailureSnapshot.version;
+  pSnapshot->length = Bsp_CrashRecord_BootFailureSnapshot.length;
+  pSnapshot->reason = Bsp_CrashRecord_BootFailureSnapshot.reason;
+  pSnapshot->reset_srs = Bsp_CrashRecord_BootFailureSnapshot.reset_srs;
+  pSnapshot->stcu_status = Bsp_CrashRecord_BootFailureSnapshot.stcu_status;
+  pSnapshot->stcu_done_status = Bsp_CrashRecord_BootFailureSnapshot.stcu_done_status;
+  pSnapshot->stcu_sel = Bsp_CrashRecord_BootFailureSnapshot.stcu_sel;
+  pSnapshot->stcu_ctrl = Bsp_CrashRecord_BootFailureSnapshot.stcu_ctrl;
+  pSnapshot->selected_mask = Bsp_CrashRecord_BootFailureSnapshot.selected_mask;
+  pSnapshot->expected_done_mask = Bsp_CrashRecord_BootFailureSnapshot.expected_done_mask;
+  pSnapshot->reset_requested = Bsp_CrashRecord_BootFailureSnapshot.reset_requested;
+
+  return (Std_ReturnType)E_OK;
+}
+
+void Bsp_CrashRecord_ClearBootFailureSnapshot(void)
+{
+  Bsp_CrashRecord_BootFailureSnapshot.magic = 0U;
+  Bsp_CrashRecord_DataSync();
+}
+
 void Bsp_CrashRecord_Clear(void)
 {
   Bsp_CrashRecord_ClearRamRecord();
+  Bsp_CrashRecord_ClearBootFailureSnapshot();
 #if (BSP_CRASH_RECORD_STORAGE_ENABLE == STD_ON)
   Bsp_CrashRecord_u32StorageClearRequested = 1U;
   Bsp_CrashRecord_u32StorageCacheValid = 0U;

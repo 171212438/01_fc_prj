@@ -11,12 +11,21 @@
 #define BSP_CRASH_RECORD_RESET_SNAPSHOT_VERSION    (1U)
 #define BSP_CRASH_RECORD_RESET_SNAPSHOT_CORE_COUNT (4U)
 
+#define BSP_CRASH_RECORD_BOOT_FAILURE_MAGIC   (0x4254464CU) /* "BTFL" */
+#define BSP_CRASH_RECORD_BOOT_FAILURE_VERSION (1U)
+
 #define BSP_CRASH_RECORD_FAULT_NONE       (0U)
 #define BSP_CRASH_RECORD_FAULT_NMI        (1U)
 #define BSP_CRASH_RECORD_FAULT_HARDFAULT  (2U)
 #define BSP_CRASH_RECORD_FAULT_MEMMANAGE  (3U)
 #define BSP_CRASH_RECORD_FAULT_BUSFAULT   (4U)
 #define BSP_CRASH_RECORD_FAULT_USAGEFAULT (5U)
+
+#define BSP_CRASH_RECORD_BOOT_FAILURE_NONE                    (0U)
+#define BSP_CRASH_RECORD_BOOT_FAILURE_STCU_WAIT_IDLE_TIMEOUT  (1U)
+#define BSP_CRASH_RECORD_BOOT_FAILURE_STCU_ABORT              (2U)
+#define BSP_CRASH_RECORD_BOOT_FAILURE_STCU_WAIT_DONE_TIMEOUT  (3U)
+#define BSP_CRASH_RECORD_BOOT_FAILURE_STCU_DONE_MASK_MISMATCH (4U)
 
 typedef struct {
   uint32 stacked_r0;  /* R0 stacked by hardware on exception entry. */
@@ -60,6 +69,21 @@ typedef struct {
 } Bsp_CrashRecord_ResetSnapshotType;
 
 typedef struct {
+  uint32 magic;              /* Valid marker written last by Reset_Handler. */
+  uint32 version;            /* Snapshot layout version. */
+  uint32 length;             /* Size of this structure in bytes. */
+  uint32 reason;             /* BSP_CRASH_RECORD_BOOT_FAILURE_* value. */
+  uint32 reset_srs;          /* RGM_SRS value observed in early startup. */
+  uint32 stcu_status;        /* STCU_SRAM_INI_STATUS at failure handling. */
+  uint32 stcu_done_status;   /* STCU_SRAM_INI_DONE_STATUS at failure handling. */
+  uint32 stcu_sel;           /* STCU_SRAM_INI_SEL at failure handling. */
+  uint32 stcu_ctrl;          /* STCU_SRAM_INI_CTRL at failure handling. */
+  uint32 selected_mask;      /* Startup-selected SRAM/TCM mask. */
+  uint32 expected_done_mask; /* Required STCU_SRAM_INI_DONE_STATUS mask. */
+  uint32 reset_requested;    /* Nonzero when Reset_Handler requested SYSRESETREQ. */
+} Bsp_CrashRecord_BootFailureSnapshotType;
+
+typedef struct {
   uint32 magic;                           /* Valid record marker written last. */
   uint16 version;                         /* Crash record layout version. */
   uint16 length;                          /* Size of this record structure in bytes. */
@@ -93,6 +117,7 @@ typedef struct {
 
 extern volatile Bsp_CrashRecord_RecordType Bsp_CrashRecord_Record;
 extern volatile Bsp_CrashRecord_ResetSnapshotType Bsp_CrashRecord_ResetSnapshot;
+extern volatile Bsp_CrashRecord_BootFailureSnapshotType Bsp_CrashRecord_BootFailureSnapshot;
 
 void Bsp_CrashRecord_CaptureFromException(const Bsp_CrashRecord_ExceptionInfoType *pExceptionInfo);
 void Bsp_CrashRecord_MainFunction(void);
@@ -100,7 +125,9 @@ uint32 Bsp_CrashRecord_IsPending(void);
 Std_ReturnType Bsp_CrashRecord_GetLatest(Bsp_CrashRecord_RecordType *pRecord); /* Copy newest valid record. */
 Std_ReturnType Bsp_CrashRecord_GetByIndex(uint16 u16Index, Bsp_CrashRecord_RecordType *pRecord); /* 0 is newest. */
 Std_ReturnType Bsp_CrashRecord_GetResetSnapshot(Bsp_CrashRecord_ResetSnapshotType *pSnapshot);
+Std_ReturnType Bsp_CrashRecord_GetBootFailureSnapshot(Bsp_CrashRecord_BootFailureSnapshotType *pSnapshot);
 void Bsp_CrashRecord_Clear(void); /* Clear RAM record and request persistent clear when storage is enabled. */
+void Bsp_CrashRecord_ClearBootFailureSnapshot(void);
 const volatile Bsp_CrashRecord_RecordType *Bsp_CrashRecord_GetRecord(void);
 
 #endif /* _BSP_CRASH_RECORD_H_ */
