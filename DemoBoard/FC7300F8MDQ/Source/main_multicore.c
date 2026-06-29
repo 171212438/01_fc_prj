@@ -329,8 +329,9 @@ BSP_TEXT_SECTION static void core0_release_other_cores(void)
 
 BSP_TEXT_SECTION static void enable_global_interrupts_after_init(void)
 {
-    __asm volatile("cpsie i\n\t"
-                   "dsb\n\t"
+    __asm volatile("dsb\n\t"
+                   "isb\n\t"
+                   "cpsie i\n\t"
                    "isb" : : : "memory");
 }
 

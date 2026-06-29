@@ -247,8 +247,10 @@ static uint32 wdog_get_disable_cs(uint32 wdog_base)
 
   u32Cs = REG_READ32(wdog_base + WDOG_CS_OFFSET);
 
-  /* Startup only disables WDOG: preserve configuration, clear ENABLE, and do not write status bits. */
+  /* Startup only disables WDOG: preserve configuration, keep UPDATE set for later MCAL reconfiguration,
+     clear ENABLE, and do not write status bits. */
   u32Cs &= ~(WDOG_CS_ENABLE | WDOG_CS_STATUS_BITS);
+  u32Cs |= WDOG_CS_UPDATE;
 
   return u32Cs;
 }
@@ -356,7 +358,7 @@ static uint32 wdog_disable(uint32 wdog_base, uint32 *pWaitMask)
       return BSP_CRASH_RECORD_BOOT_FAILURE_WDOG_WAIT_UNLOCK_TIMEOUT;
     }
   } else {
-    /* Reset first configuration path: no unlock is required; clear ENABLE only. */
+    /* Reset first configuration path: no unlock is required. */
     REG_WRITE32(wdog_base + WDOG_CS_OFFSET, u32DisableCs);
   }
 
@@ -366,6 +368,13 @@ static uint32 wdog_disable(uint32 wdog_base, uint32 *pWaitMask)
       *pWaitMask = WDOG_CS_RECFG_STAT;
     }
     return BSP_CRASH_RECORD_BOOT_FAILURE_WDOG_FINAL_RECFG_TIMEOUT;
+  }
+
+  if ((REG_READ32(wdog_base + WDOG_CS_OFFSET) & WDOG_CS_UPDATE) == 0U) {
+    if (NULL_PTR != pWaitMask) {
+      *pWaitMask = WDOG_CS_UPDATE;
+    }
+    return BSP_CRASH_RECORD_BOOT_FAILURE_WDOG_UPDATE_DISABLED;
   }
 
   return BSP_CRASH_RECORD_BOOT_FAILURE_NONE;

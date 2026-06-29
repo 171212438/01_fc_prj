@@ -5161,6 +5161,7 @@
                 </ECUC-REFERENCE-VALUE>
                 <ECUC-REFERENCE-VALUE>
                   <DEFINITION-REF DEST="ECUC-REFERENCE-DEF">/FC7300FXXX/Can/CanGeneral/CanSupportTTCANRef</DEFINITION-REF>
+                  <VALUE-REF DEST="IDENTIFIABLE"></VALUE-REF>
                 </ECUC-REFERENCE-VALUE>
               </REFERENCE-VALUES>
               <SUB-CONTAINERS>

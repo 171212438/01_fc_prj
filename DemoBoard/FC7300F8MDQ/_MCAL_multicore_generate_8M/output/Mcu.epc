@@ -4447,7 +4447,7 @@
                             </ECUC-NUMERICAL-PARAM-VALUE>
                             <ECUC-NUMERICAL-PARAM-VALUE>
                               <DEFINITION-REF DEST="ECUC-BOOLEAN-PARAM-DEF">/FC7300FXXX/Mcu/McuModuleConfiguration/McuResetConfig/McuSystemInterruptEnable/McuPartition1InterruptEnable/Cpu1SoftwareResetTrigSystemReset</DEFINITION-REF>
-                              <VALUE>0</VALUE>
+                              <VALUE>1</VALUE>
                             </ECUC-NUMERICAL-PARAM-VALUE>
                             <ECUC-NUMERICAL-PARAM-VALUE>
                               <DEFINITION-REF DEST="ECUC-BOOLEAN-PARAM-DEF">/FC7300FXXX/Mcu/McuModuleConfiguration/McuResetConfig/McuSystemInterruptEnable/McuPartition1InterruptEnable/Cpu1SystemCoreResetInterrupt</DEFINITION-REF>
@@ -4493,7 +4493,7 @@
                             </ECUC-NUMERICAL-PARAM-VALUE>
                             <ECUC-NUMERICAL-PARAM-VALUE>
                               <DEFINITION-REF DEST="ECUC-BOOLEAN-PARAM-DEF">/FC7300FXXX/Mcu/McuModuleConfiguration/McuResetConfig/McuSystemInterruptEnable/McuPartition2InterruptEnable/Cpu2SoftwareResetTrigSystemReset</DEFINITION-REF>
-                              <VALUE>0</VALUE>
+                              <VALUE>1</VALUE>
                             </ECUC-NUMERICAL-PARAM-VALUE>
                             <ECUC-NUMERICAL-PARAM-VALUE>
                               <DEFINITION-REF DEST="ECUC-BOOLEAN-PARAM-DEF">/FC7300FXXX/Mcu/McuModuleConfiguration/McuResetConfig/McuSystemInterruptEnable/McuPartition2InterruptEnable/Cpu2SystemCoreResetInterrupt</DEFINITION-REF>

@@ -537,10 +537,18 @@ EarlyRamInitFailed:
     ldr     r1, [r0]
     ldr     r0, =0x4007F050           /* STCU_SRAM_INI_SEL */
     ldr     r2, [r0]
+    mov     r3, r8
+    cmp     r3, #1                    /* WAIT_IDLE_TIMEOUT occurs before this startup code asserts EN */
+    bne     EarlyRamCheckSelectedCrashBank
     tst     r1, #2                    /* BUSY */
     beq     EarlyRamRecordBootFailure
     tst     r2, #0x40                 /* SRAM2_2 crash-record bank selected */
     bne     EarlyRamRequestReset      /* Do not touch retained RAM while its bank may be initializing */
+    b       EarlyRamRecordBootFailure
+
+EarlyRamCheckSelectedCrashBank:
+    tst     r4, #0x40                 /* This startup STCU request selected the crash-record bank */
+    bne     EarlyRamRequestReset      /* Do not touch retained RAM after its initialization failed */
 
 EarlyRamRecordBootFailure:
     ldr     r0, =Bsp_CrashRecord_BootFailureSnapshot
