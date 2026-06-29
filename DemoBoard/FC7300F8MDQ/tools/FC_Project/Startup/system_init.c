@@ -66,12 +66,14 @@
 #define WDOG_CS_PRESCALER_SHIFT                     (12)      /* Bit 12: Watchdog 256 prescale enable/disable */
 #define WDOG_CS_PRESCALER_MASK                      (1 << WDOG_CS_PRESCALER_SHIFT)
 #define WDOG_CS_PRESCALER_ENABLE                    (1 << WDOG_CS_PRESCALER_SHIFT) /* Bit 12: Watchdog prescalr */
+#define WDOG_CS_ENABLE                              (1 << 7)  /* Bit 7: Watchdog enable */
+#define WDOG_CS_FLAG                                (1 << 14) /* Bit 14: Interrupt flag */
 
 #define WDOG_COUNTER_UNLOCK                         0x08181982  /* Value to unlock the watchdog registers */
 
-#define WDOG_CS_DISABLE_WDOG                        (WDOG_CS_UPDATE           | WDOG_CS_CLK_SEL_AON_CLK | \
-                                                     WDOG_CS_PRESCALER_ENABLE | WDOG_CS_ULK_STAT)
 #define WDOG_STARTUP_WAIT_TIMEOUT                   0x01000000U
+#define WDOG_FIRST_CONFIGURATION_SAMPLE_COUNT       128U
+#define WDOG_CS_STATUS_BITS                         (WDOG_CS_FLAG | WDOG_CS_RECFG_STAT | WDOG_CS_ULK_STAT)
 
 #define RGM_SRS_ADDR                                0x40046008U
 
@@ -239,6 +241,47 @@ static uint32 wdog_wait_status_set(uint32 wdog_base, uint32 mask)
   return 0U;
 }
 
+static uint32 wdog_get_disable_cs(uint32 wdog_base)
+{
+  uint32 u32Cs;
+
+  u32Cs = REG_READ32(wdog_base + WDOG_CS_OFFSET);
+
+  /* Startup only disables WDOG: preserve configuration, clear ENABLE, and do not write status bits. */
+  u32Cs &= ~(WDOG_CS_ENABLE | WDOG_CS_STATUS_BITS);
+
+  return u32Cs;
+}
+
+static uint32 wdog_is_first_configuration(uint32 wdog_base)
+{
+  uint32 u32SampleCount = WDOG_FIRST_CONFIGURATION_SAMPLE_COUNT;
+
+  while (u32SampleCount != 0U) {
+    if ((REG_READ32(wdog_base + WDOG_CS_OFFSET) & WDOG_CS_ULK_STAT) == 0U) {
+      return 0U;
+    }
+    u32SampleCount--;
+  }
+
+  return 1U;
+}
+
+static uint32 wdog_wait_unlock_and_write_disable(uint32 wdog_base, uint32 u32DisableCs)
+{
+  uint32 timeout = WDOG_STARTUP_WAIT_TIMEOUT;
+
+  while (timeout != 0U) {
+    if ((REG_READ32(wdog_base + WDOG_CS_OFFSET) & WDOG_CS_ULK_STAT) != 0U) {
+      REG_WRITE32(wdog_base + WDOG_CS_OFFSET, u32DisableCs);
+      return 1U;
+    }
+    timeout--;
+  }
+
+  return 0U;
+}
+
 static void system_init_request_reset(void)
 {
   uint32 u32Aircr;
@@ -284,26 +327,16 @@ static void system_init_capture_boot_failure(uint32 reason, uint32 core_id, uint
 
 static uint32 wdog_disable(uint32 wdog_base, uint32 *pWaitMask)
 {
-  uint32 try_cnt = 128u;
+  uint32 u32DisableCs;
 
   if (NULL_PTR != pWaitMask) {
     *pWaitMask = 0U;
   }
 
-  /* If it is not the first time to configure wdog, unlock status will only
-     persist for 128 bus clocks. */
-  while (try_cnt != 0) {
-    if ((REG_READ32(wdog_base + WDOG_CS_OFFSET) & WDOG_CS_ULK_STAT) == 0) {
-      break;
-    }
-    try_cnt--;
-  }
+  u32DisableCs = wdog_get_disable_cs(wdog_base);
 
-  /* If ULK_STAT turns into 0 in 128 try counts, it means this is not the
-     first time to configure the wdog. */
-  if (try_cnt != 0) {
-    /* When ULK_STAT = 0, the wdog can only be unlocked when RECFG_STAT
-       becomes 1. */
+  if (0U == wdog_is_first_configuration(wdog_base)) {
+    /* Non-first reconfiguration path: wait for a configurable state, unlock, then write CS immediately. */
     if (0U == wdog_wait_status_set(wdog_base, WDOG_CS_RECFG_STAT)) {
       if (NULL_PTR != pWaitMask) {
         *pWaitMask = WDOG_CS_RECFG_STAT;
@@ -316,20 +349,16 @@ static uint32 wdog_disable(uint32 wdog_base, uint32 *pWaitMask)
        not use single-step or break points in the following few lines.  */
     REG_WRITE32(wdog_base + WDOG_COUNTER_OFFSET, WDOG_COUNTER_UNLOCK);
 
-    /* Wait until the unlock take effect. */
-    if (0U == wdog_wait_status_set(wdog_base, WDOG_CS_ULK_STAT)) {
+    if (0U == wdog_wait_unlock_and_write_disable(wdog_base, u32DisableCs)) {
       if (NULL_PTR != pWaitMask) {
         *pWaitMask = WDOG_CS_ULK_STAT;
       }
       return BSP_CRASH_RECORD_BOOT_FAILURE_WDOG_WAIT_UNLOCK_TIMEOUT;
     }
+  } else {
+    /* Reset first configuration path: no unlock is required; clear ENABLE only. */
+    REG_WRITE32(wdog_base + WDOG_CS_OFFSET, u32DisableCs);
   }
-
-  /* Disable Watchdog */
-  REG_WRITE32(wdog_base + WDOG_CS_OFFSET, WDOG_CS_DISABLE_WDOG);
-
-  /* Configure timeout to the maximum. */
-  REG_WRITE32(wdog_base + WDOG_TIMEOUT_OFFSET, 0xFFFFu);
 
   /* Wait the RECFG_STAT to become 1. */
   if (0U == wdog_wait_status_set(wdog_base, WDOG_CS_RECFG_STAT)) {
