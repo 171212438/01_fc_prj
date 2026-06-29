@@ -73,6 +73,11 @@ static uint32 Bsp_CrashRecord_ReadReg32(uint32 u32Address)
   return *(volatile const uint32 *)u32Address;
 }
 
+/* Fill in the current core's 'raw reset reason' value for the crash record.
+ * Prefer using the RGM reset snapshot captured early by Reset_Handler; if the
+ * snapshot is invalid, then directly read the corresponding core's RGM_Cx_SRS
+ * hardware register.
+ */
 static uint32 Bsp_CrashRecord_ReadResetReason(uint32 u32CoreId)
 {
   if ((BSP_CRASH_RECORD_RESET_SNAPSHOT_MAGIC == Bsp_CrashRecord_ResetSnapshot.magic) &&
@@ -98,6 +103,12 @@ static uint32 Bsp_CrashRecord_ReadResetReason(uint32 u32CoreId)
   }
 }
 
+/* reset snapshot's structural integrity check:
+ * magic   == 0x52475354U  // "RGST"
+ * version == 1U
+ * length  == sizeof(Bsp_CrashRecord_ResetSnapshotType)
+ * If any condition isn't met, return 0U
+ */
 static uint32 Bsp_CrashRecord_IsValidResetSnapshot(void)
 {
   if (BSP_CRASH_RECORD_RESET_SNAPSHOT_MAGIC != Bsp_CrashRecord_ResetSnapshot.magic) {
@@ -125,6 +136,12 @@ static void Bsp_CrashRecord_ClearRecordResetSnapshot(volatile Bsp_CrashRecord_Re
   }
 }
 
+/* Merge Bsp_CrashRecord_ResetSnapshot that Reset_Handler grabbed early into a single crash record;
+ * if the snapshot is invalid, just read the current core's raw reset reason and zero out the reset
+ * snapshot field in the record.
+ * 
+ * Connect the exception logs with the RGM reset reasons caught after the exception during startup.
+ */
 static void Bsp_CrashRecord_ApplyResetSnapshotToRecord(volatile Bsp_CrashRecord_RecordType *pRecord, uint32 u32CoreId)
 {
   uint8 u8Index;
@@ -205,6 +222,12 @@ static uint32 Bsp_CrashRecord_IsValidRecord(const volatile Bsp_CrashRecord_Recor
   return 1U;
 }
 
+/* Copy an existing crash record from internal storage into the
+ * normal Bsp_CrashRecord_RecordType buffer given by the caller.
+ * pSrc is const volatile:
+ *   - Cannot be modified by this function
+ *   - Every field read has to genuinely read from memory, and the compiler can't just treat it as a regular cached variable
+ */
 static void Bsp_CrashRecord_CopyRecord(Bsp_CrashRecord_RecordType *pDest, const volatile Bsp_CrashRecord_RecordType *pSrc)
 {
   uint8 u8Index;
@@ -483,6 +506,7 @@ static void Bsp_CrashRecord_ClearRamRecord(void)
   Bsp_CrashRecord_DataSync();
 }
 
+/* Copy a validated volatile/internal crash record to a caller-owned normal RAM buffer. */
 static void Bsp_CrashRecord_UpdatePendingResetSnapshot(void)
 {
   if (0U == Bsp_CrashRecord_IsValidRecord(&Bsp_CrashRecord_Record)) {
@@ -505,6 +529,15 @@ static void Bsp_CrashRecord_UpdatePendingResetSnapshot(void)
   Bsp_CrashRecord_DataSync();
 }
 
+/* When an exception happens:
+ *   You can only save the fault context and the current raw reset_reason first
+ *
+ * After an exception, when resetting and restarting:
+ *   Reset_Handler can then catch the "RGM reset snapshot that caused this startup"
+ *
+ * Before the first subsequent query or saving to disk:
+ *   UpdatePendingResetSnapshot() merges the reset snapshot into the original crash record
+ */
 void Bsp_CrashRecord_CaptureFromException(const Bsp_CrashRecord_ExceptionInfoType *pExceptionInfo)
 {
   uint32 u32Sequence = 1U;

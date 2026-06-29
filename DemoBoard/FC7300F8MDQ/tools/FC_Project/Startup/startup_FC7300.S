@@ -20,6 +20,7 @@
 
     .extern __stack_top
     .extern Bsp_CrashRecord_ResetSnapshot
+    .extern Bsp_CrashRecord_BootFailureSnapshot
 
 /* ================================================================================================== */
 /*                                        Set vector table                                            */
@@ -398,7 +399,7 @@ EarlyRamWaitIdle:                     /* Wait, STCU isn't busy */
     beq     EarlyRamClearStatus
     subs    r7, r7, #1
     bne     EarlyRamWaitIdle
-    b       EarlyRamInitFailed
+    b       EarlyRamInitWaitIdleTimeout
 
 EarlyRamClearStatus:
     movs    r1, #0
@@ -419,12 +420,12 @@ EarlyRamClearStatus:
 EarlyRamWaitDone:
     ldr     r1, [r0]
     tst     r1, #4                    /* ABORT */
-    bne     EarlyRamInitFailed
+    bne     EarlyRamInitAbort
     tst     r1, #1                    /* DONE */
     bne     EarlyRamCheckDone
     subs    r7, r7, #1
     bne     EarlyRamWaitDone
-    b       EarlyRamInitFailed
+    b       EarlyRamInitWaitDoneTimeout
 
 EarlyRamCheckDone:
     cmp     r6, #0
@@ -433,7 +434,7 @@ EarlyRamCheckDone:
     ldr     r1, [r0]
     and     r1, r1, r6
     cmp     r1, r6
-    bne     EarlyRamInitFailed
+    bne     EarlyRamInitDoneMismatch
 
 EarlyRamClearDoneFlag:
     ldr     r0, =0x4007F04C           /* STCU_SRAM_INI_STATUS */
@@ -511,10 +512,83 @@ EarlyRamClearDoneFlag:
     isb
     b       EarlyRamInitDone
 
+EarlyRamInitWaitIdleTimeout:
+    movs    r2, #1                    /* BSP_CRASH_RECORD_BOOT_FAILURE_STCU_WAIT_IDLE_TIMEOUT */
+    b       EarlyRamInitFailed
+
+EarlyRamInitAbort:
+    movs    r2, #2                    /* BSP_CRASH_RECORD_BOOT_FAILURE_STCU_ABORT */
+    b       EarlyRamInitFailed
+
+EarlyRamInitWaitDoneTimeout:
+    movs    r2, #3                    /* BSP_CRASH_RECORD_BOOT_FAILURE_STCU_WAIT_DONE_TIMEOUT */
+    b       EarlyRamInitFailed
+
+EarlyRamInitDoneMismatch:
+    movs    r2, #4                    /* BSP_CRASH_RECORD_BOOT_FAILURE_STCU_DONE_MASK_MISMATCH */
+    b       EarlyRamInitFailed
+
 EarlyRamInitFailed:
     cpsid   i
-EarlyRamInitFailedLoop:
-    b       EarlyRamInitFailedLoop
+    mov     r8, r2                    /* Preserve failure reason while reading STCU registers */
+
+    ldr     r0, =0x4007F04C           /* STCU_SRAM_INI_STATUS */
+    ldr     r1, [r0]
+    ldr     r0, =0x4007F050           /* STCU_SRAM_INI_SEL */
+    ldr     r2, [r0]
+    tst     r1, #2                    /* BUSY */
+    beq     EarlyRamRecordBootFailure
+    tst     r2, #0x40                 /* SRAM2_2 crash-record bank selected */
+    bne     EarlyRamRequestReset      /* Do not touch retained RAM while its bank may be initializing */
+
+EarlyRamRecordBootFailure:
+    ldr     r0, =Bsp_CrashRecord_BootFailureSnapshot
+    movs    r3, #0
+    str     r3, [r0, #0]              /* magic: invalid until the full snapshot is written */
+    movs    r3, #1
+    str     r3, [r0, #4]              /* version */
+    movs    r3, #48
+    str     r3, [r0, #8]              /* length: sizeof(Bsp_CrashRecord_BootFailureSnapshotType) */
+    mov     r3, r8
+    str     r3, [r0, #12]             /* reason */
+    ldr     r3, =0x40046008           /* RGM_SRS */
+    ldr     r3, [r3]
+    str     r3, [r0, #16]
+    ldr     r3, =0x4007F04C           /* STCU_SRAM_INI_STATUS */
+    ldr     r3, [r3]
+    str     r3, [r0, #20]
+    ldr     r3, =0x4007F054           /* STCU_SRAM_INI_DONE_STATUS */
+    ldr     r3, [r3]
+    str     r3, [r0, #24]
+    ldr     r3, =0x4007F050           /* STCU_SRAM_INI_SEL */
+    ldr     r3, [r3]
+    str     r3, [r0, #28]
+    ldr     r3, =0x4007F048           /* STCU_SRAM_INI_CTRL */
+    ldr     r3, [r3]
+    str     r3, [r0, #32]
+    str     r4, [r0, #36]             /* selected_mask */
+    str     r6, [r0, #40]             /* expected_done_mask */
+    movs    r3, #1
+    str     r3, [r0, #44]             /* reset_requested */
+    dsb
+    isb
+    ldr     r3, =0x4254464C           /* "BTFL" */
+    str     r3, [r0, #0]
+    dsb
+    isb
+
+EarlyRamRequestReset:
+    ldr     r0, =0xE000ED0C           /* SCB_AIRCR */
+    ldr     r1, [r0]
+    ldr     r2, =0x0000FFFF
+    and     r1, r1, r2                /* Clear VECTKEY field while preserving AIRCR low bits */
+    ldr     r2, =0x05FA0004           /* VECTKEY=0x5FA, SYSRESETREQ=1 */
+    orr     r1, r1, r2
+    str     r1, [r0]
+    dsb
+    isb
+EarlyRamResetWaitLoop:
+    b       EarlyRamResetWaitLoop
 
 EarlyRamInitDone:
     mov     r2, r3
