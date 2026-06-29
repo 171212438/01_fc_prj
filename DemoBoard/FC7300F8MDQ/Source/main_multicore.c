@@ -327,6 +327,13 @@ BSP_TEXT_SECTION static void core0_release_other_cores(void)
     RGM->C2_RLS |= (uint32)RGM_C2_RLS_C2_RELEASE_MASK;
 }
 
+BSP_TEXT_SECTION static void enable_global_interrupts_after_init(void)
+{
+    __asm volatile("cpsie i\n\t"
+                   "dsb\n\t"
+                   "isb" : : : "memory");
+}
+
 /**************** main function ***************/
 BSP_TEXT_SECTION int main(void)
 {
@@ -514,6 +521,7 @@ BSP_TEXT_SECTION int main(void)
 
     Systick_Init(&Systick_Config);
     Systick_Enable();
+    enable_global_interrupts_after_init();
 
     while (bReturnFlag)
     {

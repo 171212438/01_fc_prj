@@ -210,11 +210,10 @@ extern int main(void);
 ==================================================================================================*/
 static void data_clear(uint32 *pHead, uint32 *pTail)
 {
-    while (pHead < pTail)
-    {
-        *pHead = 0U;
-        pHead++;
-    }
+  while (pHead < pTail) {
+    *pHead = 0U;
+    pHead++;
+  }
 }
 
 static void data_copy(uint32 *pHead, uint32 *pTail, uint32 *pSrc)
@@ -228,132 +227,119 @@ static void data_copy(uint32 *pHead, uint32 *pTail, uint32 *pSrc)
 
 static uint32 wdog_wait_status_set(uint32 wdog_base, uint32 mask)
 {
-    uint32 timeout = WDOG_STARTUP_WAIT_TIMEOUT;
+  uint32 timeout = WDOG_STARTUP_WAIT_TIMEOUT;
 
-    while (timeout != 0U)
-    {
-        if ((REG_READ32(wdog_base + WDOG_CS_OFFSET) & mask) != 0U)
-        {
-            return 1U;
-        }
-        timeout--;
+  while (timeout != 0U) {
+    if ((REG_READ32(wdog_base + WDOG_CS_OFFSET) & mask) != 0U) {
+      return 1U;
     }
+    timeout--;
+  }
 
-    return 0U;
+  return 0U;
 }
 
 static void system_init_request_reset(void)
 {
-    uint32 u32Aircr;
+  uint32 u32Aircr;
 
-    __asm volatile("dsb");
-    __asm volatile("isb");
+  __asm volatile("dsb");
+  __asm volatile("isb");
 
-    u32Aircr = REG_READ32(SCB_AIRCR_ADDR);
-    u32Aircr &= ~SCB_AIRCR_VECTKEY_MASK;
-    u32Aircr |= SCB_AIRCR_SYSRESETREQ_VALUE;
-    REG_WRITE32(SCB_AIRCR_ADDR, u32Aircr);
+  u32Aircr = REG_READ32(SCB_AIRCR_ADDR);
+  u32Aircr &= ~SCB_AIRCR_VECTKEY_MASK;
+  u32Aircr |= SCB_AIRCR_SYSRESETREQ_VALUE;
+  REG_WRITE32(SCB_AIRCR_ADDR, u32Aircr);
 
-    __asm volatile("dsb");
-    __asm volatile("isb");
+  __asm volatile("dsb");
+  __asm volatile("isb");
 
-    for (;;)
-    {
-    }
+  for (;;) {
+  }
 }
 
 static void system_init_capture_boot_failure(uint32 reason, uint32 core_id, uint32 wdog_base, uint32 wait_mask)
 {
-    volatile Bsp_CrashRecord_BootFailureSnapshotType *pSnapshot = &Bsp_CrashRecord_BootFailureSnapshot;
+  volatile Bsp_CrashRecord_BootFailureSnapshotType *pSnapshot = &Bsp_CrashRecord_BootFailureSnapshot;
 
-    pSnapshot->magic = 0U;
-    pSnapshot->version = BSP_CRASH_RECORD_BOOT_FAILURE_VERSION;
-    pSnapshot->length = (uint32)sizeof(Bsp_CrashRecord_BootFailureSnapshotType);
-    pSnapshot->reason = reason;
-    pSnapshot->reset_srs = REG_READ32(RGM_SRS_ADDR);
-    pSnapshot->status = REG_READ32(wdog_base + WDOG_CS_OFFSET);
-    pSnapshot->status_aux = REG_READ32(wdog_base + WDOG_TIMEOUT_OFFSET);
-    pSnapshot->config = REG_READ32(wdog_base + WDOG_WINDOW_OFFSET);
-    pSnapshot->control = wdog_base;
-    pSnapshot->data0 = core_id;
-    pSnapshot->data1 = wait_mask;
-    pSnapshot->reset_requested = 1U;
+  pSnapshot->magic = 0U;
+  pSnapshot->version = BSP_CRASH_RECORD_BOOT_FAILURE_VERSION;
+  pSnapshot->length = (uint32)sizeof(Bsp_CrashRecord_BootFailureSnapshotType);
+  pSnapshot->reason = reason;
+  pSnapshot->reset_srs = REG_READ32(RGM_SRS_ADDR);
+  pSnapshot->status = REG_READ32(wdog_base + WDOG_CS_OFFSET);
+  pSnapshot->status_aux = REG_READ32(wdog_base + WDOG_TIMEOUT_OFFSET);
+  pSnapshot->config = REG_READ32(wdog_base + WDOG_WINDOW_OFFSET);
+  pSnapshot->control = wdog_base;
+  pSnapshot->data0 = core_id;
+  pSnapshot->data1 = wait_mask;
+  pSnapshot->reset_requested = 1U;
 
-    __asm volatile("dsb");
-    __asm volatile("isb");
-    pSnapshot->magic = BSP_CRASH_RECORD_BOOT_FAILURE_MAGIC;
-    __asm volatile("dsb");
-    __asm volatile("isb");
+  __asm volatile("dsb");
+  __asm volatile("isb");
+  pSnapshot->magic = BSP_CRASH_RECORD_BOOT_FAILURE_MAGIC;
+  __asm volatile("dsb");
+  __asm volatile("isb");
 }
 
 static uint32 wdog_disable(uint32 wdog_base, uint32 *pWaitMask)
 {
-    uint32 try_cnt = 128u;
+  uint32 try_cnt = 128u;
 
-    if (NULL_PTR != pWaitMask)
-    {
-        *pWaitMask = 0U;
+  if (NULL_PTR != pWaitMask) {
+    *pWaitMask = 0U;
+  }
+
+  /* If it is not the first time to configure wdog, unlock status will only
+     persist for 128 bus clocks. */
+  while (try_cnt != 0) {
+    if ((REG_READ32(wdog_base + WDOG_CS_OFFSET) & WDOG_CS_ULK_STAT) == 0) {
+      break;
+    }
+    try_cnt--;
+  }
+
+  /* If ULK_STAT turns into 0 in 128 try counts, it means this is not the
+     first time to configure the wdog. */
+  if (try_cnt != 0) {
+    /* When ULK_STAT = 0, the wdog can only be unlocked when RECFG_STAT
+       becomes 1. */
+    if (0U == wdog_wait_status_set(wdog_base, WDOG_CS_RECFG_STAT)) {
+      if (NULL_PTR != pWaitMask) {
+        *pWaitMask = WDOG_CS_RECFG_STAT;
+      }
+      return BSP_CRASH_RECORD_BOOT_FAILURE_WDOG_WAIT_RECFG_TIMEOUT;
     }
 
-    /* If it is not the first time to configure wdog, unlock status will only
-       persist for 128 bus clocks. */
-    while (try_cnt != 0)
-    {
-        if ((REG_READ32(wdog_base + WDOG_CS_OFFSET) & WDOG_CS_ULK_STAT) == 0)
-        {
-            break;
-        }
-        try_cnt--;
+    /* Unlock the wdog.
+       Note: The unlock status only persist for 128 bus clocks, you shall
+       not use single-step or break points in the following few lines.  */
+    REG_WRITE32(wdog_base + WDOG_COUNTER_OFFSET, WDOG_COUNTER_UNLOCK);
+
+    /* Wait until the unlock take effect. */
+    if (0U == wdog_wait_status_set(wdog_base, WDOG_CS_ULK_STAT)) {
+      if (NULL_PTR != pWaitMask) {
+        *pWaitMask = WDOG_CS_ULK_STAT;
+      }
+      return BSP_CRASH_RECORD_BOOT_FAILURE_WDOG_WAIT_UNLOCK_TIMEOUT;
     }
+  }
 
-    /* If ULK_STAT turns into 0 in 128 try counts, it means this is not the
-       first time to configure the wdog. */
-    if (try_cnt != 0)
-    {
-        /* When ULK_STAT = 0, the wdog can only be unlocked when RECFG_STAT
-           becomes 1. */
-        if (0U == wdog_wait_status_set(wdog_base, WDOG_CS_RECFG_STAT))
-        {
-            if (NULL_PTR != pWaitMask)
-            {
-                *pWaitMask = WDOG_CS_RECFG_STAT;
-            }
-            return BSP_CRASH_RECORD_BOOT_FAILURE_WDOG_WAIT_RECFG_TIMEOUT;
-        }
+  /* Disable Watchdog */
+  REG_WRITE32(wdog_base + WDOG_CS_OFFSET, WDOG_CS_DISABLE_WDOG);
 
-        /* Unlock the wdog.
-           Note: The unlock status only persist for 128 bus clocks, you shall
-           not use single-step or break points in the following few lines.  */
-        REG_WRITE32(wdog_base + WDOG_COUNTER_OFFSET, WDOG_COUNTER_UNLOCK);
+  /* Configure timeout to the maximum. */
+  REG_WRITE32(wdog_base + WDOG_TIMEOUT_OFFSET, 0xFFFFu);
 
-        /* Wait until the unlock take effect. */
-        if (0U == wdog_wait_status_set(wdog_base, WDOG_CS_ULK_STAT))
-        {
-            if (NULL_PTR != pWaitMask)
-            {
-                *pWaitMask = WDOG_CS_ULK_STAT;
-            }
-            return BSP_CRASH_RECORD_BOOT_FAILURE_WDOG_WAIT_UNLOCK_TIMEOUT;
-        }
+  /* Wait the RECFG_STAT to become 1. */
+  if (0U == wdog_wait_status_set(wdog_base, WDOG_CS_RECFG_STAT)) {
+    if (NULL_PTR != pWaitMask) {
+      *pWaitMask = WDOG_CS_RECFG_STAT;
     }
+    return BSP_CRASH_RECORD_BOOT_FAILURE_WDOG_FINAL_RECFG_TIMEOUT;
+  }
 
-    /* Disable Watchdog */
-    REG_WRITE32(wdog_base + WDOG_CS_OFFSET, WDOG_CS_DISABLE_WDOG);
-
-    /* Configure timeout to the maximum. */
-    REG_WRITE32(wdog_base + WDOG_TIMEOUT_OFFSET, 0xFFFFu);
-
-    /* Wait the RECFG_STAT to become 1. */
-    if (0U == wdog_wait_status_set(wdog_base, WDOG_CS_RECFG_STAT))
-    {
-        if (NULL_PTR != pWaitMask)
-        {
-            *pWaitMask = WDOG_CS_RECFG_STAT;
-        }
-        return BSP_CRASH_RECORD_BOOT_FAILURE_WDOG_FINAL_RECFG_TIMEOUT;
-    }
-
-    return BSP_CRASH_RECORD_BOOT_FAILURE_NONE;
+  return BSP_CRASH_RECORD_BOOT_FAILURE_NONE;
 }
 
 /*==================================================================================================
