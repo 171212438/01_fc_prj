@@ -21,6 +21,7 @@
     .extern __stack_top
     .extern Bsp_CrashRecord_ResetSnapshot
     .extern Bsp_CrashRecord_BootFailureSnapshot
+    .extern DefaultISR_Process
 
 /* ================================================================================================== */
 /*                                        Set vector table                                            */
@@ -556,18 +557,18 @@ EarlyRamRecordBootFailure:
     str     r3, [r0, #16]
     ldr     r3, =0x4007F04C           /* STCU_SRAM_INI_STATUS */
     ldr     r3, [r3]
-    str     r3, [r0, #20]
+    str     r3, [r0, #20]             /* status */
     ldr     r3, =0x4007F054           /* STCU_SRAM_INI_DONE_STATUS */
     ldr     r3, [r3]
-    str     r3, [r0, #24]
+    str     r3, [r0, #24]             /* status_aux */
     ldr     r3, =0x4007F050           /* STCU_SRAM_INI_SEL */
     ldr     r3, [r3]
-    str     r3, [r0, #28]
+    str     r3, [r0, #28]             /* config */
     ldr     r3, =0x4007F048           /* STCU_SRAM_INI_CTRL */
     ldr     r3, [r3]
-    str     r3, [r0, #32]
-    str     r4, [r0, #36]             /* selected_mask */
-    str     r6, [r0, #40]             /* expected_done_mask */
+    str     r3, [r0, #32]             /* control */
+    str     r4, [r0, #36]             /* data0: selected_mask */
+    str     r6, [r0, #40]             /* data1: expected_done_mask */
     movs    r3, #1
     str     r3, [r0, #44]             /* reset_requested */
     dsb
@@ -622,7 +623,12 @@ LoopClearStack:
     .weak DefaultISR
     .type DefaultISR, %function
 DefaultISR:
-    b       DefaultISR
+    tst     lr, #4
+    ite     ne
+    mrsne   r0, psp
+    mrseq   r0, msp
+    mov     r1, lr
+    b       DefaultISR_Process
     .size DefaultISR, . - DefaultISR
 
 /*    Macro to define default handlers. Default handler

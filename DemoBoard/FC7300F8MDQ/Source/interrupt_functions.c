@@ -53,6 +53,8 @@
    FC7XXX_SCB_CFSR_INVPC_MASK | FC7XXX_SCB_CFSR_NOCP_MASK | \
    FC7XXX_SCB_CFSR_UNALIGNED_MASK | FC7XXX_SCB_CFSR_DIVBYZERO_MASK)
 
+#define EXCEPTION_ICSR_VECTACTIVE_MASK FC7XXX_SCB_ICSR_VECTACTIVE_MASK
+
 typedef Bsp_CrashRecord_StackFrameType Hardfault_StackType;
 
 typedef struct {
@@ -190,6 +192,12 @@ static void Exception_SetMemFaultAddress(uint32 u32Cfsr)
     Exception_Info.address = FC7XXX_SCB->MMFAR;
     Exception_Info.address_valid = 1U;
   }
+}
+
+static void Exception_SetActiveVectorAddress(uint32 u32Icsr)
+{
+  Exception_Info.address = u32Icsr & EXCEPTION_ICSR_VECTACTIVE_MASK;
+  Exception_Info.address_valid = 1U;
 }
 
 static const char *Exception_GetBusFaultCause(uint32 u32Cfsr)
@@ -385,6 +393,42 @@ void HardFault_Process(const Hardfault_StackType *pStackFrame, uint32 u32ExcRetu
   Exception_FaultFinalAction();
 }
 
+void UnhandledException_Process(const Hardfault_StackType *pStackFrame, uint32 u32ExcReturn, uint32 u32FaultType, const char *pType, const char *pCause) __attribute__((noreturn));
+void UnhandledException_Process(const Hardfault_StackType *pStackFrame, uint32 u32ExcReturn, uint32 u32FaultType, const char *pType, const char *pCause)
+{
+  uint32 u32Icsr = FC7XXX_SCB->ICSR;
+  uint32 u32ActiveVector = u32Icsr & EXCEPTION_ICSR_VECTACTIVE_MASK;
+
+  Exception_CaptureContext(u32FaultType, u32ActiveVector, pType, pCause, pStackFrame, u32ExcReturn);
+  Exception_SetActiveVectorAddress(u32Icsr);
+  Exception_CommitCrashRecord();
+  Exception_FaultFinalAction();
+}
+
+void SVC_Process(const Hardfault_StackType *pStackFrame, uint32 u32ExcReturn) __attribute__((noreturn));
+void SVC_Process(const Hardfault_StackType *pStackFrame, uint32 u32ExcReturn)
+{
+  UnhandledException_Process(pStackFrame, u32ExcReturn, BSP_CRASH_RECORD_FAULT_SVC, "SVC", "Unhandled SVC exception");
+}
+
+void DebugMon_Process(const Hardfault_StackType *pStackFrame, uint32 u32ExcReturn) __attribute__((noreturn));
+void DebugMon_Process(const Hardfault_StackType *pStackFrame, uint32 u32ExcReturn)
+{
+  UnhandledException_Process(pStackFrame, u32ExcReturn, BSP_CRASH_RECORD_FAULT_DEBUGMON, "DebugMon", "Unhandled Debug Monitor exception");
+}
+
+void PendSV_Process(const Hardfault_StackType *pStackFrame, uint32 u32ExcReturn) __attribute__((noreturn));
+void PendSV_Process(const Hardfault_StackType *pStackFrame, uint32 u32ExcReturn)
+{
+  UnhandledException_Process(pStackFrame, u32ExcReturn, BSP_CRASH_RECORD_FAULT_PENDSV, "PendSV", "Unhandled PendSV exception");
+}
+
+void DefaultISR_Process(const Hardfault_StackType *pStackFrame, uint32 u32ExcReturn) __attribute__((noreturn));
+void DefaultISR_Process(const Hardfault_StackType *pStackFrame, uint32 u32ExcReturn)
+{
+  UnhandledException_Process(pStackFrame, u32ExcReturn, BSP_CRASH_RECORD_FAULT_DEFAULTISR, "DefaultISR", "Unhandled interrupt vector");
+}
+
 __attribute__((naked)) void NMI_Handler(void)
 {
     __asm volatile(" tst   lr, #4 \n"
@@ -415,19 +459,34 @@ __attribute__((naked)) void UsageFault_Handler(void)
                    " b     UsageFault_Process \n");
 }
 
-void SVC_Handler(void)
+__attribute__((naked)) void SVC_Handler(void)
 {
-  while (1);
+    __asm volatile(" tst   lr, #4 \n"
+                   " ite   ne \n"
+                   " mrsne r0, psp \n"
+                   " mrseq r0, msp \n"
+                   " mov   r1, lr \n"
+                   " b     SVC_Process \n");
 }
 
-void DebugMon_Handler(void)
+__attribute__((naked)) void DebugMon_Handler(void)
 {
-  while (1);
+    __asm volatile(" tst   lr, #4 \n"
+                   " ite   ne \n"
+                   " mrsne r0, psp \n"
+                   " mrseq r0, msp \n"
+                   " mov   r1, lr \n"
+                   " b     DebugMon_Process \n");
 }
 
-void PendSV_Handler(void)
+__attribute__((naked)) void PendSV_Handler(void)
 {
-  while (1);
+    __asm volatile(" tst   lr, #4 \n"
+                   " ite   ne \n"
+                   " mrsne r0, psp \n"
+                   " mrseq r0, msp \n"
+                   " mov   r1, lr \n"
+                   " b     PendSV_Process \n");
 }
 
   /*  Open what you need  */

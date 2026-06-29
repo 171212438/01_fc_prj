@@ -24,6 +24,7 @@
 #include "Platform_Types.h"
 #include "StdRegMacros.h"
 #include "Cpm_Reg.h"
+#include "Bsp_CrashRecord.h"
 
 /*==================================================================================================
 *                                      DEFINES AND MACROS
@@ -33,11 +34,14 @@
 #define DEMCR_ADDR                                  0xE000EDFCU
 #define CPACR_ADDR                                  0xE000ED88U
 #define SCB_VTOR_ADDR                               0xE000ED08U
+#define SCB_AIRCR_ADDR                              0xE000ED0CU
 
 #define DEMCR_TRCENA                                (1 << 24)  /* Bit 24: Global enable for all DWT and ITM features */
 
 #define CPACR_CP10_FULL_ACCESS                      (0x3 << 20)
 #define CPACR_CP11_FULL_ACCESS                      (0x3 << 22)
+#define SCB_AIRCR_VECTKEY_MASK                      0xFFFF0000U
+#define SCB_AIRCR_SYSRESETREQ_VALUE                 0x05FA0004U
 
 /* WDOG addresses and offsets */
 #define WDOG0_BASE_ADDR                             0x40022000U
@@ -67,6 +71,9 @@
 
 #define WDOG_CS_DISABLE_WDOG                        (WDOG_CS_UPDATE           | WDOG_CS_CLK_SEL_AON_CLK | \
                                                      WDOG_CS_PRESCALER_ENABLE | WDOG_CS_ULK_STAT)
+#define WDOG_STARTUP_WAIT_TIMEOUT                   0x01000000U
+
+#define RGM_SRS_ADDR                                0x40046008U
 
 /* Compiler related FPU macros */
 #define __FPU_PRESENT           1U
@@ -219,9 +226,74 @@ static void data_copy(uint32 *pHead, uint32 *pTail, uint32 *pSrc)
   }
 }
 
-static void wdog_disable(uint32 wdog_base)
+static uint32 wdog_wait_status_set(uint32 wdog_base, uint32 mask)
+{
+    uint32 timeout = WDOG_STARTUP_WAIT_TIMEOUT;
+
+    while (timeout != 0U)
+    {
+        if ((REG_READ32(wdog_base + WDOG_CS_OFFSET) & mask) != 0U)
+        {
+            return 1U;
+        }
+        timeout--;
+    }
+
+    return 0U;
+}
+
+static void system_init_request_reset(void)
+{
+    uint32 u32Aircr;
+
+    __asm volatile("dsb");
+    __asm volatile("isb");
+
+    u32Aircr = REG_READ32(SCB_AIRCR_ADDR);
+    u32Aircr &= ~SCB_AIRCR_VECTKEY_MASK;
+    u32Aircr |= SCB_AIRCR_SYSRESETREQ_VALUE;
+    REG_WRITE32(SCB_AIRCR_ADDR, u32Aircr);
+
+    __asm volatile("dsb");
+    __asm volatile("isb");
+
+    for (;;)
+    {
+    }
+}
+
+static void system_init_capture_boot_failure(uint32 reason, uint32 core_id, uint32 wdog_base, uint32 wait_mask)
+{
+    volatile Bsp_CrashRecord_BootFailureSnapshotType *pSnapshot = &Bsp_CrashRecord_BootFailureSnapshot;
+
+    pSnapshot->magic = 0U;
+    pSnapshot->version = BSP_CRASH_RECORD_BOOT_FAILURE_VERSION;
+    pSnapshot->length = (uint32)sizeof(Bsp_CrashRecord_BootFailureSnapshotType);
+    pSnapshot->reason = reason;
+    pSnapshot->reset_srs = REG_READ32(RGM_SRS_ADDR);
+    pSnapshot->status = REG_READ32(wdog_base + WDOG_CS_OFFSET);
+    pSnapshot->status_aux = REG_READ32(wdog_base + WDOG_TIMEOUT_OFFSET);
+    pSnapshot->config = REG_READ32(wdog_base + WDOG_WINDOW_OFFSET);
+    pSnapshot->control = wdog_base;
+    pSnapshot->data0 = core_id;
+    pSnapshot->data1 = wait_mask;
+    pSnapshot->reset_requested = 1U;
+
+    __asm volatile("dsb");
+    __asm volatile("isb");
+    pSnapshot->magic = BSP_CRASH_RECORD_BOOT_FAILURE_MAGIC;
+    __asm volatile("dsb");
+    __asm volatile("isb");
+}
+
+static uint32 wdog_disable(uint32 wdog_base, uint32 *pWaitMask)
 {
     uint32 try_cnt = 128u;
+
+    if (NULL_PTR != pWaitMask)
+    {
+        *pWaitMask = 0U;
+    }
 
     /* If it is not the first time to configure wdog, unlock status will only
        persist for 128 bus clocks. */
@@ -240,7 +312,14 @@ static void wdog_disable(uint32 wdog_base)
     {
         /* When ULK_STAT = 0, the wdog can only be unlocked when RECFG_STAT
            becomes 1. */
-        while ((REG_READ32(wdog_base + WDOG_CS_OFFSET) & WDOG_CS_RECFG_STAT) == 0);
+        if (0U == wdog_wait_status_set(wdog_base, WDOG_CS_RECFG_STAT))
+        {
+            if (NULL_PTR != pWaitMask)
+            {
+                *pWaitMask = WDOG_CS_RECFG_STAT;
+            }
+            return BSP_CRASH_RECORD_BOOT_FAILURE_WDOG_WAIT_RECFG_TIMEOUT;
+        }
 
         /* Unlock the wdog.
            Note: The unlock status only persist for 128 bus clocks, you shall
@@ -248,7 +327,14 @@ static void wdog_disable(uint32 wdog_base)
         REG_WRITE32(wdog_base + WDOG_COUNTER_OFFSET, WDOG_COUNTER_UNLOCK);
 
         /* Wait until the unlock take effect. */
-        while ((REG_READ32(wdog_base + WDOG_CS_OFFSET) & WDOG_CS_ULK_STAT) == 0);
+        if (0U == wdog_wait_status_set(wdog_base, WDOG_CS_ULK_STAT))
+        {
+            if (NULL_PTR != pWaitMask)
+            {
+                *pWaitMask = WDOG_CS_ULK_STAT;
+            }
+            return BSP_CRASH_RECORD_BOOT_FAILURE_WDOG_WAIT_UNLOCK_TIMEOUT;
+        }
     }
 
     /* Disable Watchdog */
@@ -258,7 +344,16 @@ static void wdog_disable(uint32 wdog_base)
     REG_WRITE32(wdog_base + WDOG_TIMEOUT_OFFSET, 0xFFFFu);
 
     /* Wait the RECFG_STAT to become 1. */
-    while ((REG_READ32(wdog_base + WDOG_CS_OFFSET) & WDOG_CS_RECFG_STAT) == 0);
+    if (0U == wdog_wait_status_set(wdog_base, WDOG_CS_RECFG_STAT))
+    {
+        if (NULL_PTR != pWaitMask)
+        {
+            *pWaitMask = WDOG_CS_RECFG_STAT;
+        }
+        return BSP_CRASH_RECORD_BOOT_FAILURE_WDOG_FINAL_RECFG_TIMEOUT;
+    }
+
+    return BSP_CRASH_RECORD_BOOT_FAILURE_NONE;
 }
 
 /*==================================================================================================
@@ -319,6 +414,9 @@ void data_init(void)
 __attribute__((noreturn)) void system_init(void)
 {
   uint32 u32CoreId;
+  uint32 u32WdogBaseAddr = 0U;
+  uint32 u32WdogFailureReason;
+  uint32 u32WdogWaitMask;
 
   /* Workaround for erratum ERR_Debug_001 */
   /* clear dwt counter to handle cpu0 lockstep error under debug */
@@ -336,25 +434,32 @@ __attribute__((noreturn)) void system_init(void)
     /* Core0 RAM initialization and ECC enable are handled in Reset_Handler before the C stack is used. */
 
     /* disable wdog 0 */
-    wdog_disable(WDOG0_BASE_ADDR);
+    u32WdogBaseAddr = WDOG0_BASE_ADDR;
   } else if (1U == u32CoreId) {
     /* disable wdog 1 */
-    wdog_disable(WDOG1_BASE_ADDR);
+    u32WdogBaseAddr = WDOG1_BASE_ADDR;
   } else if (2U == u32CoreId) {
     /* disable wdog 2 */
-    wdog_disable(WDOG2_BASE_ADDR);
+    u32WdogBaseAddr = WDOG2_BASE_ADDR;
   } else if (3U == u32CoreId) {
     /* disable wdog 3 */
-    wdog_disable(WDOG3_BASE_ADDR);
+    u32WdogBaseAddr = WDOG3_BASE_ADDR;
   } else {
     /* This shall never be reached */
+  }
+
+  if (0U != u32WdogBaseAddr) {
+    u32WdogFailureReason = wdog_disable(u32WdogBaseAddr, &u32WdogWaitMask);
+    if (BSP_CRASH_RECORD_BOOT_FAILURE_NONE != u32WdogFailureReason) {
+      system_init_capture_boot_failure(u32WdogFailureReason, u32CoreId, u32WdogBaseAddr, u32WdogWaitMask);
+      system_init_request_reset();
+    }
   }
 
   /* Initialize data */
   data_init();
 
-  /* Enable global interrupt */
-  __asm volatile("cpsie i");
+  /* Keep global interrupts masked until application initialization is complete. */
 
   /* Call main function */
   main();

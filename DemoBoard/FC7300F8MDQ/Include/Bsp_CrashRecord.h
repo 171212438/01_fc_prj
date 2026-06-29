@@ -20,12 +20,19 @@
 #define BSP_CRASH_RECORD_FAULT_MEMMANAGE  (3U)
 #define BSP_CRASH_RECORD_FAULT_BUSFAULT   (4U)
 #define BSP_CRASH_RECORD_FAULT_USAGEFAULT (5U)
+#define BSP_CRASH_RECORD_FAULT_SVC        (6U)
+#define BSP_CRASH_RECORD_FAULT_DEBUGMON   (7U)
+#define BSP_CRASH_RECORD_FAULT_PENDSV     (8U)
+#define BSP_CRASH_RECORD_FAULT_DEFAULTISR (9U)
 
 #define BSP_CRASH_RECORD_BOOT_FAILURE_NONE                    (0U)
 #define BSP_CRASH_RECORD_BOOT_FAILURE_STCU_WAIT_IDLE_TIMEOUT  (1U)
 #define BSP_CRASH_RECORD_BOOT_FAILURE_STCU_ABORT              (2U)
 #define BSP_CRASH_RECORD_BOOT_FAILURE_STCU_WAIT_DONE_TIMEOUT  (3U)
 #define BSP_CRASH_RECORD_BOOT_FAILURE_STCU_DONE_MASK_MISMATCH (4U)
+#define BSP_CRASH_RECORD_BOOT_FAILURE_WDOG_WAIT_RECFG_TIMEOUT (5U)
+#define BSP_CRASH_RECORD_BOOT_FAILURE_WDOG_WAIT_UNLOCK_TIMEOUT (6U)
+#define BSP_CRASH_RECORD_BOOT_FAILURE_WDOG_FINAL_RECFG_TIMEOUT (7U)
 
 typedef struct {
   uint32 stacked_r0;  /* R0 stacked by hardware on exception entry. */
@@ -74,12 +81,12 @@ typedef struct {
   uint32 length;             /* Size of this structure in bytes. */
   uint32 reason;             /* BSP_CRASH_RECORD_BOOT_FAILURE_* value. */
   uint32 reset_srs;          /* RGM_SRS value observed in early startup. */
-  uint32 stcu_status;        /* STCU_SRAM_INI_STATUS at failure handling. */
-  uint32 stcu_done_status;   /* STCU_SRAM_INI_DONE_STATUS at failure handling. */
-  uint32 stcu_sel;           /* STCU_SRAM_INI_SEL at failure handling. */
-  uint32 stcu_ctrl;          /* STCU_SRAM_INI_CTRL at failure handling. */
-  uint32 selected_mask;      /* Startup-selected SRAM/TCM mask. */
-  uint32 expected_done_mask; /* Required STCU_SRAM_INI_DONE_STATUS mask. */
+  uint32 status;             /* Primary status register captured at failure handling. */
+  uint32 status_aux;         /* Secondary status register or related value. */
+  uint32 config;             /* Configuration register or selected resource. */
+  uint32 control;            /* Control register or peripheral base address. */
+  uint32 data0;              /* Failure-specific context word 0. */
+  uint32 data1;              /* Failure-specific context word 1. */
   uint32 reset_requested;    /* Nonzero when Reset_Handler requested SYSRESETREQ. */
 } Bsp_CrashRecord_BootFailureSnapshotType;
 

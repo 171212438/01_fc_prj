@@ -25,12 +25,12 @@ void Bsp_Mcu_ResetReason_Capture(void)
     tDiag.boot_failure_snapshot.length = 0U;
     tDiag.boot_failure_snapshot.reason = BSP_CRASH_RECORD_BOOT_FAILURE_NONE;
     tDiag.boot_failure_snapshot.reset_srs = 0U;
-    tDiag.boot_failure_snapshot.stcu_status = 0U;
-    tDiag.boot_failure_snapshot.stcu_done_status = 0U;
-    tDiag.boot_failure_snapshot.stcu_sel = 0U;
-    tDiag.boot_failure_snapshot.stcu_ctrl = 0U;
-    tDiag.boot_failure_snapshot.selected_mask = 0U;
-    tDiag.boot_failure_snapshot.expected_done_mask = 0U;
+    tDiag.boot_failure_snapshot.status = 0U;
+    tDiag.boot_failure_snapshot.status_aux = 0U;
+    tDiag.boot_failure_snapshot.config = 0U;
+    tDiag.boot_failure_snapshot.control = 0U;
+    tDiag.boot_failure_snapshot.data0 = 0U;
+    tDiag.boot_failure_snapshot.data1 = 0U;
     tDiag.boot_failure_snapshot.reset_requested = 0U;
 
     for (u32Index = 0U; u32Index < BSP_CRASH_RECORD_RESET_SNAPSHOT_CORE_COUNT; u32Index++)
@@ -106,16 +106,16 @@ void Bsp_Mcu_ResetReason_Print(void)
 
         if (TRUE == tDiag.boot_failure_snapshot_valid)
         {
-            DEBUG_INFO("Startup boot failure: reason=%d reset_srs=0x%x stcu_status=0x%x stcu_done=0x%x\r\n",
+            DEBUG_INFO("Startup boot failure: reason=%d reset_srs=0x%x status=0x%x status_aux=0x%x\r\n",
                        tDiag.boot_failure_snapshot.reason,
                        tDiag.boot_failure_snapshot.reset_srs,
-                       tDiag.boot_failure_snapshot.stcu_status,
-                       tDiag.boot_failure_snapshot.stcu_done_status);
-            DEBUG_INFO("Startup boot failure STCU: sel=0x%x ctrl=0x%x selected=0x%x expected=0x%x reset_requested=%d\r\n",
-                       tDiag.boot_failure_snapshot.stcu_sel,
-                       tDiag.boot_failure_snapshot.stcu_ctrl,
-                       tDiag.boot_failure_snapshot.selected_mask,
-                       tDiag.boot_failure_snapshot.expected_done_mask,
+                       tDiag.boot_failure_snapshot.status,
+                       tDiag.boot_failure_snapshot.status_aux);
+            DEBUG_INFO("Startup boot failure context: config=0x%x control=0x%x data0=0x%x data1=0x%x reset_requested=%d\r\n",
+                       tDiag.boot_failure_snapshot.config,
+                       tDiag.boot_failure_snapshot.control,
+                       tDiag.boot_failure_snapshot.data0,
+                       tDiag.boot_failure_snapshot.data1,
                        tDiag.boot_failure_snapshot.reset_requested);
         }
     }

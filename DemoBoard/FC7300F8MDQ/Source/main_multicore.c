@@ -332,9 +332,6 @@ BSP_TEXT_SECTION int main(void)
 {
     boolean bReturnFlag = TRUE;
 
-    uint8 u8TestFlag;
-    u8TestFlag = 2 / 0;
-
     if (0U == GET_CPU_ID())
     {
         Bsp_Mpu_Init();

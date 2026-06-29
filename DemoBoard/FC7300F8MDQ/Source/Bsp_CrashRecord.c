@@ -795,12 +795,12 @@ Std_ReturnType Bsp_CrashRecord_GetBootFailureSnapshot(Bsp_CrashRecord_BootFailur
   pSnapshot->length = Bsp_CrashRecord_BootFailureSnapshot.length;
   pSnapshot->reason = Bsp_CrashRecord_BootFailureSnapshot.reason;
   pSnapshot->reset_srs = Bsp_CrashRecord_BootFailureSnapshot.reset_srs;
-  pSnapshot->stcu_status = Bsp_CrashRecord_BootFailureSnapshot.stcu_status;
-  pSnapshot->stcu_done_status = Bsp_CrashRecord_BootFailureSnapshot.stcu_done_status;
-  pSnapshot->stcu_sel = Bsp_CrashRecord_BootFailureSnapshot.stcu_sel;
-  pSnapshot->stcu_ctrl = Bsp_CrashRecord_BootFailureSnapshot.stcu_ctrl;
-  pSnapshot->selected_mask = Bsp_CrashRecord_BootFailureSnapshot.selected_mask;
-  pSnapshot->expected_done_mask = Bsp_CrashRecord_BootFailureSnapshot.expected_done_mask;
+  pSnapshot->status = Bsp_CrashRecord_BootFailureSnapshot.status;
+  pSnapshot->status_aux = Bsp_CrashRecord_BootFailureSnapshot.status_aux;
+  pSnapshot->config = Bsp_CrashRecord_BootFailureSnapshot.config;
+  pSnapshot->control = Bsp_CrashRecord_BootFailureSnapshot.control;
+  pSnapshot->data0 = Bsp_CrashRecord_BootFailureSnapshot.data0;
+  pSnapshot->data1 = Bsp_CrashRecord_BootFailureSnapshot.data1;
   pSnapshot->reset_requested = Bsp_CrashRecord_BootFailureSnapshot.reset_requested;
 
   return (Std_ReturnType)E_OK;
