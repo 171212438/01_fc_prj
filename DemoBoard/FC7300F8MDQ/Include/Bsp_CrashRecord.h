@@ -104,23 +104,3 @@ void Bsp_CrashRecord_Clear(void); /* Clear RAM record and request persistent cle
 const volatile Bsp_CrashRecord_RecordType *Bsp_CrashRecord_GetRecord(void);
 
 #endif /* _BSP_CRASH_RECORD_H_ */
-  uint32 cfsr;                            /* Raw CFSR snapshot. */
-  uint32 shcsr;                           /* Raw SHCSR snapshot. */
-  uint32 dfsr;                            /* Raw DFSR snapshot. */
-  uint32 afsr;                            /* Raw AFSR snapshot. */
-  uint32 mmfar;                           /* Raw MMFAR snapshot. */
-  uint32 bfar;                            /* Raw BFAR snapshot. */
-  Bsp_CrashRecord_StackFrameType stacked; /* Hardware-stacked interrupted context. */
-} Bsp_CrashRecord_RecordType;
-
-extern volatile Bsp_CrashRecord_RecordType Bsp_CrashRecord_Record;
-
-void Bsp_CrashRecord_CaptureFromException(const Bsp_CrashRecord_ExceptionInfoType *pExceptionInfo);
-void Bsp_CrashRecord_MainFunction(void);
-uint32 Bsp_CrashRecord_IsPending(void);
-Std_ReturnType Bsp_CrashRecord_GetLatest(Bsp_CrashRecord_RecordType *pRecord); /* Copy newest valid record. */
-Std_ReturnType Bsp_CrashRecord_GetByIndex(uint16 u16Index, Bsp_CrashRecord_RecordType *pRecord); /* 0 is newest. */
-void Bsp_CrashRecord_Clear(void); /* Clear RAM record and request persistent clear when storage is enabled. */
-const volatile Bsp_CrashRecord_RecordType *Bsp_CrashRecord_GetRecord(void);
-
-#endif /* _BSP_CRASH_RECORD_H_ */
