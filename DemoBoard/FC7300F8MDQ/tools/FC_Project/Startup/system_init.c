@@ -24,7 +24,6 @@
 #include "Platform_Types.h"
 #include "StdRegMacros.h"
 #include "Cpm_Reg.h"
-#include "Bsp_CrashRecord.h"
 
 /*==================================================================================================
 *                                      DEFINES AND MACROS
@@ -34,14 +33,11 @@
 #define DEMCR_ADDR                                  0xE000EDFCU
 #define CPACR_ADDR                                  0xE000ED88U
 #define SCB_VTOR_ADDR                               0xE000ED08U
-#define SCB_AIRCR_ADDR                              0xE000ED0CU
 
 #define DEMCR_TRCENA                                (1 << 24)  /* Bit 24: Global enable for all DWT and ITM features */
 
 #define CPACR_CP10_FULL_ACCESS                      (0x3 << 20)
 #define CPACR_CP11_FULL_ACCESS                      (0x3 << 22)
-#define SCB_AIRCR_VECTKEY_MASK                      0xFFFF0000U
-#define SCB_AIRCR_SYSRESETREQ_VALUE                 0x05FA0004U
 
 /* WDOG addresses and offsets */
 #define WDOG0_BASE_ADDR                             0x40022000U
@@ -66,16 +62,142 @@
 #define WDOG_CS_PRESCALER_SHIFT                     (12)      /* Bit 12: Watchdog 256 prescale enable/disable */
 #define WDOG_CS_PRESCALER_MASK                      (1 << WDOG_CS_PRESCALER_SHIFT)
 #define WDOG_CS_PRESCALER_ENABLE                    (1 << WDOG_CS_PRESCALER_SHIFT) /* Bit 12: Watchdog prescalr */
-#define WDOG_CS_ENABLE                              (1 << 7)  /* Bit 7: Watchdog enable */
-#define WDOG_CS_FLAG                                (1 << 14) /* Bit 14: Interrupt flag */
 
 #define WDOG_COUNTER_UNLOCK                         0x08181982  /* Value to unlock the watchdog registers */
 
-#define WDOG_STARTUP_WAIT_TIMEOUT                   0x01000000U
-#define WDOG_FIRST_CONFIGURATION_SAMPLE_COUNT       128U
-#define WDOG_CS_STATUS_BITS                         (WDOG_CS_FLAG | WDOG_CS_RECFG_STAT | WDOG_CS_ULK_STAT)
+#define WDOG_CS_DISABLE_WDOG                        (WDOG_CS_UPDATE           | WDOG_CS_CLK_SEL_AON_CLK | \
+                                                     WDOG_CS_PRESCALER_ENABLE | WDOG_CS_ULK_STAT)
 
-#define RGM_SRS_ADDR                                0x40046008U
+/* SMC addresses and offsets */
+#define SMC_BASE_ADDR                               0x40045000U
+
+#define SMC_PMCTRL_OFFSET                           0x000C
+#define SMC_STANDBY_CFG_OFFSET                      0x0010
+
+#define SMC_STANDBY_CFG_OPTION_MASK                 0x3U
+
+/* STCU addresses and offsets */
+#define PCC_STCU_ADDR                               0x400241FCU
+#define STCU_BASE_ADDR                              0x4007F000U
+
+#define STCU_SRAM_INI_CTRL_OFFSET                   0x0048  /* SRAM Initialization Control Register */
+#define STCU_SRAM_INI_STATUS_OFFSET                 0x004C  /* SRAM Initialization Status Register */
+#define STCU_SRAM_INI_SEL_OFFSET                    0x0050  /* SRAM Initialization Select Register */
+#define STCU_SRAM_INI_DONE_STATUS_OFFSET            0x0054  /* SRAM Initialization Done Status Register */
+
+/* STCU_SRAM_INI_CTRL Fields */
+#define STCU_SRAM_INI_CTRL_EN                       (1 << 0)
+#define STCU_SRAM_INI_CTRL_LOCK                     (1 << 1)
+#define STCU_SRAM_INI_CTRL_MODE_MASK                (0x30000)
+#define STCU_SRAM_INI_CTRL_MODE_SHIFT               (16)
+#define STCU_SRAM_INI_CTRL_MODE_WIDTH               (2)
+#  define STCU_SRAM_INI_CTRL_MODE(x)                (((uint32)(((uint32)(x))<<STCU_SRAM_INI_CTRL_MODE_SHIFT))&STCU_SRAM_INI_CTRL_MODE_MASK)
+#  define STCU_SRAM_INI_CTRL_MODE_POR_STANDBY0      (0x0)
+#  define STCU_SRAM_INI_CTRL_MODE_STANDBY1          (0x10000)
+#  define STCU_SRAM_INI_CTRL_MODE_STANDBY2          (0x20000)
+#  define STCU_SRAM_INI_CTRL_MODE_STANDBY3          (0x30000)
+
+/* STCU_SRAM_INI_STATUS Fields */
+#define STCU_SRAM_INI_STATUS_DONE                   (1 << 0)
+#define STCU_SRAM_INI_STATUS_BUSY                   (1 << 1)
+#define STCU_SRAM_INI_STATUS_ABORT                  (1 << 2)
+
+/* STCU_SRAM_INI_SEL Fields */
+#define STCU_SRAM_INI_SEL_SRAM0_0                   (1 << 0)
+#define STCU_SRAM_INI_SEL_SRAM0_1                   (1 << 1)
+#define STCU_SRAM_INI_SEL_SRAM1_0                   (1 << 2)
+#define STCU_SRAM_INI_SEL_SRAM1_1                   (1 << 3)
+#define STCU_SRAM_INI_SEL_SRAM2_0                   (1 << 4)
+#define STCU_SRAM_INI_SEL_SRAM2_1                   (1 << 5)
+#define STCU_SRAM_INI_SEL_SRAM2_2                   (1 << 6)
+#define STCU_SRAM_INI_SEL_ITCM_CPU0                 (1 << 7)
+#define STCU_SRAM_INI_SEL_DTCM0_CPU0                (1 << 8)
+#define STCU_SRAM_INI_SEL_DTCM1_CPU0                (1 << 9)
+#define STCU_SRAM_INI_SEL_ITCM_CPU1                 (1 << 10)
+#define STCU_SRAM_INI_SEL_DTCM0_CPU1                (1 << 11)
+#define STCU_SRAM_INI_SEL_DTCM1_CPU1                (1 << 12)
+#define STCU_SRAM_INI_SEL_ITCM_CPU2                 (1 << 13)
+#define STCU_SRAM_INI_SEL_DTCM0_CPU2                (1 << 14)
+#define STCU_SRAM_INI_SEL_DTCM1_CPU2                (1 << 15)
+#define STCU_SRAM_INI_SEL_ITCM_CPU3                 (1 << 16)
+#define STCU_SRAM_INI_SEL_DTCM0_CPU3                (1 << 17)
+#define STCU_SRAM_INI_SEL_DTCM1_CPU3                (1 << 18)
+
+#define STCU_SRAM_INI_SEL_ALL                                     \
+  (STCU_SRAM_INI_SEL_SRAM0_0    | STCU_SRAM_INI_SEL_SRAM0_1    |  \
+   STCU_SRAM_INI_SEL_SRAM1_0    | STCU_SRAM_INI_SEL_SRAM1_1    |  \
+   STCU_SRAM_INI_SEL_SRAM2_0    | STCU_SRAM_INI_SEL_SRAM2_1    |  \
+   STCU_SRAM_INI_SEL_SRAM2_2    |  STCU_SRAM_INI_SEL_ITCM_CPU0 |  \
+   STCU_SRAM_INI_SEL_DTCM0_CPU0 | STCU_SRAM_INI_SEL_DTCM1_CPU0 |  \
+   STCU_SRAM_INI_SEL_ITCM_CPU1  | STCU_SRAM_INI_SEL_DTCM0_CPU1 |  \
+   STCU_SRAM_INI_SEL_DTCM1_CPU1 | STCU_SRAM_INI_SEL_ITCM_CPU2  |  \
+   STCU_SRAM_INI_SEL_DTCM0_CPU2 | STCU_SRAM_INI_SEL_DTCM1_CPU2 |  \
+   STCU_SRAM_INI_SEL_ITCM_CPU3  | STCU_SRAM_INI_SEL_DTCM0_CPU3 |  \
+   STCU_SRAM_INI_SEL_DTCM1_CPU3)
+
+/* STCU_SRAM_INI_DONE_STATUS Fields */
+#define STCU_SRAM_INI_DONE_STATUS_SRAM0_0           (1 << 0)
+#define STCU_SRAM_INI_DONE_STATUS_SRAM0_1           (1 << 1)
+#define STCU_SRAM_INI_DONE_STATUS_SRAM1_0           (1 << 2)
+#define STCU_SRAM_INI_DONE_STATUS_SRAM1_1           (1 << 3)
+#define STCU_SRAM_INI_DONE_STATUS_SRAM2_0           (1 << 4)
+#define STCU_SRAM_INI_DONE_STATUS_SRAM2_1           (1 << 5)
+#define STCU_SRAM_INI_DONE_STATUS_SRAM2_2           (1 << 6)
+#define STCU_SRAM_INI_DONE_STATUS_ITCM_CPU0         (1 << 7)
+#define STCU_SRAM_INI_DONE_STATUS_DTCM0_CPU0        (1 << 8)
+#define STCU_SRAM_INI_DONE_STATUS_DTCM1_CPU0        (1 << 9)
+#define STCU_SRAM_INI_DONE_STATUS_ITCM_CPU1         (1 << 10)
+#define STCU_SRAM_INI_DONE_STATUS_DTCM0_CPU1        (1 << 11)
+#define STCU_SRAM_INI_DONE_STATUS_DTCM1_CPU1        (1 << 12)
+#define STCU_SRAM_INI_DONE_STATUS_ITCM_CPU2         (1 << 13)
+#define STCU_SRAM_INI_DONE_STATUS_DTCM0_CPU2        (1 << 14)
+#define STCU_SRAM_INI_DONE_STATUS_DTCM1_CPU2        (1 << 15)
+#define STCU_SRAM_INI_DONE_STATUS_ITCM_CPU3         (1 << 16)
+#define STCU_SRAM_INI_DONE_STATUS_DTCM0_CPU3        (1 << 17)
+#define STCU_SRAM_INI_DONE_STATUS_DTCM1_CPU3        (1 << 18)
+
+/* SCM addresses and offsets */
+#define SCM_BASE_ADDR                               0x40072000U
+
+#define SCM_MAMECCEN0_OFFSET                        0x0020
+#define SCM_MAMECCEN1_OFFSET                        0x0024
+#define SCM_CPU0ECCEN_OFFSET                        0x0028
+#define SCM_CPU1ECCEN_OFFSET                        0x0030
+#define SCM_CPU2ECCEN_OFFSET                        0x0038
+#define SCM_CPU3ECCEN_OFFSET                        0x0130
+
+/* RGM addresses and offsets */
+#define RGM_BASE_ADDR                               0x40046000U
+
+#define RGM_SRS_OFFSET                              0x0008  /* RGM System Reset Status Register */
+#define RGM_SSRS_OFFSET                             0x0018  /* RGM Sticky Reset Status Register */
+
+/* RGM_SRS Bit Fields */
+#define RGM_SRS_SYSRST_TOUT                         (1 << 31) /* Bit 31:  System Reset Request Timeout Reset */
+#define RGM_SRS_PINRST_TOUT                         (1 << 30) /* Bit 30:  Pin Reset Request Timeout Reset */
+#define RGM_SRS_FSM_ERR                             (1 << 29) /* Bit 29:  FSM Error Reset */
+#define RGM_SRS_LBIST                               (1 << 15) /* Bit 15:  Logic BIST Reset */
+#define RGM_SRS_CMU                                 (1 << 14) /* Bit 14:  CMU Reset */
+#define RGM_SRS_SACKERR                             (1 << 13) /* Bit 13:  Stop Acknowledge Error */
+#define RGM_SRS_SYSAP                               (1 << 11) /* Bit 11:  SYSAP System Reset */
+#define RGM_SRS_JTAG                                (1 << 8)  /* Bit 8 :  JTAG generated reset */
+#define RGM_SRS_POR                                 (1 << 7)  /* Bit 7 :  Power-On Reset */
+#define RGM_SRS_PIN                                 (1 << 6)  /* Bit 6 :  Pin Reset */
+#define RGM_SRS_HSM_WDG                             (1 << 5)  /* Bit 5 :  HSM Watchdog Reset */
+#define RGM_SRS_FCSMU                               (1 << 4)  /* Bit 4 :  FCSMU Reset */
+#define RGM_SRS_CLKERR0                             (1 << 3)  /* Bit 3 :  Clock Error0 Reset */
+#define RGM_SRS_CLKERR1                             (1 << 2)  /* Bit 2 :  Clock Error1 Reset */
+#define RGM_SRS_LVR                                 (1 << 1)  /* Bit 1 :  Low Voltage Detect Reset */
+#define RGM_SRS_WAKEUP                              (1 << 0)  /* Bit 0 :  WAKEUP Reset */
+
+/* If the reset reason is one of the following types, the RAM of the MCU may be corrupt and needs
+ * to be cleared by STCU. */
+#define RGM_SRS_RAM_INVALID                    \
+  (RGM_SRS_SYSRST_TOUT | RGM_SRS_PINRST_TOUT | \
+   RGM_SRS_FSM_ERR     | RGM_SRS_CMU         | \
+   RGM_SRS_CLKERR0     | RGM_SRS_CLKERR1     | \
+   RGM_SRS_POR         | RGM_SRS_LVR         | \
+   RGM_SRS_LBIST)
 
 /* Compiler related FPU macros */
 #define __FPU_PRESENT           1U
@@ -212,172 +334,63 @@ extern int main(void);
 ==================================================================================================*/
 static void data_clear(uint32 *pHead, uint32 *pTail)
 {
-  while (pHead < pTail) {
-    *pHead = 0U;
-    pHead++;
-  }
+    while (pHead < pTail)
+    {
+        *pHead = 0U;
+        pHead++;
+    }
 }
 
 static void data_copy(uint32 *pHead, uint32 *pTail, uint32 *pSrc)
 {
-  while (pHead < pTail) {
-    *pHead = *pSrc;
-    pHead++;
-    pSrc++;
-  }
+    while (pHead < pTail)
+    {
+        *pHead = *pSrc;
+        pHead++;
+        pSrc++;
+    }
 }
 
-static uint32 wdog_wait_status_set(uint32 wdog_base, uint32 mask)
+static void wdog_disable(uint32 wdog_base)
 {
-  uint32 timeout = WDOG_STARTUP_WAIT_TIMEOUT;
+    uint32 try_cnt = 128u;
 
-  while (timeout != 0U) {
-    if ((REG_READ32(wdog_base + WDOG_CS_OFFSET) & mask) != 0U) {
-      return 1U;
-    }
-    timeout--;
-  }
-
-  return 0U;
-}
-
-static uint32 wdog_get_disable_cs(uint32 wdog_base)
-{
-  uint32 u32Cs;
-
-  u32Cs = REG_READ32(wdog_base + WDOG_CS_OFFSET);
-
-  /* Startup only disables WDOG: preserve configuration, keep UPDATE set for later MCAL reconfiguration,
-     clear ENABLE, and do not write status bits. */
-  u32Cs &= ~(WDOG_CS_ENABLE | WDOG_CS_STATUS_BITS);
-  u32Cs |= WDOG_CS_UPDATE;
-
-  return u32Cs;
-}
-
-static uint32 wdog_is_first_configuration(uint32 wdog_base)
-{
-  uint32 u32SampleCount = WDOG_FIRST_CONFIGURATION_SAMPLE_COUNT;
-
-  while (u32SampleCount != 0U) {
-    if ((REG_READ32(wdog_base + WDOG_CS_OFFSET) & WDOG_CS_ULK_STAT) == 0U) {
-      return 0U;
-    }
-    u32SampleCount--;
-  }
-
-  return 1U;
-}
-
-static uint32 wdog_wait_unlock_and_write_disable(uint32 wdog_base, uint32 u32DisableCs)
-{
-  uint32 timeout = WDOG_STARTUP_WAIT_TIMEOUT;
-
-  while (timeout != 0U) {
-    if ((REG_READ32(wdog_base + WDOG_CS_OFFSET) & WDOG_CS_ULK_STAT) != 0U) {
-      REG_WRITE32(wdog_base + WDOG_CS_OFFSET, u32DisableCs);
-      return 1U;
-    }
-    timeout--;
-  }
-
-  return 0U;
-}
-
-static void system_init_request_reset(void)
-{
-  uint32 u32Aircr;
-
-  __asm volatile("dsb");
-  __asm volatile("isb");
-
-  u32Aircr = REG_READ32(SCB_AIRCR_ADDR);
-  u32Aircr &= ~SCB_AIRCR_VECTKEY_MASK;
-  u32Aircr |= SCB_AIRCR_SYSRESETREQ_VALUE;
-  REG_WRITE32(SCB_AIRCR_ADDR, u32Aircr);
-
-  __asm volatile("dsb");
-  __asm volatile("isb");
-
-  for (;;) {
-  }
-}
-
-static void system_init_capture_boot_failure(uint32 reason, uint32 core_id, uint32 wdog_base, uint32 wait_mask)
-{
-  volatile Bsp_CrashRecord_BootFailureSnapshotType *pSnapshot = &Bsp_CrashRecord_BootFailureSnapshot;
-
-  pSnapshot->magic = 0U;
-  pSnapshot->version = BSP_CRASH_RECORD_BOOT_FAILURE_VERSION;
-  pSnapshot->length = (uint32)sizeof(Bsp_CrashRecord_BootFailureSnapshotType);
-  pSnapshot->reason = reason;
-  pSnapshot->reset_srs = REG_READ32(RGM_SRS_ADDR);
-  pSnapshot->status = REG_READ32(wdog_base + WDOG_CS_OFFSET);
-  pSnapshot->status_aux = REG_READ32(wdog_base + WDOG_TIMEOUT_OFFSET);
-  pSnapshot->config = REG_READ32(wdog_base + WDOG_WINDOW_OFFSET);
-  pSnapshot->control = wdog_base;
-  pSnapshot->data0 = core_id;
-  pSnapshot->data1 = wait_mask;
-  pSnapshot->reset_requested = 1U;
-
-  __asm volatile("dsb");
-  __asm volatile("isb");
-  pSnapshot->magic = BSP_CRASH_RECORD_BOOT_FAILURE_MAGIC;
-  __asm volatile("dsb");
-  __asm volatile("isb");
-}
-
-static uint32 wdog_disable(uint32 wdog_base, uint32 *pWaitMask)
-{
-  uint32 u32DisableCs;
-
-  if (NULL_PTR != pWaitMask) {
-    *pWaitMask = 0U;
-  }
-
-  u32DisableCs = wdog_get_disable_cs(wdog_base);
-
-  if (0U == wdog_is_first_configuration(wdog_base)) {
-    /* Non-first reconfiguration path: wait for a configurable state, unlock, then write CS immediately. */
-    if (0U == wdog_wait_status_set(wdog_base, WDOG_CS_RECFG_STAT)) {
-      if (NULL_PTR != pWaitMask) {
-        *pWaitMask = WDOG_CS_RECFG_STAT;
-      }
-      return BSP_CRASH_RECORD_BOOT_FAILURE_WDOG_WAIT_RECFG_TIMEOUT;
+    /* If it is not the first time to configure wdog, unlock status will only
+       persist for 128 bus clocks. */
+    while (try_cnt != 0)
+    {
+        if ((REG_READ32(wdog_base + WDOG_CS_OFFSET) & WDOG_CS_ULK_STAT) == 0)
+        {
+            break;
+        }
+        try_cnt--;
     }
 
-    /* Unlock the wdog.
-       Note: The unlock status only persist for 128 bus clocks, you shall
-       not use single-step or break points in the following few lines.  */
-    REG_WRITE32(wdog_base + WDOG_COUNTER_OFFSET, WDOG_COUNTER_UNLOCK);
+    /* If ULK_STAT turns into 0 in 128 try counts, it means this is not the
+       first time to configure the wdog. */
+    if (try_cnt != 0)
+    {
+        /* When ULK_STAT = 0, the wdog can only be unlocked when RECFG_STAT
+           becomes 1. */
+        while ((REG_READ32(wdog_base + WDOG_CS_OFFSET) & WDOG_CS_RECFG_STAT) == 0);
 
-    if (0U == wdog_wait_unlock_and_write_disable(wdog_base, u32DisableCs)) {
-      if (NULL_PTR != pWaitMask) {
-        *pWaitMask = WDOG_CS_ULK_STAT;
-      }
-      return BSP_CRASH_RECORD_BOOT_FAILURE_WDOG_WAIT_UNLOCK_TIMEOUT;
+        /* Unlock the wdog.
+           Note: The unlock status only persist for 128 bus clocks, you shall
+           not use single-step or break points in the following few lines.  */
+        REG_WRITE32(wdog_base + WDOG_COUNTER_OFFSET, WDOG_COUNTER_UNLOCK);
+
+        /* Wait until the unlock take effect. */
+        while ((REG_READ32(wdog_base + WDOG_CS_OFFSET) & WDOG_CS_ULK_STAT) == 0);
     }
-  } else {
-    /* Reset first configuration path: no unlock is required. */
-    REG_WRITE32(wdog_base + WDOG_CS_OFFSET, u32DisableCs);
-  }
 
-  /* Wait the RECFG_STAT to become 1. */
-  if (0U == wdog_wait_status_set(wdog_base, WDOG_CS_RECFG_STAT)) {
-    if (NULL_PTR != pWaitMask) {
-      *pWaitMask = WDOG_CS_RECFG_STAT;
-    }
-    return BSP_CRASH_RECORD_BOOT_FAILURE_WDOG_FINAL_RECFG_TIMEOUT;
-  }
+    /* Disable Watchdog */
+    REG_WRITE32(wdog_base + WDOG_CS_OFFSET, WDOG_CS_DISABLE_WDOG);
 
-  if ((REG_READ32(wdog_base + WDOG_CS_OFFSET) & WDOG_CS_UPDATE) == 0U) {
-    if (NULL_PTR != pWaitMask) {
-      *pWaitMask = WDOG_CS_UPDATE;
-    }
-    return BSP_CRASH_RECORD_BOOT_FAILURE_WDOG_UPDATE_DISABLED;
-  }
+    /* Configure timeout to the maximum. */
+    REG_WRITE32(wdog_base + WDOG_TIMEOUT_OFFSET, 0xFFFFu);
 
-  return BSP_CRASH_RECORD_BOOT_FAILURE_NONE;
+    /* Wait the RECFG_STAT to become 1. */
+    while ((REG_READ32(wdog_base + WDOG_CS_OFFSET) & WDOG_CS_RECFG_STAT) == 0);
 }
 
 /*==================================================================================================
@@ -385,110 +398,189 @@ static uint32 wdog_disable(uint32 wdog_base, uint32 *pWaitMask)
 ==================================================================================================*/
 void data_init(void)
 {
-  /* core 0 */
-  if (0U == Cpm_HWA_GetCoreId()) {
-    /* bss */
-    data_clear(__bss_start, __bss_end);
-    /* non-cached bss */
-    data_clear(__nocachable_bss_start, __nocachable_bss_end);
-    /* rtt buffer */
-    data_clear(__rtt_buffer_bss_start, __rtt_buffer_bss_end);
-    /* shared bss */
-    data_clear(__shareable_bss_start, __shareable_bss_end);
-    /* data */
-    data_copy(__ram_data_start, __ram_data_end, __rom_data_start);
-    /* non-cached data */
-    data_copy(__ram_nocachable_data_start, __ram_nocachable_data_end, __rom_nocachable_data_start);
-    /* shared data */
-    data_copy(__ram_shareable_data_start, __ram_shareable_data_end, __rom_shareable_data_start);
-  }
-  /* core 1 */
-  else if (1U == Cpm_HWA_GetCoreId()) {
+    /* core 0 */
+    if (0U == Cpm_HWA_GetCoreId())
+    {
+        /* bss */
+        data_clear(__bss_start, __bss_end);
+        /* non-cached bss */
+        data_clear(__nocachable_bss_start, __nocachable_bss_end);
+        /* rtt buffer */
+        data_clear(__rtt_buffer_bss_start, __rtt_buffer_bss_end);
+        /* shared bss */
+        data_clear(__shareable_bss_start, __shareable_bss_end);
+        /* data */
+        data_copy(__ram_data_start, __ram_data_end, __rom_data_start);
+        /* non-cached data */
+        data_copy(__ram_nocachable_data_start,
+                  __ram_nocachable_data_end,
+                  __rom_nocachable_data_start);
+        /* shared data */
+        data_copy(__ram_shareable_data_start,
+                  __ram_shareable_data_end,
+                  __rom_shareable_data_start);
+    }
+    /* core 1 */
+    else if (1U == Cpm_HWA_GetCoreId())
+    {
 #if defined DATA_IN_DTCM
-    /* bss */
-    data_clear(__bss_start, __bss_end);
-    /* data */
-    data_copy(__ram_data_start, __ram_data_end, __rom_data_start);
+        /* bss */
+        data_clear(__bss_start, __bss_end);
+        /* data */
+        data_copy(__ram_data_start, __ram_data_end, __rom_data_start);
 #endif
-  }
-  /* core 2 */
-  else if (2U == Cpm_HWA_GetCoreId()) {
+    }
+    /* core 2 */
+    else if (2U == Cpm_HWA_GetCoreId())
+    {
 #if defined DATA_IN_DTCM
-    /* bss */
-    data_clear(__bss_start, __bss_end);
-    /* data */
-    data_copy(__ram_data_start, __ram_data_end, __rom_data_start);
+        /* bss */
+        data_clear(__bss_start, __bss_end);
+        /* data */
+        data_copy(__ram_data_start, __ram_data_end, __rom_data_start);
 #endif
-  }
+    }
 
-  data_clear(__seperated_bss_start, __seperated_bss_end);
+    data_clear(__seperated_bss_start, __seperated_bss_end);
 
-  data_copy(__ram_seperated_data_start, __ram_seperated_data_end, __rom_seperated_data_start);
+    data_copy(__ram_seperated_data_start,
+              __ram_seperated_data_end,
+              __rom_seperated_data_start);
 
-  /* RAM function */
-  data_copy(__ram_itcm_func_start, __ram_itcm_func_end, __rom_itcm_func_start);
+    /* RAM function */
+    data_copy(__ram_itcm_func_start,
+              __ram_itcm_func_end,
+              __rom_itcm_func_start);
 
-  /* RAM vector table */
-  data_copy(__ram_intvec_start, __ram_intvec_end, __rom_intvec_start);
+    /* RAM vector table */
+    data_copy(__ram_intvec_start,
+              __ram_intvec_end,
+              __rom_intvec_start);
 
-  /* Set VTOR */
-  REG_WRITE32(SCB_VTOR_ADDR, (uint32)__ram_intvec_start);
+    /* Set VTOR */
+    REG_WRITE32(SCB_VTOR_ADDR, (uint32)__ram_intvec_start);
 }
 
 __attribute__((noreturn)) void system_init(void)
 {
-  uint32 u32CoreId;
-  uint32 u32WdogBaseAddr = 0U;
-  uint32 u32WdogFailureReason;
-  uint32 u32WdogWaitMask;
+    uint32 u32CoreId;
+    uint32 u32ResetType;
+    uint32 standbymode;
 
-  /* Workaround for erratum ERR_Debug_001 */
-  /* clear dwt counter to handle cpu0 lockstep error under debug */
-  REG_WRITE32(DEMCR_ADDR, DEMCR_TRCENA); /* Enable DWT and ITM features */
-  REG_WRITE32(DWT_CYCCNT_ADDR, 0U);      /* Clear DWT_CYCCNT */
+    /* Workaround for erratum ERR_Debug_001 */
+    /* clear dwt counter to handle cpu0 lockstep error under debug */
+    REG_WRITE32(DEMCR_ADDR, DEMCR_TRCENA); /* Enable DWT and ITM features */
+    REG_WRITE32(DWT_CYCCNT_ADDR, 0U); /* Clear DWT_CYCCNT */
 
-  /* Enable FPU when FPU is used in compiler */
+    /* Enable FPU when FPU is used in compiler */
 #if ((__FPU_PRESENT == 1) && (__FPU_USED == 1))
-  /* set CP10, CP11 Full Access */
-  REG_WRITE32(CPACR_ADDR, CPACR_CP10_FULL_ACCESS | CPACR_CP11_FULL_ACCESS);
+    /* set CP10, CP11 Full Access */
+    REG_WRITE32(CPACR_ADDR, CPACR_CP10_FULL_ACCESS | CPACR_CP11_FULL_ACCESS);
 #endif /* ((__FPU_PRESENT == 1) && (__FPU_USED == 1)) */
 
-  u32CoreId = Cpm_HWA_GetCoreId();
-  if (0U == u32CoreId) {
-    /* Core0 RAM initialization and ECC enable are handled in Reset_Handler before the C stack is used. */
+    u32CoreId = Cpm_HWA_GetCoreId();
+    if (0U == u32CoreId)
+    {
+        /* disable AXBS/CPU0/1/2/3 ECC */
+        REG_WRITE32(SCM_BASE_ADDR + SCM_MAMECCEN0_OFFSET, 0x0AAAAAAA);
+        REG_WRITE32(SCM_BASE_ADDR + SCM_MAMECCEN1_OFFSET, 0x002AABAA);
+        REG_WRITE32(SCM_BASE_ADDR + SCM_CPU0ECCEN_OFFSET, 0x00000A8A);
+        REG_WRITE32(SCM_BASE_ADDR + SCM_CPU1ECCEN_OFFSET, 0x00000A8A);
+        REG_WRITE32(SCM_BASE_ADDR + SCM_CPU2ECCEN_OFFSET, 0x00000A8A);
+        REG_WRITE32(SCM_BASE_ADDR + SCM_CPU3ECCEN_OFFSET, 0x00000AAA);
 
-    /* disable wdog 0 */
-    u32WdogBaseAddr = WDOG0_BASE_ADDR;
-  } else if (1U == u32CoreId) {
-    /* disable wdog 1 */
-    u32WdogBaseAddr = WDOG1_BASE_ADDR;
-  } else if (2U == u32CoreId) {
-    /* disable wdog 2 */
-    u32WdogBaseAddr = WDOG2_BASE_ADDR;
-  } else if (3U == u32CoreId) {
-    /* disable wdog 3 */
-    u32WdogBaseAddr = WDOG3_BASE_ADDR;
-  } else {
-    /* This shall never be reached */
-  }
+        /* STCU PCC Enable */
+        REG_WRITE32(PCC_STCU_ADDR, 0x00800000);
 
-  if (0U != u32WdogBaseAddr) {
-    u32WdogFailureReason = wdog_disable(u32WdogBaseAddr, &u32WdogWaitMask);
-    if (BSP_CRASH_RECORD_BOOT_FAILURE_NONE != u32WdogFailureReason) {
-      system_init_capture_boot_failure(u32WdogFailureReason, u32CoreId, u32WdogBaseAddr, u32WdogWaitMask);
-      system_init_request_reset();
+        /* Make sure previous instructions are completed */
+        __asm volatile("dsb");
+        __asm volatile("isb");
+
+        /* Get the reset reason */
+        u32ResetType = REG_READ32(RGM_BASE_ADDR + RGM_SRS_OFFSET);
+        /* Clear all RAM when RAM is invalid */
+        if (0U != (u32ResetType & RGM_SRS_RAM_INVALID))
+        {
+            /* Select all memory regions to clear */
+            REG_WRITE32(STCU_BASE_ADDR + STCU_SRAM_INI_SEL_OFFSET, STCU_SRAM_INI_SEL_ALL);
+            REG_WRITE32(STCU_BASE_ADDR + STCU_SRAM_INI_CTRL_OFFSET, STCU_SRAM_INI_CTRL_EN);
+            /* wait busy */
+            while (0 == ((REG_READ32(STCU_BASE_ADDR + STCU_SRAM_INI_STATUS_OFFSET)) & STCU_SRAM_INI_STATUS_BUSY));
+            /* wait done */
+            while (0 == ((REG_READ32(STCU_BASE_ADDR + STCU_SRAM_INI_STATUS_OFFSET)) & STCU_SRAM_INI_STATUS_DONE));
+        }
+        /* Clear the RAM according to standby mode when wakeup from standby */
+        else if (0U != (u32ResetType & RGM_SRS_WAKEUP))
+        {
+            /* Select all memory regions to clear */
+            REG_WRITE32(STCU_BASE_ADDR + STCU_SRAM_INI_SEL_OFFSET, STCU_SRAM_INI_SEL_ALL);
+            standbymode = REG_READ32(SMC_BASE_ADDR + SMC_STANDBY_CFG_OFFSET) & SMC_STANDBY_CFG_OPTION_MASK;
+            /* Keep the standby retention RAM */
+            REG_WRITE32(STCU_BASE_ADDR + STCU_SRAM_INI_CTRL_OFFSET, STCU_SRAM_INI_CTRL_EN |
+                                                                    STCU_SRAM_INI_CTRL_MODE(standbymode));
+            /* wait busy */
+            while (0 == ((REG_READ32(STCU_BASE_ADDR + STCU_SRAM_INI_STATUS_OFFSET)) & STCU_SRAM_INI_STATUS_BUSY));
+            /* wait done */
+            while (0 == ((REG_READ32(STCU_BASE_ADDR + STCU_SRAM_INI_STATUS_OFFSET)) & STCU_SRAM_INI_STATUS_DONE));
+        }
+        else
+        {
+            /* The user could change the behavior when the reset type is other system reset type */
+            /* In the demo we select all memory regions to clear */
+            REG_WRITE32(STCU_BASE_ADDR + STCU_SRAM_INI_SEL_OFFSET, STCU_SRAM_INI_SEL_ALL);
+            REG_WRITE32(STCU_BASE_ADDR + STCU_SRAM_INI_CTRL_OFFSET, STCU_SRAM_INI_CTRL_EN);
+            /* wait busy */
+            while (0 == ((REG_READ32(STCU_BASE_ADDR + STCU_SRAM_INI_STATUS_OFFSET)) & STCU_SRAM_INI_STATUS_BUSY));
+            /* wait done */
+            while (0 == ((REG_READ32(STCU_BASE_ADDR + STCU_SRAM_INI_STATUS_OFFSET)) & STCU_SRAM_INI_STATUS_DONE));
+        }
+
+        /* Make sure STCU does not affect the following operations */
+        __asm volatile("dsb");
+        __asm volatile("isb");
+
+        /* enable AXBS/CPU0/1/2/3 ECC after every reset */
+        REG_WRITE32(SCM_BASE_ADDR + SCM_MAMECCEN0_OFFSET, 0x0FFFFFFF);
+        REG_WRITE32(SCM_BASE_ADDR + SCM_MAMECCEN1_OFFSET, 0x003FFFFF);
+        REG_WRITE32(SCM_BASE_ADDR + SCM_CPU0ECCEN_OFFSET, 0x00000FCF);
+        REG_WRITE32(SCM_BASE_ADDR + SCM_CPU1ECCEN_OFFSET, 0x00000FCF);
+        REG_WRITE32(SCM_BASE_ADDR + SCM_CPU2ECCEN_OFFSET, 0x00000FCF);
+        REG_WRITE32(SCM_BASE_ADDR + SCM_CPU3ECCEN_OFFSET, 0x00000FFF);
+
+        /* disable wdog 0 */
+        wdog_disable(WDOG0_BASE_ADDR);
     }
-  }
+    else if (1U == u32CoreId)
+    {
+        /* disable wdog 1 */
+        wdog_disable(WDOG1_BASE_ADDR);
+    }
+    else if (2U == u32CoreId)
+    {
+        /* disable wdog 2 */
+        wdog_disable(WDOG2_BASE_ADDR);
+    }
+    else if (3U == u32CoreId)
+    {
+        /* disable wdog 3 */
+        wdog_disable(WDOG3_BASE_ADDR);
+    }
+    else
+    {
+        /* This shall never be reached */
+    }
 
-  /* Initialize data */
-  data_init();
+    /* Initialize data */
+    data_init();
 
-  /* Keep global interrupts masked until application initialization is complete. */
+    /* Enable global interrupt */
+    __asm volatile("cpsie i");
 
-  /* Call main function */
-  main();
+    /* Call main function */
+    main();
 
-  /* Infinite loop */
-  for (;;) {
-  }
+    /* Infinite loop */
+    for (;;)
+    {
+    }
 }

@@ -24,8 +24,6 @@ ENTRY(Reset_Handler)
 __HEAP_SIZE             = 0x00000200 ;   /* required amount of heap  */
 __STACK_SIZE            = 0x00001000 ;   /* required amount of stack */
 __INTVEC_SIZE_RESERVE   = 0x00000400 ;   /* interrupt vector size */
-__CRASH_NOINIT_SIZE     = 0x00000800 ;   /* retained crash record RAM */
-__CRASH_RAM_SIZE        = 0x00020000 ;   /* retained SRAM2_2 bank */
 
 /* Specify the memory areas */
 MEMORY
@@ -39,8 +37,7 @@ MEMORY
     /* SRAM */
     SRAM_0                (RW)  : ORIGIN = 0x21000000, LENGTH = 0x00040000  /* 256KB */
     SRAM_1                (RW)  : ORIGIN = 0x21040000, LENGTH = 0x00040000  /* 256KB */
-    SRAM_2                (RW)  : ORIGIN = 0x21080000, LENGTH = 0x00060000 - __CRASH_RAM_SIZE  /* SRAM2_0/1 */
-    CRASH_RAM             (RW)  : ORIGIN = 0x21080000 + 0x00060000 - __CRASH_RAM_SIZE, LENGTH = __CRASH_RAM_SIZE  /* retained SRAM2_2 */
+    SRAM_2                (RW)  : ORIGIN = 0x21080000, LENGTH = 0x00060000  /* 384KB */
 
     PFLASH_INTVEC         (RX)  : ORIGIN = 0x01000000, LENGTH = __INTVEC_SIZE_RESERVE  /* 1KB for Intvec */
     PFLASH                (RX)  : ORIGIN = 0x01000000 + __INTVEC_SIZE_RESERVE, LENGTH = 0x00800000 - __INTVEC_SIZE_RESERVE /* ~8MB */
@@ -155,14 +152,6 @@ SECTIONS
         *(.bsp_shareable_bss*)
     }                                                               > SRAM_2
 
-    .crash_noinit                                  (NOLOAD)       : ALIGN(32)
-    {
-        __crash_noinit_start = .;
-        KEEP(*(.crash_noinit*))
-        . = ALIGN(32);
-        __crash_noinit_end = .;
-    }                                                               > CRASH_RAM
-
     __rom_intvec_start           = ADDR(.isr_vector);
     __rom_intvec_end             = ADDR(.isr_vector) + SIZEOF(.isr_vector);
     __ram_intvec_start           = ADDR(.ram_vector);
@@ -198,12 +187,6 @@ SECTIONS
     __rtt_buffer_bss_end         = ADDR(.bss_rtt_buffer) + SIZEOF(.bss_rtt_buffer);
     __shareable_bss_start        = ADDR(.bss_shareable);
     __shareable_bss_end          = ADDR(.bss_shareable) + SIZEOF(.bss_shareable);
-    __crash_ram_start            = ORIGIN(CRASH_RAM);
-    __crash_ram_end              = ORIGIN(CRASH_RAM) + LENGTH(CRASH_RAM);
-    __crash_ram_size             = LENGTH(CRASH_RAM);
-    __crash_noinit_limit         = ORIGIN(CRASH_RAM) + __CRASH_NOINIT_SIZE;
-
-    ASSERT(SIZEOF(.crash_noinit) <= __CRASH_NOINIT_SIZE, "crash_noinit region overflow")
 
     __Heap0Begin  = ADDR(.heap);
     __Heap0Limit  = ADDR(.heap) + SIZEOF(.heap);
@@ -214,3 +197,4 @@ SECTIONS
     __Heap2Begin  = ADDR(.heap);
     __Heap2Limit  = ADDR(.heap) + SIZEOF(.heap);
 }
+

@@ -19,9 +19,6 @@
     .arch armv7-m
 
     .extern __stack_top
-    .extern Bsp_CrashRecord_ResetSnapshot
-    .extern Bsp_CrashRecord_BootFailureSnapshot
-    .extern DefaultISR_Process
 
 /* ================================================================================================== */
 /*                                        Set vector table                                            */
@@ -324,283 +321,9 @@ Reset_Handler:
 
     ldr     r0, =0xE000ED08
     ldr     r1, =__rom_intvec_start
-    str     r1, [r0]                 /* *(0xE000ED08) = __rom_intvec_start */
-    ldr     r2, [r1]                 /* r2 = *(uint32_t *)__rom_intvec_start */
+    str     r1, [r0]
+    ldr     r2, [r1]
     mov     r3, r2
-
-    /*
-      Core0 initializes SRAM/TCM with STCU before the C stack is used.
-      The selected RAM must not be accessed while hardware initialization is running.
-    */
-    ldr     r0, =0xE0080004           /* CPM_MISCR address: CPU_ID at bits[19:17] */
-    ldr     r1, [r0]
-    ubfx    r1, r1, #17, #3           /* CPM_MISCR_CPU_ID: r1 = (r1 >> 17) & 0x7U; */
-    cmp     r1, #0                    /* CPU0? */
-    bne     EarlyRamInitDone
-
-    ldr     r0, =0x40072020           /* SCM_MAMECCEN0 */
-    ldr     r1, =0x0AAAAAAA
-    str     r1, [r0]
-    ldr     r0, =0x40072024           /* SCM_MAMECCEN1 */
-    ldr     r1, =0x002AABAA
-    str     r1, [r0]
-    ldr     r0, =0x40072028           /* SCM_CPU0ECCEN */
-    ldr     r1, =0x00000A8A
-    str     r1, [r0]
-    ldr     r0, =0x40072030           /* SCM_CPU1ECCEN */
-    str     r1, [r0]
-    ldr     r0, =0x40072038           /* SCM_CPU2ECCEN */
-    str     r1, [r0]
-    ldr     r0, =0x40072130           /* SCM_CPU3ECCEN */
-    ldr     r1, =0x00000AAA
-    str     r1, [r0]
-
-    ldr     r0, =0x400241FC           /* PCC_STCU */
-    ldr     r1, =0x00800000           /* Control the STCU peripheral clock, 1b: enable clock */
-    str     r1, [r0]
-    dsb
-    isb
-
-    ldr     r0, =0x40046008           /* RGM_SRS: System Reset Status Register, record last reset source */
-    ldr     r1, [r0]
-    /* SYSRST_TOUT, PINRST_TOUT, FSM_ERR, CMU, CLKERR0, CLKERR1, POR, LVR, LBIST */
-    ldr     r2, =0xE000C08E           /* Reset sources that require full RAM initialization */
-    tst     r1, r2                    /* Bitwise AND, don't keep the result, just update the condition flags */
-    bne     EarlyRamInitAll           /* If the tst result is not 0, jump to EarlyRamInitAll */
-    tst     r1, #1                    /* RGM_SRS_WAKEUP */
-    bne     EarlyRamInitWakeup
-
-    /* SRAM0/1/2_0/1, SRAM2_2, ITCM_CPU0/1/2/3, DTCM0/1_CPU0/1/2/3 */
-EarlyRamInitRuntime:
-    ldr     r4, =0x0007FFBF           /* All SRAM/TCM except SRAM2_2 crash-record bank */
-    movs    r5, #0                    /* STCU_SRAM_INI_CTRL.MODE = POR/STANDBY0 */
-    mov     r6, r4                    /* Expected done mask */
-    b       EarlyRamInitRun
-
-EarlyRamInitAll:
-    ldr     r4, =0x0007FFFF           /* All SRAM/TCM banks */
-    movs    r5, #0                    /* STCU_SRAM_INI_CTRL.MODE = POR/STANDBY0 */
-    mov     r6, r4                    /* Expected done mask */
-    b       EarlyRamInitRun
-
-EarlyRamInitWakeup:
-    ldr     r4, =0x0007FFFF           /* Let STCU MODE preserve standby retention banks */
-    ldr     r0, =0x40045010           /* SMC_STANDBY_CFG */
-    ldr     r5, [r0]
-    and     r5, r5, #3
-    lsls    r5, r5, #16               /* STCU_SRAM_INI_CTRL.MODE: OPTION[1:0] Move to STCU_SRAM_INI_CTRL.MODE[17:16] */
-    movs    r6, #0                    /* Retention mode can intentionally skip selected banks */
-
-EarlyRamInitRun:
-    ldr     r0, =0x4007F04C           /* STCU_SRAM_INI_STATUS */
-    ldr     r7, =0x01000000
-EarlyRamWaitIdle:                     /* Wait, STCU isn't busy */
-    ldr     r1, [r0]
-    tst     r1, #2                    /* BUSY */
-    beq     EarlyRamClearStatus
-    subs    r7, r7, #1
-    bne     EarlyRamWaitIdle
-    b       EarlyRamInitWaitIdleTimeout
-
-EarlyRamClearStatus:
-    movs    r1, #0
-    str     r1, [r0]                  /* DONE/ABORT are W0C */
-    ldr     r0, =0x4007F054           /* STCU_SRAM_INI_DONE_STATUS */
-    str     r1, [r0]
-    ldr     r0, =0x4007F050           /* STCU_SRAM_INI_SEL */
-    str     r4, [r0]
-    ldr     r0, =0x4007F048           /* STCU_SRAM_INI_CTRL */
-    str     r5, [r0]                  /* Configure MODE before EN */
-    dsb
-    isb
-    orr     r1, r5, #1                /* EN */
-    str     r1, [r0]
-
-    ldr     r0, =0x4007F04C           /* STCU_SRAM_INI_STATUS */
-    ldr     r7, =0x01000000
-EarlyRamWaitDone:
-    ldr     r1, [r0]
-    tst     r1, #4                    /* ABORT */
-    bne     EarlyRamInitAbort
-    tst     r1, #1                    /* DONE */
-    bne     EarlyRamCheckDone
-    subs    r7, r7, #1
-    bne     EarlyRamWaitDone
-    b       EarlyRamInitWaitDoneTimeout
-
-EarlyRamCheckDone:
-    cmp     r6, #0
-    beq     EarlyRamClearDoneFlag
-    ldr     r0, =0x4007F054           /* STCU_SRAM_INI_DONE_STATUS */
-    ldr     r1, [r0]
-    and     r1, r1, r6
-    cmp     r1, r6
-    bne     EarlyRamInitDoneMismatch
-
-EarlyRamClearDoneFlag:
-    ldr     r0, =0x4007F04C           /* STCU_SRAM_INI_STATUS */
-    movs    r1, #0
-    str     r1, [r0]                  /* Clear DONE before later software observes STCU */
-    dsb
-    isb
-
-    ldr     r0, =Bsp_CrashRecord_ResetSnapshot
-    movs    r1, #0
-    str     r1, [r0, #0]              /* magic: invalid until the full snapshot is written */
-    movs    r1, #1
-    str     r1, [r0, #4]              /* version */
-    movs    r1, #56
-    str     r1, [r0, #8]              /* length: sizeof(Bsp_CrashRecord_ResetSnapshotType) */
-
-    ldr     r2, =0x40046000           /* RGM base */
-    ldr     r1, [r2, #0x008]          /* RGM_SRS */
-    str     r1, [r0, #12]
-    ldr     r1, [r2, #0x018]          /* RGM_SSRS */
-    str     r1, [r0, #16]
-    ldr     r1, [r2, #0x108]          /* RGM_C0_SRS */
-    str     r1, [r0, #20]
-    ldr     r1, [r2, #0x208]          /* RGM_C1_SRS */
-    str     r1, [r0, #24]
-    ldr     r1, [r2, #0x308]          /* RGM_C2_SRS */
-    str     r1, [r0, #28]
-    ldr     r1, [r2, #0x408]          /* RGM_C3_SRS */
-    str     r1, [r0, #32]
-    ldr     r1, [r2, #0x114]          /* RGM_C0_SSRS */
-    str     r1, [r0, #36]
-    ldr     r1, [r2, #0x214]          /* RGM_C1_SSRS */
-    str     r1, [r0, #40]
-    ldr     r1, [r2, #0x314]          /* RGM_C2_SSRS */
-    str     r1, [r0, #44]
-    ldr     r1, [r2, #0x414]          /* RGM_C3_SSRS */
-    str     r1, [r0, #48]
-
-    ldr     r1, [r0, #16]
-    str     r1, [r2, #0x018]          /* RGM_SSRS is W1C */
-    ldr     r1, [r0, #36]
-    str     r1, [r2, #0x114]          /* RGM_C0_SSRS is W1C */
-    ldr     r1, [r0, #40]
-    str     r1, [r2, #0x214]          /* RGM_C1_SSRS is W1C */
-    ldr     r1, [r0, #44]
-    str     r1, [r2, #0x314]          /* RGM_C2_SSRS is W1C */
-    ldr     r1, [r0, #48]
-    str     r1, [r2, #0x414]          /* RGM_C3_SSRS is W1C */
-    movs    r1, #1
-    str     r1, [r0, #52]             /* sticky_cleared */
-    dsb
-    isb
-    ldr     r1, =0x52475354           /* "RGST" */
-    str     r1, [r0, #0]
-    dsb
-    isb
-
-    ldr     r0, =0x40072020           /* SCM_MAMECCEN0 */
-    ldr     r1, =0x0FFFFFFF
-    str     r1, [r0]
-    ldr     r0, =0x40072024           /* SCM_MAMECCEN1 */
-    ldr     r1, =0x003FFFFF
-    str     r1, [r0]
-    ldr     r0, =0x40072028           /* SCM_CPU0ECCEN */
-    ldr     r1, =0x00000FCF
-    str     r1, [r0]
-    ldr     r0, =0x40072030           /* SCM_CPU1ECCEN */
-    str     r1, [r0]
-    ldr     r0, =0x40072038           /* SCM_CPU2ECCEN */
-    str     r1, [r0]
-    ldr     r0, =0x40072130           /* SCM_CPU3ECCEN */
-    ldr     r1, =0x00000FFF
-    str     r1, [r0]
-    dsb
-    isb
-    b       EarlyRamInitDone
-
-EarlyRamInitWaitIdleTimeout:
-    movs    r2, #1                    /* BSP_CRASH_RECORD_BOOT_FAILURE_STCU_WAIT_IDLE_TIMEOUT */
-    b       EarlyRamInitFailed
-
-EarlyRamInitAbort:
-    movs    r2, #2                    /* BSP_CRASH_RECORD_BOOT_FAILURE_STCU_ABORT */
-    b       EarlyRamInitFailed
-
-EarlyRamInitWaitDoneTimeout:
-    movs    r2, #3                    /* BSP_CRASH_RECORD_BOOT_FAILURE_STCU_WAIT_DONE_TIMEOUT */
-    b       EarlyRamInitFailed
-
-EarlyRamInitDoneMismatch:
-    movs    r2, #4                    /* BSP_CRASH_RECORD_BOOT_FAILURE_STCU_DONE_MASK_MISMATCH */
-    b       EarlyRamInitFailed
-
-EarlyRamInitFailed:
-    cpsid   i
-    mov     r8, r2                    /* Preserve failure reason while reading STCU registers */
-
-    ldr     r0, =0x4007F04C           /* STCU_SRAM_INI_STATUS */
-    ldr     r1, [r0]
-    ldr     r0, =0x4007F050           /* STCU_SRAM_INI_SEL */
-    ldr     r2, [r0]
-    mov     r3, r8
-    cmp     r3, #1                    /* WAIT_IDLE_TIMEOUT occurs before this startup code asserts EN */
-    bne     EarlyRamCheckSelectedCrashBank
-    tst     r1, #2                    /* BUSY */
-    beq     EarlyRamRecordBootFailure
-    tst     r2, #0x40                 /* SRAM2_2 crash-record bank selected */
-    bne     EarlyRamRequestReset      /* Do not touch retained RAM while its bank may be initializing */
-    b       EarlyRamRecordBootFailure
-
-EarlyRamCheckSelectedCrashBank:
-    tst     r4, #0x40                 /* This startup STCU request selected the crash-record bank */
-    bne     EarlyRamRequestReset      /* Do not touch retained RAM after its initialization failed */
-
-EarlyRamRecordBootFailure:
-    ldr     r0, =Bsp_CrashRecord_BootFailureSnapshot
-    movs    r3, #0
-    str     r3, [r0, #0]              /* magic: invalid until the full snapshot is written */
-    movs    r3, #1
-    str     r3, [r0, #4]              /* version */
-    movs    r3, #48
-    str     r3, [r0, #8]              /* length: sizeof(Bsp_CrashRecord_BootFailureSnapshotType) */
-    mov     r3, r8
-    str     r3, [r0, #12]             /* reason */
-    ldr     r3, =0x40046008           /* RGM_SRS */
-    ldr     r3, [r3]
-    str     r3, [r0, #16]
-    ldr     r3, =0x4007F04C           /* STCU_SRAM_INI_STATUS */
-    ldr     r3, [r3]
-    str     r3, [r0, #20]             /* status */
-    ldr     r3, =0x4007F054           /* STCU_SRAM_INI_DONE_STATUS */
-    ldr     r3, [r3]
-    str     r3, [r0, #24]             /* status_aux */
-    ldr     r3, =0x4007F050           /* STCU_SRAM_INI_SEL */
-    ldr     r3, [r3]
-    str     r3, [r0, #28]             /* config */
-    ldr     r3, =0x4007F048           /* STCU_SRAM_INI_CTRL */
-    ldr     r3, [r3]
-    str     r3, [r0, #32]             /* control */
-    str     r4, [r0, #36]             /* data0: selected_mask */
-    str     r6, [r0, #40]             /* data1: expected_done_mask */
-    movs    r3, #1
-    str     r3, [r0, #44]             /* reset_requested */
-    dsb
-    isb
-    ldr     r3, =0x4254464C           /* "BTFL" */
-    str     r3, [r0, #0]
-    dsb
-    isb
-
-EarlyRamRequestReset:
-    ldr     r0, =0xE000ED0C           /* SCB_AIRCR */
-    ldr     r1, [r0]
-    ldr     r2, =0x0000FFFF
-    and     r1, r1, r2                /* Clear VECTKEY field while preserving AIRCR low bits */
-    ldr     r2, =0x05FA0004           /* VECTKEY=0x5FA, SYSRESETREQ=1 */
-    orr     r1, r1, r2
-    str     r1, [r0]
-    dsb
-    isb
-EarlyRamResetWaitLoop:
-    b       EarlyRamResetWaitLoop
-
-EarlyRamInitDone:
-    mov     r2, r3
 
     /*
       initialization startup stack,
@@ -613,7 +336,7 @@ EarlyRamInitDone:
 
 LoopClearStack:
     str     r0, [r2]
-    sub     r2, r2, #4  /* The stack grows towards lower addresses */
+    sub     r2, r2, #4
     add     r1, r1, #1
     cmp     r1, #8
     bne     LoopClearStack
@@ -631,12 +354,7 @@ LoopClearStack:
     .weak DefaultISR
     .type DefaultISR, %function
 DefaultISR:
-    tst     lr, #4
-    ite     ne
-    mrsne   r0, psp
-    mrseq   r0, msp
-    mov     r1, lr
-    b       DefaultISR_Process
+    b       DefaultISR
     .size DefaultISR, . - DefaultISR
 
 /*    Macro to define default handlers. Default handler

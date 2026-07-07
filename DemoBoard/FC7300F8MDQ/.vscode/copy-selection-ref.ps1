@@ -24,7 +24,7 @@ if ($fileFull.StartsWith($prefix, [System.StringComparison]::OrdinalIgnoreCase))
     $relativePath = $fileFull
 }
 
-$normalizedPath = $relativePath -replace '/', '\'
+$normalizedPath = $relativePath -replace '\\', '/'
 $normalizedSelection = ($SelectedText -replace '\r?\n', ' ').Trim()
 $result = "$normalizedPath line $LineNumber $normalizedSelection"
 

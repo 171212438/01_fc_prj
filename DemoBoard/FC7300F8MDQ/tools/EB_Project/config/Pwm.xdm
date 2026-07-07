@@ -866,8 +866,7 @@
                     <d:var name="PwmModule" type="ENUMERATION" value="EFTU"/>
                     <d:ref name="PwmHwChannelRef" type="REFERENCE" 
                            value="ASPath:/Pwm/Pwm/PwmChannelConfigSet/PwmEftuModule_0/PwmTomChannels_0"/>
-                    <d:ref name="PwmMcuClockReferencePoint" type="REFERENCE" 
-                           value="ASPath:/Mcu/Mcu/McuModuleConfiguration/MCU_Demo_FOSC24M/McuClockReferencePoint_Eftu0Cmu0">
+                    <d:ref name="PwmMcuClockReferencePoint" type="REFERENCE" >
                       <a:a name="IMPORTER_INFO" value="@DEF"/>
                     </d:ref>
                     <d:var name="PwmChannelClass" type="ENUMERATION" 

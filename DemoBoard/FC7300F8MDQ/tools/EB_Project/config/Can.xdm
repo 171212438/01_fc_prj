@@ -5988,7 +5988,7 @@
                 <d:var name="CanNumberOfTimeOutLoop" type="INTEGER" value="5000">
                   <a:a name="IMPORTER_INFO" value="@REC"/>
                 </d:var>
-                <d:ref name="CanSupportTTCANRef" type="REFERENCE" value="">
+                <d:ref name="CanSupportTTCANRef" type="REFERENCE" >
                   <a:a name="IMPORTER_INFO" value="@REC"/>
                 </d:ref>
                 <d:var name="CanExtendedIDSupport" type="BOOLEAN" value="true">

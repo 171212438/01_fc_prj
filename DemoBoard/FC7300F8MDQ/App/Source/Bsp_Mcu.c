@@ -1,141 +1,12 @@
 #include "Bsp_Mcu.h"
 
-static Bsp_Mcu_ResetDiagType Bsp_Mcu_tResetDiag;
-
 /************ Global functions *******************/
-void Bsp_Mcu_ResetReason_Capture(void)
-{
-    Bsp_Mcu_ResetDiagType tDiag;
-    uint32 u32Index;
-
-    tDiag.valid = FALSE;
-    tDiag.core_id = GET_CPU_ID();
-    tDiag.reset_reason = MCU_RESET_UNDEFINED;
-    tDiag.reset_raw_value = (Mcu_RawResetType)0U;
-    tDiag.startup_snapshot_valid = FALSE;
-    tDiag.startup_snapshot.magic = 0U;
-    tDiag.startup_snapshot.version = 0U;
-    tDiag.startup_snapshot.length = 0U;
-    tDiag.startup_snapshot.reset_srs = 0U;
-    tDiag.startup_snapshot.reset_ssrs = 0U;
-    tDiag.startup_snapshot.sticky_cleared = 0U;
-    tDiag.boot_failure_snapshot_valid = FALSE;
-    tDiag.boot_failure_snapshot.magic = 0U;
-    tDiag.boot_failure_snapshot.version = 0U;
-    tDiag.boot_failure_snapshot.length = 0U;
-    tDiag.boot_failure_snapshot.reason = BSP_CRASH_RECORD_BOOT_FAILURE_NONE;
-    tDiag.boot_failure_snapshot.reset_srs = 0U;
-    tDiag.boot_failure_snapshot.status = 0U;
-    tDiag.boot_failure_snapshot.status_aux = 0U;
-    tDiag.boot_failure_snapshot.config = 0U;
-    tDiag.boot_failure_snapshot.control = 0U;
-    tDiag.boot_failure_snapshot.data0 = 0U;
-    tDiag.boot_failure_snapshot.data1 = 0U;
-    tDiag.boot_failure_snapshot.reset_requested = 0U;
-
-    for (u32Index = 0U; u32Index < BSP_CRASH_RECORD_RESET_SNAPSHOT_CORE_COUNT; u32Index++)
-    {
-        tDiag.startup_snapshot.core_srs[u32Index] = 0U;
-        tDiag.startup_snapshot.core_ssrs[u32Index] = 0U;
-    }
-
-    if (E_OK == Bsp_CrashRecord_GetResetSnapshot(&tDiag.startup_snapshot))
-    {
-        tDiag.startup_snapshot_valid = TRUE;
-    }
-
-    if (E_OK == Bsp_CrashRecord_GetBootFailureSnapshot(&tDiag.boot_failure_snapshot))
-    {
-        tDiag.boot_failure_snapshot_valid = TRUE;
-    }
-
-    tDiag.reset_reason = Mcu_GetResetReason();
-    tDiag.reset_raw_value = Mcu_GetResetRawValue();
-    tDiag.valid = TRUE;
-
-    Bsp_Mcu_tResetDiag = tDiag;
-}
-
-Std_ReturnType Bsp_Mcu_GetResetReasonDiag(Bsp_Mcu_ResetDiagType* pDiag)
-{
-    Std_ReturnType eStatus = E_NOT_OK;
-
-    if (NULL_PTR != pDiag)
-    {
-        *pDiag = Bsp_Mcu_tResetDiag;
-        if (TRUE == Bsp_Mcu_tResetDiag.valid)
-        {
-            eStatus = E_OK;
-        }
-    }
-
-    return eStatus;
-}
-
-void Bsp_Mcu_ResetReason_Print(void)
-{
-    Bsp_Mcu_ResetDiagType tDiag;
-    uint32 u32Index;
-
-    if (E_OK == Bsp_Mcu_GetResetReasonDiag(&tDiag))
-    {
-        DEBUG_INFO("MCU reset diag: core=%d reason=%d raw=0x%x\r\n",
-                   tDiag.core_id,
-                   (uint32)tDiag.reset_reason,
-                   (uint32)tDiag.reset_raw_value);
-
-        if (TRUE == tDiag.startup_snapshot_valid)
-        {
-            DEBUG_INFO("Startup reset snapshot: SRS=0x%x SSRS=0x%x sticky_cleared=%d\r\n",
-                       tDiag.startup_snapshot.reset_srs,
-                       tDiag.startup_snapshot.reset_ssrs,
-                       tDiag.startup_snapshot.sticky_cleared);
-
-            for (u32Index = 0U; u32Index < BSP_CRASH_RECORD_RESET_SNAPSHOT_CORE_COUNT; u32Index++)
-            {
-                DEBUG_INFO("Startup reset core%d: SRS=0x%x SSRS=0x%x\r\n",
-                           u32Index,
-                           tDiag.startup_snapshot.core_srs[u32Index],
-                           tDiag.startup_snapshot.core_ssrs[u32Index]);
-            }
-        }
-        else
-        {
-            DEBUG_INFO("Startup reset snapshot unavailable\r\n");
-        }
-
-        if (TRUE == tDiag.boot_failure_snapshot_valid)
-        {
-            DEBUG_INFO("Startup boot failure: reason=%d reset_srs=0x%x status=0x%x status_aux=0x%x\r\n",
-                       tDiag.boot_failure_snapshot.reason,
-                       tDiag.boot_failure_snapshot.reset_srs,
-                       tDiag.boot_failure_snapshot.status,
-                       tDiag.boot_failure_snapshot.status_aux);
-            DEBUG_INFO("Startup boot failure context: config=0x%x control=0x%x data0=0x%x data1=0x%x reset_requested=%d\r\n",
-                       tDiag.boot_failure_snapshot.config,
-                       tDiag.boot_failure_snapshot.control,
-                       tDiag.boot_failure_snapshot.data0,
-                       tDiag.boot_failure_snapshot.data1,
-                       tDiag.boot_failure_snapshot.reset_requested);
-        }
-    }
-    else
-    {
-        DEBUG_INFO("MCU reset diag unavailable\r\n");
-    }
-}
-
 void Bsp_Mcu_Init(void)
 {
     Mcu_Init(&Mcu_Config);
-    if (0U == GET_CPU_ID())
-    {
-        Bsp_Mcu_ResetReason_Capture();
-    }
-
     Mcu_InitClock(McuConf_McuClockSettingConfig_MCU_Demo_FOSC24M);
 
-    if (0U == GET_CPU_ID())
+    if (0 == GET_CPU_ID())
     {
         while (MCU_PLL_LOCKED != Mcu_GetPllStatus())
         {
@@ -145,6 +16,17 @@ void Bsp_Mcu_Init(void)
 }
 
 #if (MCU_LOW_POWER_MODE_TEST == STD_ON)
+void Bsp_Mcu_ResetReason_Print(void)
+{
+    /* Core0 reset reason */
+    DEBUG_INFO("Core0 Reset reason value: %x\r\n", *(volatile uint32*)RGM_C0_SRS_ADDR);
+    /* Core1 reset reason */
+    DEBUG_INFO("Core1 Reset reason value: %x\r\n", *(volatile uint32*)RGM_C1_SRS_ADDR);
+    /* Core2 reset reason */
+    DEBUG_INFO("Core2 Reset reason value: %x\r\n", *(volatile uint32*)RGM_C2_SRS_ADDR);
+}
+
+
 static void Bsp_Mcu_Core0_LowPowerEntry(void)
 {
     uint8 u8Index;

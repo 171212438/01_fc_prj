@@ -1,11 +1,6 @@
 #include "Bsp_Fee.h"
-#include "Bsp_CrashRecord.h"
 
-#ifndef BSP_FEE_DEMO_SEQUENCE_SUPPORT
-#define BSP_FEE_DEMO_SEQUENCE_SUPPORT STD_OFF
-#endif
 
-#if (BSP_FEE_DEMO_SEQUENCE_SUPPORT == STD_ON)
 uint16 Bsp_au8FeeBlcokNumber[FEE_CFG_NUM_OF_BLOCKS] = { FeeConf_FeeBlockConfiguration_FeeBlockConfiguration_0,
 		                                                 FeeConf_FeeBlockConfiguration_FeeBlockConfiguration_1,
 														 FeeConf_FeeBlockConfiguration_FeeBlockConfiguration_3,
@@ -119,8 +114,6 @@ static void Bsp_ReadBlockSequence(void)
 
 }
 
-#endif
-
 void Bsp_Fee_Init(void)
 {
 	if(0U == GET_CPU_ID())
@@ -134,7 +127,6 @@ void Bsp_Fee_5ms_Task_Event(void)
 	if(0U == GET_CPU_ID())
 	{
 		Fee_MainFunction();
-		Bsp_CrashRecord_MainFunction();
 	}
 }
 
@@ -143,7 +135,6 @@ void Bsp_Fee_1s_Task_Event(void)
 	if(0U == GET_CPU_ID())
 	{
 
-#if (BSP_FEE_DEMO_SEQUENCE_SUPPORT == STD_ON)
 		if(Bsp_eJob == BSP_FEE_WRITE)
 		{
 			Bsp_Fee_WriteBlockSequence();
@@ -156,8 +147,9 @@ void Bsp_Fee_1s_Task_Event(void)
 		{
 			/* Idle */
 		}
-#endif
 
 
 	}
 }
+
+

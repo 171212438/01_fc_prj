@@ -35,8 +35,21 @@ Source/interrupt_functions.o: \
  ../../../../../MCAL/Src/Mcu/include/Mcu_Wku_Regs.h \
  ../../../../../MCAL/Src/Mcu/include/Mcu_CM7_RegOps.h \
  ../../../../../MCAL/Src/Mcu/include/Mcu_CM7_Regs.h \
- ../../../../../MCAL/Src/Mcu/include/Mcu_CM7_Regs.h \
- ../../../Include/Bsp_CrashRecord.h
+ ../../../../../MCAL/Src/Fls/include/Fls.h \
+ ../../../_MCAL_multicore_generate_8M/include/Fls_Cfg.h \
+ ../../../_BSW_generate/Config/MemIf_Types.h \
+ ../../../_BSW_generate/Config/MemIf_Version.h \
+ ../../../../../MCAL/Src/Fls/include/Fls_Types.h \
+ ../../../../../MCAL/Src/Fls/include/Fls_Flash_Types.h \
+ ../../../../../MCAL/Src/Base/include/MemMap/Fls_MemMap.h \
+ ../../../../../MCAL/Src/Base/include/CompilerDefinition.h \
+ ../../../../../MCAL/Src/Fls/include/Fls_Types.h \
+ ../../../../../MCAL/Src/Fee/include/Fee.h \
+ ../../../../../MCAL/Src/Fee/include/Fee_InternalTypes.h \
+ ../../../../../MCAL/Src/Fee/include/Fee_Types.h \
+ ../../../_MCAL_multicore_generate_8M/include/Fee_Cfg.h \
+ ../../../../../MCAL/Src/Fee/include/Fee_Types.h \
+ ../../../../../MCAL/Src/Base/include/MemMap/Fee_MemMap.h
 
 ../../../../../MCAL/Src/Mcu/include/Mcu.h:
 
@@ -108,6 +121,32 @@ Source/interrupt_functions.o: \
 
 ../../../../../MCAL/Src/Mcu/include/Mcu_CM7_Regs.h:
 
-../../../../../MCAL/Src/Mcu/include/Mcu_CM7_Regs.h:
+../../../../../MCAL/Src/Fls/include/Fls.h:
 
-../../../Include/Bsp_CrashRecord.h:
+../../../_MCAL_multicore_generate_8M/include/Fls_Cfg.h:
+
+../../../_BSW_generate/Config/MemIf_Types.h:
+
+../../../_BSW_generate/Config/MemIf_Version.h:
+
+../../../../../MCAL/Src/Fls/include/Fls_Types.h:
+
+../../../../../MCAL/Src/Fls/include/Fls_Flash_Types.h:
+
+../../../../../MCAL/Src/Base/include/MemMap/Fls_MemMap.h:
+
+../../../../../MCAL/Src/Base/include/CompilerDefinition.h:
+
+../../../../../MCAL/Src/Fls/include/Fls_Types.h:
+
+../../../../../MCAL/Src/Fee/include/Fee.h:
+
+../../../../../MCAL/Src/Fee/include/Fee_InternalTypes.h:
+
+../../../../../MCAL/Src/Fee/include/Fee_Types.h:
+
+../../../_MCAL_multicore_generate_8M/include/Fee_Cfg.h:
+
+../../../../../MCAL/Src/Fee/include/Fee_Types.h:
+
+../../../../../MCAL/Src/Base/include/MemMap/Fee_MemMap.h:

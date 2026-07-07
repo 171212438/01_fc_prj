@@ -4071,8 +4071,8 @@
                         <a:a name="IMPORTER_INFO" value="@REC"/>
                       </d:var>
                       <d:var name="Cpu1SoftwareResetTrigSystemReset" 
-                             type="BOOLEAN" value="true">
-                        <a:a name="IMPORTER_INFO" value="@REC"/>
+                             type="BOOLEAN" value="false">
+                        <a:a name="IMPORTER_INFO" value="@DEF"/>
                       </d:var>
                       <d:var 
                              name="Cpu1InterruptMonitorTimeoutResetTrigSystemReset" 
@@ -4113,8 +4113,8 @@
                         <a:a name="IMPORTER_INFO" value="@REC"/>
                       </d:var>
                       <d:var name="Cpu2SoftwareResetTrigSystemReset" 
-                             type="BOOLEAN" value="true">
-                        <a:a name="IMPORTER_INFO" value="@REC"/>
+                             type="BOOLEAN" value="false">
+                        <a:a name="IMPORTER_INFO" value="@DEF"/>
                       </d:var>
                       <d:var 
                              name="Cpu2InterruptMonitorTimeoutResetTrigSystemReset" 
@@ -4159,24 +4159,24 @@
                       </d:var>
                       <d:var name="Cpu3SoftwareResetTrigSystemReset" 
                              type="BOOLEAN" value="false">
-                        <a:a name="IMPORTER_INFO" value="@REC"/>
+                        <a:a name="IMPORTER_INFO" value="@DEF"/>
                       </d:var>
                       <d:var 
                              name="Cpu3InterruptMonitorTimeoutResetTrigSystemReset" 
                              type="BOOLEAN" value="false">
-                        <a:a name="IMPORTER_INFO" value="@REC"/>
+                        <a:a name="IMPORTER_INFO" value="@DEF"/>
                       </d:var>
                       <d:var name="Cpu3WatchdogResetTrigSystemReset" 
                              type="BOOLEAN" value="false">
-                        <a:a name="IMPORTER_INFO" value="@REC"/>
+                        <a:a name="IMPORTER_INFO" value="@DEF"/>
                       </d:var>
                       <d:var name="Cpu3SystemCoreResetTrigSystemReset" 
                              type="BOOLEAN" value="false">
-                        <a:a name="IMPORTER_INFO" value="@REC"/>
+                        <a:a name="IMPORTER_INFO" value="@DEF"/>
                       </d:var>
                       <d:var name="Cpu3LockupResetTrigSystemReset" 
                              type="BOOLEAN" value="false">
-                        <a:a name="IMPORTER_INFO" value="@REC"/>
+                        <a:a name="IMPORTER_INFO" value="@DEF"/>
                       </d:var>
                     </d:ctr>
                   </d:ctr>

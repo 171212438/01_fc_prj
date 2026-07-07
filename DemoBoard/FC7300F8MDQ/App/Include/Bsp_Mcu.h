@@ -2,7 +2,6 @@
 #define _BSP_MCU_H_
 
 #include "Bsp_McalHeader.h"
-#include "Bsp_CrashRecord.h"
 
 #define  MCU_LOW_POWER_MODE_TEST   STD_OFF
 
@@ -54,26 +53,12 @@ typedef enum
 
 #endif /*(MCU_LOW_POWER_MODE_TEST == STD_ON)*/
 
-typedef struct
-{
-    boolean valid;
-    uint8 core_id;
-    Mcu_ResetType reset_reason;
-    Mcu_RawResetType reset_raw_value;
-    boolean startup_snapshot_valid;
-    Bsp_CrashRecord_ResetSnapshotType startup_snapshot;
-    boolean boot_failure_snapshot_valid;
-    Bsp_CrashRecord_BootFailureSnapshotType boot_failure_snapshot;
-} Bsp_Mcu_ResetDiagType;
-
 /************ Global functions *******************/
 void Bsp_Mcu_Init(void);
-void Bsp_Mcu_ResetReason_Capture(void);
-Std_ReturnType Bsp_Mcu_GetResetReasonDiag(Bsp_Mcu_ResetDiagType* pDiag);
-void Bsp_Mcu_ResetReason_Print(void);
 
 #if (MCU_LOW_POWER_MODE_TEST == STD_ON)
 void Bsp_Mcu_LowPowerEntry_Task(Bsp_EntryLowPowerCmdType* pCmd);
+void Bsp_Mcu_ResetReason_Print(void);
 #endif /*(MCU_LOW_POWER_MODE_TEST == STD_ON)*/
 
 #endif /* _BSP_MCU_H_ */
