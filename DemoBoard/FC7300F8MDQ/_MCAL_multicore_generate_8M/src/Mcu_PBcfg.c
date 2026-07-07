@@ -236,11 +236,11 @@ MCU_DATA_SECTION static const Mcu_RGM_ConfigType RGM_ResetConfig =
     /* System Reset Interrupt Enable Register (SRIE_DELAY) */
     RGM_8_CLOCK_CYCLES,
     /* Core 1 Reset Trigger System Reset Register (RGM_C1_CFG) */
-    31U,
+    15U,
     /* Core 2 Reset Trigger System Reset Register (RGM_C2_CFG) */
-    31U,
+    15U,
     /* Core 3 Reset Trigger System Reset Register (RGM_C3_CFG) */
-    31U
+    0U
 };
 
 /** @brief PMC Module configurations */
