@@ -5430,16 +5430,9 @@
                           </a:a>
                         </d:var>
                         <d:var name="PortPinModeChangeable" type="BOOLEAN" 
-                               value="true">
-                          <a:a name="IMPORTER_INFO" value="@DEF"/>
-                        </d:var>
+                               value="false"/>
                         <d:var name="PortPinMode" type="ENUMERATION" 
-                               value="GPIO">
-                          <a:a name="IMPORTER_INFO">
-                            <a:v>@DEF</a:v>
-                            <a:v>@CALC</a:v>
-                          </a:a>
-                        </d:var>
+                               value="eFTU1_OUT_S4"/>
                         <d:var name="PortPinSRE" type="ENUMERATION" 
                                value="FASTEST_SLEW_RATE">
                           <a:a name="IMPORTER_INFO" value="@DEF"/>
@@ -5447,9 +5440,7 @@
                         <d:var name="PortPinODE" type="BOOLEAN" value="false">
                           <a:a name="IMPORTER_INFO" value="@DEF"/>
                         </d:var>
-                        <d:var name="PortPinESTOP" type="BOOLEAN" value="false">
-                          <a:a name="IMPORTER_INFO" value="@DEF"/>
-                        </d:var>
+                        <d:var name="PortPinESTOP" type="BOOLEAN" value="true"/>
                         <d:var name="PortPinPFE" type="BOOLEAN" value="false">
                           <a:a name="IMPORTER_INFO" value="@DEF"/>
                         </d:var>
@@ -5470,9 +5461,7 @@
                           <a:a name="IMPORTER_INFO" value="@DEF"/>
                         </d:var>
                         <d:var name="PortPinDirectionChangeable" type="BOOLEAN" 
-                               value="true">
-                          <a:a name="IMPORTER_INFO" value="@DEF"/>
-                        </d:var>
+                               value="false"/>
                         <d:var name="PortPinDirection" type="ENUMERATION" 
                                value="PORT_PIN_OUT"/>
                         <d:lst name="PortPinEcucPartitionRef">
@@ -6824,16 +6813,9 @@
                           </a:a>
                         </d:var>
                         <d:var name="PortPinModeChangeable" type="BOOLEAN" 
-                               value="true">
-                          <a:a name="IMPORTER_INFO" value="@DEF"/>
-                        </d:var>
+                               value="false"/>
                         <d:var name="PortPinMode" type="ENUMERATION" 
-                               value="GPIO">
-                          <a:a name="IMPORTER_INFO">
-                            <a:v>@DEF</a:v>
-                            <a:v>@CALC</a:v>
-                          </a:a>
-                        </d:var>
+                               value="eFTU1_OUT_S20"/>
                         <d:var name="PortPinSRE" type="ENUMERATION" 
                                value="FASTEST_SLEW_RATE">
                           <a:a name="IMPORTER_INFO" value="@DEF"/>
@@ -6841,9 +6823,7 @@
                         <d:var name="PortPinODE" type="BOOLEAN" value="false">
                           <a:a name="IMPORTER_INFO" value="@DEF"/>
                         </d:var>
-                        <d:var name="PortPinESTOP" type="BOOLEAN" value="false">
-                          <a:a name="IMPORTER_INFO" value="@DEF"/>
-                        </d:var>
+                        <d:var name="PortPinESTOP" type="BOOLEAN" value="true"/>
                         <d:var name="PortPinPFE" type="BOOLEAN" value="false">
                           <a:a name="IMPORTER_INFO" value="@DEF"/>
                         </d:var>
@@ -6864,13 +6844,9 @@
                           <a:a name="IMPORTER_INFO" value="@DEF"/>
                         </d:var>
                         <d:var name="PortPinDirectionChangeable" type="BOOLEAN" 
-                               value="true">
-                          <a:a name="IMPORTER_INFO" value="@DEF"/>
-                        </d:var>
+                               value="false"/>
                         <d:var name="PortPinDirection" type="ENUMERATION" 
-                               value="PORT_PIN_IN">
-                          <a:a name="IMPORTER_INFO" value="@DEF"/>
-                        </d:var>
+                               value="PORT_PIN_OUT"/>
                         <d:lst name="PortPinEcucPartitionRef">
                           <d:ref type="REFERENCE" 
                                  value="ASPath:/EcuC/EcuC/EcucPartitionCollection/EcucPartition_0"/>
