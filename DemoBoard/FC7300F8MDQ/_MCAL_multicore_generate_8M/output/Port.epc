@@ -4081,15 +4081,15 @@
                         </ECUC-TEXTUAL-PARAM-VALUE>
                         <ECUC-TEXTUAL-PARAM-VALUE>
                           <DEFINITION-REF DEST="ECUC-ENUMERATION-PARAM-DEF">/FC7300FXXX/Port/PortConfigSet/PortContainer/PortPin/PortPinDirection</DEFINITION-REF>
-                          <VALUE>PORT_PIN_OUT</VALUE>
+                          <VALUE>PORT_PIN_IN</VALUE>
                         </ECUC-TEXTUAL-PARAM-VALUE>
                         <ECUC-NUMERICAL-PARAM-VALUE>
                           <DEFINITION-REF DEST="ECUC-BOOLEAN-PARAM-DEF">/FC7300FXXX/Port/PortConfigSet/PortContainer/PortPin/PortPinDirectionChangeable</DEFINITION-REF>
-                          <VALUE>0</VALUE>
+                          <VALUE>1</VALUE>
                         </ECUC-NUMERICAL-PARAM-VALUE>
                         <ECUC-NUMERICAL-PARAM-VALUE>
                           <DEFINITION-REF DEST="ECUC-BOOLEAN-PARAM-DEF">/FC7300FXXX/Port/PortConfigSet/PortContainer/PortPin/PortPinESTOP</DEFINITION-REF>
-                          <VALUE>1</VALUE>
+                          <VALUE>0</VALUE>
                         </ECUC-NUMERICAL-PARAM-VALUE>
                         <ECUC-NUMERICAL-PARAM-VALUE>
                           <DEFINITION-REF DEST="ECUC-INTEGER-PARAM-DEF">/FC7300FXXX/Port/PortConfigSet/PortContainer/PortPin/PortPinId</DEFINITION-REF>
@@ -4105,11 +4105,11 @@
                         </ECUC-TEXTUAL-PARAM-VALUE>
                         <ECUC-TEXTUAL-PARAM-VALUE>
                           <DEFINITION-REF DEST="ECUC-ENUMERATION-PARAM-DEF">/FC7300FXXX/Port/PortConfigSet/PortContainer/PortPin/PortPinMode</DEFINITION-REF>
-                          <VALUE>eFTU0_OUT_S11</VALUE>
+                          <VALUE>GPIO</VALUE>
                         </ECUC-TEXTUAL-PARAM-VALUE>
                         <ECUC-NUMERICAL-PARAM-VALUE>
                           <DEFINITION-REF DEST="ECUC-BOOLEAN-PARAM-DEF">/FC7300FXXX/Port/PortConfigSet/PortContainer/PortPin/PortPinModeChangeable</DEFINITION-REF>
-                          <VALUE>0</VALUE>
+                          <VALUE>1</VALUE>
                         </ECUC-NUMERICAL-PARAM-VALUE>
                         <ECUC-TEXTUAL-PARAM-VALUE>
                           <DEFINITION-REF DEST="ECUC-STRING-PARAM-DEF">/FC7300FXXX/Port/PortConfigSet/PortContainer/PortPin/PortPinName</DEFINITION-REF>
@@ -6427,11 +6427,11 @@
                         </ECUC-TEXTUAL-PARAM-VALUE>
                         <ECUC-TEXTUAL-PARAM-VALUE>
                           <DEFINITION-REF DEST="ECUC-ENUMERATION-PARAM-DEF">/FC7300FXXX/Port/PortConfigSet/PortContainer/PortPin/PortPinMode</DEFINITION-REF>
-                          <VALUE>eFTU1_OUT_S21</VALUE>
+                          <VALUE>GPIO</VALUE>
                         </ECUC-TEXTUAL-PARAM-VALUE>
                         <ECUC-NUMERICAL-PARAM-VALUE>
                           <DEFINITION-REF DEST="ECUC-BOOLEAN-PARAM-DEF">/FC7300FXXX/Port/PortConfigSet/PortContainer/PortPin/PortPinModeChangeable</DEFINITION-REF>
-                          <VALUE>0</VALUE>
+                          <VALUE>1</VALUE>
                         </ECUC-NUMERICAL-PARAM-VALUE>
                         <ECUC-TEXTUAL-PARAM-VALUE>
                           <DEFINITION-REF DEST="ECUC-STRING-PARAM-DEF">/FC7300FXXX/Port/PortConfigSet/PortContainer/PortPin/PortPinName</DEFINITION-REF>
@@ -6587,11 +6587,11 @@
                         </ECUC-TEXTUAL-PARAM-VALUE>
                         <ECUC-TEXTUAL-PARAM-VALUE>
                           <DEFINITION-REF DEST="ECUC-ENUMERATION-PARAM-DEF">/FC7300FXXX/Port/PortConfigSet/PortContainer/PortPin/PortPinMode</DEFINITION-REF>
-                          <VALUE>eFTU1_OUT_S20</VALUE>
+                          <VALUE>GPIO</VALUE>
                         </ECUC-TEXTUAL-PARAM-VALUE>
                         <ECUC-NUMERICAL-PARAM-VALUE>
                           <DEFINITION-REF DEST="ECUC-BOOLEAN-PARAM-DEF">/FC7300FXXX/Port/PortConfigSet/PortContainer/PortPin/PortPinModeChangeable</DEFINITION-REF>
-                          <VALUE>0</VALUE>
+                          <VALUE>1</VALUE>
                         </ECUC-NUMERICAL-PARAM-VALUE>
                         <ECUC-TEXTUAL-PARAM-VALUE>
                           <DEFINITION-REF DEST="ECUC-STRING-PARAM-DEF">/FC7300FXXX/Port/PortConfigSet/PortContainer/PortPin/PortPinName</DEFINITION-REF>
@@ -7387,11 +7387,11 @@
                         </ECUC-TEXTUAL-PARAM-VALUE>
                         <ECUC-TEXTUAL-PARAM-VALUE>
                           <DEFINITION-REF DEST="ECUC-ENUMERATION-PARAM-DEF">/FC7300FXXX/Port/PortConfigSet/PortContainer/PortPin/PortPinMode</DEFINITION-REF>
-                          <VALUE>eFTU1_OUT_S4</VALUE>
+                          <VALUE>GPIO</VALUE>
                         </ECUC-TEXTUAL-PARAM-VALUE>
                         <ECUC-NUMERICAL-PARAM-VALUE>
                           <DEFINITION-REF DEST="ECUC-BOOLEAN-PARAM-DEF">/FC7300FXXX/Port/PortConfigSet/PortContainer/PortPin/PortPinModeChangeable</DEFINITION-REF>
-                          <VALUE>0</VALUE>
+                          <VALUE>1</VALUE>
                         </ECUC-NUMERICAL-PARAM-VALUE>
                         <ECUC-TEXTUAL-PARAM-VALUE>
                           <DEFINITION-REF DEST="ECUC-STRING-PARAM-DEF">/FC7300FXXX/Port/PortConfigSet/PortContainer/PortPin/PortPinName</DEFINITION-REF>
@@ -9245,11 +9245,11 @@
                         </ECUC-TEXTUAL-PARAM-VALUE>
                         <ECUC-TEXTUAL-PARAM-VALUE>
                           <DEFINITION-REF DEST="ECUC-ENUMERATION-PARAM-DEF">/FC7300FXXX/Port/PortConfigSet/PortContainer/PortPin/PortPinMode</DEFINITION-REF>
-                          <VALUE>eFTU1_OUT_S22</VALUE>
+                          <VALUE>GPIO</VALUE>
                         </ECUC-TEXTUAL-PARAM-VALUE>
                         <ECUC-NUMERICAL-PARAM-VALUE>
                           <DEFINITION-REF DEST="ECUC-BOOLEAN-PARAM-DEF">/FC7300FXXX/Port/PortConfigSet/PortContainer/PortPin/PortPinModeChangeable</DEFINITION-REF>
-                          <VALUE>0</VALUE>
+                          <VALUE>1</VALUE>
                         </ECUC-NUMERICAL-PARAM-VALUE>
                         <ECUC-TEXTUAL-PARAM-VALUE>
                           <DEFINITION-REF DEST="ECUC-STRING-PARAM-DEF">/FC7300FXXX/Port/PortConfigSet/PortContainer/PortPin/PortPinName</DEFINITION-REF>
@@ -10125,11 +10125,11 @@
                         </ECUC-TEXTUAL-PARAM-VALUE>
                         <ECUC-TEXTUAL-PARAM-VALUE>
                           <DEFINITION-REF DEST="ECUC-ENUMERATION-PARAM-DEF">/FC7300FXXX/Port/PortConfigSet/PortContainer/PortPin/PortPinMode</DEFINITION-REF>
-                          <VALUE>eFTU1_OUT_S23</VALUE>
+                          <VALUE>GPIO</VALUE>
                         </ECUC-TEXTUAL-PARAM-VALUE>
                         <ECUC-NUMERICAL-PARAM-VALUE>
                           <DEFINITION-REF DEST="ECUC-BOOLEAN-PARAM-DEF">/FC7300FXXX/Port/PortConfigSet/PortContainer/PortPin/PortPinModeChangeable</DEFINITION-REF>
-                          <VALUE>0</VALUE>
+                          <VALUE>1</VALUE>
                         </ECUC-NUMERICAL-PARAM-VALUE>
                         <ECUC-TEXTUAL-PARAM-VALUE>
                           <DEFINITION-REF DEST="ECUC-STRING-PARAM-DEF">/FC7300FXXX/Port/PortConfigSet/PortContainer/PortPin/PortPinName</DEFINITION-REF>
@@ -10723,11 +10723,11 @@
                         </ECUC-TEXTUAL-PARAM-VALUE>
                         <ECUC-TEXTUAL-PARAM-VALUE>
                           <DEFINITION-REF DEST="ECUC-ENUMERATION-PARAM-DEF">/FC7300FXXX/Port/PortConfigSet/PortContainer/PortPin/PortPinMode</DEFINITION-REF>
-                          <VALUE>eFTU1_OUT_S6</VALUE>
+                          <VALUE>GPIO</VALUE>
                         </ECUC-TEXTUAL-PARAM-VALUE>
                         <ECUC-NUMERICAL-PARAM-VALUE>
                           <DEFINITION-REF DEST="ECUC-BOOLEAN-PARAM-DEF">/FC7300FXXX/Port/PortConfigSet/PortContainer/PortPin/PortPinModeChangeable</DEFINITION-REF>
-                          <VALUE>0</VALUE>
+                          <VALUE>1</VALUE>
                         </ECUC-NUMERICAL-PARAM-VALUE>
                         <ECUC-TEXTUAL-PARAM-VALUE>
                           <DEFINITION-REF DEST="ECUC-STRING-PARAM-DEF">/FC7300FXXX/Port/PortConfigSet/PortContainer/PortPin/PortPinName</DEFINITION-REF>
@@ -10803,11 +10803,11 @@
                         </ECUC-TEXTUAL-PARAM-VALUE>
                         <ECUC-TEXTUAL-PARAM-VALUE>
                           <DEFINITION-REF DEST="ECUC-ENUMERATION-PARAM-DEF">/FC7300FXXX/Port/PortConfigSet/PortContainer/PortPin/PortPinMode</DEFINITION-REF>
-                          <VALUE>eFTU1_OUT_S5</VALUE>
+                          <VALUE>GPIO</VALUE>
                         </ECUC-TEXTUAL-PARAM-VALUE>
                         <ECUC-NUMERICAL-PARAM-VALUE>
                           <DEFINITION-REF DEST="ECUC-BOOLEAN-PARAM-DEF">/FC7300FXXX/Port/PortConfigSet/PortContainer/PortPin/PortPinModeChangeable</DEFINITION-REF>
-                          <VALUE>0</VALUE>
+                          <VALUE>1</VALUE>
                         </ECUC-NUMERICAL-PARAM-VALUE>
                         <ECUC-TEXTUAL-PARAM-VALUE>
                           <DEFINITION-REF DEST="ECUC-STRING-PARAM-DEF">/FC7300FXXX/Port/PortConfigSet/PortContainer/PortPin/PortPinName</DEFINITION-REF>
@@ -10963,11 +10963,11 @@
                         </ECUC-TEXTUAL-PARAM-VALUE>
                         <ECUC-TEXTUAL-PARAM-VALUE>
                           <DEFINITION-REF DEST="ECUC-ENUMERATION-PARAM-DEF">/FC7300FXXX/Port/PortConfigSet/PortContainer/PortPin/PortPinMode</DEFINITION-REF>
-                          <VALUE>eFTU1_OUT_S7</VALUE>
+                          <VALUE>GPIO</VALUE>
                         </ECUC-TEXTUAL-PARAM-VALUE>
                         <ECUC-NUMERICAL-PARAM-VALUE>
                           <DEFINITION-REF DEST="ECUC-BOOLEAN-PARAM-DEF">/FC7300FXXX/Port/PortConfigSet/PortContainer/PortPin/PortPinModeChangeable</DEFINITION-REF>
-                          <VALUE>0</VALUE>
+                          <VALUE>1</VALUE>
                         </ECUC-NUMERICAL-PARAM-VALUE>
                         <ECUC-TEXTUAL-PARAM-VALUE>
                           <DEFINITION-REF DEST="ECUC-STRING-PARAM-DEF">/FC7300FXXX/Port/PortConfigSet/PortContainer/PortPin/PortPinName</DEFINITION-REF>
@@ -17465,15 +17465,15 @@
                         </ECUC-TEXTUAL-PARAM-VALUE>
                         <ECUC-TEXTUAL-PARAM-VALUE>
                           <DEFINITION-REF DEST="ECUC-ENUMERATION-PARAM-DEF">/FC7300FXXX/Port/PortConfigSet/PortContainer/PortPin/PortPinDirection</DEFINITION-REF>
-                          <VALUE>PORT_PIN_IN</VALUE>
+                          <VALUE>PORT_PIN_OUT</VALUE>
                         </ECUC-TEXTUAL-PARAM-VALUE>
                         <ECUC-NUMERICAL-PARAM-VALUE>
                           <DEFINITION-REF DEST="ECUC-BOOLEAN-PARAM-DEF">/FC7300FXXX/Port/PortConfigSet/PortContainer/PortPin/PortPinDirectionChangeable</DEFINITION-REF>
-                          <VALUE>1</VALUE>
+                          <VALUE>0</VALUE>
                         </ECUC-NUMERICAL-PARAM-VALUE>
                         <ECUC-NUMERICAL-PARAM-VALUE>
                           <DEFINITION-REF DEST="ECUC-BOOLEAN-PARAM-DEF">/FC7300FXXX/Port/PortConfigSet/PortContainer/PortPin/PortPinESTOP</DEFINITION-REF>
-                          <VALUE>0</VALUE>
+                          <VALUE>1</VALUE>
                         </ECUC-NUMERICAL-PARAM-VALUE>
                         <ECUC-NUMERICAL-PARAM-VALUE>
                           <DEFINITION-REF DEST="ECUC-INTEGER-PARAM-DEF">/FC7300FXXX/Port/PortConfigSet/PortContainer/PortPin/PortPinId</DEFINITION-REF>

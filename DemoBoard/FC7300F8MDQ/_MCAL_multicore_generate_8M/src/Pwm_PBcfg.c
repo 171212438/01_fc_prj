@@ -659,10 +659,135 @@ PWM_DATA_SECTION static const Pwm_ChannelConfigType Pwm_ConfigChannels[PWM_NUM_C
         /** @brief  Core ID */
         (uint8)1U
     },
-    /* PwmChannel_Eftuoutput - PwmChannelId_14 */
+    /* PWM1 - PwmChannelId_14 */
     {
         /** @brief  Hardware Module ID */
-        PWM_INSTANCE_EFTU_0_TOM_0,
+        PWM_INSTANCE_EFTU_1_TOM_0,
+        /** @brief  Hardware Channel ID */
+        TOM_CH_4,
+        /** @brief  Channel Period Class */
+        PWM_FIXED_PERIOD_SHIFTED,
+        /** @brief  PWM channel polarity */
+        PWM_LOW,
+        /** @brief  PWM channel idle state */
+        PWM_LOW,
+        /** @brief  Default duty cycle value */
+        (uint16)0U,
+        /** @brief  Phase shift count value */
+        (uint32)0U,
+        /** @brief Pwm notification function */
+        NULL_PTR,
+        /** @brief Ftu channel combine or not */
+        PWM_FTU_COMBINE_DISABLE,
+        /** @brief Pwm channel phase shift or not */
+        PWM_PHASESHIFT_ENABLE,
+        /** @brief  Core ID */
+        (uint8)0U
+    },
+    /* PWM2 - PwmChannelId_15 */
+    {
+        /** @brief  Hardware Module ID */
+        PWM_INSTANCE_EFTU_1_TOM_0,
+        /** @brief  Hardware Channel ID */
+        TOM_CH_5,
+        /** @brief  Channel Period Class */
+        PWM_FIXED_PERIOD_SHIFTED,
+        /** @brief  PWM channel polarity */
+        PWM_HIGH,
+        /** @brief  PWM channel idle state */
+        PWM_LOW,
+        /** @brief  Default duty cycle value */
+        (uint16)0U,
+        /** @brief  Phase shift count value */
+        (uint32)0U,
+        /** @brief Pwm notification function */
+        NULL_PTR,
+        /** @brief Ftu channel combine or not */
+        PWM_FTU_COMBINE_DISABLE,
+        /** @brief Pwm channel phase shift or not */
+        PWM_PHASESHIFT_ENABLE,
+        /** @brief  Core ID */
+        (uint8)0U
+    },
+    /* PWM3 - PwmChannelId_16 */
+    {
+        /** @brief  Hardware Module ID */
+        PWM_INSTANCE_EFTU_1_TOM_0,
+        /** @brief  Hardware Channel ID */
+        TOM_CH_6,
+        /** @brief  Channel Period Class */
+        PWM_FIXED_PERIOD_SHIFTED,
+        /** @brief  PWM channel polarity */
+        PWM_HIGH,
+        /** @brief  PWM channel idle state */
+        PWM_LOW,
+        /** @brief  Default duty cycle value */
+        (uint16)0U,
+        /** @brief  Phase shift count value */
+        (uint32)0U,
+        /** @brief Pwm notification function */
+        NULL_PTR,
+        /** @brief Ftu channel combine or not */
+        PWM_FTU_COMBINE_DISABLE,
+        /** @brief Pwm channel phase shift or not */
+        PWM_PHASESHIFT_ENABLE,
+        /** @brief  Core ID */
+        (uint8)0U
+    },
+    /* PWM4 - PwmChannelId_17 */
+    {
+        /** @brief  Hardware Module ID */
+        PWM_INSTANCE_EFTU_1_TOM_0,
+        /** @brief  Hardware Channel ID */
+        TOM_CH_7,
+        /** @brief  Channel Period Class */
+        PWM_FIXED_PERIOD_SHIFTED,
+        /** @brief  PWM channel polarity */
+        PWM_LOW,
+        /** @brief  PWM channel idle state */
+        PWM_LOW,
+        /** @brief  Default duty cycle value */
+        (uint16)0U,
+        /** @brief  Phase shift count value */
+        (uint32)0U,
+        /** @brief Pwm notification function */
+        NULL_PTR,
+        /** @brief Ftu channel combine or not */
+        PWM_FTU_COMBINE_DISABLE,
+        /** @brief Pwm channel phase shift or not */
+        PWM_PHASESHIFT_ENABLE,
+        /** @brief  Core ID */
+        (uint8)0U
+    },
+    /* PWM5 - PwmChannelId_18 */
+    {
+        /** @brief  Hardware Module ID */
+        PWM_INSTANCE_EFTU_1_TOM_0,
+        /** @brief  Hardware Channel ID */
+        TOM_CH_3,
+        /** @brief  Channel Period Class */
+        PWM_FIXED_PERIOD_SHIFTED,
+        /** @brief  PWM channel polarity */
+        PWM_HIGH,
+        /** @brief  PWM channel idle state */
+        PWM_LOW,
+        /** @brief  Default duty cycle value */
+        (uint16)0U,
+        /** @brief  Phase shift count value */
+        (uint32)0U,
+        /** @brief Pwm notification function */
+        NULL_PTR,
+        /** @brief Ftu channel combine or not */
+        PWM_FTU_COMBINE_DISABLE,
+        /** @brief Pwm channel phase shift or not */
+        PWM_PHASESHIFT_ENABLE,
+        /** @brief  Core ID */
+        (uint8)0U
+    },
+    /* PWM_CARRIER - PwmChannelId_19 */
+    {
+        /** @brief  Hardware Module ID */
+        PWM_INSTANCE_EFTU_1_TOM_0,
         /** @brief  Hardware Channel ID */
         TOM_CH_0,
         /** @brief  Channel Period Class */
@@ -714,7 +839,7 @@ PWM_DATA_SECTION static const Pwm_ChannelType Pwm_FtuHw2LogicChannelMap[PWM_FTU_
  */
 PWM_DATA_SECTION static const Pwm_ModuleType Pwm_Hw2LogicInstanceMap[PWM_HW_MODULES_NO_U8] =
 {
-    0xFF, 0xFF, 2U, 0U, 0xFF, 0xFF, 3U, 1U, 0U, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF
+    0xFF, 0xFF, 2U, 0U, 0xFF, 0xFF, 3U, 1U, 0xFF, 0xFF, 0U, 0xFF, 0xFF, 0xFF
 };
 /**
  * @brief  Logic channel number to Eftu logic channel map
@@ -722,14 +847,14 @@ PWM_DATA_SECTION static const Pwm_ModuleType Pwm_Hw2LogicInstanceMap[PWM_HW_MODU
  */
 PWM_DATA_SECTION static const Pwm_ChannelType Pwm_LogicCh2EftuLogicChMap[PWM_NUM_CONF_CHANNELS] =
 {
-    0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0U
+    0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0U, 1U, 2U, 3U, 4U, 5U
 };
 
 /**
  * @brief  Eftu channel specific configuration
  *
  */
-PWM_DATA_SECTION static const Pwm_Eftu_ConfigType Pwm_EftuChannelConfiguration[1] =
+PWM_DATA_SECTION static const Pwm_Eftu_ConfigType Pwm_EftuChannelConfiguration[6] =
 {
     {
         /** @brief Pwm channel TOM configuration */
@@ -737,11 +862,231 @@ PWM_DATA_SECTION static const Pwm_Eftu_ConfigType Pwm_EftuChannelConfiguration[1
             /** @brief Pwm channel aligned mode */
             PWM_EDGE_ALIGNED,
             /** @brief TOM channel clock source */
-            0,
+            1,
             /** @brief Pwm channel period value */
-            3000,
+            750,
             /** @brief TOM channel trigger output selection */
             0,
+            /** @brief TOM channel counter reset by last channel */
+            TRUE,
+            /** @brief TOM channel trigger delay */
+            0
+        },
+        /** @brief Pwm channel DTM configuration */
+        {
+            /** @brief DTM enable */
+            (boolean)TRUE,
+            /** @brief DTM clock source */
+            (uint8)0U,
+            /** @brief DTM rising edge enable */
+            (boolean)TRUE,
+            /** @brief DTM falling edge enable */
+            (boolean)TRUE,
+            /** @brief DTM rising edge dead time */
+            (uint16)23U,
+            /** @brief DTM falling edge dead time */
+            (uint16)23U,
+            /** @brief DTM invert output1 */
+            (Pwm_Eftu_Dtm_CombineType)1,
+            /** @brief DTM Output swap */
+            (boolean)FALSE
+        },
+        {
+            /** @brief High Resolution support */
+            FALSE,
+            /** @brief High Resolution period micro-step */
+            0U,
+            /** @brief High Resolution duty cycle micro-step */
+            0U
+        }
+    },
+    {
+        /** @brief Pwm channel TOM configuration */
+        {
+            /** @brief Pwm channel aligned mode */
+            PWM_EDGE_ALIGNED,
+            /** @brief TOM channel clock source */
+            1,
+            /** @brief Pwm channel period value */
+            750,
+            /** @brief TOM channel trigger output selection */
+            0,
+            /** @brief TOM channel counter reset by last channel */
+            TRUE,
+            /** @brief TOM channel trigger delay */
+            0
+        },
+        /** @brief Pwm channel DTM configuration */
+        {
+            /** @brief DTM enable */
+            (boolean)TRUE,
+            /** @brief DTM clock source */
+            (uint8)0U,
+            /** @brief DTM rising edge enable */
+            (boolean)TRUE,
+            /** @brief DTM falling edge enable */
+            (boolean)TRUE,
+            /** @brief DTM rising edge dead time */
+            (uint16)23U,
+            /** @brief DTM falling edge dead time */
+            (uint16)23U,
+            /** @brief DTM invert output1 */
+            (Pwm_Eftu_Dtm_CombineType)1,
+            /** @brief DTM Output swap */
+            (boolean)FALSE
+        },
+        {
+            /** @brief High Resolution support */
+            FALSE,
+            /** @brief High Resolution period micro-step */
+            0U,
+            /** @brief High Resolution duty cycle micro-step */
+            0U
+        }
+    },
+    {
+        /** @brief Pwm channel TOM configuration */
+        {
+            /** @brief Pwm channel aligned mode */
+            PWM_EDGE_ALIGNED,
+            /** @brief TOM channel clock source */
+            1,
+            /** @brief Pwm channel period value */
+            750,
+            /** @brief TOM channel trigger output selection */
+            0,
+            /** @brief TOM channel counter reset by last channel */
+            TRUE,
+            /** @brief TOM channel trigger delay */
+            0
+        },
+        /** @brief Pwm channel DTM configuration */
+        {
+            /** @brief DTM enable */
+            (boolean)TRUE,
+            /** @brief DTM clock source */
+            (uint8)0U,
+            /** @brief DTM rising edge enable */
+            (boolean)TRUE,
+            /** @brief DTM falling edge enable */
+            (boolean)TRUE,
+            /** @brief DTM rising edge dead time */
+            (uint16)23U,
+            /** @brief DTM falling edge dead time */
+            (uint16)23U,
+            /** @brief DTM invert output1 */
+            (Pwm_Eftu_Dtm_CombineType)1,
+            /** @brief DTM Output swap */
+            (boolean)FALSE
+        },
+        {
+            /** @brief High Resolution support */
+            FALSE,
+            /** @brief High Resolution period micro-step */
+            0U,
+            /** @brief High Resolution duty cycle micro-step */
+            0U
+        }
+    },
+    {
+        /** @brief Pwm channel TOM configuration */
+        {
+            /** @brief Pwm channel aligned mode */
+            PWM_EDGE_ALIGNED,
+            /** @brief TOM channel clock source */
+            1,
+            /** @brief Pwm channel period value */
+            750,
+            /** @brief TOM channel trigger output selection */
+            0,
+            /** @brief TOM channel counter reset by last channel */
+            TRUE,
+            /** @brief TOM channel trigger delay */
+            0
+        },
+        /** @brief Pwm channel DTM configuration */
+        {
+            /** @brief DTM enable */
+            (boolean)TRUE,
+            /** @brief DTM clock source */
+            (uint8)0U,
+            /** @brief DTM rising edge enable */
+            (boolean)TRUE,
+            /** @brief DTM falling edge enable */
+            (boolean)TRUE,
+            /** @brief DTM rising edge dead time */
+            (uint16)23U,
+            /** @brief DTM falling edge dead time */
+            (uint16)23U,
+            /** @brief DTM invert output1 */
+            (Pwm_Eftu_Dtm_CombineType)1,
+            /** @brief DTM Output swap */
+            (boolean)FALSE
+        },
+        {
+            /** @brief High Resolution support */
+            FALSE,
+            /** @brief High Resolution period micro-step */
+            0U,
+            /** @brief High Resolution duty cycle micro-step */
+            0U
+        }
+    },
+    {
+        /** @brief Pwm channel TOM configuration */
+        {
+            /** @brief Pwm channel aligned mode */
+            PWM_EDGE_ALIGNED,
+            /** @brief TOM channel clock source */
+            1,
+            /** @brief Pwm channel period value */
+            750,
+            /** @brief TOM channel trigger output selection */
+            0,
+            /** @brief TOM channel counter reset by last channel */
+            TRUE,
+            /** @brief TOM channel trigger delay */
+            0
+        },
+        /** @brief Pwm channel DTM configuration */
+        {
+            /** @brief DTM enable */
+            (boolean)FALSE,
+            /** @brief DTM clock source */
+            (uint8)0U,
+            /** @brief DTM rising edge enable */
+            (boolean)FALSE,
+            /** @brief DTM falling edge enable */
+            (boolean)FALSE,
+            /** @brief DTM rising edge dead time */
+            (uint16)0U,
+            /** @brief DTM falling edge dead time */
+            (uint16)0U,
+            /** @brief DTM invert output1 */
+            (Pwm_Eftu_Dtm_CombineType)0,
+            /** @brief DTM Output swap */
+            (boolean)FALSE
+        },
+        {
+            /** @brief High Resolution support */
+            FALSE,
+            /** @brief High Resolution period micro-step */
+            0U,
+            /** @brief High Resolution duty cycle micro-step */
+            0U
+        }
+    },
+    {
+        /** @brief Pwm channel TOM configuration */
+        {
+            /** @brief Pwm channel aligned mode */
+            PWM_EDGE_ALIGNED,
+            /** @brief TOM channel clock source */
+            1,
+            /** @brief Pwm channel period value */
+            750,
+            /** @brief TOM channel trigger output selection */
+            1,
             /** @brief TOM channel counter reset by last channel */
             FALSE,
             /** @brief TOM channel trigger delay */
@@ -800,7 +1145,7 @@ PWM_DATA_SECTION const Pwm_ConfigType Pwm_Config =
    /** @brief pwm channel configuration */
     Pwm_ConfigChannels,
    /** @brief pwm channel count */
-    15U,
+    20U,
     /** @brief pwm module configuration */
     {
         /** @brief pwm FTU module count */
@@ -808,7 +1153,7 @@ PWM_DATA_SECTION const Pwm_ConfigType Pwm_Config =
         /** @brief Ftu module configuration */
         Pwm_FtuConfigModules,
         /** @brief pwm TOM channel count */
-        1U,
+        6U,
         /** @brief TOM channel specific configuration */
         Pwm_EftuChannelConfiguration,
         /** @brief TOM Global configuration */

@@ -36,6 +36,7 @@
 #include "Bsp_Qdt.h"
 #include "Bsp_Ssi.h"
 #include "Bsp_Pfls.h"
+#include "Bsp_Eftu.h"
 
 #define ETH_DEMO_SUPPORT                  (STD_ON)
 #define PFLS_DEMO_SUPPORT                 (STD_ON)
@@ -318,6 +319,9 @@ BSP_TEXT_SECTION int main(void)
     Bsp_Mpu_Init();
     Bsp_Mcu_Init();
     Bsp_Port_Init();
+#if (USE_EFTU_MODULE == STD_ON)
+    Bsp_Eftu_Init();
+#endif
 #if (TRGSEL_DEMO_SUPPORT == STD_ON)
     Bsp_Trgsel_Init();
 #endif

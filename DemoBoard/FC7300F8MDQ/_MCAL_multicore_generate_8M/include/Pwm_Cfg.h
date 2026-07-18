@@ -221,7 +221,12 @@ extern "C" {
 #define Msc_Pwm_5                                 (11U)
 #define Msc_Pwm_6                                 (12U)
 #define Msc_Pwm_7                                 (13U)
-#define PwmChannel_Eftuoutput                                 (14U)
+#define PWM1                                 (14U)
+#define PWM2                                 (15U)
+#define PWM3                                 (16U)
+#define PWM4                                 (17U)
+#define PWM5                                 (18U)
+#define PWM_CARRIER                                 (19U)
 
 /** 
  * @brief      Symbolic Names for configured channels - ecuc 2108 compliant.
@@ -241,7 +246,12 @@ extern "C" {
 #define  PwmConf_PwmChannel_Msc_Pwm_5             (11U)
 #define  PwmConf_PwmChannel_Msc_Pwm_6             (12U)
 #define  PwmConf_PwmChannel_Msc_Pwm_7             (13U)
-#define  PwmConf_PwmChannel_PwmChannel_Eftuoutput             (14U)
+#define  PwmConf_PwmChannel_PWM1             (14U)
+#define  PwmConf_PwmChannel_PWM2             (15U)
+#define  PwmConf_PwmChannel_PWM3             (16U)
+#define  PwmConf_PwmChannel_PWM4             (17U)
+#define  PwmConf_PwmChannel_PWM5             (18U)
+#define  PwmConf_PwmChannel_PWM_CARRIER             (19U)
 
 /* PRQA S 0791 -- */
 
@@ -260,7 +270,7 @@ extern "C" {
  * @brief      Define to indicate EFTU is used
  *
  */
-#define PWM_EFTU_0_TOM_0_USED
+#define PWM_EFTU_1_TOM_0_USED
 #define PWM_EFTU_USED                           (STD_ON)
 
 /**
@@ -269,9 +279,15 @@ extern "C" {
  */
 
 /**
+ * @brief This define specifies the deadtime feature used or not.
+ * 
+ */
+#define EFTU_DEADTIME_SUPPORT
+
+/**
  * @brief Number of configured Pwm channels
  */
-#define PWM_NUM_CONF_CHANNELS           (15U)
+#define PWM_NUM_CONF_CHANNELS           (20U)
 #define PWM_NUM_CONF_FTU_MODULES        (4U)
 
 #if(PWM_GLOBALTIMEBASE_SUPPORTED == STD_ON)
@@ -284,7 +300,7 @@ extern "C" {
 /**
  * @brief    Init state of PWM channels
  */
-#define PWM_CHANNEL_INTIAL_VALUE        {0U, 0U, 0U, 0U, 0U, 0U, 0U, 0U, 0U, 0U, 0U, 0U, 0U, 0U, 0U}
+#define PWM_CHANNEL_INTIAL_VALUE        {0U, 0U, 0U, 0U, 0U, 0U, 0U, 0U, 0U, 0U, 0U, 0U, 0U, 0U, 0U, 0U, 0U, 0U, 0U, 0U}
 
 /**
  * @brief    Init state of PWM FTU instances

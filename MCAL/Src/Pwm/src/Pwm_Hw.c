@@ -102,18 +102,19 @@ PWM_DATA_SECTION uint16 s_aChannelDuty[PWM_NUM_CONF_CHANNELS] = { PWM_CHANNEL_DU
 #define PWM_STOP_SEC_VAR_INIT_SHAREABLE_NO_CACHEABLE
 #include "Pwm_MemMap.h"
 
-#define PWM_START_SEC_VAR_INIT_SHAREABLE_NO_CACHEABLE
-#include "Pwm_MemMap.h"
-
-#if (PWM_EFTU_USED == STD_ON)
-/**
- * @brief PWM TOM cahnnel enable/disable status
- */
-PWM_DATA_SECTION static uint32 s_aEftuTomEnDis[PWM_EFTU_MODULE_NO] = { 0U };
-#endif
-
-#define PWM_STOP_SEC_VAR_INIT_SHAREABLE_NO_CACHEABLE
-#include "Pwm_MemMap.h"
+/* Keep the TOM enable command local per call/core to prevent Core1/Core2 from replaying Core0's enable mask. @F.W.P */
+// #define PWM_START_SEC_VAR_INIT_SHAREABLE_NO_CACHEABLE
+// #include "Pwm_MemMap.h"
+// 
+// #if (PWM_EFTU_USED == STD_ON)
+// /**
+//  * @brief PWM TOM cahnnel enable/disable status
+//  */
+// PWM_DATA_SECTION static uint32 s_aEftuTomEnDis[PWM_EFTU_MODULE_NO] = { 0U };
+// #endif
+// 
+// #define PWM_STOP_SEC_VAR_INIT_SHAREABLE_NO_CACHEABLE
+// #include "Pwm_MemMap.h"
 
 /* PRQA S 0686-- */
 /*==================================================================================================
@@ -214,6 +215,8 @@ PWM_TEXT_SECTION static void Pwm_Eftu_Init(const Pwm_ConfigType *pPwmConfig)
     uint32           u32Index;
     Pwm_InstanceType eInstance;
     Pwm_ChannelType  u8TomChIdx;
+    /* Do not replay another core's TOM enable commands during multicore initialization. @F.W.P */
+    uint32 aEftuTomEnDis[PWM_EFTU_MODULE_NO] = { 0U };
 
 #if (PWM_MULTICORE_ENABLED == STD_ON)
     uint8 u8CoreId = (uint8)GET_CPU_ID();
@@ -239,7 +242,7 @@ PWM_TEXT_SECTION static void Pwm_Eftu_Init(const Pwm_ConfigType *pPwmConfig)
 #endif
                 /* save channel status */
                 s_aChannelState[u32Index] = PWM_CHANNEL_RUNNING;
-                s_aEftuTomEnDis[eInstance - PWM_INSTANCE_EFTU_0_TOM_0] |=
+                aEftuTomEnDis[eInstance - PWM_INSTANCE_EFTU_0_TOM_0] |=
                     ((uint32)0x2U << ((uint32)pPwmConfig->pPwmConfigChannels[u32Index].u8HwChannelId
                                       << 1U));
             }
@@ -248,9 +251,9 @@ PWM_TEXT_SECTION static void Pwm_Eftu_Init(const Pwm_ConfigType *pPwmConfig)
     SchM_Enter_Pwm_PWM_EXCLUSIVE_AREA_19();
     for (u32Index = 0U; u32Index < PWM_EFTU_MODULE_NO; u32Index++)
     {
-        if (s_aEftuTomEnDis[u32Index] != 0U)
+        if (aEftuTomEnDis[u32Index] != 0U)
         {
-            Pwm_Eftu_Tom_InitTGC(&pPwmConfig->ePwmConfigModules, u32Index, s_aEftuTomEnDis[u32Index]);
+            Pwm_Eftu_Tom_InitTGC(&pPwmConfig->ePwmConfigModules, u32Index, aEftuTomEnDis[u32Index]);
         }
     }
     SchM_Exit_Pwm_PWM_EXCLUSIVE_AREA_19();

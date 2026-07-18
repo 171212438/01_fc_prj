@@ -1,13 +1,12 @@
-Source/main_multicore.o: \
- D:/Workspace/FlagChip/01_fc_prj/DemoBoard/FC7300F8MDQ/Source/main_multicore.c \
- ../../../_MCAL_multicore_generate_8M/include/Common_Cfg.h \
+App/Source/Bsp_Eftu.o: \
+ D:/Workspace/FlagChip/01_fc_prj/DemoBoard/FC7300F8MDQ/App/Source/Bsp_Eftu.c \
+ ../../../App/Include/Bsp_Eftu.h ../../../App/Include/Bsp_McalHeader.h \
+ ../../../MiddleWare/UartDriver/UART.h \
  ../../../../../MCAL/Src/Base/include/Std_Types.h \
  ../../../../../MCAL/Src/Base/include/Platform_Types.h \
  ../../../../../MCAL/Src/Base/include/Compiler.h \
  ../../../../../MCAL/Src/Base/include/Compiler_Cfg.h \
  ../../../../../MCAL/Src/Base/include/CompilerDefinition.h \
- ../../../App/Include/Bsp_Mcu.h ../../../App/Include/Bsp_McalHeader.h \
- ../../../MiddleWare/UartDriver/UART.h \
  ../../../../../MCAL/Src/Uart/include/CDD_Uart.h \
  ../../../../../MCAL/Src/Uart/include/Uart_Types.h \
  ../../../../../MCAL/Src/Uart/include/Uart_GeneralTypes.h \
@@ -17,6 +16,7 @@ Source/main_multicore.o: \
  ../../../../../MCAL/Src/Base/include/Mcal.h \
  ../../../../../MCAL/Src/Base/include/Std_Types.h \
  ../../../../../MCAL/Src/Common/include/Cpm_Reg.h \
+ ../../../_MCAL_multicore_generate_8M/include/Common_Cfg.h \
  ../../../_MCAL_multicore_generate_8M/include/Common_Cfg.h \
  ../../../../../MCAL/Src/Dma/include/Dma_Types.h \
  ../../../../../MCAL/Src/Dma/include/FC7300GT_Dma_Reg.h \
@@ -285,32 +285,13 @@ Source/main_multicore.o: \
  ../../../../../MCAL/Src/Ssi/include/Ssi_Reg.h \
  ../../../_MCAL_multicore_generate_8M/include/CDD_Ssi_Cfg.h \
  ../../../../../MCAL/Src/SchM/include/SchM_Ssi.h \
- ../../../../../MCAL/Src/Base/include/MemMap/Ssi_MemMap.h \
- ../../../App/Include/Bsp_io.h ../../../App/Include/Bsp_Pwm.h \
- ../../../App/Include/Bsp_Gpt.h ../../../App/Include/Bsp_Wdg.h \
- ../../../App/Include/Bsp_Adc.h ../../../App/Include/Bsp_Lin.h \
- ../../../App/Include/Bsp_Dma.h ../../../App/Include/Bsp_Spi.h \
- ../../../App/Include/Bsp_Can.h ../../../App/Include/Bsp_Icu.h \
- ../../../App/Include/Bsp_I2c.h ../../../App/Include/Bsp_Trgsel.h \
- ../../../App/Include/Bsp_Fls.h ../../../App/Include/Bsp_Fee.h \
- ../../../App/Include/Bsp_EthIf.h \
- ../../../../../MCAL/Src/EthIf/include/EthIf.h \
- ../../../App/Include/Bsp_Eth.h \
- ../../../../../MCAL/Src/SchM/include/SchM_Eth.h \
- ../../../App/Include/Bsp_EthSM.h ../../../App/Include/Bsp_EthTrcv.h \
- ../../../App/Include/Bsp_Mb.h ../../../App/Include/Bsp_Msc.h \
- ../../../../../MCAL/Src/Common/include/Scm_Reg.h \
- ../../../../../MCAL/Src/Mcu/include/Mcu_Rgm_Regs.h \
- ../../../../../MCAL/Src/Common/include/SpinLock.h \
- ../../../../../MCAL/Src/Common/include/Sema_RegOps.h \
- ../../../../../MCAL/Src/Common/include/Sema_Reg.h \
- ../../../App/Include/Bsp_Ocu.h ../../../App/Include/Bsp_Sent.h \
- ../../../App/Include/Bsp_Ssi.h ../../../App/Include/Bsp_Crc.h \
- ../../../App/Include/Bsp_Crypto.h ../../../App/Include/Bsp_Uart.h \
- ../../../App/Include/Bsp_Sdadc.h ../../../App/Include/Bsp_Qdt.h \
- ../../../App/Include/Bsp_Pfls.h ../../../App/Include/Bsp_Eftu.h
+ ../../../../../MCAL/Src/Base/include/MemMap/Ssi_MemMap.h
 
-../../../_MCAL_multicore_generate_8M/include/Common_Cfg.h:
+../../../App/Include/Bsp_Eftu.h:
+
+../../../App/Include/Bsp_McalHeader.h:
+
+../../../MiddleWare/UartDriver/UART.h:
 
 ../../../../../MCAL/Src/Base/include/Std_Types.h:
 
@@ -321,12 +302,6 @@ Source/main_multicore.o: \
 ../../../../../MCAL/Src/Base/include/Compiler_Cfg.h:
 
 ../../../../../MCAL/Src/Base/include/CompilerDefinition.h:
-
-../../../App/Include/Bsp_Mcu.h:
-
-../../../App/Include/Bsp_McalHeader.h:
-
-../../../MiddleWare/UartDriver/UART.h:
 
 ../../../../../MCAL/Src/Uart/include/CDD_Uart.h:
 
@@ -345,6 +320,8 @@ Source/main_multicore.o: \
 ../../../../../MCAL/Src/Base/include/Std_Types.h:
 
 ../../../../../MCAL/Src/Common/include/Cpm_Reg.h:
+
+../../../_MCAL_multicore_generate_8M/include/Common_Cfg.h:
 
 ../../../_MCAL_multicore_generate_8M/include/Common_Cfg.h:
 
@@ -885,77 +862,3 @@ Source/main_multicore.o: \
 ../../../../../MCAL/Src/SchM/include/SchM_Ssi.h:
 
 ../../../../../MCAL/Src/Base/include/MemMap/Ssi_MemMap.h:
-
-../../../App/Include/Bsp_io.h:
-
-../../../App/Include/Bsp_Pwm.h:
-
-../../../App/Include/Bsp_Gpt.h:
-
-../../../App/Include/Bsp_Wdg.h:
-
-../../../App/Include/Bsp_Adc.h:
-
-../../../App/Include/Bsp_Lin.h:
-
-../../../App/Include/Bsp_Dma.h:
-
-../../../App/Include/Bsp_Spi.h:
-
-../../../App/Include/Bsp_Can.h:
-
-../../../App/Include/Bsp_Icu.h:
-
-../../../App/Include/Bsp_I2c.h:
-
-../../../App/Include/Bsp_Trgsel.h:
-
-../../../App/Include/Bsp_Fls.h:
-
-../../../App/Include/Bsp_Fee.h:
-
-../../../App/Include/Bsp_EthIf.h:
-
-../../../../../MCAL/Src/EthIf/include/EthIf.h:
-
-../../../App/Include/Bsp_Eth.h:
-
-../../../../../MCAL/Src/SchM/include/SchM_Eth.h:
-
-../../../App/Include/Bsp_EthSM.h:
-
-../../../App/Include/Bsp_EthTrcv.h:
-
-../../../App/Include/Bsp_Mb.h:
-
-../../../App/Include/Bsp_Msc.h:
-
-../../../../../MCAL/Src/Common/include/Scm_Reg.h:
-
-../../../../../MCAL/Src/Mcu/include/Mcu_Rgm_Regs.h:
-
-../../../../../MCAL/Src/Common/include/SpinLock.h:
-
-../../../../../MCAL/Src/Common/include/Sema_RegOps.h:
-
-../../../../../MCAL/Src/Common/include/Sema_Reg.h:
-
-../../../App/Include/Bsp_Ocu.h:
-
-../../../App/Include/Bsp_Sent.h:
-
-../../../App/Include/Bsp_Ssi.h:
-
-../../../App/Include/Bsp_Crc.h:
-
-../../../App/Include/Bsp_Crypto.h:
-
-../../../App/Include/Bsp_Uart.h:
-
-../../../App/Include/Bsp_Sdadc.h:
-
-../../../App/Include/Bsp_Qdt.h:
-
-../../../App/Include/Bsp_Pfls.h:
-
-../../../App/Include/Bsp_Eftu.h:

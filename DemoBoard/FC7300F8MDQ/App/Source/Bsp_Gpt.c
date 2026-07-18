@@ -47,7 +47,6 @@ void Bsp_Gpt_Init(void)
 {
     if (0 == GET_CPU_ID())
     {
-    	Eftu_Init(&Eftu_Config);
         Gpt_Init(&Gpt_Config);
         Gpt_EnableNotification(GptConf_GptChannelConfiguration_GptChannel_WDGCondition);
         Gpt_StartTimer(GptConf_GptChannelConfiguration_GptChannel_WDGCondition, 15000U);
@@ -73,4 +72,3 @@ void Bsp_Gpt_Init(void)
 #endif
     }
 }
-

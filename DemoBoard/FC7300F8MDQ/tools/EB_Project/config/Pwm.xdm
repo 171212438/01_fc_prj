@@ -856,7 +856,7 @@
                              value="ASPath:/EcuC/EcuC/EcucPartitionCollection/EcucPartition_1"/>
                     </d:lst>
                   </d:ctr>
-                  <d:ctr name="PwmChannel_Eftuoutput" type="IDENTIFIABLE">
+                  <d:ctr name="PWM1" type="IDENTIFIABLE">
                     <d:var name="PwmChannelId" type="INTEGER" value="14">
                       <a:a name="IMPORTER_INFO">
                         <a:v>@DEF</a:v>
@@ -865,14 +865,235 @@
                     </d:var>
                     <d:var name="PwmModule" type="ENUMERATION" value="EFTU"/>
                     <d:ref name="PwmHwChannelRef" type="REFERENCE" 
-                           value="ASPath:/Pwm/Pwm/PwmChannelConfigSet/PwmEftuModule_0/PwmTomChannels_0"/>
-                    <d:ref name="PwmMcuClockReferencePoint" type="REFERENCE" >
+                           value="ASPath:/Pwm/Pwm/PwmChannelConfigSet/PwmEftuModule_0/PWM1"/>
+                    <d:ref name="PwmMcuClockReferencePoint" type="REFERENCE" 
+                           value="ASPath:/Mcu/Mcu/McuModuleConfiguration/MCU_Demo_FOSC24M/McuClockReferencePoint_Bus">
                       <a:a name="IMPORTER_INFO" value="@DEF"/>
                     </d:ref>
                     <d:var name="PwmChannelClass" type="ENUMERATION" 
-                           value="PWM_FIXED_PERIOD">
+                           value="PWM_FIXED_PERIOD_SHIFTED"/>
+                    <d:var name="PwmPolarity" type="ENUMERATION" value="PWM_LOW">
                       <a:a name="IMPORTER_INFO" value="@DEF"/>
                     </d:var>
+                    <d:var name="PwmIdleState" type="ENUMERATION" 
+                           value="PWM_LOW">
+                      <a:a name="IMPORTER_INFO" value="@DEF"/>
+                    </d:var>
+                    <d:var name="PwmPeriodDefaultHZ" type="INTEGER" 
+                           value="200000">
+                      <a:a name="IMPORTER_INFO">
+                        <a:v>@CALC</a:v>
+                        <a:v>@DEF</a:v>
+                      </a:a>
+                    </d:var>
+                    <d:var name="PwmPeriodDefault" type="FLOAT" value="5.0E-6">
+                      <a:a name="IMPORTER_INFO">
+                        <a:v>@CALC</a:v>
+                        <a:v>@DEF</a:v>
+                      </a:a>
+                    </d:var>
+                    <d:var name="PwmDutycycleDefault" type="INTEGER" value="0"/>
+                    <d:var name="PwmPhaseShiftValue" type="FLOAT" value="0.0">
+                      <a:a name="ENABLE" value="true"/>
+                      <a:a name="IMPORTER_INFO" value="@DEF"/>
+                    </d:var>
+                    <d:ref name="PwmEftuRefChannel" type="REFERENCE" 
+                           value="ASPath:/Pwm/Pwm/PwmChannelConfigSet/PWM_CARRIER">
+                      <a:a name="ENABLE" value="true"/>
+                      <a:a name="IMPORTER_INFO" value="@DEF"/>
+                    </d:ref>
+                    <d:var name="PwmNotification" type="FUNCTION-NAME" 
+                           value="NULL">
+                      <a:a name="ENABLE" value="false"/>
+                      <a:a name="IMPORTER_INFO" value="@DEF"/>
+                    </d:var>
+                    <d:lst name="PwmChannelEcucPartitionRef">
+                      <d:ref type="REFERENCE" 
+                             value="ASPath:/EcuC/EcuC/EcucPartitionCollection/EcucPartition_0"/>
+                    </d:lst>
+                  </d:ctr>
+                  <d:ctr name="PWM2" type="IDENTIFIABLE">
+                    <d:var name="PwmChannelId" type="INTEGER" value="15">
+                      <a:a name="IMPORTER_INFO">
+                        <a:v>@DEF</a:v>
+                        <a:v>@CALC</a:v>
+                      </a:a>
+                    </d:var>
+                    <d:var name="PwmModule" type="ENUMERATION" value="EFTU"/>
+                    <d:ref name="PwmHwChannelRef" type="REFERENCE" 
+                           value="ASPath:/Pwm/Pwm/PwmChannelConfigSet/PwmEftuModule_0/PWM2"/>
+                    <d:ref name="PwmMcuClockReferencePoint" type="REFERENCE" 
+                           value="ASPath:/Mcu/Mcu/McuModuleConfiguration/MCU_Demo_FOSC24M/McuClockReferencePoint_Bus">
+                      <a:a name="IMPORTER_INFO" value="@DEF"/>
+                    </d:ref>
+                    <d:var name="PwmChannelClass" type="ENUMERATION" 
+                           value="PWM_FIXED_PERIOD_SHIFTED"/>
+                    <d:var name="PwmPolarity" type="ENUMERATION" 
+                           value="PWM_HIGH"/>
+                    <d:var name="PwmIdleState" type="ENUMERATION" 
+                           value="PWM_LOW">
+                      <a:a name="IMPORTER_INFO" value="@DEF"/>
+                    </d:var>
+                    <d:var name="PwmPeriodDefaultHZ" type="INTEGER" 
+                           value="200000">
+                      <a:a name="IMPORTER_INFO">
+                        <a:v>@CALC</a:v>
+                        <a:v>@DEF</a:v>
+                      </a:a>
+                    </d:var>
+                    <d:var name="PwmPeriodDefault" type="FLOAT" value="5.0E-6">
+                      <a:a name="IMPORTER_INFO">
+                        <a:v>@CALC</a:v>
+                        <a:v>@DEF</a:v>
+                      </a:a>
+                    </d:var>
+                    <d:var name="PwmDutycycleDefault" type="INTEGER" value="0"/>
+                    <d:var name="PwmPhaseShiftValue" type="FLOAT" value="0.0">
+                      <a:a name="ENABLE" value="true"/>
+                      <a:a name="IMPORTER_INFO" value="@DEF"/>
+                    </d:var>
+                    <d:ref name="PwmEftuRefChannel" type="REFERENCE" 
+                           value="ASPath:/Pwm/Pwm/PwmChannelConfigSet/PWM_CARRIER">
+                      <a:a name="ENABLE" value="true"/>
+                      <a:a name="IMPORTER_INFO" value="@DEF"/>
+                    </d:ref>
+                    <d:var name="PwmNotification" type="FUNCTION-NAME" 
+                           value="NULL">
+                      <a:a name="ENABLE" value="false"/>
+                      <a:a name="IMPORTER_INFO" value="@DEF"/>
+                    </d:var>
+                    <d:lst name="PwmChannelEcucPartitionRef">
+                      <d:ref type="REFERENCE" 
+                             value="ASPath:/EcuC/EcuC/EcucPartitionCollection/EcucPartition_0"/>
+                    </d:lst>
+                  </d:ctr>
+                  <d:ctr name="PWM3" type="IDENTIFIABLE">
+                    <d:var name="PwmChannelId" type="INTEGER" value="16">
+                      <a:a name="IMPORTER_INFO">
+                        <a:v>@DEF</a:v>
+                        <a:v>@CALC</a:v>
+                      </a:a>
+                    </d:var>
+                    <d:var name="PwmModule" type="ENUMERATION" value="EFTU"/>
+                    <d:ref name="PwmHwChannelRef" type="REFERENCE" 
+                           value="ASPath:/Pwm/Pwm/PwmChannelConfigSet/PwmEftuModule_0/PWM3"/>
+                    <d:ref name="PwmMcuClockReferencePoint" type="REFERENCE" 
+                           value="ASPath:/Mcu/Mcu/McuModuleConfiguration/MCU_Demo_FOSC24M/McuClockReferencePoint_Bus">
+                      <a:a name="IMPORTER_INFO" value="@DEF"/>
+                    </d:ref>
+                    <d:var name="PwmChannelClass" type="ENUMERATION" 
+                           value="PWM_FIXED_PERIOD_SHIFTED"/>
+                    <d:var name="PwmPolarity" type="ENUMERATION" 
+                           value="PWM_HIGH"/>
+                    <d:var name="PwmIdleState" type="ENUMERATION" 
+                           value="PWM_LOW">
+                      <a:a name="IMPORTER_INFO" value="@DEF"/>
+                    </d:var>
+                    <d:var name="PwmPeriodDefaultHZ" type="INTEGER" 
+                           value="200000">
+                      <a:a name="IMPORTER_INFO">
+                        <a:v>@CALC</a:v>
+                        <a:v>@DEF</a:v>
+                      </a:a>
+                    </d:var>
+                    <d:var name="PwmPeriodDefault" type="FLOAT" value="5.0E-6">
+                      <a:a name="IMPORTER_INFO">
+                        <a:v>@CALC</a:v>
+                        <a:v>@DEF</a:v>
+                      </a:a>
+                    </d:var>
+                    <d:var name="PwmDutycycleDefault" type="INTEGER" value="0"/>
+                    <d:var name="PwmPhaseShiftValue" type="FLOAT" value="0.0">
+                      <a:a name="ENABLE" value="true"/>
+                      <a:a name="IMPORTER_INFO" value="@DEF"/>
+                    </d:var>
+                    <d:ref name="PwmEftuRefChannel" type="REFERENCE" 
+                           value="ASPath:/Pwm/Pwm/PwmChannelConfigSet/PWM_CARRIER">
+                      <a:a name="ENABLE" value="true"/>
+                      <a:a name="IMPORTER_INFO" value="@DEF"/>
+                    </d:ref>
+                    <d:var name="PwmNotification" type="FUNCTION-NAME" 
+                           value="NULL">
+                      <a:a name="ENABLE" value="false"/>
+                      <a:a name="IMPORTER_INFO" value="@DEF"/>
+                    </d:var>
+                    <d:lst name="PwmChannelEcucPartitionRef">
+                      <d:ref type="REFERENCE" 
+                             value="ASPath:/EcuC/EcuC/EcucPartitionCollection/EcucPartition_0"/>
+                    </d:lst>
+                  </d:ctr>
+                  <d:ctr name="PWM4" type="IDENTIFIABLE">
+                    <d:var name="PwmChannelId" type="INTEGER" value="17">
+                      <a:a name="IMPORTER_INFO">
+                        <a:v>@DEF</a:v>
+                        <a:v>@CALC</a:v>
+                      </a:a>
+                    </d:var>
+                    <d:var name="PwmModule" type="ENUMERATION" value="EFTU"/>
+                    <d:ref name="PwmHwChannelRef" type="REFERENCE" 
+                           value="ASPath:/Pwm/Pwm/PwmChannelConfigSet/PwmEftuModule_0/PWM4"/>
+                    <d:ref name="PwmMcuClockReferencePoint" type="REFERENCE" 
+                           value="ASPath:/Mcu/Mcu/McuModuleConfiguration/MCU_Demo_FOSC24M/McuClockReferencePoint_Bus">
+                      <a:a name="IMPORTER_INFO" value="@DEF"/>
+                    </d:ref>
+                    <d:var name="PwmChannelClass" type="ENUMERATION" 
+                           value="PWM_FIXED_PERIOD_SHIFTED"/>
+                    <d:var name="PwmPolarity" type="ENUMERATION" value="PWM_LOW">
+                      <a:a name="IMPORTER_INFO" value="@DEF"/>
+                    </d:var>
+                    <d:var name="PwmIdleState" type="ENUMERATION" 
+                           value="PWM_LOW">
+                      <a:a name="IMPORTER_INFO" value="@DEF"/>
+                    </d:var>
+                    <d:var name="PwmPeriodDefaultHZ" type="INTEGER" 
+                           value="200000">
+                      <a:a name="IMPORTER_INFO">
+                        <a:v>@CALC</a:v>
+                        <a:v>@DEF</a:v>
+                      </a:a>
+                    </d:var>
+                    <d:var name="PwmPeriodDefault" type="FLOAT" value="5.0E-6">
+                      <a:a name="IMPORTER_INFO">
+                        <a:v>@CALC</a:v>
+                        <a:v>@DEF</a:v>
+                      </a:a>
+                    </d:var>
+                    <d:var name="PwmDutycycleDefault" type="INTEGER" value="0"/>
+                    <d:var name="PwmPhaseShiftValue" type="FLOAT" value="0.0">
+                      <a:a name="ENABLE" value="true"/>
+                      <a:a name="IMPORTER_INFO" value="@DEF"/>
+                    </d:var>
+                    <d:ref name="PwmEftuRefChannel" type="REFERENCE" 
+                           value="ASPath:/Pwm/Pwm/PwmChannelConfigSet/PWM_CARRIER">
+                      <a:a name="ENABLE" value="true"/>
+                      <a:a name="IMPORTER_INFO" value="@DEF"/>
+                    </d:ref>
+                    <d:var name="PwmNotification" type="FUNCTION-NAME" 
+                           value="NULL">
+                      <a:a name="ENABLE" value="false"/>
+                      <a:a name="IMPORTER_INFO" value="@DEF"/>
+                    </d:var>
+                    <d:lst name="PwmChannelEcucPartitionRef">
+                      <d:ref type="REFERENCE" 
+                             value="ASPath:/EcuC/EcuC/EcucPartitionCollection/EcucPartition_0"/>
+                    </d:lst>
+                  </d:ctr>
+                  <d:ctr name="PWM5" type="IDENTIFIABLE">
+                    <d:var name="PwmChannelId" type="INTEGER" value="18">
+                      <a:a name="IMPORTER_INFO">
+                        <a:v>@DEF</a:v>
+                        <a:v>@CALC</a:v>
+                      </a:a>
+                    </d:var>
+                    <d:var name="PwmModule" type="ENUMERATION" value="EFTU"/>
+                    <d:ref name="PwmHwChannelRef" type="REFERENCE" 
+                           value="ASPath:/Pwm/Pwm/PwmChannelConfigSet/PwmEftuModule_0/PWM5"/>
+                    <d:ref name="PwmMcuClockReferencePoint" type="REFERENCE" 
+                           value="ASPath:/Mcu/Mcu/McuModuleConfiguration/MCU_Demo_FOSC24M/McuClockReferencePoint_Bus">
+                      <a:a name="IMPORTER_INFO" value="@DEF"/>
+                    </d:ref>
+                    <d:var name="PwmChannelClass" type="ENUMERATION" 
+                           value="PWM_FIXED_PERIOD_SHIFTED"/>
                     <d:var name="PwmPolarity" type="ENUMERATION" 
                            value="PWM_HIGH">
                       <a:a name="IMPORTER_INFO" value="@DEF"/>
@@ -882,20 +1103,76 @@
                       <a:a name="IMPORTER_INFO" value="@DEF"/>
                     </d:var>
                     <d:var name="PwmPeriodDefaultHZ" type="INTEGER" 
-                           value="10000">
+                           value="200000">
                       <a:a name="IMPORTER_INFO">
                         <a:v>@CALC</a:v>
                         <a:v>@DEF</a:v>
                       </a:a>
                     </d:var>
-                    <d:var name="PwmPeriodDefault" type="FLOAT" value="1.0E-4">
+                    <d:var name="PwmPeriodDefault" type="FLOAT" value="5.0E-6">
                       <a:a name="IMPORTER_INFO">
                         <a:v>@CALC</a:v>
                         <a:v>@DEF</a:v>
                       </a:a>
                     </d:var>
-                    <d:var name="PwmDutycycleDefault" type="INTEGER" 
-                           value="16384"/>
+                    <d:var name="PwmDutycycleDefault" type="INTEGER" value="0"/>
+                    <d:var name="PwmPhaseShiftValue" type="FLOAT" value="0.0">
+                      <a:a name="ENABLE" value="true"/>
+                      <a:a name="IMPORTER_INFO" value="@DEF"/>
+                    </d:var>
+                    <d:ref name="PwmEftuRefChannel" type="REFERENCE" 
+                           value="ASPath:/Pwm/Pwm/PwmChannelConfigSet/PWM_CARRIER">
+                      <a:a name="ENABLE" value="true"/>
+                      <a:a name="IMPORTER_INFO" value="@DEF"/>
+                    </d:ref>
+                    <d:var name="PwmNotification" type="FUNCTION-NAME" 
+                           value="NULL">
+                      <a:a name="ENABLE" value="false"/>
+                      <a:a name="IMPORTER_INFO" value="@DEF"/>
+                    </d:var>
+                    <d:lst name="PwmChannelEcucPartitionRef">
+                      <d:ref type="REFERENCE" 
+                             value="ASPath:/EcuC/EcuC/EcucPartitionCollection/EcucPartition_0"/>
+                    </d:lst>
+                  </d:ctr>
+                  <d:ctr name="PWM_CARRIER" type="IDENTIFIABLE">
+                    <d:var name="PwmChannelId" type="INTEGER" value="19">
+                      <a:a name="IMPORTER_INFO">
+                        <a:v>@DEF</a:v>
+                        <a:v>@CALC</a:v>
+                      </a:a>
+                    </d:var>
+                    <d:var name="PwmModule" type="ENUMERATION" value="EFTU"/>
+                    <d:ref name="PwmHwChannelRef" type="REFERENCE" 
+                           value="ASPath:/Pwm/Pwm/PwmChannelConfigSet/PwmEftuModule_0/PWM_CARRIER"/>
+                    <d:ref name="PwmMcuClockReferencePoint" type="REFERENCE" 
+                           value="ASPath:/Mcu/Mcu/McuModuleConfiguration/MCU_Demo_FOSC24M/McuClockReferencePoint_Bus">
+                      <a:a name="IMPORTER_INFO" value="@DEF"/>
+                    </d:ref>
+                    <d:var name="PwmChannelClass" type="ENUMERATION" 
+                           value="PWM_FIXED_PERIOD"/>
+                    <d:var name="PwmPolarity" type="ENUMERATION" 
+                           value="PWM_HIGH">
+                      <a:a name="IMPORTER_INFO" value="@DEF"/>
+                    </d:var>
+                    <d:var name="PwmIdleState" type="ENUMERATION" 
+                           value="PWM_LOW">
+                      <a:a name="IMPORTER_INFO" value="@DEF"/>
+                    </d:var>
+                    <d:var name="PwmPeriodDefaultHZ" type="INTEGER" 
+                           value="200000">
+                      <a:a name="IMPORTER_INFO">
+                        <a:v>@CALC</a:v>
+                        <a:v>@DEF</a:v>
+                      </a:a>
+                    </d:var>
+                    <d:var name="PwmPeriodDefault" type="FLOAT" value="5.0E-6">
+                      <a:a name="IMPORTER_INFO">
+                        <a:v>@CALC</a:v>
+                        <a:v>@DEF</a:v>
+                      </a:a>
+                    </d:var>
+                    <d:var name="PwmDutycycleDefault" type="INTEGER" value="16384"/>
                     <d:var name="PwmPhaseShiftValue" type="FLOAT" value="0.0">
                       <a:a name="ENABLE" value="false"/>
                       <a:a name="IMPORTER_INFO" value="@DEF"/>
@@ -1627,7 +1904,7 @@
                 <d:lst name="PwmEftuModule" type="MAP">
                   <d:ctr name="PwmEftuModule_0" type="IDENTIFIABLE">
                     <d:var name="TOMModule" type="ENUMERATION" 
-                           value="EFTU_0_TOM_0">
+                           value="EFTU_1_TOM_0">
                       <a:a name="IMPORTER_INFO">
                         <a:v>@DEF</a:v>
                         <a:v>@CALC</a:v>
@@ -1638,21 +1915,319 @@
                       <a:a name="IMPORTER_INFO" value="@DEF"/>
                     </d:ref>
                     <d:lst name="PwmTomChannels" type="MAP">
-                      <d:ctr name="PwmTomChannels_0" type="IDENTIFIABLE">
+                      <d:ctr name="PWM1" type="IDENTIFIABLE">
                         <d:var name="PwmTOMChanEdgeAlignment" 
                                type="ENUMERATION" value="PWM_EDGE_ALIGNED">
                           <a:a name="IMPORTER_INFO" value="@DEF"/>
                         </d:var>
                         <d:ref name="PwmTOMClockSource" type="REFERENCE" 
-                               value="ASPath:/Eftu/Eftu/EftuClockMngSet/EftuClockReferencePoint_0"/>
+                               value="ASPath:/Eftu/Eftu/EftuClockMngSet/EftuClockReferencePoint_1"/>
                         <d:ref name="PwmRefHwCh" type="REFERENCE" 
-                               value="ASPath:/Eftu/Eftu/EftuTomGlobalSet_0/EftuTomChannelAllocationConf_0"/>
+                               value="ASPath:/Eftu/Eftu/EftuTomGlobalSet_2/EftuTomChannelAllocationConf_4"/>
                         <d:var name="PwmTOMPeriodDefaultHZ" type="INTEGER" 
-                               value="10000">
+                               value="200000">
                           <a:a name="IMPORTER_INFO" value="@DEF"/>
                         </d:var>
                         <d:var name="PwmTOMChannelPeriodDefault" type="INTEGER" 
-                               value="3000">
+                               value="750">
+                          <a:a name="IMPORTER_INFO">
+                            <a:v>@CALC</a:v>
+                            <a:v>@DEF</a:v>
+                          </a:a>
+                        </d:var>
+                        <d:ctr name="PwmHrpwmConfiguration" type="IDENTIFIABLE">
+                          <a:a name="ENABLE" value="false"/>
+                          <d:var name="HrpwmPeriodValue" type="INTEGER" 
+                                 value="0">
+                            <a:a name="IMPORTER_INFO" value="@DEF"/>
+                          </d:var>
+                          <d:var name="HrpwmDutyCycleValue" type="INTEGER" 
+                                 value="0">
+                            <a:a name="IMPORTER_INFO" value="@DEF"/>
+                          </d:var>
+                        </d:ctr>
+                        <d:ctr name="PwmDtmConfiguration" type="IDENTIFIABLE">
+                          <a:a name="ENABLE" value="true"/>
+                          <d:var name="PwmDTMClockSource" type="ENUMERATION" 
+                                 value="CLS_CLK">
+                            <a:a name="IMPORTER_INFO" value="@DEF"/>
+                          </d:var>
+                          <d:var name="PwmDeadTimeRise" type="INTEGER" 
+                                 value="23">
+                            <a:a name="ENABLE" value="true"/>
+                            <a:a name="IMPORTER_INFO" value="@DEF"/>
+                          </d:var>
+                          <d:var name="PwmDeadTimeFall" type="INTEGER" 
+                                 value="23">
+                            <a:a name="ENABLE" value="true"/>
+                            <a:a name="IMPORTER_INFO" value="@DEF"/>
+                          </d:var>
+                          <d:var name="PwmDTMOutput1" type="ENUMERATION" 
+                                 value="OUTPUT_COMPLEMENTARY">
+                            <a:a name="IMPORTER_INFO" value="@DEF"/>
+                          </d:var>
+                          <d:var name="PwmDtmOutSwap" type="BOOLEAN" 
+                                 value="false">
+                            <a:a name="IMPORTER_INFO" value="@DEF"/>
+                          </d:var>
+                          <d:var name="PwmTriggerDelay" type="INTEGER" value="0">
+                            <a:a name="IMPORTER_INFO" value="@DEF"/>
+                          </d:var>
+                        </d:ctr>
+                      </d:ctr>
+                      <d:ctr name="PWM2" type="IDENTIFIABLE">
+                        <d:var name="PwmTOMChanEdgeAlignment" 
+                               type="ENUMERATION" value="PWM_EDGE_ALIGNED">
+                          <a:a name="IMPORTER_INFO" value="@DEF"/>
+                        </d:var>
+                        <d:ref name="PwmTOMClockSource" type="REFERENCE" 
+                               value="ASPath:/Eftu/Eftu/EftuClockMngSet/EftuClockReferencePoint_1"/>
+                        <d:ref name="PwmRefHwCh" type="REFERENCE" 
+                               value="ASPath:/Eftu/Eftu/EftuTomGlobalSet_2/EftuTomChannelAllocationConf_5"/>
+                        <d:var name="PwmTOMPeriodDefaultHZ" type="INTEGER" 
+                               value="200000">
+                          <a:a name="IMPORTER_INFO" value="@DEF"/>
+                        </d:var>
+                        <d:var name="PwmTOMChannelPeriodDefault" type="INTEGER" 
+                               value="750">
+                          <a:a name="IMPORTER_INFO">
+                            <a:v>@CALC</a:v>
+                            <a:v>@DEF</a:v>
+                          </a:a>
+                        </d:var>
+                        <d:ctr name="PwmHrpwmConfiguration" type="IDENTIFIABLE">
+                          <a:a name="ENABLE" value="false"/>
+                          <d:var name="HrpwmPeriodValue" type="INTEGER" 
+                                 value="0">
+                            <a:a name="IMPORTER_INFO" value="@DEF"/>
+                          </d:var>
+                          <d:var name="HrpwmDutyCycleValue" type="INTEGER" 
+                                 value="0">
+                            <a:a name="IMPORTER_INFO" value="@DEF"/>
+                          </d:var>
+                        </d:ctr>
+                        <d:ctr name="PwmDtmConfiguration" type="IDENTIFIABLE">
+                          <a:a name="ENABLE" value="true"/>
+                          <d:var name="PwmDTMClockSource" type="ENUMERATION" 
+                                 value="CLS_CLK">
+                            <a:a name="IMPORTER_INFO" value="@DEF"/>
+                          </d:var>
+                          <d:var name="PwmDeadTimeRise" type="INTEGER" 
+                                 value="23">
+                            <a:a name="ENABLE" value="true"/>
+                            <a:a name="IMPORTER_INFO" value="@DEF"/>
+                          </d:var>
+                          <d:var name="PwmDeadTimeFall" type="INTEGER" 
+                                 value="23">
+                            <a:a name="ENABLE" value="true"/>
+                            <a:a name="IMPORTER_INFO" value="@DEF"/>
+                          </d:var>
+                          <d:var name="PwmDTMOutput1" type="ENUMERATION" 
+                                 value="OUTPUT_COMPLEMENTARY">
+                            <a:a name="IMPORTER_INFO" value="@DEF"/>
+                          </d:var>
+                          <d:var name="PwmDtmOutSwap" type="BOOLEAN" 
+                                 value="false">
+                            <a:a name="IMPORTER_INFO" value="@DEF"/>
+                          </d:var>
+                          <d:var name="PwmTriggerDelay" type="INTEGER" value="0">
+                            <a:a name="IMPORTER_INFO" value="@DEF"/>
+                          </d:var>
+                        </d:ctr>
+                      </d:ctr>
+                      <d:ctr name="PWM3" type="IDENTIFIABLE">
+                        <d:var name="PwmTOMChanEdgeAlignment" 
+                               type="ENUMERATION" value="PWM_EDGE_ALIGNED">
+                          <a:a name="IMPORTER_INFO" value="@DEF"/>
+                        </d:var>
+                        <d:ref name="PwmTOMClockSource" type="REFERENCE" 
+                               value="ASPath:/Eftu/Eftu/EftuClockMngSet/EftuClockReferencePoint_1"/>
+                        <d:ref name="PwmRefHwCh" type="REFERENCE" 
+                               value="ASPath:/Eftu/Eftu/EftuTomGlobalSet_2/EftuTomChannelAllocationConf_6"/>
+                        <d:var name="PwmTOMPeriodDefaultHZ" type="INTEGER" 
+                               value="200000">
+                          <a:a name="IMPORTER_INFO" value="@DEF"/>
+                        </d:var>
+                        <d:var name="PwmTOMChannelPeriodDefault" type="INTEGER" 
+                               value="750">
+                          <a:a name="IMPORTER_INFO">
+                            <a:v>@CALC</a:v>
+                            <a:v>@DEF</a:v>
+                          </a:a>
+                        </d:var>
+                        <d:ctr name="PwmHrpwmConfiguration" type="IDENTIFIABLE">
+                          <a:a name="ENABLE" value="false"/>
+                          <d:var name="HrpwmPeriodValue" type="INTEGER" 
+                                 value="0">
+                            <a:a name="IMPORTER_INFO" value="@DEF"/>
+                          </d:var>
+                          <d:var name="HrpwmDutyCycleValue" type="INTEGER" 
+                                 value="0">
+                            <a:a name="IMPORTER_INFO" value="@DEF"/>
+                          </d:var>
+                        </d:ctr>
+                        <d:ctr name="PwmDtmConfiguration" type="IDENTIFIABLE">
+                          <a:a name="ENABLE" value="true"/>
+                          <d:var name="PwmDTMClockSource" type="ENUMERATION" 
+                                 value="CLS_CLK">
+                            <a:a name="IMPORTER_INFO" value="@DEF"/>
+                          </d:var>
+                          <d:var name="PwmDeadTimeRise" type="INTEGER" 
+                                 value="23">
+                            <a:a name="ENABLE" value="true"/>
+                            <a:a name="IMPORTER_INFO" value="@DEF"/>
+                          </d:var>
+                          <d:var name="PwmDeadTimeFall" type="INTEGER" 
+                                 value="23">
+                            <a:a name="ENABLE" value="true"/>
+                            <a:a name="IMPORTER_INFO" value="@DEF"/>
+                          </d:var>
+                          <d:var name="PwmDTMOutput1" type="ENUMERATION" 
+                                 value="OUTPUT_COMPLEMENTARY">
+                            <a:a name="IMPORTER_INFO" value="@DEF"/>
+                          </d:var>
+                          <d:var name="PwmDtmOutSwap" type="BOOLEAN" 
+                                 value="false">
+                            <a:a name="IMPORTER_INFO" value="@DEF"/>
+                          </d:var>
+                          <d:var name="PwmTriggerDelay" type="INTEGER" value="0">
+                            <a:a name="IMPORTER_INFO" value="@DEF"/>
+                          </d:var>
+                        </d:ctr>
+                      </d:ctr>
+                      <d:ctr name="PWM4" type="IDENTIFIABLE">
+                        <d:var name="PwmTOMChanEdgeAlignment" 
+                               type="ENUMERATION" value="PWM_EDGE_ALIGNED">
+                          <a:a name="IMPORTER_INFO" value="@DEF"/>
+                        </d:var>
+                        <d:ref name="PwmTOMClockSource" type="REFERENCE" 
+                               value="ASPath:/Eftu/Eftu/EftuClockMngSet/EftuClockReferencePoint_1"/>
+                        <d:ref name="PwmRefHwCh" type="REFERENCE" 
+                               value="ASPath:/Eftu/Eftu/EftuTomGlobalSet_2/EftuTomChannelAllocationConf_7"/>
+                        <d:var name="PwmTOMPeriodDefaultHZ" type="INTEGER" 
+                               value="200000">
+                          <a:a name="IMPORTER_INFO" value="@DEF"/>
+                        </d:var>
+                        <d:var name="PwmTOMChannelPeriodDefault" type="INTEGER" 
+                               value="750">
+                          <a:a name="IMPORTER_INFO">
+                            <a:v>@CALC</a:v>
+                            <a:v>@DEF</a:v>
+                          </a:a>
+                        </d:var>
+                        <d:ctr name="PwmHrpwmConfiguration" type="IDENTIFIABLE">
+                          <a:a name="ENABLE" value="false"/>
+                          <d:var name="HrpwmPeriodValue" type="INTEGER" 
+                                 value="0">
+                            <a:a name="IMPORTER_INFO" value="@DEF"/>
+                          </d:var>
+                          <d:var name="HrpwmDutyCycleValue" type="INTEGER" 
+                                 value="0">
+                            <a:a name="IMPORTER_INFO" value="@DEF"/>
+                          </d:var>
+                        </d:ctr>
+                        <d:ctr name="PwmDtmConfiguration" type="IDENTIFIABLE">
+                          <a:a name="ENABLE" value="true"/>
+                          <d:var name="PwmDTMClockSource" type="ENUMERATION" 
+                                 value="CLS_CLK">
+                            <a:a name="IMPORTER_INFO" value="@DEF"/>
+                          </d:var>
+                          <d:var name="PwmDeadTimeRise" type="INTEGER" 
+                                 value="23">
+                            <a:a name="ENABLE" value="true"/>
+                            <a:a name="IMPORTER_INFO" value="@DEF"/>
+                          </d:var>
+                          <d:var name="PwmDeadTimeFall" type="INTEGER" 
+                                 value="23">
+                            <a:a name="ENABLE" value="true"/>
+                            <a:a name="IMPORTER_INFO" value="@DEF"/>
+                          </d:var>
+                          <d:var name="PwmDTMOutput1" type="ENUMERATION" 
+                                 value="OUTPUT_COMPLEMENTARY">
+                            <a:a name="IMPORTER_INFO" value="@DEF"/>
+                          </d:var>
+                          <d:var name="PwmDtmOutSwap" type="BOOLEAN" 
+                                 value="false">
+                            <a:a name="IMPORTER_INFO" value="@DEF"/>
+                          </d:var>
+                          <d:var name="PwmTriggerDelay" type="INTEGER" value="0">
+                            <a:a name="IMPORTER_INFO" value="@DEF"/>
+                          </d:var>
+                        </d:ctr>
+                      </d:ctr>
+                      <d:ctr name="PWM5" type="IDENTIFIABLE">
+                        <d:var name="PwmTOMChanEdgeAlignment" 
+                               type="ENUMERATION" value="PWM_EDGE_ALIGNED">
+                          <a:a name="IMPORTER_INFO" value="@DEF"/>
+                        </d:var>
+                        <d:ref name="PwmTOMClockSource" type="REFERENCE" 
+                               value="ASPath:/Eftu/Eftu/EftuClockMngSet/EftuClockReferencePoint_1"/>
+                        <d:ref name="PwmRefHwCh" type="REFERENCE" 
+                               value="ASPath:/Eftu/Eftu/EftuTomGlobalSet_2/EftuTomChannelAllocationConf_3"/>
+                        <d:var name="PwmTOMPeriodDefaultHZ" type="INTEGER" 
+                               value="200000">
+                          <a:a name="IMPORTER_INFO" value="@DEF"/>
+                        </d:var>
+                        <d:var name="PwmTOMChannelPeriodDefault" type="INTEGER" 
+                               value="750">
+                          <a:a name="IMPORTER_INFO">
+                            <a:v>@CALC</a:v>
+                            <a:v>@DEF</a:v>
+                          </a:a>
+                        </d:var>
+                        <d:ctr name="PwmHrpwmConfiguration" type="IDENTIFIABLE">
+                          <a:a name="ENABLE" value="false"/>
+                          <d:var name="HrpwmPeriodValue" type="INTEGER" 
+                                 value="0">
+                            <a:a name="IMPORTER_INFO" value="@DEF"/>
+                          </d:var>
+                          <d:var name="HrpwmDutyCycleValue" type="INTEGER" 
+                                 value="0">
+                            <a:a name="IMPORTER_INFO" value="@DEF"/>
+                          </d:var>
+                        </d:ctr>
+                        <d:ctr name="PwmDtmConfiguration" type="IDENTIFIABLE">
+                          <a:a name="ENABLE" value="false"/>
+                          <d:var name="PwmDTMClockSource" type="ENUMERATION" 
+                                 value="CLS_CLK">
+                            <a:a name="IMPORTER_INFO" value="@DEF"/>
+                          </d:var>
+                          <d:var name="PwmDeadTimeRise" type="INTEGER" value="0">
+                            <a:a name="ENABLE" value="false"/>
+                            <a:a name="IMPORTER_INFO" value="@DEF"/>
+                          </d:var>
+                          <d:var name="PwmDeadTimeFall" type="INTEGER" value="0">
+                            <a:a name="ENABLE" value="false"/>
+                            <a:a name="IMPORTER_INFO" value="@DEF"/>
+                          </d:var>
+                          <d:var name="PwmDTMOutput1" type="ENUMERATION" 
+                                 value="OUTPUT_SYNCED">
+                            <a:a name="IMPORTER_INFO" value="@DEF"/>
+                          </d:var>
+                          <d:var name="PwmDtmOutSwap" type="BOOLEAN" 
+                                 value="false">
+                            <a:a name="IMPORTER_INFO" value="@DEF"/>
+                          </d:var>
+                          <d:var name="PwmTriggerDelay" type="INTEGER" value="0">
+                            <a:a name="IMPORTER_INFO" value="@DEF"/>
+                          </d:var>
+                        </d:ctr>
+                      </d:ctr>
+                      <d:ctr name="PWM_CARRIER" type="IDENTIFIABLE">
+                        <d:var name="PwmTOMChanEdgeAlignment" 
+                               type="ENUMERATION" value="PWM_EDGE_ALIGNED">
+                          <a:a name="IMPORTER_INFO" value="@DEF"/>
+                        </d:var>
+                        <d:ref name="PwmTOMClockSource" type="REFERENCE" 
+                               value="ASPath:/Eftu/Eftu/EftuClockMngSet/EftuClockReferencePoint_1"/>
+                        <d:ref name="PwmRefHwCh" type="REFERENCE" 
+                               value="ASPath:/Eftu/Eftu/EftuTomGlobalSet_2/EftuTomChannelAllocationConf_0"/>
+                        <d:var name="PwmTOMPeriodDefaultHZ" type="INTEGER" 
+                               value="200000">
+                          <a:a name="IMPORTER_INFO" value="@DEF"/>
+                        </d:var>
+                        <d:var name="PwmTOMChannelPeriodDefault" type="INTEGER" 
+                               value="750">
                           <a:a name="IMPORTER_INFO">
                             <a:v>@CALC</a:v>
                             <a:v>@DEF</a:v>

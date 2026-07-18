@@ -128,11 +128,81 @@ EFTU_DATA_SECTION static const Eftu_CcmInsConfigType Eftu_CcmInstances[] =
             },
         },
     },
+    {
+        EFTU_1,
+        EFTU_CCM_DEBUG_ALL_HALT,
+        {
+            EFTU_CCM_CMU_CLOCK_RES,
+            EFTU_CCM_CMU_CLOCK_RES,
+            EFTU_CCM_CMU_CLOCK_RES,
+            EFTU_CCM_CMU_CLOCK_RES,
+            EFTU_CCM_CMU_CLOCK_RES,
+            EFTU_CCM_CMU_CLOCK_RES,
+            EFTU_CCM_CMU_CLOCK_RES,
+            EFTU_CCM_CMU_CLOCK_RES,
+        },
+        {
+            EFTU_CCM_TIM_INSRC_PAD_IN,
+            EFTU_CCM_TIM_INSRC_PAD_IN,
+            EFTU_CCM_TIM_INSRC_PAD_IN,
+            EFTU_CCM_TIM_INSRC_PAD_IN,
+            EFTU_CCM_TIM_INSRC_PAD_IN,
+            EFTU_CCM_TIM_INSRC_PAD_IN,
+            EFTU_CCM_TIM_INSRC_PAD_IN,
+            EFTU_CCM_TIM_INSRC_PAD_IN,
+        },
+        {
+            ((uint8)((uint8)EFTU_CCM_TIM_AUX_IN_EFTU0_OUT0 * 16U) + 0U),
+            ((uint8)((uint8)EFTU_CCM_TIM_AUX_IN_EFTU0_OUT0 * 16U) + 0U),
+            ((uint8)((uint8)EFTU_CCM_TIM_AUX_IN_EFTU0_OUT0 * 16U) + 0U),
+            ((uint8)((uint8)EFTU_CCM_TIM_AUX_IN_EFTU0_OUT0 * 16U) + 0U),
+            ((uint8)((uint8)EFTU_CCM_TIM_AUX_IN_EFTU0_OUT0 * 16U) + 0U),
+            ((uint8)((uint8)EFTU_CCM_TIM_AUX_IN_EFTU0_OUT0 * 16U) + 0U),
+            ((uint8)((uint8)EFTU_CCM_TIM_AUX_IN_EFTU0_OUT0 * 16U) + 0U),
+            ((uint8)((uint8)EFTU_CCM_TIM_AUX_IN_EFTU0_OUT0 * 16U) + 0U),
+        },
+        EFTU_CCM_HRPWM_SRC_OUT03_OUT_T03,
+        EFTU_CCM_TOM0_CH7_TO_TOM1_CH0,
+        0U
+        ,
+        {
+            {
+                EFTU_CCM_DMA_REQ_SRC_TIM,
+                0U,
+                0U
+            },
+            {
+                EFTU_CCM_DMA_REQ_SRC_TIM,
+                0U,
+                0U
+            },
+            {
+                EFTU_CCM_DMA_REQ_SRC_TIM,
+                0U,
+                0U
+            },
+            {
+                EFTU_CCM_DMA_REQ_SRC_TIM,
+                0U,
+                0U
+            },
+            {
+                EFTU_CCM_DMA_REQ_SRC_TIM,
+                0U,
+                0U
+            },
+            {
+                EFTU_CCM_DMA_REQ_SRC_TIM,
+                0U,
+                0U
+            },
+        },
+    },
 };
 
 EFTU_DATA_SECTION static const Eftu_CcmConfigType Eftu_Ccm_Config = 
 {
-    1U,
+    2U,
     (Eftu_CcmInsConfigType*)Eftu_CcmInstances,
 };
 
@@ -225,11 +295,17 @@ EFTU_DATA_SECTION static const Eftu_TomInsConfigType Eftu_TomInstances[] =
         EFTU_TOM_TBU_SEL_TS0,
         1U
     },
+    {
+        EFTU_1,
+        EFTU_TOM_0,
+        EFTU_TOM_TBU_SEL_TS0,
+        1U
+    },
 };
 
 EFTU_DATA_SECTION static const Eftu_TomConfigType Eftu_Tom_Config =
 {
-    2U,
+    3U,
     (Eftu_TomInsConfigType*)Eftu_TomInstances,
 };
 

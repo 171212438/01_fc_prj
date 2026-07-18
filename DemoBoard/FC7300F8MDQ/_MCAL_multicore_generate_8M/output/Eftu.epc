@@ -84,6 +84,20 @@
                   </PARAMETER-VALUES>
                 </ECUC-CONTAINER-VALUE>
                 <ECUC-CONTAINER-VALUE>
+                  <SHORT-NAME>EftuClockReferencePoint_1</SHORT-NAME>
+                  <DEFINITION-REF DEST="ECUC-PARAM-CONF-CONTAINER-DEF">/FC7300FXXX/Eftu/EftuClockMngSet/EftuClockReferencePoint</DEFINITION-REF>
+                  <PARAMETER-VALUES>
+                    <ECUC-TEXTUAL-PARAM-VALUE>
+                      <DEFINITION-REF DEST="ECUC-ENUMERATION-PARAM-DEF">/FC7300FXXX/Eftu/EftuClockMngSet/EftuClockReferencePoint/EftuClockFrequencySelect</DEFINITION-REF>
+                      <VALUE>EFTU_CMU_CLK_1</VALUE>
+                    </ECUC-TEXTUAL-PARAM-VALUE>
+                    <ECUC-NUMERICAL-PARAM-VALUE>
+                      <DEFINITION-REF DEST="ECUC-FLOAT-PARAM-DEF">/FC7300FXXX/Eftu/EftuClockMngSet/EftuClockReferencePoint/EftuClockReferencePointFrequency</DEFINITION-REF>
+                      <VALUE>1.5E8</VALUE>
+                    </ECUC-NUMERICAL-PARAM-VALUE>
+                  </PARAMETER-VALUES>
+                </ECUC-CONTAINER-VALUE>
+                <ECUC-CONTAINER-VALUE>
                   <SHORT-NAME>EftuConfigClockSetting</SHORT-NAME>
                   <DEFINITION-REF DEST="ECUC-PARAM-CONF-CONTAINER-DEF">/FC7300FXXX/Eftu/EftuClockMngSet/EftuConfigClockSetting</DEFINITION-REF>
                   <PARAMETER-VALUES>
@@ -227,7 +241,7 @@
               <PARAMETER-VALUES>
                 <ECUC-NUMERICAL-PARAM-VALUE>
                   <DEFINITION-REF DEST="ECUC-INTEGER-PARAM-DEF">/FC7300FXXX/Eftu/EftuConfigSet/EftuMaxInstance</DEFINITION-REF>
-                  <VALUE>1</VALUE>
+                  <VALUE>2</VALUE>
                 </ECUC-NUMERICAL-PARAM-VALUE>
               </PARAMETER-VALUES>
               <SUB-CONTAINERS>
@@ -242,6 +256,344 @@
                     <ECUC-TEXTUAL-PARAM-VALUE>
                       <DEFINITION-REF DEST="ECUC-ENUMERATION-PARAM-DEF">/FC7300FXXX/Eftu/EftuConfigSet/EftuConf/EftuInstance</DEFINITION-REF>
                       <VALUE>EFTU_0</VALUE>
+                    </ECUC-TEXTUAL-PARAM-VALUE>
+                  </PARAMETER-VALUES>
+                  <SUB-CONTAINERS>
+                    <ECUC-CONTAINER-VALUE>
+                      <SHORT-NAME>EftuCcmClkConf</SHORT-NAME>
+                      <DEFINITION-REF DEST="ECUC-PARAM-CONF-CONTAINER-DEF">/FC7300FXXX/Eftu/EftuConfigSet/EftuConf/EftuCcmClkConf</DEFINITION-REF>
+                      <PARAMETER-VALUES>
+                        <ECUC-TEXTUAL-PARAM-VALUE>
+                          <DEFINITION-REF DEST="ECUC-ENUMERATION-PARAM-DEF">/FC7300FXXX/Eftu/EftuConfigSet/EftuConf/EftuCcmClkConf/EftuCcmClkRes0</DEFINITION-REF>
+                          <VALUE>CMU_CLOCK_RES</VALUE>
+                        </ECUC-TEXTUAL-PARAM-VALUE>
+                        <ECUC-TEXTUAL-PARAM-VALUE>
+                          <DEFINITION-REF DEST="ECUC-ENUMERATION-PARAM-DEF">/FC7300FXXX/Eftu/EftuConfigSet/EftuConf/EftuCcmClkConf/EftuCcmClkRes1</DEFINITION-REF>
+                          <VALUE>CMU_CLOCK_RES</VALUE>
+                        </ECUC-TEXTUAL-PARAM-VALUE>
+                        <ECUC-TEXTUAL-PARAM-VALUE>
+                          <DEFINITION-REF DEST="ECUC-ENUMERATION-PARAM-DEF">/FC7300FXXX/Eftu/EftuConfigSet/EftuConf/EftuCcmClkConf/EftuCcmClkRes2</DEFINITION-REF>
+                          <VALUE>CMU_CLOCK_RES</VALUE>
+                        </ECUC-TEXTUAL-PARAM-VALUE>
+                        <ECUC-TEXTUAL-PARAM-VALUE>
+                          <DEFINITION-REF DEST="ECUC-ENUMERATION-PARAM-DEF">/FC7300FXXX/Eftu/EftuConfigSet/EftuConf/EftuCcmClkConf/EftuCcmClkRes3</DEFINITION-REF>
+                          <VALUE>CMU_CLOCK_RES</VALUE>
+                        </ECUC-TEXTUAL-PARAM-VALUE>
+                        <ECUC-TEXTUAL-PARAM-VALUE>
+                          <DEFINITION-REF DEST="ECUC-ENUMERATION-PARAM-DEF">/FC7300FXXX/Eftu/EftuConfigSet/EftuConf/EftuCcmClkConf/EftuCcmClkRes4</DEFINITION-REF>
+                          <VALUE>CMU_CLOCK_RES</VALUE>
+                        </ECUC-TEXTUAL-PARAM-VALUE>
+                        <ECUC-TEXTUAL-PARAM-VALUE>
+                          <DEFINITION-REF DEST="ECUC-ENUMERATION-PARAM-DEF">/FC7300FXXX/Eftu/EftuConfigSet/EftuConf/EftuCcmClkConf/EftuCcmClkRes5</DEFINITION-REF>
+                          <VALUE>CMU_CLOCK_RES</VALUE>
+                        </ECUC-TEXTUAL-PARAM-VALUE>
+                        <ECUC-TEXTUAL-PARAM-VALUE>
+                          <DEFINITION-REF DEST="ECUC-ENUMERATION-PARAM-DEF">/FC7300FXXX/Eftu/EftuConfigSet/EftuConf/EftuCcmClkConf/EftuCcmClkRes6</DEFINITION-REF>
+                          <VALUE>CMU_CLOCK_RES</VALUE>
+                        </ECUC-TEXTUAL-PARAM-VALUE>
+                        <ECUC-TEXTUAL-PARAM-VALUE>
+                          <DEFINITION-REF DEST="ECUC-ENUMERATION-PARAM-DEF">/FC7300FXXX/Eftu/EftuConfigSet/EftuConf/EftuCcmClkConf/EftuCcmClkRes7</DEFINITION-REF>
+                          <VALUE>CMU_CLOCK_RES</VALUE>
+                        </ECUC-TEXTUAL-PARAM-VALUE>
+                      </PARAMETER-VALUES>
+                    </ECUC-CONTAINER-VALUE>
+                    <ECUC-CONTAINER-VALUE>
+                      <SHORT-NAME>EftuCcmTomMuxConf</SHORT-NAME>
+                      <DEFINITION-REF DEST="ECUC-PARAM-CONF-CONTAINER-DEF">/FC7300FXXX/Eftu/EftuConfigSet/EftuConf/EftuCcmTomMuxConf</DEFINITION-REF>
+                      <PARAMETER-VALUES>
+                        <ECUC-TEXTUAL-PARAM-VALUE>
+                          <DEFINITION-REF DEST="ECUC-ENUMERATION-PARAM-DEF">/FC7300FXXX/Eftu/EftuConfigSet/EftuConf/EftuCcmTomMuxConf/EftuCcmTomMuxCtrl</DEFINITION-REF>
+                          <VALUE>TOM0_CH7_TO_TOM1_CH0</VALUE>
+                        </ECUC-TEXTUAL-PARAM-VALUE>
+                        <ECUC-NUMERICAL-PARAM-VALUE>
+                          <DEFINITION-REF DEST="ECUC-BOOLEAN-PARAM-DEF">/FC7300FXXX/Eftu/EftuConfigSet/EftuConf/EftuCcmTomMuxConf/EftuCcmTomSwapOut1110OutT98</DEFINITION-REF>
+                          <VALUE>0</VALUE>
+                        </ECUC-NUMERICAL-PARAM-VALUE>
+                        <ECUC-NUMERICAL-PARAM-VALUE>
+                          <DEFINITION-REF DEST="ECUC-BOOLEAN-PARAM-DEF">/FC7300FXXX/Eftu/EftuConfigSet/EftuConf/EftuCcmTomMuxConf/EftuCcmTomSwapOut1512OutT118</DEFINITION-REF>
+                          <VALUE>0</VALUE>
+                        </ECUC-NUMERICAL-PARAM-VALUE>
+                        <ECUC-NUMERICAL-PARAM-VALUE>
+                          <DEFINITION-REF DEST="ECUC-BOOLEAN-PARAM-DEF">/FC7300FXXX/Eftu/EftuConfigSet/EftuConf/EftuCcmTomMuxConf/EftuCcmTomSwapOut1514OutT1312</DEFINITION-REF>
+                          <VALUE>0</VALUE>
+                        </ECUC-NUMERICAL-PARAM-VALUE>
+                        <ECUC-NUMERICAL-PARAM-VALUE>
+                          <DEFINITION-REF DEST="ECUC-BOOLEAN-PARAM-DEF">/FC7300FXXX/Eftu/EftuConfigSet/EftuConf/EftuCcmTomMuxConf/EftuCcmTomSwapOut32OutT10</DEFINITION-REF>
+                          <VALUE>0</VALUE>
+                        </ECUC-NUMERICAL-PARAM-VALUE>
+                        <ECUC-NUMERICAL-PARAM-VALUE>
+                          <DEFINITION-REF DEST="ECUC-BOOLEAN-PARAM-DEF">/FC7300FXXX/Eftu/EftuConfigSet/EftuConf/EftuCcmTomMuxConf/EftuCcmTomSwapOut74OutT30</DEFINITION-REF>
+                          <VALUE>0</VALUE>
+                        </ECUC-NUMERICAL-PARAM-VALUE>
+                        <ECUC-NUMERICAL-PARAM-VALUE>
+                          <DEFINITION-REF DEST="ECUC-BOOLEAN-PARAM-DEF">/FC7300FXXX/Eftu/EftuConfigSet/EftuConf/EftuCcmTomMuxConf/EftuCcmTomSwapOut76OutT54</DEFINITION-REF>
+                          <VALUE>0</VALUE>
+                        </ECUC-NUMERICAL-PARAM-VALUE>
+                      </PARAMETER-VALUES>
+                    </ECUC-CONTAINER-VALUE>
+                    <ECUC-CONTAINER-VALUE>
+                      <SHORT-NAME>EftuDmaReqConf_0</SHORT-NAME>
+                      <DEFINITION-REF DEST="ECUC-PARAM-CONF-CONTAINER-DEF">/FC7300FXXX/Eftu/EftuConfigSet/EftuConf/EftuDmaReqConf</DEFINITION-REF>
+                      <PARAMETER-VALUES>
+                        <ECUC-NUMERICAL-PARAM-VALUE>
+                          <DEFINITION-REF DEST="ECUC-BOOLEAN-PARAM-DEF">/FC7300FXXX/Eftu/EftuConfigSet/EftuConf/EftuDmaReqConf/EftDmaReqTomCcu0Enable</DEFINITION-REF>
+                          <VALUE>0</VALUE>
+                        </ECUC-NUMERICAL-PARAM-VALUE>
+                        <ECUC-NUMERICAL-PARAM-VALUE>
+                          <DEFINITION-REF DEST="ECUC-BOOLEAN-PARAM-DEF">/FC7300FXXX/Eftu/EftuConfigSet/EftuConf/EftuDmaReqConf/EftDmaReqTomCcu1Enable</DEFINITION-REF>
+                          <VALUE>0</VALUE>
+                        </ECUC-NUMERICAL-PARAM-VALUE>
+                        <ECUC-NUMERICAL-PARAM-VALUE>
+                          <DEFINITION-REF DEST="ECUC-INTEGER-PARAM-DEF">/FC7300FXXX/Eftu/EftuConfigSet/EftuConf/EftuDmaReqConf/EftuDmaReqSourceChannel</DEFINITION-REF>
+                          <VALUE>0</VALUE>
+                        </ECUC-NUMERICAL-PARAM-VALUE>
+                        <ECUC-TEXTUAL-PARAM-VALUE>
+                          <DEFINITION-REF DEST="ECUC-ENUMERATION-PARAM-DEF">/FC7300FXXX/Eftu/EftuConfigSet/EftuConf/EftuDmaReqConf/EftuDmaReqSourceModule</DEFINITION-REF>
+                          <VALUE>TIM</VALUE>
+                        </ECUC-TEXTUAL-PARAM-VALUE>
+                      </PARAMETER-VALUES>
+                    </ECUC-CONTAINER-VALUE>
+                    <ECUC-CONTAINER-VALUE>
+                      <SHORT-NAME>EftuDmaReqConf_1</SHORT-NAME>
+                      <DEFINITION-REF DEST="ECUC-PARAM-CONF-CONTAINER-DEF">/FC7300FXXX/Eftu/EftuConfigSet/EftuConf/EftuDmaReqConf</DEFINITION-REF>
+                      <PARAMETER-VALUES>
+                        <ECUC-NUMERICAL-PARAM-VALUE>
+                          <DEFINITION-REF DEST="ECUC-BOOLEAN-PARAM-DEF">/FC7300FXXX/Eftu/EftuConfigSet/EftuConf/EftuDmaReqConf/EftDmaReqTomCcu0Enable</DEFINITION-REF>
+                          <VALUE>0</VALUE>
+                        </ECUC-NUMERICAL-PARAM-VALUE>
+                        <ECUC-NUMERICAL-PARAM-VALUE>
+                          <DEFINITION-REF DEST="ECUC-BOOLEAN-PARAM-DEF">/FC7300FXXX/Eftu/EftuConfigSet/EftuConf/EftuDmaReqConf/EftDmaReqTomCcu1Enable</DEFINITION-REF>
+                          <VALUE>0</VALUE>
+                        </ECUC-NUMERICAL-PARAM-VALUE>
+                        <ECUC-NUMERICAL-PARAM-VALUE>
+                          <DEFINITION-REF DEST="ECUC-INTEGER-PARAM-DEF">/FC7300FXXX/Eftu/EftuConfigSet/EftuConf/EftuDmaReqConf/EftuDmaReqSourceChannel</DEFINITION-REF>
+                          <VALUE>0</VALUE>
+                        </ECUC-NUMERICAL-PARAM-VALUE>
+                        <ECUC-TEXTUAL-PARAM-VALUE>
+                          <DEFINITION-REF DEST="ECUC-ENUMERATION-PARAM-DEF">/FC7300FXXX/Eftu/EftuConfigSet/EftuConf/EftuDmaReqConf/EftuDmaReqSourceModule</DEFINITION-REF>
+                          <VALUE>TIM</VALUE>
+                        </ECUC-TEXTUAL-PARAM-VALUE>
+                      </PARAMETER-VALUES>
+                    </ECUC-CONTAINER-VALUE>
+                    <ECUC-CONTAINER-VALUE>
+                      <SHORT-NAME>EftuDmaReqConf_2</SHORT-NAME>
+                      <DEFINITION-REF DEST="ECUC-PARAM-CONF-CONTAINER-DEF">/FC7300FXXX/Eftu/EftuConfigSet/EftuConf/EftuDmaReqConf</DEFINITION-REF>
+                      <PARAMETER-VALUES>
+                        <ECUC-NUMERICAL-PARAM-VALUE>
+                          <DEFINITION-REF DEST="ECUC-BOOLEAN-PARAM-DEF">/FC7300FXXX/Eftu/EftuConfigSet/EftuConf/EftuDmaReqConf/EftDmaReqTomCcu0Enable</DEFINITION-REF>
+                          <VALUE>0</VALUE>
+                        </ECUC-NUMERICAL-PARAM-VALUE>
+                        <ECUC-NUMERICAL-PARAM-VALUE>
+                          <DEFINITION-REF DEST="ECUC-BOOLEAN-PARAM-DEF">/FC7300FXXX/Eftu/EftuConfigSet/EftuConf/EftuDmaReqConf/EftDmaReqTomCcu1Enable</DEFINITION-REF>
+                          <VALUE>0</VALUE>
+                        </ECUC-NUMERICAL-PARAM-VALUE>
+                        <ECUC-NUMERICAL-PARAM-VALUE>
+                          <DEFINITION-REF DEST="ECUC-INTEGER-PARAM-DEF">/FC7300FXXX/Eftu/EftuConfigSet/EftuConf/EftuDmaReqConf/EftuDmaReqSourceChannel</DEFINITION-REF>
+                          <VALUE>0</VALUE>
+                        </ECUC-NUMERICAL-PARAM-VALUE>
+                        <ECUC-TEXTUAL-PARAM-VALUE>
+                          <DEFINITION-REF DEST="ECUC-ENUMERATION-PARAM-DEF">/FC7300FXXX/Eftu/EftuConfigSet/EftuConf/EftuDmaReqConf/EftuDmaReqSourceModule</DEFINITION-REF>
+                          <VALUE>TIM</VALUE>
+                        </ECUC-TEXTUAL-PARAM-VALUE>
+                      </PARAMETER-VALUES>
+                    </ECUC-CONTAINER-VALUE>
+                    <ECUC-CONTAINER-VALUE>
+                      <SHORT-NAME>EftuDmaReqConf_3</SHORT-NAME>
+                      <DEFINITION-REF DEST="ECUC-PARAM-CONF-CONTAINER-DEF">/FC7300FXXX/Eftu/EftuConfigSet/EftuConf/EftuDmaReqConf</DEFINITION-REF>
+                      <PARAMETER-VALUES>
+                        <ECUC-NUMERICAL-PARAM-VALUE>
+                          <DEFINITION-REF DEST="ECUC-BOOLEAN-PARAM-DEF">/FC7300FXXX/Eftu/EftuConfigSet/EftuConf/EftuDmaReqConf/EftDmaReqTomCcu0Enable</DEFINITION-REF>
+                          <VALUE>0</VALUE>
+                        </ECUC-NUMERICAL-PARAM-VALUE>
+                        <ECUC-NUMERICAL-PARAM-VALUE>
+                          <DEFINITION-REF DEST="ECUC-BOOLEAN-PARAM-DEF">/FC7300FXXX/Eftu/EftuConfigSet/EftuConf/EftuDmaReqConf/EftDmaReqTomCcu1Enable</DEFINITION-REF>
+                          <VALUE>0</VALUE>
+                        </ECUC-NUMERICAL-PARAM-VALUE>
+                        <ECUC-NUMERICAL-PARAM-VALUE>
+                          <DEFINITION-REF DEST="ECUC-INTEGER-PARAM-DEF">/FC7300FXXX/Eftu/EftuConfigSet/EftuConf/EftuDmaReqConf/EftuDmaReqSourceChannel</DEFINITION-REF>
+                          <VALUE>0</VALUE>
+                        </ECUC-NUMERICAL-PARAM-VALUE>
+                        <ECUC-TEXTUAL-PARAM-VALUE>
+                          <DEFINITION-REF DEST="ECUC-ENUMERATION-PARAM-DEF">/FC7300FXXX/Eftu/EftuConfigSet/EftuConf/EftuDmaReqConf/EftuDmaReqSourceModule</DEFINITION-REF>
+                          <VALUE>TIM</VALUE>
+                        </ECUC-TEXTUAL-PARAM-VALUE>
+                      </PARAMETER-VALUES>
+                    </ECUC-CONTAINER-VALUE>
+                    <ECUC-CONTAINER-VALUE>
+                      <SHORT-NAME>EftuDmaReqConf_4</SHORT-NAME>
+                      <DEFINITION-REF DEST="ECUC-PARAM-CONF-CONTAINER-DEF">/FC7300FXXX/Eftu/EftuConfigSet/EftuConf/EftuDmaReqConf</DEFINITION-REF>
+                      <PARAMETER-VALUES>
+                        <ECUC-NUMERICAL-PARAM-VALUE>
+                          <DEFINITION-REF DEST="ECUC-BOOLEAN-PARAM-DEF">/FC7300FXXX/Eftu/EftuConfigSet/EftuConf/EftuDmaReqConf/EftDmaReqTomCcu0Enable</DEFINITION-REF>
+                          <VALUE>0</VALUE>
+                        </ECUC-NUMERICAL-PARAM-VALUE>
+                        <ECUC-NUMERICAL-PARAM-VALUE>
+                          <DEFINITION-REF DEST="ECUC-BOOLEAN-PARAM-DEF">/FC7300FXXX/Eftu/EftuConfigSet/EftuConf/EftuDmaReqConf/EftDmaReqTomCcu1Enable</DEFINITION-REF>
+                          <VALUE>0</VALUE>
+                        </ECUC-NUMERICAL-PARAM-VALUE>
+                        <ECUC-NUMERICAL-PARAM-VALUE>
+                          <DEFINITION-REF DEST="ECUC-INTEGER-PARAM-DEF">/FC7300FXXX/Eftu/EftuConfigSet/EftuConf/EftuDmaReqConf/EftuDmaReqSourceChannel</DEFINITION-REF>
+                          <VALUE>0</VALUE>
+                        </ECUC-NUMERICAL-PARAM-VALUE>
+                        <ECUC-TEXTUAL-PARAM-VALUE>
+                          <DEFINITION-REF DEST="ECUC-ENUMERATION-PARAM-DEF">/FC7300FXXX/Eftu/EftuConfigSet/EftuConf/EftuDmaReqConf/EftuDmaReqSourceModule</DEFINITION-REF>
+                          <VALUE>TIM</VALUE>
+                        </ECUC-TEXTUAL-PARAM-VALUE>
+                      </PARAMETER-VALUES>
+                    </ECUC-CONTAINER-VALUE>
+                    <ECUC-CONTAINER-VALUE>
+                      <SHORT-NAME>EftuDmaReqConf_5</SHORT-NAME>
+                      <DEFINITION-REF DEST="ECUC-PARAM-CONF-CONTAINER-DEF">/FC7300FXXX/Eftu/EftuConfigSet/EftuConf/EftuDmaReqConf</DEFINITION-REF>
+                      <PARAMETER-VALUES>
+                        <ECUC-NUMERICAL-PARAM-VALUE>
+                          <DEFINITION-REF DEST="ECUC-BOOLEAN-PARAM-DEF">/FC7300FXXX/Eftu/EftuConfigSet/EftuConf/EftuDmaReqConf/EftDmaReqTomCcu0Enable</DEFINITION-REF>
+                          <VALUE>0</VALUE>
+                        </ECUC-NUMERICAL-PARAM-VALUE>
+                        <ECUC-NUMERICAL-PARAM-VALUE>
+                          <DEFINITION-REF DEST="ECUC-BOOLEAN-PARAM-DEF">/FC7300FXXX/Eftu/EftuConfigSet/EftuConf/EftuDmaReqConf/EftDmaReqTomCcu1Enable</DEFINITION-REF>
+                          <VALUE>0</VALUE>
+                        </ECUC-NUMERICAL-PARAM-VALUE>
+                        <ECUC-NUMERICAL-PARAM-VALUE>
+                          <DEFINITION-REF DEST="ECUC-INTEGER-PARAM-DEF">/FC7300FXXX/Eftu/EftuConfigSet/EftuConf/EftuDmaReqConf/EftuDmaReqSourceChannel</DEFINITION-REF>
+                          <VALUE>0</VALUE>
+                        </ECUC-NUMERICAL-PARAM-VALUE>
+                        <ECUC-TEXTUAL-PARAM-VALUE>
+                          <DEFINITION-REF DEST="ECUC-ENUMERATION-PARAM-DEF">/FC7300FXXX/Eftu/EftuConfigSet/EftuConf/EftuDmaReqConf/EftuDmaReqSourceModule</DEFINITION-REF>
+                          <VALUE>TIM</VALUE>
+                        </ECUC-TEXTUAL-PARAM-VALUE>
+                      </PARAMETER-VALUES>
+                    </ECUC-CONTAINER-VALUE>
+                    <ECUC-CONTAINER-VALUE>
+                      <SHORT-NAME>EftuHrPwmMuxConf</SHORT-NAME>
+                      <DEFINITION-REF DEST="ECUC-PARAM-CONF-CONTAINER-DEF">/FC7300FXXX/Eftu/EftuConfigSet/EftuConf/EftuHrPwmMuxConf</DEFINITION-REF>
+                      <PARAMETER-VALUES>
+                        <ECUC-TEXTUAL-PARAM-VALUE>
+                          <DEFINITION-REF DEST="ECUC-ENUMERATION-PARAM-DEF">/FC7300FXXX/Eftu/EftuConfigSet/EftuConf/EftuHrPwmMuxConf/EftuHrPwmSwapCtrl</DEFINITION-REF>
+                          <VALUE>HRPWM_SRC_OUT03_OUT_T03</VALUE>
+                        </ECUC-TEXTUAL-PARAM-VALUE>
+                      </PARAMETER-VALUES>
+                    </ECUC-CONTAINER-VALUE>
+                    <ECUC-CONTAINER-VALUE>
+                      <SHORT-NAME>EftuTimAuxInConf</SHORT-NAME>
+                      <DEFINITION-REF DEST="ECUC-PARAM-CONF-CONTAINER-DEF">/FC7300FXXX/Eftu/EftuConfigSet/EftuConf/EftuTimAuxInConf</DEFINITION-REF>
+                      <PARAMETER-VALUES>
+                        <ECUC-TEXTUAL-PARAM-VALUE>
+                          <DEFINITION-REF DEST="ECUC-ENUMERATION-PARAM-DEF">/FC7300FXXX/Eftu/EftuConfigSet/EftuConf/EftuTimAuxInConf/EftuTimAuxIn0</DEFINITION-REF>
+                          <VALUE>EFTU0_OUT0</VALUE>
+                        </ECUC-TEXTUAL-PARAM-VALUE>
+                        <ECUC-NUMERICAL-PARAM-VALUE>
+                          <DEFINITION-REF DEST="ECUC-INTEGER-PARAM-DEF">/FC7300FXXX/Eftu/EftuConfigSet/EftuConf/EftuTimAuxInConf/EftuTimAuxIn0Channel</DEFINITION-REF>
+                          <VALUE>0</VALUE>
+                        </ECUC-NUMERICAL-PARAM-VALUE>
+                        <ECUC-TEXTUAL-PARAM-VALUE>
+                          <DEFINITION-REF DEST="ECUC-ENUMERATION-PARAM-DEF">/FC7300FXXX/Eftu/EftuConfigSet/EftuConf/EftuTimAuxInConf/EftuTimAuxIn1</DEFINITION-REF>
+                          <VALUE>EFTU0_OUT0</VALUE>
+                        </ECUC-TEXTUAL-PARAM-VALUE>
+                        <ECUC-NUMERICAL-PARAM-VALUE>
+                          <DEFINITION-REF DEST="ECUC-INTEGER-PARAM-DEF">/FC7300FXXX/Eftu/EftuConfigSet/EftuConf/EftuTimAuxInConf/EftuTimAuxIn1Channel</DEFINITION-REF>
+                          <VALUE>0</VALUE>
+                        </ECUC-NUMERICAL-PARAM-VALUE>
+                        <ECUC-TEXTUAL-PARAM-VALUE>
+                          <DEFINITION-REF DEST="ECUC-ENUMERATION-PARAM-DEF">/FC7300FXXX/Eftu/EftuConfigSet/EftuConf/EftuTimAuxInConf/EftuTimAuxIn2</DEFINITION-REF>
+                          <VALUE>EFTU0_OUT0</VALUE>
+                        </ECUC-TEXTUAL-PARAM-VALUE>
+                        <ECUC-NUMERICAL-PARAM-VALUE>
+                          <DEFINITION-REF DEST="ECUC-INTEGER-PARAM-DEF">/FC7300FXXX/Eftu/EftuConfigSet/EftuConf/EftuTimAuxInConf/EftuTimAuxIn2Channel</DEFINITION-REF>
+                          <VALUE>0</VALUE>
+                        </ECUC-NUMERICAL-PARAM-VALUE>
+                        <ECUC-TEXTUAL-PARAM-VALUE>
+                          <DEFINITION-REF DEST="ECUC-ENUMERATION-PARAM-DEF">/FC7300FXXX/Eftu/EftuConfigSet/EftuConf/EftuTimAuxInConf/EftuTimAuxIn3</DEFINITION-REF>
+                          <VALUE>EFTU0_OUT0</VALUE>
+                        </ECUC-TEXTUAL-PARAM-VALUE>
+                        <ECUC-NUMERICAL-PARAM-VALUE>
+                          <DEFINITION-REF DEST="ECUC-INTEGER-PARAM-DEF">/FC7300FXXX/Eftu/EftuConfigSet/EftuConf/EftuTimAuxInConf/EftuTimAuxIn3Channel</DEFINITION-REF>
+                          <VALUE>0</VALUE>
+                        </ECUC-NUMERICAL-PARAM-VALUE>
+                        <ECUC-TEXTUAL-PARAM-VALUE>
+                          <DEFINITION-REF DEST="ECUC-ENUMERATION-PARAM-DEF">/FC7300FXXX/Eftu/EftuConfigSet/EftuConf/EftuTimAuxInConf/EftuTimAuxIn4</DEFINITION-REF>
+                          <VALUE>EFTU0_OUT0</VALUE>
+                        </ECUC-TEXTUAL-PARAM-VALUE>
+                        <ECUC-NUMERICAL-PARAM-VALUE>
+                          <DEFINITION-REF DEST="ECUC-INTEGER-PARAM-DEF">/FC7300FXXX/Eftu/EftuConfigSet/EftuConf/EftuTimAuxInConf/EftuTimAuxIn4Channel</DEFINITION-REF>
+                          <VALUE>0</VALUE>
+                        </ECUC-NUMERICAL-PARAM-VALUE>
+                        <ECUC-TEXTUAL-PARAM-VALUE>
+                          <DEFINITION-REF DEST="ECUC-ENUMERATION-PARAM-DEF">/FC7300FXXX/Eftu/EftuConfigSet/EftuConf/EftuTimAuxInConf/EftuTimAuxIn5</DEFINITION-REF>
+                          <VALUE>EFTU0_OUT0</VALUE>
+                        </ECUC-TEXTUAL-PARAM-VALUE>
+                        <ECUC-NUMERICAL-PARAM-VALUE>
+                          <DEFINITION-REF DEST="ECUC-INTEGER-PARAM-DEF">/FC7300FXXX/Eftu/EftuConfigSet/EftuConf/EftuTimAuxInConf/EftuTimAuxIn5Channel</DEFINITION-REF>
+                          <VALUE>0</VALUE>
+                        </ECUC-NUMERICAL-PARAM-VALUE>
+                        <ECUC-TEXTUAL-PARAM-VALUE>
+                          <DEFINITION-REF DEST="ECUC-ENUMERATION-PARAM-DEF">/FC7300FXXX/Eftu/EftuConfigSet/EftuConf/EftuTimAuxInConf/EftuTimAuxIn6</DEFINITION-REF>
+                          <VALUE>EFTU0_OUT0</VALUE>
+                        </ECUC-TEXTUAL-PARAM-VALUE>
+                        <ECUC-NUMERICAL-PARAM-VALUE>
+                          <DEFINITION-REF DEST="ECUC-INTEGER-PARAM-DEF">/FC7300FXXX/Eftu/EftuConfigSet/EftuConf/EftuTimAuxInConf/EftuTimAuxIn6Channel</DEFINITION-REF>
+                          <VALUE>0</VALUE>
+                        </ECUC-NUMERICAL-PARAM-VALUE>
+                        <ECUC-TEXTUAL-PARAM-VALUE>
+                          <DEFINITION-REF DEST="ECUC-ENUMERATION-PARAM-DEF">/FC7300FXXX/Eftu/EftuConfigSet/EftuConf/EftuTimAuxInConf/EftuTimAuxIn7</DEFINITION-REF>
+                          <VALUE>EFTU0_OUT0</VALUE>
+                        </ECUC-TEXTUAL-PARAM-VALUE>
+                        <ECUC-NUMERICAL-PARAM-VALUE>
+                          <DEFINITION-REF DEST="ECUC-INTEGER-PARAM-DEF">/FC7300FXXX/Eftu/EftuConfigSet/EftuConf/EftuTimAuxInConf/EftuTimAuxIn7Channel</DEFINITION-REF>
+                          <VALUE>0</VALUE>
+                        </ECUC-NUMERICAL-PARAM-VALUE>
+                      </PARAMETER-VALUES>
+                    </ECUC-CONTAINER-VALUE>
+                    <ECUC-CONTAINER-VALUE>
+                      <SHORT-NAME>EftuTimInConf</SHORT-NAME>
+                      <DEFINITION-REF DEST="ECUC-PARAM-CONF-CONTAINER-DEF">/FC7300FXXX/Eftu/EftuConfigSet/EftuConf/EftuTimInConf</DEFINITION-REF>
+                      <PARAMETER-VALUES>
+                        <ECUC-TEXTUAL-PARAM-VALUE>
+                          <DEFINITION-REF DEST="ECUC-ENUMERATION-PARAM-DEF">/FC7300FXXX/Eftu/EftuConfigSet/EftuConf/EftuTimInConf/EftuTimIn0</DEFINITION-REF>
+                          <VALUE>PAD_IN</VALUE>
+                        </ECUC-TEXTUAL-PARAM-VALUE>
+                        <ECUC-TEXTUAL-PARAM-VALUE>
+                          <DEFINITION-REF DEST="ECUC-ENUMERATION-PARAM-DEF">/FC7300FXXX/Eftu/EftuConfigSet/EftuConf/EftuTimInConf/EftuTimIn1</DEFINITION-REF>
+                          <VALUE>PAD_IN</VALUE>
+                        </ECUC-TEXTUAL-PARAM-VALUE>
+                        <ECUC-TEXTUAL-PARAM-VALUE>
+                          <DEFINITION-REF DEST="ECUC-ENUMERATION-PARAM-DEF">/FC7300FXXX/Eftu/EftuConfigSet/EftuConf/EftuTimInConf/EftuTimIn2</DEFINITION-REF>
+                          <VALUE>PAD_IN</VALUE>
+                        </ECUC-TEXTUAL-PARAM-VALUE>
+                        <ECUC-TEXTUAL-PARAM-VALUE>
+                          <DEFINITION-REF DEST="ECUC-ENUMERATION-PARAM-DEF">/FC7300FXXX/Eftu/EftuConfigSet/EftuConf/EftuTimInConf/EftuTimIn3</DEFINITION-REF>
+                          <VALUE>PAD_IN</VALUE>
+                        </ECUC-TEXTUAL-PARAM-VALUE>
+                        <ECUC-TEXTUAL-PARAM-VALUE>
+                          <DEFINITION-REF DEST="ECUC-ENUMERATION-PARAM-DEF">/FC7300FXXX/Eftu/EftuConfigSet/EftuConf/EftuTimInConf/EftuTimIn4</DEFINITION-REF>
+                          <VALUE>PAD_IN</VALUE>
+                        </ECUC-TEXTUAL-PARAM-VALUE>
+                        <ECUC-TEXTUAL-PARAM-VALUE>
+                          <DEFINITION-REF DEST="ECUC-ENUMERATION-PARAM-DEF">/FC7300FXXX/Eftu/EftuConfigSet/EftuConf/EftuTimInConf/EftuTimIn5</DEFINITION-REF>
+                          <VALUE>PAD_IN</VALUE>
+                        </ECUC-TEXTUAL-PARAM-VALUE>
+                        <ECUC-TEXTUAL-PARAM-VALUE>
+                          <DEFINITION-REF DEST="ECUC-ENUMERATION-PARAM-DEF">/FC7300FXXX/Eftu/EftuConfigSet/EftuConf/EftuTimInConf/EftuTimIn6</DEFINITION-REF>
+                          <VALUE>PAD_IN</VALUE>
+                        </ECUC-TEXTUAL-PARAM-VALUE>
+                        <ECUC-TEXTUAL-PARAM-VALUE>
+                          <DEFINITION-REF DEST="ECUC-ENUMERATION-PARAM-DEF">/FC7300FXXX/Eftu/EftuConfigSet/EftuConf/EftuTimInConf/EftuTimIn7</DEFINITION-REF>
+                          <VALUE>PAD_IN</VALUE>
+                        </ECUC-TEXTUAL-PARAM-VALUE>
+                      </PARAMETER-VALUES>
+                    </ECUC-CONTAINER-VALUE>
+                  </SUB-CONTAINERS>
+                </ECUC-CONTAINER-VALUE>
+                <ECUC-CONTAINER-VALUE>
+                  <SHORT-NAME>EftuConf_1</SHORT-NAME>
+                  <DEFINITION-REF DEST="ECUC-PARAM-CONF-CONTAINER-DEF">/FC7300FXXX/Eftu/EftuConfigSet/EftuConf</DEFINITION-REF>
+                  <PARAMETER-VALUES>
+                    <ECUC-TEXTUAL-PARAM-VALUE>
+                      <DEFINITION-REF DEST="ECUC-ENUMERATION-PARAM-DEF">/FC7300FXXX/Eftu/EftuConfigSet/EftuConf/EftuDebugMode</DEFINITION-REF>
+                      <VALUE>DEBUG_ALL_HALT</VALUE>
+                    </ECUC-TEXTUAL-PARAM-VALUE>
+                    <ECUC-TEXTUAL-PARAM-VALUE>
+                      <DEFINITION-REF DEST="ECUC-ENUMERATION-PARAM-DEF">/FC7300FXXX/Eftu/EftuConfigSet/EftuConf/EftuInstance</DEFINITION-REF>
+                      <VALUE>EFTU_1</VALUE>
                     </ECUC-TEXTUAL-PARAM-VALUE>
                   </PARAMETER-VALUES>
                   <SUB-CONTAINERS>
@@ -810,6 +1162,116 @@
                     <ECUC-TEXTUAL-PARAM-VALUE>
                       <DEFINITION-REF DEST="ECUC-ENUMERATION-PARAM-DEF">/FC7300FXXX/Eftu/EftuTomGlobalSet/EftuTomChannelAllocationConf/EftuTomChannelAllocationConf</DEFINITION-REF>
                       <VALUE>EFTU_TOM_CHANNEL_NOT_USED</VALUE>
+                    </ECUC-TEXTUAL-PARAM-VALUE>
+                  </PARAMETER-VALUES>
+                </ECUC-CONTAINER-VALUE>
+              </SUB-CONTAINERS>
+            </ECUC-CONTAINER-VALUE>
+            <ECUC-CONTAINER-VALUE>
+              <SHORT-NAME>EftuTomGlobalSet_2</SHORT-NAME>
+              <DEFINITION-REF DEST="ECUC-PARAM-CONF-CONTAINER-DEF">/FC7300FXXX/Eftu/EftuTomGlobalSet</DEFINITION-REF>
+              <PARAMETER-VALUES>
+                <ECUC-TEXTUAL-PARAM-VALUE>
+                  <DEFINITION-REF DEST="ECUC-ENUMERATION-PARAM-DEF">/FC7300FXXX/Eftu/EftuTomGlobalSet/EftuTomEftuInstance</DEFINITION-REF>
+                  <VALUE>EFTU_1</VALUE>
+                </ECUC-TEXTUAL-PARAM-VALUE>
+                <ECUC-TEXTUAL-PARAM-VALUE>
+                  <DEFINITION-REF DEST="ECUC-ENUMERATION-PARAM-DEF">/FC7300FXXX/Eftu/EftuTomGlobalSet/EftuTomInstance</DEFINITION-REF>
+                  <VALUE>TOM_0</VALUE>
+                </ECUC-TEXTUAL-PARAM-VALUE>
+              </PARAMETER-VALUES>
+              <SUB-CONTAINERS>
+                <ECUC-CONTAINER-VALUE>
+                  <SHORT-NAME>EftuTomActionTimeBaseUnitConf</SHORT-NAME>
+                  <DEFINITION-REF DEST="ECUC-PARAM-CONF-CONTAINER-DEF">/FC7300FXXX/Eftu/EftuTomGlobalSet/EftuTomActionTimeBaseUnitConf</DEFINITION-REF>
+                  <PARAMETER-VALUES>
+                    <ECUC-TEXTUAL-PARAM-VALUE>
+                      <DEFINITION-REF DEST="ECUC-ENUMERATION-PARAM-DEF">/FC7300FXXX/Eftu/EftuTomGlobalSet/EftuTomActionTimeBaseUnitConf/EftuTomActionTimeBaseSelection</DEFINITION-REF>
+                      <VALUE>TBU_SEL_TS0</VALUE>
+                    </ECUC-TEXTUAL-PARAM-VALUE>
+                    <ECUC-NUMERICAL-PARAM-VALUE>
+                      <DEFINITION-REF DEST="ECUC-INTEGER-PARAM-DEF">/FC7300FXXX/Eftu/EftuTomGlobalSet/EftuTomActionTimeBaseUnitConf/EftuTomActionTimeBaseValue</DEFINITION-REF>
+                      <VALUE>1</VALUE>
+                    </ECUC-NUMERICAL-PARAM-VALUE>
+                  </PARAMETER-VALUES>
+                </ECUC-CONTAINER-VALUE>
+                <ECUC-CONTAINER-VALUE>
+                  <SHORT-NAME>EftuTomChannelAllocationConf_0</SHORT-NAME>
+                  <DEFINITION-REF DEST="ECUC-PARAM-CONF-CONTAINER-DEF">/FC7300FXXX/Eftu/EftuTomGlobalSet/EftuTomChannelAllocationConf</DEFINITION-REF>
+                  <PARAMETER-VALUES>
+                    <ECUC-TEXTUAL-PARAM-VALUE>
+                      <DEFINITION-REF DEST="ECUC-ENUMERATION-PARAM-DEF">/FC7300FXXX/Eftu/EftuTomGlobalSet/EftuTomChannelAllocationConf/EftuTomChannelAllocationConf</DEFINITION-REF>
+                      <VALUE>EFTU_TOM_CHANNEL_USED_BY_PWM</VALUE>
+                    </ECUC-TEXTUAL-PARAM-VALUE>
+                  </PARAMETER-VALUES>
+                </ECUC-CONTAINER-VALUE>
+                <ECUC-CONTAINER-VALUE>
+                  <SHORT-NAME>EftuTomChannelAllocationConf_1</SHORT-NAME>
+                  <DEFINITION-REF DEST="ECUC-PARAM-CONF-CONTAINER-DEF">/FC7300FXXX/Eftu/EftuTomGlobalSet/EftuTomChannelAllocationConf</DEFINITION-REF>
+                  <PARAMETER-VALUES>
+                    <ECUC-TEXTUAL-PARAM-VALUE>
+                      <DEFINITION-REF DEST="ECUC-ENUMERATION-PARAM-DEF">/FC7300FXXX/Eftu/EftuTomGlobalSet/EftuTomChannelAllocationConf/EftuTomChannelAllocationConf</DEFINITION-REF>
+                      <VALUE>EFTU_TOM_CHANNEL_NOT_USED</VALUE>
+                    </ECUC-TEXTUAL-PARAM-VALUE>
+                  </PARAMETER-VALUES>
+                </ECUC-CONTAINER-VALUE>
+                <ECUC-CONTAINER-VALUE>
+                  <SHORT-NAME>EftuTomChannelAllocationConf_2</SHORT-NAME>
+                  <DEFINITION-REF DEST="ECUC-PARAM-CONF-CONTAINER-DEF">/FC7300FXXX/Eftu/EftuTomGlobalSet/EftuTomChannelAllocationConf</DEFINITION-REF>
+                  <PARAMETER-VALUES>
+                    <ECUC-TEXTUAL-PARAM-VALUE>
+                      <DEFINITION-REF DEST="ECUC-ENUMERATION-PARAM-DEF">/FC7300FXXX/Eftu/EftuTomGlobalSet/EftuTomChannelAllocationConf/EftuTomChannelAllocationConf</DEFINITION-REF>
+                      <VALUE>EFTU_TOM_CHANNEL_NOT_USED</VALUE>
+                    </ECUC-TEXTUAL-PARAM-VALUE>
+                  </PARAMETER-VALUES>
+                </ECUC-CONTAINER-VALUE>
+                <ECUC-CONTAINER-VALUE>
+                  <SHORT-NAME>EftuTomChannelAllocationConf_3</SHORT-NAME>
+                  <DEFINITION-REF DEST="ECUC-PARAM-CONF-CONTAINER-DEF">/FC7300FXXX/Eftu/EftuTomGlobalSet/EftuTomChannelAllocationConf</DEFINITION-REF>
+                  <PARAMETER-VALUES>
+                    <ECUC-TEXTUAL-PARAM-VALUE>
+                      <DEFINITION-REF DEST="ECUC-ENUMERATION-PARAM-DEF">/FC7300FXXX/Eftu/EftuTomGlobalSet/EftuTomChannelAllocationConf/EftuTomChannelAllocationConf</DEFINITION-REF>
+                      <VALUE>EFTU_TOM_CHANNEL_USED_BY_PWM</VALUE>
+                    </ECUC-TEXTUAL-PARAM-VALUE>
+                  </PARAMETER-VALUES>
+                </ECUC-CONTAINER-VALUE>
+                <ECUC-CONTAINER-VALUE>
+                  <SHORT-NAME>EftuTomChannelAllocationConf_4</SHORT-NAME>
+                  <DEFINITION-REF DEST="ECUC-PARAM-CONF-CONTAINER-DEF">/FC7300FXXX/Eftu/EftuTomGlobalSet/EftuTomChannelAllocationConf</DEFINITION-REF>
+                  <PARAMETER-VALUES>
+                    <ECUC-TEXTUAL-PARAM-VALUE>
+                      <DEFINITION-REF DEST="ECUC-ENUMERATION-PARAM-DEF">/FC7300FXXX/Eftu/EftuTomGlobalSet/EftuTomChannelAllocationConf/EftuTomChannelAllocationConf</DEFINITION-REF>
+                      <VALUE>EFTU_TOM_CHANNEL_USED_BY_PWM</VALUE>
+                    </ECUC-TEXTUAL-PARAM-VALUE>
+                  </PARAMETER-VALUES>
+                </ECUC-CONTAINER-VALUE>
+                <ECUC-CONTAINER-VALUE>
+                  <SHORT-NAME>EftuTomChannelAllocationConf_5</SHORT-NAME>
+                  <DEFINITION-REF DEST="ECUC-PARAM-CONF-CONTAINER-DEF">/FC7300FXXX/Eftu/EftuTomGlobalSet/EftuTomChannelAllocationConf</DEFINITION-REF>
+                  <PARAMETER-VALUES>
+                    <ECUC-TEXTUAL-PARAM-VALUE>
+                      <DEFINITION-REF DEST="ECUC-ENUMERATION-PARAM-DEF">/FC7300FXXX/Eftu/EftuTomGlobalSet/EftuTomChannelAllocationConf/EftuTomChannelAllocationConf</DEFINITION-REF>
+                      <VALUE>EFTU_TOM_CHANNEL_USED_BY_PWM</VALUE>
+                    </ECUC-TEXTUAL-PARAM-VALUE>
+                  </PARAMETER-VALUES>
+                </ECUC-CONTAINER-VALUE>
+                <ECUC-CONTAINER-VALUE>
+                  <SHORT-NAME>EftuTomChannelAllocationConf_6</SHORT-NAME>
+                  <DEFINITION-REF DEST="ECUC-PARAM-CONF-CONTAINER-DEF">/FC7300FXXX/Eftu/EftuTomGlobalSet/EftuTomChannelAllocationConf</DEFINITION-REF>
+                  <PARAMETER-VALUES>
+                    <ECUC-TEXTUAL-PARAM-VALUE>
+                      <DEFINITION-REF DEST="ECUC-ENUMERATION-PARAM-DEF">/FC7300FXXX/Eftu/EftuTomGlobalSet/EftuTomChannelAllocationConf/EftuTomChannelAllocationConf</DEFINITION-REF>
+                      <VALUE>EFTU_TOM_CHANNEL_USED_BY_PWM</VALUE>
+                    </ECUC-TEXTUAL-PARAM-VALUE>
+                  </PARAMETER-VALUES>
+                </ECUC-CONTAINER-VALUE>
+                <ECUC-CONTAINER-VALUE>
+                  <SHORT-NAME>EftuTomChannelAllocationConf_7</SHORT-NAME>
+                  <DEFINITION-REF DEST="ECUC-PARAM-CONF-CONTAINER-DEF">/FC7300FXXX/Eftu/EftuTomGlobalSet/EftuTomChannelAllocationConf</DEFINITION-REF>
+                  <PARAMETER-VALUES>
+                    <ECUC-TEXTUAL-PARAM-VALUE>
+                      <DEFINITION-REF DEST="ECUC-ENUMERATION-PARAM-DEF">/FC7300FXXX/Eftu/EftuTomGlobalSet/EftuTomChannelAllocationConf/EftuTomChannelAllocationConf</DEFINITION-REF>
+                      <VALUE>EFTU_TOM_CHANNEL_USED_BY_PWM</VALUE>
                     </ECUC-TEXTUAL-PARAM-VALUE>
                   </PARAMETER-VALUES>
                 </ECUC-CONTAINER-VALUE>
