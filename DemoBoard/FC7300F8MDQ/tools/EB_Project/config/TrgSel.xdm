@@ -902,12 +902,8 @@
                       <a:v>@CALC</a:v>
                     </a:a>
                   </d:var>
-                  <d:var name="LU0_INPUT0B" type="ENUMERATION" value="VSS">
-                    <a:a name="IMPORTER_INFO">
-                      <a:v>@DEF</a:v>
-                      <a:v>@CALC</a:v>
-                    </a:a>
-                  </d:var>
+                  <d:var name="LU0_INPUT0B" type="ENUMERATION" 
+                         value="eFTU1_TOM0"/>
                   <d:var name="LU0_INPUT0C" type="ENUMERATION" value="VSS">
                     <a:a name="IMPORTER_INFO">
                       <a:v>@DEF</a:v>
@@ -1152,12 +1148,8 @@
                          value="SCM_SW_TRG3"/>
                   <d:var name="TRGSEL0_OUT1" type="ENUMERATION" 
                          value="SCM_SW_TRG0"/>
-                  <d:var name="TRGSEL0_OUT2" type="ENUMERATION" value="VSS">
-                    <a:a name="IMPORTER_INFO">
-                      <a:v>@DEF</a:v>
-                      <a:v>@CALC</a:v>
-                    </a:a>
-                  </d:var>
+                  <d:var name="TRGSEL0_OUT2" type="ENUMERATION" 
+                         value="LU0_OUT0B"/>
                   <d:var name="TRGSEL0_OUT3" type="ENUMERATION" value="VSS">
                     <a:a name="IMPORTER_INFO">
                       <a:v>@DEF</a:v>
@@ -2572,12 +2564,8 @@
                       <a:v>@CALC</a:v>
                     </a:a>
                   </d:var>
-                  <d:var name="eFTU1_FLT0" type="ENUMERATION" value="VSS">
-                    <a:a name="IMPORTER_INFO">
-                      <a:v>@DEF</a:v>
-                      <a:v>@CALC</a:v>
-                    </a:a>
-                  </d:var>
+                  <d:var name="eFTU1_FLT0" type="ENUMERATION" 
+                         value="TRGSEL0_OUT2"/>
                   <d:var name="eFTU1_FLT1" type="ENUMERATION" value="VSS">
                     <a:a name="IMPORTER_INFO">
                       <a:v>@DEF</a:v>

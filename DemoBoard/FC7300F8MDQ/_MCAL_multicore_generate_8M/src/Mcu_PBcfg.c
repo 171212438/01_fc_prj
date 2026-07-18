@@ -116,7 +116,7 @@ MCU_DATA_SECTION static const CLOCK_CMU_ConfigType CLOCK_CMU_Config0 =
 };
 
 /** @brief MCU_Demo_FOSC24M PCC register configuration. */
-MCU_DATA_SECTION static const PCC_CLKCtrlType PCC_Config0[75U] =
+MCU_DATA_SECTION static const PCC_CLKCtrlType PCC_Config0[76U] =
 {
     {(uint32)0x28, (uint32)0x10800000}, /* DMA_MUX0 */
     {(uint32)0x3F4, (uint32)0x10900000}, /* FTU0 */
@@ -193,12 +193,13 @@ MCU_DATA_SECTION static const PCC_CLKCtrlType PCC_Config0[75U] =
     {(uint32)0x37C, (uint32)0x10900000}, /* QDT0 */
     {(uint32)0x38C, (uint32)0x10900000}, /* SSI0 */
     {(uint32)0x330, (uint32)0x10e00001}, /* HSADC0 */
+    {(uint32)0x1C0, (uint32)0x10800000}, /* LU0 */
 };
 
 /** @brief MCU_Demo_FOSC24M PCC configuration. */
 MCU_DATA_SECTION static const PCC_GrpConfigType PCC_GrpConfig0 =
 {
-    (uint8)75U,          /* Count of PCC peripheral */
+    (uint8)76U,          /* Count of PCC peripheral */
     PCC_Config0          /* Register Configuration */
 };
 

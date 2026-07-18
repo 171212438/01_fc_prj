@@ -617,7 +617,7 @@
                     </ECUC-TEXTUAL-PARAM-VALUE>
                     <ECUC-TEXTUAL-PARAM-VALUE>
                       <DEFINITION-REF DEST="ECUC-ENUMERATION-PARAM-DEF">/FC7300FXXX/TrgSel/TrgSelConfigSet/TrgSelGroup0/LU0_INPUT0B</DEFINITION-REF>
-                      <VALUE>VSS</VALUE>
+                      <VALUE>eFTU1_TOM0</VALUE>
                     </ECUC-TEXTUAL-PARAM-VALUE>
                     <ECUC-TEXTUAL-PARAM-VALUE>
                       <DEFINITION-REF DEST="ECUC-ENUMERATION-PARAM-DEF">/FC7300FXXX/TrgSel/TrgSelConfigSet/TrgSelGroup0/LU0_INPUT0C</DEFINITION-REF>
@@ -825,7 +825,7 @@
                     </ECUC-TEXTUAL-PARAM-VALUE>
                     <ECUC-TEXTUAL-PARAM-VALUE>
                       <DEFINITION-REF DEST="ECUC-ENUMERATION-PARAM-DEF">/FC7300FXXX/TrgSel/TrgSelConfigSet/TrgSelGroup0/TRGSEL0_OUT2</DEFINITION-REF>
-                      <VALUE>VSS</VALUE>
+                      <VALUE>LU0_OUT0B</VALUE>
                     </ECUC-TEXTUAL-PARAM-VALUE>
                     <ECUC-TEXTUAL-PARAM-VALUE>
                       <DEFINITION-REF DEST="ECUC-ENUMERATION-PARAM-DEF">/FC7300FXXX/TrgSel/TrgSelConfigSet/TrgSelGroup0/TRGSEL0_OUT3</DEFINITION-REF>
@@ -1789,7 +1789,7 @@
                     </ECUC-TEXTUAL-PARAM-VALUE>
                     <ECUC-TEXTUAL-PARAM-VALUE>
                       <DEFINITION-REF DEST="ECUC-ENUMERATION-PARAM-DEF">/FC7300FXXX/TrgSel/TrgSelConfigSet/TrgSelGroup2/eFTU1_FLT0</DEFINITION-REF>
-                      <VALUE>VSS</VALUE>
+                      <VALUE>TRGSEL0_OUT2</VALUE>
                     </ECUC-TEXTUAL-PARAM-VALUE>
                     <ECUC-TEXTUAL-PARAM-VALUE>
                       <DEFINITION-REF DEST="ECUC-ENUMERATION-PARAM-DEF">/FC7300FXXX/TrgSel/TrgSelConfigSet/TrgSelGroup2/eFTU1_FLT1</DEFINITION-REF>

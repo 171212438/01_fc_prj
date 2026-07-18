@@ -8,8 +8,8 @@
 #define CDD_PWM_WAVE_DEAD_TIME_TICKS  (23U)
 #define CDD_PWM_WAVE_WINDOW_COUNT     (4U)
 
-/* CH0 supplies an edge source, but the complete DTM1 zero-boundary start/stop path is unverified. */
-#define CDD_PWM_WAVE_DTM_BOUNDARY_SYNC_SUPPORTED (STD_OFF)
+/* LU0 samples the run request on CH0; DTM0/1 use the synchronized inverse as shutoff. */
+#define CDD_PWM_WAVE_DTM_BOUNDARY_SYNC_SUPPORTED (STD_ON)
 #define CDD_PWM_WAVE_HW_FAULT_INPUT_CONFIGURED   (STD_OFF)
 
 typedef uint32 Cdd_PwmWave_SequenceType;
@@ -82,9 +82,10 @@ typedef struct
 
 /*
  * Runtime ownership: after Cdd_PwmWave_Init(), Core0 exclusively owns
- * eFTU1 TOM0 CH0, CH3-CH7 and DTM1. CH1/CH2 are reserved as the internal
- * trigger-bypass path and must remain unused. Do not call the standard Pwm
- * runtime update APIs for PWM1-PWM5 or PWM_CARRIER.
+ * eFTU1 TOM0 CH0, CH3-CH7, the complete DTM0 and DTM1 instances,
+ * LU0 LG0, TRGSEL0 register 0 (LU0_INPUT0A-D), TRGSEL0_OUT2 and eFTU1_FLT0.
+ * DTM0 channels 0-2 and TOM0 CH1/CH2 must remain unused. Do not call the
+ * standard Pwm or TrgSel runtime update APIs for those resources from any core.
  */
 Cdd_PwmWave_ResultType Cdd_PwmWave_Init(void);
 Cdd_PwmWave_ResultType Cdd_PwmWave_ValidateFrame(const Cdd_PwmWave_FrameType *pFrame);
@@ -92,17 +93,19 @@ Cdd_PwmWave_ResultType Cdd_PwmWave_SubmitFrame(const Cdd_PwmWave_FrameType *pFra
                                                Cdd_PwmWave_SequenceType *pSequence);
 Cdd_PwmWave_ResultType Cdd_PwmWave_SubmitPeriodChange(uint32 u32NewPeriodTicks,
                                                       Cdd_PwmWave_SequenceType *pSequence);
-/* Fail-closed with E_NOT_SUPPORTED until the complete CH0-synchronous DTM path is verified. */
+/* Call immediately after BSP switches all nine pads to eFTU; Start remains blocked until it passes. */
+Cdd_PwmWave_ResultType Cdd_PwmWave_ConfirmArmedLow(void);
+/* Synchronous: settles at CH0 zero, then confirms all four DTM pairs physically active. */
 Cdd_PwmWave_ResultType Cdd_PwmWave_Start(void);
-/* Reserved for the same verified hardware-synchronized start/stop implementation. */
+/* Synchronous: allows two CH0 wraps, then requires all nine physical pads low. */
 Cdd_PwmWave_ResultType Cdd_PwmWave_Stop(void);
 
 /*
- * Core0 ISR/task callable software shutoff. The eight DTM outputs are forced
- * low first; PWM5 is outside that hardware domain and is then forced low independently.
+ * Core0 ISR/task callable software shutoff. DTM1 and DTM0 channel 3 are forced
+ * low, then the five TOM channels are disabled immediately.
  */
 Cdd_PwmWave_ResultType Cdd_PwmWave_EmergencyShutdown(void);
-/* Clear keeps all outputs disabled; a new complete frame must be submitted before Start. */
+/* Clear restores ARMED_LOW only for previously confirmed eFTU pads; then submit a new frame. */
 Cdd_PwmWave_ResultType Cdd_PwmWave_ClearFault(void);
 
 Cdd_PwmWave_ResultType Cdd_PwmWave_GetStatus(Cdd_PwmWave_StatusType *pStatus);

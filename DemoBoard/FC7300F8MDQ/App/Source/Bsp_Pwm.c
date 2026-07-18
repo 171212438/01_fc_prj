@@ -1,8 +1,14 @@
 #include "Bsp_Pwm.h"
 #include "Cdd_PwmWave.h"
+#include "Gpio_Reg.h"
+#include "Port_Reg.h"
 
 /************ Macro *******************/
 #define PWM_MAX_DUTY 0x8000
+#define BSP_PWM_GPIOC_OUTPUT_MASK (0x02800080U)
+#define BSP_PWM_GPIOD_OUTPUT_MASK (0x00200010U)
+#define BSP_PWM_GPIOE_OUTPUT_MASK (0x00002C00U)
+#define BSP_PWM_GPIOH_OUTPUT_MASK (0x00400000U)
 
 /************ Local variable *******************/
 uint16 s_u16Rgb1DutyVal = 0U;
@@ -31,6 +37,64 @@ static void Bsp_Pwm_SetOutputPinModes(void)
   Port_SetPinMode(PortConf_PortContainer_3_PortPin_4, PORT100_eFTU1_OUT_S23);  /* PTD4 */
 }
 
+static boolean Bsp_Pwm_AreOutputPinsGpioLow(void)
+{
+  return ((((PORTC->PCR[7U] & PORT_PCR_MUX_MASK) == PORT_PCR_MUX(1U)) &&
+           ((PORTC->PCR[23U] & PORT_PCR_MUX_MASK) == PORT_PCR_MUX(1U)) &&
+           ((PORTC->PCR[25U] & PORT_PCR_MUX_MASK) == PORT_PCR_MUX(1U)) &&
+           ((PORTD->PCR[4U] & PORT_PCR_MUX_MASK) == PORT_PCR_MUX(1U)) &&
+           ((PORTD->PCR[21U] & PORT_PCR_MUX_MASK) == PORT_PCR_MUX(1U)) &&
+           ((PORTE->PCR[10U] & PORT_PCR_MUX_MASK) == PORT_PCR_MUX(1U)) &&
+           ((PORTE->PCR[11U] & PORT_PCR_MUX_MASK) == PORT_PCR_MUX(1U)) &&
+           ((PORTE->PCR[13U] & PORT_PCR_MUX_MASK) == PORT_PCR_MUX(1U)) &&
+           ((PORTH->PCR[22U] & PORT_PCR_MUX_MASK) == PORT_PCR_MUX(1U)) &&
+           ((GPIOC->PDDR & BSP_PWM_GPIOC_OUTPUT_MASK) == BSP_PWM_GPIOC_OUTPUT_MASK) &&
+           ((GPIOD->PDDR & BSP_PWM_GPIOD_OUTPUT_MASK) == BSP_PWM_GPIOD_OUTPUT_MASK) &&
+           ((GPIOE->PDDR & BSP_PWM_GPIOE_OUTPUT_MASK) == BSP_PWM_GPIOE_OUTPUT_MASK) &&
+           ((GPIOH->PDDR & BSP_PWM_GPIOH_OUTPUT_MASK) == BSP_PWM_GPIOH_OUTPUT_MASK) &&
+           ((GPIOC->PIDR & BSP_PWM_GPIOC_OUTPUT_MASK) == 0U) &&
+           ((GPIOD->PIDR & BSP_PWM_GPIOD_OUTPUT_MASK) == 0U) &&
+           ((GPIOE->PIDR & BSP_PWM_GPIOE_OUTPUT_MASK) == 0U) &&
+           ((GPIOH->PIDR & BSP_PWM_GPIOH_OUTPUT_MASK) == 0U) &&
+           ((GPIOC->PDIR & BSP_PWM_GPIOC_OUTPUT_MASK) == 0U) &&
+           ((GPIOD->PDIR & BSP_PWM_GPIOD_OUTPUT_MASK) == 0U) &&
+           ((GPIOE->PDIR & BSP_PWM_GPIOE_OUTPUT_MASK) == 0U) &&
+           ((GPIOH->PDIR & BSP_PWM_GPIOH_OUTPUT_MASK) == 0U)))
+              ? TRUE
+              : FALSE;
+}
+
+static boolean Bsp_Pwm_ForceOutputPinsGpioLow(void)
+{
+  /* Prepare a driven-low GPIO state before reconnecting the pads to GPIO. */
+  GPIOC->PCOR = BSP_PWM_GPIOC_OUTPUT_MASK;
+  GPIOD->PCOR = BSP_PWM_GPIOD_OUTPUT_MASK;
+  GPIOE->PCOR = BSP_PWM_GPIOE_OUTPUT_MASK;
+  GPIOH->PCOR = BSP_PWM_GPIOH_OUTPUT_MASK;
+  GPIOC->PDDR |= BSP_PWM_GPIOC_OUTPUT_MASK;
+  GPIOD->PDDR |= BSP_PWM_GPIOD_OUTPUT_MASK;
+  GPIOE->PDDR |= BSP_PWM_GPIOE_OUTPUT_MASK;
+  GPIOH->PDDR |= BSP_PWM_GPIOH_OUTPUT_MASK;
+  GPIOC->PIDR &= ~BSP_PWM_GPIOC_OUTPUT_MASK;
+  GPIOD->PIDR &= ~BSP_PWM_GPIOD_OUTPUT_MASK;
+  GPIOE->PIDR &= ~BSP_PWM_GPIOE_OUTPUT_MASK;
+  GPIOH->PIDR &= ~BSP_PWM_GPIOH_OUTPUT_MASK;
+  MCAL_DATA_SYNC_BARRIER();
+
+  Port_SetPinMode(PortConf_PortContainer_7_PortPin_22, PORT246_GPIO); /* PTH22 */
+  Port_SetPinMode(PortConf_PortContainer_2_PortPin_7, PORT71_GPIO);   /* PTC7 */
+  Port_SetPinMode(PortConf_PortContainer_4_PortPin_11, PORT139_GPIO); /* PTE11 */
+  Port_SetPinMode(PortConf_PortContainer_4_PortPin_10, PORT138_GPIO); /* PTE10 */
+  Port_SetPinMode(PortConf_PortContainer_4_PortPin_13, PORT141_GPIO); /* PTE13 */
+  Port_SetPinMode(PortConf_PortContainer_2_PortPin_25, PORT89_GPIO);  /* PTC25 */
+  Port_SetPinMode(PortConf_PortContainer_2_PortPin_23, PORT87_GPIO);  /* PTC23 */
+  Port_SetPinMode(PortConf_PortContainer_3_PortPin_19, PORT117_GPIO); /* PTD21 */
+  Port_SetPinMode(PortConf_PortContainer_3_PortPin_4, PORT100_GPIO);  /* PTD4 */
+  MCAL_DATA_SYNC_BARRIER();
+
+  return Bsp_Pwm_AreOutputPinsGpioLow();
+}
+
 /************ Global functions *******************/
 void Bsp_Pwm_Init(void)
 {
@@ -42,6 +106,14 @@ void Bsp_Pwm_Init(void)
   {
     if (CDD_PWM_WAVE_OK == Cdd_PwmWave_Init()) {
       Bsp_Pwm_SetOutputPinModes();
+      if (CDD_PWM_WAVE_OK != Cdd_PwmWave_ConfirmArmedLow()) {
+        (void)Cdd_PwmWave_EmergencyShutdown();
+        if (TRUE == Bsp_Pwm_ForceOutputPinsGpioLow()) {
+          DEBUG_INFO("Bsp_Pwm: physical ARMED_LOW check failed; GPIO-low fallback verified.\r\n");
+        } else {
+          DEBUG_INFO("Bsp_Pwm: GPIO-low fallback verification failed; outputs remain fault-latched.\r\n");
+        }
+      }
     } else {
       /* Fail closed: Port_Init keeps all nine output pins as GPIO low. */
       DEBUG_INFO("Bsp_Pwm: CDD ARMED_LOW failed, output pins remain GPIO low.\r\n");
