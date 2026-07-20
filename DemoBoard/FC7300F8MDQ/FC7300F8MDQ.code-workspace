@@ -21,6 +21,7 @@
                 }
             ]
         },
+        "C_Cpp.errorSquiggles": "disabled",
         "C_Cpp.default.compilerPath": "D:/Workspace/FlagChip/00_fc_ide/gcc9-2019-q4/bin/arm-none-eabi-gcc.exe",
         "C_Cpp.default.compilerArgs": [
             "-mcpu=cortex-m7",
@@ -34,11 +35,9 @@
         "C_Cpp.default.defines": [
             "DEBUG",
             "__TARGET_USE_FPU",
-            "_GCC_C_FC7XXX_",
             "AUTOSAR_OS_NOT_USED",
             "USE_SW_VECTOR_MODE",
-            "UART_PRINTF",
-            "__attribute__(x)="
+            "UART_PRINTF"
         ],
         "C_Cpp.default.includePath": [
             "${workspaceFolder:MCAL}/Src/Common/include",

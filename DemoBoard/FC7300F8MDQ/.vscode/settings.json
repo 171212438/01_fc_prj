@@ -73,5 +73,6 @@
     ]
   },
 
-  "C_Cpp.errorSquiggles": "disabled"
+  "C_Cpp.errorSquiggles": "disabled",
+  "C_Cpp.default.compilerPath": "D:/Workspace/FlagChip/00_fc_ide/gcc9-2019-q4/bin/arm-none-eabi-gcc.exe"
 }
