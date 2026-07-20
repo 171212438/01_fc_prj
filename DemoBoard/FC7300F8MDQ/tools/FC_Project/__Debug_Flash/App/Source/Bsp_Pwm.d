@@ -286,7 +286,8 @@ App/Source/Bsp_Pwm.o: \
  ../../../_MCAL_multicore_generate_8M/include/CDD_Ssi_Cfg.h \
  ../../../../../MCAL/Src/SchM/include/SchM_Ssi.h \
  ../../../../../MCAL/Src/Base/include/MemMap/Ssi_MemMap.h \
- ../../../App/Include/Cdd_PwmWave.h
+ ../../../App/Include/Cdd_PwmWave.h \
+ ../../../../../MCAL/Src/SchM/include/SchM_Pwm.h
 
 ../../../App/Include/Bsp_Pwm.h:
 
@@ -865,3 +866,5 @@ App/Source/Bsp_Pwm.o: \
 ../../../../../MCAL/Src/Base/include/MemMap/Ssi_MemMap.h:
 
 ../../../App/Include/Cdd_PwmWave.h:
+
+../../../../../MCAL/Src/SchM/include/SchM_Pwm.h:

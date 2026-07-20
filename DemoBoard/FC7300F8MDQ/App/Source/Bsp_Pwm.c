@@ -4,7 +4,7 @@
 #include "SchM_Pwm.h"
 
 /************ Macro *******************/
-#define PWM_MAX_DUTY 0x8000
+#define PWM_MAX_DUTY              0x8000
 #define BSP_PWM_GPIOC_OUTPUT_MASK (0x02800080U)
 #define BSP_PWM_GPIOD_OUTPUT_MASK (0x00200010U)
 #define BSP_PWM_GPIOE_OUTPUT_MASK (0x00002C00U)
@@ -47,9 +47,7 @@ static boolean Bsp_PwmWave_IsJobPending(void)
   return bPending;
 }
 
-static void Bsp_PwmWave_RecordJob(Bsp_PwmWave_JobType eJob,
-                                  Bsp_PwmWave_JobStateType eJobState,
-                                  Cdd_PwmWave_ResultType eResult,
+static void Bsp_PwmWave_RecordJob(Bsp_PwmWave_JobType eJob, Bsp_PwmWave_JobStateType eJobState, Cdd_PwmWave_ResultType eResult,
                                   Cdd_PwmWave_SequenceType u32Sequence)
 {
   SchM_Enter_Pwm_PWM_EXCLUSIVE_AREA_19();
@@ -71,11 +69,8 @@ static uint32 Bsp_PwmWave_GetCommandEpoch(void)
   return u32Epoch;
 }
 
-static void Bsp_PwmWave_RecordJobIfCurrent(uint32 u32ExpectedEpoch,
-                                           Bsp_PwmWave_JobType eJob,
-                                           Bsp_PwmWave_JobStateType eJobState,
-                                           Cdd_PwmWave_ResultType eResult,
-                                           Cdd_PwmWave_SequenceType u32Sequence)
+static void Bsp_PwmWave_RecordJobIfCurrent(uint32 u32ExpectedEpoch, Bsp_PwmWave_JobType eJob, Bsp_PwmWave_JobStateType eJobState,
+                                           Cdd_PwmWave_ResultType eResult, Cdd_PwmWave_SequenceType u32Sequence)
 {
   /* Do not overwrite an EmergencyShutdown that preempted a normal command. */
   SchM_Enter_Pwm_PWM_EXCLUSIVE_AREA_19();
@@ -89,25 +84,18 @@ static void Bsp_PwmWave_RecordJobIfCurrent(uint32 u32ExpectedEpoch,
   SchM_Exit_Pwm_PWM_EXCLUSIVE_AREA_19();
 }
 
-static void Bsp_PwmWave_FinishPendingJob(Bsp_PwmWave_JobType eJob,
-                                         Cdd_PwmWave_SequenceType u32Sequence,
-                                         Cdd_PwmWave_ResultType eResult)
+static void Bsp_PwmWave_FinishPendingJob(Bsp_PwmWave_JobType eJob, Cdd_PwmWave_SequenceType u32Sequence, Cdd_PwmWave_ResultType eResult)
 {
   /* EmergencyShutdown may have preempted the normal Core0 control task. */
   SchM_Enter_Pwm_PWM_EXCLUSIVE_AREA_19();
-  if ((BSP_PWM_WAVE_JOB_PENDING == s_ePwmWaveJobState) &&
-      (eJob == s_ePwmWaveJob) &&
-      (u32Sequence == s_u32PwmWaveRequestedSequence)) {
+  if ((BSP_PWM_WAVE_JOB_PENDING == s_ePwmWaveJobState) && (eJob == s_ePwmWaveJob) && (u32Sequence == s_u32PwmWaveRequestedSequence)) {
     s_ePwmWaveLastResult = eResult;
-    s_ePwmWaveJobState = (CDD_PWM_WAVE_OK == eResult)
-                             ? BSP_PWM_WAVE_JOB_COMPLETED
-                             : BSP_PWM_WAVE_JOB_FAILED;
+    s_ePwmWaveJobState = (CDD_PWM_WAVE_OK == eResult) ? BSP_PWM_WAVE_JOB_COMPLETED : BSP_PWM_WAVE_JOB_FAILED;
   }
   SchM_Exit_Pwm_PWM_EXCLUSIVE_AREA_19();
 }
 
-static Cdd_PwmWave_ResultType Bsp_PwmWave_GetFaultResult(
-    const Cdd_PwmWave_StatusType *pStatus)
+static Cdd_PwmWave_ResultType Bsp_PwmWave_GetFaultResult(const Cdd_PwmWave_StatusType *pStatus)
 {
   if (0U != (pStatus->u32FaultFlags & CDD_PWM_WAVE_FAULT_HW_CONFIG)) {
     return CDD_PWM_WAVE_E_HW_CONFIG;
@@ -136,29 +124,21 @@ static void Bsp_Pwm_SetOutputPinModes(void)
 
 static boolean Bsp_Pwm_AreOutputPinsGpioLow(void)
 {
-  return ((((PORTC->PCR[7U] & PORT_PCR_MUX_MASK) == PORT_PCR_MUX(1U)) &&
-           ((PORTC->PCR[23U] & PORT_PCR_MUX_MASK) == PORT_PCR_MUX(1U)) &&
-           ((PORTC->PCR[25U] & PORT_PCR_MUX_MASK) == PORT_PCR_MUX(1U)) &&
-           ((PORTD->PCR[4U] & PORT_PCR_MUX_MASK) == PORT_PCR_MUX(1U)) &&
-           ((PORTD->PCR[21U] & PORT_PCR_MUX_MASK) == PORT_PCR_MUX(1U)) &&
-           ((PORTE->PCR[10U] & PORT_PCR_MUX_MASK) == PORT_PCR_MUX(1U)) &&
-           ((PORTE->PCR[11U] & PORT_PCR_MUX_MASK) == PORT_PCR_MUX(1U)) &&
-           ((PORTE->PCR[13U] & PORT_PCR_MUX_MASK) == PORT_PCR_MUX(1U)) &&
+  return ((((PORTC->PCR[7U] & PORT_PCR_MUX_MASK) == PORT_PCR_MUX(1U)) && ((PORTC->PCR[23U] & PORT_PCR_MUX_MASK) == PORT_PCR_MUX(1U)) &&
+           ((PORTC->PCR[25U] & PORT_PCR_MUX_MASK) == PORT_PCR_MUX(1U)) && ((PORTD->PCR[4U] & PORT_PCR_MUX_MASK) == PORT_PCR_MUX(1U)) &&
+           ((PORTD->PCR[21U] & PORT_PCR_MUX_MASK) == PORT_PCR_MUX(1U)) && ((PORTE->PCR[10U] & PORT_PCR_MUX_MASK) == PORT_PCR_MUX(1U)) &&
+           ((PORTE->PCR[11U] & PORT_PCR_MUX_MASK) == PORT_PCR_MUX(1U)) && ((PORTE->PCR[13U] & PORT_PCR_MUX_MASK) == PORT_PCR_MUX(1U)) &&
            ((PORTH->PCR[22U] & PORT_PCR_MUX_MASK) == PORT_PCR_MUX(1U)) &&
            ((GPIOC->PDDR & BSP_PWM_GPIOC_OUTPUT_MASK) == BSP_PWM_GPIOC_OUTPUT_MASK) &&
            ((GPIOD->PDDR & BSP_PWM_GPIOD_OUTPUT_MASK) == BSP_PWM_GPIOD_OUTPUT_MASK) &&
            ((GPIOE->PDDR & BSP_PWM_GPIOE_OUTPUT_MASK) == BSP_PWM_GPIOE_OUTPUT_MASK) &&
-           ((GPIOH->PDDR & BSP_PWM_GPIOH_OUTPUT_MASK) == BSP_PWM_GPIOH_OUTPUT_MASK) &&
-           ((GPIOC->PIDR & BSP_PWM_GPIOC_OUTPUT_MASK) == 0U) &&
-           ((GPIOD->PIDR & BSP_PWM_GPIOD_OUTPUT_MASK) == 0U) &&
-           ((GPIOE->PIDR & BSP_PWM_GPIOE_OUTPUT_MASK) == 0U) &&
-           ((GPIOH->PIDR & BSP_PWM_GPIOH_OUTPUT_MASK) == 0U) &&
-           ((GPIOC->PDIR & BSP_PWM_GPIOC_OUTPUT_MASK) == 0U) &&
-           ((GPIOD->PDIR & BSP_PWM_GPIOD_OUTPUT_MASK) == 0U) &&
-           ((GPIOE->PDIR & BSP_PWM_GPIOE_OUTPUT_MASK) == 0U) &&
+           ((GPIOH->PDDR & BSP_PWM_GPIOH_OUTPUT_MASK) == BSP_PWM_GPIOH_OUTPUT_MASK) && ((GPIOC->PIDR & BSP_PWM_GPIOC_OUTPUT_MASK) == 0U) &&
+           ((GPIOD->PIDR & BSP_PWM_GPIOD_OUTPUT_MASK) == 0U) && ((GPIOE->PIDR & BSP_PWM_GPIOE_OUTPUT_MASK) == 0U) &&
+           ((GPIOH->PIDR & BSP_PWM_GPIOH_OUTPUT_MASK) == 0U) && ((GPIOC->PDIR & BSP_PWM_GPIOC_OUTPUT_MASK) == 0U) &&
+           ((GPIOD->PDIR & BSP_PWM_GPIOD_OUTPUT_MASK) == 0U) && ((GPIOE->PDIR & BSP_PWM_GPIOE_OUTPUT_MASK) == 0U) &&
            ((GPIOH->PDIR & BSP_PWM_GPIOH_OUTPUT_MASK) == 0U)))
-              ? TRUE
-              : FALSE;
+             ? TRUE
+             : FALSE;
 }
 
 static boolean Bsp_Pwm_ForceOutputPinsGpioLow(void)
@@ -203,10 +183,7 @@ void Bsp_Pwm_Init(void)
   if (0U == GET_CPU_ID())
 #endif
   {
-    Bsp_PwmWave_RecordJob(BSP_PWM_WAVE_JOB_NONE,
-                          BSP_PWM_WAVE_JOB_IDLE,
-                          CDD_PWM_WAVE_E_UNINIT,
-                          0U);
+    Bsp_PwmWave_RecordJob(BSP_PWM_WAVE_JOB_NONE, BSP_PWM_WAVE_JOB_IDLE, CDD_PWM_WAVE_E_UNINIT, 0U);
     ePwmWaveResult = Cdd_PwmWave_Init();
     if (CDD_PWM_WAVE_OK == ePwmWaveResult) {
       Bsp_Pwm_SetOutputPinModes();
@@ -229,15 +206,12 @@ void Bsp_Pwm_Init(void)
   }
 }
 
-Cdd_PwmWave_ResultType Bsp_PwmWave_ValidateFrame(
-    const Cdd_PwmWave_FrameType *pFrame)
+Cdd_PwmWave_ResultType Bsp_PwmWave_ValidateFrame(const Cdd_PwmWave_FrameType *pFrame)
 {
   return Cdd_PwmWave_ValidateFrame(pFrame);
 }
 
-Cdd_PwmWave_ResultType Bsp_PwmWave_RequestStart(
-    const Cdd_PwmWave_FrameType *pFrame,
-    Cdd_PwmWave_SequenceType *pSequence)
+Cdd_PwmWave_ResultType Bsp_PwmWave_RequestStart(const Cdd_PwmWave_FrameType *pFrame, Cdd_PwmWave_SequenceType *pSequence)
 {
   Cdd_PwmWave_StatusType tStatus;
   Cdd_PwmWave_SequenceType u32Sequence;
@@ -256,8 +230,7 @@ Cdd_PwmWave_ResultType Bsp_PwmWave_RequestStart(
   if (CDD_PWM_WAVE_OK == eResult) {
     if (TRUE == tStatus.bFaultLatched) {
       eResult = CDD_PWM_WAVE_E_FAULT_ACTIVE;
-    } else if ((TRUE == tStatus.bPendingFrameValid) ||
-               (TRUE == tStatus.bStartPending)) {
+    } else if ((TRUE == tStatus.bPendingFrameValid) || (TRUE == tStatus.bStartPending)) {
       eResult = CDD_PWM_WAVE_E_BUSY;
     } else if (CDD_PWM_WAVE_STATE_ARMED_LOW != tStatus.eState) {
       eResult = CDD_PWM_WAVE_E_STATE;
@@ -270,25 +243,16 @@ Cdd_PwmWave_ResultType Bsp_PwmWave_RequestStart(
     if (NULL_PTR != pSequence) {
       *pSequence = u32Sequence;
     }
-    Bsp_PwmWave_RecordJobIfCurrent(u32CommandEpoch,
-                                   BSP_PWM_WAVE_JOB_START_WITH_FRAME,
-                                   BSP_PWM_WAVE_JOB_PENDING,
-                                   CDD_PWM_WAVE_OK,
+    Bsp_PwmWave_RecordJobIfCurrent(u32CommandEpoch, BSP_PWM_WAVE_JOB_START_WITH_FRAME, BSP_PWM_WAVE_JOB_PENDING, CDD_PWM_WAVE_OK,
                                    u32Sequence);
   } else {
-    Bsp_PwmWave_RecordJobIfCurrent(u32CommandEpoch,
-                                   BSP_PWM_WAVE_JOB_START_WITH_FRAME,
-                                   BSP_PWM_WAVE_JOB_FAILED,
-                                   eResult,
-                                   0U);
+    Bsp_PwmWave_RecordJobIfCurrent(u32CommandEpoch, BSP_PWM_WAVE_JOB_START_WITH_FRAME, BSP_PWM_WAVE_JOB_FAILED, eResult, 0U);
   }
 
   return eResult;
 }
 
-Cdd_PwmWave_ResultType Bsp_PwmWave_RequestUpdate(
-    const Cdd_PwmWave_FrameType *pFrame,
-    Cdd_PwmWave_SequenceType *pSequence)
+Cdd_PwmWave_ResultType Bsp_PwmWave_RequestUpdate(const Cdd_PwmWave_FrameType *pFrame, Cdd_PwmWave_SequenceType *pSequence)
 {
   Cdd_PwmWave_SequenceType u32Sequence;
   Cdd_PwmWave_ResultType eResult;
@@ -307,25 +271,15 @@ Cdd_PwmWave_ResultType Bsp_PwmWave_RequestUpdate(
     if (NULL_PTR != pSequence) {
       *pSequence = u32Sequence;
     }
-    Bsp_PwmWave_RecordJobIfCurrent(u32CommandEpoch,
-                                   BSP_PWM_WAVE_JOB_FRAME_UPDATE,
-                                   BSP_PWM_WAVE_JOB_PENDING,
-                                   CDD_PWM_WAVE_OK,
-                                   u32Sequence);
+    Bsp_PwmWave_RecordJobIfCurrent(u32CommandEpoch, BSP_PWM_WAVE_JOB_FRAME_UPDATE, BSP_PWM_WAVE_JOB_PENDING, CDD_PWM_WAVE_OK, u32Sequence);
   } else {
-    Bsp_PwmWave_RecordJobIfCurrent(u32CommandEpoch,
-                                   BSP_PWM_WAVE_JOB_FRAME_UPDATE,
-                                   BSP_PWM_WAVE_JOB_FAILED,
-                                   eResult,
-                                   0U);
+    Bsp_PwmWave_RecordJobIfCurrent(u32CommandEpoch, BSP_PWM_WAVE_JOB_FRAME_UPDATE, BSP_PWM_WAVE_JOB_FAILED, eResult, 0U);
   }
 
   return eResult;
 }
 
-Cdd_PwmWave_ResultType Bsp_PwmWave_RequestPeriodChange(
-    uint32 u32PeriodTicks,
-    Cdd_PwmWave_SequenceType *pSequence)
+Cdd_PwmWave_ResultType Bsp_PwmWave_RequestPeriodChange(uint32 u32PeriodTicks, Cdd_PwmWave_SequenceType *pSequence)
 {
   Cdd_PwmWave_SequenceType u32Sequence;
   Cdd_PwmWave_ResultType eResult;
@@ -344,17 +298,9 @@ Cdd_PwmWave_ResultType Bsp_PwmWave_RequestPeriodChange(
     if (NULL_PTR != pSequence) {
       *pSequence = u32Sequence;
     }
-    Bsp_PwmWave_RecordJobIfCurrent(u32CommandEpoch,
-                                   BSP_PWM_WAVE_JOB_PERIOD_CHANGE,
-                                   BSP_PWM_WAVE_JOB_PENDING,
-                                   CDD_PWM_WAVE_OK,
-                                   u32Sequence);
+    Bsp_PwmWave_RecordJobIfCurrent(u32CommandEpoch, BSP_PWM_WAVE_JOB_PERIOD_CHANGE, BSP_PWM_WAVE_JOB_PENDING, CDD_PWM_WAVE_OK, u32Sequence);
   } else {
-    Bsp_PwmWave_RecordJobIfCurrent(u32CommandEpoch,
-                                   BSP_PWM_WAVE_JOB_PERIOD_CHANGE,
-                                   BSP_PWM_WAVE_JOB_FAILED,
-                                   eResult,
-                                   0U);
+    Bsp_PwmWave_RecordJobIfCurrent(u32CommandEpoch, BSP_PWM_WAVE_JOB_PERIOD_CHANGE, BSP_PWM_WAVE_JOB_FAILED, eResult, 0U);
   }
 
   return eResult;
@@ -374,13 +320,8 @@ Cdd_PwmWave_ResultType Bsp_PwmWave_Start(void)
   }
 
   eResult = Cdd_PwmWave_Start();
-  Bsp_PwmWave_RecordJobIfCurrent(u32CommandEpoch,
-                                 BSP_PWM_WAVE_JOB_START_ACTIVE_FRAME,
-                                 (CDD_PWM_WAVE_OK == eResult)
-                                     ? BSP_PWM_WAVE_JOB_COMPLETED
-                                     : BSP_PWM_WAVE_JOB_FAILED,
-                                 eResult,
-                                 0U);
+  Bsp_PwmWave_RecordJobIfCurrent(u32CommandEpoch, BSP_PWM_WAVE_JOB_START_ACTIVE_FRAME,
+                                 (CDD_PWM_WAVE_OK == eResult) ? BSP_PWM_WAVE_JOB_COMPLETED : BSP_PWM_WAVE_JOB_FAILED, eResult, 0U);
   return eResult;
 }
 
@@ -398,13 +339,8 @@ Cdd_PwmWave_ResultType Bsp_PwmWave_Stop(void)
   }
 
   eResult = Cdd_PwmWave_Stop();
-  Bsp_PwmWave_RecordJobIfCurrent(u32CommandEpoch,
-                                 BSP_PWM_WAVE_JOB_STOP,
-                                 (CDD_PWM_WAVE_OK == eResult)
-                                     ? BSP_PWM_WAVE_JOB_COMPLETED
-                                     : BSP_PWM_WAVE_JOB_FAILED,
-                                 eResult,
-                                 0U);
+  Bsp_PwmWave_RecordJobIfCurrent(u32CommandEpoch, BSP_PWM_WAVE_JOB_STOP,
+                                 (CDD_PWM_WAVE_OK == eResult) ? BSP_PWM_WAVE_JOB_COMPLETED : BSP_PWM_WAVE_JOB_FAILED, eResult, 0U);
   return eResult;
 }
 
@@ -414,11 +350,7 @@ Cdd_PwmWave_ResultType Bsp_PwmWave_EmergencyShutdown(void)
 
   if (CDD_PWM_WAVE_E_WRONG_CORE != eResult) {
     Bsp_PwmWave_RecordJob(BSP_PWM_WAVE_JOB_EMERGENCY_SHUTDOWN,
-                          (CDD_PWM_WAVE_OK == eResult)
-                              ? BSP_PWM_WAVE_JOB_COMPLETED
-                              : BSP_PWM_WAVE_JOB_FAILED,
-                          eResult,
-                          0U);
+                          (CDD_PWM_WAVE_OK == eResult) ? BSP_PWM_WAVE_JOB_COMPLETED : BSP_PWM_WAVE_JOB_FAILED, eResult, 0U);
   }
   return eResult;
 }
@@ -437,18 +369,12 @@ Cdd_PwmWave_ResultType Bsp_PwmWave_ClearFault(void)
   }
 
   eResult = Cdd_PwmWave_ClearFault();
-  Bsp_PwmWave_RecordJobIfCurrent(u32CommandEpoch,
-                                 BSP_PWM_WAVE_JOB_CLEAR_FAULT,
-                                 (CDD_PWM_WAVE_OK == eResult)
-                                     ? BSP_PWM_WAVE_JOB_COMPLETED
-                                     : BSP_PWM_WAVE_JOB_FAILED,
-                                 eResult,
-                                 0U);
+  Bsp_PwmWave_RecordJobIfCurrent(u32CommandEpoch, BSP_PWM_WAVE_JOB_CLEAR_FAULT,
+                                 (CDD_PWM_WAVE_OK == eResult) ? BSP_PWM_WAVE_JOB_COMPLETED : BSP_PWM_WAVE_JOB_FAILED, eResult, 0U);
   return eResult;
 }
 
-Cdd_PwmWave_ResultType Bsp_PwmWave_GetControlStatus(
-    Bsp_PwmWave_ControlStatusType *pStatus)
+Cdd_PwmWave_ResultType Bsp_PwmWave_GetControlStatus(Bsp_PwmWave_ControlStatusType *pStatus)
 {
   Cdd_PwmWave_ResultType eResult;
 
@@ -469,14 +395,12 @@ Cdd_PwmWave_ResultType Bsp_PwmWave_GetControlStatus(
   return eResult;
 }
 
-Cdd_PwmWave_ResultType Bsp_PwmWave_GetActiveFrame(
-    Cdd_PwmWave_FrameType *pFrame)
+Cdd_PwmWave_ResultType Bsp_PwmWave_GetActiveFrame(Cdd_PwmWave_FrameType *pFrame)
 {
   return Cdd_PwmWave_GetActiveFrame(pFrame);
 }
 
-Cdd_PwmWave_ResultType Bsp_PwmWave_GetPendingFrame(
-    Cdd_PwmWave_FrameType *pFrame)
+Cdd_PwmWave_ResultType Bsp_PwmWave_GetPendingFrame(Cdd_PwmWave_FrameType *pFrame)
 {
   return Cdd_PwmWave_GetPendingFrame(pFrame);
 }
@@ -493,8 +417,7 @@ void Bsp_PwmWave_MainFunction(void)
   }
 
   SchM_Enter_Pwm_PWM_EXCLUSIVE_AREA_19();
-  if ((FALSE == s_bPwmWaveMainInProgress) &&
-      (BSP_PWM_WAVE_JOB_PENDING == s_ePwmWaveJobState)) {
+  if ((FALSE == s_bPwmWaveMainInProgress) && (BSP_PWM_WAVE_JOB_PENDING == s_ePwmWaveJobState)) {
     s_bPwmWaveMainInProgress = TRUE;
     eJob = s_ePwmWaveJob;
     u32Sequence = s_u32PwmWaveRequestedSequence;
@@ -512,52 +435,34 @@ void Bsp_PwmWave_MainFunction(void)
   if (CDD_PWM_WAVE_OK != eResult) {
     Bsp_PwmWave_FinishPendingJob(eJob, u32Sequence, eResult);
   } else if (TRUE == tStatus.bFaultLatched) {
-    Bsp_PwmWave_FinishPendingJob(eJob,
-                                 u32Sequence,
-                                 Bsp_PwmWave_GetFaultResult(&tStatus));
+    Bsp_PwmWave_FinishPendingJob(eJob, u32Sequence, Bsp_PwmWave_GetFaultResult(&tStatus));
   } else if (TRUE == tStatus.bPendingFrameValid) {
     if (u32Sequence != tStatus.u32PendingSequence) {
       (void)Cdd_PwmWave_EmergencyShutdown();
-      Bsp_PwmWave_FinishPendingJob(eJob,
-                                   u32Sequence,
-                                   CDD_PWM_WAVE_E_HW_CONFIG);
+      Bsp_PwmWave_FinishPendingJob(eJob, u32Sequence, CDD_PWM_WAVE_E_HW_CONFIG);
     }
-  } else if ((FALSE == tStatus.bActiveFrameValid) ||
-             (u32Sequence != tStatus.u32ActiveSequence)) {
+  } else if ((FALSE == tStatus.bActiveFrameValid) || (u32Sequence != tStatus.u32ActiveSequence)) {
     /* The accepted frame disappeared or was replaced outside this owner. */
     (void)Cdd_PwmWave_EmergencyShutdown();
-    Bsp_PwmWave_FinishPendingJob(eJob,
-                                 u32Sequence,
-                                 CDD_PWM_WAVE_E_HW_CONFIG);
+    Bsp_PwmWave_FinishPendingJob(eJob, u32Sequence, CDD_PWM_WAVE_E_HW_CONFIG);
   } else if (BSP_PWM_WAVE_JOB_START_WITH_FRAME == eJob) {
-    if ((CDD_PWM_WAVE_STATE_ARMED_LOW != tStatus.eState) ||
-        (TRUE == tStatus.bStartPending)) {
+    if ((CDD_PWM_WAVE_STATE_ARMED_LOW != tStatus.eState) || (TRUE == tStatus.bStartPending)) {
       (void)Cdd_PwmWave_EmergencyShutdown();
-      Bsp_PwmWave_FinishPendingJob(eJob,
-                                   u32Sequence,
-                                   CDD_PWM_WAVE_E_HW_CONFIG);
+      Bsp_PwmWave_FinishPendingJob(eJob, u32Sequence, CDD_PWM_WAVE_E_HW_CONFIG);
     } else {
       eResult = Cdd_PwmWave_Start();
       Bsp_PwmWave_FinishPendingJob(eJob, u32Sequence, eResult);
     }
-  } else if ((BSP_PWM_WAVE_JOB_FRAME_UPDATE == eJob) ||
-             (BSP_PWM_WAVE_JOB_PERIOD_CHANGE == eJob)) {
-    if ((CDD_PWM_WAVE_STATE_ARMED_LOW != tStatus.eState) &&
-        (CDD_PWM_WAVE_STATE_RUN != tStatus.eState)) {
+  } else if ((BSP_PWM_WAVE_JOB_FRAME_UPDATE == eJob) || (BSP_PWM_WAVE_JOB_PERIOD_CHANGE == eJob)) {
+    if ((CDD_PWM_WAVE_STATE_ARMED_LOW != tStatus.eState) && (CDD_PWM_WAVE_STATE_RUN != tStatus.eState)) {
       (void)Cdd_PwmWave_EmergencyShutdown();
-      Bsp_PwmWave_FinishPendingJob(eJob,
-                                   u32Sequence,
-                                   CDD_PWM_WAVE_E_HW_CONFIG);
+      Bsp_PwmWave_FinishPendingJob(eJob, u32Sequence, CDD_PWM_WAVE_E_HW_CONFIG);
     } else {
-      Bsp_PwmWave_FinishPendingJob(eJob,
-                                   u32Sequence,
-                                   CDD_PWM_WAVE_OK);
+      Bsp_PwmWave_FinishPendingJob(eJob, u32Sequence, CDD_PWM_WAVE_OK);
     }
   } else {
     (void)Cdd_PwmWave_EmergencyShutdown();
-    Bsp_PwmWave_FinishPendingJob(eJob,
-                                 u32Sequence,
-                                 CDD_PWM_WAVE_E_HW_CONFIG);
+    Bsp_PwmWave_FinishPendingJob(eJob, u32Sequence, CDD_PWM_WAVE_E_HW_CONFIG);
   }
 
   SchM_Enter_Pwm_PWM_EXCLUSIVE_AREA_19();

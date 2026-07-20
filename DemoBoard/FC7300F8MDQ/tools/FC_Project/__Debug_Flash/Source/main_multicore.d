@@ -287,13 +287,13 @@ Source/main_multicore.o: \
  ../../../../../MCAL/Src/SchM/include/SchM_Ssi.h \
  ../../../../../MCAL/Src/Base/include/MemMap/Ssi_MemMap.h \
  ../../../App/Include/Bsp_io.h ../../../App/Include/Bsp_Pwm.h \
- ../../../App/Include/Bsp_Gpt.h ../../../App/Include/Bsp_Wdg.h \
- ../../../App/Include/Bsp_Adc.h ../../../App/Include/Bsp_Lin.h \
- ../../../App/Include/Bsp_Dma.h ../../../App/Include/Bsp_Spi.h \
- ../../../App/Include/Bsp_Can.h ../../../App/Include/Bsp_Icu.h \
- ../../../App/Include/Bsp_I2c.h ../../../App/Include/Bsp_Trgsel.h \
- ../../../App/Include/Bsp_Fls.h ../../../App/Include/Bsp_Fee.h \
- ../../../App/Include/Bsp_EthIf.h \
+ ../../../App/Include/Cdd_PwmWave.h ../../../App/Include/Bsp_Gpt.h \
+ ../../../App/Include/Bsp_Wdg.h ../../../App/Include/Bsp_Adc.h \
+ ../../../App/Include/Bsp_Lin.h ../../../App/Include/Bsp_Dma.h \
+ ../../../App/Include/Bsp_Spi.h ../../../App/Include/Bsp_Can.h \
+ ../../../App/Include/Bsp_Icu.h ../../../App/Include/Bsp_I2c.h \
+ ../../../App/Include/Bsp_Trgsel.h ../../../App/Include/Bsp_Fls.h \
+ ../../../App/Include/Bsp_Fee.h ../../../App/Include/Bsp_EthIf.h \
  ../../../../../MCAL/Src/EthIf/include/EthIf.h \
  ../../../App/Include/Bsp_Eth.h \
  ../../../../../MCAL/Src/SchM/include/SchM_Eth.h \
@@ -889,6 +889,8 @@ Source/main_multicore.o: \
 ../../../App/Include/Bsp_io.h:
 
 ../../../App/Include/Bsp_Pwm.h:
+
+../../../App/Include/Cdd_PwmWave.h:
 
 ../../../App/Include/Bsp_Gpt.h:
 

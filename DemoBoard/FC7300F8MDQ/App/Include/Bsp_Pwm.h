@@ -4,8 +4,7 @@
 #include "Bsp_McalHeader.h"
 #include "Cdd_PwmWave.h"
 
-typedef enum
-{
+typedef enum {
   BSP_PWM_WAVE_JOB_NONE = 0,
   BSP_PWM_WAVE_JOB_START_WITH_FRAME,
   BSP_PWM_WAVE_JOB_FRAME_UPDATE,
@@ -16,16 +15,14 @@ typedef enum
   BSP_PWM_WAVE_JOB_CLEAR_FAULT
 } Bsp_PwmWave_JobType;
 
-typedef enum
-{
+typedef enum {
   BSP_PWM_WAVE_JOB_IDLE = 0,
   BSP_PWM_WAVE_JOB_PENDING,
   BSP_PWM_WAVE_JOB_COMPLETED,
   BSP_PWM_WAVE_JOB_FAILED
 } Bsp_PwmWave_JobStateType;
 
-typedef struct
-{
+typedef struct {
   Bsp_PwmWave_JobType eJob;
   Bsp_PwmWave_JobStateType eJobState;
   Cdd_PwmWave_ResultType eLastResult;
@@ -48,18 +45,11 @@ void Bsp_Pwm_5ms_Task_Event(void);
  * EmergencyShutdown intentionally replaces the job and sequence, which
  * cancels the request. No API below starts PWM automatically at power-up.
  */
-Cdd_PwmWave_ResultType Bsp_PwmWave_ValidateFrame(
-    const Cdd_PwmWave_FrameType *pFrame);
-Cdd_PwmWave_ResultType Bsp_PwmWave_RequestStart(
-    const Cdd_PwmWave_FrameType *pFrame,
-    Cdd_PwmWave_SequenceType *pSequence);
+Cdd_PwmWave_ResultType Bsp_PwmWave_ValidateFrame(const Cdd_PwmWave_FrameType *pFrame);
+Cdd_PwmWave_ResultType Bsp_PwmWave_RequestStart(const Cdd_PwmWave_FrameType *pFrame, Cdd_PwmWave_SequenceType *pSequence);
 /* In ARMED_LOW this is load-only; in RUN it updates the running frame. */
-Cdd_PwmWave_ResultType Bsp_PwmWave_RequestUpdate(
-    const Cdd_PwmWave_FrameType *pFrame,
-    Cdd_PwmWave_SequenceType *pSequence);
-Cdd_PwmWave_ResultType Bsp_PwmWave_RequestPeriodChange(
-    uint32 u32PeriodTicks,
-    Cdd_PwmWave_SequenceType *pSequence);
+Cdd_PwmWave_ResultType Bsp_PwmWave_RequestUpdate(const Cdd_PwmWave_FrameType *pFrame, Cdd_PwmWave_SequenceType *pSequence);
+Cdd_PwmWave_ResultType Bsp_PwmWave_RequestPeriodChange(uint32 u32PeriodTicks, Cdd_PwmWave_SequenceType *pSequence);
 /* Restart the currently active frame after a normal Stop. */
 Cdd_PwmWave_ResultType Bsp_PwmWave_Start(void);
 Cdd_PwmWave_ResultType Bsp_PwmWave_Stop(void);
@@ -67,12 +57,9 @@ Cdd_PwmWave_ResultType Bsp_PwmWave_Stop(void);
 Cdd_PwmWave_ResultType Bsp_PwmWave_EmergencyShutdown(void);
 /* A successful clear removes the active frame; submit a new frame before Start. */
 Cdd_PwmWave_ResultType Bsp_PwmWave_ClearFault(void);
-Cdd_PwmWave_ResultType Bsp_PwmWave_GetControlStatus(
-    Bsp_PwmWave_ControlStatusType *pStatus);
-Cdd_PwmWave_ResultType Bsp_PwmWave_GetActiveFrame(
-    Cdd_PwmWave_FrameType *pFrame);
-Cdd_PwmWave_ResultType Bsp_PwmWave_GetPendingFrame(
-    Cdd_PwmWave_FrameType *pFrame);
+Cdd_PwmWave_ResultType Bsp_PwmWave_GetControlStatus(Bsp_PwmWave_ControlStatusType *pStatus);
+Cdd_PwmWave_ResultType Bsp_PwmWave_GetActiveFrame(Cdd_PwmWave_FrameType *pFrame);
+Cdd_PwmWave_ResultType Bsp_PwmWave_GetPendingFrame(Cdd_PwmWave_FrameType *pFrame);
 /*
  * Polls sequence completion and performs the deferred Start. It does not call
  * Cdd_PwmWave_MainFunction(), so a faster Core0 control task may call it when

@@ -14,8 +14,7 @@
 
 typedef uint32 Cdd_PwmWave_SequenceType;
 
-typedef enum
-{
+typedef enum {
   CDD_PWM_WAVE_STATE_RESET_SAFE = 0,
   CDD_PWM_WAVE_STATE_GPIO_LOW,
   CDD_PWM_WAVE_STATE_ARMED_LOW,
@@ -24,27 +23,23 @@ typedef enum
   CDD_PWM_WAVE_STATE_FAULT_LATCHED
 } Cdd_PwmWave_StateType;
 
-typedef enum
-{
+typedef enum {
   CDD_PWM_WAVE_PWM5_LOW = 0,
   CDD_PWM_WAVE_PWM5_HIGH
 } Cdd_PwmWave_Pwm5StateType;
 
-typedef struct
-{
+typedef struct {
   uint32 u32CmpA;
   uint32 u32CmpB;
 } Cdd_PwmWave_WindowType;
 
-typedef struct
-{
+typedef struct {
   uint32 u32PeriodTicks;
   Cdd_PwmWave_WindowType aWindow[CDD_PWM_WAVE_WINDOW_COUNT];
   Cdd_PwmWave_Pwm5StateType ePwm5State;
 } Cdd_PwmWave_FrameType;
 
-typedef enum
-{
+typedef enum {
   CDD_PWM_WAVE_OK = 0,
   CDD_PWM_WAVE_E_UNINIT,
   CDD_PWM_WAVE_E_PARAM_POINTER,
@@ -66,8 +61,7 @@ typedef enum
 #define CDD_PWM_WAVE_FAULT_HW_TIMEOUT       (0x00000002U)
 #define CDD_PWM_WAVE_FAULT_HW_CONFIG        (0x00000004U)
 
-typedef struct
-{
+typedef struct {
   Cdd_PwmWave_StateType eState;
   boolean bActiveFrameValid;
   boolean bPendingFrameValid;
@@ -89,10 +83,8 @@ typedef struct
  */
 Cdd_PwmWave_ResultType Cdd_PwmWave_Init(void);
 Cdd_PwmWave_ResultType Cdd_PwmWave_ValidateFrame(const Cdd_PwmWave_FrameType *pFrame);
-Cdd_PwmWave_ResultType Cdd_PwmWave_SubmitFrame(const Cdd_PwmWave_FrameType *pFrame,
-                                               Cdd_PwmWave_SequenceType *pSequence);
-Cdd_PwmWave_ResultType Cdd_PwmWave_SubmitPeriodChange(uint32 u32NewPeriodTicks,
-                                                      Cdd_PwmWave_SequenceType *pSequence);
+Cdd_PwmWave_ResultType Cdd_PwmWave_SubmitFrame(const Cdd_PwmWave_FrameType *pFrame, Cdd_PwmWave_SequenceType *pSequence);
+Cdd_PwmWave_ResultType Cdd_PwmWave_SubmitPeriodChange(uint32 u32NewPeriodTicks, Cdd_PwmWave_SequenceType *pSequence);
 /* Call immediately after BSP switches all nine pads to eFTU; Start remains blocked until it passes. */
 Cdd_PwmWave_ResultType Cdd_PwmWave_ConfirmArmedLow(void);
 /* Synchronous: settles at CH0 zero, then confirms all four DTM pairs physically active. */
