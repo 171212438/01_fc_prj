@@ -47,6 +47,8 @@
 #define WDG_DEMO_SUPPORT                  (STD_ON)
 #define CAN_DEMO_SUPPORT                  (STD_ON)
 #define PWM_DEMO_SUPPORT                  (STD_ON)
+/* Board-test firmware only: starts a 200 kHz carrier; PWM5 follows it at fc/2 on Core0. */
+#define PWM_WAVE_FIXED_TEST_AUTOSTART     (STD_ON)
 #define DMA_DEMO_SUPPORT                  (STD_ON)
 #define ADC_DEMO_SUPPORT                  (STD_ON)
 #define LIN_DEMO_SUPPORT                  (STD_ON)
@@ -62,6 +64,10 @@
 #define CRC_DEMO_SUPPORT                  (STD_ON)
 #define MSC_DEMO_SUPPORT                  (STD_ON)
 #define IO_DEMO_SUPPORT                   (STD_ON)
+
+#if (PWM_WAVE_FIXED_TEST_AUTOSTART == STD_ON) && (PWM_DEMO_SUPPORT != STD_ON)
+#error "PWM fixed-test autostart requires PWM_DEMO_SUPPORT"
+#endif
 
 #define SCM_CPUVTOR_CPU_INIT_VECTOR_MASK  0xFFFFFF8u
 
@@ -344,6 +350,19 @@ BSP_TEXT_SECTION int main(void)
 
 #if (PWM_DEMO_SUPPORT == STD_ON)
     Bsp_Pwm_Init();
+#if (PWM_WAVE_FIXED_TEST_AUTOSTART == STD_ON)
+    {
+      Cdd_PwmWave_SequenceType u32PwmWaveTestSequence = 0U;
+      Cdd_PwmWave_ResultType ePwmWaveTestResult = Bsp_PwmWave_FixedTestStart(&u32PwmWaveTestSequence);
+
+      if (CDD_PWM_WAVE_OK == ePwmWaveTestResult) {
+        DEBUG_INFO("PWM fixed test accepted, sequence %d; PWM5 starts at one carrier period LOW/HIGH and follows later period changes.\r\n",
+                   (int)u32PwmWaveTestSequence);
+      } else {
+        DEBUG_INFO("PWM fixed test rejected, result %d; no test frame accepted.\r\n", (int)ePwmWaveTestResult);
+      }
+    }
+#endif
 #endif
 #if (DMA_DEMO_SUPPORT == STD_ON)
     Bsp_Dma_Init();

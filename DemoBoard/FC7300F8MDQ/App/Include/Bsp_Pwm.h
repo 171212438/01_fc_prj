@@ -4,6 +4,24 @@
 #include "Bsp_McalHeader.h"
 #include "Cdd_PwmWave.h"
 
+/*
+ * Fixed waveform board test at the configured 150 MHz eFTU clock:
+ * 750 ticks = 5 us (200 kHz), [100, 475) = 375 ticks (50% command window).
+ * PWM1-PWM4 start with their existing 200 kHz windows. PWM5 uses one carrier
+ * period LOW plus one carrier period HIGH (initially 5 us LOW/5 us HIGH) and
+ * follows later carrier-period changes.
+ */
+#define BSP_PWM_WAVE_FIXED_TEST_PERIOD_TICKS (750U)
+#define BSP_PWM_WAVE_FIXED_TEST_CMPA_TICKS   (100U)
+#define BSP_PWM_WAVE_FIXED_TEST_CMPB_TICKS   (475U)
+
+/*
+ * Set TRUE from the debugger or a Core0 test command; the 20 ms monitor retries
+ * while Start is pending, so this is a normal zero-point Stop, not an immediate
+ * cancellation of an already accepted Start.
+ */
+extern volatile boolean g_bPwmWaveFixedTestStopRequest;
+
 typedef enum {
   BSP_PWM_WAVE_JOB_NONE = 0,
   BSP_PWM_WAVE_JOB_START_WITH_FRAME,
@@ -43,12 +61,18 @@ void Bsp_Pwm_5ms_Task_Event(void);
  * Async success requires GetControlStatus() == OK plus all of: expected eJob,
  * matching returned sequence, eJobState == COMPLETED and eLastResult == OK.
  * EmergencyShutdown intentionally replaces the job and sequence, which
- * cancels the request. No API below starts PWM automatically at power-up.
+ * cancels the request. No API below starts PWM by itself; the board-test
+ * autostart switch in main_multicore.c is an explicit caller.
  */
 Cdd_PwmWave_ResultType Bsp_PwmWave_ValidateFrame(const Cdd_PwmWave_FrameType *pFrame);
+/* Board-test helpers; Start is asynchronous, while Stop is safe to request repeatedly. */
+Cdd_PwmWave_ResultType Bsp_PwmWave_FixedTestStart(Cdd_PwmWave_SequenceType *pSequence);
+Cdd_PwmWave_ResultType Bsp_PwmWave_FixedTestStop(void);
 Cdd_PwmWave_ResultType Bsp_PwmWave_RequestStart(const Cdd_PwmWave_FrameType *pFrame, Cdd_PwmWave_SequenceType *pSequence);
 /* In ARMED_LOW this is load-only; in RUN it updates the running frame. */
 Cdd_PwmWave_ResultType Bsp_PwmWave_RequestUpdate(const Cdd_PwmWave_FrameType *pFrame, Cdd_PwmWave_SequenceType *pSequence);
+/* Preserves PWM5 state; TEST_TOGGLE follows the new carrier period and is
+ * applied at a common CH0/CH3 zero. Acceptance may wait for the phase window. */
 Cdd_PwmWave_ResultType Bsp_PwmWave_RequestPeriodChange(uint32 u32PeriodTicks, Cdd_PwmWave_SequenceType *pSequence);
 /* Restart the currently active frame after a normal Stop. */
 Cdd_PwmWave_ResultType Bsp_PwmWave_Start(void);

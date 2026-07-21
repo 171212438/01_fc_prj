@@ -28,15 +28,20 @@
 #define CDD_PWM_WAVE_START_VERIFY_WRAPS      (3U)
 #define CDD_PWM_WAVE_PENDING_MAX_MAIN_CYCLES (2U)
 #define CDD_PWM_WAVE_CARRIER_CHANNEL         (0U)
+#define CDD_PWM_WAVE_PWM5_CHANNEL            (3U)
 #define CDD_PWM_WAVE_FIRST_OUTPUT_CHANNEL    (3U)
 #define CDD_PWM_WAVE_LAST_OUTPUT_CHANNEL     (7U)
 #define CDD_PWM_WAVE_CARRIER_SIGNAL_LEVEL    (1U)
+#define CDD_PWM_WAVE_PHASE_ARM_WINDOW_DIVISOR   (2U)
+#define CDD_PWM_WAVE_PHASE_READ_TOLERANCE_TICKS (0U)
+#define CDD_PWM_WAVE_PHASE_ARM_RETRY_COUNT      (3U)
 
 #define CDD_PWM_WAVE_GPIOC_OUTPUT_MASK       (0x02800080U)
 #define CDD_PWM_WAVE_GPIOD_OUTPUT_MASK       (0x00200010U)
 #define CDD_PWM_WAVE_GPIOE_OUTPUT_MASK       (0x00002C00U)
 #define CDD_PWM_WAVE_GPIOH_OUTPUT_MASK       (0x00400000U)
 #define CDD_PWM_WAVE_DTM_ACTIVITY_ALL_GROUPS (0x0FU)
+#define CDD_PWM_WAVE_PWM5_ACTIVITY           (0x10U)
 
 #define CDD_PWM_WAVE_DTM_ALL_LOW        (0x22222222U)
 #define CDD_PWM_WAVE_DTM0_CH3_ALL_LOW   (0x22000000U)
@@ -128,17 +133,9 @@
   (EFTU_TOM_TGC_ENDIS_STAT_ENDIS_STAT3(1U) | EFTU_TOM_TGC_ENDIS_STAT_ENDIS_STAT4(1U) | EFTU_TOM_TGC_ENDIS_STAT_ENDIS_STAT5(1U) | \
    EFTU_TOM_TGC_ENDIS_STAT_ENDIS_STAT6(1U) | EFTU_TOM_TGC_ENDIS_STAT_ENDIS_STAT7(1U))
 
-#define CDD_PWM_WAVE_CH3_7_IMMEDIATE_ENABLE                                                                                      \
-  (EFTU_TOM_TGC_ENDIS_STAT_ENDIS_STAT3(2U) | EFTU_TOM_TGC_ENDIS_STAT_ENDIS_STAT4(2U) | EFTU_TOM_TGC_ENDIS_STAT_ENDIS_STAT5(2U) | \
-   EFTU_TOM_TGC_ENDIS_STAT_ENDIS_STAT6(2U) | EFTU_TOM_TGC_ENDIS_STAT_ENDIS_STAT7(2U))
-
 #define CDD_PWM_WAVE_OUT3_7_IMMEDIATE_DISABLE                                                                                    \
   (EFTU_TOM_TGC_OUTEN_STAT_OUTEN_STAT3(1U) | EFTU_TOM_TGC_OUTEN_STAT_OUTEN_STAT4(1U) | EFTU_TOM_TGC_OUTEN_STAT_OUTEN_STAT5(1U) | \
    EFTU_TOM_TGC_OUTEN_STAT_OUTEN_STAT6(1U) | EFTU_TOM_TGC_OUTEN_STAT_OUTEN_STAT7(1U))
-
-#define CDD_PWM_WAVE_OUT3_7_IMMEDIATE_ENABLE                                                                                     \
-  (EFTU_TOM_TGC_OUTEN_STAT_OUTEN_STAT3(2U) | EFTU_TOM_TGC_OUTEN_STAT_OUTEN_STAT4(2U) | EFTU_TOM_TGC_OUTEN_STAT_OUTEN_STAT5(2U) | \
-   EFTU_TOM_TGC_OUTEN_STAT_OUTEN_STAT6(2U) | EFTU_TOM_TGC_OUTEN_STAT_OUTEN_STAT7(2U))
 
 #define CDD_PWM_WAVE_CH4_7_IMMEDIATE_DISABLE                                                                                     \
   (EFTU_TOM_TGC_ENDIS_STAT_ENDIS_STAT4(1U) | EFTU_TOM_TGC_ENDIS_STAT_ENDIS_STAT5(1U) | EFTU_TOM_TGC_ENDIS_STAT_ENDIS_STAT6(1U) | \
@@ -162,6 +159,11 @@ _Static_assert(TRGSEL2_TARGET_eFTU1_FLT0 == 82U, "Unexpected eFTU1 FLT0 target e
 _Static_assert(TRGSEL0_SRC_eFTU1_TOM0 == 106U, "Unexpected eFTU1 TOM0 source encoding");
 _Static_assert(TRGSEL0_SRC_LU0_OUT0B == 48U, "Unexpected LU0 OUT0B source encoding");
 _Static_assert(TRGSEL2_SRC_TRGSEL0_OUT2 == 4U, "Unexpected TRGSEL0 OUT2 source encoding");
+_Static_assert(CDD_PWM_WAVE_PWM5_CARRIER_PERIODS == 2U, "PWM5 phase gate requires exactly two carrier periods");
+_Static_assert(CDD_PWM_WAVE_PHASE_ARM_WINDOW_DIVISOR == 2U, "PWM5 arm window must stay within the old second carrier cycle");
+_Static_assert(CDD_PWM_WAVE_PHASE_READ_TOLERANCE_TICKS == 0U, "PWM5 edges require an exact carrier-zero phase relation");
+_Static_assert((CDD_PWM_WAVE_PWM5_CARRIER_PERIODS * CDD_PWM_WAVE_MAX_PERIOD_TICKS) <= CDD_PWM_WAVE_TOM_MAX_VALUE,
+               "PWM5 period exceeds TOM range");
 
 static volatile boolean s_bInitialized = FALSE;
 static volatile boolean s_bInitInProgress = FALSE;
@@ -183,6 +185,16 @@ static uint32 s_u32Dtm0RunCtrl2 = 0U;
 static uint32 s_u32DtmRunCtrl2 = 0U;
 static volatile uint32 s_u32FaultFlags = 0U;
 static uint8 s_u8PendingMainCycles = 0U;
+
+typedef struct {
+  uint32 u32Ctrl;
+  uint32 u32CtrlShadow;
+  uint32 u32Cm0;
+  uint32 u32Cm1;
+  uint32 u32Sr0;
+  uint32 u32Sr1;
+  uint32 u32Cn0;
+} Cdd_PwmWave_TomChannelSnapshotType;
 
 static uint32 Cdd_PwmWave_ReadTrgSelSource(uint32 u32BaseAddress, uint32 u32LocalOutput)
 {
@@ -333,7 +345,7 @@ static boolean Cdd_PwmWave_IsTomPwmChannelConfigValid(uint8 u8Channel)
               : FALSE);
 }
 
-static boolean Cdd_PwmWave_IsTomTopologyValid(void)
+static boolean Cdd_PwmWave_IsTomTopologyValid(boolean bPwm5Independent)
 {
   uint8 u8Index;
   uint32 u32ChannelCtrl;
@@ -376,7 +388,14 @@ static boolean Cdd_PwmWave_IsTomTopologyValid(void)
     }
   }
 
-  for (u8Index = CDD_PWM_WAVE_FIRST_OUTPUT_CHANNEL; u8Index <= CDD_PWM_WAVE_LAST_OUTPUT_CHANNEL; u8Index++) {
+  u32ChannelCtrl = EFTU_TOM_1_0->Channel[CDD_PWM_WAVE_PWM5_CHANNEL].CH_CTRL;
+  if (((TRUE == bPwm5Independent) && ((u32ChannelCtrl & EFTU_TOM_CHn_CTRL_RST_CCU0_MASK) != 0U)) ||
+      ((FALSE == bPwm5Independent) && ((u32ChannelCtrl & EFTU_TOM_CHn_CTRL_RST_CCU0_MASK) == 0U)) ||
+      ((u32ChannelCtrl & EFTU_TOM_CHn_CTRL_TRIGOUT_MASK) != 0U)) {
+    return FALSE;
+  }
+
+  for (u8Index = 4U; u8Index <= CDD_PWM_WAVE_LAST_OUTPUT_CHANNEL; u8Index++) {
     if ((EFTU_TOM_1_0->Channel[u8Index].CH_CTRL & EFTU_TOM_CHn_CTRL_RST_CCU0_MASK) == 0U) {
       return FALSE;
     }
@@ -394,6 +413,14 @@ static boolean Cdd_PwmWave_IsTomTopologyValid(void)
        EFTU_TOM_CHn_CTRL_SL(CDD_PWM_WAVE_CARRIER_SIGNAL_LEVEL)) ||
       ((EFTU_TOM_1_0->Channel[CDD_PWM_WAVE_CARRIER_CHANNEL].CH_CTRL_SR & EFTU_TOM_CHn_CTRL_SR_SL_SR_MASK) !=
        EFTU_TOM_CHn_CTRL_SR_SL_SR(CDD_PWM_WAVE_CARRIER_SIGNAL_LEVEL))) {
+    return FALSE;
+  }
+
+  if ((TRUE == bPwm5Independent) &&
+      ((EFTU_TOM_1_0->Channel[CDD_PWM_WAVE_PWM5_CHANNEL].CH_CM0 !=
+        (CDD_PWM_WAVE_PWM5_CARRIER_PERIODS * u32CarrierPeriod)) ||
+       (EFTU_TOM_1_0->Channel[CDD_PWM_WAVE_PWM5_CHANNEL].CH_SR0 !=
+        (CDD_PWM_WAVE_PWM5_CARRIER_PERIODS * u32CarrierPeriod)))) {
     return FALSE;
   }
 
@@ -436,9 +463,62 @@ static boolean Cdd_PwmWave_IsInitialDtmConfigValid(uint32 u32Dtm0RunCtrl2, uint3
 
 static boolean Cdd_PwmWave_IsHardwareConfigValid(uint32 u32Dtm0RunCtrl2, uint32 u32Dtm1RunCtrl2)
 {
-  return ((TRUE == Cdd_PwmWave_IsTomTopologyValid()) && (TRUE == Cdd_PwmWave_IsInitialDtmConfigValid(u32Dtm0RunCtrl2, u32Dtm1RunCtrl2)))
+  return ((TRUE == Cdd_PwmWave_IsTomTopologyValid(FALSE)) &&
+          (TRUE == Cdd_PwmWave_IsInitialDtmConfigValid(u32Dtm0RunCtrl2, u32Dtm1RunCtrl2)))
              ? TRUE
              : FALSE;
+}
+
+static boolean Cdd_PwmWave_ConfigurePwm5Independent(void)
+{
+  uint32 u32ChannelCtrl = EFTU_TOM_1_0->Channel[CDD_PWM_WAVE_PWM5_CHANNEL].CH_CTRL;
+  uint32 u32CarrierPeriod = EFTU_TOM_1_0->Channel[CDD_PWM_WAVE_CARRIER_CHANNEL].CH_CM0;
+  uint32 u32Pwm5Period = CDD_PWM_WAVE_PWM5_CARRIER_PERIODS * u32CarrierPeriod;
+
+  /*
+   * EB initializes PWM5 as a CH0-shifted channel so CH3 keeps TRIGOUT=0 and
+   * passes the CH0 trigger to CH4-CH7. With the pad still held low, the CDD
+   * removes only the CH0 counter reset and owns CH3 as an independent 2*P
+   * continuous-up channel. LOW is staged until a frame is submitted; later
+   * carrier-period changes are armed only before a common CH0/CH3 zero.
+   */
+  u32ChannelCtrl &= ~(EFTU_TOM_CHn_CTRL_RST_CCU0_MASK | EFTU_TOM_CHn_CTRL_TRIGOUT_MASK);
+  EFTU_TOM_1_0->Channel[CDD_PWM_WAVE_PWM5_CHANNEL].CH_CTRL =
+      (u32ChannelCtrl & (~EFTU_TOM_CHn_CTRL_SL_MASK)) | EFTU_TOM_CHn_CTRL_SL(1U);
+  EFTU_TOM_1_0->Channel[CDD_PWM_WAVE_PWM5_CHANNEL].CH_CTRL_SR =
+      (EFTU_TOM_1_0->Channel[CDD_PWM_WAVE_PWM5_CHANNEL].CH_CTRL_SR & (~EFTU_TOM_CHn_CTRL_SR_SL_SR_MASK)) |
+      EFTU_TOM_CHn_CTRL_SR_SL_SR(1U);
+  EFTU_TOM_1_0->Channel[CDD_PWM_WAVE_PWM5_CHANNEL].CH_CM0 = u32Pwm5Period;
+  EFTU_TOM_1_0->Channel[CDD_PWM_WAVE_PWM5_CHANNEL].CH_CM1 = 0U;
+  EFTU_TOM_1_0->Channel[CDD_PWM_WAVE_PWM5_CHANNEL].CH_SR0 = u32Pwm5Period;
+  EFTU_TOM_1_0->Channel[CDD_PWM_WAVE_PWM5_CHANNEL].CH_SR1 = 0U;
+  EFTU_TOM_1_0->Channel[CDD_PWM_WAVE_PWM5_CHANNEL].CH_CN0 = 0U;
+  MCAL_DATA_SYNC_BARRIER();
+
+  return Cdd_PwmWave_IsTomTopologyValid(TRUE);
+}
+
+static void Cdd_PwmWave_CapturePwm5Baseline(Cdd_PwmWave_TomChannelSnapshotType *pSnapshot)
+{
+  pSnapshot->u32Ctrl = EFTU_TOM_1_0->Channel[CDD_PWM_WAVE_PWM5_CHANNEL].CH_CTRL;
+  pSnapshot->u32CtrlShadow = EFTU_TOM_1_0->Channel[CDD_PWM_WAVE_PWM5_CHANNEL].CH_CTRL_SR;
+  pSnapshot->u32Cm0 = EFTU_TOM_1_0->Channel[CDD_PWM_WAVE_PWM5_CHANNEL].CH_CM0;
+  pSnapshot->u32Cm1 = EFTU_TOM_1_0->Channel[CDD_PWM_WAVE_PWM5_CHANNEL].CH_CM1;
+  pSnapshot->u32Sr0 = EFTU_TOM_1_0->Channel[CDD_PWM_WAVE_PWM5_CHANNEL].CH_SR0;
+  pSnapshot->u32Sr1 = EFTU_TOM_1_0->Channel[CDD_PWM_WAVE_PWM5_CHANNEL].CH_SR1;
+  pSnapshot->u32Cn0 = EFTU_TOM_1_0->Channel[CDD_PWM_WAVE_PWM5_CHANNEL].CH_CN0;
+}
+
+static void Cdd_PwmWave_RestorePwm5Baseline(const Cdd_PwmWave_TomChannelSnapshotType *pSnapshot)
+{
+  EFTU_TOM_1_0->Channel[CDD_PWM_WAVE_PWM5_CHANNEL].CH_CM0 = pSnapshot->u32Cm0;
+  EFTU_TOM_1_0->Channel[CDD_PWM_WAVE_PWM5_CHANNEL].CH_CM1 = pSnapshot->u32Cm1;
+  EFTU_TOM_1_0->Channel[CDD_PWM_WAVE_PWM5_CHANNEL].CH_SR0 = pSnapshot->u32Sr0;
+  EFTU_TOM_1_0->Channel[CDD_PWM_WAVE_PWM5_CHANNEL].CH_SR1 = pSnapshot->u32Sr1;
+  EFTU_TOM_1_0->Channel[CDD_PWM_WAVE_PWM5_CHANNEL].CH_CN0 = pSnapshot->u32Cn0;
+  EFTU_TOM_1_0->Channel[CDD_PWM_WAVE_PWM5_CHANNEL].CH_CTRL_SR = pSnapshot->u32CtrlShadow;
+  EFTU_TOM_1_0->Channel[CDD_PWM_WAVE_PWM5_CHANNEL].CH_CTRL = pSnapshot->u32Ctrl;
+  MCAL_DATA_SYNC_BARRIER();
 }
 
 static void Cdd_PwmWave_RestoreInitialDtmRunConfig(void)
@@ -479,12 +559,12 @@ static void Cdd_PwmWave_ImmediateDisableAll(void)
   MCAL_DATA_SYNC_BARRIER();
 }
 
-static void Cdd_PwmWave_ImmediateEnableAll(void)
+static void Cdd_PwmWave_EnableAllAtCarrierBoundary(void)
 {
+  /* CH3 is disabled here; start its independent counter at the next CH0 zero. */
+  EFTU_TOM_1_0->Channel[CDD_PWM_WAVE_PWM5_CHANNEL].CH_CN0 = 0U;
   EFTU_TOM_1_0->TGC_ENDIS_CTRL = CDD_PWM_WAVE_CH3_7_ENABLE_COMMAND;
   EFTU_TOM_1_0->TGC_OUTEN_CTRL = CDD_PWM_WAVE_OUT3_7_ENABLE_COMMAND;
-  EFTU_TOM_1_0->TGC_ENDIS_STAT = CDD_PWM_WAVE_CH3_7_IMMEDIATE_ENABLE;
-  EFTU_TOM_1_0->TGC_OUTEN_STAT = CDD_PWM_WAVE_OUT3_7_IMMEDIATE_ENABLE;
   MCAL_DATA_SYNC_BARRIER();
 }
 
@@ -561,6 +641,64 @@ static boolean Cdd_PwmWave_WaitForCarrierWraps(uint8 u8RequiredWraps)
   return (0U == u8RequiredWraps) ? TRUE : FALSE;
 }
 
+static boolean Cdd_PwmWave_IsPwm5CommonBoundaryArmWindow(uint32 u32CarrierPeriod)
+{
+  uint32 u32CarrierBefore;
+  uint32 u32CarrierAfter;
+  uint32 u32Pwm5Counter;
+  uint32 u32Pwm5Phase;
+  uint32 u32ArmWindow = u32CarrierPeriod / CDD_PWM_WAVE_PHASE_ARM_WINDOW_DIVISOR;
+  uint32 u32Pwm5Period = CDD_PWM_WAVE_PWM5_CARRIER_PERIODS * u32CarrierPeriod;
+
+  u32CarrierBefore = EFTU_TOM_1_0->Channel[CDD_PWM_WAVE_CARRIER_CHANNEL].CH_CN0 & EFTU_TOM_CHn_CN0_CN0_MASK;
+  u32Pwm5Counter = EFTU_TOM_1_0->Channel[CDD_PWM_WAVE_PWM5_CHANNEL].CH_CN0 & EFTU_TOM_CHn_CN0_CN0_MASK;
+  u32CarrierAfter = EFTU_TOM_1_0->Channel[CDD_PWM_WAVE_CARRIER_CHANNEL].CH_CN0 & EFTU_TOM_CHn_CN0_CN0_MASK;
+
+  if ((u32CarrierAfter < u32CarrierBefore) || (u32CarrierAfter > u32ArmWindow) || (u32Pwm5Counter < u32CarrierPeriod) ||
+      (u32Pwm5Counter >= u32Pwm5Period)) {
+    return FALSE;
+  }
+
+  u32Pwm5Phase = u32Pwm5Counter - u32CarrierPeriod;
+  return (((u32Pwm5Phase + CDD_PWM_WAVE_PHASE_READ_TOLERANCE_TICKS) >= u32CarrierBefore) &&
+          (u32Pwm5Phase <= (u32CarrierAfter + CDD_PWM_WAVE_PHASE_READ_TOLERANCE_TICKS)))
+             ? TRUE
+             : FALSE;
+}
+
+static boolean Cdd_PwmWave_WaitForPwm5CommonBoundaryArmWindow(uint32 u32CarrierPeriod)
+{
+  uint32 u32PollCount = CDD_PWM_WAVE_HW_POLL_LIMIT;
+  uint32 u32PreviousCounter;
+  uint32 u32CurrentCounter;
+  uint8 u8BoundaryWraps = 0U;
+
+  if ((EFTU_TOM_1_0->Channel[CDD_PWM_WAVE_CARRIER_CHANNEL].CH_CM0 != u32CarrierPeriod) ||
+      (EFTU_TOM_1_0->Channel[CDD_PWM_WAVE_PWM5_CHANNEL].CH_CM0 !=
+       (CDD_PWM_WAVE_PWM5_CARRIER_PERIODS * u32CarrierPeriod))) {
+    return FALSE;
+  }
+
+  u32PreviousCounter = EFTU_TOM_1_0->Channel[CDD_PWM_WAVE_CARRIER_CHANNEL].CH_CN0 & EFTU_TOM_CHn_CN0_CN0_MASK;
+  while (u32PollCount > 0U) {
+    if (TRUE == Cdd_PwmWave_IsPwm5CommonBoundaryArmWindow(u32CarrierPeriod)) {
+      return TRUE;
+    }
+
+    u32CurrentCounter = EFTU_TOM_1_0->Channel[CDD_PWM_WAVE_CARRIER_CHANNEL].CH_CN0 & EFTU_TOM_CHn_CN0_CN0_MASK;
+    if (u32CurrentCounter < u32PreviousCounter) {
+      u8BoundaryWraps++;
+      if (u8BoundaryWraps > CDD_PWM_WAVE_PWM5_CARRIER_PERIODS) {
+        return FALSE;
+      }
+    }
+    u32PreviousCounter = u32CurrentCounter;
+    u32PollCount--;
+  }
+
+  return FALSE;
+}
+
 static void Cdd_PwmWave_SelectCarrierBoundaryTrigger(boolean bEnable)
 {
   uint32 u32InternalTrigger = EFTU_TOM_1_0->TGC_INT_TRIG;
@@ -577,30 +715,36 @@ static boolean Cdd_PwmWave_IsCarrierBoundaryTriggerSelected(void)
 
 static boolean Cdd_PwmWave_IsRuntimeTopologyValid(boolean bRunRequest)
 {
-  return ((TRUE == Cdd_PwmWave_IsTomTopologyValid()) && (TRUE == Cdd_PwmWave_IsLuStopSynchronizerConfigValid()) &&
+  return ((TRUE == Cdd_PwmWave_IsTomTopologyValid(TRUE)) && (TRUE == Cdd_PwmWave_IsLuStopSynchronizerConfigValid()) &&
           (TRUE == Cdd_PwmWave_IsDtmShutoffConfigValid()) && (TRUE == Cdd_PwmWave_IsCarrierBoundaryTriggerSelected()) &&
           (TRUE == Cdd_PwmWave_AreAllOutputsEnabled()) && (TRUE == Cdd_PwmWave_IsRunRequestSelected(bRunRequest)))
              ? TRUE
              : FALSE;
 }
 
-static uint32 Cdd_PwmWave_GetRunSignalLevel(uint8 u8Channel)
+static uint32 Cdd_PwmWave_GetRunSignalLevel(uint8 u8Channel, const Cdd_PwmWave_FrameType *pFrame)
 {
   uint32 u32Level;
 
-  switch (u8Channel) {
-    case 4U:
-    case 7U:
-      u32Level = 0U;
-      break;
-    default:
-      u32Level = 1U;
-      break;
+  if ((CDD_PWM_WAVE_PWM5_CHANNEL == u8Channel) && (NULL_PTR != pFrame) &&
+      (CDD_PWM_WAVE_PWM5_TEST_TOGGLE == pFrame->ePwm5State)) {
+    /* SOMP drives the inverse of SL first: SL=0 gives LOW to CM1, then HIGH to CM0. */
+    u32Level = 0U;
+  } else {
+    switch (u8Channel) {
+      case 4U:
+      case 7U:
+        u32Level = 0U;
+        break;
+      default:
+        u32Level = 1U;
+        break;
+    }
   }
   return u32Level;
 }
 
-static void Cdd_PwmWave_SetShadowSignalLevels(boolean bRunSignalLevels)
+static void Cdd_PwmWave_SetShadowSignalLevels(const Cdd_PwmWave_FrameType *pFrame, boolean bRunSignalLevels)
 {
   uint8 u8Channel;
   uint32 u32Level;
@@ -610,7 +754,7 @@ static void Cdd_PwmWave_SetShadowSignalLevels(boolean bRunSignalLevels)
       EFTU_TOM_CHn_CTRL_SR_SL_SR(CDD_PWM_WAVE_CARRIER_SIGNAL_LEVEL);
 
   for (u8Channel = CDD_PWM_WAVE_FIRST_OUTPUT_CHANNEL; u8Channel <= CDD_PWM_WAVE_LAST_OUTPUT_CHANNEL; u8Channel++) {
-    u32Level = (TRUE == bRunSignalLevels) ? Cdd_PwmWave_GetRunSignalLevel(u8Channel) : 1U;
+    u32Level = (TRUE == bRunSignalLevels) ? Cdd_PwmWave_GetRunSignalLevel(u8Channel, pFrame) : 1U;
     EFTU_TOM_1_0->Channel[u8Channel].CH_CTRL_SR =
         (EFTU_TOM_1_0->Channel[u8Channel].CH_CTRL_SR & (~EFTU_TOM_CHn_CTRL_SR_SL_SR_MASK)) | EFTU_TOM_CHn_CTRL_SR_SL_SR(u32Level);
   }
@@ -672,14 +816,15 @@ static boolean Cdd_PwmWave_AreOutputPadInputsEnabled(void)
              : FALSE;
 }
 
-static uint8 Cdd_PwmWave_GetDtmOutputActivityMask(void)
+static uint8 Cdd_PwmWave_GetOutputActivityMask(void)
 {
   uint32 u32GpioC = GPIOC->PDIR;
   uint32 u32GpioD = GPIOD->PDIR;
   uint32 u32GpioE = GPIOE->PDIR;
+  uint32 u32GpioH = GPIOH->PDIR;
   uint8 u8ActivityMask = 0U;
 
-  /* PWM5/PTH22 is excluded; each bit proves one DTM complementary pair moved. */
+  /* Bits 0-3 prove each DTM complementary pair moved. */
   if ((u32GpioC & 0x02000080U) != 0U) { /* CH4: PTC7/S4, PTC25/S20 */
     u8ActivityMask |= 0x01U;
   }
@@ -692,20 +837,39 @@ static uint8 Cdd_PwmWave_GetDtmOutputActivityMask(void)
   if (((u32GpioE & 0x00002000U) != 0U) || ((u32GpioD & 0x00000010U) != 0U)) { /* CH7: PTE13/S7, PTD4/S23 */
     u8ActivityMask |= 0x08U;
   }
+  if ((u32GpioH & CDD_PWM_WAVE_GPIOH_OUTPUT_MASK) != 0U) { /* CH3/PWM5: PTH22/S3 */
+    u8ActivityMask |= CDD_PWM_WAVE_PWM5_ACTIVITY;
+  }
 
   return u8ActivityMask;
 }
 
-static boolean Cdd_PwmWave_WaitForDtmOutputActivity(uint8 u8RequiredWraps)
+static boolean Cdd_PwmWave_WaitForOutputActivity(uint8 u8RequiredWraps, boolean bRequirePwm5, boolean bRequirePwm5Low)
 {
   uint32 u32PollCount = CDD_PWM_WAVE_HW_POLL_LIMIT;
   uint32 u32PreviousCounter = EFTU_TOM_1_0->Channel[CDD_PWM_WAVE_CARRIER_CHANNEL].CH_CN0 & EFTU_TOM_CHn_CN0_CN0_MASK;
   uint32 u32CurrentCounter;
   uint8 u8BoundaryWraps = 0U;
   uint8 u8ActivityObserved = 0U;
+  uint8 u8CurrentActivity;
+  uint8 u8RequiredActivity = CDD_PWM_WAVE_DTM_ACTIVITY_ALL_GROUPS;
+  boolean bPwm5LowObserved = FALSE;
+  boolean bPwm5HighObserved = FALSE;
+
+  if (TRUE == bRequirePwm5) {
+    u8RequiredActivity |= CDD_PWM_WAVE_PWM5_ACTIVITY;
+  }
 
   while (u32PollCount > 0U) {
-    u8ActivityObserved |= Cdd_PwmWave_GetDtmOutputActivityMask();
+    u8CurrentActivity = Cdd_PwmWave_GetOutputActivityMask();
+    u8ActivityObserved |= u8CurrentActivity;
+    if (TRUE == bRequirePwm5) {
+      if (0U != (u8CurrentActivity & CDD_PWM_WAVE_PWM5_ACTIVITY)) {
+        bPwm5HighObserved = TRUE;
+      } else {
+        bPwm5LowObserved = TRUE;
+      }
+    }
 
     u32CurrentCounter = EFTU_TOM_1_0->Channel[CDD_PWM_WAVE_CARRIER_CHANNEL].CH_CN0 & EFTU_TOM_CHn_CN0_CN0_MASK;
     if (u32CurrentCounter < u32PreviousCounter) {
@@ -713,9 +877,15 @@ static boolean Cdd_PwmWave_WaitForDtmOutputActivity(uint8 u8RequiredWraps)
       if ((u8BoundaryWraps == CDD_PWM_WAVE_REQUEST_SETTLE_WRAPS) && (u8RequiredWraps > CDD_PWM_WAVE_REQUEST_SETTLE_WRAPS)) {
         /* Discard settle-time observations; verify only the next complete cycle. */
         u8ActivityObserved = 0U;
+        bPwm5LowObserved = FALSE;
+        bPwm5HighObserved = FALSE;
       }
       if (u8BoundaryWraps >= u8RequiredWraps) {
-        return ((u8ActivityObserved & CDD_PWM_WAVE_DTM_ACTIVITY_ALL_GROUPS) == CDD_PWM_WAVE_DTM_ACTIVITY_ALL_GROUPS) ? TRUE : FALSE;
+        return (((u8ActivityObserved & u8RequiredActivity) == u8RequiredActivity) &&
+                ((FALSE == bRequirePwm5) || (TRUE == bPwm5HighObserved)) &&
+                ((FALSE == bRequirePwm5Low) || (TRUE == bPwm5LowObserved)))
+                   ? TRUE
+                   : FALSE;
       }
     }
     u32PreviousCounter = u32CurrentCounter;
@@ -723,6 +893,16 @@ static boolean Cdd_PwmWave_WaitForDtmOutputActivity(uint8 u8RequiredWraps)
   }
 
   return FALSE;
+}
+
+static uint8 Cdd_PwmWave_GetStartVerifyWraps(const Cdd_PwmWave_FrameType *pFrame)
+{
+  if (CDD_PWM_WAVE_PWM5_TEST_TOGGLE != pFrame->ePwm5State) {
+    return CDD_PWM_WAVE_START_VERIFY_WRAPS;
+  }
+
+  /* After two settle wraps, observe one complete two-carrier-period PWM5 cycle. */
+  return (uint8)(CDD_PWM_WAVE_REQUEST_SETTLE_WRAPS + CDD_PWM_WAVE_PWM5_CARRIER_PERIODS);
 }
 
 static boolean Cdd_PwmWave_IsPhysicalArmedLowValid(void)
@@ -736,7 +916,7 @@ static void Cdd_PwmWave_SetActiveAndShadowRunSignalLevels(void)
   uint32 u32Level;
 
   for (u8Channel = CDD_PWM_WAVE_FIRST_OUTPUT_CHANNEL; u8Channel <= CDD_PWM_WAVE_LAST_OUTPUT_CHANNEL; u8Channel++) {
-    u32Level = Cdd_PwmWave_GetRunSignalLevel(u8Channel);
+    u32Level = Cdd_PwmWave_GetRunSignalLevel(u8Channel, NULL_PTR);
     EFTU_TOM_1_0->Channel[u8Channel].CH_CTRL =
         (EFTU_TOM_1_0->Channel[u8Channel].CH_CTRL & (~EFTU_TOM_CHn_CTRL_SL_MASK)) | EFTU_TOM_CHn_CTRL_SL(u32Level);
     EFTU_TOM_1_0->Channel[u8Channel].CH_CTRL_SR =
@@ -745,25 +925,37 @@ static void Cdd_PwmWave_SetActiveAndShadowRunSignalLevels(void)
   MCAL_DATA_SYNC_BARRIER();
 }
 
+static void Cdd_PwmWave_GetPwm5TimerValues(const Cdd_PwmWave_FrameType *pFrame, uint32 *pCm0, uint32 *pCm1)
+{
+  /* CH3 is independent so it can span two CH0 cycles, but its timer values
+   * always follow the current carrier period. */
+  *pCm0 = CDD_PWM_WAVE_PWM5_CARRIER_PERIODS * pFrame->u32PeriodTicks;
+  if (CDD_PWM_WAVE_PWM5_LOW == pFrame->ePwm5State) {
+    *pCm1 = 0U;
+  } else if (CDD_PWM_WAVE_PWM5_HIGH == pFrame->ePwm5State) {
+    *pCm1 = *pCm0;
+  } else if (CDD_PWM_WAVE_PWM5_TEST_TOGGLE == pFrame->ePwm5State) {
+    *pCm1 = pFrame->u32PeriodTicks;
+  } else {
+    /* Internal corruption must remain fail-closed even though public entry points validate first. */
+    *pCm1 = 0U;
+  }
+}
+
 static boolean Cdd_PwmWave_IsFrameApplied(const Cdd_PwmWave_FrameType *pFrame, boolean bRunSignalLevels)
 {
   uint8 u8Index;
   uint8 u8Channel;
-  uint32 u32Pwm5CmpA;
-  uint32 u32Pwm5CmpB;
+  uint32 u32Pwm5Cm0;
+  uint32 u32Pwm5Cm1;
   uint32 u32ExpectedSignalLevel;
 
-  if (CDD_PWM_WAVE_PWM5_LOW == pFrame->ePwm5State) {
-    u32Pwm5CmpA = CDD_PWM_WAVE_TOM_MAX_VALUE;
-    u32Pwm5CmpB = 0U;
-  } else {
-    u32Pwm5CmpA = 0U;
-    u32Pwm5CmpB = CDD_PWM_WAVE_TOM_MAX_VALUE;
-  }
+  Cdd_PwmWave_GetPwm5TimerValues(pFrame, &u32Pwm5Cm0, &u32Pwm5Cm1);
 
   if ((EFTU_TOM_1_0->Channel[CDD_PWM_WAVE_CARRIER_CHANNEL].CH_CM0 != pFrame->u32PeriodTicks) ||
       (EFTU_TOM_1_0->Channel[CDD_PWM_WAVE_CARRIER_CHANNEL].CH_CM1 != (pFrame->u32PeriodTicks >> 1U)) ||
-      (EFTU_TOM_1_0->Channel[3].CH_CM0 != u32Pwm5CmpA) || (EFTU_TOM_1_0->Channel[3].CH_CM1 != u32Pwm5CmpB)) {
+      (EFTU_TOM_1_0->Channel[CDD_PWM_WAVE_PWM5_CHANNEL].CH_CM0 != u32Pwm5Cm0) ||
+      (EFTU_TOM_1_0->Channel[CDD_PWM_WAVE_PWM5_CHANNEL].CH_CM1 != u32Pwm5Cm1)) {
     return FALSE;
   }
 
@@ -780,7 +972,7 @@ static boolean Cdd_PwmWave_IsFrameApplied(const Cdd_PwmWave_FrameType *pFrame, b
   }
 
   for (u8Channel = CDD_PWM_WAVE_FIRST_OUTPUT_CHANNEL; u8Channel <= CDD_PWM_WAVE_LAST_OUTPUT_CHANNEL; u8Channel++) {
-    u32ExpectedSignalLevel = (TRUE == bRunSignalLevels) ? Cdd_PwmWave_GetRunSignalLevel(u8Channel) : 1U;
+    u32ExpectedSignalLevel = (TRUE == bRunSignalLevels) ? Cdd_PwmWave_GetRunSignalLevel(u8Channel, pFrame) : 1U;
     if ((EFTU_TOM_1_0->Channel[u8Channel].CH_CTRL & EFTU_TOM_CHn_CTRL_SL_MASK) != EFTU_TOM_CHn_CTRL_SL(u32ExpectedSignalLevel)) {
       return FALSE;
     }
@@ -805,7 +997,25 @@ static void Cdd_PwmWave_RefreshPending(void)
 
 static void Cdd_PwmWave_AbortPending(void)
 {
+  uint8 u8Channel;
+
   Cdd_PwmWave_DisableFrameUpdate();
+
+  /* A period change may be interrupted after new shadow values are staged but
+   * before the common-boundary arm. Restore every owned timer shadow to its
+   * active value so fault recovery can validate and reuse the topology. */
+  EFTU_TOM_1_0->Channel[CDD_PWM_WAVE_CARRIER_CHANNEL].CH_SR0 =
+      EFTU_TOM_1_0->Channel[CDD_PWM_WAVE_CARRIER_CHANNEL].CH_CM0;
+  EFTU_TOM_1_0->Channel[CDD_PWM_WAVE_CARRIER_CHANNEL].CH_SR1 =
+      EFTU_TOM_1_0->Channel[CDD_PWM_WAVE_CARRIER_CHANNEL].CH_CM1;
+  for (u8Channel = CDD_PWM_WAVE_FIRST_OUTPUT_CHANNEL;
+       u8Channel <= CDD_PWM_WAVE_LAST_OUTPUT_CHANNEL;
+       u8Channel++) {
+    EFTU_TOM_1_0->Channel[u8Channel].CH_SR0 = EFTU_TOM_1_0->Channel[u8Channel].CH_CM0;
+    EFTU_TOM_1_0->Channel[u8Channel].CH_SR1 = EFTU_TOM_1_0->Channel[u8Channel].CH_CM1;
+  }
+  MCAL_DATA_SYNC_BARRIER();
+
   s_bPendingFrameValid = FALSE;
   s_bPendingUsesRunSignalLevels = FALSE;
   s_u32PendingSequence = 0U;
@@ -856,11 +1066,53 @@ static boolean Cdd_PwmWave_EnterFault(uint32 u32FaultFlags)
   return bSafeStateValid;
 }
 
+/* Called with AREA_19 held. The phase wait runs with interrupts enabled so an
+ * emergency shutdown can preempt it. The function always returns with AREA_19
+ * held. */
+static Cdd_PwmWave_ResultType Cdd_PwmWave_ArmFrameAtCommonBoundaryLocked(uint32 u32OldCarrierPeriod,
+                                                                         Cdd_PwmWave_SequenceType u32Sequence)
+{
+  boolean bArmWindowFound;
+  uint8 u8Retry = CDD_PWM_WAVE_PHASE_ARM_RETRY_COUNT;
+
+  while (u8Retry > 0U) {
+    SchM_Exit_Pwm_PWM_EXCLUSIVE_AREA_19();
+    bArmWindowFound = Cdd_PwmWave_WaitForPwm5CommonBoundaryArmWindow(u32OldCarrierPeriod);
+    SchM_Enter_Pwm_PWM_EXCLUSIVE_AREA_19();
+
+    if (TRUE == s_bFaultLatched) {
+      return CDD_PWM_WAVE_E_FAULT_ACTIVE;
+    }
+    if ((FALSE == s_bPendingFrameValid) || (u32Sequence != s_u32PendingSequence) ||
+        ((CDD_PWM_WAVE_STATE_ARMED_LOW != s_eState) && (CDD_PWM_WAVE_STATE_RUN != s_eState)) ||
+        (FALSE == Cdd_PwmWave_IsCarrierBoundaryTriggerSelected()) ||
+        (EFTU_TOM_1_0->Channel[CDD_PWM_WAVE_CARRIER_CHANNEL].CH_CM0 != u32OldCarrierPeriod) ||
+        (EFTU_TOM_1_0->Channel[CDD_PWM_WAVE_PWM5_CHANNEL].CH_CM0 !=
+         (CDD_PWM_WAVE_PWM5_CARRIER_PERIODS * u32OldCarrierPeriod))) {
+      (void)Cdd_PwmWave_EnterFault(CDD_PWM_WAVE_FAULT_HW_CONFIG);
+      return CDD_PWM_WAVE_E_HW_CONFIG;
+    }
+
+    if ((TRUE == bArmWindowFound) && (TRUE == Cdd_PwmWave_IsPwm5CommonBoundaryArmWindow(u32OldCarrierPeriod))) {
+      Cdd_PwmWave_ArmFrameUpdate();
+      return CDD_PWM_WAVE_OK;
+    }
+
+    /* An ISR may consume the arm window before AREA_19 is reacquired. */
+    u8Retry--;
+  }
+
+  (void)Cdd_PwmWave_EnterFault(CDD_PWM_WAVE_FAULT_HW_TIMEOUT);
+  return CDD_PWM_WAVE_E_HW_TIMEOUT;
+}
+
 Cdd_PwmWave_ResultType Cdd_PwmWave_Init(void)
 {
   Cdd_PwmWave_ResultType eResult = CDD_PWM_WAVE_OK;
+  Cdd_PwmWave_TomChannelSnapshotType tPwm5Baseline = {0U};
   boolean bHardwareConfigValid = FALSE;
   boolean bOutputsEnabled = FALSE;
+  boolean bPwm5BaselineCaptured = FALSE;
   boolean bStopTimingElapsed = FALSE;
   uint32 u32Dtm0RunCtrl2;
   uint32 u32Dtm1RunCtrl2;
@@ -901,6 +1153,11 @@ Cdd_PwmWave_ResultType Cdd_PwmWave_Init(void)
     bHardwareConfigValid = FALSE;
   }
   if (TRUE == bHardwareConfigValid) {
+    Cdd_PwmWave_CapturePwm5Baseline(&tPwm5Baseline);
+    bPwm5BaselineCaptured = TRUE;
+    bHardwareConfigValid = Cdd_PwmWave_ConfigurePwm5Independent();
+  }
+  if (TRUE == bHardwareConfigValid) {
     bHardwareConfigValid = Cdd_PwmWave_ConfigureLuStopSynchronizer();
   }
   if (TRUE == bHardwareConfigValid) {
@@ -921,7 +1178,7 @@ Cdd_PwmWave_ResultType Cdd_PwmWave_Init(void)
   SchM_Enter_Pwm_PWM_EXCLUSIVE_AREA_19();
   if (TRUE == bStopTimingElapsed) {
     Cdd_PwmWave_SetActiveAndShadowRunSignalLevels();
-    Cdd_PwmWave_ImmediateEnableAll();
+    Cdd_PwmWave_EnableAllAtCarrierBoundary();
   }
   SchM_Exit_Pwm_PWM_EXCLUSIVE_AREA_19();
 
@@ -960,6 +1217,13 @@ Cdd_PwmWave_ResultType Cdd_PwmWave_Init(void)
       s_u32FaultFlags |= CDD_PWM_WAVE_FAULT_HW_CONFIG;
     }
     Cdd_PwmWave_SelectCarrierBoundaryTrigger(FALSE);
+    if (TRUE == bPwm5BaselineCaptured) {
+      /* Preserve retryability: restore the EB shifted-channel baseline while all outputs remain disabled. */
+      Cdd_PwmWave_RestorePwm5Baseline(&tPwm5Baseline);
+      if (FALSE == Cdd_PwmWave_IsTomTopologyValid(FALSE)) {
+        s_u32FaultFlags |= CDD_PWM_WAVE_FAULT_HW_CONFIG;
+      }
+    }
     s_bInitialized = FALSE;
     s_bClearPending = FALSE;
     s_bOutputPadsConfirmed = FALSE;
@@ -993,9 +1257,13 @@ Cdd_PwmWave_ResultType Cdd_PwmWave_ValidateFrame(const Cdd_PwmWave_FrameType *pF
     }
   }
 
-  if ((CDD_PWM_WAVE_PWM5_LOW != pFrame->ePwm5State) && (CDD_PWM_WAVE_PWM5_HIGH != pFrame->ePwm5State)) {
+  if ((CDD_PWM_WAVE_PWM5_LOW != pFrame->ePwm5State) && (CDD_PWM_WAVE_PWM5_HIGH != pFrame->ePwm5State) &&
+      (CDD_PWM_WAVE_PWM5_TEST_TOGGLE != pFrame->ePwm5State)) {
     return CDD_PWM_WAVE_E_PWM5;
   }
+
+  /* TEST_TOGGLE derives CH3 CM0/CM1 as 2*Period/Period; the period-range
+   * check and compile-time TOM-range assertion cover all supported frames. */
 
   return CDD_PWM_WAVE_OK;
 }
@@ -1004,7 +1272,11 @@ static Cdd_PwmWave_ResultType Cdd_PwmWave_SubmitFrameLocked(const Cdd_PwmWave_Fr
 {
   Cdd_PwmWave_ResultType eResult;
   Cdd_PwmWave_SequenceType u32Sequence;
+  uint32 u32OldCarrierPeriod;
+  uint32 u32Pwm5Cm0;
+  uint32 u32Pwm5Cm1;
   uint8 u8Index;
+  boolean bCommonBoundaryArmRequired;
 
   Cdd_PwmWave_RefreshPending();
 
@@ -1016,20 +1288,28 @@ static Cdd_PwmWave_ResultType Cdd_PwmWave_SubmitFrameLocked(const Cdd_PwmWave_Fr
     eResult = CDD_PWM_WAVE_E_STATE;
   } else if (TRUE == s_bPendingFrameValid) {
     eResult = CDD_PWM_WAVE_E_BUSY;
+  } else if ((CDD_PWM_WAVE_STATE_RUN == s_eState) && (FALSE == s_bActiveFrameValid)) {
+    (void)Cdd_PwmWave_EnterFault(CDD_PWM_WAVE_FAULT_HW_CONFIG);
+    eResult = CDD_PWM_WAVE_E_HW_CONFIG;
+  } else if ((CDD_PWM_WAVE_STATE_RUN == s_eState) && (pFrame->ePwm5State != s_tActiveFrame.ePwm5State)) {
+    /* CH3 counter is independent of CH0. A state change could take effect at
+     * an arbitrary CH3 phase, so allow it only while DTM holds every output low. */
+    eResult = CDD_PWM_WAVE_E_NOT_SUPPORTED;
   } else if (FALSE == Cdd_PwmWave_IsCarrierBoundaryTriggerSelected()) {
     eResult = CDD_PWM_WAVE_E_HW_CONFIG;
   } else {
+    /* ARMED_LOW keeps the TOM counters enabled; DTM alone clamps the pads.
+     * Therefore a stopped period change uses the same bounded common-zero
+     * arm as RUN and preserves phase for the later Start. */
+    u32OldCarrierPeriod = EFTU_TOM_1_0->Channel[CDD_PWM_WAVE_CARRIER_CHANNEL].CH_CM0;
+    bCommonBoundaryArmRequired = (u32OldCarrierPeriod != pFrame->u32PeriodTicks) ? TRUE : FALSE;
     Cdd_PwmWave_DisableFrameUpdate();
 
     EFTU_TOM_1_0->Channel[CDD_PWM_WAVE_CARRIER_CHANNEL].CH_SR0 = pFrame->u32PeriodTicks;
     EFTU_TOM_1_0->Channel[CDD_PWM_WAVE_CARRIER_CHANNEL].CH_SR1 = pFrame->u32PeriodTicks >> 1U;
-    if (CDD_PWM_WAVE_PWM5_LOW == pFrame->ePwm5State) {
-      EFTU_TOM_1_0->Channel[3].CH_SR0 = CDD_PWM_WAVE_TOM_MAX_VALUE;
-      EFTU_TOM_1_0->Channel[3].CH_SR1 = 0U;
-    } else {
-      EFTU_TOM_1_0->Channel[3].CH_SR0 = 0U;
-      EFTU_TOM_1_0->Channel[3].CH_SR1 = CDD_PWM_WAVE_TOM_MAX_VALUE;
-    }
+    Cdd_PwmWave_GetPwm5TimerValues(pFrame, &u32Pwm5Cm0, &u32Pwm5Cm1);
+    EFTU_TOM_1_0->Channel[CDD_PWM_WAVE_PWM5_CHANNEL].CH_SR0 = u32Pwm5Cm0;
+    EFTU_TOM_1_0->Channel[CDD_PWM_WAVE_PWM5_CHANNEL].CH_SR1 = u32Pwm5Cm1;
 
     for (u8Index = 0U; u8Index < CDD_PWM_WAVE_WINDOW_COUNT; u8Index++) {
       EFTU_TOM_1_0->Channel[u8Index + 4U].CH_SR0 = pFrame->aWindow[u8Index].u32CmpA;
@@ -1037,19 +1317,28 @@ static Cdd_PwmWave_ResultType Cdd_PwmWave_SubmitFrameLocked(const Cdd_PwmWave_Fr
     }
     /* DTM holds the physical outputs low while stopped; TOM always stages the run waveform. */
     s_bPendingUsesRunSignalLevels = TRUE;
-    Cdd_PwmWave_SetShadowSignalLevels(TRUE);
+    Cdd_PwmWave_SetShadowSignalLevels(pFrame, TRUE);
 
     u32Sequence = Cdd_PwmWave_NextSequence();
     s_tPendingFrame = *pFrame;
     s_u32PendingSequence = u32Sequence;
     s_bPendingFrameValid = TRUE;
     s_u8PendingMainCycles = 0U;
-    Cdd_PwmWave_ArmFrameUpdate();
 
-    if (NULL_PTR != pSequence) {
+    if (TRUE == bCommonBoundaryArmRequired) {
+      /* Arm in CH3's old second carrier cycle. The next CH0 zero is then also
+       * CH3's full-cycle zero, so P/2P and all CMP shadows load together. */
+      eResult = Cdd_PwmWave_ArmFrameAtCommonBoundaryLocked(u32OldCarrierPeriod, u32Sequence);
+    } else {
+      /* With no carrier-period change, each channel can load at its normal
+       * zero without disturbing the existing CH0/CH3 phase relation. */
+      Cdd_PwmWave_ArmFrameUpdate();
+      eResult = CDD_PWM_WAVE_OK;
+    }
+
+    if ((CDD_PWM_WAVE_OK == eResult) && (NULL_PTR != pSequence)) {
       *pSequence = u32Sequence;
     }
-    eResult = CDD_PWM_WAVE_OK;
   }
 
   return eResult;
@@ -1128,6 +1417,8 @@ Cdd_PwmWave_ResultType Cdd_PwmWave_SubmitPeriodChange(uint32 u32NewPeriodTicks, 
         tCandidate.aWindow[u8Index].u32CmpB = (uint32)(((uint64)tCandidate.aWindow[u8Index].u32CmpB * u32NewPeriodTicks) / u32OldPeriod);
       }
     }
+    /* Preserve PWM5 state; its 2*P/P timer values move with CH0 at the next
+     * common CH0/CH3 zero. */
     tCandidate.u32PeriodTicks = u32NewPeriodTicks;
 
     eResult = Cdd_PwmWave_ValidateFrame(&tCandidate);
@@ -1171,7 +1462,10 @@ Cdd_PwmWave_ResultType Cdd_PwmWave_ConfirmArmedLow(void)
 Cdd_PwmWave_ResultType Cdd_PwmWave_Start(void)
 {
   Cdd_PwmWave_ResultType eResult = CDD_PWM_WAVE_OK;
-  boolean bDtmOutputActivity = FALSE;
+  boolean bOutputActivity = FALSE;
+  boolean bRequirePwm5Activity = FALSE;
+  boolean bRequirePwm5LowActivity = FALSE;
+  uint8 u8RequiredVerifyWraps = CDD_PWM_WAVE_START_VERIFY_WRAPS;
 
   if (FALSE == Cdd_PwmWave_IsCore0()) {
     return CDD_PWM_WAVE_E_WRONG_CORE;
@@ -1199,6 +1493,9 @@ Cdd_PwmWave_ResultType Cdd_PwmWave_Start(void)
     eResult = CDD_PWM_WAVE_E_HW_CONFIG;
   } else {
     s_bStartPending = TRUE;
+    bRequirePwm5Activity = (CDD_PWM_WAVE_PWM5_LOW != s_tActiveFrame.ePwm5State) ? TRUE : FALSE;
+    bRequirePwm5LowActivity = (CDD_PWM_WAVE_PWM5_TEST_TOGGLE == s_tActiveFrame.ePwm5State) ? TRUE : FALSE;
+    u8RequiredVerifyWraps = Cdd_PwmWave_GetStartVerifyWraps(&s_tActiveFrame);
     if (FALSE == Cdd_PwmWave_SetRunRequest(TRUE)) {
       Cdd_PwmWave_EnterFault(CDD_PWM_WAVE_FAULT_HW_CONFIG);
       eResult = CDD_PWM_WAVE_E_HW_CONFIG;
@@ -1207,8 +1504,8 @@ Cdd_PwmWave_ResultType Cdd_PwmWave_Start(void)
   SchM_Exit_Pwm_PWM_EXCLUSIVE_AREA_19();
 
   if (CDD_PWM_WAVE_OK == eResult) {
-    /* Two wraps settle the request; the third closes one full physical activity cycle. */
-    bDtmOutputActivity = Cdd_PwmWave_WaitForDtmOutputActivity(CDD_PWM_WAVE_START_VERIFY_WRAPS);
+    /* The post-settle window spans a full PWM5 cycle when test-toggle is active. */
+    bOutputActivity = Cdd_PwmWave_WaitForOutputActivity(u8RequiredVerifyWraps, bRequirePwm5Activity, bRequirePwm5LowActivity);
 
     SchM_Enter_Pwm_PWM_EXCLUSIVE_AREA_19();
     if (TRUE == s_bFaultLatched) {
@@ -1219,7 +1516,7 @@ Cdd_PwmWave_ResultType Cdd_PwmWave_Start(void)
                (FALSE == Cdd_PwmWave_AreOutputPinModesValid()) || (FALSE == Cdd_PwmWave_AreOutputPadInputsEnabled())) {
       Cdd_PwmWave_EnterFault(CDD_PWM_WAVE_FAULT_HW_CONFIG);
       eResult = CDD_PWM_WAVE_E_HW_CONFIG;
-    } else if (FALSE == bDtmOutputActivity) {
+    } else if (FALSE == bOutputActivity) {
       Cdd_PwmWave_EnterFault(CDD_PWM_WAVE_FAULT_HW_TIMEOUT);
       eResult = CDD_PWM_WAVE_E_HW_TIMEOUT;
     } else {
@@ -1373,7 +1670,7 @@ Cdd_PwmWave_ResultType Cdd_PwmWave_ClearFault(void)
       eResult = CDD_PWM_WAVE_E_HW_CONFIG;
     } else {
       Cdd_PwmWave_SetActiveAndShadowRunSignalLevels();
-      Cdd_PwmWave_ImmediateEnableAll();
+      Cdd_PwmWave_EnableAllAtCarrierBoundary();
       bEnableIssued = TRUE;
     }
   }

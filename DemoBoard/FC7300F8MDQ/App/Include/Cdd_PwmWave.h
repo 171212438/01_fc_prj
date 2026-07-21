@@ -7,6 +7,8 @@
 #define CDD_PWM_WAVE_MAX_PERIOD_TICKS (1154U)
 #define CDD_PWM_WAVE_DEAD_TIME_TICKS  (23U)
 #define CDD_PWM_WAVE_WINDOW_COUNT     (4U)
+/* PWM5 TEST_TOGGLE uses one carrier period LOW plus one carrier period HIGH. */
+#define CDD_PWM_WAVE_PWM5_CARRIER_PERIODS (2U)
 
 /* LU0 samples the run request on CH0; DTM0/1 use the synchronized inverse as shutoff. */
 #define CDD_PWM_WAVE_DTM_BOUNDARY_SYNC_SUPPORTED (STD_ON)
@@ -25,7 +27,9 @@ typedef enum {
 
 typedef enum {
   CDD_PWM_WAVE_PWM5_LOW = 0,
-  CDD_PWM_WAVE_PWM5_HIGH
+  CDD_PWM_WAVE_PWM5_HIGH,
+  /* Independent CH3 alternates LOW/HIGH every current CH0 carrier period. */
+  CDD_PWM_WAVE_PWM5_TEST_TOGGLE
 } Cdd_PwmWave_Pwm5StateType;
 
 typedef struct {
@@ -78,16 +82,23 @@ typedef struct {
  * Runtime ownership: after Cdd_PwmWave_Init(), Core0 exclusively owns
  * eFTU1 TOM0 CH0, CH3-CH7, the complete DTM0 and DTM1 instances,
  * LU0 LG0, TRGSEL0 register 0 (LU0_INPUT0A-D), TRGSEL0_OUT2 and eFTU1_FLT0.
+ * Pwm_Init supplies a shifted CH3 baseline; this CDD safely converts CH3 to
+ * an independent two-carrier-period channel while keeping TRIGOUT=0. For
+ * TEST_TOGGLE, CH3 uses CM0=2*CH0 period and CM1=CH0 period. Carrier-period
+ * changes are armed in CH3's second old carrier cycle so CH0 and CH3 load at
+ * their next common zero.
  * DTM0 channels 0-2 and TOM0 CH1/CH2 must remain unused. Do not call the
  * standard Pwm or TrgSel runtime update APIs for those resources from any core.
  */
 Cdd_PwmWave_ResultType Cdd_PwmWave_Init(void);
 Cdd_PwmWave_ResultType Cdd_PwmWave_ValidateFrame(const Cdd_PwmWave_FrameType *pFrame);
+/* Change PWM5 state only in ARMED_LOW. TEST_TOGGLE follows the carrier:
+ * one carrier period LOW plus one carrier period HIGH. */
 Cdd_PwmWave_ResultType Cdd_PwmWave_SubmitFrame(const Cdd_PwmWave_FrameType *pFrame, Cdd_PwmWave_SequenceType *pSequence);
 Cdd_PwmWave_ResultType Cdd_PwmWave_SubmitPeriodChange(uint32 u32NewPeriodTicks, Cdd_PwmWave_SequenceType *pSequence);
 /* Call immediately after BSP switches all nine pads to eFTU; Start remains blocked until it passes. */
 Cdd_PwmWave_ResultType Cdd_PwmWave_ConfirmArmedLow(void);
-/* Synchronous: settles at CH0 zero, then confirms all four DTM pairs physically active. */
+/* Synchronous: settles at CH0 zero; PWM5 test-toggle must be observed both low and high. */
 Cdd_PwmWave_ResultType Cdd_PwmWave_Start(void);
 /* Synchronous: allows two CH0 wraps, then requires all nine physical pads low. */
 Cdd_PwmWave_ResultType Cdd_PwmWave_Stop(void);

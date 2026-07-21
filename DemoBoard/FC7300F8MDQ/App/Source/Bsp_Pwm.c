@@ -10,6 +10,18 @@
 #define BSP_PWM_GPIOE_OUTPUT_MASK (0x00002C00U)
 #define BSP_PWM_GPIOH_OUTPUT_MASK (0x00400000U)
 
+_Static_assert((BSP_PWM_WAVE_FIXED_TEST_PERIOD_TICKS >= CDD_PWM_WAVE_MIN_PERIOD_TICKS) &&
+                   (BSP_PWM_WAVE_FIXED_TEST_PERIOD_TICKS <= CDD_PWM_WAVE_MAX_PERIOD_TICKS),
+               "Fixed PWM test period is outside the CDD range");
+_Static_assert((BSP_PWM_WAVE_FIXED_TEST_CMPA_TICKS < BSP_PWM_WAVE_FIXED_TEST_CMPB_TICKS) &&
+                   (BSP_PWM_WAVE_FIXED_TEST_CMPB_TICKS < BSP_PWM_WAVE_FIXED_TEST_PERIOD_TICKS),
+               "Fixed PWM test compare window is invalid");
+_Static_assert((BSP_PWM_WAVE_FIXED_TEST_CMPB_TICKS - BSP_PWM_WAVE_FIXED_TEST_CMPA_TICKS) >= CDD_PWM_WAVE_DEAD_TIME_TICKS,
+               "Fixed PWM test window is shorter than the dead time");
+_Static_assert(((BSP_PWM_WAVE_FIXED_TEST_CMPB_TICKS - BSP_PWM_WAVE_FIXED_TEST_CMPA_TICKS) * 2U) ==
+                   BSP_PWM_WAVE_FIXED_TEST_PERIOD_TICKS,
+               "Fixed PWM test command duty is not 50 percent");
+
 /************ Local variable *******************/
 uint16 s_u16Rgb1DutyVal = 0U;
 uint16 s_u16Rgb1Step = PWM_MAX_DUTY / 50;
@@ -20,12 +32,25 @@ uint16 s_u16Rgb2Step = PWM_MAX_DUTY / 200;
 uint8 s_u8Rgb2OrderIndex = 0U;
 Pwm_ChannelType s_u32Rgb2Order[3] = {PwmConf_PwmChannel_RGB2_BLUE, PwmConf_PwmChannel_RGB2_GREEN, PwmConf_PwmChannel_RGB2_RED};
 
+volatile boolean g_bPwmWaveFixedTestStopRequest = FALSE;
+
 static volatile Bsp_PwmWave_JobType s_ePwmWaveJob = BSP_PWM_WAVE_JOB_NONE;
 static volatile Bsp_PwmWave_JobStateType s_ePwmWaveJobState = BSP_PWM_WAVE_JOB_IDLE;
 static volatile Cdd_PwmWave_ResultType s_ePwmWaveLastResult = CDD_PWM_WAVE_E_UNINIT;
 static volatile Cdd_PwmWave_SequenceType s_u32PwmWaveRequestedSequence = 0U;
 static volatile uint32 s_u32PwmWaveCommandEpoch = 0U;
 static volatile boolean s_bPwmWaveMainInProgress = FALSE;
+static boolean s_bPwmWaveFixedTestAwaitingRun = FALSE;
+static Cdd_PwmWave_SequenceType s_u32PwmWaveFixedTestSequence = 0U;
+static const Cdd_PwmWave_FrameType s_tPwmWaveFixedTestFrame = {
+    BSP_PWM_WAVE_FIXED_TEST_PERIOD_TICKS,
+    {
+        {BSP_PWM_WAVE_FIXED_TEST_CMPA_TICKS, BSP_PWM_WAVE_FIXED_TEST_CMPB_TICKS},
+        {BSP_PWM_WAVE_FIXED_TEST_CMPA_TICKS, BSP_PWM_WAVE_FIXED_TEST_CMPB_TICKS},
+        {BSP_PWM_WAVE_FIXED_TEST_CMPA_TICKS, BSP_PWM_WAVE_FIXED_TEST_CMPB_TICKS},
+        {BSP_PWM_WAVE_FIXED_TEST_CMPA_TICKS, BSP_PWM_WAVE_FIXED_TEST_CMPB_TICKS},
+    },
+    CDD_PWM_WAVE_PWM5_TEST_TOGGLE};
 
 /************ Local functions *******************/
 static boolean Bsp_PwmWave_IsCore0(void)
@@ -106,6 +131,23 @@ static Cdd_PwmWave_ResultType Bsp_PwmWave_GetFaultResult(const Cdd_PwmWave_Statu
   return CDD_PWM_WAVE_E_FAULT_ACTIVE;
 }
 
+static boolean Bsp_PwmWave_IsFixedTestFrame(const Cdd_PwmWave_FrameType *pFrame)
+{
+  uint8 u8Index;
+
+  if ((BSP_PWM_WAVE_FIXED_TEST_PERIOD_TICKS != pFrame->u32PeriodTicks) ||
+      (CDD_PWM_WAVE_PWM5_TEST_TOGGLE != pFrame->ePwm5State)) {
+    return FALSE;
+  }
+  for (u8Index = 0U; u8Index < CDD_PWM_WAVE_WINDOW_COUNT; u8Index++) {
+    if ((BSP_PWM_WAVE_FIXED_TEST_CMPA_TICKS != pFrame->aWindow[u8Index].u32CmpA) ||
+        (BSP_PWM_WAVE_FIXED_TEST_CMPB_TICKS != pFrame->aWindow[u8Index].u32CmpB)) {
+      return FALSE;
+    }
+  }
+  return TRUE;
+}
+
 static void Bsp_Pwm_SetOutputPinModes(void)
 {
   /* PWM5: eFTU1 TOM0 CH3 direct output. */
@@ -172,6 +214,29 @@ static boolean Bsp_Pwm_ForceOutputPinsGpioLow(void)
   return Bsp_Pwm_AreOutputPinsGpioLow();
 }
 
+static boolean Bsp_PwmWave_FixedTestForceLow(void)
+{
+  if (CDD_PWM_WAVE_OK == Bsp_PwmWave_EmergencyShutdown()) {
+    return TRUE;
+  }
+
+  return Bsp_Pwm_ForceOutputPinsGpioLow();
+}
+
+static void Bsp_PwmWave_FixedTestAbort(const char *pReason)
+{
+  boolean bLowConfirmed;
+
+  s_bPwmWaveFixedTestAwaitingRun = FALSE;
+  g_bPwmWaveFixedTestStopRequest = FALSE;
+  bLowConfirmed = Bsp_PwmWave_FixedTestForceLow();
+  if (TRUE == bLowConfirmed) {
+    DEBUG_INFO("PWM fixed test %s; all outputs confirmed low.\r\n", pReason);
+  } else {
+    DEBUG_INFO("CRITICAL: PWM fixed test %s; output-low state unconfirmed.\r\n", pReason);
+  }
+}
+
 /************ Global functions *******************/
 void Bsp_Pwm_Init(void)
 {
@@ -183,6 +248,9 @@ void Bsp_Pwm_Init(void)
   if (0U == GET_CPU_ID())
 #endif
   {
+    g_bPwmWaveFixedTestStopRequest = FALSE;
+    s_bPwmWaveFixedTestAwaitingRun = FALSE;
+    s_u32PwmWaveFixedTestSequence = 0U;
     Bsp_PwmWave_RecordJob(BSP_PWM_WAVE_JOB_NONE, BSP_PWM_WAVE_JOB_IDLE, CDD_PWM_WAVE_E_UNINIT, 0U);
     ePwmWaveResult = Cdd_PwmWave_Init();
     if (CDD_PWM_WAVE_OK == ePwmWaveResult) {
@@ -209,6 +277,48 @@ void Bsp_Pwm_Init(void)
 Cdd_PwmWave_ResultType Bsp_PwmWave_ValidateFrame(const Cdd_PwmWave_FrameType *pFrame)
 {
   return Cdd_PwmWave_ValidateFrame(pFrame);
+}
+
+Cdd_PwmWave_ResultType Bsp_PwmWave_FixedTestStart(Cdd_PwmWave_SequenceType *pSequence)
+{
+  Cdd_PwmWave_SequenceType u32Sequence;
+  Cdd_PwmWave_ResultType eResult = Bsp_PwmWave_RequestStart(&s_tPwmWaveFixedTestFrame, &u32Sequence);
+
+  if (CDD_PWM_WAVE_OK == eResult) {
+    s_u32PwmWaveFixedTestSequence = u32Sequence;
+    s_bPwmWaveFixedTestAwaitingRun = TRUE;
+    if (NULL_PTR != pSequence) {
+      *pSequence = u32Sequence;
+    }
+  }
+  return eResult;
+}
+
+Cdd_PwmWave_ResultType Bsp_PwmWave_FixedTestStop(void)
+{
+  Cdd_PwmWave_StatusType tStatus;
+  Cdd_PwmWave_ResultType eResult;
+  uint32 u32CommandEpoch;
+
+  if (FALSE == Bsp_PwmWave_IsCore0()) {
+    return CDD_PWM_WAVE_E_WRONG_CORE;
+  }
+  u32CommandEpoch = Bsp_PwmWave_GetCommandEpoch();
+  if (TRUE == Bsp_PwmWave_IsJobPending()) {
+    return CDD_PWM_WAVE_E_BUSY;
+  }
+
+  eResult = Cdd_PwmWave_GetStatus(&tStatus);
+  if ((CDD_PWM_WAVE_OK == eResult) && (CDD_PWM_WAVE_STATE_ARMED_LOW == tStatus.eState) && (FALSE == tStatus.bFaultLatched) &&
+      (FALSE == tStatus.bStartPending) && (FALSE == tStatus.bPendingFrameValid)) {
+    /* Make the board-test command idempotent, but only after a fresh physical-low check. */
+    eResult = Cdd_PwmWave_ConfirmArmedLow();
+    Bsp_PwmWave_RecordJobIfCurrent(u32CommandEpoch, BSP_PWM_WAVE_JOB_STOP,
+                                   (CDD_PWM_WAVE_OK == eResult) ? BSP_PWM_WAVE_JOB_COMPLETED : BSP_PWM_WAVE_JOB_FAILED, eResult, 0U);
+    return eResult;
+  }
+
+  return Bsp_PwmWave_Stop();
 }
 
 Cdd_PwmWave_ResultType Bsp_PwmWave_RequestStart(const Cdd_PwmWave_FrameType *pFrame, Cdd_PwmWave_SequenceType *pSequence)
@@ -405,6 +515,58 @@ Cdd_PwmWave_ResultType Bsp_PwmWave_GetPendingFrame(Cdd_PwmWave_FrameType *pFrame
   return Cdd_PwmWave_GetPendingFrame(pFrame);
 }
 
+static void Bsp_PwmWave_FixedTestMonitor(void)
+{
+  Bsp_PwmWave_ControlStatusType tStatus;
+  Cdd_PwmWave_FrameType tActiveFrame;
+  Cdd_PwmWave_ResultType eResult;
+  Cdd_PwmWave_ResultType eFrameResult;
+
+  if (TRUE == s_bPwmWaveFixedTestAwaitingRun) {
+    eResult = Bsp_PwmWave_GetControlStatus(&tStatus);
+    if ((CDD_PWM_WAVE_OK != eResult) || (BSP_PWM_WAVE_JOB_START_WITH_FRAME != tStatus.eJob) ||
+        (s_u32PwmWaveFixedTestSequence != tStatus.u32RequestedSequence)) {
+      Bsp_PwmWave_FixedTestAbort("aborted before RUN");
+      return;
+    } else if (BSP_PWM_WAVE_JOB_COMPLETED == tStatus.eJobState) {
+      eFrameResult = Bsp_PwmWave_GetActiveFrame(&tActiveFrame);
+      eResult = Bsp_PwmWave_GetControlStatus(&tStatus);
+      if ((CDD_PWM_WAVE_OK == eResult) && (BSP_PWM_WAVE_JOB_START_WITH_FRAME == tStatus.eJob) &&
+          (BSP_PWM_WAVE_JOB_COMPLETED == tStatus.eJobState) && (CDD_PWM_WAVE_OK == tStatus.eLastResult) &&
+          (s_u32PwmWaveFixedTestSequence == tStatus.u32RequestedSequence) && (CDD_PWM_WAVE_STATE_RUN == tStatus.tDriverStatus.eState) &&
+          (s_u32PwmWaveFixedTestSequence == tStatus.tDriverStatus.u32ActiveSequence) && (CDD_PWM_WAVE_OK == eFrameResult) &&
+          (TRUE == Bsp_PwmWave_IsFixedTestFrame(&tActiveFrame))) {
+        DEBUG_INFO("PWM fixed test RUN confirmed, sequence %d; initial carrier 200 kHz/PWM5 100 kHz, later PWM5=fc/2.\r\n",
+                   (int)s_u32PwmWaveFixedTestSequence);
+      } else {
+        Bsp_PwmWave_FixedTestAbort("RUN confirmation failed");
+        return;
+      }
+      s_bPwmWaveFixedTestAwaitingRun = FALSE;
+    } else if (BSP_PWM_WAVE_JOB_FAILED == tStatus.eJobState) {
+      DEBUG_INFO("PWM fixed test failed after acceptance, result %d.\r\n", (int)tStatus.eLastResult);
+      Bsp_PwmWave_FixedTestAbort("failed after acceptance");
+      return;
+    } else if (BSP_PWM_WAVE_JOB_PENDING != tStatus.eJobState) {
+      Bsp_PwmWave_FixedTestAbort("entered an invalid job state");
+      return;
+    }
+  }
+
+  if (TRUE == g_bPwmWaveFixedTestStopRequest) {
+    eResult = Bsp_PwmWave_FixedTestStop();
+    if (CDD_PWM_WAVE_E_BUSY != eResult) {
+      g_bPwmWaveFixedTestStopRequest = FALSE;
+      if (CDD_PWM_WAVE_OK == eResult) {
+        DEBUG_INFO("PWM fixed test Stop complete; all outputs confirmed low.\r\n");
+      } else {
+        DEBUG_INFO("PWM fixed test stop rejected, result %d.\r\n", (int)eResult);
+        Bsp_PwmWave_FixedTestAbort("normal Stop failed");
+      }
+    }
+  }
+}
+
 void Bsp_PwmWave_MainFunction(void)
 {
   Cdd_PwmWave_StatusType tStatus;
@@ -477,6 +639,7 @@ void Bsp_Pwm_20ms_Task_Event(void)
 #endif
     Cdd_PwmWave_MainFunction();
     Bsp_PwmWave_MainFunction();
+    Bsp_PwmWave_FixedTestMonitor();
     Pwm_SetDutyCycle(PwmConf_PwmChannel_RGB1_BLUE, s_u16Rgb1DutyVal);
     Pwm_SetDutyCycle(PwmConf_PwmChannel_RGB1_GREEN, s_u16Rgb1DutyVal);
     Pwm_SetDutyCycle(PwmConf_PwmChannel_RGB1_RED, s_u16Rgb1DutyVal);
