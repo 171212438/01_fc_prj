@@ -32,9 +32,22 @@
 #define CDD_PWM_WAVE_FIRST_OUTPUT_CHANNEL    (3U)
 #define CDD_PWM_WAVE_LAST_OUTPUT_CHANNEL     (7U)
 #define CDD_PWM_WAVE_CARRIER_SIGNAL_LEVEL    (1U)
+#define CDD_PWM_WAVE_PHASE_ACQUIRE_WINDOW_DIVISOR (8U)
 #define CDD_PWM_WAVE_PHASE_ARM_WINDOW_DIVISOR   (2U)
 #define CDD_PWM_WAVE_PHASE_READ_TOLERANCE_TICKS (0U)
 #define CDD_PWM_WAVE_PHASE_ARM_RETRY_COUNT      (3U)
+
+#define CDD_PWM_WAVE_ARM_SNAPSHOT_MAGIC                    (0x50574D41U)
+#define CDD_PWM_WAVE_ARM_SNAPSHOT_STAGE_WAIT_FAILED        (1U)
+#define CDD_PWM_WAVE_ARM_SNAPSHOT_STAGE_POST_LOCK_RECHECK  (2U)
+#define CDD_PWM_WAVE_ARM_REJECT_WAIT_NOT_FOUND             (0x00000001U)
+#define CDD_PWM_WAVE_ARM_REJECT_CARRIER_WRAPPED            (0x00000002U)
+#define CDD_PWM_WAVE_ARM_REJECT_CARRIER_AFTER_WINDOW       (0x00000004U)
+#define CDD_PWM_WAVE_ARM_REJECT_PWM5_BEFORE_SECOND_CARRIER (0x00000008U)
+#define CDD_PWM_WAVE_ARM_REJECT_PWM5_AFTER_PERIOD          (0x00000010U)
+#define CDD_PWM_WAVE_ARM_REJECT_PHASE_BEFORE_CARRIER       (0x00000020U)
+#define CDD_PWM_WAVE_ARM_REJECT_PHASE_AFTER_CARRIER        (0x00000040U)
+#define CDD_PWM_WAVE_ARM_SNAPSHOT_INVALID_VALUE            (0xFFFFFFFFU)
 
 #define CDD_PWM_WAVE_GPIOC_OUTPUT_MASK       (0x02800080U)
 #define CDD_PWM_WAVE_GPIOD_OUTPUT_MASK       (0x00200010U)
@@ -160,8 +173,11 @@ _Static_assert(TRGSEL0_SRC_eFTU1_TOM0 == 106U, "Unexpected eFTU1 TOM0 source enc
 _Static_assert(TRGSEL0_SRC_LU0_OUT0B == 48U, "Unexpected LU0 OUT0B source encoding");
 _Static_assert(TRGSEL2_SRC_TRGSEL0_OUT2 == 4U, "Unexpected TRGSEL0 OUT2 source encoding");
 _Static_assert(CDD_PWM_WAVE_PWM5_CARRIER_PERIODS == 2U, "PWM5 phase gate requires exactly two carrier periods");
+_Static_assert(CDD_PWM_WAVE_PHASE_ACQUIRE_WINDOW_DIVISOR > CDD_PWM_WAVE_PHASE_ARM_WINDOW_DIVISOR,
+               "PWM5 acquisition window must leave time for lock reacquisition and validation");
 _Static_assert(CDD_PWM_WAVE_PHASE_ARM_WINDOW_DIVISOR == 2U, "PWM5 arm window must stay within the old second carrier cycle");
 _Static_assert(CDD_PWM_WAVE_PHASE_READ_TOLERANCE_TICKS == 0U, "PWM5 edges require an exact carrier-zero phase relation");
+_Static_assert(CDD_PWM_WAVE_PHASE_ARM_RETRY_COUNT > 0U, "PWM5 common-boundary arm requires at least one attempt");
 _Static_assert((CDD_PWM_WAVE_PWM5_CARRIER_PERIODS * CDD_PWM_WAVE_MAX_PERIOD_TICKS) <= CDD_PWM_WAVE_TOM_MAX_VALUE,
                "PWM5 period exceeds TOM range");
 
@@ -195,6 +211,41 @@ typedef struct {
   uint32 u32Sr1;
   uint32 u32Cn0;
 } Cdd_PwmWave_TomChannelSnapshotType;
+
+typedef struct {
+  uint32 u32CarrierBefore;
+  uint32 u32CarrierAfter;
+  uint32 u32Pwm5Counter;
+  uint32 u32Pwm5Phase;
+  uint32 u32ArmWindow;
+  uint32 u32Pwm5Period;
+  uint32 u32RejectFlags;
+} Cdd_PwmWave_ArmWindowCheckType;
+
+typedef struct {
+  uint32 u32ValidMagic;
+  uint32 u32Stage;
+  Cdd_PwmWave_SequenceType u32Sequence;
+  uint32 u32OldCarrierPeriod;
+  uint32 u32PendingCarrierPeriod;
+  uint32 u32RejectFlags;
+  uint32 u32CarrierBefore;
+  uint32 u32CarrierAfter;
+  uint32 u32Pwm5Counter;
+  uint32 u32Pwm5Phase;
+  uint32 u32ArmWindow;
+  uint32 u32Pwm5Period;
+  uint32 u32SysTickAtWaitReturn;
+  uint32 u32SysTickAfterLock;
+  uint32 u32SysTickReload;
+  uint32 u32ReacquireSysTickTicksModulo;
+  uint32 u32AttemptNumber;
+  uint32 u32WaitWindowFound;
+  uint32 u32SecondCheckValid;
+} Cdd_PwmWave_ArmFaultSnapshotType;
+
+/* First common-boundary arm HW_TIMEOUT in this boot; u32ValidMagic is committed last. */
+static volatile Cdd_PwmWave_ArmFaultSnapshotType s_tArmFaultSnapshot = {0U};
 
 static uint32 Cdd_PwmWave_ReadTrgSelSource(uint32 u32BaseAddress, uint32 u32LocalOutput)
 {
@@ -641,20 +692,20 @@ static boolean Cdd_PwmWave_WaitForCarrierWraps(uint8 u8RequiredWraps)
   return (0U == u8RequiredWraps) ? TRUE : FALSE;
 }
 
-static boolean Cdd_PwmWave_IsPwm5CommonBoundaryArmWindow(uint32 u32CarrierPeriod)
+static boolean Cdd_PwmWave_IsPwm5CommonBoundaryAcquireWindow(uint32 u32CarrierPeriod)
 {
   uint32 u32CarrierBefore;
   uint32 u32CarrierAfter;
   uint32 u32Pwm5Counter;
   uint32 u32Pwm5Phase;
-  uint32 u32ArmWindow = u32CarrierPeriod / CDD_PWM_WAVE_PHASE_ARM_WINDOW_DIVISOR;
+  uint32 u32AcquireWindow = u32CarrierPeriod / CDD_PWM_WAVE_PHASE_ACQUIRE_WINDOW_DIVISOR;
   uint32 u32Pwm5Period = CDD_PWM_WAVE_PWM5_CARRIER_PERIODS * u32CarrierPeriod;
 
   u32CarrierBefore = EFTU_TOM_1_0->Channel[CDD_PWM_WAVE_CARRIER_CHANNEL].CH_CN0 & EFTU_TOM_CHn_CN0_CN0_MASK;
   u32Pwm5Counter = EFTU_TOM_1_0->Channel[CDD_PWM_WAVE_PWM5_CHANNEL].CH_CN0 & EFTU_TOM_CHn_CN0_CN0_MASK;
   u32CarrierAfter = EFTU_TOM_1_0->Channel[CDD_PWM_WAVE_CARRIER_CHANNEL].CH_CN0 & EFTU_TOM_CHn_CN0_CN0_MASK;
 
-  if ((u32CarrierAfter < u32CarrierBefore) || (u32CarrierAfter > u32ArmWindow) || (u32Pwm5Counter < u32CarrierPeriod) ||
+  if ((u32CarrierAfter < u32CarrierBefore) || (u32CarrierAfter > u32AcquireWindow) || (u32Pwm5Counter < u32CarrierPeriod) ||
       (u32Pwm5Counter >= u32Pwm5Period)) {
     return FALSE;
   }
@@ -664,6 +715,60 @@ static boolean Cdd_PwmWave_IsPwm5CommonBoundaryArmWindow(uint32 u32CarrierPeriod
           (u32Pwm5Phase <= (u32CarrierAfter + CDD_PWM_WAVE_PHASE_READ_TOLERANCE_TICKS)))
              ? TRUE
              : FALSE;
+}
+
+/* The final post-lock gate keeps the original half-period deadline. It is
+ * intentionally wider than the acquisition window, leaving a bounded budget
+ * for SchM reacquisition and validation while still arming before the next
+ * common zero. */
+static boolean Cdd_PwmWave_CheckPwm5CommonBoundaryArmWindow(uint32 u32CarrierPeriod,
+                                                            Cdd_PwmWave_ArmWindowCheckType *pCheck)
+{
+  uint32 u32CarrierBefore;
+  uint32 u32CarrierAfter;
+  uint32 u32Pwm5Counter;
+  uint32 u32Pwm5Phase = CDD_PWM_WAVE_ARM_SNAPSHOT_INVALID_VALUE;
+  uint32 u32ArmWindow = u32CarrierPeriod / CDD_PWM_WAVE_PHASE_ARM_WINDOW_DIVISOR;
+  uint32 u32Pwm5Period = CDD_PWM_WAVE_PWM5_CARRIER_PERIODS * u32CarrierPeriod;
+  uint32 u32RejectFlags = 0U;
+
+  u32CarrierBefore = EFTU_TOM_1_0->Channel[CDD_PWM_WAVE_CARRIER_CHANNEL].CH_CN0 & EFTU_TOM_CHn_CN0_CN0_MASK;
+  u32Pwm5Counter = EFTU_TOM_1_0->Channel[CDD_PWM_WAVE_PWM5_CHANNEL].CH_CN0 & EFTU_TOM_CHn_CN0_CN0_MASK;
+  u32CarrierAfter = EFTU_TOM_1_0->Channel[CDD_PWM_WAVE_CARRIER_CHANNEL].CH_CN0 & EFTU_TOM_CHn_CN0_CN0_MASK;
+
+  if (u32CarrierAfter < u32CarrierBefore) {
+    u32RejectFlags |= CDD_PWM_WAVE_ARM_REJECT_CARRIER_WRAPPED;
+  }
+  if (u32CarrierAfter > u32ArmWindow) {
+    u32RejectFlags |= CDD_PWM_WAVE_ARM_REJECT_CARRIER_AFTER_WINDOW;
+  }
+  if (u32Pwm5Counter < u32CarrierPeriod) {
+    u32RejectFlags |= CDD_PWM_WAVE_ARM_REJECT_PWM5_BEFORE_SECOND_CARRIER;
+  } else if (u32Pwm5Counter >= u32Pwm5Period) {
+    u32RejectFlags |= CDD_PWM_WAVE_ARM_REJECT_PWM5_AFTER_PERIOD;
+  } else {
+    u32Pwm5Phase = u32Pwm5Counter - u32CarrierPeriod;
+    if ((u32Pwm5Phase + CDD_PWM_WAVE_PHASE_READ_TOLERANCE_TICKS) < u32CarrierBefore) {
+      u32RejectFlags |= CDD_PWM_WAVE_ARM_REJECT_PHASE_BEFORE_CARRIER;
+    }
+    if (u32Pwm5Phase > (u32CarrierAfter + CDD_PWM_WAVE_PHASE_READ_TOLERANCE_TICKS)) {
+      u32RejectFlags |= CDD_PWM_WAVE_ARM_REJECT_PHASE_AFTER_CARRIER;
+    }
+  }
+
+  if (0U == u32RejectFlags) {
+    return TRUE;
+  }
+
+  pCheck->u32CarrierBefore = u32CarrierBefore;
+  pCheck->u32CarrierAfter = u32CarrierAfter;
+  pCheck->u32Pwm5Counter = u32Pwm5Counter;
+  pCheck->u32Pwm5Phase = u32Pwm5Phase;
+  pCheck->u32ArmWindow = u32ArmWindow;
+  pCheck->u32Pwm5Period = u32Pwm5Period;
+  pCheck->u32RejectFlags = u32RejectFlags;
+
+  return FALSE;
 }
 
 static boolean Cdd_PwmWave_WaitForPwm5CommonBoundaryArmWindow(uint32 u32CarrierPeriod)
@@ -681,7 +786,7 @@ static boolean Cdd_PwmWave_WaitForPwm5CommonBoundaryArmWindow(uint32 u32CarrierP
 
   u32PreviousCounter = EFTU_TOM_1_0->Channel[CDD_PWM_WAVE_CARRIER_CHANNEL].CH_CN0 & EFTU_TOM_CHn_CN0_CN0_MASK;
   while (u32PollCount > 0U) {
-    if (TRUE == Cdd_PwmWave_IsPwm5CommonBoundaryArmWindow(u32CarrierPeriod)) {
+    if (TRUE == Cdd_PwmWave_IsPwm5CommonBoundaryAcquireWindow(u32CarrierPeriod)) {
       return TRUE;
     }
 
@@ -697,6 +802,44 @@ static boolean Cdd_PwmWave_WaitForPwm5CommonBoundaryArmWindow(uint32 u32CarrierP
   }
 
   return FALSE;
+}
+
+static void Cdd_PwmWave_CaptureArmFaultSnapshot(uint32 u32Stage,
+                                                uint32 u32OldCarrierPeriod,
+                                                uint32 u32PendingCarrierPeriod,
+                                                Cdd_PwmWave_SequenceType u32Sequence,
+                                                uint8 u8AttemptNumber,
+                                                boolean bWaitWindowFound,
+                                                boolean bSecondCheckValid,
+                                                const Cdd_PwmWave_ArmWindowCheckType *pCheck)
+{
+  if (0U != s_tArmFaultSnapshot.u32ValidMagic) {
+    return;
+  }
+
+  s_tArmFaultSnapshot.u32Stage = u32Stage;
+  s_tArmFaultSnapshot.u32Sequence = u32Sequence;
+  s_tArmFaultSnapshot.u32OldCarrierPeriod = u32OldCarrierPeriod;
+  s_tArmFaultSnapshot.u32PendingCarrierPeriod = u32PendingCarrierPeriod;
+  s_tArmFaultSnapshot.u32RejectFlags = pCheck->u32RejectFlags;
+  s_tArmFaultSnapshot.u32CarrierBefore = pCheck->u32CarrierBefore;
+  s_tArmFaultSnapshot.u32CarrierAfter = pCheck->u32CarrierAfter;
+  s_tArmFaultSnapshot.u32Pwm5Counter = pCheck->u32Pwm5Counter;
+  s_tArmFaultSnapshot.u32Pwm5Phase = pCheck->u32Pwm5Phase;
+  s_tArmFaultSnapshot.u32ArmWindow = pCheck->u32ArmWindow;
+  s_tArmFaultSnapshot.u32Pwm5Period = pCheck->u32Pwm5Period;
+  /* Retain the legacy debugger fields, but keep SysTick MMIO reads out of the
+   * timing-critical wait-to-arm path. */
+  s_tArmFaultSnapshot.u32SysTickAtWaitReturn = CDD_PWM_WAVE_ARM_SNAPSHOT_INVALID_VALUE;
+  s_tArmFaultSnapshot.u32SysTickAfterLock = CDD_PWM_WAVE_ARM_SNAPSHOT_INVALID_VALUE;
+  s_tArmFaultSnapshot.u32SysTickReload = CDD_PWM_WAVE_ARM_SNAPSHOT_INVALID_VALUE;
+  s_tArmFaultSnapshot.u32ReacquireSysTickTicksModulo = CDD_PWM_WAVE_ARM_SNAPSHOT_INVALID_VALUE;
+  s_tArmFaultSnapshot.u32AttemptNumber = (uint32)u8AttemptNumber;
+  s_tArmFaultSnapshot.u32WaitWindowFound = (uint32)bWaitWindowFound;
+  s_tArmFaultSnapshot.u32SecondCheckValid = (uint32)bSecondCheckValid;
+  MCAL_DATA_SYNC_BARRIER();
+  s_tArmFaultSnapshot.u32ValidMagic = CDD_PWM_WAVE_ARM_SNAPSHOT_MAGIC;
+  MCAL_DATA_SYNC_BARRIER();
 }
 
 static void Cdd_PwmWave_SelectCarrierBoundaryTrigger(boolean bEnable)
@@ -1069,13 +1212,32 @@ static boolean Cdd_PwmWave_EnterFault(uint32 u32FaultFlags)
 /* Called with AREA_19 held. The phase wait runs with interrupts enabled so an
  * emergency shutdown can preempt it. The function always returns with AREA_19
  * held. */
-static Cdd_PwmWave_ResultType Cdd_PwmWave_ArmFrameAtCommonBoundaryLocked(uint32 u32OldCarrierPeriod,
-                                                                         Cdd_PwmWave_SequenceType u32Sequence)
+static Cdd_PwmWave_ResultType Cdd_PwmWave_ArmFrameAtCommonBoundaryLocked(uint32 u32OldCarrierPeriod, Cdd_PwmWave_SequenceType u32Sequence)
 {
-  boolean bArmWindowFound;
+  boolean bArmWindowFound = FALSE;
+  boolean bSecondCheckValid = FALSE;
+  uint32 u32PendingCarrierPeriod;
+  uint32 u32SnapshotStage;
+  Cdd_PwmWave_ArmWindowCheckType tArmWindowCheck = {0U};
   uint8 u8Retry = CDD_PWM_WAVE_PHASE_ARM_RETRY_COUNT;
+  uint8 u8AttemptNumber = 0U;
 
   while (u8Retry > 0U) {
+    /* Validate invariant hardware ownership before opening the interruptible
+     * wait. Supported concurrent CDD changes also change the pending token,
+     * state or fault flag rechecked immediately after AREA_19 is reacquired. */
+    if (TRUE == s_bFaultLatched) {
+      return CDD_PWM_WAVE_E_FAULT_ACTIVE;
+    }
+    if ((FALSE == s_bPendingFrameValid) || (u32Sequence != s_u32PendingSequence) ||
+        ((CDD_PWM_WAVE_STATE_ARMED_LOW != s_eState) && (CDD_PWM_WAVE_STATE_RUN != s_eState)) ||
+        (FALSE == Cdd_PwmWave_IsCarrierBoundaryTriggerSelected()) ||
+        (EFTU_TOM_1_0->Channel[CDD_PWM_WAVE_CARRIER_CHANNEL].CH_CM0 != u32OldCarrierPeriod) ||
+        (EFTU_TOM_1_0->Channel[CDD_PWM_WAVE_PWM5_CHANNEL].CH_CM0 != (CDD_PWM_WAVE_PWM5_CARRIER_PERIODS * u32OldCarrierPeriod))) {
+      (void)Cdd_PwmWave_EnterFault(CDD_PWM_WAVE_FAULT_HW_CONFIG);
+      return CDD_PWM_WAVE_E_HW_CONFIG;
+    }
+
     SchM_Exit_Pwm_PWM_EXCLUSIVE_AREA_19();
     bArmWindowFound = Cdd_PwmWave_WaitForPwm5CommonBoundaryArmWindow(u32OldCarrierPeriod);
     SchM_Enter_Pwm_PWM_EXCLUSIVE_AREA_19();
@@ -1087,22 +1249,42 @@ static Cdd_PwmWave_ResultType Cdd_PwmWave_ArmFrameAtCommonBoundaryLocked(uint32 
         ((CDD_PWM_WAVE_STATE_ARMED_LOW != s_eState) && (CDD_PWM_WAVE_STATE_RUN != s_eState)) ||
         (FALSE == Cdd_PwmWave_IsCarrierBoundaryTriggerSelected()) ||
         (EFTU_TOM_1_0->Channel[CDD_PWM_WAVE_CARRIER_CHANNEL].CH_CM0 != u32OldCarrierPeriod) ||
-        (EFTU_TOM_1_0->Channel[CDD_PWM_WAVE_PWM5_CHANNEL].CH_CM0 !=
-         (CDD_PWM_WAVE_PWM5_CARRIER_PERIODS * u32OldCarrierPeriod))) {
+        (EFTU_TOM_1_0->Channel[CDD_PWM_WAVE_PWM5_CHANNEL].CH_CM0 != (CDD_PWM_WAVE_PWM5_CARRIER_PERIODS * u32OldCarrierPeriod))) {
       (void)Cdd_PwmWave_EnterFault(CDD_PWM_WAVE_FAULT_HW_CONFIG);
       return CDD_PWM_WAVE_E_HW_CONFIG;
     }
 
-    if ((TRUE == bArmWindowFound) && (TRUE == Cdd_PwmWave_IsPwm5CommonBoundaryArmWindow(u32OldCarrierPeriod))) {
-      Cdd_PwmWave_ArmFrameUpdate();
-      return CDD_PWM_WAVE_OK;
+    bSecondCheckValid = FALSE;
+    if (TRUE == bArmWindowFound) {
+      bSecondCheckValid = Cdd_PwmWave_CheckPwm5CommonBoundaryArmWindow(u32OldCarrierPeriod, &tArmWindowCheck);
+      /* No configuration reads or diagnostics are allowed between this final
+       * phase gate and UPEN. Interrupts remain suspended by AREA_19. */
+      if (TRUE == bSecondCheckValid) {
+        Cdd_PwmWave_ArmFrameUpdate();
+        return CDD_PWM_WAVE_OK;
+      }
+    } else {
+      tArmWindowCheck.u32CarrierBefore = 0U;
+      tArmWindowCheck.u32CarrierAfter = 0U;
+      tArmWindowCheck.u32Pwm5Counter = 0U;
+      tArmWindowCheck.u32Pwm5Phase = CDD_PWM_WAVE_ARM_SNAPSHOT_INVALID_VALUE;
+      tArmWindowCheck.u32ArmWindow = u32OldCarrierPeriod / CDD_PWM_WAVE_PHASE_ARM_WINDOW_DIVISOR;
+      tArmWindowCheck.u32Pwm5Period = CDD_PWM_WAVE_PWM5_CARRIER_PERIODS * u32OldCarrierPeriod;
+      tArmWindowCheck.u32RejectFlags = CDD_PWM_WAVE_ARM_REJECT_WAIT_NOT_FOUND;
     }
 
-    /* An ISR may consume the arm window before AREA_19 is reacquired. */
+    /* A preemption or an unexpectedly long lock reacquisition may consume the
+     * reserved budget. Reopen the wait and use the next common-zero approach. */
+    u8AttemptNumber = (uint8)(CDD_PWM_WAVE_PHASE_ARM_RETRY_COUNT - u8Retry + 1U);
     u8Retry--;
   }
 
+  u32PendingCarrierPeriod = s_tPendingFrame.u32PeriodTicks;
+  u32SnapshotStage =
+      (TRUE == bArmWindowFound) ? CDD_PWM_WAVE_ARM_SNAPSHOT_STAGE_POST_LOCK_RECHECK : CDD_PWM_WAVE_ARM_SNAPSHOT_STAGE_WAIT_FAILED;
   (void)Cdd_PwmWave_EnterFault(CDD_PWM_WAVE_FAULT_HW_TIMEOUT);
+  Cdd_PwmWave_CaptureArmFaultSnapshot(u32SnapshotStage, u32OldCarrierPeriod, u32PendingCarrierPeriod, u32Sequence, u8AttemptNumber,
+                                      bArmWindowFound, bSecondCheckValid, &tArmWindowCheck);
   return CDD_PWM_WAVE_E_HW_TIMEOUT;
 }
 

@@ -22,239 +22,165 @@ static uint8 FCUART_Float2Char(double Value, char *pOutStr, uint32 u32Eps);
  */
 Std_ReturnType FCUART_Printf(uint8 Channel, char *fmt, ...)
 {
-    Std_ReturnType tRetVal = E_NOT_OK;
-    const char    *pStr;
-    int            i32Temp;
-    uint64         u64Temp;
-    unsigned char  TxData;
-    uint8          u8Number;
-    uint8          u8LenthNumber = 4U;
-    char           TempBuffer[24];
-    va_list        ap;
+  Std_ReturnType tRetVal = E_NOT_OK;
+  const char *pStr;
+  int i32Temp;
+  uint64 u64Temp;
+  unsigned char TxData;
+  uint8 u8Number;
+  uint8 u8LenthNumber = 4U;
+  char TempBuffer[24];
+  va_list ap;
 
-    va_start(ap, fmt);
+  va_start(ap, fmt);  /* Get the first variable argument */
 
-    while (*fmt != (char)0)
-    {
-        /* Escape character */
-        if ((*fmt) == ESCAPE_CHARACTER)
-        {
-            switch (*(++fmt))
-            {
-                case 'r':
-                {
-                    TxData  = ENTER;
-                    tRetVal = Uart_SyncSend(Channel, &TxData, 1U, 0xFFFFFFFFU);
-                    fmt++;
-                }
-                break;
+  while (*fmt != (char)0) {
+    /* Escape character */
+    if ((*fmt) == ESCAPE_CHARACTER) {
+      switch (*(++fmt)) {
+        case 'r': {
+          TxData = ENTER;
+          tRetVal = Uart_SyncSend(Channel, &TxData, 1U, 0xFFFFFFFFU);
+          fmt++;
+        } break;
 
-                case 'n':
-                {
-                    TxData  = NEW_LINE;
-                    tRetVal = Uart_SyncSend(Channel, &TxData, 1U, 0xFFFFFFFFU);
-                    fmt++;
-                }
-                break;
+        case 'n': {
+          TxData = NEW_LINE;
+          tRetVal = Uart_SyncSend(Channel, &TxData, 1U, 0xFFFFFFFFU);
+          fmt++;
+        } break;
 
-                default:
-                    fmt++;
-                    break;
+        default:
+          fmt++;
+          break;
+      }
+    } else if ((*fmt) == (char)'%') {
+      switch (*(++fmt)) {
+        case 's': {
+          pStr = va_arg(ap, const char *);
+          for (; *pStr; pStr++) {
+            tRetVal = Uart_SyncSend(Channel, (const uint8 *)pStr, 1U, 0xFFFFFFFFU);
+          }
+          fmt++;
+        } break;
+
+        case 'd': {
+          i32Temp = va_arg(ap, int);
+          if (0U == FCUART_Int2Char(i32Temp, TempBuffer, UART_PRINT_RADIX_DEC, FALSE)) {
+            for (pStr = TempBuffer; *pStr; pStr++) {
+              tRetVal = Uart_SyncSend(Channel, (const uint8 *)pStr, 1U, 0xFFFFFFFFU);
             }
-        }
-        else if ((*fmt) == (char)'%')
-        {
-            switch (*(++fmt))
-            {
-                case 's':
-                {
-                    pStr = va_arg(ap, const char *);
-                    for (; *pStr; pStr++)
-                    {
-                        tRetVal = Uart_SyncSend(Channel, (const uint8 *)pStr, 1U, 0xFFFFFFFFU);
-                    }
-                    fmt++;
-                }
-                break;
+          }
+          fmt++;
+        } break;
 
-                case 'd':
-                {
-                    i32Temp = va_arg(ap, int);
-                    if (0U == FCUART_Int2Char(i32Temp, TempBuffer, UART_PRINT_RADIX_DEC, FALSE))
-                    {
-                        for (pStr = TempBuffer; *pStr; pStr++)
-                        {
-                            tRetVal = Uart_SyncSend(Channel, (const uint8 *)pStr, 1U, 0xFFFFFFFFU);
-                        }
-                    }
-                    fmt++;
-                }
-                break;
-
-                case 'x':
-                {
-                    i32Temp = va_arg(ap, int);
-                    if (0U == FCUART_Int2Char(i32Temp, TempBuffer, UART_PRINT_RADIX_HEX, FALSE))
-                    {
-                        for (pStr = TempBuffer; *pStr; pStr++)
-                        {
-                            tRetVal = Uart_SyncSend(Channel, (const uint8 *)pStr, 1U, 0xFFFFFFFFU);
-                        }
-                    }
-                    fmt++;
-                }
-                break;
-
-                case 'X':
-                {
-                    i32Temp = va_arg(ap, int);
-                    if (0U == FCUART_Int2Char(i32Temp, TempBuffer, UART_PRINT_RADIX_HEX, TRUE))
-                    {
-                        for (pStr = TempBuffer; *pStr; pStr++)
-                        {
-                            tRetVal = Uart_SyncSend(Channel, (const uint8 *)pStr, 1U, 0xFFFFFFFFU);
-                        }
-                    }
-                    fmt++;
-                }
-                break;
-
-                case 'l':
-                {
-                    if (*(fmt + 1) == 'l')
-                    {
-                        fmt += 2;
-                        switch (*fmt)
-                        {
-                            case 'x':
-                            {
-                                u64Temp = va_arg(ap, uint64);
-                                if (0U == FCUART_Int64ToChar(u64Temp,
-                                                             TempBuffer,
-                                                             UART_PRINT_RADIX_HEX,
-                                                             FALSE,
-                                                             FALSE))
-                                {
-                                    for (pStr = TempBuffer; *pStr; pStr++)
-                                    {
-                                        tRetVal = Uart_SyncSend(Channel,
-                                                                (const uint8 *)pStr,
-                                                                1U,
-                                                                0xFFFFFFFFU);
-                                    }
-                                }
-                                fmt++;
-                            }
-                            break;
-
-                            case 'X': /* %llX - unsigned 64-bit hexadecimal uppercase */
-                            {
-                                u64Temp = va_arg(ap, uint64);
-                                if (0U == FCUART_Int64ToChar(u64Temp,
-                                                             TempBuffer,
-                                                             UART_PRINT_RADIX_HEX,
-                                                             TRUE,
-                                                             FALSE))
-                                {
-                                    for (pStr = TempBuffer; *pStr; pStr++)
-                                    {
-                                        tRetVal = Uart_SyncSend(Channel,
-                                                                (const uint8 *)pStr,
-                                                                1U,
-                                                                0xFFFFFFFFU);
-                                    }
-                                }
-                                fmt++;
-                            }
-                            break;
-
-                            case 'd': /* %lld - signed 64-bit decimal */
-                            case 'u': /* %llu - unsigned 64-bit decimal (using same processing) */
-                            {
-                                u64Temp = va_arg(ap, uint64);
-                                if (0U == FCUART_Int64ToChar(u64Temp,
-                                                             TempBuffer,
-                                                             UART_PRINT_RADIX_DEC,
-                                                             FALSE,
-                                                             (*fmt == 'd')))
-                                {
-                                    for (pStr = TempBuffer; *pStr; pStr++)
-                                    {
-                                        tRetVal = Uart_SyncSend(Channel,
-                                                                (const uint8 *)pStr,
-                                                                1U,
-                                                                0xFFFFFFFFU);
-                                    }
-                                }
-                                fmt++;
-                            }
-                            break;
-
-                            default:
-                                fmt++;
-                                break;
-                        }
-                    }
-                    else
-                    {
-                        fmt++;
-                    }
-                }
-                break;
-
-                case '.':
-                {
-                    u8Number = (uint8)(*(++fmt) - '0');
-                    if ((*(++fmt)) == 'f')
-                    {
-                        double num = va_arg(ap, double);
-                        if (0U == FCUART_Float2Char(num, TempBuffer, u8Number))
-                        {
-                            for (pStr = TempBuffer; *pStr; pStr++)
-                            {
-                                tRetVal = Uart_SyncSend(Channel, (const uint8 *)pStr, 1U, 0xFFFFFFFFU);
-                            }
-                        }
-                        fmt++;
-                    }
-                }
-                break;
-
-                case 'f':
-                {
-                    double num = va_arg(ap, double);
-                    if (0U == FCUART_Float2Char(num, TempBuffer, u8LenthNumber))
-                    {
-                        for (pStr = TempBuffer; *pStr; pStr++)
-                        {
-                            tRetVal = Uart_SyncSend(Channel, (const uint8 *)pStr, 1U, 0xFFFFFFFFU);
-                        }
-                    }
-                    fmt++;
-                }
-                break;
-
-                default:
-                    fmt++;
-                    break;
+        case 'x': {
+          i32Temp = va_arg(ap, int);
+          if (0U == FCUART_Int2Char(i32Temp, TempBuffer, UART_PRINT_RADIX_HEX, FALSE)) {
+            for (pStr = TempBuffer; *pStr; pStr++) {
+              tRetVal = Uart_SyncSend(Channel, (const uint8 *)pStr, 1U, 0xFFFFFFFFU);
             }
-        }
-        else
-        {
-            tRetVal = Uart_SyncSend(Channel, (const uint8 *)fmt, 1U, 0xFFFFFFFFU);
+          }
+          fmt++;
+        } break;
 
-            if (tRetVal != E_OK)
-            {
+        case 'X': {
+          i32Temp = va_arg(ap, int);
+          if (0U == FCUART_Int2Char(i32Temp, TempBuffer, UART_PRINT_RADIX_HEX, TRUE)) {
+            for (pStr = TempBuffer; *pStr; pStr++) {
+              tRetVal = Uart_SyncSend(Channel, (const uint8 *)pStr, 1U, 0xFFFFFFFFU);
+            }
+          }
+          fmt++;
+        } break;
+
+        case 'l': {
+          if (*(fmt + 1) == 'l') {
+            fmt += 2;
+            switch (*fmt) {
+              case 'x': {
+                u64Temp = va_arg(ap, uint64);
+                if (0U == FCUART_Int64ToChar(u64Temp, TempBuffer, UART_PRINT_RADIX_HEX, FALSE, FALSE)) {
+                  for (pStr = TempBuffer; *pStr; pStr++) {
+                    tRetVal = Uart_SyncSend(Channel, (const uint8 *)pStr, 1U, 0xFFFFFFFFU);
+                  }
+                }
+                fmt++;
+              } break;
+
+              case 'X': /* %llX - unsigned 64-bit hexadecimal uppercase */
+              {
+                u64Temp = va_arg(ap, uint64);
+                if (0U == FCUART_Int64ToChar(u64Temp, TempBuffer, UART_PRINT_RADIX_HEX, TRUE, FALSE)) {
+                  for (pStr = TempBuffer; *pStr; pStr++) {
+                    tRetVal = Uart_SyncSend(Channel, (const uint8 *)pStr, 1U, 0xFFFFFFFFU);
+                  }
+                }
+                fmt++;
+              } break;
+
+              case 'd': /* %lld - signed 64-bit decimal */
+              case 'u': /* %llu - unsigned 64-bit decimal (using same processing) */
+              {
+                u64Temp = va_arg(ap, uint64);
+                if (0U == FCUART_Int64ToChar(u64Temp, TempBuffer, UART_PRINT_RADIX_DEC, FALSE, (*fmt == 'd'))) {
+                  for (pStr = TempBuffer; *pStr; pStr++) {
+                    tRetVal = Uart_SyncSend(Channel, (const uint8 *)pStr, 1U, 0xFFFFFFFFU);
+                  }
+                }
+                fmt++;
+              } break;
+
+              default:
+                fmt++;
                 break;
             }
-
+          } else {
             fmt++;
-        }
+          }
+        } break;
+
+        case '.': {
+          u8Number = (uint8)(*(++fmt) - '0');
+          if ((*(++fmt)) == 'f') {
+            double num = va_arg(ap, double);
+            if (0U == FCUART_Float2Char(num, TempBuffer, u8Number)) {
+              for (pStr = TempBuffer; *pStr; pStr++) {
+                tRetVal = Uart_SyncSend(Channel, (const uint8 *)pStr, 1U, 0xFFFFFFFFU);
+              }
+            }
+            fmt++;
+          }
+        } break;
+
+        case 'f': {
+          double num = va_arg(ap, double);
+          if (0U == FCUART_Float2Char(num, TempBuffer, u8LenthNumber)) {
+            for (pStr = TempBuffer; *pStr; pStr++) {
+              tRetVal = Uart_SyncSend(Channel, (const uint8 *)pStr, 1U, 0xFFFFFFFFU);
+            }
+          }
+          fmt++;
+        } break;
+
+        default:
+          fmt++;
+          break;
+      }
+    } else {
+      tRetVal = Uart_SyncSend(Channel, (const uint8 *)fmt, 1U, 0xFFFFFFFFU);
+
+      if (tRetVal != E_OK) {
+        break;
+      }
+
+      fmt++;
     }
+  }
 
-    va_end(ap);
+  va_end(ap);
 
-    return tRetVal;
+  return tRetVal;
 }
 
 /**

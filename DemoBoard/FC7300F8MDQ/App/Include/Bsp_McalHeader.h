@@ -44,11 +44,11 @@
 #endif
 
 #if (defined RTT_PRINTF)
-    #define DEBUG_INFO(str, ...) SEGGER_RTT_printf(Cpm_HWA_GetCoreId(), str, ##__VA_ARGS__)
+  #define DEBUG_INFO(str, ...) SEGGER_RTT_printf(Cpm_HWA_GetCoreId(), str, ##__VA_ARGS__)
 #elif (defined UART_PRINTF)
-    #define DEBUG_INFO(str,...) FCUART_Printf(0U,str, ##__VA_ARGS__)
+  #define DEBUG_INFO(str, ...) FCUART_Printf(0U, str, ##__VA_ARGS__)
 #else
-    #define DEBUG_INFO(str,...)
+  #define DEBUG_INFO(str, ...)
 #endif
 
 #endif /* _BSP_MCALHEADER_H_ */

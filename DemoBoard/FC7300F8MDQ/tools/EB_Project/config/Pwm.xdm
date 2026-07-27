@@ -1182,8 +1182,8 @@
                       <a:a name="IMPORTER_INFO" value="@DEF"/>
                     </d:ref>
                     <d:var name="PwmNotification" type="FUNCTION-NAME" 
-                           value="NULL">
-                      <a:a name="ENABLE" value="false"/>
+                           value="Cdd_PwmWave_CarrierBoundaryNotification">
+                      <a:a name="ENABLE" value="true"/>
                       <a:a name="IMPORTER_INFO" value="@DEF"/>
                     </d:var>
                     <d:lst name="PwmChannelEcucPartitionRef">

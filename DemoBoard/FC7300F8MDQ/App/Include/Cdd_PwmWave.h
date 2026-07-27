@@ -85,8 +85,8 @@ typedef struct {
  * Pwm_Init supplies a shifted CH3 baseline; this CDD safely converts CH3 to
  * an independent two-carrier-period channel while keeping TRIGOUT=0. For
  * TEST_TOGGLE, CH3 uses CM0=2*CH0 period and CM1=CH0 period. Carrier-period
- * changes are armed in CH3's second old carrier cycle so CH0 and CH3 load at
- * their next common zero.
+ * changes use a one-shot CH0 CCU0 notification. The callback arms UPEN in
+ * CH3's second old carrier cycle so CH0 and CH3 load at their next common zero.
  * DTM0 channels 0-2 and TOM0 CH1/CH2 must remain unused. Do not call the
  * standard Pwm or TrgSel runtime update APIs for those resources from any core.
  */
@@ -116,7 +116,9 @@ Cdd_PwmWave_ResultType Cdd_PwmWave_GetActiveFrame(Cdd_PwmWave_FrameType *pFrame)
 Cdd_PwmWave_ResultType Cdd_PwmWave_GetPendingFrame(Cdd_PwmWave_FrameType *pFrame);
 Cdd_PwmWave_StateType Cdd_PwmWave_GetState(void);
 boolean Cdd_PwmWave_IsFaultLatched(void);
-/* Call from the existing Core0 20 ms task; it promotes or times out a pending frame. */
+/* EB-configured PWM_CARRIER notification; called from the eFTU1 TOM0-7 ISR. */
+void Cdd_PwmWave_CarrierBoundaryNotification(void);
+/* Call from the existing Core0 10 ms task; it promotes or times out a pending frame. */
 void Cdd_PwmWave_MainFunction(void);
 
 #endif /* CDD_PWM_WAVE_H */

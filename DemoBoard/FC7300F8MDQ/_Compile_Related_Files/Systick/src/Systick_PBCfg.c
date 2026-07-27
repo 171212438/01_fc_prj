@@ -3,7 +3,7 @@
 CONST(Systick_ConfigType, SYSTICK_CONST) Systick_Config =
 {
 	(Systick_PriorityType)0x0F,
-	(uint32)(300000000U / 10000U),
+	(uint32)((300000000U / 10000U) - 1U),  /* To get exactly 100 µs, should write 29999 @F.W.P */
 	SYSTICK_CLK_SRC_CORE
 };
 
@@ -14,7 +14,7 @@ LOCAL_INLINE FUNC(void, SYSTICK_VAR) task_dummy(void)
 #include "Bsp_MemMap.h"
 BSP_DATA_SECTION VAR(Systick_TcbType, SYSTICK_VAR) ScheduleTCB[TASK_TABLE_NUMBER] = {
 /* TaskMSCount  TaskOpen     OtherAction              MainAction   */
-   {2,           0,           task_dummy,              task_500us    },         /* 500us    */
+   {5,           0,           task_dummy,              task_500us  },           /* 500us  */
    {50,          0,           task_dummy,              task_5ms    },           /* 5ms    */
    {100,         0,           task_dummy,              task_10ms   },           /* 10ms   */
    {200,         0,           task_dummy,              task_20ms   },           /* 20ms   */

@@ -21,6 +21,20 @@ _Static_assert((BSP_PWM_WAVE_FIXED_TEST_CMPB_TICKS - BSP_PWM_WAVE_FIXED_TEST_CMP
 _Static_assert(((BSP_PWM_WAVE_FIXED_TEST_CMPB_TICKS - BSP_PWM_WAVE_FIXED_TEST_CMPA_TICKS) * 2U) ==
                    BSP_PWM_WAVE_FIXED_TEST_PERIOD_TICKS,
                "Fixed PWM test command duty is not 50 percent");
+_Static_assert(BSP_PWM_WAVE_CARRIER_TEST_130KHZ_PERIOD_TICKS == CDD_PWM_WAVE_MAX_PERIOD_TICKS,
+               "130 kHz test point must match the supported maximum period");
+_Static_assert((BSP_PWM_WAVE_CARRIER_TEST_200KHZ_PERIOD_TICKS >= CDD_PWM_WAVE_MIN_PERIOD_TICKS) &&
+                   (BSP_PWM_WAVE_CARRIER_TEST_200KHZ_PERIOD_TICKS <= CDD_PWM_WAVE_MAX_PERIOD_TICKS),
+               "200 kHz test point is outside the CDD period range");
+_Static_assert((BSP_PWM_WAVE_CARRIER_TEST_250KHZ_PERIOD_TICKS >= CDD_PWM_WAVE_MIN_PERIOD_TICKS) &&
+                   (BSP_PWM_WAVE_CARRIER_TEST_250KHZ_PERIOD_TICKS <= CDD_PWM_WAVE_MAX_PERIOD_TICKS),
+               "250 kHz test point is outside the CDD period range");
+_Static_assert(BSP_PWM_WAVE_CARRIER_TEST_300KHZ_PERIOD_TICKS == CDD_PWM_WAVE_MIN_PERIOD_TICKS,
+               "300 kHz test point must match the supported minimum period");
+_Static_assert(BSP_PWM_WAVE_FIXED_TEST_CMPB_TICKS < BSP_PWM_WAVE_CARRIER_TEST_300KHZ_PERIOD_TICKS,
+               "Carrier test compare window reaches the minimum test period");
+_Static_assert(BSP_PWM_WAVE_CARRIER_TEST_STEP_COUNT == 4U, "Carrier test table must contain four frequency points");
+_Static_assert(BSP_PWM_WAVE_CARRIER_TEST_HOLD_10MS_CYCLES > 0U, "Carrier test hold time must be non-zero");
 
 /************ Local variable *******************/
 uint16 s_u16Rgb1DutyVal = 0U;
@@ -32,7 +46,26 @@ uint16 s_u16Rgb2Step = PWM_MAX_DUTY / 200;
 uint8 s_u8Rgb2OrderIndex = 0U;
 Pwm_ChannelType s_u32Rgb2Order[3] = {PwmConf_PwmChannel_RGB2_BLUE, PwmConf_PwmChannel_RGB2_GREEN, PwmConf_PwmChannel_RGB2_RED};
 
+typedef enum {
+  BSP_PWM_WAVE_CARRIER_TEST_IDLE = 0,
+  BSP_PWM_WAVE_CARRIER_TEST_WAIT_START,
+  BSP_PWM_WAVE_CARRIER_TEST_WAIT_PERIOD,
+  BSP_PWM_WAVE_CARRIER_TEST_HOLD
+} Bsp_PwmWave_CarrierTestStateType;
+
+typedef enum {
+  BSP_PWM_WAVE_TEST_OWNER_NONE = 0,
+  BSP_PWM_WAVE_TEST_OWNER_FIXED,
+  BSP_PWM_WAVE_TEST_OWNER_CARRIER
+} Bsp_PwmWave_TestOwnerType;
+
+typedef struct {
+  uint32 u32PeriodTicks;
+  uint16 u16TargetFrequencyKHz;
+} Bsp_PwmWave_CarrierTestPointType;
+
 volatile boolean g_bPwmWaveFixedTestStopRequest = FALSE;
+volatile boolean g_bPwmWaveCarrierTestStopRequest = FALSE;
 
 static volatile Bsp_PwmWave_JobType s_ePwmWaveJob = BSP_PWM_WAVE_JOB_NONE;
 static volatile Bsp_PwmWave_JobStateType s_ePwmWaveJobState = BSP_PWM_WAVE_JOB_IDLE;
@@ -42,6 +75,11 @@ static volatile uint32 s_u32PwmWaveCommandEpoch = 0U;
 static volatile boolean s_bPwmWaveMainInProgress = FALSE;
 static boolean s_bPwmWaveFixedTestAwaitingRun = FALSE;
 static Cdd_PwmWave_SequenceType s_u32PwmWaveFixedTestSequence = 0U;
+static Bsp_PwmWave_TestOwnerType s_ePwmWaveTestOwner = BSP_PWM_WAVE_TEST_OWNER_NONE;
+static Bsp_PwmWave_CarrierTestStateType s_ePwmWaveCarrierTestState = BSP_PWM_WAVE_CARRIER_TEST_IDLE;
+static Cdd_PwmWave_SequenceType s_u32PwmWaveCarrierTestSequence = 0U;
+static uint16 s_u16PwmWaveCarrierTestHold10msCycles = 0U;
+static uint8 s_u8PwmWaveCarrierTestIndex = 0U;
 static const Cdd_PwmWave_FrameType s_tPwmWaveFixedTestFrame = {
     BSP_PWM_WAVE_FIXED_TEST_PERIOD_TICKS,
     {
@@ -51,6 +89,16 @@ static const Cdd_PwmWave_FrameType s_tPwmWaveFixedTestFrame = {
         {BSP_PWM_WAVE_FIXED_TEST_CMPA_TICKS, BSP_PWM_WAVE_FIXED_TEST_CMPB_TICKS},
     },
     CDD_PWM_WAVE_PWM5_TEST_TOGGLE};
+static const Bsp_PwmWave_CarrierTestPointType s_atPwmWaveCarrierTestPoints[BSP_PWM_WAVE_CARRIER_TEST_STEP_COUNT] = {
+    {BSP_PWM_WAVE_CARRIER_TEST_130KHZ_PERIOD_TICKS, 130U},
+    {BSP_PWM_WAVE_CARRIER_TEST_200KHZ_PERIOD_TICKS, 200U},
+    {BSP_PWM_WAVE_CARRIER_TEST_250KHZ_PERIOD_TICKS, 250U},
+    {BSP_PWM_WAVE_CARRIER_TEST_300KHZ_PERIOD_TICKS, 300U},
+};
+
+_Static_assert((sizeof(s_atPwmWaveCarrierTestPoints) / sizeof(s_atPwmWaveCarrierTestPoints[0])) ==
+                   BSP_PWM_WAVE_CARRIER_TEST_STEP_COUNT,
+               "Carrier test point count mismatch");
 
 /************ Local functions *******************/
 static boolean Bsp_PwmWave_IsCore0(void)
@@ -148,6 +196,15 @@ static boolean Bsp_PwmWave_IsFixedTestFrame(const Cdd_PwmWave_FrameType *pFrame)
   return TRUE;
 }
 
+static boolean Bsp_PwmWave_IsCarrierTestFrame(const Cdd_PwmWave_FrameType *pFrame, uint32 u32ExpectedPeriodTicks)
+{
+  return ((u32ExpectedPeriodTicks == pFrame->u32PeriodTicks) &&
+          (CDD_PWM_WAVE_PWM5_TEST_TOGGLE == pFrame->ePwm5State) &&
+          (CDD_PWM_WAVE_OK == Cdd_PwmWave_ValidateFrame(pFrame)))
+             ? TRUE
+             : FALSE;
+}
+
 static void Bsp_Pwm_SetOutputPinModes(void)
 {
   /* PWM5: eFTU1 TOM0 CH3 direct output. */
@@ -214,7 +271,7 @@ static boolean Bsp_Pwm_ForceOutputPinsGpioLow(void)
   return Bsp_Pwm_AreOutputPinsGpioLow();
 }
 
-static boolean Bsp_PwmWave_FixedTestForceLow(void)
+static boolean Bsp_PwmWave_TestForceLow(void)
 {
   if (CDD_PWM_WAVE_OK == Bsp_PwmWave_EmergencyShutdown()) {
     return TRUE;
@@ -223,18 +280,60 @@ static boolean Bsp_PwmWave_FixedTestForceLow(void)
   return Bsp_Pwm_ForceOutputPinsGpioLow();
 }
 
+static void Bsp_PwmWave_ResetTestState(void)
+{
+  g_bPwmWaveFixedTestStopRequest = FALSE;
+  g_bPwmWaveCarrierTestStopRequest = FALSE;
+  s_bPwmWaveFixedTestAwaitingRun = FALSE;
+  s_u32PwmWaveFixedTestSequence = 0U;
+  s_ePwmWaveTestOwner = BSP_PWM_WAVE_TEST_OWNER_NONE;
+  s_ePwmWaveCarrierTestState = BSP_PWM_WAVE_CARRIER_TEST_IDLE;
+  s_u32PwmWaveCarrierTestSequence = 0U;
+  s_u16PwmWaveCarrierTestHold10msCycles = 0U;
+  s_u8PwmWaveCarrierTestIndex = 0U;
+}
+
 static void Bsp_PwmWave_FixedTestAbort(const char *pReason)
 {
   boolean bLowConfirmed;
 
-  s_bPwmWaveFixedTestAwaitingRun = FALSE;
-  g_bPwmWaveFixedTestStopRequest = FALSE;
-  bLowConfirmed = Bsp_PwmWave_FixedTestForceLow();
+  Bsp_PwmWave_ResetTestState();
+  bLowConfirmed = Bsp_PwmWave_TestForceLow();
   if (TRUE == bLowConfirmed) {
     DEBUG_INFO("PWM fixed test %s; all outputs confirmed low.\r\n", pReason);
   } else {
     DEBUG_INFO("CRITICAL: PWM fixed test %s; output-low state unconfirmed.\r\n", pReason);
   }
+}
+
+static void Bsp_PwmWave_CarrierTestAbort(const char *pReason)
+{
+  boolean bLowConfirmed;
+
+  Bsp_PwmWave_ResetTestState();
+  bLowConfirmed = Bsp_PwmWave_TestForceLow();
+  if (TRUE == bLowConfirmed) {
+    DEBUG_INFO("PWM carrier frequency test %s; all outputs confirmed low.\r\n", pReason);
+  } else {
+    DEBUG_INFO("CRITICAL: PWM carrier frequency test %s; output-low state unconfirmed.\r\n", pReason);
+  }
+}
+
+static Cdd_PwmWave_ResultType Bsp_PwmWave_CarrierTestRequestCurrentPoint(void)
+{
+  Cdd_PwmWave_ResultType eResult;
+  Cdd_PwmWave_SequenceType u32Sequence;
+
+  if (s_u8PwmWaveCarrierTestIndex >= BSP_PWM_WAVE_CARRIER_TEST_STEP_COUNT) {
+    return CDD_PWM_WAVE_E_HW_CONFIG;
+  }
+
+  eResult = Bsp_PwmWave_RequestPeriodChange(s_atPwmWaveCarrierTestPoints[s_u8PwmWaveCarrierTestIndex].u32PeriodTicks, &u32Sequence);
+  if (CDD_PWM_WAVE_OK == eResult) {
+    s_u32PwmWaveCarrierTestSequence = u32Sequence;
+    s_ePwmWaveCarrierTestState = BSP_PWM_WAVE_CARRIER_TEST_WAIT_PERIOD;
+  }
+  return eResult;
 }
 
 /************ Global functions *******************/
@@ -248,9 +347,7 @@ void Bsp_Pwm_Init(void)
   if (0U == GET_CPU_ID())
 #endif
   {
-    g_bPwmWaveFixedTestStopRequest = FALSE;
-    s_bPwmWaveFixedTestAwaitingRun = FALSE;
-    s_u32PwmWaveFixedTestSequence = 0U;
+    Bsp_PwmWave_ResetTestState();
     Bsp_PwmWave_RecordJob(BSP_PWM_WAVE_JOB_NONE, BSP_PWM_WAVE_JOB_IDLE, CDD_PWM_WAVE_E_UNINIT, 0U);
     ePwmWaveResult = Cdd_PwmWave_Init();
     if (CDD_PWM_WAVE_OK == ePwmWaveResult) {
@@ -282,11 +379,52 @@ Cdd_PwmWave_ResultType Bsp_PwmWave_ValidateFrame(const Cdd_PwmWave_FrameType *pF
 Cdd_PwmWave_ResultType Bsp_PwmWave_FixedTestStart(Cdd_PwmWave_SequenceType *pSequence)
 {
   Cdd_PwmWave_SequenceType u32Sequence;
-  Cdd_PwmWave_ResultType eResult = Bsp_PwmWave_RequestStart(&s_tPwmWaveFixedTestFrame, &u32Sequence);
+  Cdd_PwmWave_ResultType eResult;
 
+  if (FALSE == Bsp_PwmWave_IsCore0()) {
+    return CDD_PWM_WAVE_E_WRONG_CORE;
+  }
+  if (BSP_PWM_WAVE_TEST_OWNER_NONE != s_ePwmWaveTestOwner) {
+    return CDD_PWM_WAVE_E_BUSY;
+  }
+
+  eResult = Bsp_PwmWave_RequestStart(&s_tPwmWaveFixedTestFrame, &u32Sequence);
   if (CDD_PWM_WAVE_OK == eResult) {
+    g_bPwmWaveFixedTestStopRequest = FALSE;
+    s_ePwmWaveTestOwner = BSP_PWM_WAVE_TEST_OWNER_FIXED;
     s_u32PwmWaveFixedTestSequence = u32Sequence;
     s_bPwmWaveFixedTestAwaitingRun = TRUE;
+    if (NULL_PTR != pSequence) {
+      *pSequence = u32Sequence;
+    }
+  }
+  return eResult;
+}
+
+Cdd_PwmWave_ResultType Bsp_PwmWave_CarrierFrequencyTestStart(Cdd_PwmWave_SequenceType *pSequence)
+{
+  Cdd_PwmWave_SequenceType u32Sequence;
+  Cdd_PwmWave_ResultType eResult;
+
+  if (FALSE == Bsp_PwmWave_IsCore0()) {
+    return CDD_PWM_WAVE_E_WRONG_CORE;
+  }
+  if ((BSP_PWM_WAVE_TEST_OWNER_NONE != s_ePwmWaveTestOwner) ||
+      (BSP_PWM_WAVE_CARRIER_TEST_IDLE != s_ePwmWaveCarrierTestState)) {
+    return CDD_PWM_WAVE_E_BUSY;
+  }
+
+  /* Start from the board-proven 200 kHz frame. After RUN confirmation the
+   * monitor submits 130 kHz as the first dynamic period change. */
+  eResult = Bsp_PwmWave_RequestStart(&s_tPwmWaveFixedTestFrame, &u32Sequence);
+  if (CDD_PWM_WAVE_OK == eResult) {
+    g_bPwmWaveFixedTestStopRequest = FALSE;
+    g_bPwmWaveCarrierTestStopRequest = FALSE;
+    s_u8PwmWaveCarrierTestIndex = 0U;
+    s_u16PwmWaveCarrierTestHold10msCycles = 0U;
+    s_u32PwmWaveCarrierTestSequence = u32Sequence;
+    s_ePwmWaveCarrierTestState = BSP_PWM_WAVE_CARRIER_TEST_WAIT_START;
+    s_ePwmWaveTestOwner = BSP_PWM_WAVE_TEST_OWNER_CARRIER;
     if (NULL_PTR != pSequence) {
       *pSequence = u32Sequence;
     }
@@ -315,10 +453,17 @@ Cdd_PwmWave_ResultType Bsp_PwmWave_FixedTestStop(void)
     eResult = Cdd_PwmWave_ConfirmArmedLow();
     Bsp_PwmWave_RecordJobIfCurrent(u32CommandEpoch, BSP_PWM_WAVE_JOB_STOP,
                                    (CDD_PWM_WAVE_OK == eResult) ? BSP_PWM_WAVE_JOB_COMPLETED : BSP_PWM_WAVE_JOB_FAILED, eResult, 0U);
+    if (CDD_PWM_WAVE_OK == eResult) {
+      Bsp_PwmWave_ResetTestState();
+    }
     return eResult;
   }
 
-  return Bsp_PwmWave_Stop();
+  eResult = Bsp_PwmWave_Stop();
+  if (CDD_PWM_WAVE_OK == eResult) {
+    Bsp_PwmWave_ResetTestState();
+  }
+  return eResult;
 }
 
 Cdd_PwmWave_ResultType Bsp_PwmWave_RequestStart(const Cdd_PwmWave_FrameType *pFrame, Cdd_PwmWave_SequenceType *pSequence)
@@ -522,6 +667,10 @@ static void Bsp_PwmWave_FixedTestMonitor(void)
   Cdd_PwmWave_ResultType eResult;
   Cdd_PwmWave_ResultType eFrameResult;
 
+  if (BSP_PWM_WAVE_TEST_OWNER_FIXED != s_ePwmWaveTestOwner) {
+    return;
+  }
+
   if (TRUE == s_bPwmWaveFixedTestAwaitingRun) {
     eResult = Bsp_PwmWave_GetControlStatus(&tStatus);
     if ((CDD_PWM_WAVE_OK != eResult) || (BSP_PWM_WAVE_JOB_START_WITH_FRAME != tStatus.eJob) ||
@@ -565,6 +714,146 @@ static void Bsp_PwmWave_FixedTestMonitor(void)
       }
     }
   }
+}
+
+static void Bsp_PwmWave_CarrierFrequencyTestMonitor(void)
+{
+  Bsp_PwmWave_ControlStatusType tStatus;
+  Cdd_PwmWave_FrameType tActiveFrame;
+  Cdd_PwmWave_ResultType eResult;
+  Cdd_PwmWave_ResultType eFrameResult;
+  const Bsp_PwmWave_CarrierTestPointType *pTestPoint;
+
+  if (BSP_PWM_WAVE_TEST_OWNER_CARRIER != s_ePwmWaveTestOwner) {
+    return;
+  }
+  if (BSP_PWM_WAVE_CARRIER_TEST_IDLE == s_ePwmWaveCarrierTestState) {
+    Bsp_PwmWave_CarrierTestAbort("lost test state ownership");
+    return;
+  }
+
+  if (TRUE == g_bPwmWaveCarrierTestStopRequest) {
+    eResult = Bsp_PwmWave_FixedTestStop();
+    if (CDD_PWM_WAVE_E_BUSY == eResult) {
+      return;
+    }
+
+    g_bPwmWaveCarrierTestStopRequest = FALSE;
+    if (CDD_PWM_WAVE_OK == eResult) {
+      DEBUG_INFO("PWM carrier frequency test Stop complete; all outputs confirmed low.\r\n");
+    } else {
+      DEBUG_INFO("PWM carrier frequency test Stop rejected, result %d.\r\n", (int)eResult);
+      Bsp_PwmWave_CarrierTestAbort("normal Stop failed");
+    }
+    return;
+  }
+
+  if (BSP_PWM_WAVE_CARRIER_TEST_WAIT_START == s_ePwmWaveCarrierTestState) {
+    eResult = Bsp_PwmWave_GetControlStatus(&tStatus);
+    if ((CDD_PWM_WAVE_OK != eResult) || (BSP_PWM_WAVE_JOB_START_WITH_FRAME != tStatus.eJob) ||
+        (s_u32PwmWaveCarrierTestSequence != tStatus.u32RequestedSequence)) {
+      Bsp_PwmWave_CarrierTestAbort("aborted before initial RUN");
+    } else if (BSP_PWM_WAVE_JOB_PENDING == tStatus.eJobState) {
+      return;
+    } else if (BSP_PWM_WAVE_JOB_COMPLETED == tStatus.eJobState) {
+      eFrameResult = Bsp_PwmWave_GetActiveFrame(&tActiveFrame);
+      eResult = Bsp_PwmWave_GetControlStatus(&tStatus);
+      if ((CDD_PWM_WAVE_OK != eResult) || (BSP_PWM_WAVE_JOB_START_WITH_FRAME != tStatus.eJob) ||
+          (BSP_PWM_WAVE_JOB_COMPLETED != tStatus.eJobState) || (CDD_PWM_WAVE_OK != tStatus.eLastResult) ||
+          (s_u32PwmWaveCarrierTestSequence != tStatus.u32RequestedSequence) || (CDD_PWM_WAVE_STATE_RUN != tStatus.tDriverStatus.eState) ||
+          (s_u32PwmWaveCarrierTestSequence != tStatus.tDriverStatus.u32ActiveSequence) || (CDD_PWM_WAVE_OK != eFrameResult) ||
+          (FALSE == Bsp_PwmWave_IsFixedTestFrame(&tActiveFrame))) {
+        Bsp_PwmWave_CarrierTestAbort("initial RUN confirmation failed");
+        return;
+      }
+
+      eResult = Bsp_PwmWave_CarrierTestRequestCurrentPoint();
+      if (CDD_PWM_WAVE_OK == eResult) {
+        DEBUG_INFO("PWM carrier frequency test requested target %d kHz, period %d ticks, sequence %d.\r\n",
+                   (int)s_atPwmWaveCarrierTestPoints[s_u8PwmWaveCarrierTestIndex].u16TargetFrequencyKHz,
+                   (int)s_atPwmWaveCarrierTestPoints[s_u8PwmWaveCarrierTestIndex].u32PeriodTicks,
+                   (int)s_u32PwmWaveCarrierTestSequence);
+      } else {
+        DEBUG_INFO("PWM carrier frequency test first period request rejected, result %d.\r\n", (int)eResult);
+        Bsp_PwmWave_CarrierTestAbort("first period request failed");
+      }
+    } else {
+      DEBUG_INFO("PWM carrier frequency test initial Start failed, result %d.\r\n", (int)tStatus.eLastResult);
+      Bsp_PwmWave_CarrierTestAbort("initial Start failed");
+    }
+    return;
+  }
+
+  if (s_u8PwmWaveCarrierTestIndex >= BSP_PWM_WAVE_CARRIER_TEST_STEP_COUNT) {
+    Bsp_PwmWave_CarrierTestAbort("test index is invalid");
+    return;
+  }
+  pTestPoint = &s_atPwmWaveCarrierTestPoints[s_u8PwmWaveCarrierTestIndex];
+
+  if (BSP_PWM_WAVE_CARRIER_TEST_WAIT_PERIOD == s_ePwmWaveCarrierTestState) {
+    eResult = Bsp_PwmWave_GetControlStatus(&tStatus);
+    if ((CDD_PWM_WAVE_OK != eResult) || (BSP_PWM_WAVE_JOB_PERIOD_CHANGE != tStatus.eJob) ||
+        (s_u32PwmWaveCarrierTestSequence != tStatus.u32RequestedSequence)) {
+      Bsp_PwmWave_CarrierTestAbort("period request was replaced");
+    } else if (BSP_PWM_WAVE_JOB_PENDING == tStatus.eJobState) {
+      return;
+    } else if (BSP_PWM_WAVE_JOB_COMPLETED == tStatus.eJobState) {
+      eFrameResult = Bsp_PwmWave_GetActiveFrame(&tActiveFrame);
+      eResult = Bsp_PwmWave_GetControlStatus(&tStatus);
+      if ((CDD_PWM_WAVE_OK == eResult) && (BSP_PWM_WAVE_JOB_PERIOD_CHANGE == tStatus.eJob) &&
+          (BSP_PWM_WAVE_JOB_COMPLETED == tStatus.eJobState) && (CDD_PWM_WAVE_OK == tStatus.eLastResult) &&
+          (s_u32PwmWaveCarrierTestSequence == tStatus.u32RequestedSequence) && (CDD_PWM_WAVE_STATE_RUN == tStatus.tDriverStatus.eState) &&
+          (s_u32PwmWaveCarrierTestSequence == tStatus.tDriverStatus.u32ActiveSequence) && (CDD_PWM_WAVE_OK == eFrameResult) &&
+          (TRUE == Bsp_PwmWave_IsCarrierTestFrame(&tActiveFrame, pTestPoint->u32PeriodTicks))) {
+        s_u16PwmWaveCarrierTestHold10msCycles = 0U;
+        s_ePwmWaveCarrierTestState = BSP_PWM_WAVE_CARRIER_TEST_HOLD;
+        DEBUG_INFO("PWM carrier frequency test confirmed target %d kHz, period %d ticks; about 10 ms hold starts, PWM5 LOW/HIGH follows one carrier period.\r\n",
+                   (int)pTestPoint->u16TargetFrequencyKHz, (int)pTestPoint->u32PeriodTicks);
+      } else {
+        Bsp_PwmWave_CarrierTestAbort("active period confirmation failed");
+      }
+    } else {
+      DEBUG_INFO("PWM carrier frequency test period update failed, result %d.\r\n", (int)tStatus.eLastResult);
+      Bsp_PwmWave_CarrierTestAbort("period update failed");
+    }
+    return;
+  }
+
+  if (BSP_PWM_WAVE_CARRIER_TEST_HOLD == s_ePwmWaveCarrierTestState) {
+    eFrameResult = Bsp_PwmWave_GetActiveFrame(&tActiveFrame);
+    eResult = Bsp_PwmWave_GetControlStatus(&tStatus);
+    if ((CDD_PWM_WAVE_OK != eResult) || (BSP_PWM_WAVE_JOB_PERIOD_CHANGE != tStatus.eJob) ||
+        (BSP_PWM_WAVE_JOB_COMPLETED != tStatus.eJobState) || (CDD_PWM_WAVE_OK != tStatus.eLastResult) ||
+        (s_u32PwmWaveCarrierTestSequence != tStatus.u32RequestedSequence) || (CDD_PWM_WAVE_STATE_RUN != tStatus.tDriverStatus.eState) ||
+        (s_u32PwmWaveCarrierTestSequence != tStatus.tDriverStatus.u32ActiveSequence) || (CDD_PWM_WAVE_OK != eFrameResult) ||
+        (FALSE == Bsp_PwmWave_IsCarrierTestFrame(&tActiveFrame, pTestPoint->u32PeriodTicks))) {
+      Bsp_PwmWave_CarrierTestAbort("lost RUN ownership while holding a test point");
+      return;
+    }
+
+    s_u16PwmWaveCarrierTestHold10msCycles++;
+    if (s_u16PwmWaveCarrierTestHold10msCycles >= BSP_PWM_WAVE_CARRIER_TEST_HOLD_10MS_CYCLES) {
+      s_u16PwmWaveCarrierTestHold10msCycles = 0U;
+      s_u8PwmWaveCarrierTestIndex++;
+      if (s_u8PwmWaveCarrierTestIndex >= BSP_PWM_WAVE_CARRIER_TEST_STEP_COUNT) {
+        s_u8PwmWaveCarrierTestIndex = 0U;
+      }
+
+      eResult = Bsp_PwmWave_CarrierTestRequestCurrentPoint();
+      if (CDD_PWM_WAVE_OK == eResult) {
+        DEBUG_INFO("PWM carrier frequency test requested target %d kHz, period %d ticks, sequence %d.\r\n",
+                   (int)s_atPwmWaveCarrierTestPoints[s_u8PwmWaveCarrierTestIndex].u16TargetFrequencyKHz,
+                   (int)s_atPwmWaveCarrierTestPoints[s_u8PwmWaveCarrierTestIndex].u32PeriodTicks,
+                   (int)s_u32PwmWaveCarrierTestSequence);
+      } else {
+        DEBUG_INFO("PWM carrier frequency test next period request rejected, result %d.\r\n", (int)eResult);
+        Bsp_PwmWave_CarrierTestAbort("next period request failed");
+      }
+    }
+    return;
+  }
+
+  Bsp_PwmWave_CarrierTestAbort("entered an invalid test state");
 }
 
 void Bsp_PwmWave_MainFunction(void)
@@ -632,6 +921,17 @@ void Bsp_PwmWave_MainFunction(void)
   SchM_Exit_Pwm_PWM_EXCLUSIVE_AREA_19();
 }
 
+void Bsp_Pwm_10ms_Task_Event(void)
+{
+#if (PWM_MULTICORE_ENABLED == STD_ON)
+  if (0 == GET_CPU_ID()) {
+#endif
+    Bsp_PwmWave_CarrierFrequencyTestMonitor();
+#if (PWM_MULTICORE_ENABLED == STD_ON)
+  }
+#endif
+}
+
 void Bsp_Pwm_20ms_Task_Event(void)
 {
 #if (PWM_MULTICORE_ENABLED == STD_ON)
@@ -639,6 +939,13 @@ void Bsp_Pwm_20ms_Task_Event(void)
 #endif
     Cdd_PwmWave_MainFunction();
     Bsp_PwmWave_MainFunction();
+    /* Latch a completed Start/Period job in the same Core0 service pass.
+     * HOLD itself advances only from the 10 ms task, so confirmation-to-next-
+     * request remains one complete 10 ms interval. */
+    if ((BSP_PWM_WAVE_CARRIER_TEST_WAIT_START == s_ePwmWaveCarrierTestState) ||
+        (BSP_PWM_WAVE_CARRIER_TEST_WAIT_PERIOD == s_ePwmWaveCarrierTestState)) {
+      Bsp_PwmWave_CarrierFrequencyTestMonitor();
+    }
     Bsp_PwmWave_FixedTestMonitor();
     Pwm_SetDutyCycle(PwmConf_PwmChannel_RGB1_BLUE, s_u16Rgb1DutyVal);
     Pwm_SetDutyCycle(PwmConf_PwmChannel_RGB1_GREEN, s_u16Rgb1DutyVal);
