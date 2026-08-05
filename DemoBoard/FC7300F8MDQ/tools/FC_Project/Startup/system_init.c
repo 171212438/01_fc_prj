@@ -29,12 +29,14 @@
 *                                      DEFINES AND MACROS
 ==================================================================================================*/
 /* Core related addresses and offsets */
+#define DWT_CTRL_ADDR                               0xE0001000U
 #define DWT_CYCCNT_ADDR                             0xE0001004U
 #define DEMCR_ADDR                                  0xE000EDFCU
 #define CPACR_ADDR                                  0xE000ED88U
 #define SCB_VTOR_ADDR                               0xE000ED08U
 
 #define DEMCR_TRCENA                                (1 << 24)  /* Bit 24: Global enable for all DWT and ITM features */
+#define DWT_CTRL_CYCCNTENA                          (1 << 0)   /* Bit 0: Enable DWT_CYCCNT */
 
 #define CPACR_CP10_FULL_ACCESS                      (0x3 << 20)
 #define CPACR_CP11_FULL_ACCESS                      (0x3 << 22)
@@ -468,8 +470,9 @@ __attribute__((noreturn)) void system_init(void)
     uint32 standbymode;
 
     /* Workaround for erratum ERR_Debug_001 */
-    /* clear dwt counter to handle cpu0 lockstep error under debug */
-    REG_WRITE32(DEMCR_ADDR, DEMCR_TRCENA); /* Enable DWT and ITM features */
+    /* Disable and clear DWT_CYCCNT to handle the lockstep error under debug. */
+    REG_BIT_SET32(DEMCR_ADDR, DEMCR_TRCENA); /* Preserve debugger settings while enabling DWT register access. */
+    REG_BIT_CLEAR32(DWT_CTRL_ADDR, DWT_CTRL_CYCCNTENA); /* DWT_CYCCNT must be inactive after reset. */
     REG_WRITE32(DWT_CYCCNT_ADDR, 0U); /* Clear DWT_CYCCNT */
 
     /* Enable FPU when FPU is used in compiler */

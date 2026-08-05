@@ -1,3 +1,38 @@
+```c
+static volatile boolean s_bInitialized = FALSE;              /* Set after CDD initialization completes successfully. */
+static volatile boolean s_bInitInProgress = FALSE;           /* Guards Cdd_PwmWave_Init() against re-entry while it runs. */
+static volatile boolean s_bFaultLatched = FALSE;              /* Holds the fault latch until fault recovery succeeds. */
+
+static volatile boolean s_bPendingFrameValid = FALSE;         /* 提示当前 Pending 帧是否有效 */
+static volatile boolean s_bActiveFrameValid = FALSE;          /* 提示 Active 帧是否有效，检查到 Pending 帧更新到 CM0/1 后便转为 Active 帧 */
+static volatile boolean s_bStartPending = FALSE;              /* Marks the carrier-aligned start and verification sequence in progress. */
+static volatile boolean s_bClearPending = FALSE;              /* Marks the multi-stage fault-clear sequence in progress. */
+static volatile boolean s_bOutputPadsConfirmed = FALSE;       /* Records successful output pin-mux and armed-low validation. */
+static volatile boolean s_bArmNotificationPending = FALSE;    /* Tracks a one-shot carrier notification waiting to arm UPEN. */
+static boolean s_bPendingUsesRunSignalLevels = FALSE;         /* 检查 Pending 帧是否生效时，应当按照“运行态 SL 电平”，还是“安全态 SL 电平”进行对比 */
+
+static boolean s_bDtmRunConfigCaptured = FALSE;               /* Marks the saved DTM0/DTM1 CH_CTRL2 run values as valid. */
+static volatile Cdd_PwmWave_StateType s_eState = CDD_PWM_WAVE_STATE_RESET_SAFE; /* Holds the current CDD lifecycle state. */
+
+static Cdd_PwmWave_FrameType s_tPendingFrame;                  /* Stores the submitted frame awaiting confirmed hardware application. */
+static Cdd_PwmWave_FrameType s_tActiveFrame;                   /* Stores the last frame confirmed in the active TOM registers. */
+static Cdd_PwmWave_SequenceType s_u32SequenceCounter = 0U;     /* Generates nonzero frame sequence identifiers. */
+static Cdd_PwmWave_SequenceType s_u32PendingSequence = 0U;     /* Identifies the frame stored in s_tPendingFrame. */
+static Cdd_PwmWave_SequenceType s_u32ActiveSequence = 0U;      /* Identifies the frame stored in s_tActiveFrame. */
+static Cdd_PwmWave_SequenceType s_u32ArmSequence = 0U;         /* Binds the boundary-arm notification to one pending sequence. */
+static uint32 s_u32ArmOldCarrierPeriod = 0U;                   /* Preserves the active period used to validate the arm window. */
+
+static uint32 s_u32Dtm0RunCtrl2 = 0U;                          /* Saves the validated DTM0 CH_CTRL2 run-state baseline. */
+static uint32 s_u32DtmRunCtrl2 = 0U;                           /* Saves the validated DTM1 CH_CTRL2 run-state baseline. */
+
+static volatile uint32 s_u32FaultFlags = 0U;                   /* Accumulates CDD_PWM_WAVE_FAULT_* cause bits. */
+static uint8 s_u8PendingMainCycles = 0U;                       /* Counts main cycles while a pending frame remains unapplied. */
+static uint8 s_u8ArmWindowMissCount = 0U;                      /* Counts missed arm windows in PWM5's second old-carrier cycle. */
+static uint8 s_u8ArmInterruptCount = 0U;                       /* Counts carrier notifications for the current arm request. */
+```
+
+
+
 `Cdd_PwmWave_DisableArmNotificationLocked()` 是 PWM 波形 CDD 内部用于撤销载波边界装载通知的静态锁内辅助函数。调用者必须已经持有 `SchM` 的 `PWM_EXCLUSIVE_AREA_19`；函数先通过标准 PWM MCAL 关闭 `PWM_CARRIER` 通知，再清除本次 arm 事务的软件上下文，最后执行数据同步屏障，使通知和上下文的撤销先于后续锁内操作或临界区退出被观察到。当前生成配置把逻辑通道 `PwmConf_PwmChannel_PWM_CARRIER` 映射到 Core0 的 eFTU1 TOM0 CH0，并把通知回调配置为 `Cdd_PwmWave_CarrierBoundaryNotification()`。
 
 该函数没有输入参数、输出参数或返回结果。当前 MCAL 实现会把该 eFTU TOM 通道的通知边沿状态置为无效，关闭 CCU0/CCU1 中断并清除两类已挂起标志；随后 `Cdd_PwmWave_ResetArmNotificationState()` 清除 arm pending 标志、绑定序列号、旧载波周期、窗口错过次数和通知次数。该操作只关闭目标逻辑通道的 TOM 事件源，不会关闭共享的 `eFTU1_TOM_0TO7_IRQn`，也不会显式清除 NVIC pending。函数不会清除 pending/active 帧，不会撤销已经设置的 `UPEN`，也不会禁用 TOM 通道或物理输出；需要取消影子装载或回退输出的调用者会继续调用其他辅助函数。
