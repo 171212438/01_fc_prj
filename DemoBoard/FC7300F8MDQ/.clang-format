@@ -4,7 +4,7 @@ BasedOnStyle: Google
 IndentWidth: 2
 TabWidth: 2
 UseTab: Never
-ColumnLimit: 140
+ColumnLimit: 150
 
 SortIncludes: false
 IncludeBlocks: Preserve

@@ -277,6 +277,7 @@ extern "C" {
  * @brief      ISRs configured for Pwm channels FTU module
  *
  */
+#define PWM_EFTU_1_TOM_0_ISR_USED       (STD_ON)
 
 /**
  * @brief This define specifies the deadtime feature used or not.

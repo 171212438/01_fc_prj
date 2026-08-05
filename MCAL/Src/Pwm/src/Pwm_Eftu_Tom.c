@@ -290,11 +290,11 @@ PWM_TEXT_SECTION ISR(PWM_EFTU0_TOM_8_15_ISR)
  */
 PWM_TEXT_SECTION ISR(PWM_EFTU1_TOM_0_7_ISR)
 {
-    uint8                u8TOMHwCh;
-    uint8                u8Channel;
+    uint8 u8TOMHwCh;
+    uint8 u8Channel;
     EFTU_TOM_Type *const pTOM = (EFTU_TOM_Type *)(s_aPwmEftuTomBase[2U]);
-    uint32               u32Index;
-    Pwm_InstanceType     eInstance;
+    uint32 u32Index;
+    Pwm_InstanceType eInstance;
 #if (PWM_MULTICORE_ENABLED == STD_ON)
     uint8 u8CoreId = (uint8)GET_CPU_ID();
 #else

@@ -38,47 +38,47 @@
 #include "Bsp_Pfls.h"
 #include "Bsp_Eftu.h"
 
-#define ETH_DEMO_SUPPORT                  (STD_ON)
-#define PFLS_DEMO_SUPPORT                 (STD_ON)
-#define FEE_DEMO_SUPPORT                  (STD_ON)
-#define TRGSEL_DEMO_SUPPORT               (STD_ON)
-#define QDT_DEMO_SUPPORT                  (STD_ON)
-#define GPT_DEMO_SUPPORT                  (STD_ON)
-#define WDG_DEMO_SUPPORT                  (STD_ON)
-#define CAN_DEMO_SUPPORT                  (STD_ON)
-#define PWM_DEMO_SUPPORT                  (STD_ON)
+#define ETH_DEMO_SUPPORT    (STD_ON)
+#define PFLS_DEMO_SUPPORT   (STD_ON)
+#define FEE_DEMO_SUPPORT    (STD_ON)
+#define TRGSEL_DEMO_SUPPORT (STD_ON)
+#define QDT_DEMO_SUPPORT    (STD_ON)
+#define GPT_DEMO_SUPPORT    (STD_ON)
+#define WDG_DEMO_SUPPORT    (STD_ON)
+#define CAN_DEMO_SUPPORT    (STD_ON)
+#define PWM_DEMO_SUPPORT    (STD_ON)
 /* Board-test firmware only; these tests own the same Core0 CDD and are mutually exclusive. */
 #define PWM_WAVE_FIXED_TEST_AUTOSTART             (STD_OFF)
 #define PWM_WAVE_CARRIER_FREQUENCY_TEST_AUTOSTART (STD_ON)
-#define DMA_DEMO_SUPPORT                  (STD_ON)
-#define ADC_DEMO_SUPPORT                  (STD_ON)
-#define LIN_DEMO_SUPPORT                  (STD_ON)
-#define SPI_DEMO_SUPPORT                  (STD_ON)
-#define ICU_DEMO_SUPPORT                  (STD_ON)
-#define I2C_DEMO_SUPPORT                  (STD_ON)
-#define OCU_DEMO_SUPPORT                  (STD_ON)
-#define SDADC_DEMO_SUPPORT                (STD_ON)
-#define MB_DEMO_SUPPORT                   (STD_ON)
-#define CRYPTO_DEMO_SUPPORT               (STD_ON)
-#define SENT_DEMO_SUPPORT                 (STD_ON)
-#define SSI_DEMO_SUPPORT                  (STD_ON)
-#define CRC_DEMO_SUPPORT                  (STD_ON)
-#define MSC_DEMO_SUPPORT                  (STD_ON)
-#define IO_DEMO_SUPPORT                   (STD_ON)
+#define DMA_DEMO_SUPPORT                          (STD_ON)
+#define ADC_DEMO_SUPPORT                          (STD_ON)
+#define LIN_DEMO_SUPPORT                          (STD_ON)
+#define SPI_DEMO_SUPPORT                          (STD_ON)
+#define ICU_DEMO_SUPPORT                          (STD_ON)
+#define I2C_DEMO_SUPPORT                          (STD_ON)
+#define OCU_DEMO_SUPPORT                          (STD_ON)
+#define SDADC_DEMO_SUPPORT                        (STD_ON)
+#define MB_DEMO_SUPPORT                           (STD_ON)
+#define CRYPTO_DEMO_SUPPORT                       (STD_ON)
+#define SENT_DEMO_SUPPORT                         (STD_ON)
+#define SSI_DEMO_SUPPORT                          (STD_ON)
+#define CRC_DEMO_SUPPORT                          (STD_ON)
+#define MSC_DEMO_SUPPORT                          (STD_ON)
+#define IO_DEMO_SUPPORT                           (STD_ON)
 
 #if (PWM_WAVE_FIXED_TEST_AUTOSTART == STD_ON) && (PWM_DEMO_SUPPORT != STD_ON)
-#error "PWM fixed-test autostart requires PWM_DEMO_SUPPORT"
+  #error "PWM fixed-test autostart requires PWM_DEMO_SUPPORT"
 #endif
 
 #if (PWM_WAVE_CARRIER_FREQUENCY_TEST_AUTOSTART == STD_ON) && (PWM_DEMO_SUPPORT != STD_ON)
-#error "PWM carrier-frequency-test autostart requires PWM_DEMO_SUPPORT"
+  #error "PWM carrier-frequency-test autostart requires PWM_DEMO_SUPPORT"
 #endif
 
 #if (PWM_WAVE_FIXED_TEST_AUTOSTART == STD_ON) && (PWM_WAVE_CARRIER_FREQUENCY_TEST_AUTOSTART == STD_ON)
-#error "PWM fixed and carrier-frequency tests cannot autostart together"
+  #error "PWM fixed and carrier-frequency tests cannot autostart together"
 #endif
 
-#define SCM_CPUVTOR_CPU_INIT_VECTOR_MASK  0xFFFFFF8u
+#define SCM_CPUVTOR_CPU_INIT_VECTOR_MASK 0xFFFFFF8u
 
 #define SCM_CPUVTOR_CPU_INIT_VECTOR_SHIFT 3u
 
@@ -318,12 +318,14 @@ BSP_TEXT_SECTION static void core0_release_other_cores(void)
   uint32 u32RegVal;
 
   u32RegVal = SCM->CPU1VTOR;
-  SCM->CPU1VTOR = ((u32RegVal & (~(uint32)SCM_CPUVTOR_CPU_INIT_VECTOR_MASK)) | SCM_CPUVTOR_CPU_INIT_VECTOR(((uint32)__rom_intvec_start) >> 7));
+  SCM->CPU1VTOR =
+      ((u32RegVal & (~(uint32)SCM_CPUVTOR_CPU_INIT_VECTOR_MASK)) | SCM_CPUVTOR_CPU_INIT_VECTOR(((uint32)__rom_intvec_start) >> 7));
   SCM->CORE_HOLD &= ~((uint32)0x2u);
   RGM->C1_RLS |= (uint32)RGM_C1_RLS_C1_RELEASE_MASK;
 
   u32RegVal = SCM->CPU2VTOR;
-  SCM->CPU2VTOR = ((u32RegVal & (~(uint32)SCM_CPUVTOR_CPU_INIT_VECTOR_MASK)) | SCM_CPUVTOR_CPU_INIT_VECTOR((uint32)__rom_intvec_start >> 7));
+  SCM->CPU2VTOR =
+      ((u32RegVal & (~(uint32)SCM_CPUVTOR_CPU_INIT_VECTOR_MASK)) | SCM_CPUVTOR_CPU_INIT_VECTOR((uint32)__rom_intvec_start >> 7));
   SCM->CORE_HOLD &= ~((uint32)0x4u);
   RGM->C2_RLS |= (uint32)RGM_C2_RLS_C2_RELEASE_MASK;
 }
@@ -362,30 +364,33 @@ BSP_TEXT_SECTION int main(void)
 
 #if (PWM_DEMO_SUPPORT == STD_ON)
     Bsp_Pwm_Init();
-#if (PWM_WAVE_FIXED_TEST_AUTOSTART == STD_ON)
+  #if (PWM_WAVE_FIXED_TEST_AUTOSTART == STD_ON)
     {
       Cdd_PwmWave_SequenceType u32PwmWaveTestSequence = 0U;
       Cdd_PwmWave_ResultType ePwmWaveTestResult = Bsp_PwmWave_FixedTestStart(&u32PwmWaveTestSequence);
 
       if (CDD_PWM_WAVE_OK == ePwmWaveTestResult) {
-        DEBUG_INFO("PWM fixed test accepted, sequence %d; PWM5 starts at one carrier period LOW/HIGH and follows later period changes.\r\n", (int)u32PwmWaveTestSequence);
+        DEBUG_INFO("PWM fixed test accepted, sequence %d; PWM5 starts at one carrier period LOW/HIGH and follows later period changes.\r\n",
+                   (int)u32PwmWaveTestSequence);
       } else {
         DEBUG_INFO("PWM fixed test rejected, result %d; no test frame accepted.\r\n", (int)ePwmWaveTestResult);
       }
     }
-#endif
-#if (PWM_WAVE_CARRIER_FREQUENCY_TEST_AUTOSTART == STD_ON)
+  #endif
+  #if (PWM_WAVE_CARRIER_FREQUENCY_TEST_AUTOSTART == STD_ON)
     {
       Cdd_PwmWave_SequenceType u32PwmWaveTestSequence = 0U;
       Cdd_PwmWave_ResultType ePwmWaveTestResult = Bsp_PwmWave_CarrierFrequencyTestStart(&u32PwmWaveTestSequence);
 
       if (CDD_PWM_WAVE_OK == ePwmWaveTestResult) {
-        DEBUG_INFO("PWM carrier frequency test accepted, sequence %d; 200 kHz seed then 130/200/250/300 kHz loop, each confirmed point held about 10 ms.\r\n", (int)u32PwmWaveTestSequence);
+        DEBUG_INFO(
+            "PWM carrier frequency test accepted, sequence %d; 200 kHz seed then 130/200/250/300 kHz loop, each confirmed point held about 10 ms.\r\n",
+            (int)u32PwmWaveTestSequence);
       } else {
         DEBUG_INFO("PWM carrier frequency test rejected, result %d; no test frame accepted.\r\n", (int)ePwmWaveTestResult);
       }
     }
-#endif
+  #endif
 #endif
 #if (DMA_DEMO_SUPPORT == STD_ON)
     Bsp_Dma_Init();
@@ -536,6 +541,7 @@ BSP_TEXT_SECTION int main(void)
   }
 
   Systick_Init(&Systick_Config);
+  IntMgr_SetPriority(SysTick_IRQn, 1U);
   Systick_Enable();
 
   while (bReturnFlag) {

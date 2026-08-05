@@ -19,8 +19,21 @@ App/Source/Cdd_PwmWave.o: \
  ../../../../../MCAL/Src/Common/include/Eftu_Dtm_Reg.h \
  ../../../../../MCAL/Src/Common/include/Eftu_Tom_Reg.h \
  ../../../../../MCAL/Src/Common/include/Gpio_Reg.h \
+ ../../../Include/Interrupt_manager.h \
+ ../../../../../MCAL/Src/Mcu/include/Mcu_CM7_Regs.h \
  ../../../../../MCAL/Src/Common/include/Port_Reg.h \
  ../../../../../MCAL/Src/Base/include/MemMap/Common_MemMap.h \
+ ../../../../../MCAL/Src/Pwm/include/Pwm.h \
+ ../../../_MCAL_multicore_generate_8M/include/Pwm_Cfg.h \
+ ../../../../../MCAL/Src/Pwm/include/Pwm_Types.h \
+ ../../../../../MCAL/Src/Base/include/MemMap/Pwm_MemMap.h \
+ ../../../_MCAL_multicore_generate_8M/include/Pwm_PBcfg.h \
+ ../../../../../MCAL/Src/Pwm/include/Pwm_Hw_Types.h \
+ ../../../../../MCAL/Src/Pwm/include/Pwm_Eftu_Types.h \
+ ../../../../../MCAL/Src/Pwm/include/Pwm_Types.h \
+ ../../../../../MCAL/Src/Pwm/include/Pwm_Ftu_Types.h \
+ ../../../../../MCAL/Src/Pwm/include/Pwm_Hw_Types.h \
+ ../../../../../MCAL/Src/Pwm/include/Pwm_version.h \
  ../../../../../MCAL/Src/SchM/include/SchM_Pwm.h \
  ../../../../../MCAL/Src/Base/include/MemMap/SchM_MemMap.h \
  ../../../../../MCAL/Src/TrgSel/include/TrgSel_Reg.h \
@@ -65,9 +78,35 @@ App/Source/Cdd_PwmWave.o: \
 
 ../../../../../MCAL/Src/Common/include/Gpio_Reg.h:
 
+../../../Include/Interrupt_manager.h:
+
+../../../../../MCAL/Src/Mcu/include/Mcu_CM7_Regs.h:
+
 ../../../../../MCAL/Src/Common/include/Port_Reg.h:
 
 ../../../../../MCAL/Src/Base/include/MemMap/Common_MemMap.h:
+
+../../../../../MCAL/Src/Pwm/include/Pwm.h:
+
+../../../_MCAL_multicore_generate_8M/include/Pwm_Cfg.h:
+
+../../../../../MCAL/Src/Pwm/include/Pwm_Types.h:
+
+../../../../../MCAL/Src/Base/include/MemMap/Pwm_MemMap.h:
+
+../../../_MCAL_multicore_generate_8M/include/Pwm_PBcfg.h:
+
+../../../../../MCAL/Src/Pwm/include/Pwm_Hw_Types.h:
+
+../../../../../MCAL/Src/Pwm/include/Pwm_Eftu_Types.h:
+
+../../../../../MCAL/Src/Pwm/include/Pwm_Types.h:
+
+../../../../../MCAL/Src/Pwm/include/Pwm_Ftu_Types.h:
+
+../../../../../MCAL/Src/Pwm/include/Pwm_Hw_Types.h:
+
+../../../../../MCAL/Src/Pwm/include/Pwm_version.h:
 
 ../../../../../MCAL/Src/SchM/include/SchM_Pwm.h:
 

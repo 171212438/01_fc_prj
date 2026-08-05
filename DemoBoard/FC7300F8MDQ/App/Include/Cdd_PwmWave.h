@@ -118,6 +118,11 @@ Cdd_PwmWave_StateType Cdd_PwmWave_GetState(void);
 boolean Cdd_PwmWave_IsFaultLatched(void);
 /* EB-configured PWM_CARRIER notification; called from the eFTU1 TOM0-7 ISR. */
 void Cdd_PwmWave_CarrierBoundaryNotification(void);
+/*
+ * Shared-vector fast path for eFTU1 TOM0 CH0 CCU0. Call this before the
+ * generic PWM ISR; TRUE means the carrier event was handled and acknowledged.
+ */
+boolean Cdd_PwmWave_TryHandleCarrierBoundaryInterrupt(void);
 /* Call from the existing Core0 10 ms task; it promotes or times out a pending frame. */
 void Cdd_PwmWave_MainFunction(void);
 

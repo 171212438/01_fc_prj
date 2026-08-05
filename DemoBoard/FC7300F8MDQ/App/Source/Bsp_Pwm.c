@@ -1,10 +1,13 @@
 #include "Bsp_Pwm.h"
+#include "Bsp_InterruptManager.h"
 #include "Gpio_Reg.h"
 #include "Port_Reg.h"
 #include "SchM_Pwm.h"
 
+
 /************ Macro *******************/
 #define PWM_MAX_DUTY              0x8000
+#define BSP_PWM_WAVE_IRQ_PRIORITY (0U)
 #define BSP_PWM_GPIOC_OUTPUT_MASK (0x02800080U)
 #define BSP_PWM_GPIOD_OUTPUT_MASK (0x00200010U)
 #define BSP_PWM_GPIOE_OUTPUT_MASK (0x00002C00U)
@@ -18,8 +21,7 @@ _Static_assert((BSP_PWM_WAVE_FIXED_TEST_CMPA_TICKS < BSP_PWM_WAVE_FIXED_TEST_CMP
                "Fixed PWM test compare window is invalid");
 _Static_assert((BSP_PWM_WAVE_FIXED_TEST_CMPB_TICKS - BSP_PWM_WAVE_FIXED_TEST_CMPA_TICKS) >= CDD_PWM_WAVE_DEAD_TIME_TICKS,
                "Fixed PWM test window is shorter than the dead time");
-_Static_assert(((BSP_PWM_WAVE_FIXED_TEST_CMPB_TICKS - BSP_PWM_WAVE_FIXED_TEST_CMPA_TICKS) * 2U) ==
-                   BSP_PWM_WAVE_FIXED_TEST_PERIOD_TICKS,
+_Static_assert(((BSP_PWM_WAVE_FIXED_TEST_CMPB_TICKS - BSP_PWM_WAVE_FIXED_TEST_CMPA_TICKS) * 2U) == BSP_PWM_WAVE_FIXED_TEST_PERIOD_TICKS,
                "Fixed PWM test command duty is not 50 percent");
 _Static_assert(BSP_PWM_WAVE_CARRIER_TEST_130KHZ_PERIOD_TICKS == CDD_PWM_WAVE_MAX_PERIOD_TICKS,
                "130 kHz test point must match the supported maximum period");
@@ -81,14 +83,15 @@ static Cdd_PwmWave_SequenceType s_u32PwmWaveCarrierTestSequence = 0U;
 static uint16 s_u16PwmWaveCarrierTestHold10msCycles = 0U;
 static uint8 s_u8PwmWaveCarrierTestIndex = 0U;
 static const Cdd_PwmWave_FrameType s_tPwmWaveFixedTestFrame = {
-    BSP_PWM_WAVE_FIXED_TEST_PERIOD_TICKS,
-    {
-        {BSP_PWM_WAVE_FIXED_TEST_CMPA_TICKS, BSP_PWM_WAVE_FIXED_TEST_CMPB_TICKS},
-        {BSP_PWM_WAVE_FIXED_TEST_CMPA_TICKS, BSP_PWM_WAVE_FIXED_TEST_CMPB_TICKS},
-        {BSP_PWM_WAVE_FIXED_TEST_CMPA_TICKS, BSP_PWM_WAVE_FIXED_TEST_CMPB_TICKS},
-        {BSP_PWM_WAVE_FIXED_TEST_CMPA_TICKS, BSP_PWM_WAVE_FIXED_TEST_CMPB_TICKS},
-    },
-    CDD_PWM_WAVE_PWM5_TEST_TOGGLE};
+  BSP_PWM_WAVE_FIXED_TEST_PERIOD_TICKS,
+  {
+    {BSP_PWM_WAVE_FIXED_TEST_CMPA_TICKS, BSP_PWM_WAVE_FIXED_TEST_CMPB_TICKS},
+    {BSP_PWM_WAVE_FIXED_TEST_CMPA_TICKS, BSP_PWM_WAVE_FIXED_TEST_CMPB_TICKS},
+    {BSP_PWM_WAVE_FIXED_TEST_CMPA_TICKS, BSP_PWM_WAVE_FIXED_TEST_CMPB_TICKS},
+    {BSP_PWM_WAVE_FIXED_TEST_CMPA_TICKS, BSP_PWM_WAVE_FIXED_TEST_CMPB_TICKS},
+  },
+  CDD_PWM_WAVE_PWM5_TEST_TOGGLE
+};
 static const Bsp_PwmWave_CarrierTestPointType s_atPwmWaveCarrierTestPoints[BSP_PWM_WAVE_CARRIER_TEST_STEP_COUNT] = {
     {BSP_PWM_WAVE_CARRIER_TEST_130KHZ_PERIOD_TICKS, 130U},
     {BSP_PWM_WAVE_CARRIER_TEST_200KHZ_PERIOD_TICKS, 200U},
@@ -96,8 +99,7 @@ static const Bsp_PwmWave_CarrierTestPointType s_atPwmWaveCarrierTestPoints[BSP_P
     {BSP_PWM_WAVE_CARRIER_TEST_300KHZ_PERIOD_TICKS, 300U},
 };
 
-_Static_assert((sizeof(s_atPwmWaveCarrierTestPoints) / sizeof(s_atPwmWaveCarrierTestPoints[0])) ==
-                   BSP_PWM_WAVE_CARRIER_TEST_STEP_COUNT,
+_Static_assert((sizeof(s_atPwmWaveCarrierTestPoints) / sizeof(s_atPwmWaveCarrierTestPoints[0])) == BSP_PWM_WAVE_CARRIER_TEST_STEP_COUNT,
                "Carrier test point count mismatch");
 
 /************ Local functions *******************/
@@ -183,8 +185,7 @@ static boolean Bsp_PwmWave_IsFixedTestFrame(const Cdd_PwmWave_FrameType *pFrame)
 {
   uint8 u8Index;
 
-  if ((BSP_PWM_WAVE_FIXED_TEST_PERIOD_TICKS != pFrame->u32PeriodTicks) ||
-      (CDD_PWM_WAVE_PWM5_TEST_TOGGLE != pFrame->ePwm5State)) {
+  if ((BSP_PWM_WAVE_FIXED_TEST_PERIOD_TICKS != pFrame->u32PeriodTicks) || (CDD_PWM_WAVE_PWM5_TEST_TOGGLE != pFrame->ePwm5State)) {
     return FALSE;
   }
   for (u8Index = 0U; u8Index < CDD_PWM_WAVE_WINDOW_COUNT; u8Index++) {
@@ -198,8 +199,7 @@ static boolean Bsp_PwmWave_IsFixedTestFrame(const Cdd_PwmWave_FrameType *pFrame)
 
 static boolean Bsp_PwmWave_IsCarrierTestFrame(const Cdd_PwmWave_FrameType *pFrame, uint32 u32ExpectedPeriodTicks)
 {
-  return ((u32ExpectedPeriodTicks == pFrame->u32PeriodTicks) &&
-          (CDD_PWM_WAVE_PWM5_TEST_TOGGLE == pFrame->ePwm5State) &&
+  return ((u32ExpectedPeriodTicks == pFrame->u32PeriodTicks) && (CDD_PWM_WAVE_PWM5_TEST_TOGGLE == pFrame->ePwm5State) &&
           (CDD_PWM_WAVE_OK == Cdd_PwmWave_ValidateFrame(pFrame)))
              ? TRUE
              : FALSE;
@@ -347,12 +347,26 @@ void Bsp_Pwm_Init(void)
   if (0U == GET_CPU_ID())
 #endif
   {
+#if defined(PWM_EFTU_1_TOM_0_ISR_USED)
+    IntMgr_DisableInterrupt(eFTU1_TOM_0TO7_IRQn);
+    BSP_SetInterrupt(0U, (uint32)eFTU1_TOM_0TO7_IRQn);
+    IntMgr_SetPriority(eFTU1_TOM_0TO7_IRQn, BSP_PWM_WAVE_IRQ_PRIORITY);
+#endif
     Bsp_PwmWave_ResetTestState();
     Bsp_PwmWave_RecordJob(BSP_PWM_WAVE_JOB_NONE, BSP_PWM_WAVE_JOB_IDLE, CDD_PWM_WAVE_E_UNINIT, 0U);
+
     ePwmWaveResult = Cdd_PwmWave_Init();
     if (CDD_PWM_WAVE_OK == ePwmWaveResult) {
       Bsp_Pwm_SetOutputPinModes();
+
       ePwmWaveResult = Cdd_PwmWave_ConfirmArmedLow();
+      if (CDD_PWM_WAVE_OK == ePwmWaveResult) {
+#if defined(PWM_EFTU_1_TOM_0_ISR_USED)
+        IntMgr_EnableInterrupt(eFTU1_TOM_0TO7_IRQn);
+#else
+        ePwmWaveResult = CDD_PWM_WAVE_E_HW_CONFIG;
+#endif
+      }
       if (CDD_PWM_WAVE_OK != ePwmWaveResult) {
         (void)Cdd_PwmWave_EmergencyShutdown();
         if (TRUE == Bsp_Pwm_ForceOutputPinsGpioLow()) {
@@ -362,9 +376,9 @@ void Bsp_Pwm_Init(void)
         }
       }
     } else {
-      /* Fail closed: Port_Init keeps all nine output pins as GPIO low. */
       DEBUG_INFO("Bsp_Pwm: CDD ARMED_LOW failed, output pins remain GPIO low.\r\n");
     }
+
     SchM_Enter_Pwm_PWM_EXCLUSIVE_AREA_19();
     s_ePwmWaveLastResult = ePwmWaveResult;
     SchM_Exit_Pwm_PWM_EXCLUSIVE_AREA_19();
@@ -409,8 +423,7 @@ Cdd_PwmWave_ResultType Bsp_PwmWave_CarrierFrequencyTestStart(Cdd_PwmWave_Sequenc
   if (FALSE == Bsp_PwmWave_IsCore0()) {
     return CDD_PWM_WAVE_E_WRONG_CORE;
   }
-  if ((BSP_PWM_WAVE_TEST_OWNER_NONE != s_ePwmWaveTestOwner) ||
-      (BSP_PWM_WAVE_CARRIER_TEST_IDLE != s_ePwmWaveCarrierTestState)) {
+  if ((BSP_PWM_WAVE_TEST_OWNER_NONE != s_ePwmWaveTestOwner) || (BSP_PWM_WAVE_CARRIER_TEST_IDLE != s_ePwmWaveCarrierTestState)) {
     return CDD_PWM_WAVE_E_BUSY;
   }
 
@@ -771,8 +784,7 @@ static void Bsp_PwmWave_CarrierFrequencyTestMonitor(void)
       if (CDD_PWM_WAVE_OK == eResult) {
         DEBUG_INFO("PWM carrier frequency test requested target %d kHz, period %d ticks, sequence %d.\r\n",
                    (int)s_atPwmWaveCarrierTestPoints[s_u8PwmWaveCarrierTestIndex].u16TargetFrequencyKHz,
-                   (int)s_atPwmWaveCarrierTestPoints[s_u8PwmWaveCarrierTestIndex].u32PeriodTicks,
-                   (int)s_u32PwmWaveCarrierTestSequence);
+                   (int)s_atPwmWaveCarrierTestPoints[s_u8PwmWaveCarrierTestIndex].u32PeriodTicks, (int)s_u32PwmWaveCarrierTestSequence);
       } else {
         DEBUG_INFO("PWM carrier frequency test first period request rejected, result %d.\r\n", (int)eResult);
         Bsp_PwmWave_CarrierTestAbort("first period request failed");
@@ -807,8 +819,10 @@ static void Bsp_PwmWave_CarrierFrequencyTestMonitor(void)
           (TRUE == Bsp_PwmWave_IsCarrierTestFrame(&tActiveFrame, pTestPoint->u32PeriodTicks))) {
         s_u16PwmWaveCarrierTestHold10msCycles = 0U;
         s_ePwmWaveCarrierTestState = BSP_PWM_WAVE_CARRIER_TEST_HOLD;
-        DEBUG_INFO("PWM carrier frequency test confirmed target %d kHz, period %d ticks; about 10 ms hold starts, PWM5 LOW/HIGH follows one carrier period.\r\n",
-                   (int)pTestPoint->u16TargetFrequencyKHz, (int)pTestPoint->u32PeriodTicks);
+        DEBUG_INFO(
+            "PWM carrier frequency test confirmed target %d kHz, period %d ticks; about 10 ms hold starts, PWM5 LOW/HIGH follows one "
+            "carrier period.\r\n",
+            (int)pTestPoint->u16TargetFrequencyKHz, (int)pTestPoint->u32PeriodTicks);
       } else {
         Bsp_PwmWave_CarrierTestAbort("active period confirmation failed");
       }
@@ -843,8 +857,7 @@ static void Bsp_PwmWave_CarrierFrequencyTestMonitor(void)
       if (CDD_PWM_WAVE_OK == eResult) {
         DEBUG_INFO("PWM carrier frequency test requested target %d kHz, period %d ticks, sequence %d.\r\n",
                    (int)s_atPwmWaveCarrierTestPoints[s_u8PwmWaveCarrierTestIndex].u16TargetFrequencyKHz,
-                   (int)s_atPwmWaveCarrierTestPoints[s_u8PwmWaveCarrierTestIndex].u32PeriodTicks,
-                   (int)s_u32PwmWaveCarrierTestSequence);
+                   (int)s_atPwmWaveCarrierTestPoints[s_u8PwmWaveCarrierTestIndex].u32PeriodTicks, (int)s_u32PwmWaveCarrierTestSequence);
       } else {
         DEBUG_INFO("PWM carrier frequency test next period request rejected, result %d.\r\n", (int)eResult);
         Bsp_PwmWave_CarrierTestAbort("next period request failed");
@@ -926,7 +939,7 @@ void Bsp_Pwm_10ms_Task_Event(void)
 #if (PWM_MULTICORE_ENABLED == STD_ON)
   if (0 == GET_CPU_ID()) {
 #endif
-    Bsp_PwmWave_CarrierFrequencyTestMonitor();
+    Bsp_PwmWave_CarrierFrequencyTestMonitor();  // @FWPP
 #if (PWM_MULTICORE_ENABLED == STD_ON)
   }
 #endif
@@ -939,9 +952,6 @@ void Bsp_Pwm_20ms_Task_Event(void)
 #endif
     Cdd_PwmWave_MainFunction();
     Bsp_PwmWave_MainFunction();
-    /* Latch a completed Start/Period job in the same Core0 service pass.
-     * HOLD itself advances only from the 10 ms task, so confirmation-to-next-
-     * request remains one complete 10 ms interval. */
     if ((BSP_PWM_WAVE_CARRIER_TEST_WAIT_START == s_ePwmWaveCarrierTestState) ||
         (BSP_PWM_WAVE_CARRIER_TEST_WAIT_PERIOD == s_ePwmWaveCarrierTestState)) {
       Bsp_PwmWave_CarrierFrequencyTestMonitor();
@@ -971,25 +981,26 @@ void Bsp_Pwm_20ms_Task_Event(void)
 
 void Bsp_Pwm_5ms_Task_Event(void)
 {
-#if (PWM_MULTICORE_ENABLED == STD_ON)
-  if (2 == GET_CPU_ID()) {
-#endif
-    if (s_u16Rgb2DutyVal > PWM_MAX_DUTY) {
-      s_u16Rgb2DutyVal = 0U;
-      Pwm_SetDutyCycle(s_u32Rgb2Order[s_u8Rgb2OrderIndex], 0);
-      s_u8Rgb2OrderIndex++;
-      if (s_u8Rgb2OrderIndex > 2) {
-        s_u8Rgb2OrderIndex = 0U;
-      }
-    } else {
-      s_u16Rgb2DutyVal += s_u16Rgb2Step;
-      if (s_u16Rgb2DutyVal > PWM_MAX_DUTY) {
-        Pwm_SetDutyCycle(s_u32Rgb2Order[s_u8Rgb2OrderIndex], PWM_MAX_DUTY);
-      } else {
-        Pwm_SetDutyCycle(s_u32Rgb2Order[s_u8Rgb2OrderIndex], s_u16Rgb2DutyVal);
-      }
-    }
-#if (PWM_MULTICORE_ENABLED == STD_ON)
-  }
-#endif
+  // FWPP
+// #if (PWM_MULTICORE_ENABLED == STD_ON)
+//   if (2 == GET_CPU_ID()) {
+// #endif
+//     if (s_u16Rgb2DutyVal > PWM_MAX_DUTY) {
+//       s_u16Rgb2DutyVal = 0U;
+//       Pwm_SetDutyCycle(s_u32Rgb2Order[s_u8Rgb2OrderIndex], 0);
+//       s_u8Rgb2OrderIndex++;
+//       if (s_u8Rgb2OrderIndex > 2) {
+//         s_u8Rgb2OrderIndex = 0U;
+//       }
+//     } else {
+//       s_u16Rgb2DutyVal += s_u16Rgb2Step;
+//       if (s_u16Rgb2DutyVal > PWM_MAX_DUTY) {
+//         Pwm_SetDutyCycle(s_u32Rgb2Order[s_u8Rgb2OrderIndex], PWM_MAX_DUTY);
+//       } else {
+//         Pwm_SetDutyCycle(s_u32Rgb2Order[s_u8Rgb2OrderIndex], s_u16Rgb2DutyVal);
+//       }
+//     }
+// #if (PWM_MULTICORE_ENABLED == STD_ON)
+//   }
+// #endif
 }

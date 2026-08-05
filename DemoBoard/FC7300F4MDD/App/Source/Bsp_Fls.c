@@ -40,7 +40,7 @@ static void Open_Inject_Ecc_Error(void)
     flash_api_cfg.data3 = 0x01000012;
     flash_api_cfg.data4 = 0x40060000;
     flash_api_cfg.data5 = 0;
-    flash_api_cfg.dest  = 0x4000000;    // flash 地址
+    flash_api_cfg.dest  = 0x4000000;
 
     /* Close FMC buffer */
     *(volatile uint32 *)0x4001E000 = 0;

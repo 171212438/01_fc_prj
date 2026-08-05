@@ -52,36 +52,22 @@ typedef struct {
  ******************************************************************************/
 void IntMgr_EnableInterrupt(IRQn_Type eIrqNumber)
 {
-    /* Enable interrupt */
-    FC7XXX_NVIC->ISER[(uint32)(eIrqNumber) >> 5U] = (uint32)(1UL << ((uint32)(eIrqNumber) &
-                                                                     (uint32)0x1FU));
+  /* Enable interrupt */
+  FC7XXX_NVIC->ISER[(uint32)(eIrqNumber) >> 5U] = (uint32)(1UL << ((uint32)(eIrqNumber) & (uint32)0x1FU));
 }
 
 void IntMgr_DisableInterrupt(IRQn_Type eIrqNumber)
 {
-    /* Disable interrupt */
-    FC7XXX_NVIC->ICER[((uint32)(eIrqNumber) >> 5U)] = (uint32)(1UL << ((uint32)(eIrqNumber) &
-                                                                       (uint32)0x1FU));
+  FC7XXX_NVIC->ICER[((uint32)(eIrqNumber) >> 5U)] = (uint32)(1UL << ((uint32)(eIrqNumber) & (uint32)0x1FU));
 }
 
-/**
- * @brief set the interrupt service Priority
- *
- * @param eIrqNumber is interrupt number
- * @param u8Priority is u8Priority number
- */
 void IntMgr_SetPriority(IRQn_Type eIrqNumber, uint8 u8Priority)
 {
-    uint8 u8Shift = (uint8)(8U - FC7XXX_NVIC_PRIO_BITS);
+  uint8 u8Shift = (uint8)(8U - FC7XXX_NVIC_PRIO_BITS);
 
-    if ((sint32)eIrqNumber < 0)
-    {
-        FC7XXX_SCB->SHPR[(((uint32)eIrqNumber) & 0xFUL) - 4UL] =
-            (uint8)(((uint32)u8Priority << u8Shift) & (uint32)0xFFUL);
-    }
-    else
-    {
-        /* Set Priority for device specific Interrupts */
-        FC7XXX_NVIC->IP[(uint32)(eIrqNumber)] = (uint8)(((((uint32)u8Priority) << u8Shift)) & 0xFFUL);
-    }
+  if ((sint32)eIrqNumber < 0) {
+    FC7XXX_SCB->SHPR[(((uint32)eIrqNumber) & 0xFUL) - 4UL] = (uint8)(((uint32)u8Priority << u8Shift) & (uint32)0xFFUL);
+  } else {
+    FC7XXX_NVIC->IP[(uint32)(eIrqNumber)] = (uint8)(((((uint32)u8Priority) << u8Shift)) & 0xFFUL);
+  }
 }
