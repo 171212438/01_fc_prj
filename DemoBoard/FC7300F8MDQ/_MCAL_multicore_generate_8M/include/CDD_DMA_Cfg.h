@@ -171,7 +171,7 @@ extern "C"{
 /**
 * @brief define the number of channels configured
 */
-#define DMA_0_USED_CHANNEL_NUM   (3U)
+#define DMA_0_USED_CHANNEL_NUM   (4U)
 
 #define DMA_1_USED_CHANNEL_NUM   (1U)
 /**
@@ -179,13 +179,13 @@ extern "C"{
 */
 #define DMA_0_CHANNEL0_USED    STD_ON
 
-#define DMA_0_CHANNEL0_IRQ     STD_ON
+#define DMA_0_CHANNEL0_IRQ     STD_OFF
 
 #define DMA_0_CHANNEL0_ERROR_IRQ     STD_OFF
 
 #define DMA_0_CHANNEL1_USED    STD_ON
 
-#define DMA_0_CHANNEL1_IRQ     STD_ON
+#define DMA_0_CHANNEL1_IRQ     STD_OFF
 
 #define DMA_0_CHANNEL1_ERROR_IRQ     STD_OFF
 
@@ -195,7 +195,11 @@ extern "C"{
 
 #define DMA_0_CHANNEL2_ERROR_IRQ     STD_OFF
 
-#define DMA_0_CHANNEL3_USED    STD_OFF
+#define DMA_0_CHANNEL3_USED    STD_ON
+
+#define DMA_0_CHANNEL3_IRQ     STD_ON
+
+#define DMA_0_CHANNEL3_ERROR_IRQ     STD_OFF
 
 #define DMA_0_CHANNEL4_USED    STD_OFF
 

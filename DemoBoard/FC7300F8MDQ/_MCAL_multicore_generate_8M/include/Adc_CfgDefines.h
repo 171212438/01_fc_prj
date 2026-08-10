@@ -248,19 +248,19 @@ extern "C" {
  * @brief        Max number of used ADC and HSADC units
  *
  */
-#define ADC_USED_HW_UNITS                   4U
+#define ADC_USED_HW_UNITS                   2U
 
 /**
  * @brief        Max number of used ADC units
  *
  */
-#define ADC_USED_SARADC_UNITS               3U
+#define ADC_USED_SARADC_UNITS               0U
 
 /**
  * @brief        Max number of used HSADC units
  *
  */
-#define ADC_USED_HSADC_UNITS                1U
+#define ADC_USED_HSADC_UNITS                2U
 
 /**
  * @brief        Peripheral ADC0 base address
@@ -442,9 +442,7 @@ extern "C" {
 /**
 * @brief IRQ definition
 */
-#define ADC_UNIT_0_ISR_USED
 #define ADC_UNIT_1_ISR_USED
-#define ADC_UNIT_2_ISR_USED
 #define HSADC_UNIT_0_ISR_USED
 
 
@@ -458,7 +456,7 @@ extern "C" {
 /**
  * @brief          max number of groups configured across all configset.
  */
-#define ADC_MAX_GROUPS                      5U
+#define ADC_MAX_GROUPS                      2U
 
 /**
  * @brief          max queue depth for hardware triggered conversion
@@ -601,54 +599,36 @@ extern "C" {
 /**
  * @brief         Symbolic names of ADC Hardware units - TPS_ECUC_02108 compliant.
  */
-#define AdcConf_AdcHwUnit_AdcHwUnit_0     0
-#define AdcConf_AdcHwUnit_AdcHwUnit_1     1
-#define AdcConf_AdcHwUnit_AdcHwUnit_2     2
-#define AdcConf_AdcHwUnit_AdcHwUnit_3     3
+#define AdcConf_AdcHwUnit_AdcHwUnit_1     0
+#define AdcConf_AdcHwUnit_AdcHwUnit_3     1
 
 /**
  * @brief         Symbolic names of channels on all HW units.
  */
-#define AdcChannel_VR2                       0
-#define AdcChannel_V11                       0
-#define AdcChannel_VDDA                       0
-#define AdcChannel_0                       0
-#define AdcChannel_TMU                       1
-#define AdcChannel_V15                       1
-#define AdcChannel_1                       1
-#define AdcChannel_VBG                       2
-#define AdcChannel_VR1                       2
+#define AdcChannel_IIN                       0
+#define AdcChannel_VIN                       0
+#define AdcChannel_IOUT                       1
+#define AdcChannel_VOUT                       1
 
 /**
  * @brief         Symbolic names of channels - TPS_ECUC_02108 compliant.
  */
-#define AdcConf_AdcChannel_AdcChannel_VR2    0
-#define AdcConf_AdcChannel_AdcChannel_V11    0
-#define AdcConf_AdcChannel_AdcChannel_VDDA    0
-#define AdcConf_AdcChannel_AdcChannel_0    0
-#define AdcConf_AdcChannel_AdcChannel_TMU    1
-#define AdcConf_AdcChannel_AdcChannel_V15    1
-#define AdcConf_AdcChannel_AdcChannel_1    1
-#define AdcConf_AdcChannel_AdcChannel_VBG    2
-#define AdcConf_AdcChannel_AdcChannel_VR1    2
+#define AdcConf_AdcChannel_AdcChannel_IIN    0
+#define AdcConf_AdcChannel_AdcChannel_VIN    0
+#define AdcConf_AdcChannel_AdcChannel_IOUT    1
+#define AdcConf_AdcChannel_AdcChannel_VOUT    1
 
 /**
  * @brief         Symbolic names of groups.
  */
-#define AdcGroup_0                       0
-#define AdcGroup_1                       1
-#define AdcGroup_2                       2
-#define AdcGroup_3                       3
-#define AdcGroup_4                       4
+#define AdcGroup_2                       0
+#define AdcGroup_4                       1
 
 /**
  * @brief         Symbolic names of groups - TPS_ECUC_02108 compliant.
  */
-#define AdcConf_AdcGroup_AdcGroup_0      0
-#define AdcConf_AdcGroup_AdcGroup_1      1
-#define AdcConf_AdcGroup_AdcGroup_2      2
-#define AdcConf_AdcGroup_AdcGroup_3      3
-#define AdcConf_AdcGroup_AdcGroup_4      4
+#define AdcConf_AdcGroup_AdcGroup_2      0
+#define AdcConf_AdcGroup_AdcGroup_4      1
 
 /**
  * @brief         Support for User mode.

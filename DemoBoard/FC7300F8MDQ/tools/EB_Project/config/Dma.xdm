@@ -102,8 +102,7 @@
                         <d:var name="EnableChannelHalfCompeletInterrupt" 
                                type="BOOLEAN" value="false"/>
                         <d:var name="DmaChannelTransferCompleteISRCallout" 
-                               type="FUNCTION-NAME" 
-                               value="NULL_PTR"/>
+                               type="FUNCTION-NAME" value="NULL_PTR"/>
                         <d:var name="EnableChannelErrorInterrupt" 
                                type="BOOLEAN" value="false">
                           <a:a name="IMPORTER_INFO" value="@DEF"/>
@@ -153,8 +152,7 @@
                           <a:a name="IMPORTER_INFO" value="@DEF"/>
                         </d:var>
                         <d:var name="DmaChannelTransferCompleteISRCallout" 
-                               type="FUNCTION-NAME" 
-                               value="NULL_PTR"/>
+                               type="FUNCTION-NAME" value="NULL_PTR"/>
                         <d:var name="EnableChannelErrorInterrupt" 
                                type="BOOLEAN" value="false">
                           <a:a name="IMPORTER_INFO" value="@DEF"/>
@@ -193,13 +191,13 @@
                           <a:a name="IMPORTER_INFO" value="@DEF"/>
                         </d:var>
                         <d:var name="EnableChannelCompeletInterrupt" 
-                               type="BOOLEAN" value="false"/>
+                               type="BOOLEAN" value="true"/>
                         <d:var name="EnableChannelHalfCompeletInterrupt" 
                                type="BOOLEAN" value="false">
                           <a:a name="IMPORTER_INFO" value="@DEF"/>
                         </d:var>
                         <d:var name="DmaChannelTransferCompleteISRCallout" 
-                               type="FUNCTION-NAME" value="NULL_PTR"/>
+                               type="FUNCTION-NAME" value="HSADC0_DMA_ISR"/>
                         <d:var name="EnableChannelErrorInterrupt" 
                                type="BOOLEAN" value="false">
                           <a:a name="IMPORTER_INFO" value="@DEF"/>
@@ -238,13 +236,13 @@
                           <a:a name="IMPORTER_INFO" value="@DEF"/>
                         </d:var>
                         <d:var name="EnableChannelCompeletInterrupt" 
-                               type="BOOLEAN" value="false"/>
+                               type="BOOLEAN" value="true"/>
                         <d:var name="EnableChannelHalfCompeletInterrupt" 
                                type="BOOLEAN" value="false">
                           <a:a name="IMPORTER_INFO" value="@DEF"/>
                         </d:var>
                         <d:var name="DmaChannelTransferCompleteISRCallout" 
-                               type="FUNCTION-NAME" value="NULL_PTR"/>
+                               type="FUNCTION-NAME" value="HSADC2_DMA_ISR"/>
                         <d:var name="EnableChannelErrorInterrupt" 
                                type="BOOLEAN" value="false">
                           <a:a name="IMPORTER_INFO" value="@DEF"/>

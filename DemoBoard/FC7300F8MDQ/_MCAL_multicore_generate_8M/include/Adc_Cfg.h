@@ -75,12 +75,14 @@ extern "C" {
  * @brief           Number of channels configured for each group.
  */
 #define ADC_CFGSET_GROUP_0_CHANNELS      2
-#define ADC_CFGSET_GROUP_1_CHANNELS      1
-#define ADC_CFGSET_GROUP_2_CHANNELS      2
-#define ADC_CFGSET_GROUP_3_CHANNELS      1
-#define ADC_CFGSET_GROUP_4_CHANNELS      2
+#define ADC_CFGSET_GROUP_1_CHANNELS      2
 
 
+/**
+ * @brief          DMA interrupt callback function for ADC Hardware unit HSADC2.
+ *
+ */
+#define HsAdc_DMA_EndGroupConvUnit2  HSADC2_DMA_ISR
 /**
  * @brief          DMA interrupt callback function for ADC Hardware unit HSADC0.
  *
@@ -103,7 +105,6 @@ extern "C" {
 
 
 ADC_DATA_SECTION extern const Adc_ConfigType Adc_Config_EcucPartition_0;
-ADC_DATA_SECTION extern const Adc_ConfigType Adc_Config_EcucPartition_1;
 
 
 #define ADC_STOP_SEC_CONFIG_DATA_UNSPECIFIED

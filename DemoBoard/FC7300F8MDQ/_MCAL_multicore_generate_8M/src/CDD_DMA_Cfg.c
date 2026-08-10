@@ -95,11 +95,9 @@ extern "C"
 *
 **/
 
-DMA_TEXT_SECTION extern void Dma_Channel0_CompleteIsr(void);
-
-DMA_TEXT_SECTION extern void Dma_Channel1_CompleteIsr(void);
-
 DMA_TEXT_SECTION extern void HSADC0_DMA_ISR(void);
+
+DMA_TEXT_SECTION extern void HSADC2_DMA_ISR(void);
 
 
 
@@ -148,9 +146,10 @@ DMA_DATA_SECTION static const Dma_ChannelConfigType DMA_Instance0_ChConfigData[]
 {
     /*PartitionId, DmaChannelID, DmaChannelPriority,DmaEnablePeriodTriggerMode,DmaEnableChannelCompeletInterrupt,DmaEnableChannelHalfCompeletInterrupt,
   DmaEnableChannelErrorInterrupt,DmaChannelFlowCtrl,DmaChannelTransferCompleteISRCallout,DmaChannelErrorISRCallout,u8DmaISRRouter,bInnerChannelSelfChain*/
-    {0, 0, 0, (boolean)FALSE, (boolean)TRUE, (boolean)FALSE, (boolean)FALSE, DMA_REQ_DISABLED, Dma_Channel0_CompleteIsr, NULL_PTR, 0, (boolean)TRUE},
-    {1, 1, 1, (boolean)FALSE, (boolean)TRUE, (boolean)FALSE, (boolean)FALSE, DMA_REQ_DISABLED, Dma_Channel1_CompleteIsr, NULL_PTR, 1, (boolean)FALSE},
-    {0, 2, 2, (boolean)FALSE, (boolean)TRUE, (boolean)FALSE, (boolean)FALSE, DMA_REQ_HSADC0, HSADC0_DMA_ISR, NULL_PTR, 0, (boolean)FALSE}
+    {0, 0, 0, (boolean)FALSE, (boolean)FALSE, (boolean)FALSE, (boolean)FALSE, DMA_REQ_DISABLED, NULL_PTR, NULL_PTR, 0, (boolean)FALSE},
+    {0, 1, 1, (boolean)FALSE, (boolean)FALSE, (boolean)FALSE, (boolean)FALSE, DMA_REQ_DISABLED, NULL_PTR, NULL_PTR, 0, (boolean)FALSE},
+    {0, 2, 2, (boolean)FALSE, (boolean)TRUE, (boolean)FALSE, (boolean)FALSE, DMA_REQ_HSADC0, HSADC0_DMA_ISR, NULL_PTR, 0, (boolean)FALSE},
+    {0, 3, 3, (boolean)FALSE, (boolean)TRUE, (boolean)FALSE, (boolean)FALSE, DMA_REQ_HSADC2, HSADC2_DMA_ISR, NULL_PTR, 0, (boolean)FALSE}
 };
 DMA_DATA_SECTION static const Dma_ChannelConfigType DMA_Instance1_ChConfigData[] =
 {
@@ -178,7 +177,7 @@ DMA_DATA_SECTION static const Dma_CoreSpecificChConfigType Dma_ChConfigRootCore0
     DMA_INSTANCE_0,
 
     /*DmaNumberofChConfiguredPerCore*/
-    2U,
+    4U,
 
     /* Config Dma and DmaMUX in each channel, refer to Dma_ChannelConfigType structure */
     &DMA_Instance0_ChConfigData[0]
@@ -194,11 +193,11 @@ DMA_DATA_SECTION static const Dma_CoreSpecificChConfigType Dma_ChConfigRootCore1
     DMA_INSTANCE_0,
 
     /*DmaNumberofChConfiguredPerCore*/
-    1U,
+    0U,
 
     /* Config Dma and DmaMUX in each channel, refer to Dma_ChannelConfigType structure */
-    &DMA_Instance0_ChConfigData[0]
-};
+    NULL_PTR
+    };
 
 DMA_DATA_SECTION static const Dma_CoreSpecificChConfigType Dma_ChConfigRootCore2 =
 {
@@ -282,7 +281,7 @@ DMA_DATA_SECTION const Dma_ConfigType Dma_Config =
     &Dma_HwUnitCfg[0],
     {
         (boolean)TRUE,
-        (boolean)TRUE,
+        (boolean)FALSE,
         (boolean)TRUE,
         (boolean)FALSE
     }
