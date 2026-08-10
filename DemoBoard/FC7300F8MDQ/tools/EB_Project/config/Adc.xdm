@@ -45,7 +45,7 @@
                       <a:a name="ENABLE" value="false"/>
                       <a:a name="IMPORTER_INFO" value="@REC"/>
                     </d:var>
-                    <d:ref name="AdcDmaChannel" type="REFERENCE" value="">
+                    <d:ref name="AdcDmaChannel" type="REFERENCE" >
                       <a:a name="ENABLE" value="false"/>
                       <a:a name="IMPORTER_INFO" value="@REC"/>
                     </d:ref>
@@ -73,7 +73,7 @@
                            value="ADC_SEQ_PRIORITY_ROUND_ROBIN">
                       <a:a name="IMPORTER_INFO" value="@DEF"/>
                     </d:var>
-                    <d:var name="AdcHwUsePtimer" type="BOOLEAN" value="true"/>
+                    <d:var name="AdcHwUsePtimer" type="BOOLEAN" value="false"/>
                     <d:var name="AdcUseExtChannel" type="BOOLEAN" value="false">
                       <a:a name="IMPORTER_INFO" value="@DEF"/>
                     </d:var>
@@ -88,7 +88,7 @@
                     <d:ctr name="AdcSampleTimeOptions" type="IDENTIFIABLE">
                       <a:a name="IMPORTER_INFO" value="@REC"/>
                       <d:var name="AdcSampleTimeOption0" type="INTEGER" 
-                             value="4">
+                             value="6">
                         <a:a name="IMPORTER_INFO" value="@REC"/>
                       </d:var>
                       <d:var name="AdcSampleTimeOption1" type="INTEGER" 
@@ -105,7 +105,7 @@
                       </d:var>
                     </d:ctr>
                     <d:ctr name="AdcPtimerSettings" type="IDENTIFIABLE">
-                      <a:a name="ENABLE" value="true"/>
+                      <a:a name="ENABLE" value="false"/>
                       <d:var name="AdcPtimerPrescalerDividerSelect" 
                              type="ENUMERATION" value="DIVIDE_BY_1">
                         <a:a name="IMPORTER_INFO" value="@REC"/>
@@ -141,14 +141,14 @@
                       </d:var>
                     </d:ctr>
                     <d:lst name="AdcChannel" type="MAP">
-                      <d:ctr name="AdcChannel_VR2" type="IDENTIFIABLE">
+                      <d:ctr name="AdcChannel_VIN" type="IDENTIFIABLE">
                         <d:var name="AdcLogicalChannelId" type="INTEGER" 
                                value="0">
                           <a:a name="IMPORTER_INFO" value="@REC"/>
                         </d:var>
                         <d:var name="AdcChannelName" type="ENUMERATION" 
-                               value="ADC_SE11"/>
-                        <d:var name="AdcChannelId" type="INTEGER" value="11"/>
+                               value="ADC_SE0"/>
+                        <d:var name="AdcChannelId" type="INTEGER" value="0"/>
                         <d:var name="AdcDiffChannel" type="BOOLEAN" 
                                value="false">
                           <a:a name="IMPORTER_INFO" value="@DEF"/>
@@ -193,25 +193,25 @@
                           <a:a name="IMPORTER_INFO" value="@REC"/>
                         </d:var>
                         <d:var name="AdcChannelSampTime" type="INTEGER" 
-                               value="6">
+                               value="8">
                           <a:a name="IMPORTER_INFO">
                             <a:v>@CALC</a:v>
                             <a:v>@DEF</a:v>
                           </a:a>
                         </d:var>
                       </d:ctr>
-                      <d:ctr name="AdcChannel_TMU" type="IDENTIFIABLE">
+                      <d:ctr name="AdcChannel_VOUT" type="IDENTIFIABLE">
                         <d:var name="AdcLogicalChannelId" type="INTEGER" 
                                value="1"/>
                         <d:var name="AdcChannelName" type="ENUMERATION" 
-                               value="ADC_TEMP_SENSOR_SE37"/>
-                        <d:var name="AdcChannelId" type="INTEGER" value="37">
+                               value="ADC_SE4"/>
+                        <d:var name="AdcChannelId" type="INTEGER" value="4">
                           <a:a name="IMPORTER_INFO">
                             <a:v>@CALC</a:v>
                             <a:v>@DEF</a:v>
                           </a:a>
                         </d:var>
-                        <d:var name="AdcDiffChannel" type="BOOLEAN" value="true"/>
+                        <d:var name="AdcDiffChannel" type="BOOLEAN" value="false"/>
                         <d:var name="AdcChannelLimitCheck" type="BOOLEAN" 
                                value="false">
                           <a:a name="IMPORTER_INFO" value="@DEF"/>
@@ -251,9 +251,9 @@
                           </a:a>
                         </d:var>
                         <d:var name="AdcChannelSampTimeOption" 
-                               type="ENUMERATION" value="SAMPLE_TIME_OPTION_2"/>
+                               type="ENUMERATION" value="SAMPLE_TIME_OPTION_0"/>
                         <d:var name="AdcChannelSampTime" type="INTEGER" 
-                               value="34">
+                               value="8">
                           <a:a name="IMPORTER_INFO">
                             <a:v>@CALC</a:v>
                             <a:v>@DEF</a:v>
@@ -316,7 +316,7 @@
                         <d:var name="AdcChannelSampTimeOption" 
                                type="ENUMERATION" value="SAMPLE_TIME_OPTION_0"/>
                         <d:var name="AdcChannelSampTime" type="INTEGER" 
-                               value="6">
+                               value="8">
                           <a:a name="IMPORTER_INFO">
                             <a:v>@CALC</a:v>
                             <a:v>@DEF</a:v>
@@ -380,117 +380,16 @@
                           <a:a name="IMPORTER_INFO" value="@REC"/>
                         </d:var>
                         <d:var name="AdcGroupUsesChannelDelays" type="BOOLEAN" 
-                               value="true">
-                          <a:a name="IMPORTER_INFO" value="@REC"/>
-                        </d:var>
-                        <d:var name="AdcDelayNextPtimer" type="INTEGER" 
-                               value="0">
-                          <a:a name="IMPORTER_INFO" value="@REC"/>
-                        </d:var>
-                        <d:var name="AdcPtimerPeriodContinuousMode" 
-                               type="INTEGER" value="0">
-                          <a:a name="ENABLE" value="false"/>
-                        </d:var>
-                        <d:var name="AdcPtimerCoCoSel" type="INTEGER" value="0">
-                          <a:a name="ENABLE" value="false"/>
-                          <a:a name="IMPORTER_INFO" value="@DEF"/>
-                        </d:var>
-                        <d:lst name="AdcGroupDefinition">
-                          <d:ref type="REFERENCE" 
-                                 value="ASPath:/Adc/Adc/AdcConfigSet/AdcHwUnit_0/AdcChannel_VBG"/>
-                          <d:ref type="REFERENCE" 
-                                 value="ASPath:/Adc/Adc/AdcConfigSet/AdcHwUnit_0/AdcChannel_VR2"/>
-                        </d:lst>
-                        <d:lst name="AdcGroupEcucPartitionRef"/>
-                        <d:lst name="AdcChannelDelay">
-                          <d:var type="INTEGER" value="2000">
-                            <a:a name="IMPORTER_INFO" value="@REC"/>
-                          </d:var>
-                        </d:lst>
-                        <d:ctr name="AdcGroupHardwareAverageSettings" 
-                               type="IDENTIFIABLE">
-                          <a:a name="ENABLE" value="false"/>
-                          <a:a name="IMPORTER_INFO" value="@REC"/>
-                          <d:var name="AdcGroupHardwareAverageEnable" 
-                                 type="BOOLEAN" value="false">
-                            <a:a name="IMPORTER_INFO" value="@REC"/>
-                          </d:var>
-                          <d:var name="AdcGroupHardwareAverageSelect" 
-                                 type="ENUMERATION" value="SAMPLES_4">
-                            <a:a name="IMPORTER_INFO" value="@REC"/>
-                          </d:var>
-                        </d:ctr>
-                      </d:ctr>
-                      <d:ctr name="AdcGroup_1" type="IDENTIFIABLE">
-                        <d:var name="AdcGroupAccessMode" type="ENUMERATION" 
-                               value="ADC_ACCESS_MODE_SINGLE">
-                          <a:a name="IMPORTER_INFO" value="@DEF"/>
-                        </d:var>
-                        <d:var name="AdcGroupConversionMode" type="ENUMERATION" 
-                               value="ADC_CONV_MODE_ONESHOT">
-                          <a:a name="IMPORTER_INFO" value="@DEF"/>
-                        </d:var>
-                        <d:var name="AdcGroupId" type="INTEGER" value="1">
-                          <a:a name="IMPORTER_INFO">
-                            <a:v>@DEF</a:v>
-                            <a:v>@CALC</a:v>
-                          </a:a>
-                        </d:var>
-                        <d:var name="AdcGroupPriority" type="INTEGER" value="0">
-                          <a:a name="ENABLE" value="false"/>
-                          <a:a name="IMPORTER_INFO" value="@DEF"/>
-                        </d:var>
-                        <d:var name="AdcGroupReplacement" type="ENUMERATION" 
-                               value="ADC_GROUP_REPL_ABORT_RESTART">
-                          <a:a name="ENABLE" value="false"/>
-                          <a:a name="IMPORTER_INFO" value="@DEF"/>
-                        </d:var>
-                        <d:var name="AdcGroupTriggSrc" type="ENUMERATION" 
-                               value="ADC_TRIGG_SRC_SW">
-                          <a:a name="IMPORTER_INFO" value="@DEF"/>
-                        </d:var>
-                        <d:var name="AdcHwTrigSignal" type="ENUMERATION" 
-                               value="ADC_HW_TRIG_RISING_EDGE">
-                          <a:a name="ENABLE" value="false"/>
-                          <a:a name="IMPORTER_INFO" value="@DEF"/>
-                        </d:var>
-                        <d:var name="AdcHwTrigTimer" type="INTEGER" value="50">
-                          <a:a name="ENABLE" value="false"/>
-                          <a:a name="IMPORTER_INFO" value="@DEF"/>
-                        </d:var>
-                        <d:var name="AdcTransferType" type="ENUMERATION" 
-                               value="ADC_INTERRUPT">
-                          <a:a name="IMPORTER_INFO" value="@DEF"/>
-                        </d:var>
-                        <d:var name="AdcNotification" type="FUNCTION-NAME" 
-                               value="IoHwAb_Adc_Notification_1">
-                          <a:a name="ENABLE" value="true"/>
-                        </d:var>
-                        <d:var name="AdcStreamingBufferMode" type="ENUMERATION" 
-                               value="ADC_STREAM_BUFFER_LINEAR">
-                          <a:a name="IMPORTER_INFO" value="@DEF"/>
-                        </d:var>
-                        <d:var name="AdcStreamingNumSamples" type="INTEGER" 
-                               value="1">
-                          <a:a name="IMPORTER_INFO" value="@DEF"/>
-                        </d:var>
-                        <d:var name="AdcGroupInBacktoBackMode" type="BOOLEAN" 
-                               value="true"/>
-                        <d:var name="AdcGroupUsesChannelDelays" type="BOOLEAN" 
                                value="false">
-                          <a:a name="IMPORTER_INFO" value="@DEF"/>
+                          <a:a name="IMPORTER_INFO" value="@REC"/>
                         </d:var>
                         <d:var name="AdcDelayNextPtimer" type="INTEGER" 
                                value="0">
-                          <a:a name="IMPORTER_INFO">
-                            <a:v>@DEF</a:v>
-                            <a:v>@CALC</a:v>
-                          </a:a>
+                          <a:a name="IMPORTER_INFO" value="@REC"/>
                         </d:var>
                         <d:var name="AdcPtimerPeriodContinuousMode" 
                                type="INTEGER" value="0">
                           <a:a name="ENABLE" value="false"/>
-                          <a:a name="IMPORTER_INFO" value="@DEF"/>
                         </d:var>
                         <d:var name="AdcPtimerCoCoSel" type="INTEGER" value="0">
                           <a:a name="ENABLE" value="false"/>
@@ -498,20 +397,23 @@
                         </d:var>
                         <d:lst name="AdcGroupDefinition">
                           <d:ref type="REFERENCE" 
-                                 value="ASPath:/Adc/Adc/AdcConfigSet/AdcHwUnit_0/AdcChannel_TMU"/>
+                                 value="ASPath:/Adc/Adc/AdcConfigSet/AdcHwUnit_0/AdcChannel_VIN"/>
+                          <d:ref type="REFERENCE" 
+                                 value="ASPath:/Adc/Adc/AdcConfigSet/AdcHwUnit_0/AdcChannel_VOUT"/>
                         </d:lst>
                         <d:lst name="AdcGroupEcucPartitionRef"/>
                         <d:lst name="AdcChannelDelay"/>
                         <d:ctr name="AdcGroupHardwareAverageSettings" 
                                type="IDENTIFIABLE">
                           <a:a name="ENABLE" value="false"/>
+                          <a:a name="IMPORTER_INFO" value="@REC"/>
                           <d:var name="AdcGroupHardwareAverageEnable" 
                                  type="BOOLEAN" value="false">
-                            <a:a name="IMPORTER_INFO" value="@DEF"/>
+                            <a:a name="IMPORTER_INFO" value="@REC"/>
                           </d:var>
                           <d:var name="AdcGroupHardwareAverageSelect" 
                                  type="ENUMERATION" value="SAMPLES_4">
-                            <a:a name="IMPORTER_INFO" value="@DEF"/>
+                            <a:a name="IMPORTER_INFO" value="@REC"/>
                           </d:var>
                         </d:ctr>
                       </d:ctr>
@@ -522,7 +424,7 @@
                     </d:lst>
                   </d:ctr>
                   <d:ctr name="AdcHwUnit_1" type="IDENTIFIABLE">
-                    <d:var name="AdcHwUnitId" type="ENUMERATION" value="ADC1">
+                    <d:var name="AdcHwUnitId" type="ENUMERATION" value="HSADC2">
                       <a:a name="IMPORTER_INFO">
                         <a:v>@DEF</a:v>
                         <a:v>@CALC</a:v>
@@ -535,7 +437,7 @@
                       <a:a name="IMPORTER_INFO" value="@DEF"/>
                     </d:var>
                     <d:ref name="AdcClockRef" type="REFERENCE" 
-                           value="ASPath:/Mcu/Mcu/McuModuleConfiguration/MCU_Demo_FOSC24M/McuClockReferencePoint_Adc1"/>
+                           value="ASPath:/Mcu/Mcu/McuModuleConfiguration/MCU_Demo_FOSC24M/McuClockReferencePoint_HsAdc2"/>
                     <d:var name="AdcVoltageReferenceSelection" 
                            type="ENUMERATION" value="INTERNAL_REF">
                       <a:a name="IMPORTER_INFO" value="@DEF"/>
@@ -544,8 +446,9 @@
                       <a:a name="ENABLE" value="false"/>
                       <a:a name="IMPORTER_INFO" value="@DEF"/>
                     </d:var>
-                    <d:ref name="AdcDmaChannel" type="REFERENCE" >
-                      <a:a name="ENABLE" value="false"/>
+                    <d:ref name="AdcDmaChannel" type="REFERENCE" 
+                           value="ASPath:/Dma/Dma/DmaConfigSet/DmaHwUnit_0/DmaChannelConfig_3">
+                      <a:a name="ENABLE" value="true"/>
                       <a:a name="IMPORTER_INFO" value="@DEF"/>
                     </d:ref>
                     <d:var name="AdcAlign" type="ENUMERATION" 
@@ -562,7 +465,7 @@
                         <a:v>@DEF</a:v>
                       </a:a>
                     </d:var>
-                    <d:var name="AdcUnitUseHwGroup" type="BOOLEAN" value="false">
+                    <d:var name="AdcUnitUseHwGroup" type="BOOLEAN" value="true">
                       <a:a name="IMPORTER_INFO" value="@DEF"/>
                     </d:var>
                     <d:var name="AdcGroupInjection" type="BOOLEAN" value="false">
@@ -572,7 +475,7 @@
                            value="ADC_SEQ_PRIORITY_ROUND_ROBIN">
                       <a:a name="IMPORTER_INFO" value="@DEF"/>
                     </d:var>
-                    <d:var name="AdcHwUsePtimer" type="BOOLEAN" value="true"/>
+                    <d:var name="AdcHwUsePtimer" type="BOOLEAN" value="false"/>
                     <d:var name="AdcUseExtChannel" type="BOOLEAN" value="false">
                       <a:a name="IMPORTER_INFO" value="@DEF"/>
                     </d:var>
@@ -581,10 +484,10 @@
                       <a:a name="IMPORTER_INFO" value="@DEF"/>
                     </d:var>
                     <d:var name="AdcTriggerSelect" type="ENUMERATION" 
-                           value="PTIMER_TRIGGER"/>
+                           value="TRGSEL_TRIGGER"/>
                     <d:ctr name="AdcSampleTimeOptions" type="IDENTIFIABLE">
                       <d:var name="AdcSampleTimeOption0" type="INTEGER" 
-                             value="2">
+                             value="6">
                         <a:a name="IMPORTER_INFO">
                           <a:v>@DEF</a:v>
                           <a:v>@CALC</a:v>
@@ -639,7 +542,7 @@
                       </d:var>
                     </d:ctr>
                     <d:lst name="AdcChannel" type="MAP">
-                      <d:ctr name="AdcChannel_V11" type="IDENTIFIABLE">
+                      <d:ctr name="AdcChannel_IIN" type="IDENTIFIABLE">
                         <d:var name="AdcLogicalChannelId" type="INTEGER" 
                                value="0">
                           <a:a name="IMPORTER_INFO">
@@ -648,8 +551,8 @@
                           </a:a>
                         </d:var>
                         <d:var name="AdcChannelName" type="ENUMERATION" 
-                               value="V11_PD0_SE32"/>
-                        <d:var name="AdcChannelId" type="INTEGER" value="32">
+                               value="ADC_SE2"/>
+                        <d:var name="AdcChannelId" type="INTEGER" value="2">
                           <a:a name="IMPORTER_INFO">
                             <a:v>@CALC</a:v>
                             <a:v>@DEF</a:v>
@@ -702,14 +605,14 @@
                           <a:a name="IMPORTER_INFO" value="@DEF"/>
                         </d:var>
                         <d:var name="AdcChannelSampTime" type="INTEGER" 
-                               value="4">
+                               value="6">
                           <a:a name="IMPORTER_INFO">
                             <a:v>@CALC</a:v>
                             <a:v>@DEF</a:v>
                           </a:a>
                         </d:var>
                       </d:ctr>
-                      <d:ctr name="AdcChannel_V15" type="IDENTIFIABLE">
+                      <d:ctr name="AdcChannel_IOUT" type="IDENTIFIABLE">
                         <d:var name="AdcLogicalChannelId" type="INTEGER" 
                                value="1">
                           <a:a name="IMPORTER_INFO">
@@ -718,8 +621,8 @@
                           </a:a>
                         </d:var>
                         <d:var name="AdcChannelName" type="ENUMERATION" 
-                               value="VREFH0_SE33"/>
-                        <d:var name="AdcChannelId" type="INTEGER" value="33">
+                               value="ADC_SE3"/>
+                        <d:var name="AdcChannelId" type="INTEGER" value="3">
                           <a:a name="IMPORTER_INFO">
                             <a:v>@CALC</a:v>
                             <a:v>@DEF</a:v>
@@ -772,75 +675,10 @@
                           <a:a name="IMPORTER_INFO" value="@DEF"/>
                         </d:var>
                         <d:var name="AdcChannelSampTime" type="INTEGER" 
-                               value="4">
+                               value="6">
                           <a:a name="IMPORTER_INFO">
                             <a:v>@CALC</a:v>
                             <a:v>@DEF</a:v>
-                          </a:a>
-                        </d:var>
-                      </d:ctr>
-                      <d:ctr name="AdcChannel_VR1" type="IDENTIFIABLE">
-                        <d:var name="AdcLogicalChannelId" type="INTEGER" 
-                               value="2">
-                          <a:a name="IMPORTER_INFO">
-                            <a:v>@DEF</a:v>
-                            <a:v>@CALC</a:v>
-                          </a:a>
-                        </d:var>
-                        <d:var name="AdcChannelName" type="ENUMERATION" 
-                               value="ADC_SE10"/>
-                        <d:var name="AdcChannelId" type="INTEGER" value="10"/>
-                        <d:var name="AdcDiffChannel" type="BOOLEAN" 
-                               value="false">
-                          <a:a name="IMPORTER_INFO" value="@DEF"/>
-                        </d:var>
-                        <d:var name="AdcChannelLimitCheck" type="BOOLEAN" 
-                               value="false">
-                          <a:a name="IMPORTER_INFO" value="@DEF"/>
-                        </d:var>
-                        <d:var name="AdcChannelRangeSelect" type="ENUMERATION" 
-                               value="ADC_RANGE_ALWAYS">
-                          <a:a name="IMPORTER_INFO" value="@DEF"/>
-                        </d:var>
-                        <d:var name="AdcChannelHighLimit" type="INTEGER" 
-                               value="0">
-                          <a:a name="IMPORTER_INFO" value="@DEF"/>
-                        </d:var>
-                        <d:var name="AdcChannelLowLimit" type="INTEGER" 
-                               value="0">
-                          <a:a name="IMPORTER_INFO" value="@DEF"/>
-                        </d:var>
-                        <d:var name="AdcChannelConvTime" type="INTEGER" 
-                               value="0">
-                          <a:a name="ENABLE" value="false"/>
-                          <a:a name="IMPORTER_INFO" value="@DEF"/>
-                        </d:var>
-                        <d:var name="AdcChannelRefVoltsrcHigh" 
-                               type="ENUMERATION" value="UPPER_REF_VOLT_0">
-                          <a:a name="ENABLE" value="false"/>
-                          <a:a name="IMPORTER_INFO" value="@DEF"/>
-                        </d:var>
-                        <d:var name="AdcChannelRefVoltsrcLow" 
-                               type="ENUMERATION" value="LOWER_REF_VOLT_0">
-                          <a:a name="ENABLE" value="false"/>
-                          <a:a name="IMPORTER_INFO" value="@DEF"/>
-                        </d:var>
-                        <d:var name="AdcChannelResolution" type="INTEGER" 
-                               value="12">
-                          <a:a name="IMPORTER_INFO">
-                            <a:v>@DEF</a:v>
-                            <a:v>@CALC</a:v>
-                          </a:a>
-                        </d:var>
-                        <d:var name="AdcChannelSampTimeOption" 
-                               type="ENUMERATION" value="SAMPLE_TIME_OPTION_0">
-                          <a:a name="IMPORTER_INFO" value="@DEF"/>
-                        </d:var>
-                        <d:var name="AdcChannelSampTime" type="INTEGER" 
-                               value="4">
-                          <a:a name="IMPORTER_INFO">
-                            <a:v>@DEF</a:v>
-                            <a:v>@CALC</a:v>
                           </a:a>
                         </d:var>
                       </d:ctr>
@@ -877,12 +715,12 @@
                           <a:a name="IMPORTER_INFO" value="@DEF"/>
                         </d:var>
                         <d:var name="AdcTransferType" type="ENUMERATION" 
-                               value="ADC_INTERRUPT">
+                               value="ADC_DMA">
                           <a:a name="IMPORTER_INFO" value="@DEF"/>
                         </d:var>
                         <d:var name="AdcNotification" type="FUNCTION-NAME" 
-                               value="IoHwAb_Adc_Notification_2">
-                          <a:a name="ENABLE" value="true"/>
+                               value="NULL_PTR">
+                          <a:a name="ENABLE" value="false"/>
                         </d:var>
                         <d:var name="AdcStreamingBufferMode" type="ENUMERATION" 
                                value="ADC_STREAM_BUFFER_LINEAR">
@@ -893,11 +731,11 @@
                           <a:a name="IMPORTER_INFO" value="@DEF"/>
                         </d:var>
                         <d:var name="AdcGroupInBacktoBackMode" type="BOOLEAN" 
-                               value="false">
+                               value="true">
                           <a:a name="IMPORTER_INFO" value="@DEF"/>
                         </d:var>
                         <d:var name="AdcGroupUsesChannelDelays" type="BOOLEAN" 
-                               value="true"/>
+                               value="false"/>
                         <d:var name="AdcDelayNextPtimer" type="INTEGER" 
                                value="0">
                           <a:a name="IMPORTER_INFO">
@@ -916,20 +754,12 @@
                         </d:var>
                         <d:lst name="AdcGroupDefinition">
                           <d:ref type="REFERENCE" 
-                                 value="ASPath:/Adc/Adc/AdcConfigSet/AdcHwUnit_1/AdcChannel_V11"/>
+                                 value="ASPath:/Adc/Adc/AdcConfigSet/AdcHwUnit_1/AdcChannel_IIN"/>
                           <d:ref type="REFERENCE" 
-                                 value="ASPath:/Adc/Adc/AdcConfigSet/AdcHwUnit_1/AdcChannel_V15"/>
+                                 value="ASPath:/Adc/Adc/AdcConfigSet/AdcHwUnit_1/AdcChannel_IOUT"/>
                         </d:lst>
                         <d:lst name="AdcGroupEcucPartitionRef"/>
-                        <d:lst name="AdcChannelDelay">
-                          <d:var type="INTEGER" value="0">
-                            <a:a name="IMPORTER_INFO">
-                              <a:v>@DEF</a:v>
-                              <a:v>@CALC</a:v>
-                            </a:a>
-                          </d:var>
-                          <d:var type="INTEGER" value="500"/>
-                        </d:lst>
+                        <d:lst name="AdcChannelDelay"/>
                         <d:ctr name="AdcGroupHardwareAverageSettings" 
                                type="IDENTIFIABLE">
                           <a:a name="ENABLE" value="false"/>
@@ -1284,7 +1114,7 @@
                         <a:v>@DEF</a:v>
                       </a:a>
                     </d:var>
-                    <d:var name="AdcUnitUseHwGroup" type="BOOLEAN" value="false">
+                    <d:var name="AdcUnitUseHwGroup" type="BOOLEAN" value="true">
                       <a:a name="IMPORTER_INFO" value="@DEF"/>
                     </d:var>
                     <d:var name="AdcGroupInjection" type="BOOLEAN" value="false">
@@ -1365,7 +1195,7 @@
                       </d:var>
                     </d:ctr>
                     <d:lst name="AdcChannel" type="MAP">
-                      <d:ctr name="AdcChannel_0" type="IDENTIFIABLE">
+                      <d:ctr name="AdcChannel_VIN" type="IDENTIFIABLE">
                         <d:var name="AdcLogicalChannelId" type="INTEGER" 
                                value="0">
                           <a:a name="IMPORTER_INFO">
@@ -1374,8 +1204,8 @@
                           </a:a>
                         </d:var>
                         <d:var name="AdcChannelName" type="ENUMERATION" 
-                               value="VBG_BUFFER_SE6"/>
-                        <d:var name="AdcChannelId" type="INTEGER" value="6">
+                               value="ADC_SE2"/>
+                        <d:var name="AdcChannelId" type="INTEGER" value="2">
                           <a:a name="IMPORTER_INFO">
                             <a:v>@CALC</a:v>
                             <a:v>@DEF</a:v>
@@ -1435,7 +1265,7 @@
                           </a:a>
                         </d:var>
                       </d:ctr>
-                      <d:ctr name="AdcChannel_1" type="IDENTIFIABLE">
+                      <d:ctr name="AdcChannel_VOUT" type="IDENTIFIABLE">
                         <d:var name="AdcLogicalChannelId" type="INTEGER" 
                                value="1">
                           <a:a name="IMPORTER_INFO">
@@ -1444,8 +1274,8 @@
                           </a:a>
                         </d:var>
                         <d:var name="AdcChannelName" type="ENUMERATION" 
-                               value="V25_SE7"/>
-                        <d:var name="AdcChannelId" type="INTEGER" value="7">
+                               value="ADC_SE3"/>
+                        <d:var name="AdcChannelId" type="INTEGER" value="3">
                           <a:a name="IMPORTER_INFO">
                             <a:v>@CALC</a:v>
                             <a:v>@DEF</a:v>
@@ -1527,7 +1357,7 @@
                           <a:a name="IMPORTER_INFO" value="@DEF"/>
                         </d:var>
                         <d:var name="AdcGroupTriggSrc" type="ENUMERATION" 
-                               value="ADC_TRIGG_SRC_SW">
+                               value="ADC_TRIGG_SRC_HW">
                           <a:a name="IMPORTER_INFO" value="@DEF"/>
                         </d:var>
                         <d:var name="AdcHwTrigSignal" type="ENUMERATION" 
@@ -1540,10 +1370,10 @@
                           <a:a name="IMPORTER_INFO" value="@DEF"/>
                         </d:var>
                         <d:var name="AdcTransferType" type="ENUMERATION" 
-                               value="ADC_INTERRUPT"/>
+                               value="ADC_DMA"/>
                         <d:var name="AdcNotification" type="FUNCTION-NAME" 
-                               value="IoHwAb_Adc_Notification_4">
-                          <a:a name="ENABLE" value="true"/>
+                               value="NULL_PTR">
+                          <a:a name="ENABLE" value="false"/>
                         </d:var>
                         <d:var name="AdcStreamingBufferMode" type="ENUMERATION" 
                                value="ADC_STREAM_BUFFER_LINEAR">
@@ -1577,9 +1407,9 @@
                         </d:var>
                         <d:lst name="AdcGroupDefinition">
                           <d:ref type="REFERENCE" 
-                                 value="ASPath:/Adc/Adc/AdcConfigSet/AdcHwUnit_3/AdcChannel_0"/>
+                                 value="ASPath:/Adc/Adc/AdcConfigSet/AdcHwUnit_3/AdcChannel_VIN"/>
                           <d:ref type="REFERENCE" 
-                                 value="ASPath:/Adc/Adc/AdcConfigSet/AdcHwUnit_3/AdcChannel_1"/>
+                                 value="ASPath:/Adc/Adc/AdcConfigSet/AdcHwUnit_3/AdcChannel_VOUT"/>
                         </d:lst>
                         <d:lst name="AdcGroupEcucPartitionRef"/>
                         <d:lst name="AdcChannelDelay"/>

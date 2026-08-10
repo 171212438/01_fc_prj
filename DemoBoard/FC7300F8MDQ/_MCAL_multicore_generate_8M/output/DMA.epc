@@ -125,11 +125,11 @@
                         </ECUC-NUMERICAL-PARAM-VALUE>
                         <ECUC-TEXTUAL-PARAM-VALUE>
                           <DEFINITION-REF DEST="ECUC-FUNCTION-NAME-DEF">/FC7300FXXX/Dma/DmaConfigSet/DmaHwUnit/DmaChannelConfig/DmaChannelTransferCompleteISRCallout</DEFINITION-REF>
-                          <VALUE>Dma_Channel0_CompleteIsr</VALUE>
+                          <VALUE>NULL_PTR</VALUE>
                         </ECUC-TEXTUAL-PARAM-VALUE>
                         <ECUC-NUMERICAL-PARAM-VALUE>
                           <DEFINITION-REF DEST="ECUC-BOOLEAN-PARAM-DEF">/FC7300FXXX/Dma/DmaConfigSet/DmaHwUnit/DmaChannelConfig/EnableChannelCompeletInterrupt</DEFINITION-REF>
-                          <VALUE>1</VALUE>
+                          <VALUE>0</VALUE>
                         </ECUC-NUMERICAL-PARAM-VALUE>
                         <ECUC-NUMERICAL-PARAM-VALUE>
                           <DEFINITION-REF DEST="ECUC-BOOLEAN-PARAM-DEF">/FC7300FXXX/Dma/DmaConfigSet/DmaHwUnit/DmaChannelConfig/EnableChannelErrorInterrupt</DEFINITION-REF>
@@ -141,7 +141,7 @@
                         </ECUC-NUMERICAL-PARAM-VALUE>
                         <ECUC-NUMERICAL-PARAM-VALUE>
                           <DEFINITION-REF DEST="ECUC-BOOLEAN-PARAM-DEF">/FC7300FXXX/Dma/DmaConfigSet/DmaHwUnit/DmaChannelConfig/EnableInnerloopSelfTrig</DEFINITION-REF>
-                          <VALUE>1</VALUE>
+                          <VALUE>0</VALUE>
                         </ECUC-NUMERICAL-PARAM-VALUE>
                         <ECUC-NUMERICAL-PARAM-VALUE>
                           <DEFINITION-REF DEST="ECUC-BOOLEAN-PARAM-DEF">/FC7300FXXX/Dma/DmaConfigSet/DmaHwUnit/DmaChannelConfig/EnablePeriodTriggerMode</DEFINITION-REF>
@@ -177,11 +177,11 @@
                         </ECUC-NUMERICAL-PARAM-VALUE>
                         <ECUC-TEXTUAL-PARAM-VALUE>
                           <DEFINITION-REF DEST="ECUC-FUNCTION-NAME-DEF">/FC7300FXXX/Dma/DmaConfigSet/DmaHwUnit/DmaChannelConfig/DmaChannelTransferCompleteISRCallout</DEFINITION-REF>
-                          <VALUE>Dma_Channel1_CompleteIsr</VALUE>
+                          <VALUE>NULL_PTR</VALUE>
                         </ECUC-TEXTUAL-PARAM-VALUE>
                         <ECUC-NUMERICAL-PARAM-VALUE>
                           <DEFINITION-REF DEST="ECUC-BOOLEAN-PARAM-DEF">/FC7300FXXX/Dma/DmaConfigSet/DmaHwUnit/DmaChannelConfig/EnableChannelCompeletInterrupt</DEFINITION-REF>
-                          <VALUE>1</VALUE>
+                          <VALUE>0</VALUE>
                         </ECUC-NUMERICAL-PARAM-VALUE>
                         <ECUC-NUMERICAL-PARAM-VALUE>
                           <DEFINITION-REF DEST="ECUC-BOOLEAN-PARAM-DEF">/FC7300FXXX/Dma/DmaConfigSet/DmaHwUnit/DmaChannelConfig/EnableChannelErrorInterrupt</DEFINITION-REF>
@@ -203,7 +203,7 @@
                       <REFERENCE-VALUES>
                         <ECUC-REFERENCE-VALUE>
                           <DEFINITION-REF DEST="ECUC-REFERENCE-DEF">/FC7300FXXX/Dma/DmaConfigSet/DmaHwUnit/DmaChannelConfig/DmaChannelEcucPartitionRef</DEFINITION-REF>
-                          <VALUE-REF DEST="ECUC-CONTAINER-VALUE">/EcuC/EcuC/EcucPartitionCollection/EcucPartition_1</VALUE-REF>
+                          <VALUE-REF DEST="ECUC-CONTAINER-VALUE">/EcuC/EcuC/EcucPartitionCollection/EcucPartition_0</VALUE-REF>
                         </ECUC-REFERENCE-VALUE>
                       </REFERENCE-VALUES>
                     </ECUC-CONTAINER-VALUE>
@@ -229,11 +229,63 @@
                         </ECUC-NUMERICAL-PARAM-VALUE>
                         <ECUC-TEXTUAL-PARAM-VALUE>
                           <DEFINITION-REF DEST="ECUC-FUNCTION-NAME-DEF">/FC7300FXXX/Dma/DmaConfigSet/DmaHwUnit/DmaChannelConfig/DmaChannelTransferCompleteISRCallout</DEFINITION-REF>
-                          <VALUE>HSADC0_DMA_ISR</VALUE>
+                          <VALUE>NULL_PTR</VALUE>
                         </ECUC-TEXTUAL-PARAM-VALUE>
                         <ECUC-NUMERICAL-PARAM-VALUE>
                           <DEFINITION-REF DEST="ECUC-BOOLEAN-PARAM-DEF">/FC7300FXXX/Dma/DmaConfigSet/DmaHwUnit/DmaChannelConfig/EnableChannelCompeletInterrupt</DEFINITION-REF>
-                          <VALUE>1</VALUE>
+                          <VALUE>0</VALUE>
+                        </ECUC-NUMERICAL-PARAM-VALUE>
+                        <ECUC-NUMERICAL-PARAM-VALUE>
+                          <DEFINITION-REF DEST="ECUC-BOOLEAN-PARAM-DEF">/FC7300FXXX/Dma/DmaConfigSet/DmaHwUnit/DmaChannelConfig/EnableChannelErrorInterrupt</DEFINITION-REF>
+                          <VALUE>0</VALUE>
+                        </ECUC-NUMERICAL-PARAM-VALUE>
+                        <ECUC-NUMERICAL-PARAM-VALUE>
+                          <DEFINITION-REF DEST="ECUC-BOOLEAN-PARAM-DEF">/FC7300FXXX/Dma/DmaConfigSet/DmaHwUnit/DmaChannelConfig/EnableChannelHalfCompeletInterrupt</DEFINITION-REF>
+                          <VALUE>0</VALUE>
+                        </ECUC-NUMERICAL-PARAM-VALUE>
+                        <ECUC-NUMERICAL-PARAM-VALUE>
+                          <DEFINITION-REF DEST="ECUC-BOOLEAN-PARAM-DEF">/FC7300FXXX/Dma/DmaConfigSet/DmaHwUnit/DmaChannelConfig/EnableInnerloopSelfTrig</DEFINITION-REF>
+                          <VALUE>0</VALUE>
+                        </ECUC-NUMERICAL-PARAM-VALUE>
+                        <ECUC-NUMERICAL-PARAM-VALUE>
+                          <DEFINITION-REF DEST="ECUC-BOOLEAN-PARAM-DEF">/FC7300FXXX/Dma/DmaConfigSet/DmaHwUnit/DmaChannelConfig/EnablePeriodTriggerMode</DEFINITION-REF>
+                          <VALUE>0</VALUE>
+                        </ECUC-NUMERICAL-PARAM-VALUE>
+                      </PARAMETER-VALUES>
+                      <REFERENCE-VALUES>
+                        <ECUC-REFERENCE-VALUE>
+                          <DEFINITION-REF DEST="ECUC-REFERENCE-DEF">/FC7300FXXX/Dma/DmaConfigSet/DmaHwUnit/DmaChannelConfig/DmaChannelEcucPartitionRef</DEFINITION-REF>
+                          <VALUE-REF DEST="ECUC-CONTAINER-VALUE">/EcuC/EcuC/EcucPartitionCollection/EcucPartition_0</VALUE-REF>
+                        </ECUC-REFERENCE-VALUE>
+                      </REFERENCE-VALUES>
+                    </ECUC-CONTAINER-VALUE>
+                    <ECUC-CONTAINER-VALUE>
+                      <SHORT-NAME>DmaChannelConfig_3</SHORT-NAME>
+                      <DEFINITION-REF DEST="ECUC-PARAM-CONF-CONTAINER-DEF">/FC7300FXXX/Dma/DmaConfigSet/DmaHwUnit/DmaChannelConfig</DEFINITION-REF>
+                      <PARAMETER-VALUES>
+                        <ECUC-TEXTUAL-PARAM-VALUE>
+                          <DEFINITION-REF DEST="ECUC-FUNCTION-NAME-DEF">/FC7300FXXX/Dma/DmaConfigSet/DmaHwUnit/DmaChannelConfig/DmaChannelErrorISRCallout</DEFINITION-REF>
+                          <VALUE>NULL_PTR</VALUE>
+                        </ECUC-TEXTUAL-PARAM-VALUE>
+                        <ECUC-TEXTUAL-PARAM-VALUE>
+                          <DEFINITION-REF DEST="ECUC-ENUMERATION-PARAM-DEF">/FC7300FXXX/Dma/DmaConfigSet/DmaHwUnit/DmaChannelConfig/DmaChannelFlowCtrl</DEFINITION-REF>
+                          <VALUE>DMA_REQ_HSADC2</VALUE>
+                        </ECUC-TEXTUAL-PARAM-VALUE>
+                        <ECUC-NUMERICAL-PARAM-VALUE>
+                          <DEFINITION-REF DEST="ECUC-INTEGER-PARAM-DEF">/FC7300FXXX/Dma/DmaConfigSet/DmaHwUnit/DmaChannelConfig/DmaChannelId</DEFINITION-REF>
+                          <VALUE>3</VALUE>
+                        </ECUC-NUMERICAL-PARAM-VALUE>
+                        <ECUC-NUMERICAL-PARAM-VALUE>
+                          <DEFINITION-REF DEST="ECUC-INTEGER-PARAM-DEF">/FC7300FXXX/Dma/DmaConfigSet/DmaHwUnit/DmaChannelConfig/DmaChannelPriority</DEFINITION-REF>
+                          <VALUE>3</VALUE>
+                        </ECUC-NUMERICAL-PARAM-VALUE>
+                        <ECUC-TEXTUAL-PARAM-VALUE>
+                          <DEFINITION-REF DEST="ECUC-FUNCTION-NAME-DEF">/FC7300FXXX/Dma/DmaConfigSet/DmaHwUnit/DmaChannelConfig/DmaChannelTransferCompleteISRCallout</DEFINITION-REF>
+                          <VALUE>NULL_PTR</VALUE>
+                        </ECUC-TEXTUAL-PARAM-VALUE>
+                        <ECUC-NUMERICAL-PARAM-VALUE>
+                          <DEFINITION-REF DEST="ECUC-BOOLEAN-PARAM-DEF">/FC7300FXXX/Dma/DmaConfigSet/DmaHwUnit/DmaChannelConfig/EnableChannelCompeletInterrupt</DEFINITION-REF>
+                          <VALUE>0</VALUE>
                         </ECUC-NUMERICAL-PARAM-VALUE>
                         <ECUC-NUMERICAL-PARAM-VALUE>
                           <DEFINITION-REF DEST="ECUC-BOOLEAN-PARAM-DEF">/FC7300FXXX/Dma/DmaConfigSet/DmaHwUnit/DmaChannelConfig/EnableChannelErrorInterrupt</DEFINITION-REF>

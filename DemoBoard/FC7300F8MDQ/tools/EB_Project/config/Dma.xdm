@@ -96,14 +96,14 @@
                           </a:a>
                         </d:var>
                         <d:var name="EnableInnerloopSelfTrig" type="BOOLEAN" 
-                               value="true"/>
+                               value="false"/>
                         <d:var name="EnableChannelCompeletInterrupt" 
-                               type="BOOLEAN" value="true"/>
+                               type="BOOLEAN" value="false"/>
                         <d:var name="EnableChannelHalfCompeletInterrupt" 
                                type="BOOLEAN" value="false"/>
                         <d:var name="DmaChannelTransferCompleteISRCallout" 
                                type="FUNCTION-NAME" 
-                               value="Dma_Channel0_CompleteIsr"/>
+                               value="NULL_PTR"/>
                         <d:var name="EnableChannelErrorInterrupt" 
                                type="BOOLEAN" value="false">
                           <a:a name="IMPORTER_INFO" value="@DEF"/>
@@ -147,14 +147,14 @@
                           <a:a name="IMPORTER_INFO" value="@DEF"/>
                         </d:var>
                         <d:var name="EnableChannelCompeletInterrupt" 
-                               type="BOOLEAN" value="true"/>
+                               type="BOOLEAN" value="false"/>
                         <d:var name="EnableChannelHalfCompeletInterrupt" 
                                type="BOOLEAN" value="false">
                           <a:a name="IMPORTER_INFO" value="@DEF"/>
                         </d:var>
                         <d:var name="DmaChannelTransferCompleteISRCallout" 
                                type="FUNCTION-NAME" 
-                               value="Dma_Channel1_CompleteIsr"/>
+                               value="NULL_PTR"/>
                         <d:var name="EnableChannelErrorInterrupt" 
                                type="BOOLEAN" value="false">
                           <a:a name="IMPORTER_INFO" value="@DEF"/>
@@ -165,7 +165,7 @@
                         </d:var>
                         <d:lst name="DmaChannelEcucPartitionRef">
                           <d:ref type="REFERENCE" 
-                                 value="ASPath:/EcuC/EcuC/EcucPartitionCollection/EcucPartition_1"/>
+                                 value="ASPath:/EcuC/EcuC/EcucPartitionCollection/EcucPartition_0"/>
                         </d:lst>
                       </d:ctr>
                       <d:ctr name="DmaChannelConfig_2" type="IDENTIFIABLE">
@@ -193,13 +193,58 @@
                           <a:a name="IMPORTER_INFO" value="@DEF"/>
                         </d:var>
                         <d:var name="EnableChannelCompeletInterrupt" 
-                               type="BOOLEAN" value="true"/>
+                               type="BOOLEAN" value="false"/>
                         <d:var name="EnableChannelHalfCompeletInterrupt" 
                                type="BOOLEAN" value="false">
                           <a:a name="IMPORTER_INFO" value="@DEF"/>
                         </d:var>
                         <d:var name="DmaChannelTransferCompleteISRCallout" 
-                               type="FUNCTION-NAME" value="HSADC0_DMA_ISR"/>
+                               type="FUNCTION-NAME" value="NULL_PTR"/>
+                        <d:var name="EnableChannelErrorInterrupt" 
+                               type="BOOLEAN" value="false">
+                          <a:a name="IMPORTER_INFO" value="@DEF"/>
+                        </d:var>
+                        <d:var name="DmaChannelErrorISRCallout" 
+                               type="FUNCTION-NAME" value="NULL_PTR">
+                          <a:a name="IMPORTER_INFO" value="@DEF"/>
+                        </d:var>
+                        <d:lst name="DmaChannelEcucPartitionRef">
+                          <d:ref type="REFERENCE" 
+                                 value="ASPath:/EcuC/EcuC/EcucPartitionCollection/EcucPartition_0"/>
+                        </d:lst>
+                      </d:ctr>
+                      <d:ctr name="DmaChannelConfig_3" type="IDENTIFIABLE">
+                        <d:var name="DmaChannelId" type="INTEGER" value="3">
+                          <a:a name="IMPORTER_INFO">
+                            <a:v>@DEF</a:v>
+                            <a:v>@CALC</a:v>
+                          </a:a>
+                        </d:var>
+                        <d:var name="DmaChannelFlowCtrl" type="ENUMERATION" 
+                               value="DMA_REQ_HSADC2"/>
+                        <d:var name="EnablePeriodTriggerMode" type="BOOLEAN" 
+                               value="false">
+                          <a:a name="IMPORTER_INFO" value="@DEF"/>
+                        </d:var>
+                        <d:var name="DmaChannelPriority" type="INTEGER" 
+                               value="3">
+                          <a:a name="IMPORTER_INFO">
+                            <a:v>@DEF</a:v>
+                            <a:v>@CALC</a:v>
+                          </a:a>
+                        </d:var>
+                        <d:var name="EnableInnerloopSelfTrig" type="BOOLEAN" 
+                               value="false">
+                          <a:a name="IMPORTER_INFO" value="@DEF"/>
+                        </d:var>
+                        <d:var name="EnableChannelCompeletInterrupt" 
+                               type="BOOLEAN" value="false"/>
+                        <d:var name="EnableChannelHalfCompeletInterrupt" 
+                               type="BOOLEAN" value="false">
+                          <a:a name="IMPORTER_INFO" value="@DEF"/>
+                        </d:var>
+                        <d:var name="DmaChannelTransferCompleteISRCallout" 
+                               type="FUNCTION-NAME" value="NULL_PTR"/>
                         <d:var name="EnableChannelErrorInterrupt" 
                                type="BOOLEAN" value="false">
                           <a:a name="IMPORTER_INFO" value="@DEF"/>

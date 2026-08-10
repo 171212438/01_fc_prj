@@ -1740,7 +1740,7 @@
                           </a:a>
                         </d:var>
                         <d:var name="PortPinModeChangeable" type="BOOLEAN" 
-                               value="true">
+                               value="false">
                           <a:a name="IMPORTER_INFO" value="@DEF"/>
                         </d:var>
                         <d:var name="PortPinMode" type="ENUMERATION" 
@@ -11902,11 +11902,11 @@
                           </a:a>
                         </d:var>
                         <d:var name="PortPinModeChangeable" type="BOOLEAN" 
-                               value="true">
+                               value="false">
                           <a:a name="IMPORTER_INFO" value="@DEF"/>
                         </d:var>
                         <d:var name="PortPinMode" type="ENUMERATION" 
-                               value="GPIO">
+                               value="HSADC2_CH3">
                           <a:a name="IMPORTER_INFO">
                             <a:v>@DEF</a:v>
                             <a:v>@CALC</a:v>
@@ -11942,7 +11942,7 @@
                           <a:a name="IMPORTER_INFO" value="@DEF"/>
                         </d:var>
                         <d:var name="PortPinDirectionChangeable" type="BOOLEAN" 
-                               value="true">
+                               value="false">
                           <a:a name="IMPORTER_INFO" value="@DEF"/>
                         </d:var>
                         <d:var name="PortPinDirection" type="ENUMERATION" 
@@ -11982,11 +11982,11 @@
                           </a:a>
                         </d:var>
                         <d:var name="PortPinModeChangeable" type="BOOLEAN" 
-                               value="true">
+                               value="false">
                           <a:a name="IMPORTER_INFO" value="@DEF"/>
                         </d:var>
                         <d:var name="PortPinMode" type="ENUMERATION" 
-                               value="GPIO">
+                               value="HSADC2_CH2">
                           <a:a name="IMPORTER_INFO">
                             <a:v>@DEF</a:v>
                             <a:v>@CALC</a:v>
@@ -12022,7 +12022,7 @@
                           <a:a name="IMPORTER_INFO" value="@DEF"/>
                         </d:var>
                         <d:var name="PortPinDirectionChangeable" type="BOOLEAN" 
-                               value="true">
+                               value="false">
                           <a:a name="IMPORTER_INFO" value="@DEF"/>
                         </d:var>
                         <d:var name="PortPinDirection" type="ENUMERATION" 
@@ -15805,11 +15805,11 @@
                           </a:a>
                         </d:var>
                         <d:var name="PortPinModeChangeable" type="BOOLEAN" 
-                               value="true">
+                               value="false">
                           <a:a name="IMPORTER_INFO" value="@DEF"/>
                         </d:var>
                         <d:var name="PortPinMode" type="ENUMERATION" 
-                               value="GPIO">
+                               value="HSADC0_CH2">
                           <a:a name="IMPORTER_INFO">
                             <a:v>@DEF</a:v>
                             <a:v>@CALC</a:v>
@@ -15845,7 +15845,7 @@
                           <a:a name="IMPORTER_INFO" value="@DEF"/>
                         </d:var>
                         <d:var name="PortPinDirectionChangeable" type="BOOLEAN" 
-                               value="true">
+                               value="false">
                           <a:a name="IMPORTER_INFO" value="@DEF"/>
                         </d:var>
                         <d:var name="PortPinDirection" type="ENUMERATION" 
@@ -15885,11 +15885,11 @@
                           </a:a>
                         </d:var>
                         <d:var name="PortPinModeChangeable" type="BOOLEAN" 
-                               value="true">
+                               value="false">
                           <a:a name="IMPORTER_INFO" value="@DEF"/>
                         </d:var>
                         <d:var name="PortPinMode" type="ENUMERATION" 
-                               value="GPIO">
+                               value="HSADC0_CH3">
                           <a:a name="IMPORTER_INFO">
                             <a:v>@DEF</a:v>
                             <a:v>@CALC</a:v>
@@ -15925,7 +15925,7 @@
                           <a:a name="IMPORTER_INFO" value="@DEF"/>
                         </d:var>
                         <d:var name="PortPinDirectionChangeable" type="BOOLEAN" 
-                               value="true">
+                               value="false">
                           <a:a name="IMPORTER_INFO" value="@DEF"/>
                         </d:var>
                         <d:var name="PortPinDirection" type="ENUMERATION" 

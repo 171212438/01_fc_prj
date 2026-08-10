@@ -2649,7 +2649,7 @@
                     </ECUC-NUMERICAL-PARAM-VALUE>
                     <ECUC-TEXTUAL-PARAM-VALUE>
                       <DEFINITION-REF DEST="ECUC-ENUMERATION-PARAM-DEF">/FC7300FXXX/TrgSel/TrgSelConfigSet/TrgSelGroup4/HSADC2_TRG0</DEFINITION-REF>
-                      <VALUE>VSS</VALUE>
+                      <VALUE>TRGSEL_OUT1</VALUE>
                     </ECUC-TEXTUAL-PARAM-VALUE>
                     <ECUC-TEXTUAL-PARAM-VALUE>
                       <DEFINITION-REF DEST="ECUC-ENUMERATION-PARAM-DEF">/FC7300FXXX/TrgSel/TrgSelConfigSet/TrgSelGroup4/HSADC2_TRG1</DEFINITION-REF>

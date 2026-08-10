@@ -1384,6 +1384,22 @@
                           </a:a>
                         </d:var>
                       </d:ctr>
+                      <d:ctr name="McuClockReferencePoint_HsAdc2" 
+                             type="IDENTIFIABLE">
+                        <d:var name="McuClockFrequencySelect" 
+                               type="ENUMERATION" value="HSADC2_CLK"/>
+                        <d:ref name="McuClockRefFromeFTU" type="REFERENCE" >
+                          <a:a name="ENABLE" value="false"/>
+                          <a:a name="IMPORTER_INFO" value="@DEF"/>
+                        </d:ref>
+                        <d:var name="McuClockReferencePointFrequency" 
+                               type="FLOAT" value="7.5E7">
+                          <a:a name="IMPORTER_INFO">
+                            <a:v>@CALC</a:v>
+                            <a:v>@DEF</a:v>
+                          </a:a>
+                        </d:var>
+                      </d:ctr>
                     </d:lst>
                     <d:lst name="McuPeripheralClockConfig" type="MAP">
                       <d:ctr name="McuPeripheralClockConfig_1" 
@@ -3438,6 +3454,28 @@
                           <a:a name="IMPORTER_INFO">
                             <a:v>@DEF</a:v>
                             <a:v>@CALC</a:v>
+                          </a:a>
+                        </d:var>
+                      </d:ctr>
+                      <d:ctr name="McuPeripheralClockConfig_76" 
+                             type="IDENTIFIABLE">
+                        <d:var name="McuPerName" type="ENUMERATION" 
+                               value="HSADC2"/>
+                        <d:var name="McuPeripheralClockEnable" type="BOOLEAN" 
+                               value="true"/>
+                        <d:var name="McuPeripheralClockWriteProtection" 
+                               type="ENUMERATION" value="ONLY_CPU0">
+                          <a:a name="IMPORTER_INFO" value="@DEF"/>
+                        </d:var>
+                        <d:var name="McuPeripheralClockSelect" 
+                               type="ENUMERATION" value="PLL0DIVH"/>
+                        <d:var name="McuPeripheralClockDivider" type="INTEGER" 
+                               value="2"/>
+                        <d:var name="McuPeripheralClockFrequency" type="FLOAT" 
+                               value="7.5E7">
+                          <a:a name="IMPORTER_INFO">
+                            <a:v>@CALC</a:v>
+                            <a:v>@DEF</a:v>
                           </a:a>
                         </d:var>
                       </d:ctr>

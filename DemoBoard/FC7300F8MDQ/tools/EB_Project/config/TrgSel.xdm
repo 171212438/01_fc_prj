@@ -3989,7 +3989,8 @@
                   <d:var name="HSADC01_TRG_LockEn" type="BOOLEAN" value="false">
                     <a:a name="IMPORTER_INFO" value="@DEF"/>
                   </d:var>
-                  <d:var name="HSADC2_TRG0" type="ENUMERATION" value="VSS">
+                  <d:var name="HSADC2_TRG0" type="ENUMERATION" 
+                         value="TRGSEL_OUT1">
                     <a:a name="IMPORTER_INFO">
                       <a:v>@DEF</a:v>
                       <a:v>@CALC</a:v>
