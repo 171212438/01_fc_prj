@@ -305,7 +305,7 @@
                     </ECUC-TEXTUAL-PARAM-VALUE>
                     <ECUC-NUMERICAL-PARAM-VALUE>
                       <DEFINITION-REF DEST="ECUC-INTEGER-PARAM-DEF">/FC7300FXXX/Adc/AdcConfigSet/AdcHwUnit/AdcStartupCounter</DEFINITION-REF>
-                      <VALUE>24</VALUE>
+                      <VALUE>120</VALUE>
                     </ECUC-NUMERICAL-PARAM-VALUE>
                     <ECUC-TEXTUAL-PARAM-VALUE>
                       <DEFINITION-REF DEST="ECUC-ENUMERATION-PARAM-DEF">/FC7300FXXX/Adc/AdcConfigSet/AdcHwUnit/AdcTriggerSelect</DEFINITION-REF>

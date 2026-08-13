@@ -418,7 +418,7 @@ ADC_DATA_SECTION static const Adc_HwUnitConfigurationType Adc_HwUnitCfg[] =
         HSADC_CFG1_OVRMOD(FALSE),
         /** Main configuration of CFG2 registers */
         /* ADC Startup Counter */
-        HSADC_CFG2_STCNT(24U) |
+        HSADC_CFG2_STCNT(120U) |
         /* Hardware average enable */
         HSADC_CFG2_AVG_EN(FALSE) |
         /** Hardware average select */

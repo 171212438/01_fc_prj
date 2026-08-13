@@ -95,9 +95,13 @@ extern "C"
 *
 **/
 
-DMA_TEXT_SECTION extern void HSADC0_DMA_ISR(void);
+DMA_TEXT_SECTION extern void Cdd_HsAdcCapture_Dma2Callback(void);
 
-DMA_TEXT_SECTION extern void HSADC2_DMA_ISR(void);
+DMA_TEXT_SECTION extern void Cdd_HsAdcCapture_Dma2ErrorCallback(void);
+
+DMA_TEXT_SECTION extern void Cdd_HsAdcCapture_Dma3Callback(void);
+
+DMA_TEXT_SECTION extern void Cdd_HsAdcCapture_Dma3ErrorCallback(void);
 
 
 
@@ -148,8 +152,8 @@ DMA_DATA_SECTION static const Dma_ChannelConfigType DMA_Instance0_ChConfigData[]
   DmaEnableChannelErrorInterrupt,DmaChannelFlowCtrl,DmaChannelTransferCompleteISRCallout,DmaChannelErrorISRCallout,u8DmaISRRouter,bInnerChannelSelfChain*/
     {0, 0, 0, (boolean)FALSE, (boolean)FALSE, (boolean)FALSE, (boolean)FALSE, DMA_REQ_DISABLED, NULL_PTR, NULL_PTR, 0, (boolean)FALSE},
     {0, 1, 1, (boolean)FALSE, (boolean)FALSE, (boolean)FALSE, (boolean)FALSE, DMA_REQ_DISABLED, NULL_PTR, NULL_PTR, 0, (boolean)FALSE},
-    {0, 2, 2, (boolean)FALSE, (boolean)TRUE, (boolean)FALSE, (boolean)FALSE, DMA_REQ_HSADC0, HSADC0_DMA_ISR, NULL_PTR, 0, (boolean)FALSE},
-    {0, 3, 3, (boolean)FALSE, (boolean)TRUE, (boolean)FALSE, (boolean)FALSE, DMA_REQ_HSADC2, HSADC2_DMA_ISR, NULL_PTR, 0, (boolean)FALSE}
+    {0, 2, 2, (boolean)FALSE, (boolean)TRUE, (boolean)TRUE, (boolean)TRUE, DMA_REQ_HSADC0, Cdd_HsAdcCapture_Dma2Callback, Cdd_HsAdcCapture_Dma2ErrorCallback, 0, (boolean)FALSE},
+    {0, 3, 3, (boolean)FALSE, (boolean)TRUE, (boolean)TRUE, (boolean)TRUE, DMA_REQ_HSADC2, Cdd_HsAdcCapture_Dma3Callback, Cdd_HsAdcCapture_Dma3ErrorCallback, 0, (boolean)FALSE}
 };
 DMA_DATA_SECTION static const Dma_ChannelConfigType DMA_Instance1_ChConfigData[] =
 {

@@ -1,175 +1,199 @@
 #include "Bsp_Adc.h"
 
-#define ADC_REFERENCE_VOLTAGE (5.0f)
+#include "SchM_Dma.h"
+
+#define BSP_ADC_CAPTURE_SNAPSHOT_COUNT (2U)
 
 /************ Local Variables *******************/
-static boolean Adc0_Group0_Ready = FALSE;
-static boolean Adc0_Group1_Ready = FALSE;
-static boolean Adc1_Group2_Ready = FALSE;
-static boolean Adc2_Group3_Ready = FALSE;
-static boolean Adc3_Group4_Ready = FALSE;
+/* AdcGroup_2 maps to generated group 0 on HSADC2. */
+static Adc_ValueGroupType HsAdc2_Group2_SetupBuffer[ADC_CFGSET_GROUP_0_CHANNELS] = { 0 };
 
-Adc_ValueGroupType Adc0_Group0_Buffer[ADC_CFGSET_GROUP_0_CHANNELS]  = { 0 };
-Adc_ValueGroupType Adc0_Group0_Results[ADC_CFGSET_GROUP_0_CHANNELS] = { 0 };
+/* AdcGroup_4 maps to generated group 1 on HSADC0. */
+static Adc_ValueGroupType HsAdc0_Group4_SetupBuffer[ADC_CFGSET_GROUP_1_CHANNELS] = { 0 };
 
-Adc_ValueGroupType Adc0_Group1_Buffer[ADC_CFGSET_GROUP_1_CHANNELS]  = { 0 };
-Adc_ValueGroupType Adc0_Group1_Results[ADC_CFGSET_GROUP_1_CHANNELS] = { 0 };
+static volatile Bsp_Adc_CaptureSnapshotType s_atCaptureSnapshot[BSP_ADC_CAPTURE_SNAPSHOT_COUNT];
+static volatile uint8 s_u8PublishedSnapshotIndex;
+static volatile uint32 s_u32ConsumedBlockCount;
+static volatile uint32 s_u32ConsumerErrorCount;
+static volatile Cdd_HsAdcCapture_ResultType s_eLastConsumerResult = CDD_HSADC_CAPTURE_E_UNINIT;
+static volatile boolean s_bLatestSnapshotValid;
+static volatile boolean s_bConsumerActive;
 
-Adc_ValueGroupType Adc1_Group2_Buffer[ADC_CFGSET_GROUP_2_CHANNELS]  = { 0 };
-Adc_ValueGroupType Adc1_Group2_Results[ADC_CFGSET_GROUP_2_CHANNELS] = { 0 };
-
-Adc_ValueGroupType Adc2_Group3_Buffer[ADC_CFGSET_GROUP_3_CHANNELS]  = { 0 };
-Adc_ValueGroupType Adc2_Group3_Results[ADC_CFGSET_GROUP_3_CHANNELS] = { 0 };
-
-Adc_ValueGroupType Adc3_Group4_Buffer[ADC_CFGSET_GROUP_4_CHANNELS]  = { 0 };
-Adc_ValueGroupType Adc3_Group4_Results[ADC_CFGSET_GROUP_4_CHANNELS] = { 0 };
-
-static float Temperature;
-/************ Interrupt Map *******************/
-extern ISR(Adc_ISR_EndGroupConvUnit0);
-void ADC0_IRQHandler(void)
+static void Bsp_Adc_ResetCaptureConsumer(void)
 {
-    Adc_ISR_EndGroupConvUnit0();
+    s_u8PublishedSnapshotIndex = 0U;
+    s_u32ConsumedBlockCount = 0U;
+    s_u32ConsumerErrorCount = 0U;
+    s_eLastConsumerResult = CDD_HSADC_CAPTURE_E_UNINIT;
+    s_bLatestSnapshotValid = FALSE;
+    s_bConsumerActive = FALSE;
 }
 
-extern ISR(Adc_ISR_EndGroupConvUnit1);
-void ADC1_IRQHandler(void)
+static void Bsp_Adc_CopyBlockToSnapshot(
+    const Cdd_HsAdcCapture_BlockPairType *pBlockPair,
+    volatile Bsp_Adc_CaptureSnapshotType *pSnapshot)
 {
-    Adc_ISR_EndGroupConvUnit1();
+    uint16 u16FrameIndex;
+
+    for (u16FrameIndex = 0U; u16FrameIndex < pBlockPair->u16FrameCount; u16FrameIndex++)
+    {
+        pSnapshot->aHsAdc0Frames[u16FrameIndex] = pBlockPair->pHsAdc0Frames[u16FrameIndex];
+        pSnapshot->aHsAdc2Frames[u16FrameIndex] = pBlockPair->pHsAdc2Frames[u16FrameIndex];
+    }
+
+    pSnapshot->u32Sequence = pBlockPair->u32Sequence;
+    pSnapshot->u16FrameCount = pBlockPair->u16FrameCount;
 }
 
-extern ISR(Adc_ISR_EndGroupConvUnit2);
-void ADC2_IRQHandler(void)
+static void Bsp_Adc_CopySnapshotToOutput(
+    const volatile Bsp_Adc_CaptureSnapshotType *pSnapshot,
+    Bsp_Adc_CaptureSnapshotType *pOutput)
 {
-    Adc_ISR_EndGroupConvUnit2();
-}
+    uint16 u16FrameIndex;
 
-extern ISR(HsAdc_ISR_EndGroupConvUnit0);
-void HSADC0_IRQHandler(void)
-{
-	HsAdc_ISR_EndGroupConvUnit0();
-}
+    for (u16FrameIndex = 0U; u16FrameIndex < pSnapshot->u16FrameCount; u16FrameIndex++)
+    {
+        pOutput->aHsAdc0Frames[u16FrameIndex] = pSnapshot->aHsAdc0Frames[u16FrameIndex];
+        pOutput->aHsAdc2Frames[u16FrameIndex] = pSnapshot->aHsAdc2Frames[u16FrameIndex];
+    }
 
-/************ Callback functions *******************/
-void IoHwAb_Adc_Notification_0(void)
-{
-    Adc0_Group0_Ready = TRUE;
-}
-
-void IoHwAb_Adc_Notification_1(void)
-{
-    Adc0_Group1_Ready = TRUE;
-}
-
-void IoHwAb_Adc_Notification_2(void)
-{
-    Adc1_Group2_Ready = TRUE;
-}
-
-void IoHwAb_Adc_Notification_3(void)
-{
-    Adc2_Group3_Ready = TRUE;
-}
-
-void IoHwAb_Adc_Notification_4(void)
-{
-    Adc3_Group4_Ready = TRUE;
+    pOutput->u32Sequence = pSnapshot->u32Sequence;
+    pOutput->u32ConsumedBlockCount = pSnapshot->u32ConsumedBlockCount;
+    pOutput->u16FrameCount = pSnapshot->u16FrameCount;
 }
 
 /************ Global functions *******************/
 void Bsp_Adc_Init(void)
 {
-    if (0 == Cpm_HWA_GetCoreId())
+    if (0U != Cpm_HWA_GetCoreId())
     {
-        Adc_Init(&Adc_Config_EcucPartition_0);
+        return;
     }
-    else if (1 == Cpm_HWA_GetCoreId())
+
+    Bsp_Adc_ResetCaptureConsumer();
+
+    Adc_Init(&Adc_Config_EcucPartition_0);
+
+    (void)Adc_SetupResultBuffer(AdcGroup_2, HsAdc2_Group2_SetupBuffer);
+    (void)Adc_SetupResultBuffer(AdcGroup_4, HsAdc0_Group4_SetupBuffer);
+
+    Adc_EnableHardwareTrigger(AdcGroup_2);
+    Adc_EnableHardwareTrigger(AdcGroup_4);
+}
+
+void Cdd_HsAdcCapture_BlockPairNotification(void)
+{
+    Cdd_HsAdcCapture_BlockPairType tBlockPair;
+    Cdd_HsAdcCapture_ResultType eResult;
+    uint8 u8DrainCount;
+    uint8 u8WriteSnapshotIndex;
+
+    if (0U != Cpm_HWA_GetCoreId())
     {
-        Adc_Init(&Adc_Config_EcucPartition_1);
+        return;
     }
-    if (0 == Cpm_HWA_GetCoreId())
+
+    SchM_Enter_Dma_DMA_EXCLUSIVE_AREA_06();
+    if (TRUE == s_bConsumerActive)
     {
-        IntMgr_SetPriority(ADC0_IRQn, 5);
-        IntMgr_EnableInterrupt(ADC0_IRQn);
-        IntMgr_SetPriority(ADC1_IRQn, 5);
-        IntMgr_EnableInterrupt(ADC1_IRQn);
-        IntMgr_SetPriority(HSADC0_IRQn, 5);
-        IntMgr_EnableInterrupt(HSADC0_IRQn);
-        Adc_SetupResultBuffer(AdcGroup_0, Adc0_Group0_Buffer);
-        Adc_SetupResultBuffer(AdcGroup_1, Adc0_Group1_Buffer);
-        Adc_SetupResultBuffer(AdcGroup_2, Adc1_Group2_Buffer);
-        Adc_SetupResultBuffer(AdcGroup_4, Adc3_Group4_Buffer);
-        Adc_EnableGroupNotification(AdcGroup_0);
-        Adc_EnableGroupNotification(AdcGroup_1);
-        Adc_EnableGroupNotification(AdcGroup_2);
-        Adc_EnableGroupNotification(AdcGroup_4);
-        Adc_StartGroupConversion(AdcGroup_0);
-        Adc_StartGroupConversion(AdcGroup_1);
-        Adc_EnableHardwareTrigger(AdcGroup_2);
-        Adc_StartGroupConversion(AdcGroup_4);
+        s_u32ConsumerErrorCount++;
+        s_eLastConsumerResult = CDD_HSADC_CAPTURE_E_BUSY;
+        SchM_Exit_Dma_DMA_EXCLUSIVE_AREA_06();
+        return;
     }
-    else if (1 == Cpm_HWA_GetCoreId())
+    s_bConsumerActive = TRUE;
+    SchM_Exit_Dma_DMA_EXCLUSIVE_AREA_06();
+
+    for (u8DrainCount = 0U; u8DrainCount < CDD_HSADC_CAPTURE_QUEUE_DEPTH; u8DrainCount++)
     {
-        IntMgr_SetPriority(ADC2_IRQn, 5);
-        IntMgr_EnableInterrupt(ADC2_IRQn);
-        Adc_SetupResultBuffer(AdcGroup_3, Adc2_Group3_Buffer);
-        Adc_EnableGroupNotification(AdcGroup_3);
-        Adc_StartGroupConversion(AdcGroup_3);
+        eResult = Cdd_HsAdcCapture_AcquireBlockPair(&tBlockPair);
+        if (CDD_HSADC_CAPTURE_E_NO_BLOCK == eResult)
+        {
+            break;
+        }
+        if (CDD_HSADC_CAPTURE_OK != eResult)
+        {
+            SchM_Enter_Dma_DMA_EXCLUSIVE_AREA_06();
+            s_u32ConsumerErrorCount++;
+            s_eLastConsumerResult = eResult;
+            SchM_Exit_Dma_DMA_EXCLUSIVE_AREA_06();
+            break;
+        }
+
+        u8WriteSnapshotIndex = s_u8PublishedSnapshotIndex ^ 1U;
+        Bsp_Adc_CopyBlockToSnapshot(&tBlockPair, &s_atCaptureSnapshot[u8WriteSnapshotIndex]);
+
+        eResult = Cdd_HsAdcCapture_ReleaseBlockPair(tBlockPair.u32Sequence);
+        if (CDD_HSADC_CAPTURE_OK != eResult)
+        {
+            SchM_Enter_Dma_DMA_EXCLUSIVE_AREA_06();
+            s_u32ConsumerErrorCount++;
+            s_eLastConsumerResult = eResult;
+            SchM_Exit_Dma_DMA_EXCLUSIVE_AREA_06();
+            break;
+        }
+
+        SchM_Enter_Dma_DMA_EXCLUSIVE_AREA_06();
+        s_u32ConsumedBlockCount++;
+        s_atCaptureSnapshot[u8WriteSnapshotIndex].u32ConsumedBlockCount = s_u32ConsumedBlockCount;
+        MCAL_DATA_SYNC_BARRIER();
+        s_u8PublishedSnapshotIndex = u8WriteSnapshotIndex;
+        s_bLatestSnapshotValid = TRUE;
+        s_eLastConsumerResult = CDD_HSADC_CAPTURE_OK;
+        SchM_Exit_Dma_DMA_EXCLUSIVE_AREA_06();
     }
+
+    SchM_Enter_Dma_DMA_EXCLUSIVE_AREA_06();
+    s_bConsumerActive = FALSE;
+    SchM_Exit_Dma_DMA_EXCLUSIVE_AREA_06();
 }
 
 void Bsp_Adc_20ms_Task_Event(void)
 {
-    float TmuVoltage;
-    sint32 s32DiffVal;
-    if (0 == Cpm_HWA_GetCoreId())
-    {
-        if (Adc0_Group0_Ready == TRUE)
-        {
-            Adc0_Group0_Ready = FALSE;
-            Adc_ReadGroup(AdcGroup_0, Adc0_Group0_Results);
-            Adc_StartGroupConversion(AdcGroup_0);
-        }
-        if (Adc0_Group1_Ready == TRUE)
-        {
-            Adc0_Group1_Ready = FALSE;
-            Adc_ReadGroup(AdcGroup_1, Adc0_Group1_Results);
-            Adc_StartGroupConversion(AdcGroup_1);
-            s32DiffVal = ((sint32)Adc0_Group1_Results[0] << 20) >> 20;
-            TmuVoltage = (float)(s32DiffVal) / 2048.0f * ADC_REFERENCE_VOLTAGE;
-            Temperature = Adc_CalcTemperature(TmuVoltage);
-        }
-        if (Adc1_Group2_Ready == TRUE)
-        {
-            Adc1_Group2_Ready = FALSE;
-            Adc_ReadGroup(AdcGroup_2, Adc1_Group2_Results);
-        }
-        if (Adc3_Group4_Ready == TRUE)
-        {
-            Adc3_Group4_Ready = FALSE;
-            Adc_ReadGroup(AdcGroup_4, Adc3_Group4_Results);
-            Adc_StartGroupConversion(AdcGroup_4);
-        }
-    }
-    else if (1 == Cpm_HWA_GetCoreId())
-    {
-        if (Adc2_Group3_Ready == TRUE)
-        {
-            Adc2_Group3_Ready = FALSE;
-            Adc_ReadGroup(AdcGroup_3, Adc2_Group3_Results);
-            Adc_StartGroupConversion(AdcGroup_3);
-        }
-    }
+    /* The DMA-ISR notification drains blocks; task users read the latest snapshot through the BSP API. */
 }
 
 void Bsp_Adc_1s_Task_Event(void)
 {
-    if (0 == Cpm_HWA_GetCoreId())
+    /* No periodic ADC diagnostic output is required in this BSP layer. */
+}
+
+Std_ReturnType Bsp_Adc_GetLatestCapture(Bsp_Adc_CaptureSnapshotType *pSnapshot)
+{
+    Std_ReturnType eResult = E_NOT_OK;
+
+    if ((NULL_PTR == pSnapshot) || (0U != Cpm_HWA_GetCoreId()))
     {
-        for (uint8 u8Index = 0U; u8Index < ADC_CFGSET_GROUP_0_CHANNELS; u8Index++)
-        {
-            DEBUG_INFO("Adc0_Group0_Results[%d]: %d!\r\n", u8Index, (int)Adc0_Group0_Results[u8Index]);
-        }
-        DEBUG_INFO("MCU Temperature: %f!\r\n", Temperature);
+        return E_NOT_OK;
     }
+
+    SchM_Enter_Dma_DMA_EXCLUSIVE_AREA_06();
+    if (TRUE == s_bLatestSnapshotValid)
+    {
+        Bsp_Adc_CopySnapshotToOutput(&s_atCaptureSnapshot[s_u8PublishedSnapshotIndex], pSnapshot);
+        eResult = E_OK;
+    }
+    SchM_Exit_Dma_DMA_EXCLUSIVE_AREA_06();
+
+    return eResult;
+}
+
+Std_ReturnType Bsp_Adc_GetCaptureConsumerStatus(Bsp_Adc_CaptureConsumerStatusType *pStatus)
+{
+    if ((NULL_PTR == pStatus) || (0U != Cpm_HWA_GetCoreId()))
+    {
+        return E_NOT_OK;
+    }
+
+    SchM_Enter_Dma_DMA_EXCLUSIVE_AREA_06();
+    pStatus->eLastConsumerResult = s_eLastConsumerResult;
+    pStatus->u32LatestSequence = (TRUE == s_bLatestSnapshotValid)
+                                   ? s_atCaptureSnapshot[s_u8PublishedSnapshotIndex].u32Sequence
+                                   : 0U;
+    pStatus->u32ConsumedBlockCount = s_u32ConsumedBlockCount;
+    pStatus->u32ConsumerErrorCount = s_u32ConsumerErrorCount;
+    pStatus->bLatestSnapshotValid = s_bLatestSnapshotValid;
+    SchM_Exit_Dma_DMA_EXCLUSIVE_AREA_06();
+
+    return E_OK;
 }

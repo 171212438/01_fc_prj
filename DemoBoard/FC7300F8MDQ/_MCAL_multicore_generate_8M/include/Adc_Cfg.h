@@ -82,12 +82,12 @@ extern "C" {
  * @brief          DMA interrupt callback function for ADC Hardware unit HSADC2.
  *
  */
-#define HsAdc_DMA_EndGroupConvUnit2  HSADC2_DMA_ISR
+#define HsAdc_DMA_EndGroupConvUnit2  Cdd_HsAdcCapture_Dma3Callback
 /**
  * @brief          DMA interrupt callback function for ADC Hardware unit HSADC0.
  *
  */
-#define HsAdc_DMA_EndGroupConvUnit0  HSADC0_DMA_ISR
+#define HsAdc_DMA_EndGroupConvUnit0  Cdd_HsAdcCapture_Dma2Callback
 
 /*==================================================================================================
 *                                             ENUMS

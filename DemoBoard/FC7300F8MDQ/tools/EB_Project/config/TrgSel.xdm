@@ -3967,7 +3967,7 @@
                     <a:a name="IMPORTER_INFO" value="@DEF"/>
                   </d:var>
                   <d:var name="HSADC0_TRG0" type="ENUMERATION" 
-                         value="TRGSEL_OUT1"/>
+                         value="eFTU1_TOM0"/>
                   <d:var name="HSADC0_TRG1" type="ENUMERATION" value="VSS">
                     <a:a name="IMPORTER_INFO">
                       <a:v>@DEF</a:v>
@@ -3990,7 +3990,7 @@
                     <a:a name="IMPORTER_INFO" value="@DEF"/>
                   </d:var>
                   <d:var name="HSADC2_TRG0" type="ENUMERATION" 
-                         value="TRGSEL_OUT1">
+                         value="eFTU1_TOM0">
                     <a:a name="IMPORTER_INFO">
                       <a:v>@DEF</a:v>
                       <a:v>@CALC</a:v>

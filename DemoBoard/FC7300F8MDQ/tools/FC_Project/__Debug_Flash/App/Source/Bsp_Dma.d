@@ -285,7 +285,8 @@ App/Source/Bsp_Dma.o: \
  ../../../../../MCAL/Src/Ssi/include/Ssi_Reg.h \
  ../../../_MCAL_multicore_generate_8M/include/CDD_Ssi_Cfg.h \
  ../../../../../MCAL/Src/SchM/include/SchM_Ssi.h \
- ../../../../../MCAL/Src/Base/include/MemMap/Ssi_MemMap.h
+ ../../../../../MCAL/Src/Base/include/MemMap/Ssi_MemMap.h \
+ ../../../App/Include/Cdd_HsAdcCapture.h
 
 ../../../App/Include/Bsp_Dma.h:
 
@@ -862,3 +863,5 @@ App/Source/Bsp_Dma.o: \
 ../../../../../MCAL/Src/SchM/include/SchM_Ssi.h:
 
 ../../../../../MCAL/Src/Base/include/MemMap/Ssi_MemMap.h:
+
+../../../App/Include/Cdd_HsAdcCapture.h:

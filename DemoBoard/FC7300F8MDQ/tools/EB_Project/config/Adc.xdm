@@ -413,7 +413,7 @@
                            value="BITS_12">
                       <a:a name="IMPORTER_INFO" value="@DEF"/>
                     </d:var>
-                    <d:var name="AdcStartupCounter" type="INTEGER" value="24">
+                    <d:var name="AdcStartupCounter" type="INTEGER" value="120">
                       <a:a name="IMPORTER_INFO">
                         <a:v>@CALC</a:v>
                         <a:v>@DEF</a:v>
@@ -793,8 +793,6 @@
                 <d:lst name="AdcEcucPartitionRef">
                   <d:ref type="REFERENCE" 
                          value="ASPath:/EcuC/EcuC/EcucPartitionCollection/EcucPartition_0"/>
-                  <d:ref type="REFERENCE" 
-                         value="ASPath:/EcuC/EcuC/EcucPartitionCollection/EcucPartition_1"/>
                 </d:lst>
                 <d:ref name="AdcKernelEcucPartitionRef" type="REFERENCE" >
                   <a:a name="ENABLE" value="false"/>

@@ -1,12 +1,10 @@
 #include "Bsp_Dma.h"
+#include "Cdd_HsAdcCapture.h"
 
 extern ISR(DMA0_Done_Isr);
 extern ISR(DMA1_Done_Isr);
-#if ((defined DMA_CHANNEL2_IRQ) && (STD_ON == DMA_CHANNEL2_IRQ))
-extern ISR(DMA2_Done_Isr);
-#endif
-#if ((defined DMA_CHANNEL3_IRQ) && (STD_ON == DMA_CHANNEL3_IRQ))
-extern ISR(DMA3_Done_Isr);
+#if ((defined DMA_CHANNEL_ERROR_IRQ) && (STD_ON == DMA_CHANNEL_ERROR_IRQ))
+extern ISR(DMA_Error_Isr);
 #endif
 #if ((defined DMA_CHANNEL4_IRQ) && (STD_ON == DMA_CHANNEL4_IRQ))
 extern ISR(DMA4_Done_Isr);
@@ -185,6 +183,8 @@ void Bsp_Dma_Init(void)
     {
         Dma_Init(Dma_pConfig[u8PartitionId]);
         IntMgr_EnableInterrupt(DMA0_IRQn);
+        IntMgr_EnableInterrupt(DMA2_IRQn);
+        IntMgr_EnableInterrupt(DMA3_IRQn);
         IntMgr_EnableInterrupt(DMA_Error_IRQn);
         #if(DMA_TEST_SWITCH == DMA_TEST_SWITCH_ON)
         #ifdef DMA_TEST_CHTOCH
@@ -194,50 +194,37 @@ void Bsp_Dma_Init(void)
         Dma_StartChannel(DMA_INSTANCE_0, DMA_TEST_SW_CHANNEL_ID);
         #endif
     }
-    else if (1 == Cpm_HWA_GetCoreId())
-	{
-		Dma_Init(Dma_pConfig[u8PartitionId]);
-		IntMgr_EnableInterrupt(DMA1_IRQn);
-		Tlib_Dma_Channel0_Init();
-		Dma_StartChannel(DMA_INSTANCE_0, 1u);
-	}
     else if (2 == Cpm_HWA_GetCoreId())
     {
         Dma_Init(Dma_pConfig[u8PartitionId]);
         IntMgr_EnableInterrupt(DMA0_IRQn);
         IntMgr_EnableInterrupt(DMA1_IRQn);
-        IntMgr_EnableInterrupt(DMA2_IRQn);
-        IntMgr_EnableInterrupt(DMA3_IRQn);
         IntMgr_EnableInterrupt(DMA4_IRQn);
         Tlib_Dma_Channel0_Init();
         Dma_StartChannel(DMA_INSTANCE_1, DMA_TEST_SW_CHANNEL_ID);
+    }
+    else
+    {
+        /* DMA has no configured partition or channel ownership on Core1/Core3. */
     }
 }
 
 void Bsp_Dma_20ms_Task_Event(void)
 {
     #if (DMA_TEST_SWITCH == DMA_TEST_SWITCH_ON)
-    if (3 == Cpm_HWA_GetCoreId())
-    {
-        #ifdef DMA_TEST_SW_CHANNEL_ID_CORE2
-        Dma_StartChannel(DMA_TEST_SW_CHANNEL_ID_CORE2);
-        test_outloopcnt = Dma_GetCurrentOuterLoopCounter(DMA_TEST_SW_CHANNEL_ID_CORE2);
-        #endif
-    }
-    else if (2 == Cpm_HWA_GetCoreId())
+    if (2 == Cpm_HWA_GetCoreId())
     {
     	Dma_StartChannel(DMA_INSTANCE_1, DMA_TEST_SW_CHANNEL_ID);
     	test_outloopcnt = Dma_GetCurrentOuterLoopCounter(DMA_INSTANCE_1, DMA_TEST_SW_CHANNEL_ID);
     }
-    else if (1 == Cpm_HWA_GetCoreId())
-	{
-		Dma_StartChannel(DMA_INSTANCE_0, 1u);
-		test_outloopcnt = Dma_GetCurrentOuterLoopCounter(DMA_INSTANCE_0, 1u);
-	}
-    else
+    else if (0 == Cpm_HWA_GetCoreId())
     {
         Dma_StartChannel(DMA_INSTANCE_0, DMA_TEST_SW_CHANNEL_ID);
         test_outloopcnt = Dma_GetCurrentOuterLoopCounter(DMA_INSTANCE_0, DMA_TEST_SW_CHANNEL_ID);
+    }
+    else
+    {
+        /* Core1/Core3 do not own a generated DMA channel. */
     }
 
     #endif
@@ -266,14 +253,14 @@ void DMA1_IRQHandler(void)
 #if ((defined DMA_CHANNEL2_IRQ) && (STD_ON == DMA_CHANNEL2_IRQ))
 void DMA2_IRQHandler(void)
 {
-    DMA2_Done_Isr();
+    Cdd_HsAdcCapture_Dma2IrqHandler();
 }
 #endif /* DMA_CHANNEL2_IRQ */
 
 #if ((defined DMA_CHANNEL3_IRQ) && (STD_ON == DMA_CHANNEL3_IRQ))
 void DMA3_IRQHandler(void)
 {
-    DMA3_Done_Isr();
+    Cdd_HsAdcCapture_Dma3IrqHandler();
 }
 #endif /* DMA_CHANNEL3_IRQ */
 

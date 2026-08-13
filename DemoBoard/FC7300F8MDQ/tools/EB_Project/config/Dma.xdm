@@ -193,17 +193,17 @@
                         <d:var name="EnableChannelCompeletInterrupt" 
                                type="BOOLEAN" value="true"/>
                         <d:var name="EnableChannelHalfCompeletInterrupt" 
-                               type="BOOLEAN" value="false">
+                               type="BOOLEAN" value="true">
                           <a:a name="IMPORTER_INFO" value="@DEF"/>
                         </d:var>
                         <d:var name="DmaChannelTransferCompleteISRCallout" 
-                               type="FUNCTION-NAME" value="HSADC0_DMA_ISR"/>
+                               type="FUNCTION-NAME" value="Cdd_HsAdcCapture_Dma2Callback"/>
                         <d:var name="EnableChannelErrorInterrupt" 
-                               type="BOOLEAN" value="false">
+                               type="BOOLEAN" value="true">
                           <a:a name="IMPORTER_INFO" value="@DEF"/>
                         </d:var>
                         <d:var name="DmaChannelErrorISRCallout" 
-                               type="FUNCTION-NAME" value="NULL_PTR">
+                               type="FUNCTION-NAME" value="Cdd_HsAdcCapture_Dma2ErrorCallback">
                           <a:a name="IMPORTER_INFO" value="@DEF"/>
                         </d:var>
                         <d:lst name="DmaChannelEcucPartitionRef">
@@ -238,17 +238,17 @@
                         <d:var name="EnableChannelCompeletInterrupt" 
                                type="BOOLEAN" value="true"/>
                         <d:var name="EnableChannelHalfCompeletInterrupt" 
-                               type="BOOLEAN" value="false">
+                               type="BOOLEAN" value="true">
                           <a:a name="IMPORTER_INFO" value="@DEF"/>
                         </d:var>
                         <d:var name="DmaChannelTransferCompleteISRCallout" 
-                               type="FUNCTION-NAME" value="HSADC2_DMA_ISR"/>
+                               type="FUNCTION-NAME" value="Cdd_HsAdcCapture_Dma3Callback"/>
                         <d:var name="EnableChannelErrorInterrupt" 
-                               type="BOOLEAN" value="false">
+                               type="BOOLEAN" value="true">
                           <a:a name="IMPORTER_INFO" value="@DEF"/>
                         </d:var>
                         <d:var name="DmaChannelErrorISRCallout" 
-                               type="FUNCTION-NAME" value="NULL_PTR">
+                               type="FUNCTION-NAME" value="Cdd_HsAdcCapture_Dma3ErrorCallback">
                           <a:a name="IMPORTER_INFO" value="@DEF"/>
                         </d:var>
                         <d:lst name="DmaChannelEcucPartitionRef">

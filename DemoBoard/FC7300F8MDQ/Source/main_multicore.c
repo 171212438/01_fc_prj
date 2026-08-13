@@ -7,6 +7,7 @@
 #include "Bsp_Gpt.h"
 #include "Bsp_Wdg.h"
 #include "Bsp_Adc.h"
+#include "Cdd_HsAdcCapture.h"
 #include "Bsp_Lin.h"
 #include "Bsp_Dma.h"
 #include "Bsp_Spi.h"
@@ -76,6 +77,11 @@
 
 #if (PWM_WAVE_FIXED_TEST_AUTOSTART == STD_ON) && (PWM_WAVE_CARRIER_FREQUENCY_TEST_AUTOSTART == STD_ON)
   #error "PWM fixed and carrier-frequency tests cannot autostart together"
+#endif
+
+#if ((PWM_WAVE_FIXED_TEST_AUTOSTART == STD_ON) || (PWM_WAVE_CARRIER_FREQUENCY_TEST_AUTOSTART == STD_ON)) && \
+    ((ADC_DEMO_SUPPORT != STD_ON) || (DMA_DEMO_SUPPORT != STD_ON))
+  #error "PWM wave autostart requires ADC and DMA for HSADC block capture"
 #endif
 
 #define SCM_CPUVTOR_CPU_INIT_VECTOR_MASK 0xFFFFFF8u
@@ -362,41 +368,62 @@ BSP_TEXT_SECTION int main(void)
     Bsp_Can_Init();
 #endif
 
-#if (PWM_DEMO_SUPPORT == STD_ON)
-    Bsp_Pwm_Init();
-  #if (PWM_WAVE_FIXED_TEST_AUTOSTART == STD_ON)
-    {
-      Cdd_PwmWave_SequenceType u32PwmWaveTestSequence = 0U;
-      Cdd_PwmWave_ResultType ePwmWaveTestResult = Bsp_PwmWave_FixedTestStart(&u32PwmWaveTestSequence);
-
-      if (CDD_PWM_WAVE_OK == ePwmWaveTestResult) {
-        DEBUG_INFO("PWM fixed test accepted, sequence %d; PWM5 starts at one carrier period LOW/HIGH and follows later period changes.\r\n",
-                   (int)u32PwmWaveTestSequence);
-      } else {
-        DEBUG_INFO("PWM fixed test rejected, result %d; no test frame accepted.\r\n", (int)ePwmWaveTestResult);
-      }
-    }
-  #endif
-  #if (PWM_WAVE_CARRIER_FREQUENCY_TEST_AUTOSTART == STD_ON)
-    {
-      Cdd_PwmWave_SequenceType u32PwmWaveTestSequence = 0U;
-      Cdd_PwmWave_ResultType ePwmWaveTestResult = Bsp_PwmWave_CarrierFrequencyTestStart(&u32PwmWaveTestSequence);
-
-      if (CDD_PWM_WAVE_OK == ePwmWaveTestResult) {
-        DEBUG_INFO(
-            "PWM carrier frequency test accepted, sequence %d; 200 kHz seed then 130/200/250/300 kHz loop, each confirmed point held about 10 ms.\r\n",
-            (int)u32PwmWaveTestSequence);
-      } else {
-        DEBUG_INFO("PWM carrier frequency test rejected, result %d; no test frame accepted.\r\n", (int)ePwmWaveTestResult);
-      }
-    }
-  #endif
-#endif
 #if (DMA_DEMO_SUPPORT == STD_ON)
     Bsp_Dma_Init();
 #endif
 #if (ADC_DEMO_SUPPORT == STD_ON)
     Bsp_Adc_Init();
+#endif
+#if (ADC_DEMO_SUPPORT == STD_ON) && (DMA_DEMO_SUPPORT == STD_ON)
+    {
+      Cdd_HsAdcCapture_ResultType eHsAdcCaptureResult = Cdd_HsAdcCapture_Init();
+
+      if (CDD_HSADC_CAPTURE_OK == eHsAdcCaptureResult) {
+        eHsAdcCaptureResult = Cdd_HsAdcCapture_Start();
+      }
+
+      if (CDD_HSADC_CAPTURE_OK != eHsAdcCaptureResult) {
+        DEBUG_INFO("HSADC block capture start failed, result %d; PWM initialization skipped to keep CH0 trigger stopped.\r\n",
+                   (int)eHsAdcCaptureResult);
+      } else {
+  #if (PWM_DEMO_SUPPORT == STD_ON)
+        /* Pwm_Init() autostarts PWM channels, so CH0 must be initialized only
+         * after both HSADC groups and their block-DMA capture are armed. */
+        Bsp_Pwm_Init();
+  #endif
+  #if (PWM_WAVE_FIXED_TEST_AUTOSTART == STD_ON)
+        {
+          Cdd_PwmWave_SequenceType u32PwmWaveTestSequence = 0U;
+          Cdd_PwmWave_ResultType ePwmWaveTestResult = Bsp_PwmWave_FixedTestStart(&u32PwmWaveTestSequence);
+
+          if (CDD_PWM_WAVE_OK == ePwmWaveTestResult) {
+            DEBUG_INFO("PWM fixed test accepted, sequence %d; PWM5 starts at one carrier period LOW/HIGH and follows later period changes.\r\n",
+                       (int)u32PwmWaveTestSequence);
+          } else {
+            DEBUG_INFO("PWM fixed test rejected, result %d; no test frame accepted.\r\n", (int)ePwmWaveTestResult);
+          }
+        }
+  #endif
+  #if (PWM_WAVE_CARRIER_FREQUENCY_TEST_AUTOSTART == STD_ON)
+        {
+          Cdd_PwmWave_SequenceType u32PwmWaveTestSequence = 0U;
+          Cdd_PwmWave_ResultType ePwmWaveTestResult = Bsp_PwmWave_CarrierFrequencyTestStart(&u32PwmWaveTestSequence);
+
+          if (CDD_PWM_WAVE_OK == ePwmWaveTestResult) {
+            DEBUG_INFO(
+                "PWM carrier frequency test accepted, sequence %d; 200 kHz seed then 130/200/250/300 kHz loop, each confirmed point held about 10 ms.\r\n",
+                (int)u32PwmWaveTestSequence);
+          } else {
+            DEBUG_INFO("PWM carrier frequency test rejected, result %d; no test frame accepted.\r\n", (int)ePwmWaveTestResult);
+          }
+        }
+  #endif
+      }
+    }
+#endif
+#if (PWM_DEMO_SUPPORT == STD_ON) && \
+    ((ADC_DEMO_SUPPORT != STD_ON) || (DMA_DEMO_SUPPORT != STD_ON))
+    Bsp_Pwm_Init();
 #endif
 #if (LIN_DEMO_SUPPORT == STD_ON)
     Bsp_Lin_Init();
@@ -477,9 +504,6 @@ BSP_TEXT_SECTION int main(void)
 #endif
 #if (WDG_DEMO_SUPPORT == STD_ON)
     Bsp_Wdg_Init();
-#endif
-#if (DMA_DEMO_SUPPORT == STD_ON)
-    Bsp_Dma_Init();
 #endif
 #if (SPI_DEMO_SUPPORT == STD_ON)
     Bsp_Spi_Init();
