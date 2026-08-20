@@ -10,6 +10,8 @@
 #define CDD_HSADC_CAPTURE_QUEUE_DEPTH     (8U)
 #define CDD_HSADC_CAPTURE_DMA2_ERROR_MASK (0x01U)
 #define CDD_HSADC_CAPTURE_DMA3_ERROR_MASK (0x02U)
+#define CDD_HSADC_CAPTURE_HSADC_OVR_MASK     (0x00000010U)
+#define CDD_HSADC_CAPTURE_HSADC_TRGERR_MASK  (0x03000000U)
 #define CDD_HSADC_CAPTURE_FRAMES_PER_RING \
   (CDD_HSADC_CAPTURE_FRAMES_PER_HALF * CDD_HSADC_CAPTURE_HALF_COUNT)
 
@@ -62,6 +64,10 @@ typedef struct {
   uint32 u32UnexpectedIrqCount;
   uint32 u32PhaseErrorCount;
   uint32 u32DmaErrorCount;
+  uint32 u32HsAdcHardwareErrorCount;
+  /* Latched raw OVR/TRGERR bits from each unit's HSADC_INT_STATUS register. */
+  uint32 u32HsAdc0ErrorStatus;
+  uint32 u32HsAdc2ErrorStatus;
   uint16 u16Dma2CurrentOuterLoop;
   uint16 u16Dma3CurrentOuterLoop;
   uint8 u8DmaErrorChannelMask;
@@ -77,9 +83,12 @@ typedef struct {
  * CH2/CH3 because Adc_EnableHardwareTrigger() first installs the MCAL BLC=1 TCD.
  * Once Start succeeds, sample data and readiness are owned by this CDD; do not
  * use Adc_ReadGroup()/Adc_GetGroupStatus() as the capture-data interface.
- * Any DMA transfer error or half/full phase mismatch latches ERROR and disables
- * both HSADC DMA requests. Stop the PWM carrier and call Init followed by Start
- * to recover; Init also clears a DMA HALT latched by HaltOnError.
+ * Any DMA transfer error, half/full phase mismatch, or HSADC OVR/TRGERR status
+ * latches ERROR, disables both HSADC DMA requests, and invokes
+ * Cdd_HsAdcCapture_FaultNotification() once for that capture run. Stop the PWM
+ * carrier and call Init followed by Start to recover; Init also clears a DMA
+ * HALT latched by HaltOnError, while Start clears stale HSADC error flags before
+ * enabling the block-DMA requests.
  */
 Cdd_HsAdcCapture_ResultType Cdd_HsAdcCapture_Init(void);
 Cdd_HsAdcCapture_ResultType Cdd_HsAdcCapture_Start(void);
@@ -91,11 +100,18 @@ Cdd_HsAdcCapture_ResultType Cdd_HsAdcCapture_Stop(void);
  * Core0-only zero-copy consumer API. Acquire/Release may be used by one
  * bounded ISR or task consumer; the current BSP notification is that sole
  * owner. The zero-copy contract starts at the CPU-owned queue: Acquire returns
- * queue storage directly and Release returns that slot to the producer.
+ * queue storage directly and Release returns that slot to the producer. Check
+ * GetStatus before consuming data; ERROR means no subsequent block is valid.
  */
 Cdd_HsAdcCapture_ResultType Cdd_HsAdcCapture_AcquireBlockPair(Cdd_HsAdcCapture_BlockPairType *pBlockPair);
 Cdd_HsAdcCapture_ResultType Cdd_HsAdcCapture_ReleaseBlockPair(Cdd_HsAdcCapture_SequenceType u32Sequence);
 Cdd_HsAdcCapture_ResultType Cdd_HsAdcCapture_GetStatus(Cdd_HsAdcCapture_StatusType *pStatus);
+
+/*
+ * Core0 periodic safety-net. It polls sticky HSADC OVR/TRGERR flags so a
+ * hardware fault is still latched when the expected DMA block IRQ is absent.
+ */
+void Cdd_HsAdcCapture_MainFunction(void);
 
 /*
  * Required Core0 DMA-ISR callout implemented by the application consumer.
@@ -103,6 +119,15 @@ Cdd_HsAdcCapture_ResultType Cdd_HsAdcCapture_GetStatus(Cdd_HsAdcCapture_StatusTy
  * by the CDD until the callout acquires and releases it through the APIs above.
  */
 void Cdd_HsAdcCapture_BlockPairNotification(void);
+
+/*
+ * Required application fail-safe callback. The CDD invokes it once after the
+ * first runtime transition to ERROR and after both DMA requests are disabled.
+ * It runs outside the DMA SchM area, from either DMA interrupt context or the
+ * Core0 periodic supervisor, so it must be bounded, non-blocking, and safe for
+ * repeated defensive calls.
+ */
+void Cdd_HsAdcCapture_FaultNotification(void);
 
 /*
  * Core0 vector wrappers call these handlers instead of DMA2_Done_Isr() and

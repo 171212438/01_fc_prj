@@ -33,50 +33,40 @@ static uint8 s_u8ArmInterruptCount = 0U;                       /* Counts carrier
 
 
 
-`Cdd_PwmWave_DisableArmNotificationLocked()` 是 PWM 波形 CDD 内部用于撤销载波边界装载通知的静态锁内辅助函数。调用者必须已经持有 `SchM` 的 `PWM_EXCLUSIVE_AREA_19`；函数先通过标准 PWM MCAL 关闭 `PWM_CARRIER` 通知，再清除本次 arm 事务的软件上下文，最后执行数据同步屏障，使通知和上下文的撤销先于后续锁内操作或临界区退出被观察到。当前生成配置把逻辑通道 `PwmConf_PwmChannel_PWM_CARRIER` 映射到 Core0 的 eFTU1 TOM0 CH0，并把通知回调配置为 `Cdd_PwmWave_CarrierBoundaryNotification()`。
+`Cdd_PwmWave_DisableArmInterrupt()` 与 `Cdd_PwmWave_EnableArmInterrupt()` 是周期变化冷路径使用的一次性 IRQ172 源控制函数。当前 CDD 独占 eFTU1 TOM0 CH0 CCU0；运行期不再经过通用 `Pwm_EnableNotification()` / `Pwm_DisableNotification()` 调用链。
 
-该函数没有输入参数、输出参数或返回结果。当前 MCAL 实现会把该 eFTU TOM 通道的通知边沿状态置为无效，关闭 CCU0/CCU1 中断并清除两类已挂起标志；随后 `Cdd_PwmWave_ResetArmNotificationState()` 清除 arm pending 标志、绑定序列号、旧载波周期、窗口错过次数和通知次数。该操作只关闭目标逻辑通道的 TOM 事件源，不会关闭共享的 `eFTU1_TOM_0TO7_IRQn`，也不会显式清除 NVIC pending。函数不会清除 pending/active 帧，不会撤销已经设置的 `UPEN`，也不会禁用 TOM 通道或物理输出；需要取消影子装载或回退输出的调用者会继续调用其他辅助函数。
+禁用顺序固定为 `CH_IRQ_EN=0 -> CH_IRQ_ST W1C -> NVIC ICPR5 bit12 -> 清 arm 软件令牌 -> DSB`。启用顺序先以同样方式清掉旧源状态和陈旧 NVIC pending，发布 pending/arm 令牌并执行 DSB，最后只打开 CH0 CCU0 使能位。函数不关闭共享 NVIC IRQ172，也不改变 pending/active 帧或 TOM 通道输出。
 
-`Pwm_DisableNotification()` 是 `void` API，本函数也没有硬件读回或错误上报通道。若 PWM 尚未初始化、通道号无效或调用 Core 与生成配置不匹配，当前 MCAL 可能只报告 DET 或跳过底层操作，而本函数仍会清除 CDD 的 arm 软件状态；因此数据同步屏障只保证先前写入的顺序和可见性，不证明通知关闭成功。当前八个直接调用点均位于 `PWM_EXCLUSIVE_AREA_19` 内，正常集成路径还由 Core0、`Pwm_Init()` 顺序以及通知配置检查约束上述前提。
-
-手册事实与项目实现边界如下：PWM User Manual 原 PDF 第 23 页把 `Pwm_DisableNotification()` 定义为关闭指定 PWM 通道通知且无返回值；PWM Integration Manual 原 PDF 第 15 页说明，配置了非空通知函数时会在 `Pwm_Cfg.h` 中生成外部声明，并要求用户实现该通知函数。FC7300F8MDQ Reference Manual 原 PDF 第 2036～2037 页说明，`EFTU_TOM_CHn_IRQ_ST.CCU0TC/CCU1TC` 写 `1` 清中断，`EFTU_TOM_CHn_IRQ_EN.CCU0_TC_IRQ_EN/CCU1_TC_IRQ_EN` 写 `0` 禁用相应中断信号。当前 MCAL 源码和生成配置把这些通用语义落实为上述 CH0 通知关闭流程；“一次性共同边界 arm 上下文”和清理哪些 CDD 变量则是当前项目源码约定，不是手册规定的唯一实现。在当前 Errata V0.5 的汇总范围内未发现 eFTU、TOM 或 PWM 通知关闭相关条目。
-
-当前源码中共有六个直接调用者、八个调用点：
-
-1. `Cdd_PwmWave_RefreshPending()` 在确认 pending 帧已经装载并提升为 active 帧后调用本函数，撤销该帧关联的 arm 通知；随后再禁止 frame update。
-2. `Cdd_PwmWave_AbortPending()` 在故障或安全回退开始时无条件撤销通知和 arm 上下文，随后禁止 frame update、恢复影子寄存器并清除 pending 帧。
-3. `Cdd_PwmWave_ScheduleFrameAtCommonBoundaryLocked()` 在安装新的共同边界调度前调用本函数，把旧通知和旧 arm 上下文归零；随后登记本次旧周期、序列号和计数，并启用新的上升沿通知。
-4. `Cdd_PwmWave_CarrierBoundaryNotification()` 有三个调用点：软件已经没有 arm pending 时清理可能残留的硬件通知；故障已经锁存时停止后续 arm 尝试；找到有效相位窗口并设置 frame update 后完成本次一次性通知的收尾。
-5. `Cdd_PwmWave_Init()` 在 Core0 取得初始化门禁并进入 `GPIO_LOW` 后调用本函数，先清理可能遗留的通知和 arm 状态，再检查当前生成通知配置。
-6. `Cdd_PwmWave_SubmitFrameLocked()` 在提交门禁通过、写入新影子参数之前调用本函数，撤销旧 arm 事务；随后禁止 frame update，避免新影子值写入期间发生装载。
+手册事实与项目实现边界如下：FC7300F8MDQ Reference Manual 原 PDF 第 2036～2037 页规定 `CH_IRQ_ST` 为 W1C 状态位、`CH_IRQ_EN` 为独立软件使能位；直接清 NVIC pending、IRQ172 仅由 CH0 CCU0 使用以及一次性 arm 令牌均为当前项目源码与中断映射约定。
 
 ```c
-static void Cdd_PwmWave_DisableArmNotificationLocked(void)
+static void Cdd_PwmWave_DisableArmInterrupt(void)
 {
-  // 调用者必须持有 AREA_19；该事务同时撤销硬件通知和与其绑定的软件 arm 上下文。
-  Pwm_DisableNotification(PwmConf_PwmChannel_PWM_CARRIER);  // 撤销通知边沿配置，禁用 CCU0/CCU1 并清除两类中断标志
-  Cdd_PwmWave_ResetArmNotificationState();  // 清除 pending、绑定序列、旧周期及两类通知计数
-  MCAL_DATA_SYNC_BARRIER();  // 同步先前的寄存器和共享状态写入，不作为禁用成功的读回证据
+  EFTU_TOM_1_0->Channel[CDD_PWM_WAVE_CARRIER_CHANNEL].CH_IRQ_EN = 0U;
+  EFTU_TOM_1_0->Channel[CDD_PWM_WAVE_CARRIER_CHANNEL].CH_IRQ_ST = CDD_PWM_WAVE_IRQ_STATUS_MASK;
+  CDD_PWM_WAVE_REG32(CDD_PWM_WAVE_NVIC_ICPR5_ADDRESS) = CDD_PWM_WAVE_IRQ172_PENDING_MASK;
+  Cdd_PwmWave_ResetArmNotificationState();
+  MCAL_DATA_SYNC_BARRIER();
 }
 ```
 
-`Cdd_PwmWave_CarrierBoundaryNotification()` 是 PWM 波形 CDD 为载波周期变化建立的一次性共同边界装载回调。`Cdd_PwmWave_SubmitFrameLocked()` 已经把新帧写入 TOM shadow 并登记为 pending 后，`Cdd_PwmWave_ScheduleFrameAtCommonBoundaryLocked()` 才会保存旧载波周期和序列号，并为 `PWM_CARRIER` 启用上升沿通知；本函数在该通知到来时确认软件事务、活动寄存器和 CH0/CH3 相位窗口仍属于同一项提交，满足条件后只为 CH0、CH3～CH7 设置 `UPEN`，让影子值在后续共同零点装载。它不写入帧参数，也不把 pending 帧直接提升为 active；实际装载仍由硬件边界完成，软件状态由后续 `Cdd_PwmWave_RefreshPending()` 读回确认。
+`Cdd_PwmWave_CarrierBoundaryNotification()` 是载波周期变化使用的一次性共同边界回调。提交冷分支已经把 CH0、CH3～CH7 的完整新帧写入 shadow 并发布 pending/arm 令牌；回调只做令牌/状态门禁、CH0/CH3 相位窗检查和 `UPEN` arm，不写帧参数，也不把 pending 直接提升为 active。
 
-该函数没有输入参数、输出参数或返回结果，执行结果通过通知状态、arm 计数、`UPEN`、故障状态和可选诊断快照体现。当前生成配置把逻辑通道 `PwmConf_PwmChannel_PWM_CARRIER` 映射到 Core0 的 eFTU1 TOM0 CH0，并把本函数登记为通知回调；BSP 的 eFTU1 TOM0～7 共用 ISR 则先调用快速分发函数。函数本身不检查 Core ID 或初始化状态，不能作为普通任务接口任意调用，其运行前提依赖 Core0 IRQ 路由、已发布的 pending/arm 上下文和当前 SchM 集成。
+该函数没有参数和返回值，只允许由 Core0 IRQ172 路径调用。IRQ172 必须保持高于 20 us 任务的抢占优先级；回调本身不进入 SchM，依赖提交侧短临界区在发布完整 shadow/令牌前屏蔽该中断。
 
-进入 `PWM_EXCLUSIVE_AREA_19` 后，函数先处理所有权和故障门禁：没有 arm pending 或故障已经锁存时，只撤销可能残留的一次性通知和 arm 上下文；pending 帧、序列号、`ARMED_LOW/RUN` 状态、载波内部触发、CH0 旧周期、PWM5 双周期关系或 CH3 的 `RST_CCU0` 任一不匹配时，按 `CDD_PWM_WAVE_FAULT_HW_CONFIG` 强制进入安全态。只有这些不变量全部成立，本次通知才计入当前 arm 请求并进入相位窗口检查。
+函数先处理所有权和故障门禁：没有 arm pending 或故障已锁存时直接禁用一次性中断；pending 帧、序列号或 `ARMED_LOW/RUN` 状态不匹配时进入硬件配置故障。只有门禁成立，本次事件才计入当前 arm 请求并进入相位窗口检查。
 
 相位窗口检查按 CH0-before、PWM5/CH3、CH0-after 的顺序读取计数器，要求采样期间 CH0 未回绕、CH0-after 不超过旧载波周期的一半、PWM5 位于第二个旧载波周期 `[P, 2P)`，并且折算后的 PWM5 相位落在两次 CH0 样本之间。有效时，本函数在原有注释限定的紧邻时序区间内立即设置 frame update，再关闭一次性通知；这只证明软件发出了 shadow 装载许可，不证明寄存器已经在边界完成装载，更不证明物理 Pad 波形已经实测。
 
-窗口无效时，只有 PWM5 已进入第二个旧载波周期才累计窗口错过次数；未达上限时保留通知、pending 帧和 arm 上下文，等待下一次载波事件重试。窗口错过达到 `3` 次或本次 arm 请求累计处理 `8` 次通知后，函数先把旧周期、pending 新周期、序列号、尝试次数和失败阶段复制到局部变量，再以 `CDD_PWM_WAVE_FAULT_HW_TIMEOUT` 进入安全态，因为故障路径会清除全局 arm/pending 上下文。安全化后函数仍在当前临界区内尝试保存首次 arm 故障快照；若已有有效快照，`Cdd_PwmWave_CaptureArmFaultSnapshot()` 不会覆盖原现场。当前 `SchM` 实现提供同核可重入的中断屏蔽，不是跨核自旋锁，因此这里的原子性还依赖当前 Core0 资源所有权约定。
+窗口无效时，只有 PWM5 已进入第二个旧载波周期才累计窗口错过次数；未达上限时保留一次性源继续等待。窗口错过达到 `3` 次或本次 arm 请求累计处理 `8` 次事件后，函数保存局部诊断上下文并以 `CDD_PWM_WAVE_FAULT_HW_TIMEOUT` 进入安全态，再发布首次 arm 故障快照。
 
-中断确认不由本函数统一完成。当前快速路径 `Cdd_PwmWave_TryHandleCarrierBoundaryInterrupt()` 在调用本函数前已经检查 CH0 的 CCU0 中断使能和 pending，并写 `CH_IRQ_ST.CCU0TC` 清除本次标志；成功 arm、无所有权或已锁存故障的分支随后还会通过 `Pwm_DisableNotification()` 禁用并清理通知。相位窗口无效但尚未超限时，本函数保留通知以接收下一次事件。生成的 PWM 配置仍保留 MCAL 通用 ISR 通过函数指针调用本回调的集成关系，但在当前 BSP 包装 ISR 中，符合快速路径条件的 CH0 CCU0 事件会先被直接接管。
+`Cdd_PwmWave_TryHandleCarrierBoundaryInterrupt()` 在调用本函数前检查 CH0 CCU0 的使能和状态并先 W1C 确认本次事件。成功 arm、无所有权或故障分支直接调用 `Cdd_PwmWave_DisableArmInterrupt()` 收尾；相位窗口暂时无效时保留中断源等待下一次事件。
 
 手册事实与项目实现边界如下：PWM User Manual 原 PDF 第 23、40～41、48 和 60 页说明通知 API、启用通知后按配置回调、通知函数配置项以及全局通知支持开关；PWM Integration Manual 原 PDF 第 15 页说明非空通知配置会生成外部声明，并要求用户实现通知函数。FC7300F8MDQ Reference Manual 原 PDF 第 1896～1898、1995～1997、2019、2028、2033 和 2036～2037 页说明 TOM shadow 的同步更新事件、`UPEN_CTRL`、内部触发选择、`RST_CCU0`、`CN0` 以及 CCU0/CCU1 中断状态和使能字段。上述原页支持通知和寄存器机制；共同边界相位门、两类有界重试、故障分类和快照发布顺序是当前 CDD 源码约定，不是手册规定的唯一算法。在当前 Errata V0.5 汇总范围内未发现 eFTU TOM/PWM 通知或 shadow 装载相关条目；其中出现的 eFTU 内容仅涉及 DMA 请求复用，与本函数路径无直接关系。
 
-当前源码中只有一个显式直接调用者：
+当前源码中只有一个直接调用者：
 
-1. `Cdd_PwmWave_TryHandleCarrierBoundaryInterrupt()` 在 eFTU1 TOM0 CH0 的 CCU0 中断已使能且 pending 时，先写 `CH_IRQ_ST` 确认本次事件，再直接调用本函数执行低延迟相位门检查；它由 `EFTU1_TOM_0_7_IRQHandler()` 优先调用。生成配置和 MCAL 通用 ISR 中的函数指针分发属于运行期的间接通知路径，不计入显式直接调用者。
+1. `Cdd_PwmWave_TryHandleCarrierBoundaryInterrupt()` 在 CH0 CCU0 已使能且状态置位时先 W1C 确认事件，再直接调用本函数。
 
 ```c
 void Cdd_PwmWave_CarrierBoundaryNotification(void)
@@ -90,21 +80,13 @@ void Cdd_PwmWave_CarrierBoundaryNotification(void)
   boolean bCaptureSnapshot = FALSE;  // 指示安全化后是否尝试保存首次故障快照
   boolean bArmWindowValid;  // 保存本次 CH0/CH3 共同边界相位门判定
 
-  // 整个回调在 AREA_19 内串行化一次性 arm 上下文、pending 帧和故障迁移。
-  // 先按软件所有权和故障状态筛除无效通知；这些分支只撤销通知事务。
-  // 只有 pending 帧、序列、驱动状态、边界触发及 CH0/CH3 旧周期拓扑全部匹配，才允许检查 arm 窗口。
-  // 任一拓扑不变量失配都按硬件配置故障进入安全态，不能继续设置 UPEN。
-  SchM_Enter_Pwm_PWM_EXCLUSIVE_AREA_19();
+  // IRQ172 抢占低优先级 20 us 任务；提交侧只在发布 shadow/令牌时短暂屏蔽中断。
   if (FALSE == s_bArmNotificationPending) {
-    Cdd_PwmWave_DisableArmNotificationLocked();  // 清理未绑定 arm 请求的残留硬件通知和软件上下文
+    Cdd_PwmWave_DisableArmInterrupt();  // 清理未绑定 arm 请求的残留源和软件上下文
   } else if (TRUE == s_bFaultLatched) {
-    Cdd_PwmWave_DisableArmNotificationLocked();  // 故障已锁存，不再允许本次边界尝试继续
+    Cdd_PwmWave_DisableArmInterrupt();  // 故障已锁存，不再允许本次边界尝试继续
   } else if ((FALSE == s_bPendingFrameValid) || (s_u32ArmSequence != s_u32PendingSequence) ||
-             ((CDD_PWM_WAVE_STATE_ARMED_LOW != s_eState) && (CDD_PWM_WAVE_STATE_RUN != s_eState)) ||
-             (FALSE == Cdd_PwmWave_IsCarrierBoundaryTriggerSelected()) ||
-             (EFTU_TOM_1_0->Channel[CDD_PWM_WAVE_CARRIER_CHANNEL].CH_CM0 != s_u32ArmOldCarrierPeriod) ||
-             (EFTU_TOM_1_0->Channel[CDD_PWM_WAVE_PWM5_CHANNEL].CH_CM0 != (CDD_PWM_WAVE_PWM5_CARRIER_PERIODS * s_u32ArmOldCarrierPeriod)) ||
-             ((EFTU_TOM_1_0->Channel[CDD_PWM_WAVE_PWM5_CHANNEL].CH_CTRL & EFTU_TOM_CHn_CTRL_RST_CCU0_MASK) != 0U)) {
+             ((CDD_PWM_WAVE_STATE_ARMED_LOW != s_eState) && (CDD_PWM_WAVE_STATE_RUN != s_eState))) {
     (void)Cdd_PwmWave_EnterFault(CDD_PWM_WAVE_FAULT_HW_CONFIG);  // 强制安全输出并锁存硬件配置故障
   } else {
     // 通过事务和拓扑门禁后，本次中断才计入当前 arm 请求。
@@ -112,10 +94,10 @@ void Cdd_PwmWave_CarrierBoundaryNotification(void)
     bArmWindowValid = Cdd_PwmWave_CheckPwm5CommonBoundaryArmWindow(s_u32ArmOldCarrierPeriod, &tArmWindowCheck);  // 在 CH0 前后采样间核对 PWM5 是否处于第二个旧载波周期的安全窗口
 
     /* No diagnostics or configuration reads are allowed between the valid
-     * phase gate and UPEN. AREA_19 keeps the sequence atomic. */
+     * phase gate and UPEN. */
     if (TRUE == bArmWindowValid) {
       Cdd_PwmWave_ArmFrameUpdate();  // 只在有效相位窗内使能 UPEN，等待下一共同零点装载影子值
-      Cdd_PwmWave_DisableArmNotificationLocked();  // UPEN 已 arm 后撤销一次性通知及其软件上下文
+      Cdd_PwmWave_DisableArmInterrupt();  // UPEN 已 arm 后撤销一次性中断及其软件上下文
     } else {
       // 相位门失败时保留本次采样；只有 PWM5 已进入第二个旧载波周期，才计为错过目标窗口。
       // 窗口错过次数与通知总次数分别约束“已到目标半周期但来晚”和“始终未获得可用事件”。
@@ -141,37 +123,36 @@ void Cdd_PwmWave_CarrierBoundaryNotification(void)
   }
 
   // EnterFault() 可能已清除全局 arm 上下文；这里仅使用故障前保存的局部副本发布快照。
-  // 在当前 Core0 所有权约定下仍在同一临界区内尝试写入；已有有效快照不会被覆盖。
+  // 当前 Core0 所有权约定下已有有效快照不会被覆盖。
   if (TRUE == bCaptureSnapshot) {
     Cdd_PwmWave_CaptureArmFaultSnapshot(u32SnapshotStage, u32OldCarrierPeriod, u32PendingCarrierPeriod, u32SnapshotSequence,
                                         u8SnapshotAttemptNumber, TRUE, FALSE, &tArmWindowCheck);  // 保存失败阶段、周期、序列、尝试次数及最后一次相位门采样
   }
-  SchM_Exit_Pwm_PWM_EXCLUSIVE_AREA_19();  // 状态迁移和可选快照处理完成后再退出临界区
 }
 ```
 
-`Cdd_PwmWave_TryHandleCarrierBoundaryInterrupt()` 是 eFTU1 TOM0 CH0 载波 CCU0 事件的共享向量快速分流函数。`EFTU1_TOM_0_7_IRQHandler()` 在进入 MCAL 通用 ISR 前先调用它；函数只识别 `PWM_CARRIER` 对应 CH0 的 CCU0 中断使能位和 pending 位，命中后先确认当前事件，再直接调用 `Cdd_PwmWave_CarrierBoundaryNotification()`。这样可以避开通用 ISR 对全部配置通道的顺序扫描，缩短进入 P/2 arm 相位窗口前的延迟，并改变为“先清当前标志、再执行回调”的确认顺序。它不是完整的 TOM0～7 通用中断处理器，也不负责扫描 CCU1 或其他通道。
+`Cdd_PwmWave_TryHandleCarrierBoundaryInterrupt()` 是 IRQ172 的专用 CH0 CCU0 快速处理函数。当前工程已确认该向量只有这一项源，`EFTU1_TOM_0_7_IRQHandler()` 不再进入 MCAL 通用扫描；命中时先 W1C 确认当前事件，再直接执行共同边界回调。
 
-该函数没有输入参数或输出参数，返回 `boolean` 表示当前中断入口是否已由载波快速路径认领，而不是帧处理结果。函数依次读取完整的 `CH_IRQ_EN` 和 `CH_IRQ_ST` 寄存器形成两个顺序快照；若 CCU0 使能位或状态位任一未置位，则不写寄存器、不调用回调并返回 `FALSE`，由包装 ISR 转入 MCAL 通用 ISR。`FALSE` 不是故障，也不能解释为共享向量上没有其他 pending 来源。两个条件都成立时，函数向 `CH_IRQ_ST.CCU0TC` 写 `1` 清除本次 CCU0 事件，随后调用无返回值的载波边界回调并返回 `TRUE`。
+该函数返回 `boolean` 表示本次入口是否同时观察到 CCU0 使能位和状态位。任一位未置位时返回 `FALSE`；外层专用 ISR 会检查 arm 软件/硬件状态是否矛盾，若无矛盾则清除陈旧的 CH0 状态和 NVIC pending 后退出，不转入通用扫描。两位都置位时，函数向 `CH_IRQ_ST.CCU0TC` 写 `1` 后调用回调并返回 `TRUE`。
 
 `TRUE` 只证明函数依据这两个快照认领了 CH0 CCU0 事件、发出了 W1C 确认并执行了回调；它不表示回调一定设置了 `UPEN`，也不表示 pending 帧已经装载、物理 Pad 已经切换或系统没有进入故障。下游回调仍可能因为没有 arm 所有权或故障已锁存而撤销通知，可能保留通知等待下一次相位窗口，也可能因配置或超时检查失败进入安全态。函数本身不进入 SchM 临界区、不检查 Core ID、CDD 初始化状态、arm 软件所有权、MCAL 通知边沿状态或配置回调指针，这些前提分别由 Core0 中断集成、调度流程和下游回调约束。
 
-当前 MCAL 通用 `PWM_EFTU1_TOM_0_7_ISR()` 会扫描配置通道，在匹配事件时先通过函数指针调用通知函数，再清对应 CCU0 标志。本函数改为在回调前清除当前 CCU0 标志，使回调执行期间新到达的下一次 CCU0 边沿不会被通用 ISR 的尾部清除操作一并抹掉。函数不会执行 `EXIT_INTERRUPT()`、不会显式清除 NVIC pending，也不会清除 CCU1 或其他通道的中断标志；`TRUE` 时包装 ISR 本轮跳过通用扫描并自行退出中断，`FALSE` 时由通用 ISR 完成扫描和退出。
+先清当前 CCU0 状态再执行回调，可避免回调期间到达的后续事件被 ISR 尾部错误清除。函数本身不执行 `EXIT_INTERRUPT()`；外层专用 ISR 对未认领入口执行陈旧状态/NVIC pending 清理，并统一退出中断。
 
 当前生成配置把逻辑通道 `PwmConf_PwmChannel_PWM_CARRIER`（19）映射到 Core0 的 eFTU1 TOM0 CH0，并登记 `Cdd_PwmWave_CarrierBoundaryNotification()`；`PWM_NOTIFICATION_SUPPORTED` 和 `PWM_EFTU_1_TOM_0_ISR_USED` 均为 `STD_ON`。`Bsp_Pwm_Init()` 在 Core0 范围内先禁用该共享 IRQ、将其路由到 Core0 并设置优先级，只有 CDD 初始化、PinMux 切换和 `ARMED_LOW` 确认成功后才重新使能。上述配置和启动门禁是当前工程事实，不是本函数内部自行验证的条件。
 
-手册事实与项目实现边界如下：FC7300F8MDQ Reference Manual 原 PDF 第 2035～2037 页说明 `EFTU_TOM_CHn_IRQ_ST.CCU0TC` 表示 CCU0 比较事件，写 `1` 清除该中断，并说明 `EFTU_TOM_CHn_IRQ_EN.CCU0_TC_IRQ_EN` 的使能语义。PWM User Manual 原 PDF 第 40～41 页说明，调用 `Pwm_EnableNotification()` 后，匹配边沿会调用配置的通道通知函数；禁用后不再通知。PWM Integration Manual 原 PDF 第 15 页说明非空通知函数由配置生成外部声明并由用户实现，但第 11 页的 ISR 表只列出普通 FTU0～FTU11，不能用来证明当前 eFTU1 TOM0～7 共享向量的包装方式。共享向量快速分流、通用配置扫描、P/2 窗口和先清后回调均以当前源码与生成配置为直接依据。在当前 Errata V0.5 汇总及 `EFTU/TOM/PWM/CCU/notification` 检索范围内未发现直接适用于本函数的条目。
+手册事实与项目实现边界如下：FC7300F8MDQ Reference Manual 原 PDF 第 2035～2037 页说明 `EFTU_TOM_CHn_IRQ_ST.CCU0TC` 表示 CCU0 比较事件，写 `1` 清除该中断，并说明 `EFTU_TOM_CHn_IRQ_EN.CCU0_TC_IRQ_EN` 的使能语义。PWM User Manual 原 PDF 第 40～41 页说明标准通知 API 的回调语义；当前运行期专用 IRQ172 不再调用该通用 API。IRQ172 只有 CH0 CCU0、P/2 窗口和先清后回调均以当前源码、生成配置和中断映射为依据。
 
 当前实现实际可达的返回结果如下：
 
 | 返回值 | 含义 |
 | --- | --- |
-| `FALSE` | CH0 CCU0 中断使能位或 pending 位至少一个未置位；函数未认领事件，也未写状态寄存器或调用载波回调，包装 ISR 随后调用 MCAL 通用 ISR |
-| `TRUE` | 两个位快照均已置位；函数已向 `CCU0TC` 写 `1` 确认事件并调用载波边界回调，包装 ISR 随后跳过 MCAL 通用 ISR；不表示帧已成功装载 |
+| `FALSE` | CH0 CCU0 中断使能位或状态位至少一个未置位；函数未调用载波回调，外层专用 ISR 执行一致性检查和陈旧 pending 清理 |
+| `TRUE` | 两个位快照均已置位；函数已 W1C 当前事件并调用载波边界回调；不表示帧已成功装载 |
 
 当前源码中只有一个直接调用者：
 
-1. `EFTU1_TOM_0_7_IRQHandler()` 在 eFTU1 TOM0 CH0～CH7 共用中断入口优先调用本函数；返回 `FALSE` 时转入 `PWM_EFTU1_TOM_0_7_ISR()` 扫描共享来源，返回 `TRUE` 时直接执行 `EXIT_INTERRUPT()`。
+1. `EFTU1_TOM_0_7_IRQHandler()` 在专用 IRQ172 入口调用本函数；无论返回值如何，都不再转入 `PWM_EFTU1_TOM_0_7_ISR()` 通用扫描。
 
 ```c
 boolean Cdd_PwmWave_TryHandleCarrierBoundaryInterrupt(void)
@@ -180,7 +161,7 @@ boolean Cdd_PwmWave_TryHandleCarrierBoundaryInterrupt(void)
   uint32 u32IrqStatus = EFTU_TOM_1_0->Channel[CDD_PWM_WAVE_CARRIER_CHANNEL].CH_IRQ_ST;  // 保存载波 CH0 中断状态寄存器快照，本函数只检查 CCU0 pending bit0
 
   // 只有 CCU0 同时处于已使能且 pending 状态时才认领载波事件。
-  // 任一条件不满足均不改寄存器，把当前共享向量交回通用 MCAL ISR 扫描。
+  // 任一条件不满足均不改寄存器，由外层专用 ISR 做一致性检查和陈旧 pending 清理。
   if (((u32IrqEnable & EFTU_TOM_CHn_IRQ_EN_CCU0TC_IRQ_EN_MASK) == 0U) || ((u32IrqStatus & EFTU_TOM_CHn_IRQ_ST_CCU0TC_MASK) == 0U)) {
     return FALSE;
   }
@@ -220,7 +201,7 @@ boolean Cdd_PwmWave_TryHandleCarrierBoundaryInterrupt(void)
 
 当前源码中只有一个直接调用者：
 
-1. `Bsp_Pwm_Init()` 在 Core0 专属初始化块中调用本函数。调用前已执行 `Pwm_Init(NULL_PTR)`、关闭并配置 TOM0 共用 IRQ以及复位 BSP 测试状态；返回 `CDD_PWM_WAVE_OK` 后才切换九路输出 Pad、调用 `Cdd_PwmWave_ConfirmArmedLow()` 并开放共用 IRQ。失败时不进入上述 PinMux 和确认流程，BSP 将本函数的结果保存为最后一次 PWM 波形控制结果。
+1. `Bsp_Pwm_Init()` 在 Core0 专属初始化块中调用本函数。调用前已执行 `Pwm_Init(NULL_PTR)`、关闭并配置 TOM0 共用 IRQ以及初始化 BSP 作业账本；返回 `CDD_PWM_WAVE_OK` 后才切换九路输出 Pad、调用 `Cdd_PwmWave_ConfirmArmedLow()` 并开放共用 IRQ。失败时不进入上述 PinMux 和确认流程，BSP 将本函数的结果保存为最后一次 PWM 波形控制结果。
 
 ```c
 Cdd_PwmWave_ResultType Cdd_PwmWave_Init(void)
@@ -250,7 +231,7 @@ Cdd_PwmWave_ResultType Cdd_PwmWave_Init(void)
   // 随后核对生成配置中的载波通道实例、硬件通道、Core ID 和通知回调。
   s_bInitInProgress = TRUE;  // 阻止初始化流程尚未完成时再次进入
   s_eState = CDD_PWM_WAVE_STATE_GPIO_LOW;  // 初始化期间不向上层声明 ARMED_LOW
-  Cdd_PwmWave_DisableArmNotificationLocked();  // 清除旧 CCU0 通知，避免初始化中触发装载回调
+  Cdd_PwmWave_DisableArmInterrupt();  // 清除旧 CCU0 源、外设状态及 NVIC pending
   bHardwareConfigValid = Cdd_PwmWave_IsNotificationConfigValid();  // 校验 PWM_CARRIER 通知配置是否满足 CDD 约束
 
   // 尚未捕获有效基线时读取并校验 MCAL 建立的 DTM0/DTM1 运行值，供后续配置和恢复使用。
@@ -380,33 +361,30 @@ Cdd_PwmWave_ResultType Cdd_PwmWave_Init(void)
 }
 ```
 
-`Cdd_PwmWave_ValidateFrame()` 是 PWM 波形帧的纯软件校验入口，用于在帧提交或载波测试活动帧确认之前，检查输入对象是否满足当前 CDD 的结构约束：载波周期必须位于允许范围内，PWM1～PWM4 的四组比较窗口必须有序且具备最小宽度，PWM5 状态必须属于当前实现支持的枚举值。
+`Cdd_PwmWave_ValidateFrame()` 是 PWM 波形帧的纯软件校验入口，用于在正式控制接口提交帧之前检查输入对象是否满足当前 CDD 的结构约束：载波周期必须位于允许范围内，PWM1～PWM4 的四组比较窗口必须位于周期内且不得反向，PWM5 状态必须属于当前实现支持的枚举值。零宽窗口和小于死区的窗口属于有效输入，不再作为校验错误拒绝。
 
 `pFrame` 是只读输入参数。函数不会修改其内容，也没有输出参数；但当前实现会直接多次读取该对象，不会自行创建快照或加锁，因此调用者应保证校验期间对象内容保持稳定。该函数不检查 Core0 所有权、初始化状态或驱动状态，也不访问硬件、修改模块状态或锁存故障。`Cdd_PwmWave_SubmitFrame()` 通过先复制调用者帧再校验本地快照，避免后续提交流程继续依赖原始输入对象。
 
-校验按“指针 → 周期 → 四组窗口（比较关系后最小宽度）→ PWM5 状态”的顺序执行，并在遇到第一个错误时立即返回。因此返回值也反映该固定检查顺序：例如，较低索引窗口的死区错误会先于较高索引窗口的比较值错误返回。函数不检查四组窗口之间的相互关系或占空比对称性；`CmpA` 可以为 `0U`，只要满足 `CmpA < CmpB < Period` 且窗口宽度不小于 `23U ticks`。
+校验按“指针 → 周期 → 四组窗口比较关系 → PWM5 状态”的顺序执行，并在遇到第一个错误时立即返回。函数不检查四组窗口之间的相互关系或占空比对称性；`CmpA` 可以为 `0U`，并允许 `CmpA == CmpB`，只要满足 `CmpA <= CmpB < Period`。当 `CmpB - CmpA < 23U ticks` 时，本函数仍返回 `CDD_PWM_WAVE_OK`；后续硬件写入路径会把该路转换成主输出 100%、互补输出 0% 的恒定输出编码。
 
-返回 `CDD_PWM_WAVE_OK` 只表示帧满足当前 `.c/.h` 定义的软件约束，不表示帧已经提交或装载到 TOM，也不能证明外部引脚的实际周期、比较边沿或死区时间符合预期。`500U～1154U ticks`、四组窗口、`23U ticks` 下限以及三种 PWM5 状态均是当前项目约束；`TEST_TOGGLE` 的 CH3 计时值由后续源码推导为 `CM0 = 2 × Period`、`CM1 = Period`，其 TOM 字段容量由当前编译期断言另行保证。
+返回 `CDD_PWM_WAVE_OK` 只表示帧满足当前 `.c/.h` 定义的软件结构约束，不表示帧已经提交或装载到 TOM，也不能证明外部引脚的实际周期、恒定电平、比较边沿或死区时间符合预期。`500U～1154U ticks`、四组窗口、`23U ticks` 饱和阈值以及三种 PWM5 状态均是当前项目约束；`TOGGLE` 的 CH3 计时值由后续源码推导为 `CM0 = 2 × Period`、`CM1 = Period`，其 TOM 字段容量由当前编译期断言另行保证。
 
-手册事实与项目实现边界如下：FC7300F8MDQ Reference Manual 原 PDF 第 1898 页说明 TOM 在 SOMP 向上计数模式下从 `0` 计数到 `CM0 - 1`，并用图示说明 `CM0/CM1` 对周期和输出边沿的作用；第 2033～2035 页给出 `CM0/CM1` 的 24 位比较字段；第 1908、2053～2054 页说明 DTM 可分别配置上升沿和下降沿死区，并由 `DT_RISE/DT_FALL` 保存相应值。PWM User Manual 原 PDF 第 51 页列出 FTU 周期和 dead-time 配置项及其通用范围，但没有规定本函数的应用级校验范围。当前 `Pwm.xdm` 与生成的 `Pwm_PBcfg.c` 进一步确认 PWM1～PWM4 四个 DTM 通道的上升沿、下降沿死区均配置为 `23U`；上述 `500U～1154U`、窗口顺序和 PWM5 枚举限制仍属于当前 CDD 源码策略，不是芯片手册规定的唯一合法帧格式。在当前 Errata V0.5 已检索范围内，与 eFTU 相关的命中项属于 DMAMUX 共享请求通道限制，未发现直接适用于本纯软件帧校验函数的条目。
+手册事实与项目实现边界如下：FC7300F8MDQ Reference Manual 原 PDF 第 1900 页给出同步 SOMP 的 100%/0% 恒定输出编码；第 1907～1908 页说明 DTM 位于 TOM 后级。PWM User Manual 原 PDF 第 51 页列出 dead-time 配置项，但没有规定“小于死区的应用窗口必须如何处理”。当前生成配置确认四路死区均为 `23U`。本项目策略是：零宽保持精确 0%；仅正宽且小于 `23U ticks` 的窗口转换为 S4～S7 100%、S20～S23 0%。该策略属于需求实现，不是手册唯一规定。
 
 当前实现实际可达的返回结果如下：
 
 | 返回值 | 含义 |
 | --- | --- |
-| `CDD_PWM_WAVE_OK` | 输入指针有效，周期、四组比较窗口、最小窗口宽度和 PWM5 状态均满足当前软件约束 |
+| `CDD_PWM_WAVE_OK` | 输入指针有效，周期、四组非反向比较窗口和 PWM5 状态均满足当前软件约束；零宽与正宽小于死区的窗口都可受理，但映射策略不同 |
 | `CDD_PWM_WAVE_E_PARAM_POINTER` | `pFrame == NULL_PTR`，函数未访问任何帧成员 |
 | `CDD_PWM_WAVE_E_PERIOD` | `u32PeriodTicks` 不在闭区间 `[500U, 1154U]` 内 |
-| `CDD_PWM_WAVE_E_CMP` | 当前检查窗口的 `CmpA` 或 `CmpB` 不小于周期，或者 `CmpA >= CmpB` |
-| `CDD_PWM_WAVE_E_DEAD_TIME` | 当前窗口的 `CmpB - CmpA` 小于 `23U ticks` |
-| `CDD_PWM_WAVE_E_PWM5` | PWM5 状态不是 `LOW`、`HIGH` 或 `TEST_TOGGLE` |
+| `CDD_PWM_WAVE_E_CMP` | 当前检查窗口的 `CmpA` 或 `CmpB` 不小于周期，或者 `CmpA > CmpB` |
+| `CDD_PWM_WAVE_E_PWM5` | PWM5 状态不是 `LOW`、`HIGH` 或 `TOGGLE` |
 
 当前源码中的直接调用者如下：
 
-1. `Bsp_PwmWave_IsCarrierTestFrame()` 在载波频率测试中确认活动帧时，除核对目标周期和 `TEST_TOGGLE` 状态外，再调用本函数确认整帧仍满足软件约束。
-2. `Bsp_PwmWave_ValidateFrame()` 作为 BSP 对外包装接口，直接转发输入帧和本函数返回值，不增加初始化、核所有权或状态检查。
-3. `Cdd_PwmWave_SubmitFrame()` 先复制调用者输入帧，再校验该本地快照；校验成功后才继续检查 Core0、初始化状态并提交。
-4. `Cdd_PwmWave_SubmitPeriodChange()` 在已持有 SchM 锁时从活动帧构造并按需缩放候选帧，写入新周期后调用本函数；只有候选帧有效才继续调用锁内提交 helper。
+1. `Bsp_PwmWave_ValidateFrame()` 作为 BSP 对外包装接口，直接转发输入帧和本函数返回值，不增加初始化、核所有权或状态检查。
+2. `Cdd_PwmWave_SubmitFrame()` 先复制调用者输入帧，再校验该本地快照；校验成功后才继续检查 Core0、初始化状态并提交。
 
 ```c
 Cdd_PwmWave_ResultType Cdd_PwmWave_ValidateFrame(const Cdd_PwmWave_FrameType *pFrame)
@@ -424,299 +402,90 @@ Cdd_PwmWave_ResultType Cdd_PwmWave_ValidateFrame(const Cdd_PwmWave_FrameType *pF
     return CDD_PWM_WAVE_E_PERIOD;
   }
 
-  // 按 PWM1～PWM4 的数组顺序逐个校验；函数返回遇到的第一类无效窗口。
-  // 错误优先级由窗口索引和“比较关系先于最小宽度”的检查顺序共同确定。
+  // 按 PWM1～PWM4 的数组顺序逐个校验；函数返回遇到的第一个反向或越界窗口。
+  // 零宽和正宽小于死区的窗口都有效；后续 helper 分别映射为 0% 和 100%/0% 端点。
   for (u8Index = 0U; u8Index < CDD_PWM_WAVE_WINDOW_COUNT; u8Index++) {
-    // 每个 CmpA/CmpB 都必须严格小于周期，且 CmpA 必须严格小于 CmpB。
-    // 任一关系失配都无法形成有序比较窗口，统一归类为 E_CMP。
+    // 每个 CmpA/CmpB 都必须严格小于周期，且 CmpA 不得大于 CmpB。
+    // CmpA == CmpB 表示零宽窗口；只有反向或越界关系归类为 E_CMP。
     if ((pFrame->aWindow[u8Index].u32CmpA >= pFrame->u32PeriodTicks) || (pFrame->aWindow[u8Index].u32CmpB >= pFrame->u32PeriodTicks) ||
-        (pFrame->aWindow[u8Index].u32CmpA >= pFrame->aWindow[u8Index].u32CmpB)) {
+        (pFrame->aWindow[u8Index].u32CmpA > pFrame->aWindow[u8Index].u32CmpB)) {
       return CDD_PWM_WAVE_E_CMP;
-    }
-    // 仅在 CmpA < CmpB 成立后执行无符号减法，避免反向比较值造成下溢。
-    // 窗口宽度还必须达到项目配置的 23 ticks 下限，否则归类为 E_DEAD_TIME。
-    if ((pFrame->aWindow[u8Index].u32CmpB - pFrame->aWindow[u8Index].u32CmpA) < CDD_PWM_WAVE_DEAD_TIME_TICKS) {
-      return CDD_PWM_WAVE_E_DEAD_TIME;
     }
   }
 
   // 四个比较窗口全部通过后，再限制 PWM5 为当前实现支持的三种状态。
   // 非法枚举值不会进入后续 CH3 计时值推导，而是以 E_PWM5 拒绝。
   if ((CDD_PWM_WAVE_PWM5_LOW != pFrame->ePwm5State) && (CDD_PWM_WAVE_PWM5_HIGH != pFrame->ePwm5State) &&
-      (CDD_PWM_WAVE_PWM5_TEST_TOGGLE != pFrame->ePwm5State)) {
+      (CDD_PWM_WAVE_PWM5_TOGGLE != pFrame->ePwm5State)) {
     return CDD_PWM_WAVE_E_PWM5;
   }
 
-  /* TEST_TOGGLE derives CH3 CM0/CM1 as 2*Period/Period; the period-range
+  /* TOGGLE derives CH3 CM0/CM1 as 2*Period/Period; the period-range
    * check and compile-time TOM-range assertion cover all supported frames. */
 
   return CDD_PWM_WAVE_OK;  // 所有软件结构约束均满足；本函数未验证硬件是否已经应用该帧
 }
 ```
 
-`Cdd_PwmWave_SubmitFrameLocked()` 是 PWM 波形 CDD 的核心“帧提交事务”：在已持有 SchM 锁的条件下，检查驱动状态，把载波、PWM5、PWM1～PWM4 的完整参数统一写入 TOM 影子寄存器，登记 pending 帧和序列号，并根据载波周期是否变化选择合适的 UPEN 装载时机。
+`Cdd_PwmWave_SubmitFrameLocked()` 只负责锁内状态分派：`RUN` 进入高频快路径，`ARMED_LOW` 进入启动冷路径，其余状态返回 `CDD_PWM_WAVE_E_STATE`。两条路径共享同一个公共 `Cdd_PwmWave_SubmitFrame()`，没有第二条 Frame Submit 链。
+
+`RUN` 且周期不变时，热路径只禁止 CH4～CH7 的 `UPEN`、写 8 个窗口 `SR0/SR1`、发布最新 pending/sequence、执行屏障并重新使能 CH4～CH7 `UPEN`；不写 CH0/CH3、不重写 6 个 `SL`、不调用通用 PWM 通知 API，也不在热路径做 18 个活动寄存器回读。同周期连续提交采用 latest-wins：新帧覆盖软件 pending 槽，慢诊断保留直接前驱候选用于尽力而为的一致性检查。
+
+`RUN` 且周期变化时进入稀有冷分支：先禁止 CH0、CH3～CH7 更新，写 CH0/CH3 的 4 个周期 shadow 和 CH4～CH7 的 8 个窗口 shadow，再发布 pending 并安排专用 IRQ172 在 CH0/CH3 共同边界前 arm 全组 `UPEN`。已有周期变化仍在等待共同边界或一次性中断仍 pending 时返回 `CDD_PWM_WAVE_E_BUSY`，禁止第二次覆盖 CH0/CH3 shadow。
+
+`ARMED_LOW` 路径用于初次 Start 或正常 Stop 后重启。它仍提交完整帧并写运行态 `SL` shadow；物理输出由 DTM 保持低。该冷路径只有一个 pending 槽，已有 pending 时返回 `CDD_PWM_WAVE_E_BUSY`。
+
+窗口映射规则为：`CmpA == CmpB` 精确编码为主输出 0%；仅 `0 < CmpB-CmpA < 23U` 时按需求编码为主输出 100%、互补输出 0%；其余窗口按原始比较边沿写入。软件 pending/active 帧始终保存调用者原始值。
 
 主要返回结果如下：
 
-| 返回值                         | 含义                                                   |
-| ------------------------------ | ------------------------------------------------------ |
-| `CDD_PWM_WAVE_OK`              | shadow 已写完，pending 已登记，装载已 arm 或通知已安排 |
-| `CDD_PWM_WAVE_E_FAULT_ACTIVE`  | 故障已锁存                                             |
-| `CDD_PWM_WAVE_E_BUSY`          | Start pending 或已有 pending 帧                        |
-| `CDD_PWM_WAVE_E_STATE`         | 当前不是 `ARMED_LOW/RUN`                               |
-| `CDD_PWM_WAVE_E_HW_CONFIG`     | 运行状态或同步拓扑不一致                               |
-| `CDD_PWM_WAVE_E_NOT_SUPPORTED` | RUN期间试图改变 PWM5状态                               |
-
-当前已有如下调用场景：
-1. `Cdd_PwmWave_SubmitFrame()` 先复制输入帧、校验参数、检查 Core0和初始化状态，再进入 SchM 临界区调用本函数。
-2. `Cdd_PwmWave_SubmitPeriodChange()` 在锁内从当前活动帧构造候选帧，必要时等比例缩放比较值，校验后调用本函数。
-
-```c
-static Cdd_PwmWave_ResultType Cdd_PwmWave_SubmitFrameLocked(const Cdd_PwmWave_FrameType *pFrame, Cdd_PwmWave_SequenceType *pSequence)
-{
- Cdd_PwmWave_ResultType eResult;
- Cdd_PwmWave_SequenceType u32Sequence;
- uint32 u32OldCarrierPeriod;
- uint32 u32Pwm5Cm0;
- uint32 u32Pwm5Cm1;
- uint8 u8Index;
- boolean bCommonBoundaryArmRequired;
- Cdd_PwmWave_RefreshPending();  // 刷新上一帧的装载状态, 检查之前的 pending 帧是否已经从 shadow 装载到活动寄存器
- 
- // 检查当前是否允许提交
- if (TRUE == s_bFaultLatched) {  // 已锁存故障, 故障未清除时禁止提交新帧
-  eResult = CDD_PWM_WAVE_E_FAULT_ACTIVE;
- } else if (TRUE == s_bStartPending) {  // 正在处理启动请求, 启动过程尚未结束时不允许插入帧更新，避免 Start 和帧装载交叉
-  eResult = CDD_PWM_WAVE_E_BUSY;
- } else if ((CDD_PWM_WAVE_STATE_ARMED_LOW != s_eState) && (CDD_PWM_WAVE_STATE_RUN != s_eState)) {  // 只允许在 ARMED_LOW(输出被安全门压低，准备装载帧)或 RUN(正在输出，可更新活动波形)这两种状态提交
-  eResult = CDD_PWM_WAVE_E_STATE;
- } else if (TRUE == s_bPendingFrameValid) {  // 已有一帧 pending 数据等待装载, 当前只维护一个 pending 槽位，不支持多帧排队
-  eResult = CDD_PWM_WAVE_E_BUSY;
- } else if ((CDD_PWM_WAVE_STATE_RUN == s_eState) && (FALSE == s_bActiveFrameValid)) {  // RUN状态下活动帧却无效, 软件状态或硬件拓扑出现异常, 因此进入故障锁存
-  (void)Cdd_PwmWave_EnterFault(CDD_PWM_WAVE_FAULT_HW_CONFIG);
-  eResult = CDD_PWM_WAVE_E_HW_CONFIG;
- } else if ((CDD_PWM_WAVE_STATE_RUN == s_eState) && (pFrame->ePwm5State != s_tActiveFrame.ePwm5State)) {  // RUN状态下禁止改变 PWM5 工作模式, PWM5使用独立的 TOM0 CH3计数器, 运行中切换, 可能在任意 CH3相位生效，产生不确定边沿
-  /* CH3 counter is independent of CH0. A state change could take effect at
-   * an arbitrary CH3 phase, so allow it only while DTM holds every output low. */
-  eResult = CDD_PWM_WAVE_E_NOT_SUPPORTED;
- } else if (FALSE == Cdd_PwmWave_IsCarrierBoundaryTriggerSelected()) {  // 载波边界触发配置失效, 没有正确选择 CH0 载波边界作为内部同步触发源时，不允许继续装载
-  eResult = CDD_PWM_WAVE_E_HW_CONFIG;
- } else {
-  /* ARMED_LOW keeps the TOM counters enabled; DTM alone clamps the pads.
-   * Therefore a stopped period change uses the same bounded common-zero
-   * arm as RUN and preserves phase for the later Start. */
-  // 判断载波周期是否发生变化
-  u32OldCarrierPeriod = EFTU_TOM_1_0->Channel[CDD_PWM_WAVE_CARRIER_CHANNEL].CH_CM0;
-  bCommonBoundaryArmRequired = (u32OldCarrierPeriod != pFrame->u32PeriodTicks) ? TRUE : FALSE;
-  // 停止旧通知并关闭 shadow 装载
-  Cdd_PwmWave_DisableArmNotificationLocked();
-  Cdd_PwmWave_DisableFrameUpdate();  // 将 CH0、CH3～CH7 的 UPEN_CTRL 设置为禁止更新，避免写影子寄存器的过程中发生装载，导致部分通道使用新参数、部分通道仍使用旧参数
-  // 写入 CH0载波 shadow
-  EFTU_TOM_1_0->Channel[CDD_PWM_WAVE_CARRIER_CHANNEL].CH_SR0 = pFrame->u32PeriodTicks;
-  EFTU_TOM_1_0->Channel[CDD_PWM_WAVE_CARRIER_CHANNEL].CH_SR1 = pFrame->u32PeriodTicks >> 1U;
-  // 计算并写入 PWM5/CH3 shadow
-  Cdd_PwmWave_GetPwm5TimerValues(pFrame, &u32Pwm5Cm0, &u32Pwm5Cm1);
-  EFTU_TOM_1_0->Channel[CDD_PWM_WAVE_PWM5_CHANNEL].CH_SR0 = u32Pwm5Cm0;  // CH3 SR0 = 2 × P
-  EFTU_TOM_1_0->Channel[CDD_PWM_WAVE_PWM5_CHANNEL].CH_SR1 = u32Pwm5Cm1;  // SR1 根据 PWM5状态决定, 一个载波周期低, 一个载波周期高
-  //写入 PWM1～PWM4比较窗口
-  for (u8Index = 0U; u8Index < CDD_PWM_WAVE_WINDOW_COUNT; u8Index++) {
-   EFTU_TOM_1_0->Channel[u8Index + 4U].CH_SR0 = pFrame->aWindow[u8Index].u32CmpA;
-   EFTU_TOM_1_0->Channel[u8Index + 4U].CH_SR1 = pFrame->aWindow[u8Index].u32CmpB;
-  }
-  /* DTM holds the physical outputs low while stopped; TOM always stages the run waveform. */
-  // 写入输出极性的 shadow
-  s_bPendingUsesRunSignalLevels = TRUE;
-  Cdd_PwmWave_SetShadowSignalLevels(pFrame, TRUE);  // 写入 CH0、CH3～CH7 的 CH_CTRL_SR[SL_SR], 初始输出电平/极性的影子配置
-  // 写完硬件影子寄存器后, 生成序列号并登记 pending 帧
-  u32Sequence = Cdd_PwmWave_NextSequence();  // 序列号用于上层确认, 只有完全匹配, 才能确认本次提交的帧真正生效
-  s_tPendingFrame = *pFrame;
-  s_u32PendingSequence = u32Sequence;
-  s_bPendingFrameValid = TRUE;
-  s_u8PendingMainCycles = 0U;
-  // 根据周期是否变化选择装载方式
-  if (TRUE == bCommonBoundaryArmRequired) {  // 载波周期发生变化
-  /* Enable a one-shot CH0 CCU0 notification. The callback arms in CH3's
-​  * old second carrier cycle; the following zero then loads P/2P and all
-​  * CMP shadows together. */
-   eResult = Cdd_PwmWave_ScheduleFrameAtCommonBoundaryLocked(u32OldCarrierPeriod, u32Sequence);  /* 启用一次 CH0 carrier notification，由后续回调在 CH0 与 CH3 合适的共同边界设置 UPEN */
-  } else {  // 载波周期没有变化
-   /* With no carrier-period change, each channel can load at its normal
-​   * zero without disturbing the existing CH0/CH3 phase relation. */
-   Cdd_PwmWave_ArmFrameUpdate();  // 设置 UPEN，允许影子寄存器在后续硬件更新边界装载到活动寄存器
-   eResult = CDD_PWM_WAVE_OK;
-  }
-  // 调度或 arm 成功时才返回序列号, 如果调用失败：不更新 pSequence, 调用者不能使用其中原来的值判断本次请求, 应以返回值为准
-  if ((CDD_PWM_WAVE_OK == eResult) && (NULL_PTR != pSequence)) {
-   *pSequence = u32Sequence;
-  }
- }
- return eResult;
-}
-```
-
-`Cdd_PwmWave_SubmitFrame()` 是完整 PWM 波形帧的公共提交入口。函数先拒绝空指针并在锁外复制调用者帧，随后校验本地快照；只有帧结构有效、调用者位于 Core0 且 CDD 已初始化时，才进入 `PWM_EXCLUSIVE_AREA_19`，由 `Cdd_PwmWave_SubmitFrameLocked()` 基于最新共享状态完成提交门禁、TOM shadow 写入、pending 帧登记和装载调度。复制快照使“已经校验的内容”和“随后提交的内容”保持一致，但调用者仍须保证 `pFrame` 在本次结构体复制期间可读且不被并发改写；复制完成后，本函数不再访问原始帧对象。
-
-`pFrame` 是必填只读输入参数，函数不会修改其内容。`pSequence` 是可选输出参数，可以传入 `NULL_PTR`；仅当函数返回 `CDD_PWM_WAVE_OK` 时，非空 `pSequence` 才在 SchM 锁内写入本次提交的新序列号，任何失败返回都保持其原值不变。该序列号用于调用者后续把 pending/active 状态与本次请求对应起来，不是“帧已经生效”的凭据。
-
-检查顺序固定为“空指针 → 复制并校验快照 → Core0 → 初始化状态 → 锁内提交”，因此同一次调用同时存在帧结构错误和执行上下文错误时，会优先返回帧结构错误。锁内 helper 先刷新上一帧的 pending 状态，再检查 fault、Start pending、状态机、pending 槽位和同步拓扑；在 `RUN` 状态下还禁止改变 PWM5 模式。大部分前置拒绝不会写入新帧，但部分 `CDD_PWM_WAVE_E_HW_CONFIG` 路径可能在 shadow/pending 已登记后因共同边界调度复核失败而调用 `Cdd_PwmWave_EnterFault()`，执行安全关断并撤销 pending。因此失败返回不能一概理解为“模块内部完全没有副作用”。
-
-返回 `CDD_PWM_WAVE_OK` 只表示 shadow 和 pending 已登记，并且同周期装载已 arm，或者变周期所需的一次性载波通知已成功安排；新帧仍需在后续硬件更新边界装入活动寄存器。变周期路径的后续回调也可能异步进入 fault，所以本次成功返回不能证明帧已经成为 active，更不能替代外部引脚频率、比较边沿或死区时间的板级测量。
-
-手册事实与项目实现边界如下：FC7300F8MDQ Reference Manual 原 PDF 第 1892～1893 页说明 TOM TGC 负责八个通道工作寄存器的同步更新，并由 `UPEN_CTRL` 控制 `SR0/SR1/CTRL_SR` 是否更新到 `CM0/CM1/CTRL`；第 1995～1997 页给出各 TOM 通道 `UPEN_CTRL` 的禁用/使能编码；第 2034～2035 页给出 24 位 `SR0/SR1` shadow 字段。PWM User Manual 原 PDF 第 23、41、60 页分别说明 `Pwm_EnableNotification()`、通知启停序列以及 `PwmNotificationSupported` 配置开关；PWM Integration Manual 原 PDF 第 9 页说明 PWM 使用 SchM 临界区，并将标准 `Pwm_EnableNotification()` 对应到 exclusive area 19。当前 `Pwm.xdm` 和生成的 `Pwm_Cfg.h`、`Pwm_PBcfg.c` 进一步确认通知支持已启用，`PWM_CARRIER` 映射到 eFTU1 TOM0 CH0，并配置 `Cdd_PwmWave_CarrierBoundaryNotification()`。CDD 复用 area 19 保护整项提交事务、具体状态机门禁、pending/sequence 规则和共同边界调度算法仍是当前项目源码约定，不是上述手册规定的通用提交 API。在当前 Errata V0.5 已检索范围内，eFTU 命中项属于 DMAMUX 共享请求通道限制，未发现直接适用于本函数帧提交路径的条目。
-
-当前实现实际可达的返回结果如下：
-
 | 返回值 | 含义 |
 | --- | --- |
-| `CDD_PWM_WAVE_OK` | 帧已被接受，shadow 和 pending 已登记，装载已 arm 或共同边界通知已成功安排；非空 `pSequence` 已写入新序列号 |
-| `CDD_PWM_WAVE_E_PARAM_POINTER` | `pFrame == NULL_PTR`，函数在复制输入帧前返回 |
-| `CDD_PWM_WAVE_E_PERIOD` | 快照中的周期不在当前允许范围内 |
-| `CDD_PWM_WAVE_E_CMP` | 某组比较值不小于周期，或者不满足 `CmpA < CmpB` |
-| `CDD_PWM_WAVE_E_DEAD_TIME` | 某组比较窗口宽度小于当前项目要求的最小值 |
-| `CDD_PWM_WAVE_E_PWM5` | PWM5 状态不是当前实现支持的 `LOW`、`HIGH` 或 `TEST_TOGGLE` |
-| `CDD_PWM_WAVE_E_WRONG_CORE` | 帧校验通过，但调用者不是 Core0 |
-| `CDD_PWM_WAVE_E_UNINIT` | 帧校验和 Core0 检查通过，但 CDD 尚未成功初始化 |
-| `CDD_PWM_WAVE_E_FAULT_ACTIVE` | 锁内刷新或调度复核时发现 fault 已锁存 |
-| `CDD_PWM_WAVE_E_BUSY` | Start 正在处理，或者刷新后仍有 pending 帧等待装载 |
-| `CDD_PWM_WAVE_E_STATE` | 当前状态既不是 `ARMED_LOW`，也不是 `RUN` |
-| `CDD_PWM_WAVE_E_HW_CONFIG` | `RUN` 状态缺少有效活动帧、载波边界触发选择失配，或者共同边界调度所需拓扑/通知配置复核失败；部分路径会同时锁存硬件配置 fault |
-| `CDD_PWM_WAVE_E_NOT_SUPPORTED` | `RUN` 状态下请求改变 PWM5 模式；当前实现不允许独立 CH3 计数器在任意相位切换该模式 |
+| `CDD_PWM_WAVE_OK` | shadow 与 pending 已发布，固定周期更新已 arm，或周期变化的一次性 IRQ 已安排 |
+| `CDD_PWM_WAVE_E_FAULT_ACTIVE` | fault 已锁存 |
+| `CDD_PWM_WAVE_E_BUSY` | Start 正在处理、周期变化仍在等待，或 ARMED_LOW 已有 pending |
+| `CDD_PWM_WAVE_E_STATE` | 当前不是 `ARMED_LOW/RUN` |
+| `CDD_PWM_WAVE_E_HW_CONFIG` | 活动帧或同步拓扑不一致；部分路径会进入安全态 |
+| `CDD_PWM_WAVE_E_NOT_SUPPORTED` | RUN 期间试图改变 PWM5 状态 |
 
-当前源码中的直接调用者如下：
+`Cdd_PwmWave_SubmitFrame()` 是完整 PWM Frame 的唯一公共提交入口。`u32PeriodTicks` 或任一 `aWindow[]` 有更新需求时，调用者都提交一份完整、自洽的 `Cdd_PwmWave_FrameType`；CDD 不隐式保留字段，也没有只更新 Period 或只更新 Window 的旁路。
 
-1. `Bsp_PwmWave_RequestStart()` 在 BSP 已确认 Core0、没有 BSP pending 作业且 CDD 处于无 fault、无 pending、无 Start pending 的 `ARMED_LOW` 状态后调用本函数；成功时将返回序列登记为 `BSP_PWM_WAVE_JOB_START_WITH_FRAME` 异步作业，等待该帧生效后再启动输出。
-2. `Bsp_PwmWave_RequestUpdate()` 在 BSP 已确认 Core0 且没有 BSP pending 作业后调用本函数；成功时将返回序列登记为 `BSP_PWM_WAVE_JOB_FRAME_UPDATE` 异步作业，用于后续确认新帧成为活动帧。
+函数在锁外复制输入并通过 `Cdd_PwmWave_ValidateAndPrepareFrame()` 一次完成结构校验和硬件 shadow 值准备，再检查 Core0 与初始化门禁；锁内只做最新状态复核、必要寄存器提交和 pending/sequence 发布。调用者必须保证源结构体在一次复制期间不被并发改写。
+
+`pSequence` 可为 `NULL_PTR`。返回 `CDD_PWM_WAVE_OK` 时，非空指针得到本次提交的非零短期令牌；它只表示请求已接收，不证明硬件已经装载。50 kHz 连续提交时 sequence 约 23.9 h 回绕，因此令牌只能与当前 pending/active 状态一起用于短期归属判断，不能长期缓存为全局唯一 ID。
+
+`RUN` 同周期提交可 latest-wins 覆盖尚未被慢诊断观察的 pending；相邻成功提交必须至少间隔 20 us。周期变化仍在共同边界握手时返回 `CDD_PWM_WAVE_E_BUSY`。停止前必须先停 20 us producer，等待一个最大装载窗口或对 `CDD_PWM_WAVE_E_BUSY` 做有界重试。
+
+手册事实与项目实现边界如下：Reference Manual 原 PDF 第 1892、1897、1995～1997 页说明 TOM shadow 通过同步事件和 `UPEN_CTRL` 装入工作寄存器；第 2036～2037 页说明 CCU 状态 W1C 与独立使能位。PWM User Manual 原 PDF 第 60 页说明通知支持配置。固定周期 8 次窗口 shadow 写、latest-wins、20 us 最小间隔、短期 sequence 及专用 IRQ172 都是当前项目设计，不是手册规定的通用 PWM API 行为。
+
+当前源码的直接调用者只有 `Bsp_PwmWave_RequestUpdate()`；首次 Start 也先构造默认完整帧，再经该 BSP 公共接口进入同一提交链。
 
 ```c
-Cdd_PwmWave_ResultType Cdd_PwmWave_SubmitFrame(const Cdd_PwmWave_FrameType *pFrame, Cdd_PwmWave_SequenceType *pSequence)
+Cdd_PwmWave_ResultType Cdd_PwmWave_SubmitFrame(const Cdd_PwmWave_FrameType *pFrame,
+                                                Cdd_PwmWave_SequenceType *pSequence)
 {
-  Cdd_PwmWave_FrameType tFrameSnapshot;  // 固化本次调用的完整帧，供校验和锁内提交共同使用
-  Cdd_PwmWave_ResultType eResult;  // 保存参数校验或锁内提交返回的最终结果
+  Cdd_PwmWave_FrameType tFrameSnapshot;
+  Cdd_PwmWave_PreparedFrameType tPreparedFrame;
+  Cdd_PwmWave_ResultType eResult;
 
-  // 在复制输入结构体前拒绝空指针，避免访问无效帧对象。
   if (NULL_PTR == pFrame) {
-    return CDD_PWM_WAVE_E_PARAM_POINTER;  // 未进入临界区，也未访问任何 CDD 状态或硬件
+    return CDD_PWM_WAVE_E_PARAM_POINTER;
   }
-  // 先生成一次性快照，保证校验通过的内容就是随后提交的内容。
-  tFrameSnapshot = *pFrame;  // 此后不再读取调用者的原始帧对象
-  eResult = Cdd_PwmWave_ValidateFrame(&tFrameSnapshot);  // 校验周期、四组比较窗口、最小宽度和 PWM5 状态
+  tFrameSnapshot = *pFrame;
+  eResult = Cdd_PwmWave_ValidateAndPrepareFrame(&tFrameSnapshot, &tPreparedFrame);
   if (CDD_PWM_WAVE_OK != eResult) {
-    return eResult;  // 透传首个结构错误，不进入共享状态和硬件提交阶段
+    return eResult;
   }
-  // 参数通过后再检查执行上下文；错误优先级因此低于帧结构错误。
   if (FALSE == Cdd_PwmWave_IsCore0()) {
-    return CDD_PWM_WAVE_E_WRONG_CORE;  // 错误核不能进入本模块独占资源的临界区
+    return CDD_PWM_WAVE_E_WRONG_CORE;
   }
   if (FALSE == s_bInitialized) {
-    return CDD_PWM_WAVE_E_UNINIT;  // 未初始化时不允许访问运行状态或提交硬件更新
+    return CDD_PWM_WAVE_E_UNINIT;
   }
 
-  // 在同一临界区内完成最新状态复核、shadow 写入、pending 登记和装载调度。
   SchM_Enter_Pwm_PWM_EXCLUSIVE_AREA_19();
-  eResult = Cdd_PwmWave_SubmitFrameLocked(&tFrameSnapshot, pSequence);  // 锁内门禁通过后才发布并安排该快照
+  eResult = Cdd_PwmWave_SubmitFrameLocked(&tFrameSnapshot, &tPreparedFrame, pSequence);
   SchM_Exit_Pwm_PWM_EXCLUSIVE_AREA_19();
-
-  return eResult;  // OK 仅表示请求已接受且非空 pSequence 已写入；失败时输出保持原值
-}
-```
-
-`Cdd_PwmWave_SubmitPeriodChange()` 是基于当前活动帧提交载波周期变更的公共入口。函数不接收一整帧，而是在同一 SchM 临界区内先刷新上一项 pending，再检查 fault、Start、状态机、pending 槽位和活动帧有效性；门禁通过后复制当前活动帧，只改写周期以及必要的 PWM1～PWM4 比较值，重新校验候选帧，最后复用 `Cdd_PwmWave_SubmitFrameLocked()` 写入 TOM shadow、登记新的 pending 帧和序列号，并安排后续装载。调用前必须位于 Core0、CDD 已初始化且已有有效活动帧；函数允许在 `ARMED_LOW` 和 `RUN` 状态使用，但不支持多项 pending 排队。
-
-`u32NewPeriodTicks` 是必填输入参数，当前允许范围为 `500U～1154U` ticks。`pSequence` 是可选输出参数，可以传入 `NULL_PTR`；仅当函数返回 `CDD_PWM_WAVE_OK` 时，非空 `pSequence` 才在锁内写入本次提交的新序列号，任何失败返回都保持调用者原值不变。该序列号只标识已经接受的 pending 请求，不能证明新周期已经装入活动寄存器。函数开头的 `Cdd_PwmWave_RefreshPending()` 可能先把上一项已经硬件生效的 pending 晋升为活动帧，因此后续门禁或候选校验失败只表示“本次没有成功提交新候选帧”，不能表述为模块状态完全没有变化。
-
-比较值缩放采用条件触发策略：先扫描四组窗口，只要任一 `CmpA` 或 `CmpB` 触及或超过新周期，就把四组窗口全部按 `floor(oldCmp × newPeriod / oldPeriod)` 等比例缩放；乘法先扩展为 `uint64`，避免 32 位中间结果溢出，整数除法向下截断且不做饱和或补偿。若所有比较值仍小于新周期，则保留原绝对 tick 位置，因此增大周期通常不会维持原占空比或相位比例；传入与当前周期相同的值也不是 no-op，仍会生成新的 pending 帧和序列号。缩放后的边沿顺序和周期边界由已有有效活动帧不变量保证，但窗口宽度可能因向下截断小于 `23U` ticks，此时重新校验返回 `CDD_PWM_WAVE_E_DEAD_TIME`，不会提交本次候选。`u32OldPeriod` 没有单独的除零保护，依赖活动帧只由校验成功的 pending 帧晋升这一模块不变量。
-
-PWM5 状态始终从活动帧原样保留；`Cdd_PwmWave_SubmitFrameLocked()` 会按该状态和新周期重新派生 PWM5 的 `CM0/CM1` 定时值，其中 `TEST_TOGGLE` 为 `2P/P`。返回 `CDD_PWM_WAVE_OK` 只表示 shadow/pending 已登记，并且同周期更新已 arm，或者变周期所需的一次性 CH0 载波通知已成功安排；实际生效仍发生在后续更新边界。若载波触发选择在写 shadow 前已失配，函数直接返回 `CDD_PWM_WAVE_E_HW_CONFIG`；若共同边界调度在 shadow/pending 登记后复核失败，helper 会进入 fault、安全关断并撤销 pending，且不会写出 `pSequence`。因此成功返回和静态寄存器读回都不能替代外部 PWM 频率、比较边沿及死区的板级波形测量。
-
-手册事实与项目实现边界如下：FC7300F8MDQ Reference Manual 原 PDF 第 1892～1893 页说明 TOM TGC 通过 `UPEN_CTRL` 控制 `SR0/SR1/CTRL_SR` 向工作寄存器同步更新；第 1896～1898 页说明 SOMP 的 shadow 更新可在计数器复位、即 PWM 周期结束边界同步发生；第 1995～1998 页给出各 TOM 通道 `UPEN_CTRL` 编码，第 2034～2035 页给出 24 位 `SR0/SR1` shadow 字段。PWM User Manual 原 PDF 第 23、41、60 页分别给出 `Pwm_EnableNotification()`、通知启停序列和“周期参数在当前周期结束时更新”的配置项；PWM Integration Manual 原 PDF 第 9 页说明标准 PWM 驱动使用 SchM 临界区，并把标准 `Pwm_EnableNotification()` 对应到 exclusive area 19。当前 `Pwm.xdm` 和生成的 `Pwm_Cfg.h`、`Pwm_PBcfg.c` 进一步确认 `PwmNotificationSupported`、`PwmPeriodUpdatedEndperiod` 已启用，`PWM_CARRIER` 为 Core0 的 eFTU1 TOM0 CH0，并绑定 `Cdd_PwmWave_CarrierBoundaryNotification()`。本函数绕过标准周期更新 API、直接派生活动帧并操作 shadow；条件缩放、单 pending 槽位、序列号和 CH0/CH3 共同边界算法均是当前项目源码约定，不是手册规定的通用 API 行为。在当前 Errata V0.5 已检索范围内，命中的 eFTU 条目属于 DMAMUX 共享请求通道限制，未发现直接适用于本函数周期提交路径的条目。
-
-当前正常状态不变量下，函数实际可达的返回结果如下：
-
-| 返回值 | 含义 |
-| --- | --- |
-| `CDD_PWM_WAVE_OK` | 周期候选已通过校验，shadow 和 pending 已登记，装载已 arm 或共同边界通知已成功安排；非空 `pSequence` 已写入新序列号 |
-| `CDD_PWM_WAVE_E_PERIOD` | `u32NewPeriodTicks` 小于 `500U` 或大于 `1154U`；函数在访问共享状态前返回 |
-| `CDD_PWM_WAVE_E_WRONG_CORE` | 调用者不是 Core0；函数未进入 SchM 临界区 |
-| `CDD_PWM_WAVE_E_UNINIT` | CDD 尚未成功初始化 |
-| `CDD_PWM_WAVE_E_FAULT_ACTIVE` | 刷新后已有 fault 锁存，或锁内 helper 在提交复核时观察到 fault |
-| `CDD_PWM_WAVE_E_BUSY` | Start 正在处理，或刷新后仍有 pending 帧占用唯一槽位 |
-| `CDD_PWM_WAVE_E_STATE` | 当前状态既不是 `ARMED_LOW`，也不是 `RUN` |
-| `CDD_PWM_WAVE_E_NO_FRAME` | 刷新后仍没有可供派生周期候选的有效活动帧 |
-| `CDD_PWM_WAVE_E_DEAD_TIME` | 等比例缩放和整数截断使至少一组比较窗口宽度小于 `23U` ticks；候选未提交 |
-| `CDD_PWM_WAVE_E_HW_CONFIG` | 载波边界触发选择失配，或共同边界调度所需的 pending、通知、CH0/CH3 活动周期和 PWM5 独立计数拓扑复核失败；后者会同时锁存硬件配置 fault |
-
-当前源码中只有一个直接调用者：
-
-1. `Bsp_PwmWave_RequestPeriodChange()` 在确认调用者位于 Core0 且 BSP 没有 pending 作业后调用本函数。成功时把返回序列复制给可选上层输出，并登记 `BSP_PWM_WAVE_JOB_PERIOD_CHANGE` 的 pending 作业；失败时登记同类 failed 作业及 CDD 返回结果，不向上层写出新序列号。
-
-```c
-Cdd_PwmWave_ResultType Cdd_PwmWave_SubmitPeriodChange(uint32 u32NewPeriodTicks, Cdd_PwmWave_SequenceType *pSequence)
-{
-  Cdd_PwmWave_FrameType tCandidate;  // 保存由当前活动帧派生的周期变更候选帧
-  Cdd_PwmWave_ResultType eResult = CDD_PWM_WAVE_OK;  // 汇总参数、状态、候选校验和锁内提交结果
-  boolean bScaleAll = FALSE;  // 标记是否需要按新旧周期比例统一缩放全部比较值
-  uint32 u32OldPeriod;  // 保存活动帧原周期，作为比较值等比例换算的分母
-  uint8 u8Index;  // 遍历 PWM1～PWM4 四组比较窗口的索引
-
-  // 新周期是本接口唯一的值参数，必须先满足当前 CDD 的载波周期边界。
-  if ((u32NewPeriodTicks < CDD_PWM_WAVE_MIN_PERIOD_TICKS) || (u32NewPeriodTicks > CDD_PWM_WAVE_MAX_PERIOD_TICKS)) {
-    return CDD_PWM_WAVE_E_PERIOD;  // 无效周期在访问模块状态和硬件前直接拒绝
-  }
-  // 后续会读取共享活动帧并操作 eFTU 资源，因此只允许已初始化的 Core0 执行。
-  if (FALSE == Cdd_PwmWave_IsCore0()) {
-    return CDD_PWM_WAVE_E_WRONG_CORE;  // 错误核不能进入本模块独占资源的临界区
-  }
-  if (FALSE == s_bInitialized) {
-    return CDD_PWM_WAVE_E_UNINIT;  // 未初始化时不存在可安全派生和提交的活动帧
-  }
-
-  // 从读取活动帧到构造、校验并提交候选帧必须处于同一事务，避免其间状态被其他路径替换。
-  SchM_Enter_Pwm_PWM_EXCLUSIVE_AREA_19();  // 锁住 CDD 状态、pending 信息和本模块拥有的更新路径
-  Cdd_PwmWave_RefreshPending();  // 先把已经硬件生效的上一帧提升为最新活动帧
-  // 刷新后按 fault、Start、允许状态、pending 槽位和活动帧有效性依次执行门禁。
-  // 任一门禁失败都不构造或提交新候选帧；RefreshPending 已完成的旧 pending 晋升仍然保留。
-  if (TRUE == s_bFaultLatched) {
-    eResult = CDD_PWM_WAVE_E_FAULT_ACTIVE;  // 故障锁存期间禁止发起新的周期变更
-  } else if (TRUE == s_bStartPending) {
-    eResult = CDD_PWM_WAVE_E_BUSY;  // 避免周期更新与尚未结束的启动事务交叉
-  } else if ((CDD_PWM_WAVE_STATE_ARMED_LOW != s_eState) && (CDD_PWM_WAVE_STATE_RUN != s_eState)) {
-    eResult = CDD_PWM_WAVE_E_STATE;  // 周期只允许在安全压低态或运行态更新
-  } else if (TRUE == s_bPendingFrameValid) {
-    eResult = CDD_PWM_WAVE_E_BUSY;  // 单 pending 槽位尚被上一帧占用，不能继续排队
-  } else if (FALSE == s_bActiveFrameValid) {
-    eResult = CDD_PWM_WAVE_E_NO_FRAME;  // 没有活动帧时缺少保留其余波形参数的派生基准
-  } else {
-    // 门禁全部通过后以锁内活动帧为模板，只调整周期及必要的比较值。
-    tCandidate = s_tActiveFrame;  // 保留当前四组窗口和 PWM5 模式作为候选初值
-    u32OldPeriod = tCandidate.u32PeriodTicks;  // 固定换算基准，避免候选周期改写后丢失原比例
-    // 仅当任一比较值会触及或越过新周期时才启用全量缩放，否则保持原绝对 tick 位置。
-    for (u8Index = 0U; u8Index < CDD_PWM_WAVE_WINDOW_COUNT; u8Index++) {
-      if ((tCandidate.aWindow[u8Index].u32CmpA >= u32NewPeriodTicks) || (tCandidate.aWindow[u8Index].u32CmpB >= u32NewPeriodTicks)) {
-        bScaleAll = TRUE;
-        break;
-      }
-    }
-
-    // 一旦发现越界风险，四路窗口必须整体缩放，避免只修改部分通道而破坏原有相对关系。
-    // 先扩展为 uint64 完成乘法以避免中间结果溢出；整数除法按 tick 向下截断。
-    if (TRUE == bScaleAll) {
-      for (u8Index = 0U; u8Index < CDD_PWM_WAVE_WINDOW_COUNT; u8Index++) {
-        tCandidate.aWindow[u8Index].u32CmpA = (uint32)(((uint64)tCandidate.aWindow[u8Index].u32CmpA * u32NewPeriodTicks) / u32OldPeriod);  // 按新旧周期比例重定位窗口起点
-        tCandidate.aWindow[u8Index].u32CmpB = (uint32)(((uint64)tCandidate.aWindow[u8Index].u32CmpB * u32NewPeriodTicks) / u32OldPeriod);  // 终点采用相同比例，维持窗口在周期中的相对位置
-      }
-    }
-    /* Preserve PWM5 state; its 2*P/P timer values move with CH0 at the next
-     * common CH0/CH3 zero. */
-    tCandidate.u32PeriodTicks = u32NewPeriodTicks;  // 最后发布候选周期，使后续校验以新周期复核比较值
-
-    eResult = Cdd_PwmWave_ValidateFrame(&tCandidate);  // 捕获缩放截断后可能出现的比较关系或最小宽度错误
-    if (CDD_PWM_WAVE_OK == eResult) {
-      /* Keep the active-frame snapshot, scaling and arm in one transaction. */
-      eResult = Cdd_PwmWave_SubmitFrameLocked(&tCandidate, pSequence);  // 校验通过后才写 shadow、登记 pending 并安排装载
-    }
-  }
-  SchM_Exit_Pwm_PWM_EXCLUSIVE_AREA_19();  // 候选构造和锁内提交全部结束后才释放共享事务边界
-
   return eResult;
 }
 ```
@@ -727,7 +496,7 @@ Cdd_PwmWave_ResultType Cdd_PwmWave_SubmitPeriodChange(uint32 u32NewPeriodTicks, 
 
 `Cdd_PwmWave_IsRuntimeTopologyValid(FALSE)` 按当前项目约定复核 PWM5 独立 TOM 拓扑、LU0 Stop 同步器、DTM shutoff、载波边界触发、CH3～CH7 通道及输出使能状态，并确认软件 Run 请求仍选择低态。`Cdd_PwmWave_IsPhysicalArmedLowValid()` 则要求 PTC7、PTC25、PTD4、PTD21、PTH22 的 `PCR.MUX` 为 ALT7，PTC23、PTE10、PTE11、PTE13 为 ALT6；同时要求这些 Pad 对应 `PIDR` 位均为 0，即数字输入路径允许，再要求 `PDIR` 位全部为 0。该组合很重要：手册说明未配置为数字功能或输入被禁用时，`PDIR` 也会读 0；源码先验证数字复用和输入允许，才把 `PDIR == 0` 作为当前低态读回依据。
 
-普通门禁失败不会改写 PWM/Port 硬件状态，也不会修改 `s_bOutputPadsConfirmed`。本函数不调用 `Cdd_PwmWave_RefreshPending()`，所以只要 `s_bPendingFrameValid` 仍为 `TRUE` 就返回 `CDD_PWM_WAVE_E_STATE`，即使硬件可能刚完成装载但软件尚未刷新；`Bsp_PwmWave_FixedTestStop()` 在调用前通过 `Cdd_PwmWave_GetStatus()` 完成这项刷新。运行拓扑或物理低态任一失配会调用 `Cdd_PwmWave_EnterFault()`：先钳制 DTM、立即禁用 TOM 通道及输出、把 Run 请求恢复为低、撤销 pending 并恢复安全信号电平，然后清除活动帧信息、锁存硬件配置 fault 并进入 `FAULT_LATCHED`。当前 `EnterFault()` 不清除既有的 `s_bOutputPadsConfirmed`，但 fault/state 门禁以及 Start 的硬件重检仍会阻止仅凭旧标志启动；因此调用者必须以本次返回值和当前状态为准。
+普通门禁失败不会改写 PWM/Port 硬件状态，也不会修改 `s_bOutputPadsConfirmed`。本函数不调用 `Cdd_PwmWave_RefreshPending()`，所以只要 `s_bPendingFrameValid` 仍为 `TRUE` 就返回 `CDD_PWM_WAVE_E_STATE`，即使硬件可能刚完成装载但软件尚未刷新；需要重新确认低态的正式调用方应先通过 `Cdd_PwmWave_GetStatus()` 刷新 pending 状态。运行拓扑或物理低态任一失配会调用 `Cdd_PwmWave_EnterFault()`：先钳制 DTM、立即禁用 TOM 通道及输出、把 Run 请求恢复为低、撤销 pending 并恢复安全信号电平，然后清除活动帧信息、锁存硬件配置 fault 并进入 `FAULT_LATCHED`。当前 `EnterFault()` 不清除既有的 `s_bOutputPadsConfirmed`，但 fault/state 门禁以及 Start 的硬件重检仍会阻止仅凭旧标志启动；因此调用者必须以本次返回值和当前状态为准。
 
 手册事实与项目实现边界如下：FC7300F8MDQ Reference Manual 原 PDF 第 1366～1368 页说明 `PORT_PCRn.MUX` 的 ALT0～ALT7 编码；第 1360～1362 页说明 `GPIO_PDIR` 反映数字输入值，非数字功能时读 0，而 `GPIO_PIDR=0` 表示输入允许、`PIDR=1` 会禁止输入并使对应 `PDIR` 读 0。Port User Manual 原 PDF 第 15 页说明 `Port_SetPinMode()` 按 Pin ID 和新 PinMux 模式设置端口复用。当前 `Bsp_Pwm_SetOutputPinModes()`、生成的 `Port_Cfg.h` 和 `Port_Cfg.c` 交叉确认九路 eFTU 功能对应上述 ALT6/ALT7 编码；`Pwm_PBcfg.c` 进一步确认 PWM5、PWM1～PWM4 分别使用 eFTU1 TOM0 CH3～CH7。具体 `ARMED_LOW` 状态机、九路掩码、LU/DTM/TRGSEL 拓扑组合、确认标志及 fault 回退均是当前项目源码事实，不是 Port 手册定义的通用 API 行为。Errata V0.5 原 PDF 第 4～5 页的汇总矩阵未列出 PORT、GPIO、TOM、DTM 或 PWM 类条目；其中 LU 条目涉及连续双沿收发同时启用 DMA 和中断，不直接适用于本函数的 LU Stop 同步器读回路径。
 
@@ -745,7 +514,6 @@ Cdd_PwmWave_ResultType Cdd_PwmWave_SubmitPeriodChange(uint32 u32NewPeriodTicks, 
 当前源码中的直接调用者如下：
 
 1. `Bsp_Pwm_Init()` 在 `Pwm_Init()` 和 `Cdd_PwmWave_Init()` 成功后，先调用 `Bsp_Pwm_SetOutputPinModes()` 把九路 Pad 切换为 eFTU，再调用本函数。只有确认成功才使能 eFTU1 TOM0～7 中断；失败时调用 `Cdd_PwmWave_EmergencyShutdown()`，并尝试切回和验证 GPIO 低态。
-2. `Bsp_PwmWave_FixedTestStop()` 在 `Cdd_PwmWave_GetStatus()` 确认当前已经处于无 fault、无 Start、无 pending 的 `ARMED_LOW` 后调用本函数，以一次新的物理低态复核实现幂等 Stop。它随后按返回值记录 Stop 作业，只有成功才重置测试状态。
 
 ```c
 Cdd_PwmWave_ResultType Cdd_PwmWave_ConfirmArmedLow(void)
@@ -783,7 +551,7 @@ Cdd_PwmWave_ResultType Cdd_PwmWave_ConfirmArmedLow(void)
 
 `Cdd_PwmWave_Start()` 是 PWM 波形 CDD 从 `ARMED_LOW` 切换到 `RUN` 的同步启动入口。调用前必须已经在 Core0 完成 CDD 初始化、提交并生效一帧有效波形，并通过 `Cdd_PwmWave_ConfirmArmedLow()` 确认九路输出 Pad 已切换为预期 eFTU 复用且处于低态。函数先在 SchM 临界区刷新 pending 帧并检查故障、状态、未完成事务、活动帧、Pad 确认标志以及当前硬件拓扑；门禁全部通过后设置 `s_bStartPending`，根据活动帧中的 PWM5 模式确定输出活动检查要求，并把软件 Run 请求切换为高。
 
-当前 LU/TRGSEL/DTM 拓扑把该 Run 请求在 CH0 边界传播到 DTM 关断链。函数释放 SchM 锁后执行有界轮询：检查 CH0 载波回绕，并通过 GPIO 输入读回观察 PWM1～PWM4 四组 DTM 输出活动；PWM5 为 `HIGH` 时还要求观察到高态，为 `TEST_TOGGLE` 时要求在稳定阶段之后同时观察到低态和高态。两种观察窗口都会在第二个 CH0 回绕时丢弃稳定阶段的活动记录：普通模式共等待三个回绕，随后验证一个载波周期；`TEST_TOGGLE` 共等待四个回绕，随后验证一个完整的双载波 PWM5 周期。完成等待后，函数重新进入临界区复核 fault、启动令牌、运行态拓扑、活动帧、PinMux 和 Pad 输入能力，全部成立且观察到要求的活动后才清除 `s_bStartPending` 并发布 `CDD_PWM_WAVE_STATE_RUN`。
+当前 LU/TRGSEL/DTM 拓扑把该 Run 请求在 CH0 边界传播到 DTM 关断链。函数释放 SchM 锁后执行有界轮询：检查 CH0 载波回绕，并通过 GPIO 输入读回观察 PWM1～PWM4 四组 DTM 输出活动；PWM5 为 `HIGH` 时还要求观察到高态，为 `TOGGLE` 时要求在稳定阶段之后同时观察到低态和高态。两种观察窗口都会在第二个 CH0 回绕时丢弃稳定阶段的活动记录：普通模式共等待三个回绕，随后验证一个载波周期；`TOGGLE` 共等待四个回绕，随后验证一个完整的双载波 PWM5 周期。完成等待后，函数重新进入临界区复核 fault、启动令牌、运行态拓扑、活动帧、PinMux 和 Pad 输入能力，全部成立且观察到要求的活动后才清除 `s_bStartPending` 并发布 `CDD_PWM_WAVE_STATE_RUN`。
 
 该函数没有输入参数或输出参数，返回 `Cdd_PwmWave_ResultType`。返回 `CDD_PWM_WAVE_OK` 只表示当前源码通过了状态机、寄存器拓扑、载波计数器和 GPIO 输入读回判据；它不能替代示波器对外部引脚频率、占空比、互补关系和死区时间的板级测量。启动前或启动后的关键拓扑失配、Run 请求写入读回失败以及活动观察超时会调用 `Cdd_PwmWave_EnterFault()`，强制安全关断、撤销 pending、清除活动帧并进入 `FAULT_LATCHED`。`s_bOutputPadsConfirmed == FALSE` 是硬件配置错误中的例外：该分支只拒绝 Start，不调用 `Cdd_PwmWave_EnterFault()`；其余 Core、初始化、状态、busy、无活动帧等门禁拒绝同样不会新建 fault。
 
@@ -803,10 +571,7 @@ Cdd_PwmWave_ResultType Cdd_PwmWave_ConfirmArmedLow(void)
 | `CDD_PWM_WAVE_E_HW_CONFIG` | 尚未完成 Pad 低态确认，或启动前后运行拓扑、活动帧、PinMux、Pad 输入配置、Run 请求写入及读回不满足当前实现约束 |
 | `CDD_PWM_WAVE_E_HW_TIMEOUT` | 有界轮询内没有完成要求的 CH0 回绕或没有取得要求的 PWM1～PWM4/PWM5 活动证据；函数同时锁存硬件超时 fault |
 
-当前源码中的直接调用者如下：
-
-1. `Bsp_PwmWave_Start()` 在确认调用核为 Core0 且 BSP 没有 pending 作业后，同步调用本函数启动当前活动帧；随后把结果登记为 `BSP_PWM_WAVE_JOB_START_ACTIVE_FRAME` 作业的完成或失败结果。
-2. `Bsp_PwmWave_MainFunction()` 处理 `BSP_PWM_WAVE_JOB_START_WITH_FRAME` 异步作业时，在提交帧已经成为匹配的活动帧、CDD 仍处于 `ARMED_LOW` 且没有 Start pending 后调用本函数，并用返回值结束原 BSP pending 作业。
+当前源码只有一个直接调用者：`Bsp_PwmWave_MainFunction()`。它处理 `BSP_PWM_WAVE_JOB_START_WITH_FRAME` 作业时，在提交帧已经成为匹配的活动帧、CDD 仍处于 `ARMED_LOW` 且没有 Start pending 后调用本函数，并用返回值结束原 BSP pending 作业。同步的 `Bsp_PwmWave_Start()` 也先提交默认帧或 Stop 后保留的活动帧，再复用该作业和 MainFunction，不再直接旁路调用本函数。
 
 ```c
 Cdd_PwmWave_ResultType Cdd_PwmWave_Start(void)
@@ -814,7 +579,7 @@ Cdd_PwmWave_ResultType Cdd_PwmWave_Start(void)
   Cdd_PwmWave_ResultType eResult = CDD_PWM_WAVE_OK;  // 汇总启动门禁、运行请求和活动复核阶段的最终结果
   boolean bOutputActivity = FALSE;  // 记录有界观察窗口内是否取得全部必需输出活动证据
   boolean bRequirePwm5Activity = FALSE;  // 标记当前 PWM5 模式是否要求观察到高态
-  boolean bRequirePwm5LowActivity = FALSE;  // 标记 TEST_TOGGLE 是否还要求观察到低态
+  boolean bRequirePwm5LowActivity = FALSE;  // 标记 TOGGLE 是否还要求观察到低态
   uint8 u8RequiredVerifyWraps = CDD_PWM_WAVE_START_VERIFY_WRAPS;  // 保存当前帧模式要求的 CH0 验证回绕数
 
   // CDD 所接管的 eFTU、DTM、LU 和 TRGSEL 运行资源只允许 Core0 启动。
@@ -850,9 +615,9 @@ Cdd_PwmWave_ResultType Cdd_PwmWave_Start(void)
   } else {
     // 门禁通过后发布启动占用，并按 PWM5 模式建立后续活动验证条件。
     s_bStartPending = TRUE;  // 阻止等待期间插入 Start、Stop 或新帧事务
-    bRequirePwm5Activity = (CDD_PWM_WAVE_PWM5_LOW != s_tActiveFrame.ePwm5State) ? TRUE : FALSE;  // HIGH/TEST_TOGGLE 必须出现 PWM5 高态
-    bRequirePwm5LowActivity = (CDD_PWM_WAVE_PWM5_TEST_TOGGLE == s_tActiveFrame.ePwm5State) ? TRUE : FALSE;  // TEST_TOGGLE 还必须出现低态
-    u8RequiredVerifyWraps = Cdd_PwmWave_GetStartVerifyWraps(&s_tActiveFrame);  // 为 TEST_TOGGLE 保留完整双载波观察窗口
+    bRequirePwm5Activity = (CDD_PWM_WAVE_PWM5_LOW != s_tActiveFrame.ePwm5State) ? TRUE : FALSE;  // HIGH/TOGGLE 必须出现 PWM5 高态
+    bRequirePwm5LowActivity = (CDD_PWM_WAVE_PWM5_TOGGLE == s_tActiveFrame.ePwm5State) ? TRUE : FALSE;  // TOGGLE 还必须出现低态
+    u8RequiredVerifyWraps = Cdd_PwmWave_GetStartVerifyWraps(&s_tActiveFrame);  // 为 TOGGLE 保留完整双载波观察窗口
 
     // 将软件 Run 请求源切换为 VDD；LU 在 CH0 边界同步后解除 DTM 低态关断。
     if (FALSE == Cdd_PwmWave_SetRunRequest(TRUE)) {
@@ -894,9 +659,9 @@ Cdd_PwmWave_ResultType Cdd_PwmWave_Start(void)
 }
 ```
 
-`Cdd_PwmWave_Stop()` 是 PWM 波形 CDD 从 `RUN` 同步切换回 `ARMED_LOW` 的正常停止入口。函数不会立即禁用 TOM 通道或清除当前活动帧，而是先确认当前运行拓扑和活动寄存器仍与保存的活动帧一致，然后把状态设置为 `STOP_PENDING`，将软件 Run 请求切换为低。当前 LU/TRGSEL/DTM 链在 CH0 载波边界同步该请求，并由 DTM 把 PWM1～PWM5 对应的九路输出 Pad 约束为低态。
+`Cdd_PwmWave_Stop()` 是 PWM 波形 CDD 从 `RUN` 同步切换回 `ARMED_LOW` 的正常停止入口。生命周期控制器必须先停止 20 us Frame producer；函数随后为最后一个 pending 提供最多三个载波回绕的有界排空。载波不再回绕且 pending 仍有效时进入 `CDD_PWM_WAVE_FAULT_HW_TIMEOUT`，排空时间已到但帧仍 pending 时返回 `CDD_PWM_WAVE_E_BUSY`，调用者可做有界重试。排空完成后，函数确认当前运行拓扑和活动帧，把状态设置为 `STOP_PENDING` 并将软件 Run 请求切换为低；LU/TRGSEL/DTM 链在 CH0 边界同步请求并把九路输出 Pad 约束为低态。
 
-函数释放 SchM 锁后，有界等待当前常量规定的两个 CH0 载波回绕，再重新进入临界区检查 fault 和 `STOP_PENDING` 状态令牌。只有 Run 请求低态拓扑、活动 TOM 帧、九路 PinMux 和 Pad 低态读回全部成立时，才把状态切换为 `ARMED_LOW`。成功停止后仍保留当前活动帧和 TOM 运行参数，后续可以按状态机要求再次调用 `Cdd_PwmWave_Start()`；这与故障关断不同，`Cdd_PwmWave_EnterFault()` 会禁用硬件、撤销 pending、清除活动帧并进入 `FAULT_LATCHED`。
+函数释放 SchM 锁后，有界等待当前常量规定的两个 CH0 载波回绕，再重新进入临界区检查 fault 和 `STOP_PENDING` 状态令牌。只有 Run 请求低态拓扑、活动 TOM 帧、九路 PinMux 和 Pad 低态读回全部成立时，才把状态切换为 `ARMED_LOW`。成功停止后仍保留当前活动帧和 TOM 运行参数；后续调用统一的 `Bsp_PwmWave_Start()` 时会重新提交该活动帧，再由 `Bsp_PwmWave_MainFunction()` 进入唯一的 `Cdd_PwmWave_Start()` 硬件启动点。这与故障关断不同，`Cdd_PwmWave_EnterFault()` 会禁用硬件、撤销 pending、清除活动帧并进入 `FAULT_LATCHED`。
 
 该函数没有输入参数或输出参数，返回 `Cdd_PwmWave_ResultType`。`CDD_PWM_WAVE_OK` 只表示当前源码通过了状态机、寄存器拓扑、两个载波回绕和 GPIO Pad 低态读回判据，不能替代示波器对外部引脚低态、停止边界和瞬态行为的板级确认。初始门禁返回的 Core、未初始化、已有 fault、busy 或状态错误不会新建 fault；停止前运行拓扑失配、Run 请求写入读回失败、边界等待超时或停止后低态复核失败会调用 `Cdd_PwmWave_EnterFault()` 执行安全关断。
 
@@ -917,7 +682,7 @@ Cdd_PwmWave_ResultType Cdd_PwmWave_Start(void)
 
 当前源码中的直接调用者如下：
 
-1. `Bsp_PwmWave_Stop()` 在确认调用核为 Core0 且 BSP 没有 pending 作业后，同步调用本函数；随后把返回结果登记为 `BSP_PWM_WAVE_JOB_STOP` 作业的完成或失败结果。`Bsp_PwmWave_FixedTestStop()` 通过该 BSP 包装函数间接调用本函数，不属于直接调用点。
+1. `Bsp_PwmWave_Stop()` 在确认调用核为 Core0 且 BSP 没有 pending 作业后，同步调用本函数；随后把返回结果登记为 `BSP_PWM_WAVE_JOB_STOP` 作业的完成或失败结果。
 
 ```c
 Cdd_PwmWave_ResultType Cdd_PwmWave_Stop(void)
@@ -1190,7 +955,7 @@ Cdd_PwmWave_ResultType Cdd_PwmWave_ClearFault(void)
 
 并发边界方面，空指针、非 Core0 和未初始化门禁位于锁外；已初始化路径在 `PWM_EXCLUSIVE_AREA_19` 内完成刷新和整组字段复制，避免 Core0 任务/中断在复制期间留下跨时点组合。当前 `SchM_Pwm.h/.c` 把该区域映射到支持同核重入的中断临界区，因此 `Bsp_PwmWave_GetControlStatus()` 外层持有同一区域时仍可嵌套调用；该实现不是跨核自旋锁，跨核写入仍由本函数的 Core0 所有权检查排除。配置链与此约束一致：`Pwm.xdm` 启用了多核并把 `PWM_CARRIER` 归入 `EcucPartition_0`，`Os.xdm` 将该分区映射到 Core0，生成的 `Pwm_Cfg.h/Pwm_PBcfg.c` 则把载波配置为 Core0 的 eFTU1 TOM0 CH0 并绑定当前通知回调。函数末尾在锁内再次根据 `s_bInitialized` 选择返回值；当前源码不存在初始化成功后再反初始化的路径，所以当前可达的 `CDD_PWM_WAVE_E_UNINIT` 来自前面的未初始化诊断分支。
 
-手册事实与项目实现边界如下：FC7300F8MDQ Reference Manual 原 PDF 第 1896～1898 页说明 SOMP 模式下 `SR0/SR1` 可在同步事件后更新工作寄存器 `CM0/CM1`，第 1995～1997 页说明 `TGC_GLB_CTRL.UPEN_CTRLn` 控制 `CM0/CM1`、`SL` 及其 shadow 的更新，第 2025 页给出 `SL` 信号电平编码，第 2033～2035 页分别给出 `CM0/SR0/CM1/SR1` 的工作寄存器与影子寄存器属性。PWM User Manual 原 PDF 第 23 页规定 `Pwm_DisableNotification()` 关闭指定通道通知且没有返回值；PWM Integration Manual 原 PDF 第 9 页仅给出 PWM 模块使用 SchM 临界区及标准 API 的区域编号，CDD 对区域 19 的复用和同核嵌套语义以当前 `SchM_Pwm` 源码为准。MCAL User Manual 原 PDF 第 38～39 页给出多核中断归属、共享数据一致性及自旋锁的一般约束，但没有定义本 CDD 的 Core0 所有权或快照协议。上述手册均未定义 `Cdd_PwmWave_GetStatus()`、pending 晋升条件或返回值；这些属于当前项目源码事实。Errata V0.5 原 PDF 第 10～12 页涉及 eFTU 的条目只限制共享 DMAMUX 槽位，本函数不使用 DMA，未发现直接适用的 TOM 状态查询限制。
+手册事实与项目实现边界如下：FC7300F8MDQ Reference Manual 原 PDF 第 1896～1898 页说明 SOMP 模式下 `SR0/SR1` 可在同步事件后更新工作寄存器 `CM0/CM1`，第 1995～1997 页说明 `UPEN_CTRLn` 控制工作寄存器更新。`Cdd_PwmWave_GetStatus()`、previous/latest 候选、锁外硬件回读和 pending 晋升条件均为当前项目源码约定；重复帧内容可能混淆 sequence，因此慢检查只提供尽力而为的一致性诊断，不是每次硬件装载的强证明。
 
 当前实现实际可达的返回结果如下：
 
@@ -1203,10 +968,9 @@ Cdd_PwmWave_ResultType Cdd_PwmWave_ClearFault(void)
 
 当前源码中的直接调用者如下：
 
-1. `Bsp_PwmWave_FixedTestStop()` 查询当前是否已经处于无 fault、无 Start、无 pending 的 `ARMED_LOW`；满足时继续执行物理低态确认，使固定测试 Stop 具备幂等路径。
-2. `Bsp_PwmWave_RequestStart()` 在提交初始帧前检查 fault、未完成事务和 `ARMED_LOW` 状态门禁。
-3. `Bsp_PwmWave_GetControlStatus()` 在同一 SchM 临界区内把 CDD 快照与 BSP 作业字段组合成一份控制状态；当前 SchM 的同核重入计数支持该嵌套调用。
-4. `Bsp_PwmWave_MainFunction()` 轮询异步 BSP 作业，依据刷新后的 pending/active 有效性、序列号、CDD 状态和 fault 决定继续等待、启动、完成或紧急终止作业。
+1. `Bsp_PwmWave_RequestStartFrame()` 在同步 Start 提交默认帧前检查 fault、未完成事务和 `ARMED_LOW` 状态门禁。
+2. `Bsp_PwmWave_GetControlStatus()` 在同一 SchM 临界区内把 CDD 快照与 BSP 作业字段组合成一份控制状态；当前 SchM 的同核重入计数支持该嵌套调用。
+3. `Bsp_PwmWave_MainFunction()` 轮询异步 BSP 作业，依据刷新后的 pending/active 有效性、序列号、CDD 状态和 fault 决定继续等待、启动、完成或紧急终止作业。
 
 ```c
 Cdd_PwmWave_ResultType Cdd_PwmWave_GetStatus(Cdd_PwmWave_StatusType *pStatus)

@@ -48,41 +48,21 @@
 #define WDG_DEMO_SUPPORT    (STD_ON)
 #define CAN_DEMO_SUPPORT    (STD_ON)
 #define PWM_DEMO_SUPPORT    (STD_ON)
-/* Board-test firmware only; these tests own the same Core0 CDD and are mutually exclusive. */
-#define PWM_WAVE_FIXED_TEST_AUTOSTART             (STD_OFF)
-#define PWM_WAVE_CARRIER_FREQUENCY_TEST_AUTOSTART (STD_ON)
-#define DMA_DEMO_SUPPORT                          (STD_ON)
-#define ADC_DEMO_SUPPORT                          (STD_ON)
-#define LIN_DEMO_SUPPORT                          (STD_ON)
-#define SPI_DEMO_SUPPORT                          (STD_ON)
-#define ICU_DEMO_SUPPORT                          (STD_ON)
-#define I2C_DEMO_SUPPORT                          (STD_ON)
-#define OCU_DEMO_SUPPORT                          (STD_ON)
-#define SDADC_DEMO_SUPPORT                        (STD_ON)
-#define MB_DEMO_SUPPORT                           (STD_ON)
-#define CRYPTO_DEMO_SUPPORT                       (STD_ON)
-#define SENT_DEMO_SUPPORT                         (STD_ON)
-#define SSI_DEMO_SUPPORT                          (STD_ON)
-#define CRC_DEMO_SUPPORT                          (STD_ON)
-#define MSC_DEMO_SUPPORT                          (STD_ON)
-#define IO_DEMO_SUPPORT                           (STD_ON)
-
-#if (PWM_WAVE_FIXED_TEST_AUTOSTART == STD_ON) && (PWM_DEMO_SUPPORT != STD_ON)
-  #error "PWM fixed-test autostart requires PWM_DEMO_SUPPORT"
-#endif
-
-#if (PWM_WAVE_CARRIER_FREQUENCY_TEST_AUTOSTART == STD_ON) && (PWM_DEMO_SUPPORT != STD_ON)
-  #error "PWM carrier-frequency-test autostart requires PWM_DEMO_SUPPORT"
-#endif
-
-#if (PWM_WAVE_FIXED_TEST_AUTOSTART == STD_ON) && (PWM_WAVE_CARRIER_FREQUENCY_TEST_AUTOSTART == STD_ON)
-  #error "PWM fixed and carrier-frequency tests cannot autostart together"
-#endif
-
-#if ((PWM_WAVE_FIXED_TEST_AUTOSTART == STD_ON) || (PWM_WAVE_CARRIER_FREQUENCY_TEST_AUTOSTART == STD_ON)) && \
-    ((ADC_DEMO_SUPPORT != STD_ON) || (DMA_DEMO_SUPPORT != STD_ON))
-  #error "PWM wave autostart requires ADC and DMA for HSADC block capture"
-#endif
+#define DMA_DEMO_SUPPORT    (STD_OFF)
+#define ADC_DEMO_SUPPORT    (STD_OFF)
+#define LIN_DEMO_SUPPORT    (STD_ON)
+#define SPI_DEMO_SUPPORT    (STD_ON)
+#define ICU_DEMO_SUPPORT    (STD_ON)
+#define I2C_DEMO_SUPPORT    (STD_ON)
+#define OCU_DEMO_SUPPORT    (STD_ON)
+#define SDADC_DEMO_SUPPORT  (STD_ON)
+#define MB_DEMO_SUPPORT     (STD_ON)
+#define CRYPTO_DEMO_SUPPORT (STD_ON)
+#define SENT_DEMO_SUPPORT   (STD_ON)
+#define SSI_DEMO_SUPPORT    (STD_ON)
+#define CRC_DEMO_SUPPORT    (STD_ON)
+#define MSC_DEMO_SUPPORT    (STD_ON)
+#define IO_DEMO_SUPPORT     (STD_ON)
 
 #define SCM_CPUVTOR_CPU_INIT_VECTOR_MASK 0xFFFFFF8u
 
@@ -372,57 +352,81 @@ BSP_TEXT_SECTION int main(void)
     Bsp_Dma_Init();
 #endif
 #if (ADC_DEMO_SUPPORT == STD_ON)
-    Bsp_Adc_Init();
-#endif
-#if (ADC_DEMO_SUPPORT == STD_ON) && (DMA_DEMO_SUPPORT == STD_ON)
     {
-      Cdd_HsAdcCapture_ResultType eHsAdcCaptureResult = Cdd_HsAdcCapture_Init();
+      Std_ReturnType eAdcInitResult = Bsp_Adc_Init();
 
-      if (CDD_HSADC_CAPTURE_OK == eHsAdcCaptureResult) {
-        eHsAdcCaptureResult = Cdd_HsAdcCapture_Start();
+#if (DMA_DEMO_SUPPORT == STD_ON)
+      Cdd_HsAdcCapture_ResultType eHsAdcCaptureResult = CDD_HSADC_CAPTURE_E_STATE;
+
+      if (E_OK == eAdcInitResult) {
+        eHsAdcCaptureResult = Cdd_HsAdcCapture_Init();
+        if (CDD_HSADC_CAPTURE_OK == eHsAdcCaptureResult) {
+          eHsAdcCaptureResult = Cdd_HsAdcCapture_Start();
+        }
       }
 
-      if (CDD_HSADC_CAPTURE_OK != eHsAdcCaptureResult) {
-        DEBUG_INFO("HSADC block capture start failed, result %d; PWM initialization skipped to keep CH0 trigger stopped.\r\n",
-                   (int)eHsAdcCaptureResult);
+      if (E_OK != eAdcInitResult) {
+        Std_ReturnType eAdcDisarmResult = Bsp_Adc_DisarmHardwareTriggers();
+
+        DEBUG_INFO("ADC initialization failed; disarm result %d, PWM initialization skipped to keep CH0 trigger stopped.\r\n",
+                   (int)eAdcDisarmResult);
+      } else if (CDD_HSADC_CAPTURE_OK != eHsAdcCaptureResult) {
+        Std_ReturnType eAdcDisarmResult = Bsp_Adc_DisarmHardwareTriggers();
+
+        DEBUG_INFO("HSADC block capture start failed, result %d; ADC disarm result %d, PWM initialization skipped.\r\n",
+                   (int)eHsAdcCaptureResult,
+                   (int)eAdcDisarmResult);
       } else {
   #if (PWM_DEMO_SUPPORT == STD_ON)
+        Bsp_PwmWave_ControlStatusType tPwmControlStatus = { 0 };
+        Cdd_PwmWave_ResultType ePwmInitStatus;
+        Std_ReturnType eFirstBlockResult = E_NOT_OK;
+        boolean bPwmArmedLowConfirmed = FALSE;
+
         /* Pwm_Init() autostarts PWM channels, so CH0 must be initialized only
          * after both HSADC groups and their block-DMA capture are armed. */
         Bsp_Pwm_Init();
-  #endif
-  #if (PWM_WAVE_FIXED_TEST_AUTOSTART == STD_ON)
-        {
-          Cdd_PwmWave_SequenceType u32PwmWaveTestSequence = 0U;
-          Cdd_PwmWave_ResultType ePwmWaveTestResult = Bsp_PwmWave_FixedTestStart(&u32PwmWaveTestSequence);
-
-          if (CDD_PWM_WAVE_OK == ePwmWaveTestResult) {
-            DEBUG_INFO("PWM fixed test accepted, sequence %d; PWM5 starts at one carrier period LOW/HIGH and follows later period changes.\r\n",
-                       (int)u32PwmWaveTestSequence);
-          } else {
-            DEBUG_INFO("PWM fixed test rejected, result %d; no test frame accepted.\r\n", (int)ePwmWaveTestResult);
-          }
+        ePwmInitStatus = Bsp_PwmWave_GetControlStatus(&tPwmControlStatus);
+        if ((CDD_PWM_WAVE_OK == ePwmInitStatus) &&
+            (CDD_PWM_WAVE_OK == tPwmControlStatus.eLastResult) &&
+            (CDD_PWM_WAVE_STATE_ARMED_LOW == tPwmControlStatus.tDriverStatus.eState) &&
+            (FALSE == tPwmControlStatus.tDriverStatus.bFaultLatched)) {
+          bPwmArmedLowConfirmed = TRUE;
+          eFirstBlockResult = Bsp_Adc_WaitForFirstCaptureBlock();
         }
-  #endif
-  #if (PWM_WAVE_CARRIER_FREQUENCY_TEST_AUTOSTART == STD_ON)
-        {
-          Cdd_PwmWave_SequenceType u32PwmWaveTestSequence = 0U;
-          Cdd_PwmWave_ResultType ePwmWaveTestResult = Bsp_PwmWave_CarrierFrequencyTestStart(&u32PwmWaveTestSequence);
 
-          if (CDD_PWM_WAVE_OK == ePwmWaveTestResult) {
+        if (E_OK != eFirstBlockResult) {
+          Cdd_PwmWave_ResultType ePwmShutdownResult = Bsp_PwmWave_EmergencyShutdown();
+          Cdd_HsAdcCapture_ResultType eHsAdcCaptureStopResult = Cdd_HsAdcCapture_Stop();
+          Std_ReturnType eAdcDisarmResult = Bsp_Adc_DisarmHardwareTriggers();
+
+          if (TRUE == bPwmArmedLowConfirmed) {
             DEBUG_INFO(
-                "PWM carrier frequency test accepted, sequence %d; 200 kHz seed then 130/200/250/300 kHz loop, each confirmed point held about 10 ms.\r\n",
-                (int)u32PwmWaveTestSequence);
+                "HSADC first complete block was not confirmed within 0.5 ms; PWM shutdown %d, capture stop %d, ADC disarm %d.\r\n",
+                (int)ePwmShutdownResult,
+                (int)eHsAdcCaptureStopResult,
+                (int)eAdcDisarmResult);
           } else {
-            DEBUG_INFO("PWM carrier frequency test rejected, result %d; no test frame accepted.\r\n", (int)ePwmWaveTestResult);
+            DEBUG_INFO(
+                "PWM ARMED_LOW initialization was not confirmed, status %d, last result %d, state %d; PWM shutdown %d, capture stop %d, ADC disarm %d.\r\n",
+                (int)ePwmInitStatus,
+                (int)tPwmControlStatus.eLastResult,
+                (int)tPwmControlStatus.tDriverStatus.eState,
+                (int)ePwmShutdownResult,
+                (int)eHsAdcCaptureStopResult,
+                (int)eAdcDisarmResult);
           }
         }
   #endif
       }
+#else
+      if (E_OK != eAdcInitResult) {
+        DEBUG_INFO("ADC initialization failed.\r\n");
+      }
+#endif
     }
 #endif
-#if (PWM_DEMO_SUPPORT == STD_ON) && \
-    ((ADC_DEMO_SUPPORT != STD_ON) || (DMA_DEMO_SUPPORT != STD_ON))
+#if (PWM_DEMO_SUPPORT == STD_ON) && ((ADC_DEMO_SUPPORT != STD_ON) || (DMA_DEMO_SUPPORT != STD_ON))
     Bsp_Pwm_Init();
 #endif
 #if (LIN_DEMO_SUPPORT == STD_ON)
@@ -486,9 +490,6 @@ BSP_TEXT_SECTION int main(void)
 #endif
 #if (PWM_DEMO_SUPPORT == STD_ON)
     Bsp_Pwm_Init();
-#endif
-#if (ADC_DEMO_SUPPORT == STD_ON)
-    Bsp_Adc_Init();
 #endif
 #if (MB_DEMO_SUPPORT == STD_ON)
     Bsp_Mb_Init();
@@ -567,6 +568,17 @@ BSP_TEXT_SECTION int main(void)
   Systick_Init(&Systick_Config);
   IntMgr_SetPriority(SysTick_IRQn, 1U);
   Systick_Enable();
+
+#if (PWM_DEMO_SUPPORT == STD_ON)
+  if (0U == GET_CPU_ID()) {
+    Cdd_PwmWave_ResultType ePwmStartResult = Bsp_PwmWave_Start();
+
+    if (CDD_PWM_WAVE_OK != ePwmStartResult) {
+      DEBUG_INFO("PWM default zero-duty start failed after initialization, result %d; outputs remain safe/fault-latched.\r\n",
+                 (int)ePwmStartResult);
+    }
+  }
+#endif
 
   while (bReturnFlag) {
     Systick_RunTask();

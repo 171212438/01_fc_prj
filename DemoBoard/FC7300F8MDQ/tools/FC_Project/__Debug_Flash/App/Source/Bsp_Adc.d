@@ -286,7 +286,8 @@ App/Source/Bsp_Adc.o: \
  ../../../_MCAL_multicore_generate_8M/include/CDD_Ssi_Cfg.h \
  ../../../../../MCAL/Src/SchM/include/SchM_Ssi.h \
  ../../../../../MCAL/Src/Base/include/MemMap/Ssi_MemMap.h \
- ../../../App/Include/Cdd_HsAdcCapture.h \
+ ../../../App/Include/Cdd_HsAdcCapture.h ../../../App/Include/Bsp_Dwt.h \
+ ../../../App/Include/Bsp_Pwm.h ../../../App/Include/Cdd_PwmWave.h \
  ../../../../../MCAL/Src/SchM/include/SchM_Dma.h
 
 ../../../App/Include/Bsp_Adc.h:
@@ -866,5 +867,11 @@ App/Source/Bsp_Adc.o: \
 ../../../../../MCAL/Src/Base/include/MemMap/Ssi_MemMap.h:
 
 ../../../App/Include/Cdd_HsAdcCapture.h:
+
+../../../App/Include/Bsp_Dwt.h:
+
+../../../App/Include/Bsp_Pwm.h:
+
+../../../App/Include/Cdd_PwmWave.h:
 
 ../../../../../MCAL/Src/SchM/include/SchM_Dma.h:

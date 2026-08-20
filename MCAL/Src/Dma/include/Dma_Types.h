@@ -93,8 +93,8 @@ extern "C"
  */
 typedef enum
 {
-    DMA_INSTANCE_0   = 0U,
-    DMA_INSTANCE_1   = 1U,
+    DMA_INSTANCE_0 = 0U,
+    DMA_INSTANCE_1 = 1U,
     DMA_INSTANCE_MAX = DMA_INSTANCE_COUNT
 } Dma_InstanceType;
 
@@ -104,8 +104,8 @@ typedef enum
  */
 typedef enum
 {
-    DMA_RUNNING_STATUS_IDLE   = 0x0U, /*!< The DMA engine is idle */
-    DMA_RUNNING_STATUS_ACTIVE = 0x1U  /*!< The DMA engine is transferring data */
+    DMA_RUNNING_STATUS_IDLE = 0x0U,  /*!< The DMA engine is idle */
+    DMA_RUNNING_STATUS_ACTIVE = 0x1U /*!< The DMA engine is transferring data */
 } Dma_RunningStatusType;
 
 /**

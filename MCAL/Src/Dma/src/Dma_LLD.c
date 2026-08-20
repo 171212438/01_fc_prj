@@ -273,110 +273,85 @@ static void Dma_LLD_SetChConfig(Dma_InstanceType                    eDma_Instanc
  * Reason: there is no risk due to the hardware. */
 DMA_TEXT_SECTION void Dma_LLD_Init(Dma_InstanceType eDma_Instance, const Dma_ConfigType *pConfig)
 {
-    uint8                               u8PartitionId = DMA_GET_CPU_ID();
-    Dma_Type *const                     pDma          = s_apDmaBase[eDma_Instance];
-    const Dma_CoreSpecificChConfigType *pCoreCfg      = pConfig->pDmaCoreConfig[u8PartitionId];
-    uint32                              u32Index;
-    uint8                               u8Index;
-    uint8                               u8Temp = 0;
-    uint8                               u8channelnum;
+  uint8 u8PartitionId = DMA_GET_CPU_ID();
+  Dma_Type *const pDma = s_apDmaBase[eDma_Instance];
+  const Dma_CoreSpecificChConfigType *pCoreCfg = pConfig->pDmaCoreConfig[u8PartitionId];
+  uint32 u32Index;
+  uint8 u8Index;
+  uint8 u8Temp = 0;
+  uint8 u8channelnum;
 #if (DMA_INSTANCE_COUNT == 2u)
-    if ((u8PartitionId == DMA_MASTERCORE_INSTANCE0) || (u8PartitionId == DMA_MASTERCORE_INSTANCE1))
-    {
+  if ((u8PartitionId == DMA_MASTERCORE_INSTANCE0) || (u8PartitionId == DMA_MASTERCORE_INSTANCE1)) {
 #elif ((DMA_INSTANCE_COUNT == 1u) && (DMA_ECUC_PARTITIONS_MAX != 1U))
-    if (u8PartitionId == DMA_MASTERCORE_INSTANCE0)
-    {
+  if (u8PartitionId == DMA_MASTERCORE_INSTANCE0) {
 #endif
-        /*Restore to default value*/
-        Dma_LLD_DeInit(eDma_Instance);
+    /*Restore to default value*/
+    Dma_LLD_DeInit(eDma_Instance);
 
-        if (eDma_Instance == DMA_INSTANCE_0)
-        {
-            u8channelnum = DMA_0_USED_CHANNEL_NUM;
+    if (eDma_Instance == DMA_INSTANCE_0) {
+      u8channelnum = DMA_0_USED_CHANNEL_NUM;
+    } else {
+      u8channelnum = DMA_1_USED_CHANNEL_NUM;
+    }
+
+    SchM_Enter_Dma_DMA_EXCLUSIVE_AREA_04();
+    /*Config Dma channel priority*/
+    for (u32Index = 0UL; u32Index < (uint32)DMA_CFG_COUNT; u32Index++) {
+      /* PRQA S 0771 ++ #Misra-C:2012 Rule-15.4 More than one 'break' statement has been
+         used to terminate this iteration statement. Reason: The 'break' statements are
+         under different conditions . */
+      /* PRQA S 2877 ++ #Misra Dir-4.1:This loop will never be executed more than once.
+       * Reason: DMA_1_USED_CHANNEL_NUM is decided by user */
+      for (u8Index = 0U; u8Index < u8channelnum; u8Index++) {
+        if (u32Index == pCoreCfg->pDma_pChConfig[u8Index].u8Dmachannelid) {
+          /* Configured channel id found*/
+          Dma_HWA_SetPriority(pDma, pCoreCfg->pDma_pChConfig[u8Index].u8Dmachannelid, pCoreCfg->pDma_pChConfig[u8Index].u8DmaChannelPriority);
+          break;
+        } else {
+          /* nothing todo */
         }
-        else
-        {
-            u8channelnum = DMA_1_USED_CHANNEL_NUM;
-        }
+      }
+      /* PRQA S 0771 -- */
+      /* PRQA S 2877 -- */
+      if (u8Index >= u8channelnum) {
+        /* Configure unused channel*/
+        Dma_HWA_SetPriority(pDma, (uint8)u32Index, (u8channelnum + u8Temp));
+        u8Temp += 1U;
+      }
+    }
+    SchM_Exit_Dma_DMA_EXCLUSIVE_AREA_04();
 
-        SchM_Enter_Dma_DMA_EXCLUSIVE_AREA_04();
-        /*Config Dma channel priority*/
-        for (u32Index = 0UL; u32Index < (uint32)DMA_CFG_COUNT; u32Index++)
-        {
-            /* PRQA S 0771 ++ #Misra-C:2012 Rule-15.4 More than one 'break' statement has been
-               used to terminate this iteration statement. Reason: The 'break' statements are
-               under different conditions . */
-            /* PRQA S 2877 ++ #Misra Dir-4.1:This loop will never be executed more than once.
-             * Reason: DMA_1_USED_CHANNEL_NUM is decided by user */
-            for (u8Index = 0U; u8Index < u8channelnum; u8Index++)
-            {
-                if (u32Index == pCoreCfg->pDma_pChConfig[u8Index].u8Dmachannelid)
-                {
-                    /* Configured channel id found*/
-                    Dma_HWA_SetPriority(pDma,
-                                        pCoreCfg->pDma_pChConfig[u8Index].u8Dmachannelid,
-                                        pCoreCfg->pDma_pChConfig[u8Index].u8DmaChannelPriority);
-                    break;
-                }
-                else
-                {
-                    /* nothing todo */
-                }
-            }
-            /* PRQA S 0771 -- */
-            /* PRQA S 2877 -- */
-            if (u8Index >= u8channelnum)
-            {
-                /* Configure unused channel*/
-                Dma_HWA_SetPriority(pDma, (uint8)u32Index, (u8channelnum + u8Temp));
-                u8Temp += 1U;
-            }
-        }
-        SchM_Exit_Dma_DMA_EXCLUSIVE_AREA_04();
+    /*Config Dma CR module*/
+    Dma_HWA_SetInnerLoopMappingEnableFlag(pDma, pConfig->pDmaHwunitConfig[eDma_Instance].bDmaEnableInnerLoopMap);
 
-        /*Config Dma CR module*/
-        Dma_HWA_SetInnerLoopMappingEnableFlag(
-            pDma,
-            pConfig->pDmaHwunitConfig[eDma_Instance].bDmaEnableInnerLoopMap);
+    Dma_HWA_SetContinuousTrigModeEnableFlag(pDma, pConfig->pDmaHwunitConfig[eDma_Instance].bDmaEnableContinousLinkMode);
 
-        Dma_HWA_SetContinuousTrigModeEnableFlag(
-            pDma,
-            pConfig->pDmaHwunitConfig[eDma_Instance].bDmaEnableContinousLinkMode);
+    Dma_HWA_SetHaltOnErrorFlag(pDma, pConfig->pDmaHwunitConfig[eDma_Instance].bDmaEnableHaltOnError);
 
-        Dma_HWA_SetHaltOnErrorFlag(pDma,
-                                   pConfig->pDmaHwunitConfig[eDma_Instance].bDmaEnableHaltOnError);
+    Dma_HWA_SetDebugModeStopFlag(pDma, pConfig->pDmaHwunitConfig[eDma_Instance].bDmaEnableDebugStopMode);
 
-        Dma_HWA_SetDebugModeStopFlag(pDma,
-                                     pConfig->pDmaHwunitConfig[eDma_Instance].bDmaEnableDebugStopMode);
-
-        if ((boolean)TRUE == pConfig->pDmaHwunitConfig[eDma_Instance].bDmaEnableRoundRobinMode)
-        {
-            Dma_HWA_SetArbitrationAlgorithm(pDma, DMA_ARBITRATION_ALGORITHM_ROUND_ROBIN);
-        }
-        else
-        {
-            Dma_HWA_SetArbitrationAlgorithm(pDma, DMA_ARBITRATION_ALGORITHM_FIXED_PRIORITY);
-        }
-        if ((boolean)TRUE != pConfig->pDmaHwunitConfig[eDma_Instance].bDmaEnableMonitorChecker)
-        {
+    if ((boolean)TRUE == pConfig->pDmaHwunitConfig[eDma_Instance].bDmaEnableRoundRobinMode) {
+      Dma_HWA_SetArbitrationAlgorithm(pDma, DMA_ARBITRATION_ALGORITHM_ROUND_ROBIN);
+    } else {
+      Dma_HWA_SetArbitrationAlgorithm(pDma, DMA_ARBITRATION_ALGORITHM_FIXED_PRIORITY);
+    }
+    if ((boolean)TRUE != pConfig->pDmaHwunitConfig[eDma_Instance].bDmaEnableMonitorChecker) {
 #if (defined(DMA0_HAVE_LOCKSTEP) && (DMA0_HAVE_LOCKSTEP == STD_OFF))
-            if (eDma_Instance == DMA_INSTANCE_0)
-            {
-                Dma_HWA_DisableMonitorChecker(pDma);
-            }
+      if (eDma_Instance == DMA_INSTANCE_0) {
+        Dma_HWA_DisableMonitorChecker(pDma);
+      }
 #endif
 #if (defined(DMA1_HAVE_LOCKSTEP) && (DMA1_HAVE_LOCKSTEP == STD_OFF))
-            if (eDma_Instance == DMA_INSTANCE_1)
-            {
-                Dma_HWA_DisableMonitorChecker(pDma);
-            }
+      if (eDma_Instance == DMA_INSTANCE_1) {
+        Dma_HWA_DisableMonitorChecker(pDma);
+      }
 #endif
-        }
-#if ((DMA_INSTANCE_COUNT == 2u) || ((DMA_INSTANCE_COUNT == 1u) && (DMA_ECUC_PARTITIONS_MAX != 1U)))
     }
+#if ((DMA_INSTANCE_COUNT == 2u) || ((DMA_INSTANCE_COUNT == 1u) && (DMA_ECUC_PARTITIONS_MAX != 1U)))
+  }
 #endif
 
-    Dma_LLD_SetChConfig(eDma_Instance, pCoreCfg);
+  Dma_LLD_SetChConfig(eDma_Instance, pCoreCfg);
 }
 /* PRQA S 2842 -- */
 

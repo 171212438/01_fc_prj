@@ -4,44 +4,9 @@
 #include "Bsp_McalHeader.h"
 #include "Cdd_PwmWave.h"
 
-/*
- * Fixed waveform board test at the configured 150 MHz eFTU clock:
- * 750 ticks = 5 us (200 kHz), [100, 475) = 375 ticks (50% command window).
- * PWM1-PWM4 start with their existing 200 kHz windows. PWM5 uses one carrier
- * period LOW plus one carrier period HIGH (initially 5 us LOW/5 us HIGH) and
- * follows later carrier-period changes.
- */
-#define BSP_PWM_WAVE_FIXED_TEST_PERIOD_TICKS (750U)
-#define BSP_PWM_WAVE_FIXED_TEST_CMPA_TICKS   (100U)
-#define BSP_PWM_WAVE_FIXED_TEST_CMPB_TICKS   (475U)
-
-/* Dynamic carrier board test at the configured 150 MHz eFTU clock.
- * 1154 ticks is approximately 129.983 kHz; the other three points are exact.
- * After the active sequence/frame confirms a point, it is held for one 10 ms
- * test-monitor interval before the next request. This test exercises period-only
- * updates, so the valid [100, 475) PWM1-PWM4 compare window stays in ticks and
- * its duty ratio intentionally changes with Period. */
-#define BSP_PWM_WAVE_CARRIER_TEST_130KHZ_PERIOD_TICKS (1154U)
-#define BSP_PWM_WAVE_CARRIER_TEST_200KHZ_PERIOD_TICKS (750U)
-#define BSP_PWM_WAVE_CARRIER_TEST_250KHZ_PERIOD_TICKS (600U)
-#define BSP_PWM_WAVE_CARRIER_TEST_300KHZ_PERIOD_TICKS (500U)
-#define BSP_PWM_WAVE_CARRIER_TEST_STEP_COUNT          (4U)
-#define BSP_PWM_WAVE_CARRIER_TEST_HOLD_10MS_CYCLES    (1U)
-
-/*
- * Set TRUE from the debugger or a Core0 test command; the periodic monitor retries
- * while Start is pending, so this is a normal zero-point Stop, not an immediate
- * cancellation of an already accepted Start.
- */
-extern volatile boolean g_bPwmWaveFixedTestStopRequest;
-extern volatile boolean g_bPwmWaveCarrierTestStopRequest;
-
 typedef enum {
   BSP_PWM_WAVE_JOB_NONE = 0,
   BSP_PWM_WAVE_JOB_START_WITH_FRAME,
-  BSP_PWM_WAVE_JOB_FRAME_UPDATE,
-  BSP_PWM_WAVE_JOB_PERIOD_CHANGE,
-  BSP_PWM_WAVE_JOB_START_ACTIVE_FRAME,
   BSP_PWM_WAVE_JOB_STOP,
   BSP_PWM_WAVE_JOB_EMERGENCY_SHUTDOWN,
   BSP_PWM_WAVE_JOB_CLEAR_FAULT
@@ -68,45 +33,46 @@ void Bsp_Pwm_Init(void);
 void Bsp_Pwm_10ms_Task_Event(void);
 void Bsp_Pwm_20ms_Task_Event(void);
 void Bsp_Pwm_5ms_Task_Event(void);
+void Bsp_Pwm_5us_Task_Event(void);
 
 /*
  * Except for the pure ValidateFrame helper, normal control APIs are
- * non-reentrant and owned by one Core0 task context. Request APIs return
- * OK when the CDD accepts the shadow update; pSequence is valid only on OK.
- * Async success requires GetControlStatus() == OK plus all of: expected eJob,
- * matching returned sequence, eJobState == COMPLETED and eLastResult == OK.
- * EmergencyShutdown intentionally replaces the job and sequence, which
- * cancels the request. No API below starts PWM by itself; the board-test
- * autostart switch in main_multicore.c is an explicit caller.
+ * non-reentrant and owned by one Core0 task context. RequestUpdate returns OK
+ * when the CDD has staged/armed the latest shadow update; pSequence is valid
+ * only on OK. High-rate Frame updates do not create BSP jobs and intermediate
+ * sequences may be superseded before the slow diagnostic path observes them.
+ * GetControlStatus() reports lifecycle commands only. EmergencyShutdown
+ * intentionally replaces any lifecycle job. Bsp_Pwm_Init() itself leaves the
+ * outputs in ARMED_LOW; Core0 startup calls Bsp_PwmWave_Start() after its board
+ * and SysTick initialization sequence.
  */
 Cdd_PwmWave_ResultType Bsp_PwmWave_ValidateFrame(const Cdd_PwmWave_FrameType *pFrame);
-/* Board-test helpers; Start is asynchronous, while Stop is safe to request repeatedly. */
-Cdd_PwmWave_ResultType Bsp_PwmWave_FixedTestStart(Cdd_PwmWave_SequenceType *pSequence);
-Cdd_PwmWave_ResultType Bsp_PwmWave_FixedTestStop(void);
-/* Starts from the proven 200 kHz frame, then loops 130 -> 200 -> 250 -> 300 kHz.
- * PWM5 remains TEST_TOGGLE and follows every accepted carrier-period update. */
-Cdd_PwmWave_ResultType Bsp_PwmWave_CarrierFrequencyTestStart(Cdd_PwmWave_SequenceType *pSequence);
-Cdd_PwmWave_ResultType Bsp_PwmWave_RequestStart(const Cdd_PwmWave_FrameType *pFrame, Cdd_PwmWave_SequenceType *pSequence);
-/* In ARMED_LOW this is load-only; in RUN it updates the running frame. */
-Cdd_PwmWave_ResultType Bsp_PwmWave_RequestUpdate(const Cdd_PwmWave_FrameType *pFrame, Cdd_PwmWave_SequenceType *pSequence);
-/* Preserves PWM5 state; TEST_TOGGLE follows the new carrier period and is
- * applied at a common CH0/CH3 zero through a one-shot carrier notification. */
-Cdd_PwmWave_ResultType Bsp_PwmWave_RequestPeriodChange(uint32 u32PeriodTicks, Cdd_PwmWave_SequenceType *pSequence);
-/* Restart the currently active frame after a normal Stop. */
+/* Single synchronous Start path. It resubmits the active frame after a normal
+ * Stop; when no active frame exists, it uses the loaded PWM_CARRIER default
+ * period, zero-width PWM1-PWM4 windows and PWM5 LOW. */
 Cdd_PwmWave_ResultType Bsp_PwmWave_Start(void);
+/* The only frame-submit API. The caller supplies one complete, self-consistent
+ * frame for any period, window or PWM5 update. In ARMED_LOW this is load-only;
+ * in RUN, same-period updates use a latest-wins 20 us data path. A period
+ * change can briefly return BUSY while its one-shot common-boundary arm is
+ * still pending. Use one Core0 task owner; a faster scheduler such as the 5 us
+ * example must divide down so no more than one call is accepted in any 20 us
+ * interval. IRQ172 remains priority 0 and preempts that task. Do not poll BSP
+ * job completion for Frame updates. */
+Cdd_PwmWave_ResultType Bsp_PwmWave_RequestUpdate(const Cdd_PwmWave_FrameType *pFrame, Cdd_PwmWave_SequenceType *pSequence);
+/* Stop the 20 us Frame producer first; retry BUSY after its final Frame drains. */
 Cdd_PwmWave_ResultType Bsp_PwmWave_Stop(void);
 /* Core0 ISR/task callable; it preempts any pending upper-layer job. */
 Cdd_PwmWave_ResultType Bsp_PwmWave_EmergencyShutdown(void);
-/* A successful clear removes the active frame; submit a new frame before Start. */
+/* A successful clear removes the active frame; the unified Start path rebuilds
+ * the generated-period, zero-width default frame when it is called next. */
 Cdd_PwmWave_ResultType Bsp_PwmWave_ClearFault(void);
 Cdd_PwmWave_ResultType Bsp_PwmWave_GetControlStatus(Bsp_PwmWave_ControlStatusType *pStatus);
 Cdd_PwmWave_ResultType Bsp_PwmWave_GetActiveFrame(Cdd_PwmWave_FrameType *pFrame);
 Cdd_PwmWave_ResultType Bsp_PwmWave_GetPendingFrame(Cdd_PwmWave_FrameType *pFrame);
 /*
- * Polls sequence completion and performs the deferred Start. It does not call
- * Cdd_PwmWave_MainFunction(), so a faster Core0 control task may call it when
- * less than 20 ms command-completion latency is required. Overlapping calls
- * are dropped by an internal non-reentrancy guard.
+ * Polls only the cold Start lifecycle command. Frame updates never enter this
+ * state machine and the 20 us task must not call this function.
  */
 void Bsp_PwmWave_MainFunction(void);
 

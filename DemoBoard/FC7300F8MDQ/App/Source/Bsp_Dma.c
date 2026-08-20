@@ -178,69 +178,59 @@ static void Tlib_Dma_Channel6_Init(void)
 #endif
 void Bsp_Dma_Init(void)
 {
-    uint8 u8PartitionId = DMA_GET_CPU_ID();
-    if (0 == Cpm_HWA_GetCoreId())
-    {
-        Dma_Init(Dma_pConfig[u8PartitionId]);
-        IntMgr_EnableInterrupt(DMA0_IRQn);
-        IntMgr_EnableInterrupt(DMA2_IRQn);
-        IntMgr_EnableInterrupt(DMA3_IRQn);
-        IntMgr_EnableInterrupt(DMA_Error_IRQn);
-        #if(DMA_TEST_SWITCH == DMA_TEST_SWITCH_ON)
-        #ifdef DMA_TEST_CHTOCH
-        Tlib_Dma_Channel6_Init();
-        #endif
-        Tlib_Dma_Channel0_Init();
-        Dma_StartChannel(DMA_INSTANCE_0, DMA_TEST_SW_CHANNEL_ID);
-        #endif
-    }
-    else if (2 == Cpm_HWA_GetCoreId())
-    {
-        Dma_Init(Dma_pConfig[u8PartitionId]);
-        IntMgr_EnableInterrupt(DMA0_IRQn);
-        IntMgr_EnableInterrupt(DMA1_IRQn);
-        IntMgr_EnableInterrupt(DMA4_IRQn);
-        Tlib_Dma_Channel0_Init();
-        Dma_StartChannel(DMA_INSTANCE_1, DMA_TEST_SW_CHANNEL_ID);
-    }
-    else
-    {
-        /* DMA has no configured partition or channel ownership on Core1/Core3. */
-    }
+  uint8 u8PartitionId = DMA_GET_CPU_ID();
+  if (0 == Cpm_HWA_GetCoreId()) {
+    Dma_Init(Dma_pConfig[u8PartitionId]);
+    IntMgr_EnableInterrupt(DMA0_IRQn);
+    IntMgr_EnableInterrupt(DMA2_IRQn);
+    IntMgr_EnableInterrupt(DMA3_IRQn);
+    IntMgr_EnableInterrupt(DMA_Error_IRQn);
+#if (DMA_TEST_SWITCH == DMA_TEST_SWITCH_ON)
+  #ifdef DMA_TEST_CHTOCH
+    Tlib_Dma_Channel6_Init();
+  #endif
+    Tlib_Dma_Channel0_Init();
+    Dma_StartChannel(DMA_INSTANCE_0, DMA_TEST_SW_CHANNEL_ID);
+#endif
+  } else if (2 == Cpm_HWA_GetCoreId()) {
+    Dma_Init(Dma_pConfig[u8PartitionId]);
+    IntMgr_EnableInterrupt(DMA0_IRQn);
+    IntMgr_EnableInterrupt(DMA1_IRQn);
+    IntMgr_EnableInterrupt(DMA4_IRQn);
+    Tlib_Dma_Channel0_Init();
+    Dma_StartChannel(DMA_INSTANCE_1, DMA_TEST_SW_CHANNEL_ID);
+  } else {
+    /* DMA has no configured partition or channel ownership on Core1/Core3. */
+  }
 }
 
 void Bsp_Dma_20ms_Task_Event(void)
 {
-    #if (DMA_TEST_SWITCH == DMA_TEST_SWITCH_ON)
-    if (2 == Cpm_HWA_GetCoreId())
-    {
-    	Dma_StartChannel(DMA_INSTANCE_1, DMA_TEST_SW_CHANNEL_ID);
-    	test_outloopcnt = Dma_GetCurrentOuterLoopCounter(DMA_INSTANCE_1, DMA_TEST_SW_CHANNEL_ID);
-    }
-    else if (0 == Cpm_HWA_GetCoreId())
-    {
-        Dma_StartChannel(DMA_INSTANCE_0, DMA_TEST_SW_CHANNEL_ID);
-        test_outloopcnt = Dma_GetCurrentOuterLoopCounter(DMA_INSTANCE_0, DMA_TEST_SW_CHANNEL_ID);
-    }
-    else
-    {
-        /* Core1/Core3 do not own a generated DMA channel. */
-    }
+#if (DMA_TEST_SWITCH == DMA_TEST_SWITCH_ON)
+  if (2 == Cpm_HWA_GetCoreId()) {
+    Dma_StartChannel(DMA_INSTANCE_1, DMA_TEST_SW_CHANNEL_ID);
+    test_outloopcnt = Dma_GetCurrentOuterLoopCounter(DMA_INSTANCE_1, DMA_TEST_SW_CHANNEL_ID);
+  } else if (0 == Cpm_HWA_GetCoreId()) {
+    Dma_StartChannel(DMA_INSTANCE_0, DMA_TEST_SW_CHANNEL_ID);
+    test_outloopcnt = Dma_GetCurrentOuterLoopCounter(DMA_INSTANCE_0, DMA_TEST_SW_CHANNEL_ID);
+  } else {
+    /* Core1/Core3 do not own a generated DMA channel. */
+  }
 
-    #endif
+#endif
 }
 /* PRQA S 3408 ++ #Misra-C:2012 Rule-8.4 A compatible declaration shall be visible when an object or function with external linkage is defined.
  * Reason: It is just for testing or demonstration */
 #if ((defined DMA_CHANNEL0_IRQ) && (STD_ON == DMA_CHANNEL0_IRQ))
 void DMA0_IRQHandler(void)
 {
-    DMA0_Done_Isr();
+  DMA0_Done_Isr();
 }
 #endif /* DMA_CHANNEL0_IRQ */
 #if ((defined DMA_CHANNEL_ERROR_IRQ) && (STD_ON == DMA_CHANNEL_ERROR_IRQ))
 void DMA_Error_IRQHandler(void)
 {
-    DMA_Error_Isr();
+  DMA_Error_Isr();
 }
 #endif
 #if ((defined DMA_CHANNEL1_IRQ) && (STD_ON == DMA_CHANNEL1_IRQ))

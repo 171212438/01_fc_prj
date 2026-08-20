@@ -37,6 +37,7 @@
 #define CDD_PWM_WAVE_CARRIER_CHANNEL            (0U)
 #define CDD_PWM_WAVE_PWM5_CHANNEL               (3U)
 #define CDD_PWM_WAVE_FIRST_OUTPUT_CHANNEL       (3U)
+#define CDD_PWM_WAVE_FIRST_WINDOW_CHANNEL       (4U)
 #define CDD_PWM_WAVE_LAST_OUTPUT_CHANNEL        (7U)
 #define CDD_PWM_WAVE_CARRIER_SIGNAL_LEVEL       (1U)
 #define CDD_PWM_WAVE_PHASE_ARM_WINDOW_DIVISOR   (2U)
@@ -83,7 +84,6 @@
 #define CDD_PWM_WAVE_LU0_LG_CTRL0_DFF_RUN  (0x0000010CU)
 #define CDD_PWM_WAVE_LU0_LG_CTRL0_MASK     (0x30003FFFU)
 
-#define CDD_PWM_WAVE_NVIC_ISPR5_ADDRESS  (0xE000E214U)
 #define CDD_PWM_WAVE_NVIC_ICPR5_ADDRESS  (0xE000E294U)
 #define CDD_PWM_WAVE_IRQ172_PENDING_MASK (0x00001000U)
 
@@ -101,6 +101,17 @@
    EFTU_DTM_CTRL_SR_UPD_EN_MASK)
 #define CDD_PWM_WAVE_DTM_RUNTIME_CTRL  (EFTU_DTM_CTRL_CH_SHUTOFF_EN(1U))
 #define CDD_PWM_WAVE_REG32(u32Address) (*((volatile uint32 *)(u32Address)))
+#define CDD_PWM_WAVE_IRQ_STATUS_MASK \
+  (EFTU_TOM_CHn_IRQ_ST_CCU0TC_MASK | EFTU_TOM_CHn_IRQ_ST_CCU1TC_MASK)
+#define CDD_PWM_WAVE_GLB_CTRL_OWNED_BASE EFTU_TOM_TGC_GLB_CTRL_GLBEN_BYPASS_MASK
+
+#define CDD_PWM_WAVE_WINDOW_UPEN_DISABLE_COMMAND                                                                          \
+  (EFTU_TOM_TGC_GLB_CTRL_UPEN_CTRL4(1U) | EFTU_TOM_TGC_GLB_CTRL_UPEN_CTRL5(1U) | EFTU_TOM_TGC_GLB_CTRL_UPEN_CTRL6(1U) | \
+   EFTU_TOM_TGC_GLB_CTRL_UPEN_CTRL7(1U))
+
+#define CDD_PWM_WAVE_WINDOW_UPEN_ENABLE_COMMAND                                                                           \
+  (EFTU_TOM_TGC_GLB_CTRL_UPEN_CTRL4(2U) | EFTU_TOM_TGC_GLB_CTRL_UPEN_CTRL5(2U) | EFTU_TOM_TGC_GLB_CTRL_UPEN_CTRL6(2U) | \
+   EFTU_TOM_TGC_GLB_CTRL_UPEN_CTRL7(2U))
 
 #define CDD_PWM_WAVE_UPEN_DISABLE_COMMAND                                                                               \
   (EFTU_TOM_TGC_GLB_CTRL_UPEN_CTRL0(1U) | EFTU_TOM_TGC_GLB_CTRL_UPEN_CTRL3(1U) | EFTU_TOM_TGC_GLB_CTRL_UPEN_CTRL4(1U) | \
@@ -171,6 +182,9 @@
 _Static_assert(CDD_PWM_WAVE_UPEN_DISABLE_COMMAND == 0x55410000U, "Unexpected CH0/CH3-CH7 UPEN disable encoding");
 _Static_assert(CDD_PWM_WAVE_UPEN_ENABLE_COMMAND == 0xAA820000U, "Unexpected CH0/CH3-CH7 UPEN enable encoding");
 _Static_assert(CDD_PWM_WAVE_UPEN_COMMAND_MASK == 0xFFC30000U, "Unexpected UPEN command-field mask encoding");
+_Static_assert(CDD_PWM_WAVE_WINDOW_UPEN_DISABLE_COMMAND == 0x55000000U, "Unexpected CH4-CH7 UPEN disable encoding");
+_Static_assert(CDD_PWM_WAVE_WINDOW_UPEN_ENABLE_COMMAND == 0xAA000000U, "Unexpected CH4-CH7 UPEN enable encoding");
+_Static_assert(CDD_PWM_WAVE_GLB_CTRL_OWNED_BASE == 0x00000002U, "Unexpected GLBEN_BYPASS encoding");
 _Static_assert(CDD_PWM_WAVE_FORCE_UPDATE_DISABLE_COMMAND == 0x55415541U, "Unexpected CH0/CH3-CH7 force-update disable encoding");
 _Static_assert(CDD_PWM_WAVE_CH3_7_DISABLE_COMMAND == 0x00005540U, "Unexpected CH3-CH7 disable encoding");
 _Static_assert(CDD_PWM_WAVE_CH3_7_ENABLE_COMMAND == 0x0000AA80U, "Unexpected CH3-CH7 enable encoding");
@@ -184,13 +198,13 @@ _Static_assert(TRGSEL0_SRC_LU0_OUT0B == 48U, "Unexpected LU0 OUT0B source encodi
 _Static_assert(TRGSEL2_SRC_TRGSEL0_OUT2 == 4U, "Unexpected TRGSEL0 OUT2 source encoding");
 _Static_assert(eFTU1_TOM_0TO7_IRQn == 172U, "Unexpected eFTU1 TOM0-7 interrupt number");
 _Static_assert(CDD_PWM_WAVE_PWM5_CARRIER_PERIODS == 2U, "PWM5 phase gate requires exactly two carrier periods");
+_Static_assert(CDD_PWM_WAVE_FIRST_WINDOW_CHANNEL == (CDD_PWM_WAVE_PWM5_CHANNEL + 1U), "PWM windows must start after PWM5");
+_Static_assert((CDD_PWM_WAVE_FIRST_WINDOW_CHANNEL + CDD_PWM_WAVE_WINDOW_COUNT - 1U) == CDD_PWM_WAVE_LAST_OUTPUT_CHANNEL, "PWM windows must map exactly to TOM CH4-CH7");
 _Static_assert(CDD_PWM_WAVE_PHASE_ARM_WINDOW_DIVISOR == 2U, "PWM5 arm window must stay within the old second carrier cycle");
 _Static_assert(CDD_PWM_WAVE_PHASE_READ_TOLERANCE_TICKS == 0U, "PWM5 edges require an exact carrier-zero phase relation");
 _Static_assert(CDD_PWM_WAVE_ARM_IRQ_MAX_WINDOW_MISSES > 0U, "PWM5 boundary notification requires at least one arm attempt");
-_Static_assert(CDD_PWM_WAVE_ARM_IRQ_MAX_EVENTS >= (2U * CDD_PWM_WAVE_ARM_IRQ_MAX_WINDOW_MISSES),
-               "PWM5 boundary notification event limit must cover first- and second-carrier events");
-_Static_assert((CDD_PWM_WAVE_PWM5_CARRIER_PERIODS * CDD_PWM_WAVE_MAX_PERIOD_TICKS) <= CDD_PWM_WAVE_TOM_MAX_VALUE,
-               "PWM5 period exceeds TOM range");
+_Static_assert(CDD_PWM_WAVE_ARM_IRQ_MAX_EVENTS >= (2U * CDD_PWM_WAVE_ARM_IRQ_MAX_WINDOW_MISSES), "PWM5 boundary notification event limit must cover first- and second-carrier events");
+_Static_assert((CDD_PWM_WAVE_PWM5_CARRIER_PERIODS * CDD_PWM_WAVE_MAX_PERIOD_TICKS) <= CDD_PWM_WAVE_TOM_MAX_VALUE, "PWM5 period exceeds TOM range");
 
 static volatile boolean s_bInitialized = FALSE;              /* Set after CDD initialization completes successfully. */
 static volatile boolean s_bInitInProgress = FALSE;           /* Guards Cdd_PwmWave_Init() against re-entry while it runs. */
@@ -202,24 +216,29 @@ static volatile boolean s_bStartPending = FALSE;              /* Marks the carri
 static volatile boolean s_bClearPending = FALSE;              /* Marks the multi-stage fault-clear sequence in progress. */
 static volatile boolean s_bOutputPadsConfirmed = FALSE;       /* Records successful output pin-mux and armed-low validation. */
 static volatile boolean s_bArmNotificationPending = FALSE;    /* Tracks a one-shot carrier notification waiting to arm UPEN. */
-static boolean s_bPendingUsesRunSignalLevels = FALSE;         /* Selects run-level SL values when verifying the pending frame. */
+static volatile boolean s_bPendingUsesRunSignalLevels = FALSE; /* Selects run-level SL values when verifying the pending frame. */
+static volatile boolean s_bPreviousPendingFrameValid = FALSE; /* Retains one superseded Frame for slow hardware-progress proof. */
+static volatile boolean s_bPreviousPendingUsesRunSignalLevels = FALSE; /* Retains the previous Frame's SL verification mode. */
 
 static boolean s_bDtmRunConfigCaptured = FALSE;               /* Marks the saved DTM0/DTM1 CH_CTRL2 run values as valid. */
 static volatile Cdd_PwmWave_StateType s_eState = CDD_PWM_WAVE_STATE_RESET_SAFE; /* Holds the current CDD lifecycle state. */
 
 static Cdd_PwmWave_FrameType s_tPendingFrame;                  /* Stores the submitted frame awaiting confirmed hardware application. */
+static Cdd_PwmWave_FrameType s_tPreviousPendingFrame;          /* Stores the immediately preceding high-rate Frame. */
 static Cdd_PwmWave_FrameType s_tActiveFrame;                   /* Stores the last frame confirmed in the active TOM registers. */
 static Cdd_PwmWave_SequenceType s_u32SequenceCounter = 0U;     /* Generates nonzero frame sequence identifiers. */
-static Cdd_PwmWave_SequenceType s_u32PendingSequence = 0U;     /* Identifies the frame stored in s_tPendingFrame. */
+static volatile Cdd_PwmWave_SequenceType s_u32PendingSequence = 0U; /* Identifies the frame stored in s_tPendingFrame. */
+static volatile Cdd_PwmWave_SequenceType s_u32PreviousPendingSequence = 0U; /* Identifies s_tPreviousPendingFrame. */
 static Cdd_PwmWave_SequenceType s_u32ActiveSequence = 0U;      /* Identifies the frame stored in s_tActiveFrame. */
-static Cdd_PwmWave_SequenceType s_u32ArmSequence = 0U;         /* Binds the boundary-arm notification to one pending sequence. */
-static uint32 s_u32ArmOldCarrierPeriod = 0U;                   /* Preserves the active period used to validate the arm window. */
+static volatile Cdd_PwmWave_SequenceType s_u32PendingObservedSequence = 0U; /* Tracks the last superseded Frame observed in active hardware. */
+static volatile Cdd_PwmWave_SequenceType s_u32ArmSequence = 0U; /* Binds the boundary-arm notification to one pending sequence. */
+static volatile uint32 s_u32ArmOldCarrierPeriod = 0U;          /* Preserves the active period used to validate the arm window. */
 
 static uint32 s_u32Dtm0RunCtrl2 = 0U;                          /* Saves the validated DTM0 CH_CTRL2 run-state baseline. */
 static uint32 s_u32DtmRunCtrl2 = 0U;                           /* Saves the validated DTM1 CH_CTRL2 run-state baseline. */
 
 static volatile uint32 s_u32FaultFlags = 0U;                   /* Accumulates CDD_PWM_WAVE_FAULT_* cause bits. */
-static uint8 s_u8PendingMainCycles = 0U;                       /* Counts main cycles while a pending frame remains unapplied. */
+static uint8 s_u8PendingMainCycles = 0U;                       /* Counts slow-monitor cycles for one unchanged pending sequence. */
 static uint8 s_u8ArmWindowMissCount = 0U;                      /* Counts missed arm windows in PWM5's second old-carrier cycle. */
 static uint8 s_u8ArmInterruptCount = 0U;                       /* Counts carrier notifications for the current arm request. */
 
@@ -242,6 +261,13 @@ typedef struct {
   uint32 u32Pwm5Period;    /* Holds the expected PWM5 period of two carrier periods. */
   uint32 u32RejectFlags;   /* Accumulates CDD_PWM_WAVE_ARM_REJECT_* reason bits. */
 } Cdd_PwmWave_ArmWindowCheckType; /* Describes samples and reasons from a rejected common-boundary arm check. */
+
+typedef struct {
+  uint32 u32Pwm5Cm0;                              /* Prepared CH3 period shadow. */
+  uint32 u32Pwm5Cm1;                              /* Prepared CH3 compare shadow. */
+  uint32 au32WindowCm0[CDD_PWM_WAVE_WINDOW_COUNT]; /* Prepared CH4-CH7 CM0 shadows. */
+  uint32 au32WindowCm1[CDD_PWM_WAVE_WINDOW_COUNT]; /* Prepared CH4-CH7 CM1 shadows. */
+} Cdd_PwmWave_PreparedFrameType; /* Keeps arithmetic outside the short hardware commit section. */
 
 typedef struct {
   uint32 u32ValidMagic;                           /* Publishes a complete one-shot snapshot when written last. */
@@ -426,19 +452,47 @@ static void Cdd_PwmWave_ResetArmNotificationState(void)
   s_u8ArmInterruptCount = 0U;
 }
 
-static void Cdd_PwmWave_DisableArmNotificationLocked(void)
+static void Cdd_PwmWave_ClearPreviousPendingFrame(void)
 {
-  Pwm_DisableNotification(PwmConf_PwmChannel_PWM_CARRIER);
+  s_bPreviousPendingFrameValid = FALSE;
+  s_bPreviousPendingUsesRunSignalLevels = FALSE;
+  s_u32PreviousPendingSequence = 0U;
+}
+
+static void Cdd_PwmWave_DisableArmInterrupt(void)
+{
+  /* IRQ172 is owned exclusively by CH0 CCU0 in this CDD. Disable the source
+   * before clearing the W1C peripheral status and any stale NVIC pending bit. */
+  EFTU_TOM_1_0->Channel[CDD_PWM_WAVE_CARRIER_CHANNEL].CH_IRQ_EN = 0U;
+  EFTU_TOM_1_0->Channel[CDD_PWM_WAVE_CARRIER_CHANNEL].CH_IRQ_ST = CDD_PWM_WAVE_IRQ_STATUS_MASK;
+  CDD_PWM_WAVE_REG32(CDD_PWM_WAVE_NVIC_ICPR5_ADDRESS) = CDD_PWM_WAVE_IRQ172_PENDING_MASK;
   Cdd_PwmWave_ResetArmNotificationState();
+  MCAL_DATA_SYNC_BARRIER();
+}
+
+static void Cdd_PwmWave_EnableArmInterrupt(void)
+{
+  /* Publish all pending-frame/arm tokens before unmasking the peripheral. */
+  EFTU_TOM_1_0->Channel[CDD_PWM_WAVE_CARRIER_CHANNEL].CH_IRQ_EN = 0U;
+  EFTU_TOM_1_0->Channel[CDD_PWM_WAVE_CARRIER_CHANNEL].CH_IRQ_ST = CDD_PWM_WAVE_IRQ_STATUS_MASK;
+  CDD_PWM_WAVE_REG32(CDD_PWM_WAVE_NVIC_ICPR5_ADDRESS) = CDD_PWM_WAVE_IRQ172_PENDING_MASK;
+  MCAL_DATA_SYNC_BARRIER();
+  EFTU_TOM_1_0->Channel[CDD_PWM_WAVE_CARRIER_CHANNEL].CH_IRQ_EN = EFTU_TOM_CHn_IRQ_EN_CCU0TC_IRQ_EN_MASK;
   MCAL_DATA_SYNC_BARRIER();
 }
 
 static Cdd_PwmWave_SequenceType Cdd_PwmWave_NextSequence(void)
 {
-  s_u32SequenceCounter++;
-  if (0U == s_u32SequenceCounter) {
+  do {
     s_u32SequenceCounter++;
-  }
+    if (0U == s_u32SequenceCounter) {
+      s_u32SequenceCounter++;
+    }
+    /* A 50 kHz producer wraps uint32 in about 23.9 h. Never reuse a token that
+     * is still represented by the driver's active/current/previous state. */
+  } while (((TRUE == s_bActiveFrameValid) && (s_u32SequenceCounter == s_u32ActiveSequence)) ||
+           ((TRUE == s_bPendingFrameValid) && (s_u32SequenceCounter == s_u32PendingSequence)) ||
+           ((TRUE == s_bPreviousPendingFrameValid) && (s_u32SequenceCounter == s_u32PreviousPendingSequence)));
   return s_u32SequenceCounter;
 }
 
@@ -643,22 +697,39 @@ static void Cdd_PwmWave_RestoreInitialDtmRunConfig(void)
 
 static void Cdd_PwmWave_DisableFrameUpdate(void)
 {
-  uint32 u32GlobalBypass;
-
+  /* Force update remains disabled for all owned channels. Normal Frames must
+   * load synchronously from shadow registers at a channel boundary. */
   EFTU_TOM_1_0->TGC_FUPD_CTRL = CDD_PWM_WAVE_FORCE_UPDATE_DISABLE_COMMAND;
-  u32GlobalBypass = EFTU_TOM_1_0->TGC_GLB_CTRL & EFTU_TOM_TGC_GLB_CTRL_GLBEN_BYPASS_MASK;
-  EFTU_TOM_1_0->TGC_GLB_CTRL = u32GlobalBypass | CDD_PWM_WAVE_UPEN_DISABLE_COMMAND;
+  EFTU_TOM_1_0->TGC_GLB_CTRL = CDD_PWM_WAVE_GLB_CTRL_OWNED_BASE | CDD_PWM_WAVE_UPEN_DISABLE_COMMAND;
   MCAL_DATA_SYNC_BARRIER();
 }
 
 static void Cdd_PwmWave_ArmFrameUpdate(void)
 {
-  uint32 u32GlobalBypass;
+  MCAL_DATA_SYNC_BARRIER();
+  EFTU_TOM_1_0->TGC_GLB_CTRL = CDD_PWM_WAVE_GLB_CTRL_OWNED_BASE | CDD_PWM_WAVE_UPEN_ENABLE_COMMAND;
+}
 
+static void Cdd_PwmWave_DisableOwnedUpdate(void)
+{
+  /* FUPD was permanently disabled during initialization. The RUN data path
+   * only needs to gate synchronous shadow loading. */
+  EFTU_TOM_1_0->TGC_GLB_CTRL = CDD_PWM_WAVE_GLB_CTRL_OWNED_BASE | CDD_PWM_WAVE_UPEN_DISABLE_COMMAND;
+}
+
+static void Cdd_PwmWave_DisableWindowUpdate(void)
+{
+  /* Device writes are ordered. Issuing the command before the eight shadow
+   * stores prevents a carrier boundary from observing a partially staged Frame. */
+  EFTU_TOM_1_0->TGC_GLB_CTRL = CDD_PWM_WAVE_GLB_CTRL_OWNED_BASE | CDD_PWM_WAVE_WINDOW_UPEN_DISABLE_COMMAND;
+}
+
+static void Cdd_PwmWave_ArmWindowUpdate(void)
+{
+  /* Complete all CH4-CH7 shadow stores before making them eligible for the
+   * next shared CH0 boundary. */
   MCAL_DATA_SYNC_BARRIER();
-  u32GlobalBypass = EFTU_TOM_1_0->TGC_GLB_CTRL & EFTU_TOM_TGC_GLB_CTRL_GLBEN_BYPASS_MASK;
-  EFTU_TOM_1_0->TGC_GLB_CTRL = u32GlobalBypass | CDD_PWM_WAVE_UPEN_ENABLE_COMMAND;
-  MCAL_DATA_SYNC_BARRIER();
+  EFTU_TOM_1_0->TGC_GLB_CTRL = CDD_PWM_WAVE_GLB_CTRL_OWNED_BASE | CDD_PWM_WAVE_WINDOW_UPEN_ENABLE_COMMAND;
 }
 
 static void Cdd_PwmWave_ImmediateDisableAll(void)
@@ -864,7 +935,7 @@ static uint32 Cdd_PwmWave_GetRunSignalLevel(uint8 u8Channel, const Cdd_PwmWave_F
 {
   uint32 u32Level;
 
-  if ((CDD_PWM_WAVE_PWM5_CHANNEL == u8Channel) && (NULL_PTR != pFrame) && (CDD_PWM_WAVE_PWM5_TEST_TOGGLE == pFrame->ePwm5State)) {
+  if ((CDD_PWM_WAVE_PWM5_CHANNEL == u8Channel) && (NULL_PTR != pFrame) && (CDD_PWM_WAVE_PWM5_TOGGLE == pFrame->ePwm5State)) {
     /* SOMP drives the inverse of SL first: SL=0 gives LOW to CM1, then HIGH to CM0. */
     u32Level = 0U;
   } else {
@@ -1033,7 +1104,7 @@ static boolean Cdd_PwmWave_WaitForOutputActivity(uint8 u8RequiredWraps, boolean 
 
 static uint8 Cdd_PwmWave_GetStartVerifyWraps(const Cdd_PwmWave_FrameType *pFrame)
 {
-  if (CDD_PWM_WAVE_PWM5_TEST_TOGGLE != pFrame->ePwm5State) {
+  if (CDD_PWM_WAVE_PWM5_TOGGLE != pFrame->ePwm5State) {
     return CDD_PWM_WAVE_START_VERIFY_WRAPS;
   }
 
@@ -1070,12 +1141,116 @@ static void Cdd_PwmWave_GetPwm5TimerValues(const Cdd_PwmWave_FrameType *pFrame, 
     *pCm1 = 0U;
   } else if (CDD_PWM_WAVE_PWM5_HIGH == pFrame->ePwm5State) {
     *pCm1 = *pCm0;
-  } else if (CDD_PWM_WAVE_PWM5_TEST_TOGGLE == pFrame->ePwm5State) {
+  } else if (CDD_PWM_WAVE_PWM5_TOGGLE == pFrame->ePwm5State) {
     *pCm1 = pFrame->u32PeriodTicks;
   } else {
     /* Internal corruption must remain fail-closed even though public entry points validate first. */
     *pCm1 = 0U;
   }
+}
+
+static void Cdd_PwmWave_GetWindowTimerValues(uint8 u8Index, const Cdd_PwmWave_FrameType *pFrame, uint32 *pCm0, uint32 *pCm1)
+{
+  uint8 u8Channel = u8Index + CDD_PWM_WAVE_FIRST_WINDOW_CHANNEL;
+  uint32 u32WindowWidth = pFrame->aWindow[u8Index].u32CmpB - pFrame->aWindow[u8Index].u32CmpA;
+
+  if (0U == u32WindowWidth) {
+    /* A zero-width window is the exact 0% endpoint used by the default Start
+     * frame. Select the constant-low SOMP encoding for the channel's SL. */
+    if (1U == Cdd_PwmWave_GetRunSignalLevel(u8Channel, pFrame)) {
+      *pCm0 = CDD_PWM_WAVE_TOM_MAX_VALUE;
+      *pCm1 = 0U;
+    } else {
+      *pCm0 = 0U;
+      *pCm1 = CDD_PWM_WAVE_TOM_MAX_VALUE;
+    }
+  } else if (u32WindowWidth < CDD_PWM_WAVE_DEAD_TIME_TICKS) {
+    /* A positive pulse narrower than the dead time cannot be reproduced by
+     * DTM. Clamp it to main 100% / complementary 0%. Synchronized SOMP uses
+     * 0/MAX as constant high when SL=1; SL=0 inverts that encoding. */
+    if (1U == Cdd_PwmWave_GetRunSignalLevel(u8Channel, pFrame)) {
+      *pCm0 = 0U;
+      *pCm1 = CDD_PWM_WAVE_TOM_MAX_VALUE;
+    } else {
+      *pCm0 = CDD_PWM_WAVE_TOM_MAX_VALUE;
+      *pCm1 = 0U;
+    }
+  } else {
+    *pCm0 = pFrame->aWindow[u8Index].u32CmpA;
+    *pCm1 = pFrame->aWindow[u8Index].u32CmpB;
+  }
+}
+
+static Cdd_PwmWave_ResultType Cdd_PwmWave_ValidateAndPrepareFrame(const Cdd_PwmWave_FrameType *pFrame,
+                                                                  Cdd_PwmWave_PreparedFrameType *pPrepared)
+{
+  uint8 u8Index;
+
+  if (NULL_PTR == pFrame) {
+    return CDD_PWM_WAVE_E_PARAM_POINTER;
+  }
+  if ((pFrame->u32PeriodTicks < CDD_PWM_WAVE_MIN_PERIOD_TICKS) || (pFrame->u32PeriodTicks > CDD_PWM_WAVE_MAX_PERIOD_TICKS)) {
+    return CDD_PWM_WAVE_E_PERIOD;
+  }
+
+  for (u8Index = 0U; u8Index < CDD_PWM_WAVE_WINDOW_COUNT; u8Index++) {
+    if ((pFrame->aWindow[u8Index].u32CmpA >= pFrame->u32PeriodTicks) || (pFrame->aWindow[u8Index].u32CmpB >= pFrame->u32PeriodTicks) ||
+        (pFrame->aWindow[u8Index].u32CmpA > pFrame->aWindow[u8Index].u32CmpB)) {
+      return CDD_PWM_WAVE_E_CMP;
+    }
+    if (NULL_PTR != pPrepared) {
+      Cdd_PwmWave_GetWindowTimerValues(u8Index, pFrame, &pPrepared->au32WindowCm0[u8Index], &pPrepared->au32WindowCm1[u8Index]);
+    }
+  }
+
+  if ((CDD_PWM_WAVE_PWM5_LOW != pFrame->ePwm5State) && (CDD_PWM_WAVE_PWM5_HIGH != pFrame->ePwm5State) &&
+      (CDD_PWM_WAVE_PWM5_TOGGLE != pFrame->ePwm5State)) {
+    return CDD_PWM_WAVE_E_PWM5;
+  }
+  if (NULL_PTR != pPrepared) {
+    Cdd_PwmWave_GetPwm5TimerValues(pFrame, &pPrepared->u32Pwm5Cm0, &pPrepared->u32Pwm5Cm1);
+  }
+
+  return CDD_PWM_WAVE_OK;
+}
+
+static void Cdd_PwmWave_WriteWindowShadows(const Cdd_PwmWave_PreparedFrameType *pPrepared)
+{
+  /* The mapping is fixed and intentionally unrolled: this is the normal
+   * 50 kHz data path and must compile to eight peripheral stores. */
+  EFTU_TOM_1_0->Channel[4U].CH_SR0 = pPrepared->au32WindowCm0[0U];
+  EFTU_TOM_1_0->Channel[4U].CH_SR1 = pPrepared->au32WindowCm1[0U];
+  EFTU_TOM_1_0->Channel[5U].CH_SR0 = pPrepared->au32WindowCm0[1U];
+  EFTU_TOM_1_0->Channel[5U].CH_SR1 = pPrepared->au32WindowCm1[1U];
+  EFTU_TOM_1_0->Channel[6U].CH_SR0 = pPrepared->au32WindowCm0[2U];
+  EFTU_TOM_1_0->Channel[6U].CH_SR1 = pPrepared->au32WindowCm1[2U];
+  EFTU_TOM_1_0->Channel[7U].CH_SR0 = pPrepared->au32WindowCm0[3U];
+  EFTU_TOM_1_0->Channel[7U].CH_SR1 = pPrepared->au32WindowCm1[3U];
+}
+
+static Cdd_PwmWave_SequenceType Cdd_PwmWave_PublishPendingFrame(const Cdd_PwmWave_FrameType *pFrame)
+{
+  Cdd_PwmWave_SequenceType u32Sequence = Cdd_PwmWave_NextSequence();
+
+  Cdd_PwmWave_ClearPreviousPendingFrame();
+  if (TRUE == s_bPendingFrameValid) {
+    s_tPreviousPendingFrame = s_tPendingFrame;
+    s_u32PreviousPendingSequence = s_u32PendingSequence;
+    s_bPreviousPendingUsesRunSignalLevels = s_bPendingUsesRunSignalLevels;
+    s_bPreviousPendingFrameValid = TRUE;
+  } else if (TRUE == s_bActiveFrameValid) {
+    /* Before the first high-rate pending Frame, the confirmed active Frame is
+     * the only legal predecessor at the next carrier boundary. */
+    s_tPreviousPendingFrame = s_tActiveFrame;
+    s_u32PreviousPendingSequence = s_u32ActiveSequence;
+    s_bPreviousPendingUsesRunSignalLevels = TRUE;
+    s_bPreviousPendingFrameValid = TRUE;
+  }
+  s_tPendingFrame = *pFrame;
+  s_u32PendingSequence = u32Sequence;
+  s_bPendingFrameValid = TRUE;
+  s_bPendingUsesRunSignalLevels = TRUE;
+  return u32Sequence;
 }
 
 static boolean Cdd_PwmWave_IsFrameApplied(const Cdd_PwmWave_FrameType *pFrame, boolean bRunSignalLevels)
@@ -1084,6 +1259,8 @@ static boolean Cdd_PwmWave_IsFrameApplied(const Cdd_PwmWave_FrameType *pFrame, b
   uint8 u8Channel;
   uint32 u32Pwm5Cm0;
   uint32 u32Pwm5Cm1;
+  uint32 u32WindowCm0;
+  uint32 u32WindowCm1;
   uint32 u32ExpectedSignalLevel;
 
   Cdd_PwmWave_GetPwm5TimerValues(pFrame, &u32Pwm5Cm0, &u32Pwm5Cm1);
@@ -1096,8 +1273,9 @@ static boolean Cdd_PwmWave_IsFrameApplied(const Cdd_PwmWave_FrameType *pFrame, b
   }
 
   for (u8Index = 0U; u8Index < CDD_PWM_WAVE_WINDOW_COUNT; u8Index++) {
-    if ((EFTU_TOM_1_0->Channel[u8Index + 4U].CH_CM0 != pFrame->aWindow[u8Index].u32CmpA) ||
-        (EFTU_TOM_1_0->Channel[u8Index + 4U].CH_CM1 != pFrame->aWindow[u8Index].u32CmpB)) {
+    Cdd_PwmWave_GetWindowTimerValues(u8Index, pFrame, &u32WindowCm0, &u32WindowCm1);
+    if ((EFTU_TOM_1_0->Channel[u8Index + CDD_PWM_WAVE_FIRST_WINDOW_CHANNEL].CH_CM0 != u32WindowCm0) ||
+        (EFTU_TOM_1_0->Channel[u8Index + CDD_PWM_WAVE_FIRST_WINDOW_CHANNEL].CH_CM1 != u32WindowCm1)) {
       return FALSE;
     }
   }
@@ -1117,18 +1295,25 @@ static boolean Cdd_PwmWave_IsFrameApplied(const Cdd_PwmWave_FrameType *pFrame, b
   return TRUE;
 }
 
+static void Cdd_PwmWave_PromotePendingFrameLocked(const Cdd_PwmWave_FrameType *pFrame, Cdd_PwmWave_SequenceType u32Sequence)
+{
+  s_tActiveFrame = *pFrame;
+  s_u32ActiveSequence = u32Sequence;
+  s_bActiveFrameValid = TRUE;
+  s_bPendingFrameValid = FALSE;
+  s_bPendingUsesRunSignalLevels = FALSE;
+  s_u32PendingSequence = 0U;
+  s_u32PendingObservedSequence = 0U;
+  s_u8PendingMainCycles = 0U;
+  Cdd_PwmWave_ClearPreviousPendingFrame();
+  Cdd_PwmWave_DisableArmInterrupt();
+  Cdd_PwmWave_DisableFrameUpdate();
+}
+
 static void Cdd_PwmWave_RefreshPending(void)
 {
   if ((TRUE == s_bPendingFrameValid) && (TRUE == Cdd_PwmWave_IsFrameApplied(&s_tPendingFrame, s_bPendingUsesRunSignalLevels))) {
-    s_tActiveFrame = s_tPendingFrame;
-    s_u32ActiveSequence = s_u32PendingSequence;
-    s_bActiveFrameValid = TRUE;
-    s_bPendingFrameValid = FALSE;
-    s_bPendingUsesRunSignalLevels = FALSE;
-    s_u32PendingSequence = 0U;
-    s_u8PendingMainCycles = 0U;
-    Cdd_PwmWave_DisableArmNotificationLocked();
-    Cdd_PwmWave_DisableFrameUpdate();
+    Cdd_PwmWave_PromotePendingFrameLocked(&s_tPendingFrame, s_u32PendingSequence);
   }
 }
 
@@ -1136,7 +1321,7 @@ static void Cdd_PwmWave_AbortPending(void)
 {
   uint8 u8Channel;
 
-  Cdd_PwmWave_DisableArmNotificationLocked();
+  Cdd_PwmWave_DisableArmInterrupt();
   Cdd_PwmWave_DisableFrameUpdate();
 
   /* A period change may be interrupted after new shadow values are staged but
@@ -1153,7 +1338,9 @@ static void Cdd_PwmWave_AbortPending(void)
   s_bPendingFrameValid = FALSE;
   s_bPendingUsesRunSignalLevels = FALSE;
   s_u32PendingSequence = 0U;
+  s_u32PendingObservedSequence = 0U;
   s_u8PendingMainCycles = 0U;
+  Cdd_PwmWave_ClearPreviousPendingFrame();
 }
 
 static boolean Cdd_PwmWave_ForceSafeHardware(void)
@@ -1201,7 +1388,7 @@ static boolean Cdd_PwmWave_EnterFault(uint32 u32FaultFlags)
 }
 
 /* Called with AREA_19 held. Shadow registers and the pending token are already
- * published; the one-shot CCU0 notification will arm UPEN asynchronously. */
+ * published; the one-shot CCU0 interrupt will arm UPEN asynchronously. */
 static Cdd_PwmWave_ResultType Cdd_PwmWave_ScheduleFrameAtCommonBoundaryLocked(uint32 u32OldCarrierPeriod, Cdd_PwmWave_SequenceType u32Sequence)
 {
   if (TRUE == s_bFaultLatched) {
@@ -1209,7 +1396,6 @@ static Cdd_PwmWave_ResultType Cdd_PwmWave_ScheduleFrameAtCommonBoundaryLocked(ui
   }
   if ((FALSE == s_bPendingFrameValid) || (u32Sequence != s_u32PendingSequence) ||
       ((CDD_PWM_WAVE_STATE_ARMED_LOW != s_eState) && (CDD_PWM_WAVE_STATE_RUN != s_eState)) ||
-      (FALSE == Cdd_PwmWave_IsNotificationConfigValid()) || (FALSE == Cdd_PwmWave_IsCarrierBoundaryTriggerSelected()) ||
       (EFTU_TOM_1_0->Channel[CDD_PWM_WAVE_CARRIER_CHANNEL].CH_CM0 != u32OldCarrierPeriod) ||
       (EFTU_TOM_1_0->Channel[CDD_PWM_WAVE_PWM5_CHANNEL].CH_CM0 != (CDD_PWM_WAVE_PWM5_CARRIER_PERIODS * u32OldCarrierPeriod)) ||
       ((EFTU_TOM_1_0->Channel[CDD_PWM_WAVE_PWM5_CHANNEL].CH_CTRL & EFTU_TOM_CHn_CTRL_RST_CCU0_MASK) != 0U)) {
@@ -1217,7 +1403,7 @@ static Cdd_PwmWave_ResultType Cdd_PwmWave_ScheduleFrameAtCommonBoundaryLocked(ui
     return CDD_PWM_WAVE_E_HW_CONFIG;
   }
 
-  Cdd_PwmWave_DisableArmNotificationLocked();
+  Cdd_PwmWave_DisableArmInterrupt();
   s_u32ArmOldCarrierPeriod = u32OldCarrierPeriod;
   s_u32ArmSequence = u32Sequence;
   s_u8ArmWindowMissCount = 0U;
@@ -1225,8 +1411,7 @@ static Cdd_PwmWave_ResultType Cdd_PwmWave_ScheduleFrameAtCommonBoundaryLocked(ui
   s_bArmNotificationPending = TRUE;
   MCAL_DATA_SYNC_BARRIER();
 
-  Pwm_EnableNotification(PwmConf_PwmChannel_PWM_CARRIER, PWM_RISING_EDGE);
-  MCAL_DATA_SYNC_BARRIER();
+  Cdd_PwmWave_EnableArmInterrupt();
   if (FALSE == Cdd_PwmWave_IsArmNotificationHwEnabled()) {
     (void)Cdd_PwmWave_EnterFault(CDD_PWM_WAVE_FAULT_HW_CONFIG);
     return CDD_PWM_WAVE_E_HW_CONFIG;
@@ -1246,27 +1431,22 @@ void Cdd_PwmWave_CarrierBoundaryNotification(void)
   boolean bCaptureSnapshot = FALSE;
   boolean bArmWindowValid;
 
-  SchM_Enter_Pwm_PWM_EXCLUSIVE_AREA_19();
   if (FALSE == s_bArmNotificationPending) {
-    Cdd_PwmWave_DisableArmNotificationLocked();
+    Cdd_PwmWave_DisableArmInterrupt();
   } else if (TRUE == s_bFaultLatched) {
-    Cdd_PwmWave_DisableArmNotificationLocked();
+    Cdd_PwmWave_DisableArmInterrupt();
   } else if ((FALSE == s_bPendingFrameValid) || (s_u32ArmSequence != s_u32PendingSequence) ||
-             ((CDD_PWM_WAVE_STATE_ARMED_LOW != s_eState) && (CDD_PWM_WAVE_STATE_RUN != s_eState)) ||
-             (FALSE == Cdd_PwmWave_IsCarrierBoundaryTriggerSelected()) ||
-             (EFTU_TOM_1_0->Channel[CDD_PWM_WAVE_CARRIER_CHANNEL].CH_CM0 != s_u32ArmOldCarrierPeriod) ||
-             (EFTU_TOM_1_0->Channel[CDD_PWM_WAVE_PWM5_CHANNEL].CH_CM0 != (CDD_PWM_WAVE_PWM5_CARRIER_PERIODS * s_u32ArmOldCarrierPeriod)) ||
-             ((EFTU_TOM_1_0->Channel[CDD_PWM_WAVE_PWM5_CHANNEL].CH_CTRL & EFTU_TOM_CHn_CTRL_RST_CCU0_MASK) != 0U)) {
+             ((CDD_PWM_WAVE_STATE_ARMED_LOW != s_eState) && (CDD_PWM_WAVE_STATE_RUN != s_eState))) {
     (void)Cdd_PwmWave_EnterFault(CDD_PWM_WAVE_FAULT_HW_CONFIG);
   } else {
     s_u8ArmInterruptCount++;
     bArmWindowValid = Cdd_PwmWave_CheckPwm5CommonBoundaryArmWindow(s_u32ArmOldCarrierPeriod, &tArmWindowCheck);
 
     /* No diagnostics or configuration reads are allowed between the valid
-     * phase gate and UPEN. AREA_19 keeps the sequence atomic. */
+     * phase gate and UPEN. IRQ172 preempts the lower-priority 20 us task. */
     if (TRUE == bArmWindowValid) {
       Cdd_PwmWave_ArmFrameUpdate();
-      Cdd_PwmWave_DisableArmNotificationLocked();
+      Cdd_PwmWave_DisableArmInterrupt();
     } else {
       if (tArmWindowCheck.u32Pwm5Counter >= s_u32ArmOldCarrierPeriod) {
         s_u8ArmWindowMissCount++;
@@ -1289,7 +1469,6 @@ void Cdd_PwmWave_CarrierBoundaryNotification(void)
     Cdd_PwmWave_CaptureArmFaultSnapshot(u32SnapshotStage, u32OldCarrierPeriod, u32PendingCarrierPeriod, u32SnapshotSequence, u8SnapshotAttemptNumber,
                                         TRUE, FALSE, &tArmWindowCheck);
   }
-  SchM_Exit_Pwm_PWM_EXCLUSIVE_AREA_19();
 }
 
 boolean Cdd_PwmWave_TryHandleCarrierBoundaryInterrupt(void)
@@ -1336,7 +1515,7 @@ Cdd_PwmWave_ResultType Cdd_PwmWave_Init(void)
 
   s_bInitInProgress = TRUE;
   s_eState = CDD_PWM_WAVE_STATE_GPIO_LOW;
-  Cdd_PwmWave_DisableArmNotificationLocked();
+  Cdd_PwmWave_DisableArmInterrupt();
   bHardwareConfigValid = Cdd_PwmWave_IsNotificationConfigValid();
 
   if ((TRUE == bHardwareConfigValid) && (FALSE == s_bDtmRunConfigCaptured)) {
@@ -1413,6 +1592,8 @@ Cdd_PwmWave_ResultType Cdd_PwmWave_Init(void)
     s_bFaultLatched = FALSE;
     s_u32PendingSequence = 0U;
     s_u32ActiveSequence = 0U;
+    s_u32PendingObservedSequence = 0U;
+    Cdd_PwmWave_ClearPreviousPendingFrame();
     s_u32FaultFlags = 0U;
     s_u8PendingMainCycles = 0U;
     s_eState = CDD_PWM_WAVE_STATE_ARMED_LOW;
@@ -1444,123 +1625,153 @@ Cdd_PwmWave_ResultType Cdd_PwmWave_Init(void)
 
 Cdd_PwmWave_ResultType Cdd_PwmWave_ValidateFrame(const Cdd_PwmWave_FrameType *pFrame)
 {
-  uint8 u8Index;
-
-  if (NULL_PTR == pFrame) {
-    return CDD_PWM_WAVE_E_PARAM_POINTER;
-  }
-  if ((pFrame->u32PeriodTicks < CDD_PWM_WAVE_MIN_PERIOD_TICKS) || (pFrame->u32PeriodTicks > CDD_PWM_WAVE_MAX_PERIOD_TICKS)) {
-    return CDD_PWM_WAVE_E_PERIOD;
-  }
-
-  for (u8Index = 0U; u8Index < CDD_PWM_WAVE_WINDOW_COUNT; u8Index++) {
-    if ((pFrame->aWindow[u8Index].u32CmpA >= pFrame->u32PeriodTicks) || (pFrame->aWindow[u8Index].u32CmpB >= pFrame->u32PeriodTicks) ||
-        (pFrame->aWindow[u8Index].u32CmpA >= pFrame->aWindow[u8Index].u32CmpB)) {
-      return CDD_PWM_WAVE_E_CMP;
-    }
-    if ((pFrame->aWindow[u8Index].u32CmpB - pFrame->aWindow[u8Index].u32CmpA) < CDD_PWM_WAVE_DEAD_TIME_TICKS) {
-      return CDD_PWM_WAVE_E_DEAD_TIME;
-    }
-  }
-
-  if ((CDD_PWM_WAVE_PWM5_LOW != pFrame->ePwm5State) && (CDD_PWM_WAVE_PWM5_HIGH != pFrame->ePwm5State) &&
-      (CDD_PWM_WAVE_PWM5_TEST_TOGGLE != pFrame->ePwm5State)) {
-    return CDD_PWM_WAVE_E_PWM5;
-  }
-
-  /* TEST_TOGGLE derives CH3 CM0/CM1 as 2*Period/Period; the period-range
+  /* TOGGLE derives CH3 CM0/CM1 as 2*Period/Period; the period-range
    * check and compile-time TOM-range assertion cover all supported frames. */
-
-  return CDD_PWM_WAVE_OK;
+  return Cdd_PwmWave_ValidateAndPrepareFrame(pFrame, NULL_PTR);
 }
 
-static Cdd_PwmWave_ResultType Cdd_PwmWave_SubmitFrameLocked(const Cdd_PwmWave_FrameType *pFrame, Cdd_PwmWave_SequenceType *pSequence)
+static Cdd_PwmWave_ResultType Cdd_PwmWave_SubmitRunFrameFastLocked(const Cdd_PwmWave_FrameType *pFrame,
+                                                                  const Cdd_PwmWave_PreparedFrameType *pPrepared,
+                                                                  Cdd_PwmWave_SequenceType *pSequence)
 {
   Cdd_PwmWave_ResultType eResult;
   Cdd_PwmWave_SequenceType u32Sequence;
   uint32 u32OldCarrierPeriod;
-  uint32 u32Pwm5Cm0;
-  uint32 u32Pwm5Cm1;
-  uint8 u8Index;
   boolean bCommonBoundaryArmRequired;
+  boolean bHadPending = s_bPendingFrameValid;
 
-  Cdd_PwmWave_RefreshPending();
-
-  if (TRUE == s_bFaultLatched) {
-    eResult = CDD_PWM_WAVE_E_FAULT_ACTIVE;
-  } else if (TRUE == s_bStartPending) {
-    eResult = CDD_PWM_WAVE_E_BUSY;
-  } else if ((CDD_PWM_WAVE_STATE_ARMED_LOW != s_eState) && (CDD_PWM_WAVE_STATE_RUN != s_eState)) {
-    eResult = CDD_PWM_WAVE_E_STATE;
-  } else if (TRUE == s_bPendingFrameValid) {
-    eResult = CDD_PWM_WAVE_E_BUSY;
-  } else if ((CDD_PWM_WAVE_STATE_RUN == s_eState) && (FALSE == s_bActiveFrameValid)) {
+  if (FALSE == s_bActiveFrameValid) {
     (void)Cdd_PwmWave_EnterFault(CDD_PWM_WAVE_FAULT_HW_CONFIG);
-    eResult = CDD_PWM_WAVE_E_HW_CONFIG;
-  } else if ((CDD_PWM_WAVE_STATE_RUN == s_eState) && (pFrame->ePwm5State != s_tActiveFrame.ePwm5State)) {
-    /* CH3 counter is independent of CH0. A state change could take effect at
-     * an arbitrary CH3 phase, so allow it only while DTM holds every output low. */
-    eResult = CDD_PWM_WAVE_E_NOT_SUPPORTED;
-  } else if (FALSE == Cdd_PwmWave_IsCarrierBoundaryTriggerSelected()) {
-    eResult = CDD_PWM_WAVE_E_HW_CONFIG;
-  } else {
-    /* ARMED_LOW keeps the TOM counters enabled; DTM alone clamps the pads.
-     * Therefore a stopped period change uses the same bounded common-zero
-     * arm as RUN and preserves phase for the later Start. */
-    u32OldCarrierPeriod = EFTU_TOM_1_0->Channel[CDD_PWM_WAVE_CARRIER_CHANNEL].CH_CM0;
-    bCommonBoundaryArmRequired = (u32OldCarrierPeriod != pFrame->u32PeriodTicks) ? TRUE : FALSE;
-    Cdd_PwmWave_DisableArmNotificationLocked();
-    Cdd_PwmWave_DisableFrameUpdate();
+    return CDD_PWM_WAVE_E_HW_CONFIG;
+  }
+  if (pFrame->ePwm5State != s_tActiveFrame.ePwm5State) {
+    /* CH3 is independent of CH0. Change its state only while DTM clamps every
+     * output in ARMED_LOW; RUN Frames keep the already-applied signal level. */
+    return CDD_PWM_WAVE_E_NOT_SUPPORTED;
+  }
+  if (TRUE == s_bArmNotificationPending) {
+    return CDD_PWM_WAVE_E_BUSY;
+  }
 
+  u32OldCarrierPeriod = EFTU_TOM_1_0->Channel[CDD_PWM_WAVE_CARRIER_CHANNEL].CH_CM0;
+
+  /* A previous period Frame was armed but has not reached its common load
+   * boundary yet. Do not overwrite CH0/CH3 shadows with a second period. */
+  if ((TRUE == s_bPendingFrameValid) && (s_tPendingFrame.u32PeriodTicks != u32OldCarrierPeriod)) {
+    return CDD_PWM_WAVE_E_BUSY;
+  }
+
+  bCommonBoundaryArmRequired = (u32OldCarrierPeriod != pFrame->u32PeriodTicks) ? TRUE : FALSE;
+  if (TRUE == bCommonBoundaryArmRequired) {
+    if (EFTU_TOM_1_0->Channel[CDD_PWM_WAVE_PWM5_CHANNEL].CH_CM0 != (CDD_PWM_WAVE_PWM5_CARRIER_PERIODS * u32OldCarrierPeriod)) {
+      (void)Cdd_PwmWave_EnterFault(CDD_PWM_WAVE_FAULT_HW_CONFIG);
+      return CDD_PWM_WAVE_E_HW_CONFIG;
+    }
+
+    Cdd_PwmWave_DisableArmInterrupt();
+    Cdd_PwmWave_DisableOwnedUpdate();
     EFTU_TOM_1_0->Channel[CDD_PWM_WAVE_CARRIER_CHANNEL].CH_SR0 = pFrame->u32PeriodTicks;
     EFTU_TOM_1_0->Channel[CDD_PWM_WAVE_CARRIER_CHANNEL].CH_SR1 = pFrame->u32PeriodTicks >> 1U;
-    Cdd_PwmWave_GetPwm5TimerValues(pFrame, &u32Pwm5Cm0, &u32Pwm5Cm1);
-    EFTU_TOM_1_0->Channel[CDD_PWM_WAVE_PWM5_CHANNEL].CH_SR0 = u32Pwm5Cm0;
-    EFTU_TOM_1_0->Channel[CDD_PWM_WAVE_PWM5_CHANNEL].CH_SR1 = u32Pwm5Cm1;
-    for (u8Index = 0U; u8Index < CDD_PWM_WAVE_WINDOW_COUNT; u8Index++) {
-      EFTU_TOM_1_0->Channel[u8Index + 4U].CH_SR0 = pFrame->aWindow[u8Index].u32CmpA;
-      EFTU_TOM_1_0->Channel[u8Index + 4U].CH_SR1 = pFrame->aWindow[u8Index].u32CmpB;
-    }
-    /* DTM holds the physical outputs low while stopped; TOM always stages the run waveform. */
-    s_bPendingUsesRunSignalLevels = TRUE;
-    Cdd_PwmWave_SetShadowSignalLevels(pFrame, TRUE);
+    EFTU_TOM_1_0->Channel[CDD_PWM_WAVE_PWM5_CHANNEL].CH_SR0 = pPrepared->u32Pwm5Cm0;
+    EFTU_TOM_1_0->Channel[CDD_PWM_WAVE_PWM5_CHANNEL].CH_SR1 = pPrepared->u32Pwm5Cm1;
+    Cdd_PwmWave_WriteWindowShadows(pPrepared);
+    u32Sequence = Cdd_PwmWave_PublishPendingFrame(pFrame);
+    eResult = Cdd_PwmWave_ScheduleFrameAtCommonBoundaryLocked(u32OldCarrierPeriod, u32Sequence);
+  } else {
+    Cdd_PwmWave_DisableWindowUpdate();
+    Cdd_PwmWave_WriteWindowShadows(pPrepared);
+    u32Sequence = Cdd_PwmWave_PublishPendingFrame(pFrame);
+    Cdd_PwmWave_ArmWindowUpdate();
+    eResult = CDD_PWM_WAVE_OK;
+  }
 
-    u32Sequence = Cdd_PwmWave_NextSequence();
-    s_tPendingFrame = *pFrame;
-    s_u32PendingSequence = u32Sequence;
-    s_bPendingFrameValid = TRUE;
+  if (FALSE == bHadPending) {
+    s_u32PendingObservedSequence = 0U;
     s_u8PendingMainCycles = 0U;
-
-    if (TRUE == bCommonBoundaryArmRequired) {
-      /* Enable a one-shot CH0 CCU0 notification. The callback arms in CH3's
-       * old second carrier cycle; the following zero then loads P/2P and all
-       * CMP shadows together. */
-      eResult = Cdd_PwmWave_ScheduleFrameAtCommonBoundaryLocked(u32OldCarrierPeriod, u32Sequence);
-    } else {
-      /* With no carrier-period change, each channel can load at its normal
-       * zero without disturbing the existing CH0/CH3 phase relation. */
-      Cdd_PwmWave_ArmFrameUpdate();
-      eResult = CDD_PWM_WAVE_OK;
-    }
-
-    if ((CDD_PWM_WAVE_OK == eResult) && (NULL_PTR != pSequence)) {
-      *pSequence = u32Sequence;
-    }
+  }
+  if ((CDD_PWM_WAVE_OK == eResult) && (NULL_PTR != pSequence)) {
+    *pSequence = u32Sequence;
   }
 
   return eResult;
 }
 
+static Cdd_PwmWave_ResultType Cdd_PwmWave_SubmitArmedLowFrameLocked(const Cdd_PwmWave_FrameType *pFrame,
+                                                                   const Cdd_PwmWave_PreparedFrameType *pPrepared,
+                                                                   Cdd_PwmWave_SequenceType *pSequence)
+{
+  Cdd_PwmWave_ResultType eResult;
+  Cdd_PwmWave_SequenceType u32Sequence;
+  uint32 u32OldCarrierPeriod;
+  boolean bCommonBoundaryArmRequired;
+
+  Cdd_PwmWave_RefreshPending();
+  if (TRUE == s_bPendingFrameValid) {
+    return CDD_PWM_WAVE_E_BUSY;
+  }
+  if (FALSE == Cdd_PwmWave_IsCarrierBoundaryTriggerSelected()) {
+    return CDD_PWM_WAVE_E_HW_CONFIG;
+  }
+
+  /* ARMED_LOW keeps TOM counting while DTM clamps the physical pads. Stage a
+   * complete run Frame and preserve CH0/CH3 phase for the later Start. */
+  u32OldCarrierPeriod = EFTU_TOM_1_0->Channel[CDD_PWM_WAVE_CARRIER_CHANNEL].CH_CM0;
+  bCommonBoundaryArmRequired = (u32OldCarrierPeriod != pFrame->u32PeriodTicks) ? TRUE : FALSE;
+  Cdd_PwmWave_DisableArmInterrupt();
+  Cdd_PwmWave_DisableFrameUpdate();
+  EFTU_TOM_1_0->Channel[CDD_PWM_WAVE_CARRIER_CHANNEL].CH_SR0 = pFrame->u32PeriodTicks;
+  EFTU_TOM_1_0->Channel[CDD_PWM_WAVE_CARRIER_CHANNEL].CH_SR1 = pFrame->u32PeriodTicks >> 1U;
+  EFTU_TOM_1_0->Channel[CDD_PWM_WAVE_PWM5_CHANNEL].CH_SR0 = pPrepared->u32Pwm5Cm0;
+  EFTU_TOM_1_0->Channel[CDD_PWM_WAVE_PWM5_CHANNEL].CH_SR1 = pPrepared->u32Pwm5Cm1;
+  Cdd_PwmWave_WriteWindowShadows(pPrepared);
+  Cdd_PwmWave_SetShadowSignalLevels(pFrame, TRUE);
+
+  u32Sequence = Cdd_PwmWave_PublishPendingFrame(pFrame);
+  s_u32PendingObservedSequence = 0U;
+  s_u8PendingMainCycles = 0U;
+  if (TRUE == bCommonBoundaryArmRequired) {
+    eResult = Cdd_PwmWave_ScheduleFrameAtCommonBoundaryLocked(u32OldCarrierPeriod, u32Sequence);
+  } else {
+    Cdd_PwmWave_ArmFrameUpdate();
+    eResult = CDD_PWM_WAVE_OK;
+  }
+
+  if ((CDD_PWM_WAVE_OK == eResult) && (NULL_PTR != pSequence)) {
+    *pSequence = u32Sequence;
+  }
+  return eResult;
+}
+
+static Cdd_PwmWave_ResultType Cdd_PwmWave_SubmitFrameLocked(const Cdd_PwmWave_FrameType *pFrame,
+                                                            const Cdd_PwmWave_PreparedFrameType *pPrepared,
+                                                            Cdd_PwmWave_SequenceType *pSequence)
+{
+  if (TRUE == s_bFaultLatched) {
+    return CDD_PWM_WAVE_E_FAULT_ACTIVE;
+  }
+  if (TRUE == s_bStartPending) {
+    return CDD_PWM_WAVE_E_BUSY;
+  }
+  if (CDD_PWM_WAVE_STATE_RUN == s_eState) {
+    return Cdd_PwmWave_SubmitRunFrameFastLocked(pFrame, pPrepared, pSequence);
+  }
+  if (CDD_PWM_WAVE_STATE_ARMED_LOW == s_eState) {
+    return Cdd_PwmWave_SubmitArmedLowFrameLocked(pFrame, pPrepared, pSequence);
+  }
+  return CDD_PWM_WAVE_E_STATE;
+}
+
 Cdd_PwmWave_ResultType Cdd_PwmWave_SubmitFrame(const Cdd_PwmWave_FrameType *pFrame, Cdd_PwmWave_SequenceType *pSequence)
 {
   Cdd_PwmWave_FrameType tFrameSnapshot;
+  Cdd_PwmWave_PreparedFrameType tPreparedFrame;
   Cdd_PwmWave_ResultType eResult;
 
   if (NULL_PTR == pFrame) {
     return CDD_PWM_WAVE_E_PARAM_POINTER;
   }
   tFrameSnapshot = *pFrame;
-  eResult = Cdd_PwmWave_ValidateFrame(&tFrameSnapshot);
+  eResult = Cdd_PwmWave_ValidateAndPrepareFrame(&tFrameSnapshot, &tPreparedFrame);
   if (CDD_PWM_WAVE_OK != eResult) {
     return eResult;
   }
@@ -1570,70 +1781,8 @@ Cdd_PwmWave_ResultType Cdd_PwmWave_SubmitFrame(const Cdd_PwmWave_FrameType *pFra
   if (FALSE == s_bInitialized) {
     return CDD_PWM_WAVE_E_UNINIT;
   }
-
   SchM_Enter_Pwm_PWM_EXCLUSIVE_AREA_19();
-  eResult = Cdd_PwmWave_SubmitFrameLocked(&tFrameSnapshot, pSequence);
-  SchM_Exit_Pwm_PWM_EXCLUSIVE_AREA_19();
-
-  return eResult;
-}
-
-Cdd_PwmWave_ResultType Cdd_PwmWave_SubmitPeriodChange(uint32 u32NewPeriodTicks, Cdd_PwmWave_SequenceType *pSequence)
-{
-  Cdd_PwmWave_FrameType tCandidate;
-  Cdd_PwmWave_ResultType eResult = CDD_PWM_WAVE_OK;
-  boolean bScaleAll = FALSE;
-  uint32 u32OldPeriod;
-  uint8 u8Index;
-
-  if ((u32NewPeriodTicks < CDD_PWM_WAVE_MIN_PERIOD_TICKS) || (u32NewPeriodTicks > CDD_PWM_WAVE_MAX_PERIOD_TICKS)) {
-    return CDD_PWM_WAVE_E_PERIOD;
-  }
-  if (FALSE == Cdd_PwmWave_IsCore0()) {
-    return CDD_PWM_WAVE_E_WRONG_CORE;
-  }
-  if (FALSE == s_bInitialized) {
-    return CDD_PWM_WAVE_E_UNINIT;
-  }
-
-  SchM_Enter_Pwm_PWM_EXCLUSIVE_AREA_19();
-  Cdd_PwmWave_RefreshPending();
-  if (TRUE == s_bFaultLatched) {
-    eResult = CDD_PWM_WAVE_E_FAULT_ACTIVE;
-  } else if (TRUE == s_bStartPending) {
-    eResult = CDD_PWM_WAVE_E_BUSY;
-  } else if ((CDD_PWM_WAVE_STATE_ARMED_LOW != s_eState) && (CDD_PWM_WAVE_STATE_RUN != s_eState)) {
-    eResult = CDD_PWM_WAVE_E_STATE;
-  } else if (TRUE == s_bPendingFrameValid) {
-    eResult = CDD_PWM_WAVE_E_BUSY;
-  } else if (FALSE == s_bActiveFrameValid) {
-    eResult = CDD_PWM_WAVE_E_NO_FRAME;
-  } else {
-    tCandidate = s_tActiveFrame;
-    u32OldPeriod = tCandidate.u32PeriodTicks;
-    for (u8Index = 0U; u8Index < CDD_PWM_WAVE_WINDOW_COUNT; u8Index++) {
-      if ((tCandidate.aWindow[u8Index].u32CmpA >= u32NewPeriodTicks) || (tCandidate.aWindow[u8Index].u32CmpB >= u32NewPeriodTicks)) {
-        bScaleAll = TRUE;
-        break;
-      }
-    }
-
-    if (TRUE == bScaleAll) {
-      for (u8Index = 0U; u8Index < CDD_PWM_WAVE_WINDOW_COUNT; u8Index++) {
-        tCandidate.aWindow[u8Index].u32CmpA = (uint32)(((uint64)tCandidate.aWindow[u8Index].u32CmpA * u32NewPeriodTicks) / u32OldPeriod);
-        tCandidate.aWindow[u8Index].u32CmpB = (uint32)(((uint64)tCandidate.aWindow[u8Index].u32CmpB * u32NewPeriodTicks) / u32OldPeriod);
-      }
-    }
-    /* Preserve PWM5 state; its 2*P/P timer values move with CH0 at the next
-     * common CH0/CH3 zero. */
-    tCandidate.u32PeriodTicks = u32NewPeriodTicks;
-
-    eResult = Cdd_PwmWave_ValidateFrame(&tCandidate);
-    if (CDD_PWM_WAVE_OK == eResult) {
-      /* Keep the active-frame snapshot, scaling and arm in one transaction. */
-      eResult = Cdd_PwmWave_SubmitFrameLocked(&tCandidate, pSequence);
-    }
-  }
+  eResult = Cdd_PwmWave_SubmitFrameLocked(&tFrameSnapshot, &tPreparedFrame, pSequence);
   SchM_Exit_Pwm_PWM_EXCLUSIVE_AREA_19();
 
   return eResult;
@@ -1701,7 +1850,7 @@ Cdd_PwmWave_ResultType Cdd_PwmWave_Start(void)
   } else {
     s_bStartPending = TRUE;
     bRequirePwm5Activity = (CDD_PWM_WAVE_PWM5_LOW != s_tActiveFrame.ePwm5State) ? TRUE : FALSE;
-    bRequirePwm5LowActivity = (CDD_PWM_WAVE_PWM5_TEST_TOGGLE == s_tActiveFrame.ePwm5State) ? TRUE : FALSE;
+    bRequirePwm5LowActivity = (CDD_PWM_WAVE_PWM5_TOGGLE == s_tActiveFrame.ePwm5State) ? TRUE : FALSE;
     u8RequiredVerifyWraps = Cdd_PwmWave_GetStartVerifyWraps(&s_tActiveFrame);
 
     if (FALSE == Cdd_PwmWave_SetRunRequest(TRUE)) {
@@ -1740,6 +1889,8 @@ Cdd_PwmWave_ResultType Cdd_PwmWave_Stop(void)
 {
   Cdd_PwmWave_ResultType eResult = CDD_PWM_WAVE_OK;
   boolean bBoundaryTimingElapsed = FALSE;
+  boolean bPendingDrainRequired;
+  boolean bPendingDrainElapsed = TRUE;
 
   if (FALSE == Cdd_PwmWave_IsCore0()) {
     return CDD_PWM_WAVE_E_WRONG_CORE;
@@ -1748,10 +1899,24 @@ Cdd_PwmWave_ResultType Cdd_PwmWave_Stop(void)
     return CDD_PWM_WAVE_E_UNINIT;
   }
 
+  /* The lifecycle owner must stop producing Frames before Stop. Drain the one
+   * in-flight shadow update here so a normal Stop does not fail randomly when
+   * it lands within the final carrier period. */
+  SchM_Enter_Pwm_PWM_EXCLUSIVE_AREA_19();
+  Cdd_PwmWave_RefreshPending();
+  bPendingDrainRequired = s_bPendingFrameValid;
+  SchM_Exit_Pwm_PWM_EXCLUSIVE_AREA_19();
+  if (TRUE == bPendingDrainRequired) {
+    bPendingDrainElapsed = Cdd_PwmWave_WaitForCarrierWraps(CDD_PWM_WAVE_START_VERIFY_WRAPS);
+  }
+
   SchM_Enter_Pwm_PWM_EXCLUSIVE_AREA_19();
   Cdd_PwmWave_RefreshPending();
   if (TRUE == s_bFaultLatched) {
     eResult = CDD_PWM_WAVE_E_FAULT_ACTIVE;
+  } else if ((TRUE == bPendingDrainRequired) && (FALSE == bPendingDrainElapsed) && (TRUE == s_bPendingFrameValid)) {
+    (void)Cdd_PwmWave_EnterFault(CDD_PWM_WAVE_FAULT_HW_TIMEOUT);
+    eResult = CDD_PWM_WAVE_E_HW_TIMEOUT;
   } else if (TRUE == s_bStartPending) {
     eResult = CDD_PWM_WAVE_E_BUSY;
   } else if (CDD_PWM_WAVE_STATE_RUN != s_eState) {
@@ -1901,6 +2066,8 @@ Cdd_PwmWave_ResultType Cdd_PwmWave_ClearFault(void)
       s_bFaultLatched = FALSE;
       s_u32PendingSequence = 0U;
       s_u32ActiveSequence = 0U;
+      s_u32PendingObservedSequence = 0U;
+      Cdd_PwmWave_ClearPreviousPendingFrame();
       s_u32FaultFlags = 0U;
       s_u8PendingMainCycles = 0U;
       s_eState = CDD_PWM_WAVE_STATE_ARMED_LOW;
@@ -2036,17 +2203,73 @@ boolean Cdd_PwmWave_IsFaultLatched(void)
 
 void Cdd_PwmWave_MainFunction(void)
 {
+  Cdd_PwmWave_FrameType tPendingFrameSnapshot;
+  Cdd_PwmWave_FrameType tPreviousPendingFrameSnapshot;
+  Cdd_PwmWave_SequenceType u32PendingSequenceSnapshot = 0U;
+  Cdd_PwmWave_SequenceType u32PreviousPendingSequenceSnapshot = 0U;
+  boolean bPendingUsesRunSignalLevelsSnapshot = FALSE;
+  boolean bPreviousPendingUsesRunSignalLevelsSnapshot = FALSE;
+  boolean bPendingSnapshotValid = FALSE;
+  boolean bPreviousPendingSnapshotValid = FALSE;
+  boolean bFrameApplied = FALSE;
+  boolean bPreviousFrameApplied = FALSE;
+
   if ((FALSE == Cdd_PwmWave_IsCore0()) || (FALSE == s_bInitialized)) {
     return;
   }
 
+  /* Keep the slow hardware readback out of the global interrupt mask. The
+   * sequence token makes a concurrently superseded 20 us Frame harmless. */
   SchM_Enter_Pwm_PWM_EXCLUSIVE_AREA_19();
-  Cdd_PwmWave_RefreshPending();
   if (TRUE == s_bPendingFrameValid) {
-    s_u8PendingMainCycles++;
-    if (s_u8PendingMainCycles >= CDD_PWM_WAVE_PENDING_MAX_MAIN_CYCLES) {
-      Cdd_PwmWave_EnterFault(CDD_PWM_WAVE_FAULT_HW_TIMEOUT);
+    tPendingFrameSnapshot = s_tPendingFrame;
+    u32PendingSequenceSnapshot = s_u32PendingSequence;
+    bPendingUsesRunSignalLevelsSnapshot = s_bPendingUsesRunSignalLevels;
+    bPendingSnapshotValid = TRUE;
+    if (TRUE == s_bPreviousPendingFrameValid) {
+      tPreviousPendingFrameSnapshot = s_tPreviousPendingFrame;
+      u32PreviousPendingSequenceSnapshot = s_u32PreviousPendingSequence;
+      bPreviousPendingUsesRunSignalLevelsSnapshot = s_bPreviousPendingUsesRunSignalLevels;
+      bPreviousPendingSnapshotValid = TRUE;
     }
+  }
+  SchM_Exit_Pwm_PWM_EXCLUSIVE_AREA_19();
+
+  if (TRUE == bPendingSnapshotValid) {
+    /* Check the predecessor first. If a carrier boundary occurs between the
+     * two scans, the later latest-Frame scan observes the monotonic transition. */
+    if (TRUE == bPreviousPendingSnapshotValid) {
+      bPreviousFrameApplied =
+          Cdd_PwmWave_IsFrameApplied(&tPreviousPendingFrameSnapshot, bPreviousPendingUsesRunSignalLevelsSnapshot);
+    }
+    bFrameApplied = Cdd_PwmWave_IsFrameApplied(&tPendingFrameSnapshot, bPendingUsesRunSignalLevelsSnapshot);
+  }
+
+  SchM_Enter_Pwm_PWM_EXCLUSIVE_AREA_19();
+  if ((TRUE == bPendingSnapshotValid) && (TRUE == s_bPendingFrameValid) && (u32PendingSequenceSnapshot == s_u32PendingSequence) &&
+      (((FALSE == bPreviousPendingSnapshotValid) && (FALSE == s_bPreviousPendingFrameValid)) ||
+       ((TRUE == bPreviousPendingSnapshotValid) && (TRUE == s_bPreviousPendingFrameValid) &&
+        (u32PreviousPendingSequenceSnapshot == s_u32PreviousPendingSequence)))) {
+    if (TRUE == bFrameApplied) {
+      Cdd_PwmWave_PromotePendingFrameLocked(&tPendingFrameSnapshot, u32PendingSequenceSnapshot);
+    } else {
+      /* With one producer call per 20 us and a <=7.69 us carrier, working
+       * hardware can be at the latest Frame or its immediate predecessor.
+       * A newly observed predecessor is best-effort progress evidence without
+       * hiding a persistent content mismatch behind changing sequence numbers. */
+      if ((TRUE == bPreviousFrameApplied) && (s_u32PendingObservedSequence != u32PreviousPendingSequenceSnapshot)) {
+        s_u32PendingObservedSequence = u32PreviousPendingSequenceSnapshot;
+        s_u8PendingMainCycles = 0U;
+      } else if (s_u8PendingMainCycles < 0xFFU) {
+        s_u8PendingMainCycles++;
+      }
+      if (s_u8PendingMainCycles >= CDD_PWM_WAVE_PENDING_MAX_MAIN_CYCLES) {
+        Cdd_PwmWave_EnterFault(CDD_PWM_WAVE_FAULT_HW_TIMEOUT);
+      }
+    }
+  } else if (FALSE == s_bPendingFrameValid) {
+    s_u32PendingObservedSequence = 0U;
+    s_u8PendingMainCycles = 0U;
   }
   SchM_Exit_Pwm_PWM_EXCLUSIVE_AREA_19();
 }
@@ -2054,63 +2277,18 @@ void Cdd_PwmWave_MainFunction(void)
 
 /************ Interrupt Map *******************/
 #if defined(PWM_EFTU_1_TOM_0_ISR_USED)
-extern ISR(PWM_EFTU1_TOM_0_7_ISR);
 void EFTU1_TOM_0_7_IRQHandler(void)
 {
-  // Note: DMA0, DMA Error, FCIIC1, and FCSPI3 have priority 0.
-  // IRQ172 must remain at the highest priority and can only be
-  // triggered by CH0 CCU0.
-
-  Cdd_PwmWave_ArmWindowCheckType tArmWindowCheck = {0U};
-  boolean bArmWindowValid;
-  uint32 u32CarrierCounter;
-  uint32 u32Pwm5Counter;
-
-  EFTU_TOM_1_0->Channel[CDD_PWM_WAVE_CARRIER_CHANNEL].CH_IRQ_ST = EFTU_TOM_CHn_IRQ_ST_CCU0TC_MASK;
-
-  if (TRUE == s_bArmNotificationPending) {
-    u32Pwm5Counter = EFTU_TOM_1_0->Channel[CDD_PWM_WAVE_PWM5_CHANNEL].CH_CN0 & EFTU_TOM_CHn_CN0_CN0_MASK;
-    u32CarrierCounter = EFTU_TOM_1_0->Channel[CDD_PWM_WAVE_CARRIER_CHANNEL].CH_CN0 & EFTU_TOM_CHn_CN0_CN0_MASK;
-    if (u32Pwm5Counter > u32CarrierCounter) {
-      Cdd_PwmWave_ArmFrameUpdate();
-      Cdd_PwmWave_DisableArmNotificationLocked();
+  /* IRQ172 is dedicated to CH0 CCU0. The fast handler acknowledges before
+   * phase checking and disables the one-shot source after a successful arm. */
+  if (FALSE == Cdd_PwmWave_TryHandleCarrierBoundaryInterrupt()) {
+    if ((TRUE == s_bArmNotificationPending) && (FALSE == Cdd_PwmWave_IsArmNotificationHwEnabled())) {
+      (void)Cdd_PwmWave_EnterFault(CDD_PWM_WAVE_FAULT_HW_CONFIG);
+    } else {
+      EFTU_TOM_1_0->Channel[CDD_PWM_WAVE_CARRIER_CHANNEL].CH_IRQ_ST = CDD_PWM_WAVE_IRQ_STATUS_MASK;
+      CDD_PWM_WAVE_REG32(CDD_PWM_WAVE_NVIC_ICPR5_ADDRESS) = CDD_PWM_WAVE_IRQ172_PENDING_MASK;
+      MCAL_DATA_SYNC_BARRIER();
     }
-  } else {
-    Cdd_PwmWave_DisableArmNotificationLocked();
-  }
-
-  // if (FALSE == s_bArmNotificationPending) {
-  //   Cdd_PwmWave_DisableArmNotificationLocked();
-  // } else if (TRUE == s_bFaultLatched) {
-  //   Cdd_PwmWave_DisableArmNotificationLocked();
-// } else if ((FALSE == s_bPendingFrameValid) || (s_u32ArmSequence != s_u32PendingSequence) ||
-//            ((CDD_PWM_WAVE_STATE_ARMED_LOW != s_eState) && (CDD_PWM_WAVE_STATE_RUN != s_eState)) ||
-//            (FALSE == Cdd_PwmWave_IsCarrierBoundaryTriggerSelected()) ||
-//            (EFTU_TOM_1_0->Channel[CDD_PWM_WAVE_CARRIER_CHANNEL].CH_CM0 != s_u32ArmOldCarrierPeriod) ||
-//            (EFTU_TOM_1_0->Channel[CDD_PWM_WAVE_PWM5_CHANNEL].CH_CM0 != (CDD_PWM_WAVE_PWM5_CARRIER_PERIODS * s_u32ArmOldCarrierPeriod)) ||
-//            ((EFTU_TOM_1_0->Channel[CDD_PWM_WAVE_PWM5_CHANNEL].CH_CTRL & EFTU_TOM_CHn_CTRL_RST_CCU0_MASK) != 0U)) {
-//   (void)Cdd_PwmWave_EnterFault(CDD_PWM_WAVE_FAULT_HW_CONFIG);
-  // } else {
-  //   s_u8ArmInterruptCount++;
-  //   bArmWindowValid = Cdd_PwmWave_CheckPwm5CommonBoundaryArmWindow(s_u32ArmOldCarrierPeriod, &tArmWindowCheck);
-  //   if (TRUE == bArmWindowValid) {
-  //     Cdd_PwmWave_ArmFrameUpdate();
-  //     Cdd_PwmWave_DisableArmNotificationLocked();
-  //   } else {
-  //     if (tArmWindowCheck.u32Pwm5Counter >= s_u32ArmOldCarrierPeriod) {
-  //       s_u8ArmWindowMissCount++;
-  //     }
-  //     if ((s_u8ArmWindowMissCount >= CDD_PWM_WAVE_ARM_IRQ_MAX_WINDOW_MISSES) || (s_u8ArmInterruptCount >= CDD_PWM_WAVE_ARM_IRQ_MAX_EVENTS)) {
-  //       (void)Cdd_PwmWave_EnterFault(CDD_PWM_WAVE_FAULT_HW_TIMEOUT);
-  //     }
-  //   }
-  // }
-
-  /* Discard one CH0 CCU0 event accumulated while IRQ172 was active so the
-   * exception return does not immediately tail-chain back into this ISR. */
-  if ((CDD_PWM_WAVE_REG32(CDD_PWM_WAVE_NVIC_ISPR5_ADDRESS) & CDD_PWM_WAVE_IRQ172_PENDING_MASK) != 0U) {
-    EFTU_TOM_1_0->Channel[CDD_PWM_WAVE_CARRIER_CHANNEL].CH_IRQ_ST = EFTU_TOM_CHn_IRQ_ST_CCU0TC_MASK;
-    CDD_PWM_WAVE_REG32(CDD_PWM_WAVE_NVIC_ICPR5_ADDRESS) = CDD_PWM_WAVE_IRQ172_PENDING_MASK;
   }
 
   EXIT_INTERRUPT();

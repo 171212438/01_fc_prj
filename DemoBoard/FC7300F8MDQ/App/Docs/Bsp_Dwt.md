@@ -1,6 +1,6 @@
 # Bsp_Dwt
 
-`Bsp_Dwt` 是基于每个 Cortex-M7 Core 私有 DWT `CYCCNT` 的短区间运行耗时测量工具。它不在启动期自动使能，使用方应在当前 Core 的 `Bsp_Mcu_Init()` 完成后显式调用 `Bsp_Dwt_Init()`，再用强制内联的 `Bsp_Dwt_MeasureStart()` 和 `Bsp_Dwt_MeasureElapsedCycles()` 包住目标代码。原始 `cycles` 是权威结果；纳秒值依赖调用者传入的实际 Core 时钟。
+`Bsp_Dwt` 是基于每个 Cortex-M7 Core 私有 DWT `CYCCNT` 的短区间运行耗时测量工具。它不在启动期自动使能，使用方应在当前 Core 的 `Bsp_Mcu_Init()` 完成后显式调用 `Bsp_Dwt_Init()`，再用强制内联的 `Bsp_Dwt_MeasureStart()` 和 `Bsp_Dwt_MeasureElapsedCycles()` 包住目标代码。当前 `Bsp_Adc_WaitForFirstCaptureBlock()` 用它实施 Core0 的 0.5 ms 首块超时门禁，并在退出前关闭计数器。原始 `cycles` 是权威结果；纳秒值依赖调用者传入的实际 Core 时钟。
 
 当前配置交叉验证结果为 Core `300 MHz`、Bus `150 MHz`：`Mcu.xdm` 的 `McuCoreClockFrequency` 和 `McuClockReferencePoint_Sys` 均为 `3.0E8`，生成的 `Mcu_PBcfg.c` 使用 PLL0 且 Core Divider 为 1。因此当前配置下 1 cycle 约为 `3.333 ns`，32 位计数器约每 `14.3166 s` 回绕一次。若 EB 时钟配置改变，必须传入新的实际 Core 时钟；测量窗口内若发生动态调频，单一频率不能准确换算时间。
 
@@ -45,7 +45,7 @@ FC7300F8MDQ Errata V0.5 原 PDF 第 10 页的 `ERR_Debug_3514112` 是硬边界�
 
 当前源码中的直接调用场景如下：
 
-1. 当前工作树尚无业务调用点；使用方应在对应 Core 的 `Bsp_Mcu_Init()` 完成后显式调用，并检查返回值后再测量。
+1. `Bsp_Adc_WaitForFirstCaptureBlock()` 在 Core0 的 MCU、ADC 和 DMA 初始化完成后调用本函数；只有返回 `TRUE` 才开始首个完整采样块的 0.5 ms 超时计时。
 
 ```c
 boolean Bsp_Dwt_Init(void)
@@ -88,7 +88,7 @@ boolean Bsp_Dwt_Init(void)
 
 当前源码中的直接调用场景如下：
 
-1. 当前工作树尚无直接调用点；完成测量或主动复位前由使用方显式调用。
+1. `Bsp_Adc_WaitForFirstCaptureBlock()` 在首块确认成功、状态异常或 0.5 ms 超时后都调用本函数，确保启动门禁不长期占用 CYCCNT。
 
 ```c
 void Bsp_Dwt_DeInit(void)
@@ -177,6 +177,7 @@ uint64 Bsp_Dwt_CyclesToNanoseconds(uint32 u32Cycles, uint32 u32CoreClockHz)
 
 1. `Bsp_Dwt_Init()` 用它取得运行检查窗口的起点。
 2. `Bsp_Dwt_CalibrateOverheadCycles()` 每个空窗口调用一次，形成与正式测量一致的起点开销。
+3. `Bsp_Adc_WaitForFirstCaptureBlock()` 用它取得首块确认超时窗口的起点。
 
 ```c
 LOCAL_INLINE uint32 Bsp_Dwt_MeasureStart(void)
@@ -205,6 +206,7 @@ LOCAL_INLINE uint32 Bsp_Dwt_MeasureStart(void)
 
 1. `Bsp_Dwt_Init()` 用它确认计数器实际递增。
 2. `Bsp_Dwt_CalibrateOverheadCycles()` 用它结束每个空校准窗口。
+3. `Bsp_Adc_WaitForFirstCaptureBlock()` 在每轮状态检查后用它判断是否达到 0.5 ms 启动门限。
 
 ```c
 LOCAL_INLINE uint32 Bsp_Dwt_MeasureElapsedCycles(uint32 u32StartCycles)

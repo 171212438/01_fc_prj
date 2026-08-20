@@ -19,10 +19,17 @@ typedef struct {
     uint32 u32ConsumedBlockCount;
     uint32 u32ConsumerErrorCount;
     boolean bLatestSnapshotValid;
+    boolean bCaptureFaultLatched;
 } Bsp_Adc_CaptureConsumerStatusType;
 
 /************ Global functions *******************/
-void Bsp_Adc_Init(void);
+/* Core0 only. E_OK means both HSADC result buffers and hardware triggers are armed. */
+Std_ReturnType Bsp_Adc_Init(void);
+/* Blocks for at most 0.5 ms at the configured 300 MHz Core clock. */
+Std_ReturnType Bsp_Adc_WaitForFirstCaptureBlock(void);
+/* Call after requesting PWM safe shutdown and stopping DMA capture. */
+Std_ReturnType Bsp_Adc_DisarmHardwareTriggers(void);
+/* Core0 runtime supervisor: fail-safe capture faults and finish ADC disarming. */
 void Bsp_Adc_20ms_Task_Event(void);
 void Bsp_Adc_1s_Task_Event(void);
 

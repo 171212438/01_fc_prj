@@ -194,36 +194,24 @@ DMA_DATA_SECTION uint8 Dma_au8DumoUsedStatus[DMA_INSTANCE_COUNT][DMA_DUMO_COUNT]
  * */
 LOCAL_INLINE Std_ReturnType Dma_ValidateGlobalCall(uint8 u8PartitionId, uint8 u8ServiceId)
 {
-    VAR(Std_ReturnType, AUTOMATIC) valid = (Std_ReturnType)E_OK;
+  VAR(Std_ReturnType, AUTOMATIC) valid = (Std_ReturnType)E_OK;
 
-    if (DMA_INIT_ID_U8 == u8ServiceId) /* If caller is the initialization function, ok */
-    {
-        if (Dma_DriverStatus[u8PartitionId] == DMA_INITIALIZED)
-        {
-            valid = (Std_ReturnType)E_NOT_OK;
-            (void)Det_ReportError((uint16)DMA_MODULE_ID,
-                                  (uint8)DMA_INDEX(u8PartitionId),
-                                  (uint8)u8ServiceId,
-                                  DMA_E_ALREADY_INITIALIZED_U8);
-        }
+  if (DMA_INIT_ID_U8 == u8ServiceId) /* If caller is the initialization function, ok */
+  {
+    if (Dma_DriverStatus[u8PartitionId] == DMA_INITIALIZED) {
+      valid = (Std_ReturnType)E_NOT_OK;
+      (void)Det_ReportError((uint16)DMA_MODULE_ID, (uint8)DMA_INDEX(u8PartitionId), (uint8)u8ServiceId, DMA_E_ALREADY_INITIALIZED_U8);
     }
-    else if (DMA_DEINIT_ID_U8 == u8ServiceId)
-    {
-        if (Dma_DriverStatus[u8PartitionId] != DMA_INITIALIZED)
-        {
-            valid = (Std_ReturnType)E_NOT_OK;
-            (void)Det_ReportError((uint16)DMA_MODULE_ID,
-                                  (uint8)DMA_INDEX(u8PartitionId),
-                                  (uint8)u8ServiceId,
-                                  DMA_E_UNINIT_U8);
-        }
+  } else if (DMA_DEINIT_ID_U8 == u8ServiceId) {
+    if (Dma_DriverStatus[u8PartitionId] != DMA_INITIALIZED) {
+      valid = (Std_ReturnType)E_NOT_OK;
+      (void)Det_ReportError((uint16)DMA_MODULE_ID, (uint8)DMA_INDEX(u8PartitionId), (uint8)u8ServiceId, DMA_E_UNINIT_U8);
     }
-    else
-    {
-        /* todo */
-    }
+  } else {
+    /* todo */
+  }
 
-    return valid;
+  return valid;
 }
 
 /**
@@ -240,54 +228,31 @@ LOCAL_INLINE Std_ReturnType Dma_ValidateGlobalCall(uint8 u8PartitionId, uint8 u8
  * */
 LOCAL_INLINE Std_ReturnType Dma_ValidatePtrInit(uint8 u8PartitionId, const Dma_ConfigType *pConfigPtr)
 {
-    VAR(Std_ReturnType, AUTOMATIC) valid = (Std_ReturnType)E_OK;
+  VAR(Std_ReturnType, AUTOMATIC) valid = (Std_ReturnType)E_OK;
 
-#if (DMA_PRECOMPILE_SUPPORT == STD_OFF)
-    if ((u8PartitionId >= DMA_ECUC_PARTITIONS_MAX) ||
-        (FALSE == pConfigPtr->DmaPartitionsUsed[u8PartitionId]))
-    {
-        valid = (Std_ReturnType)E_NOT_OK;
-        (void)Det_ReportError((uint16)DMA_MODULE_ID,
-                              (uint8)DMA_INDEX(u8PartitionId),
-                              (uint8)DMA_INIT_ID_U8,
-                              (uint8)DMA_E_PARTITION_MAPPING);
+  #if (DMA_PRECOMPILE_SUPPORT == STD_OFF)
+  if ((u8PartitionId >= DMA_ECUC_PARTITIONS_MAX) || (FALSE == pConfigPtr->DmaPartitionsUsed[u8PartitionId])) {
+    valid = (Std_ReturnType)E_NOT_OK;
+    (void)Det_ReportError((uint16)DMA_MODULE_ID, (uint8)DMA_INDEX(u8PartitionId), (uint8)DMA_INIT_ID_U8, (uint8)DMA_E_PARTITION_MAPPING);
+  } else if (NULL_PTR == pConfigPtr) {
+    valid = (Std_ReturnType)E_NOT_OK;
+    (void)Det_ReportError((uint16)DMA_MODULE_ID, (uint8)DMA_INDEX(u8PartitionId), (uint8)DMA_INIT_ID_U8, (uint8)DMA_E_INIT_FAILED_U8);
+  } else {
+    /* do nothing */
+  }
+  #elif (DMA_PRECOMPILE_SUPPORT == STD_ON)
+  if ((u8PartitionId >= (uint8)DMA_ECUC_PARTITIONS_MAX) || ((boolean)FALSE == Dma_Config.DmaPartitionsUsed[u8PartitionId])) {
+    valid = (Std_ReturnType)E_NOT_OK;
+    (void)Det_ReportError((uint16)DMA_MODULE_ID, (uint8)u8PartitionId, (uint8)DMA_INIT_ID_U8, (uint8)DMA_E_PARTITION_MAPPING);
+  } else {
+    if (NULL_PTR != pConfigPtr) {
+      valid = (Std_ReturnType)E_NOT_OK;
+      (void)Det_ReportError((uint16)DMA_MODULE_ID, (uint8)DMA_INDEX(u8PartitionId), (uint8)DMA_INIT_ID_U8, (uint8)DMA_E_INIT_FAILED_U8);
     }
-    else if (NULL_PTR == pConfigPtr)
-    {
-        valid = (Std_ReturnType)E_NOT_OK;
-        (void)Det_ReportError((uint16)DMA_MODULE_ID,
-                              (uint8)DMA_INDEX(u8PartitionId),
-                              (uint8)DMA_INIT_ID_U8,
-                              (uint8)DMA_E_INIT_FAILED_U8);
-    }
-    else
-    {
-        /* do nothing */
-    }
-#elif (DMA_PRECOMPILE_SUPPORT == STD_ON)
-    if ((u8PartitionId >= (uint8)DMA_ECUC_PARTITIONS_MAX) ||
-        ((boolean)FALSE == Dma_Config.DmaPartitionsUsed[u8PartitionId]))
-    {
-        valid = (Std_ReturnType)E_NOT_OK;
-        (void)Det_ReportError((uint16)DMA_MODULE_ID,
-                              (uint8)u8PartitionId,
-                              (uint8)DMA_INIT_ID_U8,
-                              (uint8)DMA_E_PARTITION_MAPPING);
-    }
-    else
-    {
-        if (NULL_PTR != pConfigPtr)
-        {
-            valid = (Std_ReturnType)E_NOT_OK;
-            (void)Det_ReportError((uint16)DMA_MODULE_ID,
-                                  (uint8)DMA_INDEX(u8PartitionId),
-                                  (uint8)DMA_INIT_ID_U8,
-                                  (uint8)DMA_E_INIT_FAILED_U8);
-        }
-    }
-#endif
+  }
+  #endif
 
-    return valid;
+  return valid;
 }
 #endif /* (DMA_DEV_ERROR_DETECT == STD_ON) */
 
@@ -442,120 +407,86 @@ LOCAL_INLINE Std_ReturnType Dma_ValidateCommonPointer(Dma_InstanceType eDma_Inst
 */
 DMA_TEXT_SECTION void Dma_Init(const Dma_ConfigType *pConfigPtr)
 {
-    uint8            u8PartitionId = DMA_GET_CPU_ID();
-    Dma_InstanceType TargetInstance;
-#if (DMA_ECUC_PARTITIONS_MAX == 3u) || (DMA_ECUC_PARTITIONS_MAX == 4u) || \
-    ((DMA_ECUC_PARTITIONS_MAX == 2u) && (DMA_INSTANCE_COUNT == 1u))
-    uint32 u32Timeout = 15000000U;
+  uint8 u8PartitionId = DMA_GET_CPU_ID();
+  Dma_InstanceType TargetInstance;
+#if (DMA_ECUC_PARTITIONS_MAX == 3u) || (DMA_ECUC_PARTITIONS_MAX == 4u) || ((DMA_ECUC_PARTITIONS_MAX == 2u) && (DMA_INSTANCE_COUNT == 1u))
+  uint32 u32Timeout = 15000000U;
 #endif
 
 #if (DMA_DEV_ERROR_DETECT == STD_ON)
-    if ((Std_ReturnType)E_OK == Dma_ValidateGlobalCall(u8PartitionId, DMA_INIT_ID_U8))
-    {
-        if ((Std_ReturnType)E_OK == Dma_ValidatePtrInit(u8PartitionId, pConfigPtr))
-        {
+  if ((Std_ReturnType)E_OK == Dma_ValidateGlobalCall(u8PartitionId, DMA_INIT_ID_U8)) {
+    if ((Std_ReturnType)E_OK == Dma_ValidatePtrInit(u8PartitionId, pConfigPtr)) {
 #endif /* DMA_DEV_ERROR_DETECT == STD_ON */
-            TargetInstance = DMA_INDEX(u8PartitionId);
+      TargetInstance = DMA_INDEX(u8PartitionId);
 #if (DMA_PRECOMPILE_SUPPORT == STD_ON)
-            Dma_pConfig[u8PartitionId] = &Dma_Config;
-            /* PRQA S 3119 ++
-              3119:This statement has no side-effect - it can be removed..
-              REASON: Avoid warning for this unused parameters.
-            */
-            (void)pConfigPtr;
+      Dma_pConfig[u8PartitionId] = &Dma_Config;
+      /* PRQA S 3119 ++
+        3119:This statement has no side-effect - it can be removed..
+        REASON: Avoid warning for this unused parameters.
+      */
+      (void)pConfigPtr;
 /* PRQA S 3119 -- */
 #else
-    Dma_pConfig[u8PartitionId] = pConfigPtr;
+  Dma_pConfig[u8PartitionId] = pConfigPtr;
 #endif /* DMA_PRECOMPILE_SUPPORT */
 #if (DMA_ECUC_PARTITIONS_MAX == 3u)
-            if (DMA_SLAVECORE_INSTANCE1 == u8PartitionId)
-            {
-                /* Slave core must wait for master core initialized */
-                while ((Dma_DriverStatus[DMA_MASTERCORE_INSTANCE1] != DMA_INITIALIZED) &&
-                       (u32Timeout != 0U))
-                {
-                    u32Timeout--;
-                }
-            }
-            if ((uint32)0UL == u32Timeout)
-            {
-/* [SWDESG_DMA_002] */
-#if ((DMA_DEV_ERROR_DETECT == STD_ON) && (DMA_MULTICORE_ERRDETECT == STD_ON))
-                (void)Det_ReportError((uint16)DMA_MODULE_ID,
-                                      (uint8)DMA_INDEX(u8PartitionId),
-                                      (uint8)DMA_INIT_ID_U8,
-                                      (uint8)DMA_E_INIT_FAILED_U8);
-#endif
-            }
-            else
-            {
+      if (DMA_SLAVECORE_INSTANCE1 == u8PartitionId) {
+        /* Slave core must wait for master core initialized */
+        while ((Dma_DriverStatus[DMA_MASTERCORE_INSTANCE1] != DMA_INITIALIZED) && (u32Timeout != 0U)) {
+          u32Timeout--;
+        }
+      }
+      if ((uint32)0UL == u32Timeout) {
+  /* [SWDESG_DMA_002] */
+  #if ((DMA_DEV_ERROR_DETECT == STD_ON) && (DMA_MULTICORE_ERRDETECT == STD_ON))
+        (void)Det_ReportError((uint16)DMA_MODULE_ID, (uint8)DMA_INDEX(u8PartitionId), (uint8)DMA_INIT_ID_U8, (uint8)DMA_E_INIT_FAILED_U8);
+  #endif
+      } else {
 #elif (DMA_ECUC_PARTITIONS_MAX == 4u)
-    if (DMA_SLAVECORE_INSTANCE0 == u8PartitionId)
-    {
-        /* Slave core must wait for master core initialized */
-        while ((Dma_DriverStatus[DMA_MASTERCORE_INSTANCE0] != DMA_INITIALIZED) && (u32Timeout != 0U))
-        {
-            u32Timeout--;
-        }
+  if (DMA_SLAVECORE_INSTANCE0 == u8PartitionId) {
+    /* Slave core must wait for master core initialized */
+    while ((Dma_DriverStatus[DMA_MASTERCORE_INSTANCE0] != DMA_INITIALIZED) && (u32Timeout != 0U)) {
+      u32Timeout--;
     }
-    else if (DMA_SLAVECORE_INSTANCE1 == u8PartitionId)
-    {
-        /* Slave core must wait for master core initialized */
-        while ((Dma_DriverStatus[DMA_MASTERCORE_INSTANCE1] != DMA_INITIALIZED) && (u32Timeout != 0U))
-        {
-            u32Timeout--;
-        }
+  } else if (DMA_SLAVECORE_INSTANCE1 == u8PartitionId) {
+    /* Slave core must wait for master core initialized */
+    while ((Dma_DriverStatus[DMA_MASTERCORE_INSTANCE1] != DMA_INITIALIZED) && (u32Timeout != 0U)) {
+      u32Timeout--;
     }
-    else
-    {
-        /*  Nothing todo */
-    }
+  } else {
+    /*  Nothing todo */
+  }
 
-    if ((uint32)0UL == u32Timeout)
-    {
-/* [SWDESG_DMA_001] */
-#if ((DMA_DEV_ERROR_DETECT == STD_ON) && (DMA_MULTICORE_ERRDETECT == STD_ON))
-        (void)Det_ReportError((uint16)DMA_MODULE_ID,
-                              (uint8)DMA_INDEX(u8PartitionId),
-                              (uint8)DMA_INIT_ID_U8,
-                              (uint8)DMA_E_INIT_FAILED_U8);
-#endif
-    }
-    else
-    {
+  if ((uint32)0UL == u32Timeout) {
+  /* [SWDESG_DMA_001] */
+  #if ((DMA_DEV_ERROR_DETECT == STD_ON) && (DMA_MULTICORE_ERRDETECT == STD_ON))
+    (void)Det_ReportError((uint16)DMA_MODULE_ID, (uint8)DMA_INDEX(u8PartitionId), (uint8)DMA_INIT_ID_U8, (uint8)DMA_E_INIT_FAILED_U8);
+  #endif
+  } else {
 #elif ((DMA_ECUC_PARTITIONS_MAX == 2u) && (DMA_INSTANCE_COUNT == 1u))
-    if (DMA_SLAVECORE_INSTANCE0 == u8PartitionId)
-    {
-        /* Slave core must wait for master core initialized */
-        while ((Dma_DriverStatus[DMA_MASTERCORE_INSTANCE0] != DMA_INITIALIZED) && (u32Timeout != 0U))
-        {
-            u32Timeout--;
-        }
+  if (DMA_SLAVECORE_INSTANCE0 == u8PartitionId) {
+    /* Slave core must wait for master core initialized */
+    while ((Dma_DriverStatus[DMA_MASTERCORE_INSTANCE0] != DMA_INITIALIZED) && (u32Timeout != 0U)) {
+      u32Timeout--;
     }
+  }
 
-    if ((uint32)0UL == u32Timeout)
-    {
-/* [SWDESG_DMA_001] */
-#if ((DMA_DEV_ERROR_DETECT == STD_ON) && (DMA_MULTICORE_ERRDETECT == STD_ON))
-        (void)Det_ReportError((uint16)DMA_MODULE_ID,
-                              (uint8)DMA_INDEX(u8PartitionId),
-                              (uint8)DMA_INIT_ID_U8,
-                              (uint8)DMA_E_INIT_FAILED_U8);
+  if ((uint32)0UL == u32Timeout) {
+  /* [SWDESG_DMA_001] */
+  #if ((DMA_DEV_ERROR_DETECT == STD_ON) && (DMA_MULTICORE_ERRDETECT == STD_ON))
+    (void)Det_ReportError((uint16)DMA_MODULE_ID, (uint8)DMA_INDEX(u8PartitionId), (uint8)DMA_INIT_ID_U8, (uint8)DMA_E_INIT_FAILED_U8);
+  #endif
+  } else {
 #endif
-    }
-    else
-    {
-#endif
-                /* Init DMA HW module registers */
-                Dma_LLD_Init(TargetInstance, Dma_pConfig[u8PartitionId]);
-                Dma_DriverStatus[u8PartitionId] = DMA_INITIALIZED;
-#if (DMA_ECUC_PARTITIONS_MAX == 3u) || (DMA_ECUC_PARTITIONS_MAX == 4u) || \
-    ((DMA_ECUC_PARTITIONS_MAX == 2u) && (DMA_INSTANCE_COUNT == 1u))
-            }
+        /* Init DMA HW module registers */
+        Dma_LLD_Init(TargetInstance, Dma_pConfig[u8PartitionId]);
+        Dma_DriverStatus[u8PartitionId] = DMA_INITIALIZED;
+#if (DMA_ECUC_PARTITIONS_MAX == 3u) || (DMA_ECUC_PARTITIONS_MAX == 4u) || ((DMA_ECUC_PARTITIONS_MAX == 2u) && (DMA_INSTANCE_COUNT == 1u))
+      }
 #endif
 #if (DMA_DEV_ERROR_DETECT == STD_ON)
-        }
     }
+  }
 #endif /* DMA_DEV_ERROR_DETECT == STD_ON */
 }
 

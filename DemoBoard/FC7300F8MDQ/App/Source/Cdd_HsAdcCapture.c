@@ -31,6 +31,11 @@
   #error "The public queue masks support a capture queue depth in the 1..8 range"
 #endif
 
+#if ((CDD_HSADC_CAPTURE_HSADC_OVR_MASK != HSADC_INT_STATUS_OVR_MASK) || \
+     (CDD_HSADC_CAPTURE_HSADC_TRGERR_MASK != HSADC_INT_STATUS_TRGERR_MASK))
+  #error "The public HSADC diagnostic masks must match HSADC_INT_STATUS"
+#endif
+
 #define CDD_HSADC_CAPTURE_DMA_INSTANCE          DMA_INSTANCE_0
 #define CDD_HSADC_CAPTURE_HSADC0_DMA_CHANNEL    (2U)
 #define CDD_HSADC_CAPTURE_HSADC2_DMA_CHANNEL    (3U)
@@ -47,6 +52,8 @@
 #define CDD_HSADC_CAPTURE_DMA_IRQ_MASK(channel) (1UL << (channel))
 #define CDD_HSADC_CAPTURE_DMA_INTERRUPT_MASK \
   (DMA_CFG_CSR_INTHALF_MASK | DMA_CFG_CSR_INTOUTER_MASK)
+#define CDD_HSADC_CAPTURE_HSADC_ERROR_MASK \
+  (CDD_HSADC_CAPTURE_HSADC_OVR_MASK | CDD_HSADC_CAPTURE_HSADC_TRGERR_MASK)
 
 typedef enum {
   CDD_HSADC_CAPTURE_QUEUE_FREE = 0,
@@ -86,7 +93,11 @@ static volatile uint32 s_u32OverrunCount;
 static volatile uint32 s_u32UnexpectedIrqCount;
 static volatile uint32 s_u32PhaseErrorCount;
 static volatile uint32 s_u32DmaErrorCount;
+static volatile uint32 s_u32HsAdcHardwareErrorCount;
+static volatile uint32 s_u32HsAdc0ErrorStatus;
+static volatile uint32 s_u32HsAdc2ErrorStatus;
 static volatile uint8 s_u8DmaErrorChannelMask;
+static volatile boolean s_bFaultNotificationIssued;
 
 static boolean Cdd_HsAdcCapture_IsCore0(void)
 {
@@ -149,7 +160,11 @@ static void Cdd_HsAdcCapture_ResetRuntimeState(void)
   s_u32UnexpectedIrqCount = 0U;
   s_u32PhaseErrorCount = 0U;
   s_u32DmaErrorCount = 0U;
+  s_u32HsAdcHardwareErrorCount = 0U;
+  s_u32HsAdc0ErrorStatus = 0U;
+  s_u32HsAdc2ErrorStatus = 0U;
   s_u8DmaErrorChannelMask = 0U;
+  s_bFaultNotificationIssued = FALSE;
 }
 
 static Cdd_HsAdcCapture_ResultType Cdd_HsAdcCapture_WaitChannelsIdle(void)
@@ -375,6 +390,17 @@ static void Cdd_HsAdcCapture_DiscardPendingPairLocked(void)
   }
 }
 
+static void Cdd_HsAdcCapture_DiscardFillingQueuesLocked(void)
+{
+  uint8 u8QueueIndex;
+
+  for (u8QueueIndex = 0U; u8QueueIndex < CDD_HSADC_CAPTURE_QUEUE_DEPTH; u8QueueIndex++) {
+    if (s_aeQueueState[u8QueueIndex] == CDD_HSADC_CAPTURE_QUEUE_FILLING) {
+      s_aeQueueState[u8QueueIndex] = CDD_HSADC_CAPTURE_QUEUE_FREE;
+    }
+  }
+}
+
 static void Cdd_HsAdcCapture_LatchPhaseErrorLocked(void)
 {
   Cdd_HsAdcCapture_DiscardPendingPairLocked();
@@ -384,17 +410,28 @@ static void Cdd_HsAdcCapture_LatchPhaseErrorLocked(void)
   s_eState = CDD_HSADC_CAPTURE_STATE_ERROR;
 }
 
-static void Cdd_HsAdcCapture_LatchDmaError(uint8 u8ErrorChannelMask)
+static void Cdd_HsAdcCapture_NotifyFaultOnce(void)
 {
-  uint8 u8QueueIndex;
+  boolean bNotifyApplication = FALSE;
 
   SchM_Enter_Dma_DMA_EXCLUSIVE_AREA_06();
-  Cdd_HsAdcCapture_DiscardPendingPairLocked();
-  for (u8QueueIndex = 0U; u8QueueIndex < CDD_HSADC_CAPTURE_QUEUE_DEPTH; u8QueueIndex++) {
-    if (s_aeQueueState[u8QueueIndex] == CDD_HSADC_CAPTURE_QUEUE_FILLING) {
-      s_aeQueueState[u8QueueIndex] = CDD_HSADC_CAPTURE_QUEUE_FREE;
-    }
+  if ((s_eState == CDD_HSADC_CAPTURE_STATE_ERROR) &&
+      (FALSE == s_bFaultNotificationIssued)) {
+    s_bFaultNotificationIssued = TRUE;
+    bNotifyApplication = TRUE;
   }
+  SchM_Exit_Dma_DMA_EXCLUSIVE_AREA_06();
+
+  if (TRUE == bNotifyApplication) {
+    Cdd_HsAdcCapture_FaultNotification();
+  }
+}
+
+static void Cdd_HsAdcCapture_LatchDmaError(uint8 u8ErrorChannelMask)
+{
+  SchM_Enter_Dma_DMA_EXCLUSIVE_AREA_06();
+  Cdd_HsAdcCapture_DiscardPendingPairLocked();
+  Cdd_HsAdcCapture_DiscardFillingQueuesLocked();
   s_u8DmaErrorChannelMask |= u8ErrorChannelMask;
   s_u32DmaErrorCount++;
   s_eState = CDD_HSADC_CAPTURE_STATE_ERROR;
@@ -402,6 +439,74 @@ static void Cdd_HsAdcCapture_LatchDmaError(uint8 u8ErrorChannelMask)
 
   Dma_DisableHwRequest(CDD_HSADC_CAPTURE_DMA_INSTANCE, CDD_HSADC_CAPTURE_HSADC0_DMA_CHANNEL);
   Dma_DisableHwRequest(CDD_HSADC_CAPTURE_DMA_INSTANCE, CDD_HSADC_CAPTURE_HSADC2_DMA_CHANNEL);
+  Cdd_HsAdcCapture_NotifyFaultOnce();
+}
+
+static uint32 Cdd_HsAdcCapture_ReadHardwareErrorStatus(const HsAdc_Type *pHsAdc)
+{
+  return pHsAdc->INT_STATUS & CDD_HSADC_CAPTURE_HSADC_ERROR_MASK;
+}
+
+static void Cdd_HsAdcCapture_ClearHardwareErrorStatus(HsAdc_Type *pHsAdc,
+                                                       uint32 u32ErrorStatus)
+{
+  /* OVR and TRGERR are write-one-to-clear; never echo unrelated status bits. */
+  pHsAdc->INT_STATUS = u32ErrorStatus & CDD_HSADC_CAPTURE_HSADC_ERROR_MASK;
+}
+
+static Cdd_HsAdcCapture_ResultType Cdd_HsAdcCapture_ResetHardwareErrorStatus(void)
+{
+  HsAdc_Type *const pHsAdc0 = (HsAdc_Type *)HSADC0_BASE;
+  HsAdc_Type *const pHsAdc2 = (HsAdc_Type *)HSADC2_BASE;
+
+  Cdd_HsAdcCapture_ClearHardwareErrorStatus(pHsAdc0, CDD_HSADC_CAPTURE_HSADC_ERROR_MASK);
+  Cdd_HsAdcCapture_ClearHardwareErrorStatus(pHsAdc2, CDD_HSADC_CAPTURE_HSADC_ERROR_MASK);
+  MCAL_DATA_SYNC_BARRIER();
+
+  return ((0U == Cdd_HsAdcCapture_ReadHardwareErrorStatus(pHsAdc0)) &&
+          (0U == Cdd_HsAdcCapture_ReadHardwareErrorStatus(pHsAdc2)))
+           ? CDD_HSADC_CAPTURE_OK
+           : CDD_HSADC_CAPTURE_E_HW_CONFIG;
+}
+
+static boolean Cdd_HsAdcCapture_CheckAndLatchHardwareErrors(void)
+{
+  HsAdc_Type *const pHsAdc0 = (HsAdc_Type *)HSADC0_BASE;
+  HsAdc_Type *const pHsAdc2 = (HsAdc_Type *)HSADC2_BASE;
+  const uint32 u32HsAdc0ErrorStatus = Cdd_HsAdcCapture_ReadHardwareErrorStatus(pHsAdc0);
+  const uint32 u32HsAdc2ErrorStatus = Cdd_HsAdcCapture_ReadHardwareErrorStatus(pHsAdc2);
+  boolean bLatchError = FALSE;
+
+  if ((u32HsAdc0ErrorStatus | u32HsAdc2ErrorStatus) == 0U) {
+    return FALSE;
+  }
+
+  SchM_Enter_Dma_DMA_EXCLUSIVE_AREA_06();
+  s_u32HsAdc0ErrorStatus |= u32HsAdc0ErrorStatus;
+  s_u32HsAdc2ErrorStatus |= u32HsAdc2ErrorStatus;
+  if (s_eState == CDD_HSADC_CAPTURE_STATE_RUNNING) {
+    Cdd_HsAdcCapture_DiscardPendingPairLocked();
+    Cdd_HsAdcCapture_DiscardFillingQueuesLocked();
+    s_u32HsAdcHardwareErrorCount++;
+    s_eState = CDD_HSADC_CAPTURE_STATE_ERROR;
+    bLatchError = TRUE;
+  }
+  SchM_Exit_Dma_DMA_EXCLUSIVE_AREA_06();
+
+  if (TRUE == bLatchError) {
+    Dma_DisableHwRequest(CDD_HSADC_CAPTURE_DMA_INSTANCE, CDD_HSADC_CAPTURE_HSADC0_DMA_CHANNEL);
+    Dma_DisableHwRequest(CDD_HSADC_CAPTURE_DMA_INSTANCE, CDD_HSADC_CAPTURE_HSADC2_DMA_CHANNEL);
+  }
+
+  Cdd_HsAdcCapture_ClearHardwareErrorStatus(pHsAdc0, u32HsAdc0ErrorStatus);
+  Cdd_HsAdcCapture_ClearHardwareErrorStatus(pHsAdc2, u32HsAdc2ErrorStatus);
+  MCAL_DATA_SYNC_BARRIER();
+
+  if (TRUE == bLatchError) {
+    Cdd_HsAdcCapture_NotifyFaultOnce();
+  }
+
+  return TRUE;
 }
 
 static Cdd_HsAdcCapture_ResultType Cdd_HsAdcCapture_RecoverDmaHalt(void)
@@ -505,7 +610,9 @@ static void Cdd_HsAdcCapture_RecordDmaPhase(uint8 u8UnitIndex,
     Cdd_HsAdcCapture_CopyCompletedHalf(u8HalfIndex, u8QueueIndex);
     MCAL_DATA_SYNC_BARRIER();
 
-    if (TRUE == Cdd_HsAdcCapture_IsSourceHalfStable(u8HalfIndex)) {
+    if (TRUE == Cdd_HsAdcCapture_CheckAndLatchHardwareErrors()) {
+      /* The filling queue was discarded by the fail-stop path. */
+    } else if (TRUE == Cdd_HsAdcCapture_IsSourceHalfStable(u8HalfIndex)) {
       SchM_Enter_Dma_DMA_EXCLUSIVE_AREA_06();
       if ((s_eState == CDD_HSADC_CAPTURE_STATE_RUNNING) &&
           (s_aeQueueState[u8QueueIndex] == CDD_HSADC_CAPTURE_QUEUE_FILLING)) {
@@ -538,6 +645,7 @@ static void Cdd_HsAdcCapture_RecordDmaPhase(uint8 u8UnitIndex,
   if (TRUE == bLatchError) {
     Dma_DisableHwRequest(CDD_HSADC_CAPTURE_DMA_INSTANCE, CDD_HSADC_CAPTURE_HSADC0_DMA_CHANNEL);
     Dma_DisableHwRequest(CDD_HSADC_CAPTURE_DMA_INSTANCE, CDD_HSADC_CAPTURE_HSADC2_DMA_CHANNEL);
+    Cdd_HsAdcCapture_NotifyFaultOnce();
   }
 }
 
@@ -607,6 +715,9 @@ Cdd_HsAdcCapture_ResultType Cdd_HsAdcCapture_Start(void)
   }
 
   eResult = Cdd_HsAdcCapture_PrepareChannels();
+  if (CDD_HSADC_CAPTURE_OK == eResult) {
+    eResult = Cdd_HsAdcCapture_ResetHardwareErrorStatus();
+  }
   if (CDD_HSADC_CAPTURE_OK != eResult) {
     SchM_Enter_Dma_DMA_EXCLUSIVE_AREA_06();
     s_eState = CDD_HSADC_CAPTURE_STATE_ERROR;
@@ -675,6 +786,8 @@ Cdd_HsAdcCapture_ResultType Cdd_HsAdcCapture_AcquireBlockPair(
   SchM_Enter_Dma_DMA_EXCLUSIVE_AREA_06();
   if (s_eState == CDD_HSADC_CAPTURE_STATE_UNINIT) {
     eResult = CDD_HSADC_CAPTURE_E_UNINIT;
+  } else if (s_eState == CDD_HSADC_CAPTURE_STATE_ERROR) {
+    eResult = CDD_HSADC_CAPTURE_E_STATE;
   } else {
     for (u8QueueIndex = 0U; u8QueueIndex < CDD_HSADC_CAPTURE_QUEUE_DEPTH; u8QueueIndex++) {
       if (s_aeQueueState[u8QueueIndex] == CDD_HSADC_CAPTURE_QUEUE_READY) {
@@ -751,6 +864,9 @@ Cdd_HsAdcCapture_ResultType Cdd_HsAdcCapture_GetStatus(Cdd_HsAdcCapture_StatusTy
   pStatus->u32UnexpectedIrqCount = s_u32UnexpectedIrqCount;
   pStatus->u32PhaseErrorCount = s_u32PhaseErrorCount;
   pStatus->u32DmaErrorCount = s_u32DmaErrorCount;
+  pStatus->u32HsAdcHardwareErrorCount = s_u32HsAdcHardwareErrorCount;
+  pStatus->u32HsAdc0ErrorStatus = s_u32HsAdc0ErrorStatus;
+  pStatus->u32HsAdc2ErrorStatus = s_u32HsAdc2ErrorStatus;
   pStatus->u8DmaErrorChannelMask = s_u8DmaErrorChannelMask;
   pStatus->u8ReadyQueueMask = Cdd_HsAdcCapture_GetReadyQueueMask();
   pStatus->u8AcquiredQueueMask = Cdd_HsAdcCapture_GetAcquiredQueueMask();
@@ -772,6 +888,14 @@ Cdd_HsAdcCapture_ResultType Cdd_HsAdcCapture_GetStatus(Cdd_HsAdcCapture_StatusTy
   return CDD_HSADC_CAPTURE_OK;
 }
 
+void Cdd_HsAdcCapture_MainFunction(void)
+{
+  if ((TRUE == Cdd_HsAdcCapture_IsCore0()) &&
+      (s_eState == CDD_HSADC_CAPTURE_STATE_RUNNING)) {
+    (void)Cdd_HsAdcCapture_CheckAndLatchHardwareErrors();
+  }
+}
+
 void Cdd_HsAdcCapture_Dma2IrqHandler(void)
 {
   uint16 u16CurrentOuterLoop = 0U;
@@ -780,9 +904,11 @@ void Cdd_HsAdcCapture_Dma2IrqHandler(void)
       (TRUE == Cdd_HsAdcCapture_AcknowledgeDmaInterrupt(
                  CDD_HSADC_CAPTURE_HSADC0_DMA_CHANNEL,
                  &u16CurrentOuterLoop))) {
-    Cdd_HsAdcCapture_RecordDmaPhase(CDD_HSADC_CAPTURE_HSADC0_UNIT_INDEX,
-                                    CDD_HSADC_CAPTURE_HSADC0_READY_BIT,
-                                    u16CurrentOuterLoop);
+    if (FALSE == Cdd_HsAdcCapture_CheckAndLatchHardwareErrors()) {
+      Cdd_HsAdcCapture_RecordDmaPhase(CDD_HSADC_CAPTURE_HSADC0_UNIT_INDEX,
+                                      CDD_HSADC_CAPTURE_HSADC0_READY_BIT,
+                                      u16CurrentOuterLoop);
+    }
   } else if ((TRUE == Cdd_HsAdcCapture_IsCore0()) &&
              (s_eState == CDD_HSADC_CAPTURE_STATE_RUNNING)) {
     Cdd_HsAdcCapture_RecordUnexpectedInterrupt();
@@ -801,9 +927,11 @@ void Cdd_HsAdcCapture_Dma3IrqHandler(void)
       (TRUE == Cdd_HsAdcCapture_AcknowledgeDmaInterrupt(
                  CDD_HSADC_CAPTURE_HSADC2_DMA_CHANNEL,
                  &u16CurrentOuterLoop))) {
-    Cdd_HsAdcCapture_RecordDmaPhase(CDD_HSADC_CAPTURE_HSADC2_UNIT_INDEX,
-                                    CDD_HSADC_CAPTURE_HSADC2_READY_BIT,
-                                    u16CurrentOuterLoop);
+    if (FALSE == Cdd_HsAdcCapture_CheckAndLatchHardwareErrors()) {
+      Cdd_HsAdcCapture_RecordDmaPhase(CDD_HSADC_CAPTURE_HSADC2_UNIT_INDEX,
+                                      CDD_HSADC_CAPTURE_HSADC2_READY_BIT,
+                                      u16CurrentOuterLoop);
+    }
   } else if ((TRUE == Cdd_HsAdcCapture_IsCore0()) &&
              (s_eState == CDD_HSADC_CAPTURE_STATE_RUNNING)) {
     Cdd_HsAdcCapture_RecordUnexpectedInterrupt();
