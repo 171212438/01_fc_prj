@@ -287,9 +287,8 @@ Source/main_multicore.o: \
  ../../../../../MCAL/Src/SchM/include/SchM_Ssi.h \
  ../../../../../MCAL/Src/Base/include/MemMap/Ssi_MemMap.h \
  ../../../App/Include/Bsp_io.h ../../../App/Include/Bsp_Pwm.h \
- ../../../App/Include/Cdd_PwmWave.h ../../../App/Include/Bsp_Gpt.h \
- ../../../App/Include/Bsp_Wdg.h ../../../App/Include/Bsp_Adc.h \
- ../../../App/Include/Cdd_HsAdcCapture.h \
+ ../../../App/Include/Bsp_Gpt.h ../../../App/Include/Bsp_Wdg.h \
+ ../../../App/Include/Bsp_Adc.h ../../../App/Include/Cdd_HsAdcCapture.h \
  ../../../App/Include/Cdd_HsAdcCapture.h ../../../App/Include/Bsp_Lin.h \
  ../../../App/Include/Bsp_Dma.h ../../../App/Include/Bsp_Spi.h \
  ../../../App/Include/Bsp_Can.h ../../../App/Include/Bsp_Icu.h \
@@ -891,8 +890,6 @@ Source/main_multicore.o: \
 ../../../App/Include/Bsp_io.h:
 
 ../../../App/Include/Bsp_Pwm.h:
-
-../../../App/Include/Cdd_PwmWave.h:
 
 ../../../App/Include/Bsp_Gpt.h:
 

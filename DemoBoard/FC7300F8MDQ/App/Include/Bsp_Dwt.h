@@ -18,6 +18,16 @@
     } while (0)
 #endif
 
+typedef struct {
+  boolean bInitOk;
+  uint32 u32OverheadCycles;
+  uint32 u32RawCycles;
+  uint32 u32NetCycles;
+  uint64 u64ElapsedNanoseconds;
+  uint32 u32TargetResult;
+  uint32 u32Irq172Count;
+} Dwt_DemoResultType;
+
 /* Call after the current core clock is initialized. The counter is private to each core. */
 boolean Bsp_Dwt_Init(void);
 /* Call before a debug reset when CYCCNT has been enabled. */

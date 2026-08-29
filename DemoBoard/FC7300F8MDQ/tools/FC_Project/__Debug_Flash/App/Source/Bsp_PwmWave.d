@@ -1,12 +1,15 @@
-App/Source/Bsp_Adc.o: \
- D:/Workspace/FlagChip/01_fc_prj/DemoBoard/FC7300F8MDQ/App/Source/Bsp_Adc.c \
- ../../../App/Include/Bsp_Adc.h ../../../App/Include/Bsp_McalHeader.h \
- ../../../MiddleWare/UartDriver/UART.h \
- ../../../../../MCAL/Src/Base/include/Std_Types.h \
+App/Source/Bsp_PwmWave.o: \
+ D:/Workspace/FlagChip/01_fc_prj/DemoBoard/FC7300F8MDQ/App/Source/Bsp_PwmWave.c \
+ ../../../App/Include/Bsp_Pwm_Internal.h ../../../App/Include/Bsp_Dwt.h \
+ ../../../../../MCAL/Src/Common/include/StdRegMacros.h \
  ../../../../../MCAL/Src/Base/include/Platform_Types.h \
  ../../../../../MCAL/Src/Base/include/Compiler.h \
  ../../../../../MCAL/Src/Base/include/Compiler_Cfg.h \
  ../../../../../MCAL/Src/Base/include/CompilerDefinition.h \
+ ../../../../../MCAL/Src/Base/include/Std_Types.h \
+ ../../../../../MCAL/Src/Base/include/Platform_Types.h \
+ ../../../App/Include/Bsp_Pwm.h ../../../App/Include/Bsp_McalHeader.h \
+ ../../../MiddleWare/UartDriver/UART.h \
  ../../../../../MCAL/Src/Uart/include/CDD_Uart.h \
  ../../../../../MCAL/Src/Uart/include/Uart_Types.h \
  ../../../../../MCAL/Src/Uart/include/Uart_GeneralTypes.h \
@@ -40,7 +43,6 @@ App/Source/Bsp_Adc.o: \
  ../../../../../MCAL/Src/Mcu/include/Mcu_Pmc.h \
  ../../../../../MCAL/Src/Mcu/include/Mcu_Pmc_Regs.h \
  ../../../../../MCAL/Src/Mcu/include/Mcu_Csc.h \
- ../../../../../MCAL/Src/Base/include/Platform_Types.h \
  ../../../../../MCAL/Src/Mcu/include/Mcu_Csc_RegOps.h \
  ../../../../../MCAL/Src/Mcu/include/Mcu_Csc_Regs.h \
  ../../../../../MCAL/Src/Mcu/include/Mcu_Scm.h \
@@ -168,7 +170,6 @@ App/Source/Bsp_Adc.o: \
  ../../../../../MCAL/Src/Base/include/Lin_GeneralTypes.h \
  ../../../../../MCAL/Src/Spi/include/Spi.h \
  ../../../_MCAL_multicore_generate_8M/include/Spi_Cfg.h \
- ../../../../../MCAL/Src/Common/include/StdRegMacros.h \
  ../../../../../MCAL/Src/Base/include/MemMap/Spi_MemMap.h \
  ../../../../../MCAL/Src/Can/include/Can.h \
  ../../../_MCAL_multicore_generate_8M/include/Can_Cfg.h \
@@ -286,17 +287,15 @@ App/Source/Bsp_Adc.o: \
  ../../../_MCAL_multicore_generate_8M/include/CDD_Ssi_Cfg.h \
  ../../../../../MCAL/Src/SchM/include/SchM_Ssi.h \
  ../../../../../MCAL/Src/Base/include/MemMap/Ssi_MemMap.h \
- ../../../App/Include/Cdd_HsAdcCapture.h ../../../App/Include/Bsp_Dwt.h \
- ../../../App/Include/Bsp_Pwm.h \
- ../../../../../MCAL/Src/SchM/include/SchM_Dma.h
+ ../../../../../MCAL/Src/Common/include/Eftu_Dtm_Reg.h \
+ ../../../../../MCAL/Src/SchM/include/SchM_Pwm.h \
+ ../../../../../MCAL/Src/TrgSel/include/TrgSel_Reg.h
 
-../../../App/Include/Bsp_Adc.h:
+../../../App/Include/Bsp_Pwm_Internal.h:
 
-../../../App/Include/Bsp_McalHeader.h:
+../../../App/Include/Bsp_Dwt.h:
 
-../../../MiddleWare/UartDriver/UART.h:
-
-../../../../../MCAL/Src/Base/include/Std_Types.h:
+../../../../../MCAL/Src/Common/include/StdRegMacros.h:
 
 ../../../../../MCAL/Src/Base/include/Platform_Types.h:
 
@@ -305,6 +304,16 @@ App/Source/Bsp_Adc.o: \
 ../../../../../MCAL/Src/Base/include/Compiler_Cfg.h:
 
 ../../../../../MCAL/Src/Base/include/CompilerDefinition.h:
+
+../../../../../MCAL/Src/Base/include/Std_Types.h:
+
+../../../../../MCAL/Src/Base/include/Platform_Types.h:
+
+../../../App/Include/Bsp_Pwm.h:
+
+../../../App/Include/Bsp_McalHeader.h:
+
+../../../MiddleWare/UartDriver/UART.h:
 
 ../../../../../MCAL/Src/Uart/include/CDD_Uart.h:
 
@@ -373,8 +382,6 @@ App/Source/Bsp_Adc.o: \
 ../../../../../MCAL/Src/Mcu/include/Mcu_Pmc_Regs.h:
 
 ../../../../../MCAL/Src/Mcu/include/Mcu_Csc.h:
-
-../../../../../MCAL/Src/Base/include/Platform_Types.h:
 
 ../../../../../MCAL/Src/Mcu/include/Mcu_Csc_RegOps.h:
 
@@ -630,8 +637,6 @@ App/Source/Bsp_Adc.o: \
 
 ../../../_MCAL_multicore_generate_8M/include/Spi_Cfg.h:
 
-../../../../../MCAL/Src/Common/include/StdRegMacros.h:
-
 ../../../../../MCAL/Src/Base/include/MemMap/Spi_MemMap.h:
 
 ../../../../../MCAL/Src/Can/include/Can.h:
@@ -866,10 +871,8 @@ App/Source/Bsp_Adc.o: \
 
 ../../../../../MCAL/Src/Base/include/MemMap/Ssi_MemMap.h:
 
-../../../App/Include/Cdd_HsAdcCapture.h:
+../../../../../MCAL/Src/Common/include/Eftu_Dtm_Reg.h:
 
-../../../App/Include/Bsp_Dwt.h:
+../../../../../MCAL/Src/SchM/include/SchM_Pwm.h:
 
-../../../App/Include/Bsp_Pwm.h:
-
-../../../../../MCAL/Src/SchM/include/SchM_Dma.h:
+../../../../../MCAL/Src/TrgSel/include/TrgSel_Reg.h:

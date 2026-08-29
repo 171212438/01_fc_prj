@@ -304,14 +304,12 @@ BSP_TEXT_SECTION static void core0_release_other_cores(void)
   uint32 u32RegVal;
 
   u32RegVal = SCM->CPU1VTOR;
-  SCM->CPU1VTOR =
-      ((u32RegVal & (~(uint32)SCM_CPUVTOR_CPU_INIT_VECTOR_MASK)) | SCM_CPUVTOR_CPU_INIT_VECTOR(((uint32)__rom_intvec_start) >> 7));
+  SCM->CPU1VTOR = ((u32RegVal & (~(uint32)SCM_CPUVTOR_CPU_INIT_VECTOR_MASK)) | SCM_CPUVTOR_CPU_INIT_VECTOR(((uint32)__rom_intvec_start) >> 7));
   SCM->CORE_HOLD &= ~((uint32)0x2u);
   RGM->C1_RLS |= (uint32)RGM_C1_RLS_C1_RELEASE_MASK;
 
   u32RegVal = SCM->CPU2VTOR;
-  SCM->CPU2VTOR =
-      ((u32RegVal & (~(uint32)SCM_CPUVTOR_CPU_INIT_VECTOR_MASK)) | SCM_CPUVTOR_CPU_INIT_VECTOR((uint32)__rom_intvec_start >> 7));
+  SCM->CPU2VTOR = ((u32RegVal & (~(uint32)SCM_CPUVTOR_CPU_INIT_VECTOR_MASK)) | SCM_CPUVTOR_CPU_INIT_VECTOR((uint32)__rom_intvec_start >> 7));
   SCM->CORE_HOLD &= ~((uint32)0x4u);
   RGM->C2_RLS |= (uint32)RGM_C2_RLS_C2_RELEASE_MASK;
 }
@@ -355,7 +353,7 @@ BSP_TEXT_SECTION int main(void)
     {
       Std_ReturnType eAdcInitResult = Bsp_Adc_Init();
 
-#if (DMA_DEMO_SUPPORT == STD_ON)
+  #if (DMA_DEMO_SUPPORT == STD_ON)
       Cdd_HsAdcCapture_ResultType eHsAdcCaptureResult = CDD_HSADC_CAPTURE_E_STATE;
 
       if (E_OK == eAdcInitResult) {
@@ -368,62 +366,51 @@ BSP_TEXT_SECTION int main(void)
       if (E_OK != eAdcInitResult) {
         Std_ReturnType eAdcDisarmResult = Bsp_Adc_DisarmHardwareTriggers();
 
-        DEBUG_INFO("ADC initialization failed; disarm result %d, PWM initialization skipped to keep CH0 trigger stopped.\r\n",
-                   (int)eAdcDisarmResult);
+        DEBUG_INFO("ADC initialization failed; disarm result %d, PWM initialization skipped to keep CH0 trigger stopped.\r\n", (int)eAdcDisarmResult);
       } else if (CDD_HSADC_CAPTURE_OK != eHsAdcCaptureResult) {
         Std_ReturnType eAdcDisarmResult = Bsp_Adc_DisarmHardwareTriggers();
 
-        DEBUG_INFO("HSADC block capture start failed, result %d; ADC disarm result %d, PWM initialization skipped.\r\n",
-                   (int)eHsAdcCaptureResult,
+        DEBUG_INFO("HSADC block capture start failed, result %d; ADC disarm result %d, PWM initialization skipped.\r\n", (int)eHsAdcCaptureResult,
                    (int)eAdcDisarmResult);
       } else {
-  #if (PWM_DEMO_SUPPORT == STD_ON)
-        Bsp_PwmWave_ControlStatusType tPwmControlStatus = { 0 };
-        Cdd_PwmWave_ResultType ePwmInitStatus;
+    #if (PWM_DEMO_SUPPORT == STD_ON)
+        Bsp_PwmWave_StatusType tPwmStatus = {0};
+        Bsp_PwmWave_ResultType ePwmInitStatus;
         Std_ReturnType eFirstBlockResult = E_NOT_OK;
         boolean bPwmArmedLowConfirmed = FALSE;
 
         /* Pwm_Init() autostarts PWM channels, so CH0 must be initialized only
          * after both HSADC groups and their block-DMA capture are armed. */
         Bsp_Pwm_Init();
-        ePwmInitStatus = Bsp_PwmWave_GetControlStatus(&tPwmControlStatus);
-        if ((CDD_PWM_WAVE_OK == ePwmInitStatus) &&
-            (CDD_PWM_WAVE_OK == tPwmControlStatus.eLastResult) &&
-            (CDD_PWM_WAVE_STATE_ARMED_LOW == tPwmControlStatus.tDriverStatus.eState) &&
-            (FALSE == tPwmControlStatus.tDriverStatus.bFaultLatched)) {
+        ePwmInitStatus = Bsp_PwmWave_GetStatus(&tPwmStatus);
+        if ((BSP_PWM_WAVE_OK == ePwmInitStatus) && (BSP_PWM_WAVE_STATE_ARMED_LOW == tPwmStatus.eState) && (FALSE == tPwmStatus.bFaultLatched)) {
           bPwmArmedLowConfirmed = TRUE;
           eFirstBlockResult = Bsp_Adc_WaitForFirstCaptureBlock();
         }
 
         if (E_OK != eFirstBlockResult) {
-          Cdd_PwmWave_ResultType ePwmShutdownResult = Bsp_PwmWave_EmergencyShutdown();
+          Bsp_PwmWave_ResultType ePwmShutdownResult = Bsp_PwmWave_EmergencyShutdown();
           Cdd_HsAdcCapture_ResultType eHsAdcCaptureStopResult = Cdd_HsAdcCapture_Stop();
           Std_ReturnType eAdcDisarmResult = Bsp_Adc_DisarmHardwareTriggers();
 
           if (TRUE == bPwmArmedLowConfirmed) {
-            DEBUG_INFO(
-                "HSADC first complete block was not confirmed within 0.5 ms; PWM shutdown %d, capture stop %d, ADC disarm %d.\r\n",
-                (int)ePwmShutdownResult,
-                (int)eHsAdcCaptureStopResult,
-                (int)eAdcDisarmResult);
+            DEBUG_INFO("HSADC first complete block was not confirmed within 0.5 ms; PWM shutdown %d, capture stop %d, ADC disarm %d.\r\n",
+                       (int)ePwmShutdownResult, (int)eHsAdcCaptureStopResult, (int)eAdcDisarmResult);
           } else {
             DEBUG_INFO(
-                "PWM ARMED_LOW initialization was not confirmed, status %d, last result %d, state %d; PWM shutdown %d, capture stop %d, ADC disarm %d.\r\n",
-                (int)ePwmInitStatus,
-                (int)tPwmControlStatus.eLastResult,
-                (int)tPwmControlStatus.tDriverStatus.eState,
-                (int)ePwmShutdownResult,
-                (int)eHsAdcCaptureStopResult,
-                (int)eAdcDisarmResult);
+                "PWM ARMED_LOW initialization was not confirmed, status %d, state %d, faults 0x%08x; PWM shutdown %d, capture stop %d, ADC disarm "
+                "%d.\r\n",
+                (int)ePwmInitStatus, (int)tPwmStatus.eState, (unsigned int)tPwmStatus.u32FaultFlags, (int)ePwmShutdownResult,
+                (int)eHsAdcCaptureStopResult, (int)eAdcDisarmResult);
           }
         }
-  #endif
+    #endif
       }
-#else
+  #else
       if (E_OK != eAdcInitResult) {
         DEBUG_INFO("ADC initialization failed.\r\n");
       }
-#endif
+  #endif
     }
 #endif
 #if (PWM_DEMO_SUPPORT == STD_ON) && ((ADC_DEMO_SUPPORT != STD_ON) || (DMA_DEMO_SUPPORT != STD_ON))
@@ -481,7 +468,8 @@ BSP_TEXT_SECTION int main(void)
 
 #if (MCU_LOW_POWER_MODE_TEST == STD_ON)
     Bsp_Mcu_ResetReason_Print();
-#endif /*(MCU_LOW_POWER_MODE_TEST == STD_ON)*/
+#endif
+
   } else if (1U == GET_CPU_ID()) {
     Bsp_Mpu_Init();
     Bsp_Mcu_Init();
@@ -568,17 +556,6 @@ BSP_TEXT_SECTION int main(void)
   Systick_Init(&Systick_Config);
   IntMgr_SetPriority(SysTick_IRQn, 1U);
   Systick_Enable();
-
-#if (PWM_DEMO_SUPPORT == STD_ON)
-  if (0U == GET_CPU_ID()) {
-    Cdd_PwmWave_ResultType ePwmStartResult = Bsp_PwmWave_Start();
-
-    if (CDD_PWM_WAVE_OK != ePwmStartResult) {
-      DEBUG_INFO("PWM default zero-duty start failed after initialization, result %d; outputs remain safe/fault-latched.\r\n",
-                 (int)ePwmStartResult);
-    }
-  }
-#endif
 
   while (bReturnFlag) {
     Systick_RunTask();

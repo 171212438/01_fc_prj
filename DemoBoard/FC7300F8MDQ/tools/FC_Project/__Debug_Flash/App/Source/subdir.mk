@@ -28,6 +28,7 @@ D:/Workspace/FlagChip/01_fc_prj/DemoBoard/FC7300F8MDQ/App/Source/Bsp_Msc.c \
 D:/Workspace/FlagChip/01_fc_prj/DemoBoard/FC7300F8MDQ/App/Source/Bsp_Ocu.c \
 D:/Workspace/FlagChip/01_fc_prj/DemoBoard/FC7300F8MDQ/App/Source/Bsp_Pfls.c \
 D:/Workspace/FlagChip/01_fc_prj/DemoBoard/FC7300F8MDQ/App/Source/Bsp_Pwm.c \
+D:/Workspace/FlagChip/01_fc_prj/DemoBoard/FC7300F8MDQ/App/Source/Bsp_PwmWave.c \
 D:/Workspace/FlagChip/01_fc_prj/DemoBoard/FC7300F8MDQ/App/Source/Bsp_Qdt.c \
 D:/Workspace/FlagChip/01_fc_prj/DemoBoard/FC7300F8MDQ/App/Source/Bsp_Sdadc.c \
 D:/Workspace/FlagChip/01_fc_prj/DemoBoard/FC7300F8MDQ/App/Source/Bsp_Sent.c \
@@ -37,8 +38,7 @@ D:/Workspace/FlagChip/01_fc_prj/DemoBoard/FC7300F8MDQ/App/Source/Bsp_Trgsel.c \
 D:/Workspace/FlagChip/01_fc_prj/DemoBoard/FC7300F8MDQ/App/Source/Bsp_Uart.c \
 D:/Workspace/FlagChip/01_fc_prj/DemoBoard/FC7300F8MDQ/App/Source/Bsp_Wdg.c \
 D:/Workspace/FlagChip/01_fc_prj/DemoBoard/FC7300F8MDQ/App/Source/Bsp_io.c \
-D:/Workspace/FlagChip/01_fc_prj/DemoBoard/FC7300F8MDQ/App/Source/Cdd_HsAdcCapture.c \
-D:/Workspace/FlagChip/01_fc_prj/DemoBoard/FC7300F8MDQ/App/Source/Cdd_PwmWave.c 
+D:/Workspace/FlagChip/01_fc_prj/DemoBoard/FC7300F8MDQ/App/Source/Cdd_HsAdcCapture.c 
 
 OBJS += \
 ./App/Source/Bsp_Adc.o \
@@ -65,6 +65,7 @@ OBJS += \
 ./App/Source/Bsp_Ocu.o \
 ./App/Source/Bsp_Pfls.o \
 ./App/Source/Bsp_Pwm.o \
+./App/Source/Bsp_PwmWave.o \
 ./App/Source/Bsp_Qdt.o \
 ./App/Source/Bsp_Sdadc.o \
 ./App/Source/Bsp_Sent.o \
@@ -74,8 +75,7 @@ OBJS += \
 ./App/Source/Bsp_Uart.o \
 ./App/Source/Bsp_Wdg.o \
 ./App/Source/Bsp_io.o \
-./App/Source/Cdd_HsAdcCapture.o \
-./App/Source/Cdd_PwmWave.o 
+./App/Source/Cdd_HsAdcCapture.o 
 
 C_DEPS += \
 ./App/Source/Bsp_Adc.d \
@@ -102,6 +102,7 @@ C_DEPS += \
 ./App/Source/Bsp_Ocu.d \
 ./App/Source/Bsp_Pfls.d \
 ./App/Source/Bsp_Pwm.d \
+./App/Source/Bsp_PwmWave.d \
 ./App/Source/Bsp_Qdt.d \
 ./App/Source/Bsp_Sdadc.d \
 ./App/Source/Bsp_Sent.d \
@@ -111,8 +112,7 @@ C_DEPS += \
 ./App/Source/Bsp_Uart.d \
 ./App/Source/Bsp_Wdg.d \
 ./App/Source/Bsp_io.d \
-./App/Source/Cdd_HsAdcCapture.d \
-./App/Source/Cdd_PwmWave.d 
+./App/Source/Cdd_HsAdcCapture.d 
 
 
 # Each subdirectory must supply rules for building sources it contributes
@@ -284,6 +284,13 @@ App/Source/Bsp_Pwm.o: D:/Workspace/FlagChip/01_fc_prj/DemoBoard/FC7300F8MDQ/App/
 	@echo 'Finished building: $<'
 	@echo ' '
 
+App/Source/Bsp_PwmWave.o: D:/Workspace/FlagChip/01_fc_prj/DemoBoard/FC7300F8MDQ/App/Source/Bsp_PwmWave.c App/Source/subdir.mk
+	@echo 'Building file: $<'
+	@echo 'Invoking: GNU Arm Cross C Compiler'
+	arm-none-eabi-gcc -mcpu=cortex-m7 -mthumb -mfloat-abi=soft -mfpu=fpv5-sp-d16 -O0 -fmessage-length=0 -fsigned-char -ffunction-sections -fdata-sections -ffreestanding -fno-move-loop-invariants -Wunused -Wuninitialized -Wall -Wextra -Wpointer-arith -Wshadow -Wlogical-op -Waggregate-return -Wfloat-equal -Wno-unused-parameter -Wno-unused-function -Wno-unused-variable -Wformat=0  -g3 -DDEBUG -D__TARGET_USE_FPU -DAUTOSAR_OS_NOT_USED -DUSE_SW_VECTOR_MODE -DUART_PRINTF -I../../../../../MCAL/Src/Common/include -I../../../../../MCAL/Src/Mcu/include -I../../../../../MCAL/Src/Pwm/include -I../../../../../MCAL/Src/Gpt/include -I../../../../../MCAL/Src/Sdadc/include -I../../../../../MCAL/Src/Port/include -I../../../../../MCAL/Src/Dio/include -I../../../../../MCAL/Src/Wdg/include -I../../../../../MCAL/Src/WdgIf/include -I../../../../../MCAL/Src/Adc/include -I../../../../../MCAL/Src/EcuM/include -I../../../../../MCAL/Src/Dem/include -I../../../../../MCAL/Src/Lin/include -I../../../../../MCAL/Src/Uart/include -I../../../../../MCAL/Src/LinIf -I../../../../../MCAL/Src/Spi/include -I../../../../../MCAL/Src/Qdt/include -I../../../../../MCAL/Src/Pfls/include -I../../../../../MCAL/Src/Can/include -I../../../../../MCAL/Src/Icu/include -I../../../../../MCAL/Src/Fee/include -I../../../../../MCAL/Src/Fls/include -I../../../../../MCAL/Src/I2c/include -I../../../../../MCAL/Src/TrgSel/include -I../../../../../MCAL/Src/Dma/include -I../../../../../MCAL/Src/Crypto/include -I../../../../../MCAL/Src/CryIf/include -I../../../../../MCAL/Src/EthTrcv/include -I../../../../../MCAL/Src/EthSwt/include -I../../../../../MCAL/Src/EthIf/include -I../../../../../MCAL/Src/Eth/include -I../../../../../MCAL/Src/Os/include -I../../../../../MCAL/Src/Mb/include -I../../../../../MCAL/Src/Msc/include -I../../../../../MCAL/Src/Sent/include -I../../../../../MCAL/Src/Ssi/include -I../../../../../MCAL/Src/Ocu/include -I../../../../../MCAL/Src/Crc/include -I../../../../../MCAL/Src/Cordic/include -I../../../../../MCAL/Src/SchM/include -I../../../../../MCAL/Src/Eftu/include -I../../../../../MCAL/Src/Qdt/include -I../../../_MCAL_multicore_generate_8M/include -I../../../_Compile_Related_Files/Common/Include -I../../../_Compile_Related_Files/Systick/include -I../../../_Compile_Related_Files/Det/include -I../../../_BSW_generate/NvM/include -I../../../_BSW_generate/Config -I../../../MiddleWare/RTT -I../../../MiddleWare/UartDriver -I../../../MiddleWare/Mpu -I../../../Include -I../../../App/Include -I../../../../../MCAL/Src/Base/include -I../../../../../MCAL/Src/Base/include/MemMap -std=gnu11 -MMD -MP -MF"$(@:%.o=%.d)" -MT"$@" -c -o "$@" "$<"
+	@echo 'Finished building: $<'
+	@echo ' '
+
 App/Source/Bsp_Qdt.o: D:/Workspace/FlagChip/01_fc_prj/DemoBoard/FC7300F8MDQ/App/Source/Bsp_Qdt.c App/Source/subdir.mk
 	@echo 'Building file: $<'
 	@echo 'Invoking: GNU Arm Cross C Compiler'
@@ -348,13 +355,6 @@ App/Source/Bsp_io.o: D:/Workspace/FlagChip/01_fc_prj/DemoBoard/FC7300F8MDQ/App/S
 	@echo ' '
 
 App/Source/Cdd_HsAdcCapture.o: D:/Workspace/FlagChip/01_fc_prj/DemoBoard/FC7300F8MDQ/App/Source/Cdd_HsAdcCapture.c App/Source/subdir.mk
-	@echo 'Building file: $<'
-	@echo 'Invoking: GNU Arm Cross C Compiler'
-	arm-none-eabi-gcc -mcpu=cortex-m7 -mthumb -mfloat-abi=soft -mfpu=fpv5-sp-d16 -O0 -fmessage-length=0 -fsigned-char -ffunction-sections -fdata-sections -ffreestanding -fno-move-loop-invariants -Wunused -Wuninitialized -Wall -Wextra -Wpointer-arith -Wshadow -Wlogical-op -Waggregate-return -Wfloat-equal -Wno-unused-parameter -Wno-unused-function -Wno-unused-variable -Wformat=0  -g3 -DDEBUG -D__TARGET_USE_FPU -DAUTOSAR_OS_NOT_USED -DUSE_SW_VECTOR_MODE -DUART_PRINTF -I../../../../../MCAL/Src/Common/include -I../../../../../MCAL/Src/Mcu/include -I../../../../../MCAL/Src/Pwm/include -I../../../../../MCAL/Src/Gpt/include -I../../../../../MCAL/Src/Sdadc/include -I../../../../../MCAL/Src/Port/include -I../../../../../MCAL/Src/Dio/include -I../../../../../MCAL/Src/Wdg/include -I../../../../../MCAL/Src/WdgIf/include -I../../../../../MCAL/Src/Adc/include -I../../../../../MCAL/Src/EcuM/include -I../../../../../MCAL/Src/Dem/include -I../../../../../MCAL/Src/Lin/include -I../../../../../MCAL/Src/Uart/include -I../../../../../MCAL/Src/LinIf -I../../../../../MCAL/Src/Spi/include -I../../../../../MCAL/Src/Qdt/include -I../../../../../MCAL/Src/Pfls/include -I../../../../../MCAL/Src/Can/include -I../../../../../MCAL/Src/Icu/include -I../../../../../MCAL/Src/Fee/include -I../../../../../MCAL/Src/Fls/include -I../../../../../MCAL/Src/I2c/include -I../../../../../MCAL/Src/TrgSel/include -I../../../../../MCAL/Src/Dma/include -I../../../../../MCAL/Src/Crypto/include -I../../../../../MCAL/Src/CryIf/include -I../../../../../MCAL/Src/EthTrcv/include -I../../../../../MCAL/Src/EthSwt/include -I../../../../../MCAL/Src/EthIf/include -I../../../../../MCAL/Src/Eth/include -I../../../../../MCAL/Src/Os/include -I../../../../../MCAL/Src/Mb/include -I../../../../../MCAL/Src/Msc/include -I../../../../../MCAL/Src/Sent/include -I../../../../../MCAL/Src/Ssi/include -I../../../../../MCAL/Src/Ocu/include -I../../../../../MCAL/Src/Crc/include -I../../../../../MCAL/Src/Cordic/include -I../../../../../MCAL/Src/SchM/include -I../../../../../MCAL/Src/Eftu/include -I../../../../../MCAL/Src/Qdt/include -I../../../_MCAL_multicore_generate_8M/include -I../../../_Compile_Related_Files/Common/Include -I../../../_Compile_Related_Files/Systick/include -I../../../_Compile_Related_Files/Det/include -I../../../_BSW_generate/NvM/include -I../../../_BSW_generate/Config -I../../../MiddleWare/RTT -I../../../MiddleWare/UartDriver -I../../../MiddleWare/Mpu -I../../../Include -I../../../App/Include -I../../../../../MCAL/Src/Base/include -I../../../../../MCAL/Src/Base/include/MemMap -std=gnu11 -MMD -MP -MF"$(@:%.o=%.d)" -MT"$@" -c -o "$@" "$<"
-	@echo 'Finished building: $<'
-	@echo ' '
-
-App/Source/Cdd_PwmWave.o: D:/Workspace/FlagChip/01_fc_prj/DemoBoard/FC7300F8MDQ/App/Source/Cdd_PwmWave.c App/Source/subdir.mk
 	@echo 'Building file: $<'
 	@echo 'Invoking: GNU Arm Cross C Compiler'
 	arm-none-eabi-gcc -mcpu=cortex-m7 -mthumb -mfloat-abi=soft -mfpu=fpv5-sp-d16 -O0 -fmessage-length=0 -fsigned-char -ffunction-sections -fdata-sections -ffreestanding -fno-move-loop-invariants -Wunused -Wuninitialized -Wall -Wextra -Wpointer-arith -Wshadow -Wlogical-op -Waggregate-return -Wfloat-equal -Wno-unused-parameter -Wno-unused-function -Wno-unused-variable -Wformat=0  -g3 -DDEBUG -D__TARGET_USE_FPU -DAUTOSAR_OS_NOT_USED -DUSE_SW_VECTOR_MODE -DUART_PRINTF -I../../../../../MCAL/Src/Common/include -I../../../../../MCAL/Src/Mcu/include -I../../../../../MCAL/Src/Pwm/include -I../../../../../MCAL/Src/Gpt/include -I../../../../../MCAL/Src/Sdadc/include -I../../../../../MCAL/Src/Port/include -I../../../../../MCAL/Src/Dio/include -I../../../../../MCAL/Src/Wdg/include -I../../../../../MCAL/Src/WdgIf/include -I../../../../../MCAL/Src/Adc/include -I../../../../../MCAL/Src/EcuM/include -I../../../../../MCAL/Src/Dem/include -I../../../../../MCAL/Src/Lin/include -I../../../../../MCAL/Src/Uart/include -I../../../../../MCAL/Src/LinIf -I../../../../../MCAL/Src/Spi/include -I../../../../../MCAL/Src/Qdt/include -I../../../../../MCAL/Src/Pfls/include -I../../../../../MCAL/Src/Can/include -I../../../../../MCAL/Src/Icu/include -I../../../../../MCAL/Src/Fee/include -I../../../../../MCAL/Src/Fls/include -I../../../../../MCAL/Src/I2c/include -I../../../../../MCAL/Src/TrgSel/include -I../../../../../MCAL/Src/Dma/include -I../../../../../MCAL/Src/Crypto/include -I../../../../../MCAL/Src/CryIf/include -I../../../../../MCAL/Src/EthTrcv/include -I../../../../../MCAL/Src/EthSwt/include -I../../../../../MCAL/Src/EthIf/include -I../../../../../MCAL/Src/Eth/include -I../../../../../MCAL/Src/Os/include -I../../../../../MCAL/Src/Mb/include -I../../../../../MCAL/Src/Msc/include -I../../../../../MCAL/Src/Sent/include -I../../../../../MCAL/Src/Ssi/include -I../../../../../MCAL/Src/Ocu/include -I../../../../../MCAL/Src/Crc/include -I../../../../../MCAL/Src/Cordic/include -I../../../../../MCAL/Src/SchM/include -I../../../../../MCAL/Src/Eftu/include -I../../../../../MCAL/Src/Qdt/include -I../../../_MCAL_multicore_generate_8M/include -I../../../_Compile_Related_Files/Common/Include -I../../../_Compile_Related_Files/Systick/include -I../../../_Compile_Related_Files/Det/include -I../../../_BSW_generate/NvM/include -I../../../_BSW_generate/Config -I../../../MiddleWare/RTT -I../../../MiddleWare/UartDriver -I../../../MiddleWare/Mpu -I../../../Include -I../../../App/Include -I../../../../../MCAL/Src/Base/include -I../../../../../MCAL/Src/Base/include/MemMap -std=gnu11 -MMD -MP -MF"$(@:%.o=%.d)" -MT"$@" -c -o "$@" "$<"

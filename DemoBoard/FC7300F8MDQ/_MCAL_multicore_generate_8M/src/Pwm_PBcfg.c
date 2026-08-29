@@ -68,7 +68,7 @@ extern "C" {
 
 
 /** @brief Prototypes of Pwm channels User Notifications */  
-  extern void Cdd_PwmWave_CarrierBoundaryNotification(void);
+  extern void Bsp_PwmWave_CarrierBoundaryNotification(void);
       
 #define PWM_STOP_SEC_CODE
 #include "Pwm_MemMap.h"
@@ -803,7 +803,7 @@ PWM_DATA_SECTION static const Pwm_ChannelConfigType Pwm_ConfigChannels[PWM_NUM_C
         /** @brief  Phase shift count value */
         (uint32)0U,
         /** @brief Pwm notification function */
-        &Cdd_PwmWave_CarrierBoundaryNotification,
+        &Bsp_PwmWave_CarrierBoundaryNotification,
         /** @brief Ftu channel combine or not */
         PWM_FTU_COMBINE_DISABLE,
         /** @brief Pwm channel phase shift or not */

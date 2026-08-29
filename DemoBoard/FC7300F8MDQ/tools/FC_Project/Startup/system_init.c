@@ -469,7 +469,7 @@ __attribute__((noreturn)) void system_init(void)
     uint32 u32ResetType;
     uint32 standbymode;
 
-    /* Workaround for erratum ERR_Debug_001 */
+    /* Workaround for ERR_Debug_3514112 (legacy ERR_Debug_002). */
     /* Disable and clear DWT_CYCCNT to handle the lockstep error under debug. */
     REG_BIT_SET32(DEMCR_ADDR, DEMCR_TRCENA); /* Preserve debugger settings while enabling DWT register access. */
     REG_BIT_CLEAR32(DWT_CTRL_ADDR, DWT_CTRL_CYCCNTENA); /* DWT_CYCCNT must be inactive after reset. */

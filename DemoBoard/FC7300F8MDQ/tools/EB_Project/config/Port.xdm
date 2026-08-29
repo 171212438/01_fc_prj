@@ -5430,9 +5430,9 @@
                           </a:a>
                         </d:var>
                         <d:var name="PortPinModeChangeable" type="BOOLEAN" 
-                               value="true"/>
+                               value="false"/>
                         <d:var name="PortPinMode" type="ENUMERATION" 
-                               value="GPIO"/>
+                               value="eFTU1_OUT_S4"/>
                         <d:var name="PortPinSRE" type="ENUMERATION" 
                                value="FASTEST_SLEW_RATE">
                           <a:a name="IMPORTER_INFO" value="@DEF"/>
@@ -6666,9 +6666,9 @@
                           </a:a>
                         </d:var>
                         <d:var name="PortPinModeChangeable" type="BOOLEAN" 
-                               value="true"/>
+                               value="false"/>
                         <d:var name="PortPinMode" type="ENUMERATION" 
-                               value="GPIO"/>
+                               value="eFTU1_OUT_S21"/>
                         <d:var name="PortPinSRE" type="ENUMERATION" 
                                value="FASTEST_SLEW_RATE">
                           <a:a name="IMPORTER_INFO" value="@DEF"/>
@@ -6813,9 +6813,9 @@
                           </a:a>
                         </d:var>
                         <d:var name="PortPinModeChangeable" type="BOOLEAN" 
-                               value="true"/>
+                               value="false"/>
                         <d:var name="PortPinMode" type="ENUMERATION" 
-                               value="GPIO"/>
+                               value="eFTU1_OUT_S20"/>
                         <d:var name="PortPinSRE" type="ENUMERATION" 
                                value="FASTEST_SLEW_RATE">
                           <a:a name="IMPORTER_INFO" value="@DEF"/>
@@ -7685,9 +7685,9 @@
                           </a:a>
                         </d:var>
                         <d:var name="PortPinModeChangeable" type="BOOLEAN" 
-                               value="true"/>
+                               value="false"/>
                         <d:var name="PortPinMode" type="ENUMERATION" 
-                               value="GPIO"/>
+                               value="eFTU1_OUT_S23"/>
                         <d:var name="PortPinSRE" type="ENUMERATION" 
                                value="FASTEST_SLEW_RATE">
                           <a:a name="IMPORTER_INFO" value="@DEF"/>
@@ -8854,9 +8854,9 @@
                           </a:a>
                         </d:var>
                         <d:var name="PortPinModeChangeable" type="BOOLEAN" 
-                               value="true"/>
+                               value="false"/>
                         <d:var name="PortPinMode" type="ENUMERATION" 
-                               value="GPIO"/>
+                               value="eFTU1_OUT_S22"/>
                         <d:var name="PortPinSRE" type="ENUMERATION" 
                                value="FASTEST_SLEW_RATE">
                           <a:a name="IMPORTER_INFO" value="@DEF"/>
@@ -10508,9 +10508,9 @@
                           </a:a>
                         </d:var>
                         <d:var name="PortPinModeChangeable" type="BOOLEAN" 
-                               value="true"/>
+                               value="false"/>
                         <d:var name="PortPinMode" type="ENUMERATION" 
-                               value="GPIO"/>
+                               value="eFTU1_OUT_S6"/>
                         <d:var name="PortPinSRE" type="ENUMERATION" 
                                value="FASTEST_SLEW_RATE">
                           <a:a name="IMPORTER_INFO" value="@DEF"/>
@@ -10575,9 +10575,9 @@
                           </a:a>
                         </d:var>
                         <d:var name="PortPinModeChangeable" type="BOOLEAN" 
-                               value="true"/>
+                               value="false"/>
                         <d:var name="PortPinMode" type="ENUMERATION" 
-                               value="GPIO"/>
+                               value="eFTU1_OUT_S5"/>
                         <d:var name="PortPinSRE" type="ENUMERATION" 
                                value="FASTEST_SLEW_RATE">
                           <a:a name="IMPORTER_INFO" value="@DEF"/>
@@ -10722,9 +10722,9 @@
                           </a:a>
                         </d:var>
                         <d:var name="PortPinModeChangeable" type="BOOLEAN" 
-                               value="true"/>
+                               value="false"/>
                         <d:var name="PortPinMode" type="ENUMERATION" 
-                               value="GPIO"/>
+                               value="eFTU1_OUT_S7"/>
                         <d:var name="PortPinSRE" type="ENUMERATION" 
                                value="FASTEST_SLEW_RATE">
                           <a:a name="IMPORTER_INFO" value="@DEF"/>
@@ -17524,9 +17524,9 @@
                           </a:a>
                         </d:var>
                         <d:var name="PortPinModeChangeable" type="BOOLEAN" 
-                               value="true"/>
+                               value="false"/>
                         <d:var name="PortPinMode" type="ENUMERATION" 
-                               value="GPIO"/>
+                               value="eFTU1_OUT_S3"/>
                         <d:var name="PortPinSRE" type="ENUMERATION" 
                                value="FASTEST_SLEW_RATE">
                           <a:a name="IMPORTER_INFO" value="@DEF"/>
